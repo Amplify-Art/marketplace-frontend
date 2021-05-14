@@ -6,6 +6,8 @@ import WeAreFor from './Components/WeAreFor/index';
 import WhatPeopleAreSaying from './Components/WhatPeopleAreSaying/index';
 import HowItWorks from './Components/HowItWorks/index';
 import SupportArtists from './Components/SupportArtists/index';
+import TheTech from './Components/TheTech/index';
+import TheTeam from './Components/TheTeam/index';
 import './Global.scss';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
       <WhatPeopleAreSaying />
       <HowItWorks />
       <SupportArtists />
+      <TheTech />
+      <TheTeam />
     </>
   );
 }

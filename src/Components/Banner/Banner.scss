@@ -5,6 +5,18 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 8;
+    @media screen and (max-width: 1070px) {
+        min-height: auto;
+        margin-bottom: 150px;
+    }
+
+    @media screen and (max-width: 754px) {
+        margin-bottom: 50px;
+    }
     .lg-text {
         display: flex;
         flex-direction: column;
@@ -16,15 +28,14 @@
         margin-right: auto;
         z-index: 9;
         margin-top: 140px;
+        @media screen and (max-width: 1345px) {
+            align-items: center;
+        }
         .top {
             display: flex;
             align-items: center;
-            .line {
-                width: 36px;
-                height: 3px;
-                background: $red;
-            }
         }
+
         h1 {
             margin: 0px;
             color: #fff;
@@ -36,6 +47,19 @@
             font-family: $oswald;
             position: relative;
             z-index: 9;
+            @media screen and (max-width: 1565px) {
+                font-size: 160px;
+            }
+
+            @media screen and (max-width: 1070px) {
+                font-size: 110px;
+                line-height: 150px;
+            }
+
+            @media screen and (max-width: 754px) {
+                font-size: 12vw;
+                line-height: 13vw;
+            }
             &.red {
                 -webkit-text-stroke-width: 2px;
                 -webkit-text-stroke-color: red;
@@ -47,6 +71,9 @@
         .sub-text {
             width: 341px;
             padding-left: 30px;
+            @media screen and (max-width: 1345px) {
+                display: none;
+            }
             p {
                 color: #ffffff;
                 font-size: 20px;
@@ -62,5 +89,8 @@
         bottom: -50px;
         right: 100px;
         z-index: 8;
+        @media screen and (max-width: 1070px) {
+            opacity: .2;
+        }
     }
 }

@@ -6,12 +6,19 @@ header {
     padding-top: 60px;
     padding-left: 56px;
     padding-right: 56px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 9;
     .logo {
         margin-left: 40px;
     }
     .search {
         position: relative;
         margin-left: 90px;
+        @media screen and (max-width: 912px) {
+            display: none;
+        }
         img {
             position: absolute;
             left: 15px;
@@ -36,10 +43,17 @@ header {
             img {
                 width: 25px;
             }
+
+            @media screen and (max-width: 567px) {
+                display: none;
+            }
         }
 
         .wallet {
             margin-right: 38px;
+            @media screen and (max-width: 492px) {
+                display: none;
+            }
         }
 
         .user {

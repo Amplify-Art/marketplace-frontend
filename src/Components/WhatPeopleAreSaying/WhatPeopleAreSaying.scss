@@ -2,15 +2,12 @@
 
 #what-people-are-saying {
     width: 100%;
+    box-sizing: border-box;
     float: left;
     padding-top: 100px;
     padding-bottom: 100px;
-    .line {
-        width: 60px;
-        height: 4px;
-        background: $red;
-        display: inline-block;
-    }
+    overflow-x: hidden;
+    overflow-y: visible;
     h3 {
         font-family: $oswald;
         color: #fff;
@@ -19,7 +16,13 @@
         margin-top: 0px;
     }
 
+    .slick-slider {
+        height: 360px;
+        overflow: hidden;
+    }
+
     .tweets {
+        width: 100%;
         .single-tweet {
             background-color: #181818;
             color: #fff;
