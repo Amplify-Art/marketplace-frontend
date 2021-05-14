@@ -1,0 +1,51 @@
+@import './assets/SCSS/Vars.scss';
+
+body {
+    font-family: $lato;
+    padding: 0px;
+    margin: 0px;
+    background: #0f161d;
+    // background: linear-gradient(166deg, rgba(16,25,32,1) 0%, rgba(45,63,71,1) 100%);
+    min-height: 100vh;
+}
+
+.container {
+    width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    &.small {
+        width: 1480px;
+    }
+}
+
+h2 {
+    &.large {
+        font-family: $oswald;
+        text-transform: uppercase;
+        color: #ffffff;
+        font-size: 300px;
+        font-weight: bold;
+        font-style: normal;
+        letter-spacing: 1.8px;
+        line-height: 300px;   
+        margin: 0px;             
+    }
+
+    &.red,
+    .red {
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: red;
+        color: transparent;   
+        position: relative;
+        z-index: 9;             
+    }
+}
+
+.center-text {
+    text-align: center;
+}
+
+.circle {
+    border-radius: 50%;
+    overflow: hidden;
+}

@@ -1,0 +1,27 @@
+@import '../../assets/SCSS/Vars.scss';
+
+#our-partners {
+    .line {
+        width: 36px;
+        height: 6px;
+        background: $red;
+    }
+    h2 {
+        font-family: $oswald;
+        text-transform: uppercase;
+        color: #ffffff;
+        font-size: 45px;
+        font-weight: bold;
+        letter-spacing: 0.22px;
+    }
+    .partner-list {
+        display: flex;
+        align-items: center;
+        .partner {
+            margin-right: 45px;
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+}

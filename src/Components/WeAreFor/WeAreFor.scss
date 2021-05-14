@@ -1,0 +1,69 @@
+@import '../../assets/SCSS/Vars.scss';
+
+#we-are-for {
+    width: 100%;
+    float: left;
+    .bottom {
+        display: flex;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        .left-nav {
+            width: 400px;
+            margin-right: 40px;
+            flex: none;
+            border-right: solid 2px $red;
+            .nav-item {
+                font-family: $oswald;
+                text-transform: uppercase;
+                color: #434343;
+                font-size: 45px;
+                font-weight: bold;
+                letter-spacing: 0.22px;
+                cursor: pointer;
+                transition: ease all .5s;
+                &.active,
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+
+        .right-content {
+            display: flex;
+            p {
+                color: #ffffff;
+                font-size: 20px;
+                font-weight: 300;
+                letter-spacing: 0.1px;
+                padding-right: 50px;
+                line-height: 30px;
+            }
+
+            .img {
+                width: 306px;
+                height: 306px;
+                text-align: center;
+                display: flex;
+                flex: none;
+                align-items: center;
+                justify-content: center;
+                img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .notice {
+        text-align: center;
+        p {
+            color: #fff;
+            font-weight: 100;
+            a {
+                color: $red;
+                text-decoration: none;
+                font-weight: 600;
+            }
+        }
+    }
+}

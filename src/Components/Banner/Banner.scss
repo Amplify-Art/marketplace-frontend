@@ -1,0 +1,66 @@
+@import '../../assets/SCSS/Vars.scss';
+
+#banner {
+    min-height: 900px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .lg-text {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+        max-width: 1600px;
+        padding: 0px 40px;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+        z-index: 9;
+        margin-top: 140px;
+        .top {
+            display: flex;
+            align-items: center;
+            .line {
+                width: 36px;
+                height: 3px;
+                background: $red;
+            }
+        }
+        h1 {
+            margin: 0px;
+            color: #fff;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-size: 200px;
+            line-height: 227px;
+            margin: 0px;
+            font-family: $oswald;
+            position: relative;
+            z-index: 9;
+            &.red {
+                -webkit-text-stroke-width: 2px;
+                -webkit-text-stroke-color: red;
+                color: transparent;
+                margin-left: auto;
+            }
+        }
+
+        .sub-text {
+            width: 341px;
+            padding-left: 30px;
+            p {
+                color: #ffffff;
+                font-size: 20px;
+                font-weight: 300;
+                letter-spacing: 0.1px;
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .triangle-image {
+        position: absolute;
+        bottom: -50px;
+        right: 100px;
+        z-index: 8;
+    }
+}

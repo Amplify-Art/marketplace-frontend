@@ -1,0 +1,55 @@
+@import '../../assets/SCSS/Vars.scss';
+
+header {
+    display: flex;
+    align-items: center;
+    padding-top: 60px;
+    padding-left: 56px;
+    padding-right: 56px;
+    .logo {
+        margin-left: 40px;
+    }
+    .search {
+        position: relative;
+        margin-left: 90px;
+        img {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            width: 15px;
+        }
+        input {
+            border: 2px solid #515252;
+            background: transparent;
+            border-radius: 20px;
+            padding: 10px 20px 10px 40px;
+            width: 100%;
+        }
+    }
+
+    .right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        .bell {
+            margin-right: 46px;
+            img {
+                width: 25px;
+            }
+        }
+
+        .wallet {
+            margin-right: 38px;
+        }
+
+        .user {
+            width: 57px;
+            height: 57px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

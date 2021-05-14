@@ -1,0 +1,42 @@
+@import '../../assets/SCSS/Vars.scss';
+
+#latest-releases {
+    padding-top: 300px;
+    padding-bottom: 300px;
+    .container {
+        display: flex;
+        position: relative;
+    }
+
+    .album {
+        position: absolute;
+        right: -50px;
+        z-index: 8;
+        top: -100px;
+        img {
+            transform: rotateZ(0deg);
+            transition: ease all .5s;
+        }
+
+        &:hover {
+            img {
+                transform: rotateZ(21deg);
+            }
+        }
+
+        .check-all {
+            font-family: "Lato", sans-serif;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 0.1px;
+            border-bottom: 2px solid $red;
+            position: absolute;
+            padding-bottom: 14px;
+            top: 250px;
+            right: 0px;
+            cursor: pointer;
+        }
+    }
+}
