@@ -1,105 +1,108 @@
-@import '../../assets/SCSS/Vars.scss';
+@import "../../assets/SCSS/Vars.scss";
 
 #latest-releases {
-    padding-top: 300px;
-    padding-bottom: 300px;
-    width: 100%;
-    float: left;
-    box-sizing: border-box;
+  padding-top: 300px;
+  padding-bottom: 300px;
+  width: 100%;
+  float: left;
+  box-sizing: border-box;
+  @media screen and (max-width: 1309px) {
+    padding-top: 200px;
+    padding-bottom: 200px;
+  }
+
+  @media screen and (max-width: 582px) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .container {
+    display: flex;
+    position: relative;
     @media screen and (max-width: 1309px) {
-        padding-top: 200px;
-        padding-bottom: 200px;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  h2 {
+    &.large {
+      @media screen and (max-width: 1309px) {
+        font-size: 200px;
+        line-height: 200px;
+      }
+
+      @media screen and (max-width: 943px) {
+        font-size: 20vw;
+        line-height: 20vw;
+      }
+
+      @media screen and (max-width: 582px) {
+        text-align: center;
+      }
+    }
+  }
+
+  .album {
+    position: absolute;
+    right: -50px;
+    z-index: 8;
+    top: -100px;
+    @media screen and (max-width: 1725px) {
+      right: 0px;
+      width: 45vw;
     }
 
-    @media screen and (max-width: 582px) {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-    .container {
-        display: flex;
-        position: relative;
-        @media screen and (max-width: 1309px) {
-            flex-direction: column;
-            align-items: center;
-        }
+    @media screen and (max-width: 1461px) {
+      width: 38vw;
     }
 
-    h2 {
-        &.large {
-            @media screen and (max-width: 1309px) {
-                font-size: 200px;
-                line-height: 200px;
-            }
-
-            @media screen and (max-width: 943px) {
-                font-size: 20vw;
-                line-height: 20vw;
-            }
-
-            @media screen and (max-width: 582px) {
-                text-align: center;
-            }
-        }
+    @media screen and (max-width: 1309px) {
+      width: 100%;
+      position: initial;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img {
+      transform: rotateZ(0deg);
+      transition: ease all 0.5s;
+      max-width: 100%;
+      @media screen and (max-width: 1309px) {
+        transform: rotateZ(21deg);
+      }
     }
 
-    .album {
-        position: absolute;
-        right: -50px;
-        z-index: 8;
-        top: -100px;
-        @media screen and (max-width: 1725px) {
-            right: 0px;
-            width: 45vw;
-        }
-
-        @media screen and (max-width: 1461px) {
-            width: 38vw;
-        }
-
-        @media screen and (max-width: 1309px) {
-            width: 100%;
-            position: initial;
-            text-align: center;
-            overflow: hidden;
-        }
-        img {
-            transform: rotateZ(0deg);
-            transition: ease all .5s;
-            max-width: 100%;
-            @media screen and (max-width: 1309px) {
-                transform: rotateZ(21deg);
-            }
-        }
-
-        &:hover {
-            img {
-                transform: rotateZ(21deg);
-            }
-        }
-
-        .check-all {
-            font-family: "Lato", sans-serif;
-            text-transform: uppercase;
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 300;
-            letter-spacing: 0.1px;
-            border-bottom: 2px solid $red;
-            position: absolute;
-            padding-bottom: 14px;
-            top: 250px;
-            right: 0px;
-            cursor: pointer;
-            @media screen and (max-width: 1309px) {
-                position: initial;
-                text-align: left;
-                margin-top: 20px;
-                width: fit-content;
-            }
-
-            @media screen and (max-width: 582px) {
-                text-align: center;
-            }
-        }
+    &:hover {
+      img {
+        transform: rotateZ(21deg);
+      }
     }
+
+    .check-all {
+      font-family: "Lato", sans-serif;
+      text-transform: uppercase;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 0.1px;
+      border-bottom: 2px solid $red;
+      position: absolute;
+      padding-bottom: 14px;
+      top: 250px;
+      right: 0px;
+      cursor: pointer;
+      @media screen and (max-width: 1309px) {
+        position: initial;
+        text-align: left;
+        margin-top: 20px;
+        width: fit-content;
+      }
+
+      @media screen and (max-width: 582px) {
+        text-align: center;
+      }
+    }
+  }
 }

@@ -8,6 +8,8 @@ import HowItWorks from './Components/HowItWorks/index';
 import SupportArtists from './Components/SupportArtists/index';
 import TheTech from './Components/TheTech/index';
 import TheTeam from './Components/TheTeam/index';
+import ArtistRegistry from './Components/ArtistRegistry/index';
+import ThankYou from './Components/ThankYou/index';
 import './Global.scss';
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
       <SupportArtists />
       <TheTech />
       <TheTeam />
+      <ArtistRegistry />
+      <HowItWorks hideTitle={true} />
+      <ThankYou />
     </>
   );
 }

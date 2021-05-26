@@ -1,97 +1,101 @@
-@import '../../assets/SCSS/Vars.scss';
+@import "../../assets/SCSS/Vars.scss";
 
 #how-it-works {
-    width: 100%;
-    box-sizing: border-box;
-    float: left;
-    padding-bottom: 100px;
-    h2 {
-        &.large {
-            font-size: 250px;
-            @media screen and (max-width: 858px) {
-                font-size: 20vw;
-                line-height: 20vw;
-            }
+  width: 100%;
+  box-sizing: border-box;
+  float: left;
+  padding-bottom: 100px;
+  h2 {
+    &.large {
+      font-size: 250px;
+      @media screen and (max-width: 858px) {
+        font-size: 20vw;
+        line-height: 20vw;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    @media screen and (max-width: 994px) {
+      flex-direction: column;
+    }
+    @media screen and (max-width: 682px) {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    .left {
+      display: flex;
+      padding-right: 70px;
+      @media screen and (max-width: 994px) {
+        padding-right: 0px;
+        margin-bottom: 40px;
+      }
+      .left-nav {
+        .count {
+          font-family: $oswald;
+          margin-bottom: 5px;
+          border: solid 2px transparent;
+          border-radius: 50%;
+          width: 36px;
+          height: 36px;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: ease all 0.5s;
+          &:last-child {
+            margin-bottom: 0px;
+          }
+
+          &.active,
+          &:hover {
+            border: solid 2px $red;
+          }
         }
+      }
+
+      .content {
+        padding-left: 30px;
+        .count {
+          color: $red;
+        }
+
+        h3 {
+          font-family: $oswald;
+          color: #fff;
+        }
+
+        p {
+          color: #fff;
+        }
+      }
     }
 
-    .bottom {
-        display: flex;
-        padding-left: 100px;
-        padding-right: 100px;
-        padding-top: 50px;
-        @media screen and (max-width: 994px) {
-            flex-direction: column;
-        }
-        .left {
-            display: flex;
-            padding-right: 70px;
-            @media screen and (max-width: 994px) {
-                padding-right: 0px;
-                margin-bottom: 40px;
-            }
-            .left-nav {
-                .count {
-                    font-family: $oswald;
-                    margin-bottom: 5px;
-                    border: solid 2px transparent;
-                    border-radius: 50%;
-                    width: 36px;
-                    height: 36px;
-                    color: #fff;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: ease all .5s;
-                    &:last-child {
-                        margin-bottom: 0px;
-                    }
+    .right {
+      background-color: #434343;
+      box-sizing: border-box;
+      padding: 50px;
 
-                    &.active,
-                    &:hover {
-                        border: solid 2px $red;
-                    }
-                }
-            }
+      h4 {
+        color: #fff;
+        font-family: $oswald;
+        font-size: 30px;
+        text-transform: uppercase;
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
 
-            .content {
-                padding-left: 30px;
-                .count {
-                    color: $red;
-                }
-
-                h3 {
-                    font-family: $oswald;
-                    color: #fff;
-                }
-
-                p {
-                    color: #fff;
-                }
-            }
-        }
-
-        .right {
-            background-color: #434343;
-            box-sizing: border-box;
-            padding: 50px;
-
-            h4 {
-                color: #fff;
-                font-family: $oswald;
-                font-size: 30px;
-                text-transform: uppercase;
-                margin-bottom: 0px;
-                margin-top: 0px;
-            }
-
-            p {
-                color: #fff;
-                font-size: 14px;
-                margin-bottom: 0px;
-                line-height: 30px;
-            }
-        }
+      p {
+        color: #fff;
+        font-size: 14px;
+        margin-bottom: 0px;
+        line-height: 30px;
+      }
     }
+  }
 }
