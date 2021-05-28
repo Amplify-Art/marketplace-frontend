@@ -58,15 +58,16 @@ header {
         display: none;
       }
     }
+  }
+}
 
-    .user {
-      width: 57px;
-      height: 57px;
-      border-radius: 50%;
-      overflow: hidden;
-      img {
-        width: 100%;
-      }
-    }
+.user {
+  width: 57px;
+  height: 57px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+  img {
+    width: 100%;
   }
 }

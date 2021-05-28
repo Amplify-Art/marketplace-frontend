@@ -1,33 +1,24 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import Header from './Components/Header/index';
-import Banner from './Components/Banner/index';
-import Partners from './Components/Partners/index';
-import LatestReleases from './Components/LatestReleases/index';
-import WeAreFor from './Components/WeAreFor/index';
-import WhatPeopleAreSaying from './Components/WhatPeopleAreSaying/index';
-import HowItWorks from './Components/HowItWorks/index';
-import SupportArtists from './Components/SupportArtists/index';
-import TheTech from './Components/TheTech/index';
-import TheTeam from './Components/TheTeam/index';
-import ArtistRegistry from './Components/ArtistRegistry/index';
-import ThankYou from './Components/ThankYou/index';
-import './Global.scss';
+import Home from './Containers/Home/index';
+import Player from './Containers/Player/index';
 
 function App() {
   return (
     <>
       <Header />
-      <Banner />
-      <Partners />
-      <LatestReleases />
-      <WeAreFor />
-      <WhatPeopleAreSaying />
-      <HowItWorks />
-      <SupportArtists />
-      <TheTech />
-      <TheTeam />
-      <ArtistRegistry />
-      <HowItWorks hideTitle={true} />
-      <ThankYou />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/player" exact component={Player} />
+        </Switch>
+      </Router>
     </>
   );
 }
