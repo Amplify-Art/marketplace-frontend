@@ -1,0 +1,18 @@
+@import '../../../assets/SCSS/Vars.scss';
+
+#thank-you {
+  padding-bottom: 200px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    width: 800px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 40px;
+  }
+}

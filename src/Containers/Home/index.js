@@ -1,14 +1,14 @@
-import Banner from '../../Components/Banner/index';
-import Partners from '../../Components/Partners/index';
-import LatestReleases from '../../Components/LatestReleases/index';
-import WeAreFor from '../../Components/WeAreFor/index';
-import WhatPeopleAreSaying from '../../Components/WhatPeopleAreSaying/index';
-import HowItWorks from '../../Components/HowItWorks/index';
-import SupportArtists from '../../Components/SupportArtists/index';
-import TheTech from '../../Components/TheTech/index';
-import TheTeam from '../../Components/TheTeam/index';
-import ArtistRegistry from '../../Components/ArtistRegistry/index';
-import ThankYou from '../../Components/ThankYou/index';
+import Banner from '../../Components/Parts/Banner/index';
+import Partners from '../../Components/Parts/Partners/index';
+import LatestReleases from '../../Components/Parts/LatestReleases/index';
+import WeAreFor from '../../Components/Parts/WeAreFor/index';
+import WhatPeopleAreSaying from '../../Components/Parts/WhatPeopleAreSaying/index';
+import HowItWorks from '../../Components/Parts/HowItWorks/index';
+import SupportArtists from '../../Components/Parts/SupportArtists/index';
+import TheTech from '../../Components/Parts/TheTech/index';
+import TheTeam from '../../Components/Parts/TheTeam/index';
+import ArtistRegistry from '../../Components/Parts/ArtistRegistry/index';
+import ThankYou from '../../Components/Parts/ThankYou/index';
 import '../../Global.scss';
 
 function Home() {

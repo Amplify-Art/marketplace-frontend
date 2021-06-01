@@ -1,0 +1,55 @@
+@import '../../../assets/SCSS/Vars.scss';
+
+#the-team {
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+    h2 {
+        font-family: $oswald;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .team-list {
+        display: grid;
+        // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-rows: max-content max-content;
+        gap: 20px 20px;
+        .team-member {
+            padding: 25px;
+            background-color: #434343;
+            display: flex;
+            flex: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            &:nth-child(7n) {
+                margin-right: 0px;
+            }
+            .image {
+                width: 160px;
+                height: 160px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    height: 100%;
+                }
+            }
+
+            p {
+                color: #fff;
+                margin-bottom: 0px;
+                &.support-card-count {
+                    color: $red;
+                }
+            }
+        }
+    }
+}

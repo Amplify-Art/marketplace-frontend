@@ -1,0 +1,44 @@
+@import "../../../assets/SCSS/Vars.scss";
+
+#our-partners {
+  width: 100%;
+  float: left;
+  box-sizing: border-box;
+  h2 {
+    font-family: $oswald;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: 0.22px;
+    margin-top: 0px;
+    margin-bottom: 120px;
+    @media screen and (max-width: 582px) {
+      text-align: center;
+    }
+  }
+  .partner-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @media screen and (max-width: 1030px) {
+      justify-content: center;
+    }
+
+    @media screen and (max-width: 582px) {
+      flex-direction: column;
+    }
+    .partner {
+      margin-right: 45px;
+      @media screen and (max-width: 582px) {
+        margin-right: 0px;
+        margin-bottom: 20px;
+        max-width: 60vw;
+      }
+      &:last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
