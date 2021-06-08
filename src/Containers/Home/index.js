@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import Banner from '../../Components/Parts/Banner/index';
 import Partners from '../../Components/Parts/Partners/index';
 import LatestReleases from '../../Components/Parts/LatestReleases/index';
@@ -12,9 +15,20 @@ import ThankYou from '../../Components/Parts/ThankYou/index';
 import '../../Global.scss';
 
 function Home() {
+  const [homeContent, setHomeContent] = useState({});
+
+  const fetchHomeContent = () => {
+    axios.get('https://cms.amplify.art/home-page').then(res => {
+      setHomeContent(res.data);
+    });
+  }
+
+  useEffect(() => {
+    fetchHomeContent();
+  }, [0])
   return (
     <>      
-      <Banner />
+      <Banner homeContent={homeContent} />
       <Partners />
       <LatestReleases />
       <WeAreFor />

@@ -94,3 +94,9 @@ h2 {
     padding: 20px 40px;
   }
 }
+
+input {
+  &:focus {
+    outline-width: 0;
+  }
+}

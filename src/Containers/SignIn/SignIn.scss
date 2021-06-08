@@ -8,12 +8,17 @@
     font-size: 40px;
     text-transform: capitalize;
     color: #FFFFFF;
+    margin-top: 150px;
   }
 
-  .btn {
-    width: 369px;
-    &:first-child {
-      margin-bottom: 20px;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    .btn {
+      width: 369px;
+      &:first-child {
+        margin-bottom: 20px;
+      }
     }
   }
 }
