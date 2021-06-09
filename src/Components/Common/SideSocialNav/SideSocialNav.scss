@@ -1,0 +1,34 @@
+#side-social-nav {
+  ul {
+    transform: rotate(-90deg);
+    transform-origin: bottom left;
+    position: fixed;
+    left: 55px;
+    margin: 0px;
+    width: 100vh;
+    bottom: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: solid 2px rgba(227, 227, 227, .2);
+    height: 54px;
+    li {
+      list-style-type: none;
+      margin-right: 100px;
+      display: flex;
+      &:last-child {
+        margin-right: 0px;
+      }
+      a {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -10,11 +10,13 @@ import Home from './Containers/Home/index';
 import Player from './Containers/Player/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
+import SideSocialNav from './Components/Common/SideSocialNav/index';
 
 function App() {
   return (
     <>
       <Header />
+      <SideSocialNav />
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />

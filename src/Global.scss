@@ -7,6 +7,8 @@ body {
   background: #0f161d;
   // background: linear-gradient(166deg, rgba(16,25,32,1) 0%, rgba(45,63,71,1) 100%);
   min-height: 100vh;
+  box-sizing: border-box;
+  padding-left: 53px;
 }
 
 * {
