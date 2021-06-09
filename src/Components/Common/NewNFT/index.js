@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 import './NewNFT.scss';
-import ImageUploadIcon from '../../assets/images/image-upload.svg';
 import axios from 'axios';
-import { API_ENDPOINT_URL } from '../../constants/default'
+import {useDropzone} from 'react-dropzone';
+import { API_ENDPOINT_URL } from '../../../constants/default'
+import TrashIcon from '../../../assets/images/trash.svg';
+import UploadIconAlt from '../../../assets/images/upload.svg';
+import ImageUploadIcon from '../../../assets/images/image-upload.svg';
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
   const [albumCover, setAlbumCover] = useState(null);
   const [albumCoverPreview, setAlbumCoverPreview] = useState(null);
   const [customError, setCustomError] = useState({});
+  const [songFiles, setSongFiles] = useState([]);
 
   const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
@@ -51,8 +55,18 @@ function NewNFT(props) {
       console.log(mintSong, 'mintSong')
     }
   };
+
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone();
+
   useEffect(() => {
-  }, [0]);
+    setSongFiles(songFiles => [...songFiles, ...acceptedFiles])
+  }, [acceptedFiles]);
+
+  const removeSongFromUploads = (index) => {
+    const newSongSet = songFiles.splice(index, 1);
+    setSongFile(newSongSet);
+  }
+
   const onSongFileChange = (e) => {
     delete customError.songFile;
     setSongFile(e.target.files[0]);
@@ -63,6 +77,8 @@ function NewNFT(props) {
     setAlbumCover(e.target.files[0]);
     setAlbumCoverPreview(URL.createObjectURL(e.target.files[0]));
   }
+
+  console.log('acceptedFiles', acceptedFiles);
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal">
@@ -73,7 +89,6 @@ function NewNFT(props) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="split">
             <div className="left">
-              {/* TODO: Move input to its own component */}
               <div className="input-holder">
                 <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />
                 {errors.songName && <span>This field is required</span>}
@@ -85,34 +100,78 @@ function NewNFT(props) {
               </div>
 
               <div className="input-holder">
-                <input name="album-cost" type="text" placeholder="Album Price" {...register("albumPrice", { required: true })} />
+                <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
                 {errors.albumPrice && <span>This field is required</span>}
               </div>
 
-              <div className="input-holder checkbox">
-                <label htmlFor="terms">I agree to the Terms and Conditions</label>
-                <input type="checkbox" id="terms" name="terms" value="true" />
-              </div>
-
-              <div className="input-holder checkbox">
-                <label htmlFor="remint">I will not remint this album</label>
-                <input type="checkbox" id="remint" name="remint" value="true" />
-              </div>
-
-              <div className="input-holder">
-                Song Upload<br />
+              {/* <div className="input-holder">
                 <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
                 <span>{customError && customError.songFile}</span>
+              </div> */}
+
+              <div className="song-list">
+                {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
+                  <div className="single-song" key={index}>
+                    <div className="left">
+                      <div className="track">
+                        {file.path} <img src={UploadIconAlt} alt="Upload" />
+                      </div>
+                    </div>
+                    <div className="right">
+                      <div className="input-holder">
+                        <input name={`song-title${index}`} type="text" placeholder="Song Title" {...register(`songTitle${index}`, { required: true })} />
+                        {errors.albumPrice && <span>This field is required</span>}
+                      </div>
+                    </div>
+
+                    <div className="trash">
+                      <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
+                    </div>
+                  </div>
+                )) : null}
+              </div>
+
+              <div className="uploader">
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {
+                    isDragActive ? (
+                      <div className="upload-dropzone">
+                        <img src={UploadIconAlt} alt="Upload" />
+                        <h5>Upload Tracks</h5>
+                        <p>You can add more than one track at a time</p>
+                      </div>
+                    ) : (
+                      <div className="upload-dropzone">
+                        <img src={UploadIconAlt} alt="Upload" />
+                        <h5>Upload Tracks</h5>
+                        <p>You can add more than one track at a time</p>
+                      </div>
+                    )
+                  }
+                </div>                
               </div>
             </div>
 
             <div className="right">
-              <div className="image-upload">
-                <img src={albumCoverPreview ? albumCoverPreview : ImageUploadIcon} alt="Image Upload" />
-              </div>
-              <input type="file" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
+              <label htmlFor="albumCover">
+                <div className="image-upload">
+                  <img src={albumCoverPreview ? albumCoverPreview : ImageUploadIcon} alt="Image Upload" />
+                </div>
+              </label>
+              <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
               <span>{customError && customError.albumCover}</span>
             </div>
+          </div>
+
+          <div className="input-holder checkbox">
+            <label htmlFor="terms">I agree to the Terms and Conditions</label>
+            <input type="checkbox" id="terms" name="terms" value="true" />
+          </div>
+
+          <div className="input-holder checkbox">
+            <label htmlFor="remint">I will not remint this album</label>
+            <input type="checkbox" id="remint" name="remint" value="true" />
           </div>
 
           <div className="input-holder">

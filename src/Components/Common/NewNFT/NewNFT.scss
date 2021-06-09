@@ -25,6 +25,7 @@
     z-index: 999;
     .split {
       display: flex;
+      margin-bottom: 20px;
       .left {
         flex: 1;
       }
@@ -34,6 +35,7 @@
         .image-upload {
           width: 160px;
           height: 160px;
+          overflow: hidden;
           background: #ECECEC;
           border-radius: 8px;
           display: flex;
@@ -41,6 +43,74 @@
           justify-content: center;
           cursor: pointer;
         }
+      }
+    }
+  }
+
+  .song-list {
+    .single-song {
+      display: flex;
+      margin-bottom: 20px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      .left {
+        flex: none;
+        .track {
+          border: 2px solid #000000;
+          border-radius: 8px;
+          padding: 10px 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          img {
+            margin-left: 6px;
+          }
+        }
+      }
+
+      .right {
+        flex: 1;
+      }
+
+      .trash {
+        display: flex;
+        margin-left: 8px;
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .uploader {
+    margin-top: 20px;
+    .upload-dropzone {
+      border: 2px solid #000000;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      height: 110px;
+      h5, p {
+        margin: 0px;
+        font-style: normal;
+        font-weight: normal;
+      }
+
+      h5 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      img {
+        margin-bottom: 10px;
       }
     }
   }
