@@ -78,11 +78,10 @@ function NewNFT(props) {
     setAlbumCoverPreview(URL.createObjectURL(e.target.files[0]));
   }
 
-  console.log('acceptedFiles', acceptedFiles);
   return (
     // TODO: move this whole component to the parts folder
-    <div id="new-nft-modal">
-      <div className="cover" />
+    <div id="new-nft-modal" className="modal">
+      <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>
         <p>Album is being minted for @2n10se</p>
