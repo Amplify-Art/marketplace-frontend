@@ -113,6 +113,7 @@ function NewNFT(props) {
                   <div className="single-song" key={index}>
                     <div className="left">
                       <div className="track">
+                        {/* TODO: limit path length to 15 chars plus extension */}
                         {file.path} <img src={UploadIconAlt} alt="Upload" />
                       </div>
                     </div>

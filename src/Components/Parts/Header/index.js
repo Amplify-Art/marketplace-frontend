@@ -10,9 +10,9 @@ function Header() {
   return (
     <>
       <header>
-        <div className="menu">
+        {/* <div className="menu">
           <img src={MenuIcon} alt="Menu Icon" />
-        </div>
+        </div> */}
         <div className="logo">
           <img src={Logo} alt="Amplify.Art" />
         </div>

@@ -11,12 +11,14 @@ import Player from './Containers/Player/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import SideSocialNav from './Components/Common/SideSocialNav/index';
+import MainSideNav from './Components/Common/MainSideNav/index';
 
 function App() {
   return (
     <>
       <Header />
       <SideSocialNav />
+      <MainSideNav />
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
