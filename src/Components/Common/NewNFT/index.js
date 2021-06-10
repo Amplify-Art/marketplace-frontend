@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 import './NewNFT.scss';
 import axios from 'axios';
-import {useDropzone} from 'react-dropzone';
-import { API_ENDPOINT_URL } from '../../../constants/default'
+import { useDropzone } from 'react-dropzone';
+import { API_ENDPOINT_URL } from '../../../Constants/default'
 import TrashIcon from '../../../assets/images/trash.svg';
 import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
@@ -17,16 +17,28 @@ function NewNFT(props) {
 
   const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
+    console.log(data, songFiles, 'data')
     let checkErrors = customError;
     if (!albumCover)
       checkErrors.albumCover = 'Album Cover is required';
-    if (!songFile)
-      checkErrors.songFile = 'Music file is required';
-    console.log(checkErrors, 'checkErrors')
-    if (Object.keys(checkErrors).length) {
-      setCustomError(checkErrors);
-      return
+    if (!songFiles.length) {
+      checkErrors.songFiles = 'Atleast one music file is required';
     }
+    if (songFiles.length) {
+      let withErrors = songFiles.map((song) => {
+        if (!song.title) {
+          console.log(song, 'song')
+          checkErrors.songFile = 'This field is required'
+          song.error = 'This field is required'
+        } return song;
+      })
+      if (checkErrors.songFile) {
+        checkErrors.songFile = undefined
+        setSongFiles(withErrors)
+        return
+      }
+    }
+
     let albumFormData = new FormData()
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
@@ -34,32 +46,37 @@ function NewNFT(props) {
     const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidHdpdHRlcl9pZCI6IjYwNjg3MTUxMCIsInVzZXJuYW1lIjoiQW5pbEFuaXJhaSIsIm5hbWUiOiJhbmlsIGt1bWFyIiwiYXZhdGFyIjoiaHR0cHM6Ly9wYnMudHdpbWcuY29tL3Byb2ZpbGVfaW1hZ2VzLzEzODU4NTYzMjYyODMxMzcwMjUvT1FUVEwtNFBfbm9ybWFsLnBuZyIsImJhbm5lciI6Imh0dHBzOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2Jhbm5lcnMvNjA2ODcxNTEwLzE2MTk0MTYyMjciLCJuZWFyX2Nvbm5lY3RlZCI6dHJ1ZSwibmVhcl9hY2NvdW50X2lkIjoiYW5pbGt1bWFycmFpMTIzNDIzNCIsImlhdCI6MTYyMzE0NzA1MX0.n3FMswZeKikIGcefv5Q5VT1u7rUX7JBtBe1hjBMUd0Q'
+        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0d2l0dGVyX2lkIjoiNjA2ODcxNTEwIiwidXNlcm5hbWUiOiJBbmlsQW5pcmFpIiwibmFtZSI6ImFuaWwga3VtYXIiLCJhdmF0YXIiOiJodHRwOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMzg1ODU2MzI2MjgzMTM3MDI1L09RVFRMLTRQX25vcm1hbC5wbmciLCJiYW5uZXIiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9iYW5uZXJzLzYwNjg3MTUxMC8xNjE5NDE2MjI3IiwibmVhcl9jb25uZWN0ZWQiOnRydWUsIm5lYXJfYWNjb3VudF9pZCI6IjE2MjMzMzk2NTE2MjAiLCJuZWFyX3B1YmxpY19rZXkiOnsia2V5VHlwZSI6MCwiZGF0YSI6eyIwIjoyMDAsIjEiOjIzMCwiMiI6MjgsIjMiOjI0MSwiNCI6NDYsIjUiOjI0OCwiNiI6MjUwLCI3Ijo1NywiOCI6MTY0LCI5IjoxODYsIjEwIjoyMDgsIjExIjo3NSwiMTIiOjcxLCIxMyI6NDcsIjE0IjoxODMsIjE1IjoxNzAsIjE2IjoxNjgsIjE3IjoxMDIsIjE4Ijo3NywiMTkiOjI1MCwiMjAiOjI0NywiMjEiOjEzLCIyMiI6ODAsIjIzIjo0NiwiMjQiOjIzLCIyNSI6OTEsIjI2IjoxMTMsIjI3IjoxNDUsIjI4IjoxMjMsIjI5Ijo5NCwiMzAiOjIwMSwiMzEiOjI1Mn19LCJpZCI6MSwiaWF0IjoxNjIzMzM5NjU1fQ.0VoHC35JRQZCBMzu8PnNgvECVLz3wSkicV_A8kx3mGE'
       },
     })
     console.log(mintAlbum, 'mintAlbum')
     if (mintAlbum.data.success) {
       let songFormData = new FormData()
-      songFormData.append('song', songFile)
-      songFormData.append('name', songFile.name)
-      songFormData.append('singer', 'Eminem')
-      songFormData.append('genre', 'Pop')
-      songFormData.append('lyricist', 'Eminem')
+
+      songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
+        title: file.title
+      }))))
+      songFiles.map(file => {
+        songFormData.append('songs', file)
+      })
       songFormData.append('album_id', mintAlbum.data.album_id)
       const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidHdpdHRlcl9pZCI6IjYwNjg3MTUxMCIsInVzZXJuYW1lIjoiQW5pbEFuaXJhaSIsIm5hbWUiOiJhbmlsIGt1bWFyIiwiYXZhdGFyIjoiaHR0cHM6Ly9wYnMudHdpbWcuY29tL3Byb2ZpbGVfaW1hZ2VzLzEzODU4NTYzMjYyODMxMzcwMjUvT1FUVEwtNFBfbm9ybWFsLnBuZyIsImJhbm5lciI6Imh0dHBzOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2Jhbm5lcnMvNjA2ODcxNTEwLzE2MTk0MTYyMjciLCJuZWFyX2Nvbm5lY3RlZCI6dHJ1ZSwibmVhcl9hY2NvdW50X2lkIjoiYW5pbGt1bWFycmFpMTIzNDIzNCIsImlhdCI6MTYyMzE0NzA1MX0.n3FMswZeKikIGcefv5Q5VT1u7rUX7JBtBe1hjBMUd0Q'
+          Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0d2l0dGVyX2lkIjoiNjA2ODcxNTEwIiwidXNlcm5hbWUiOiJBbmlsQW5pcmFpIiwibmFtZSI6ImFuaWwga3VtYXIiLCJhdmF0YXIiOiJodHRwOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMzg1ODU2MzI2MjgzMTM3MDI1L09RVFRMLTRQX25vcm1hbC5wbmciLCJiYW5uZXIiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9iYW5uZXJzLzYwNjg3MTUxMC8xNjE5NDE2MjI3IiwibmVhcl9jb25uZWN0ZWQiOnRydWUsIm5lYXJfYWNjb3VudF9pZCI6IjE2MjMzMzk2NTE2MjAiLCJuZWFyX3B1YmxpY19rZXkiOnsia2V5VHlwZSI6MCwiZGF0YSI6eyIwIjoyMDAsIjEiOjIzMCwiMiI6MjgsIjMiOjI0MSwiNCI6NDYsIjUiOjI0OCwiNiI6MjUwLCI3Ijo1NywiOCI6MTY0LCI5IjoxODYsIjEwIjoyMDgsIjExIjo3NSwiMTIiOjcxLCIxMyI6NDcsIjE0IjoxODMsIjE1IjoxNzAsIjE2IjoxNjgsIjE3IjoxMDIsIjE4Ijo3NywiMTkiOjI1MCwiMjAiOjI0NywiMjEiOjEzLCIyMiI6ODAsIjIzIjo0NiwiMjQiOjIzLCIyNSI6OTEsIjI2IjoxMTMsIjI3IjoxNDUsIjI4IjoxMjMsIjI5Ijo5NCwiMzAiOjIwMSwiMzEiOjI1Mn19LCJpZCI6MSwiaWF0IjoxNjIzMzM5NjU1fQ.0VoHC35JRQZCBMzu8PnNgvECVLz3wSkicV_A8kx3mGE'
         },
       })
       console.log(mintSong, 'mintSong')
     }
   };
 
-  const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone();
+  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
 
   useEffect(() => {
     setSongFiles(songFiles => [...songFiles, ...acceptedFiles])
+    if (customError.songFiles) {
+      delete customError.songFiles;
+    }
   }, [acceptedFiles]);
 
   const removeSongFromUploads = (index) => {
@@ -78,7 +95,19 @@ function NewNFT(props) {
     setAlbumCoverPreview(URL.createObjectURL(e.target.files[0]));
   }
 
-  console.log('acceptedFiles', acceptedFiles);
+  const onSongTitleChange = (file, index, value) => {
+    let songs = songFiles
+    file.title = value;
+    if (file.title) {
+      delete file.error;
+    }
+    songs.splice(index, 1, file)
+    setSongFiles([...songs])
+
+    console.log(customError.songFiles, 'customError.songFiles')
+
+  }
+  console.log('acceptedFiles', customError, songFiles);
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal">
@@ -119,8 +148,8 @@ function NewNFT(props) {
                     </div>
                     <div className="right">
                       <div className="input-holder">
-                        <input name={`song-title${index}`} type="text" placeholder="Song Title" {...register(`songTitle${index}`, { required: true })} />
-                        {errors.albumPrice && <span>This field is required</span>}
+                        <input name={`song-title${index}`} type="text" placeholder="Song Title" onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
+                        {file.error && <span>This field is required</span>}
                       </div>
                     </div>
 
@@ -133,7 +162,7 @@ function NewNFT(props) {
 
               <div className="uploader">
                 <div {...getRootProps()}>
-                  <input {...getInputProps()} />
+                  <input {...getInputProps()} accept=".mp3,audio/*" />
                   {
                     isDragActive ? (
                       <div className="upload-dropzone">
@@ -149,8 +178,9 @@ function NewNFT(props) {
                       </div>
                     )
                   }
-                </div>                
+                </div>
               </div>
+              {customError.songFiles && <span>{customError.songFiles}</span>}
             </div>
 
             <div className="right">
@@ -165,13 +195,13 @@ function NewNFT(props) {
           </div>
 
           <div className="input-holder checkbox">
-            <label htmlFor="terms">I agree to the Terms and Conditions</label>
-            <input type="checkbox" id="terms" name="terms" value="true" />
+            <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
+            <input type="checkbox" id="terms" name="terms" value="true" {...register("terms", { required: true })} />
           </div>
 
           <div className="input-holder checkbox">
-            <label htmlFor="remint">I will not remint this album</label>
-            <input type="checkbox" id="remint" name="remint" value="true" />
+            <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
+            <input type="checkbox" id="remint" name="remint" value="true" {...register("remint", { required: true })} />
           </div>
 
           <div className="input-holder">
