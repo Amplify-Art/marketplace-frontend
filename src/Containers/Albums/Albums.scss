@@ -1,11 +1,9 @@
 #albums {
   padding-top: 100px;
-  .single-album {
-    .cd-case {
-      background: url('../../assets/images/case-transparent.png');
-      width: 177px;
-      height: 153px;
-      text-align: right;
-    }
+  .album-list {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+    gap: 5px 34px; 
   }
 }
