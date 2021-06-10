@@ -11,6 +11,7 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import Albums from './Containers/Albums/index';
+import Profile from './Containers/Profile/index';
 
 // Parts
 import SideSocialNav from './Components/Common/SideSocialNav/index';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/auth/sign-in" exact component={SignIn} />
           <Route path="/sandbox" exact component={SandBox} />
           <Route path="/albums" exact component={Albums} />
+          <Route path="/profile" exact component={Profile} />
         </Switch>
       </Router>
       <Player />

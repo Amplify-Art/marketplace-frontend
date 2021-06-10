@@ -62,6 +62,17 @@ header {
   }
 }
 
+.breadcrumbs {
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 39px;
+  font-weight: 500;
+  font-family: 'Space Grotesk', sans-serif;
+  .current {
+    font-weight: 100;
+  }
+}
+
 .user {
   width: 57px;
   height: 57px;

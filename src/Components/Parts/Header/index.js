@@ -16,6 +16,7 @@ function Header() {
         <div className="logo">
           <img src={Logo} alt="Amplify.Art" />
         </div>
+
         <div className="search">
           <img src={SearchIcon} alt="Search" />
           <input type="text" placeholder="Search for songs, artists..." />
@@ -29,6 +30,10 @@ function Header() {
           </div>
         </div>
       </header>
+
+      <div className="breadcrumbs left-nav-pad">
+        Home / <span className="current">Profile</span>
+      </div>
     </>
   );
 }
