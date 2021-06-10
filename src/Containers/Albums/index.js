@@ -47,7 +47,7 @@ function Albums(props) {
   ];
 
   return (
-    <div id="albums" className="left-nav-pad">
+    <div id="albums" className="left-nav-pad right-player-pad">
       <div className="album-list">
         {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
           <SingleAlbum key={index} albumInfo={album} />

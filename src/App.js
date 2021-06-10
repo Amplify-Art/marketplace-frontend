@@ -8,7 +8,6 @@ import {
 // Containers
 import Header from './Components/Parts/Header/index';
 import Home from './Containers/Home/index';
-import Player from './Containers/Player/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import Albums from './Containers/Albums/index';
@@ -16,6 +15,7 @@ import Albums from './Containers/Albums/index';
 // Parts
 import SideSocialNav from './Components/Common/SideSocialNav/index';
 import MainSideNav from './Components/Common/MainSideNav/index';
+import Player from './Components/Common/Player/index';
 
 function App() {
   return (
@@ -26,12 +26,12 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/player" exact component={Player} />
           <Route path="/auth/sign-in" exact component={SignIn} />
           <Route path="/sandbox" exact component={SandBox} />
           <Route path="/albums" exact component={Albums} />
         </Switch>
       </Router>
+      <Player />
     </>
   );
 }
