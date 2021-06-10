@@ -1,0 +1,11 @@
+#albums {
+  padding-top: 100px;
+  .single-album {
+    .cd-case {
+      background: url('../../assets/images/case-transparent.png');
+      width: 177px;
+      height: 153px;
+      text-align: right;
+    }
+  }
+}

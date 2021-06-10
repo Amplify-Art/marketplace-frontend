@@ -5,11 +5,15 @@ import {
   Link
 } from "react-router-dom";
 
+// Containers
 import Header from './Components/Parts/Header/index';
 import Home from './Containers/Home/index';
 import Player from './Containers/Player/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
+import Albums from './Containers/Albums/index';
+
+// Parts
 import SideSocialNav from './Components/Common/SideSocialNav/index';
 import MainSideNav from './Components/Common/MainSideNav/index';
 
@@ -25,6 +29,7 @@ function App() {
           <Route path="/player" exact component={Player} />
           <Route path="/auth/sign-in" exact component={SignIn} />
           <Route path="/sandbox" exact component={SandBox} />
+          <Route path="/albums" exact component={Albums} />
         </Switch>
       </Router>
     </>
