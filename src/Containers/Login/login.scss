@@ -1,0 +1,28 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    a {
+        width: 260px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45px;
+        border: 1px solid #0000001a;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+        text-decoration: none;
+        background: white;
+        color: black;
+        svg {
+            height: 22px;
+            margin-right: 5px;
+        }
+        img {
+            height: 30px;
+        }
+    }
+}
