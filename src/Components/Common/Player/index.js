@@ -2,25 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Player.scss';
 
 // Player Icons
-import NextSongIcon from '../../assets/images/next.svg';
-import PrevSongIcon from '../../assets/images/prev.svg';
-import PauseIcon from '../../assets/images/pause.svg';
-import PlayIcon from '../../assets/images/play.svg';
-import LeftArrowIcon from '../../assets/images/left-arrow.svg';
-import BellIcon from '../../assets/images/bell-icon.svg';
-import Wallet from '../../assets/images/wallet-icon.svg';
+import NextSongIcon from '../../../assets/images/next.svg';
+import PrevSongIcon from '../../../assets/images/prev.svg';
+import PauseIcon from '../../../assets/images/pause.svg';
+import PlayIcon from '../../../assets/images/play.svg';
+import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
+import BellIcon from '../../../assets/images/bell-icon.svg';
+import Wallet from '../../../assets/images/wallet-icon.svg';
 
 // Temp Songs
-import Dub from '../../assets/Music/dub.mp3';
+import Dub from '../../../assets/Music/dub.mp3';
 
 // User Image
-import Harrison from '../../assets/images/harrison.jpeg';
+import Harrison from '../../../assets/images/harrison.jpeg';
 
 // Cover import (This will be dynamic)
-import TestCover from '../../assets/images/album2.png';
-import Albumtemp from '../../assets/images/albumtemp.jpg';
-import Albumtemp2 from '../../assets/images/albumtemp2.jpg';
-import Albumtemp3 from '../../assets/images/albumtemp3.jpg';
+import TestCover from '../../../assets/images/album2.png';
+import Albumtemp from '../../../assets/images/albumtemp.jpg';
+import Albumtemp2 from '../../../assets/images/albumtemp2.jpg';
+import Albumtemp3 from '../../../assets/images/albumtemp3.jpg';
 
 // TODO: These will pull from API
 const songs = [

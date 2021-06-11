@@ -11,7 +11,7 @@ header {
   position: relative;
   z-index: 9;
   .logo {
-    margin-left: 40px;
+    // margin-left: 40px;
   }
   .search {
     position: relative;
@@ -34,6 +34,7 @@ header {
       width: 100%;
       box-sizing: border-box;
       font-size: 16px;
+      color: #fff;
     }
   }
 
@@ -58,6 +59,17 @@ header {
         display: none;
       }
     }
+  }
+}
+
+.breadcrumbs {
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 39px;
+  font-weight: 500;
+  font-family: 'Space Grotesk', sans-serif;
+  .current {
+    font-weight: 100;
   }
 }
 

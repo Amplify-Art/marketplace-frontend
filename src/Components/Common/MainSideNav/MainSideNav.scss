@@ -1,0 +1,30 @@
+#main-side-nav {
+  padding-top: 133px;
+  position: fixed;
+  top: 108px;
+  left: 56px;
+  ul {
+    margin: 0px;
+    padding-left: 27px;
+    li {
+      list-style-type: none;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.2);
+      margin-bottom: 8px;
+      &.nav-header {
+        margin-top: 20px;
+      }
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: normal;
+      }
+    }
+  }
+}

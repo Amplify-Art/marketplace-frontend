@@ -110,8 +110,8 @@ function NewNFT(props) {
   console.log('acceptedFiles', customError, songFiles);
   return (
     // TODO: move this whole component to the parts folder
-    <div id="new-nft-modal">
-      <div className="cover" />
+    <div id="new-nft-modal" className="modal">
+      <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>
         <p>Album is being minted for @2n10se</p>
@@ -143,6 +143,7 @@ function NewNFT(props) {
                   <div className="single-song" key={index}>
                     <div className="left">
                       <div className="track">
+                        {/* TODO: limit path length to 15 chars plus extension */}
                         {file.path} <img src={UploadIconAlt} alt="Upload" />
                       </div>
                     </div>

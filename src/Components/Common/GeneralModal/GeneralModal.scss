@@ -1,0 +1,45 @@
+#general-modal {
+  .holder {
+    h5 {
+      font-size: 24px;
+      font-weight: normal;
+      margin-bottom: 10px;
+      margin-top: 0px;
+    }
+
+    p {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 26px;
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #000000;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      border-radius: 100px;
+      font-family: "Lato", sans-serif;
+      font-size: 16px;
+      color: #FFFFFF;
+      margin-right: 10px;
+      margin-bottom: 0px;
+      &:last-child {
+        margin-right: 0px;
+      }
+      &.outlined {
+        background: #fff;
+        color: #000;
+      }
+    }
+  }
+
+  &.centered {
+    .holder {
+      text-align: center;
+    }
+  }
+}

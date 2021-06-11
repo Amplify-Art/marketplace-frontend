@@ -10,4 +10,8 @@
   color: #000000;
   padding: 14px;
   cursor: pointer;
+  &.outlined {
+    background: transparent;
+    color: #fff;
+  }
 }
