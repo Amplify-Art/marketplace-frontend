@@ -141,8 +141,14 @@ input {
 }
 
 .album-grid {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 1fr 1fr; 
-  gap: 5px 34px; 
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 35px;
+  @media screen and (max-width: 1830px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (max-width: 1325px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

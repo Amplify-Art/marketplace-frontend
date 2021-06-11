@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import './login.scss';
 
 const Login = () => {
-    return <div className="login">
-        <a href={`${API_ENDPOINT_URL}/auth/twitter`}><Twitter /><span>Login with Twitter</span></a>
-    </div >
+  return <div className="login">
+    <a href={`${API_ENDPOINT_URL}/auth/twitter`}><Twitter /><span>Login with Twitter</span></a>
+  </div >
 }
 export default withRouter(Login)

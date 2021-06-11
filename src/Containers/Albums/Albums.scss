@@ -1,9 +1,6 @@
 #albums {
   padding-top: 100px;
   .album-list {
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    grid-template-rows: 1fr 1fr 1fr 1fr; 
-    gap: 5px 34px; 
+    display: flex;
   }
 }

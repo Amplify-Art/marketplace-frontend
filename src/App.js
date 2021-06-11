@@ -1,7 +1,10 @@
+import React, { useState, useEffect, useRef } from 'react';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useLocation,
   Link
 } from "react-router-dom";
 
@@ -27,27 +30,33 @@ import MainSideNav from './Components/Common/MainSideNav/index';
 import Player from './Components/Common/Player/index';
 
 function App() {
+  const [path, setPath] = useState('');
+  const [showLeftSidebar, toggleLeftSidebar] = useState(false);
+  const [showPlayer, togglePlayer] = useState(false);
+  let location = useLocation();
+  useEffect(() => {
+    if (!(location.pathname === '/' || location.pathname === '/auth/login')) {
+      toggleLeftSidebar(true);
+      togglePlayer(true);
+    }
+  }, [location]);
+
   return (
     <>
       <Header />
       <SideSocialNav />
-      <MainSideNav />
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Auth(Home)} />
-          <Route path="/player" exact component={Auth(Player)} />
-          <Route path="/auth/sign-in" exact component={Auth(SignIn)} />
-          <Route path="/sandbox" exact component={Auth(SandBox)} />
-          <Route path="/auth/login" exact component={Login} />
-          <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
-          <Route path="/" exact component={Home} />
-          <Route path="/auth/sign-in" exact component={SignIn} />
-          <Route path="/sandbox" exact component={SandBox} />
-          <Route path="/albums" exact component={Albums} />
-          <Route path="/profile" exact component={Profile} />
-        </Switch>
-      </Router>
-      <Player />
+      {showLeftSidebar && <MainSideNav />}
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/player" exact component={Auth(Player)} />
+        <Route path="/auth/sign-in" exact component={Auth(SignIn)} />
+        <Route path="/sandbox" exact component={SandBox} />
+        <Route path="/auth/login" exact component={Login} />
+        <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
+        <Route path="/albums" exact component={Albums} />
+        <Route path="/profile" exact component={Profile} />
+      </Switch>
+      {showPlayer && <Player />}
     </>
   );
 }

@@ -43,6 +43,72 @@ function Albums(props) {
       artist: "Mike",
       forSale: false,
       coverArt: CoverFive
+    },
+    {
+      title: "A Cool Album",
+      artist: "Jonathon",
+      totalAvailable: 100,
+      editionNumber: 75,
+      coverArt: CoverOne
+    },
+    {
+      title: "The Greatest",
+      artist: "Russ",
+      totalAvailable: 50,
+      editionNumber: 2,
+      coverArt: CoverTwo
+    },
+    {
+      title: "Another One",
+      artist: "Anil",
+      forSale: false,
+      coverArt: CoverThree
+    },
+    {
+      title: "Here We Go",
+      artist: "Mike",
+      totalAvailable: 10,
+      editionNumber: 5,
+      coverArt: CoverFour
+    },
+    {
+      title: "OH Yeah",
+      artist: "Mike",
+      forSale: false,
+      coverArt: CoverFive
+    },
+    {
+      title: "A Cool Album",
+      artist: "Jonathon",
+      totalAvailable: 100,
+      editionNumber: 75,
+      coverArt: CoverOne
+    },
+    {
+      title: "The Greatest",
+      artist: "Russ",
+      totalAvailable: 50,
+      editionNumber: 2,
+      coverArt: CoverTwo
+    },
+    {
+      title: "Another One",
+      artist: "Anil",
+      forSale: false,
+      coverArt: CoverThree
+    },
+    {
+      title: "Here We Go",
+      artist: "Mike",
+      totalAvailable: 10,
+      editionNumber: 5,
+      coverArt: CoverFour
+    },
+    {
+      title: "OH Yeah",
+      artist: "Mike",
+      forSale: false,
+      coverArt: CoverFive
     }
   ];
 

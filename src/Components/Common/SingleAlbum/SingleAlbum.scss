@@ -1,8 +1,8 @@
 .single-album {
   .cd-case {
     background: url('../../../assets/images/case-transparent.png');
-    width: 218px;
-    height: 189px;
+    width: 100%;
+    height: fit-content;
     text-align: right;
     position: relative;
     background-size: cover;
