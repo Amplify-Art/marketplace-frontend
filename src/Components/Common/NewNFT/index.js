@@ -7,6 +7,7 @@ import { API_ENDPOINT_URL } from '../../../Constants/default'
 import TrashIcon from '../../../assets/images/trash.svg';
 import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
+import { getAccessToken } from '../../../Api/index';
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
@@ -46,7 +47,7 @@ function NewNFT(props) {
     const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0d2l0dGVyX2lkIjoiNjA2ODcxNTEwIiwidXNlcm5hbWUiOiJBbmlsQW5pcmFpIiwibmFtZSI6ImFuaWwga3VtYXIiLCJhdmF0YXIiOiJodHRwOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMzg1ODU2MzI2MjgzMTM3MDI1L09RVFRMLTRQX25vcm1hbC5wbmciLCJiYW5uZXIiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9iYW5uZXJzLzYwNjg3MTUxMC8xNjE5NDE2MjI3IiwibmVhcl9jb25uZWN0ZWQiOnRydWUsIm5lYXJfYWNjb3VudF9pZCI6IjE2MjMzMzk2NTE2MjAiLCJuZWFyX3B1YmxpY19rZXkiOnsia2V5VHlwZSI6MCwiZGF0YSI6eyIwIjoyMDAsIjEiOjIzMCwiMiI6MjgsIjMiOjI0MSwiNCI6NDYsIjUiOjI0OCwiNiI6MjUwLCI3Ijo1NywiOCI6MTY0LCI5IjoxODYsIjEwIjoyMDgsIjExIjo3NSwiMTIiOjcxLCIxMyI6NDcsIjE0IjoxODMsIjE1IjoxNzAsIjE2IjoxNjgsIjE3IjoxMDIsIjE4Ijo3NywiMTkiOjI1MCwiMjAiOjI0NywiMjEiOjEzLCIyMiI6ODAsIjIzIjo0NiwiMjQiOjIzLCIyNSI6OTEsIjI2IjoxMTMsIjI3IjoxNDUsIjI4IjoxMjMsIjI5Ijo5NCwiMzAiOjIwMSwiMzEiOjI1Mn19LCJpZCI6MSwiaWF0IjoxNjIzMzM5NjU1fQ.0VoHC35JRQZCBMzu8PnNgvECVLz3wSkicV_A8kx3mGE'
+        Authorization: 'Bearer ' + getAccessToken()
       },
     })
     console.log(mintAlbum, 'mintAlbum')
@@ -63,7 +64,7 @@ function NewNFT(props) {
       const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0d2l0dGVyX2lkIjoiNjA2ODcxNTEwIiwidXNlcm5hbWUiOiJBbmlsQW5pcmFpIiwibmFtZSI6ImFuaWwga3VtYXIiLCJhdmF0YXIiOiJodHRwOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMzg1ODU2MzI2MjgzMTM3MDI1L09RVFRMLTRQX25vcm1hbC5wbmciLCJiYW5uZXIiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9iYW5uZXJzLzYwNjg3MTUxMC8xNjE5NDE2MjI3IiwibmVhcl9jb25uZWN0ZWQiOnRydWUsIm5lYXJfYWNjb3VudF9pZCI6IjE2MjMzMzk2NTE2MjAiLCJuZWFyX3B1YmxpY19rZXkiOnsia2V5VHlwZSI6MCwiZGF0YSI6eyIwIjoyMDAsIjEiOjIzMCwiMiI6MjgsIjMiOjI0MSwiNCI6NDYsIjUiOjI0OCwiNiI6MjUwLCI3Ijo1NywiOCI6MTY0LCI5IjoxODYsIjEwIjoyMDgsIjExIjo3NSwiMTIiOjcxLCIxMyI6NDcsIjE0IjoxODMsIjE1IjoxNzAsIjE2IjoxNjgsIjE3IjoxMDIsIjE4Ijo3NywiMTkiOjI1MCwiMjAiOjI0NywiMjEiOjEzLCIyMiI6ODAsIjIzIjo0NiwiMjQiOjIzLCIyNSI6OTEsIjI2IjoxMTMsIjI3IjoxNDUsIjI4IjoxMjMsIjI5Ijo5NCwiMzAiOjIwMSwiMzEiOjI1Mn19LCJpZCI6MSwiaWF0IjoxNjIzMzM5NjU1fQ.0VoHC35JRQZCBMzu8PnNgvECVLz3wSkicV_A8kx3mGE'
+          Authorization: 'Bearer ' + getAccessToken()
         },
       })
       console.log(mintSong, 'mintSong')
