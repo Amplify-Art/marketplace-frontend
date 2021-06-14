@@ -1,0 +1,23 @@
+#addshowcase {
+    .row {
+        display: flex;
+        margin-bottom: 12px;
+    }
+    .row-wrap {
+        padding: 8px 0 8px 20px;
+        .row-title {
+            font-family: Space Grotesk;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+        }
+        .row-desc {
+            opacity: 0.6;
+        }
+    }
+    .add-btn {
+        width: 79px;
+        height: 36px;
+    }
+}
