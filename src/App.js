@@ -15,10 +15,15 @@ import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import ShowCase from './Containers/ShowCase'; 
 import PlayList from './Containers/PlayList';
 >>>>>>> showcase-playlist
+=======
+import ShowCase from './Containers/ShowCase'; 
+import PlayList from './Containers/PlayList';
+>>>>>>> dev_vish
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -64,6 +69,7 @@ function App() {
         <Route path="/profile" exact component={Profile} />
         <Route path="/my-profile" exact component={MyProfile} />
         <Route path="/artist/:slug" exact component={ArtistProfile} />
+        {/* <Route path="/profile" exact component={Profile} /> */}
         <Route path="/showcase" exact component={ShowCase} />
         <Route path="/create-playlist" exact component={PlayList} />
       </Switch>

@@ -58,6 +58,7 @@ function PlayList() {
             {showPlayListModal && <GeneralModal
                 headline="Create New Playlist"
                 bodyChildren={<CreatePlayList showCaseData={showCaseData}/>}
+                contentClassName="playlist-modal"
                 closeModal={() => togglePlayListModal(!showPlayListModal)}
             />
             }

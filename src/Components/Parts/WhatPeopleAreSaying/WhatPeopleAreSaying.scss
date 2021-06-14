@@ -19,6 +19,12 @@
     .slick-slider {
         height: 360px;
         overflow: hidden;
+        .slick-list{
+            .slick-track{
+                display: flex;
+                // transform: inherit !important;
+            }
+        }
     }
 
     .tweets {
@@ -29,13 +35,13 @@
             width: 348px;
             display: flex;
             flex-direction: column;
-            padding: 30px;
+            padding: 25px;
             box-sizing: border-box;
             position: relative;
             h5 {
                 position: absolute;
-                top: 40px;
-                font-size: 35px;
+                top: 5px;
+                font-size: 15px;
                 font-weight: 100;
                 margin: 0px;
             }
@@ -54,9 +60,8 @@
             .tweet-content {
                 width: 100%;
                 p {
-                    font-size: 14px;
+                    font-size: 12px;
                     line-height: 20px;
-                    margin-bottom: 30px;
                 }
             }
 

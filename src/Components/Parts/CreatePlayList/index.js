@@ -23,22 +23,30 @@ function CreatePlayList({showCaseData}) {
 
     return(
         <div id="create-playlist">
-            <form className="playlist-wrapper">
-                <div>
-                    <div className="input-holder">
-                        <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: true })} />
+            <form>
+                <div className="playlist-wrapper">
+                    <div className="playlist-showcase">
+                        <div className="input-holder">
+                            <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: true })} />
+                        </div>
+                        <AddShowCase showCaseData={showCaseData}/>
                     </div>
-                    <AddShowCase showCaseData={showCaseData}/>
-                </div>
-                <div>
+                <div className="playlist-CD">
                     <div className="case-wrapper">
                         <img src={CDImg} alt="" />
+                        
                     </div>
-                    {renderPlayList()}
+                    <ul>
+                        {renderPlayList()}
+                    </ul>
+                    
+                </div>
+                </div>
+                <div className="btn-wrap">
+                    <button>Create PlayList</button>
                 </div>
             </form>
-            <button>Create PlayList</button>
-        </div>
+    </div>
     )
 };
 

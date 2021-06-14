@@ -3,7 +3,9 @@ import './AddShowCase.scss';
 
 function AddShowCase({showCaseData}) {
     return(
-        <div id="addshowcase">
+        <div id="addshowcase" >
+             <div class="scrollbar" id="style-4">
+                <div class="force-overflow"></div>
             {
                 showCaseData && showCaseData.length > 0 && showCaseData.map((showcase,item) => (
                     <div className="row">
@@ -16,6 +18,7 @@ function AddShowCase({showCaseData}) {
                     </div>
                 ))
             }
+            </div>
         </div>
     )
 };
