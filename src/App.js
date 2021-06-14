@@ -14,16 +14,8 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import ShowCase from './Containers/ShowCase'; 
 import PlayList from './Containers/PlayList';
->>>>>>> showcase-playlist
-=======
-import ShowCase from './Containers/ShowCase'; 
-import PlayList from './Containers/PlayList';
->>>>>>> dev_vish
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
