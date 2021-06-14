@@ -1,0 +1,11 @@
+#create-playlist {
+    .playlist-wrapper {
+        display: flex;
+    }
+    .case-wrapper {
+        background: url('../../../assets/images/case-transparent.png');
+        img {
+        width: 100%;
+        }
+    }
+}
