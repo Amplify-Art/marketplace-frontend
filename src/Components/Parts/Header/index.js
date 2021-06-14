@@ -6,7 +6,28 @@ import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import './Header.scss';
 
-function Header() {
+function Header( props ) {
+  const { path } = props;
+
+  const setBreadCrumbs = () => {
+    let currentPage = '';
+
+    switch (true) {
+      case path === '/albums':
+        currentPage = 'Albums';
+        break
+      case path === '/my-profile':
+        currentPage = 'My Profile';
+        break
+      case path.includes('/artist/'):
+        // Need to pull this from the database response... leaving it hard-coded for now... TODO!!
+        currentPage = 'Eminem'
+        break
+    }
+
+    return currentPage;
+  }
+
   return (
     <>
       <header>
@@ -32,7 +53,7 @@ function Header() {
       </header>
 
       <div className="breadcrumbs left-nav-pad">
-        Home / <span className="current">Profile</span>
+        Home / <span className="current">{path && setBreadCrumbs()}</span>
       </div>
     </>
   );

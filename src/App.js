@@ -13,6 +13,7 @@ import Header from './Components/Parts/Header/index';
 import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
+import ArtistProfile from './Containers/ArtistProfile/index';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -22,7 +23,7 @@ import Login from './Containers/Login/index';
 import NearSuccessLogin from './Containers/Near/Success';
 
 import Albums from './Containers/Albums/index';
-import Profile from './Containers/Profile/index';
+import MyProfile from './Containers/MyProfile/index';
 
 // Parts
 import SideSocialNav from './Components/Common/SideSocialNav/index';
@@ -35,6 +36,7 @@ function App() {
   const [showPlayer, togglePlayer] = useState(false);
   let location = useLocation();
   useEffect(() => {
+    setPath(location.pathname);
     if (!(location.pathname === '/' || location.pathname === '/auth/login')) {
       toggleLeftSidebar(true);
       togglePlayer(true);
@@ -43,7 +45,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header path={path} />
       <SideSocialNav />
       {showLeftSidebar && <MainSideNav />}
       <Switch>
@@ -54,7 +56,8 @@ function App() {
         <Route path="/auth/login" exact component={Login} />
         <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
         <Route path="/albums" exact component={Albums} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/my-profile" exact component={MyProfile} />
+        <Route path="/artist/:slug" exact component={ArtistProfile} />
       </Switch>
       {showPlayer && <Player />}
     </>

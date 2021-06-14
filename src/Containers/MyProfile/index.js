@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Profile.scss';
+import './MyProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -12,7 +12,7 @@ import CoverThree from '../../assets/images/cover3.png';
 import CoverFour from '../../assets/images/cover4.png';
 import CoverFive from '../../assets/images/cover5.png';
 
-function Profile(props) {
+function MyProfile(props) {
   const fakeAlbums = [
     {
       title: "A Cool Album",
@@ -149,4 +149,4 @@ function Profile(props) {
   );
 }
 
-export default Profile;
+export default MyProfile;

@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './SingleAlbum.scss';
 
-import CoverOne from '../../../assets/images/cd-cover-one.png';
-
 function SingleAlbum(props) {
   const { albumInfo } = props;
 
-  console.log('albumInfo', albumInfo);
   return (
     <div className="single-album">
       <div className="cd-case">

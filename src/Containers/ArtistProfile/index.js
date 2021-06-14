@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Albums.scss';
+import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
+
+import Shady from '../../assets/images/shady.jpg';
+import TwitterIcon from '../../assets/images/twitter-icon.svg';
+import ShareIcon from '../../assets/images/share-icon.svg';
 import CoverOne from '../../assets/images/cd-cover-one.png';
 import CoverTwo from '../../assets/images/cover2.png';
 import CoverThree from '../../assets/images/cover3.png';
 import CoverFour from '../../assets/images/cover4.png';
 import CoverFive from '../../assets/images/cover5.png';
-import CoverSix from '../../assets/images/cover6.png';
 
-function Albums(props) {
+function ArtistProfile(props) {
   const fakeAlbums = [
     {
       title: "A Cool Album",
@@ -111,16 +114,37 @@ function Albums(props) {
       coverArt: CoverFive
     }
   ];
-
   return (
-    <div id="albums" className="left-nav-pad right-player-pad">
-      <div className="album-grid">
-        {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
-          <SingleAlbum key={index} albumInfo={album} />
-        ))}
+    <div id="profile" className="left-nav-pad right-player-pad">
+      <div className="profile-cover" />
+      <div className="profile-head-details">
+        <div className="profile-image">
+          <img src={Shady} alt="Shady" />
+        </div>
+
+        <div className="details">
+          <h3>@eminem</h3>
+        </div>
+
+        <div className="right-buttons">
+          <button><img src={TwitterIcon} alt="Twitter" /> Follow</button>
+        </div>
+      </div>
+
+      <div className="recently-purchased">
+        <div className="top">
+          <h2>Recently Released</h2>
+          <button className="btn outlined">View All</button>
+        </div>
+
+        <div className="albums" className="album-grid">
+          {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
+            <SingleAlbum key={index} albumInfo={album} />
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-export default Albums;
+export default ArtistProfile;

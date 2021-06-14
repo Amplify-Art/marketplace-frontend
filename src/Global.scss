@@ -144,6 +144,7 @@ input {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 35px;
+  row-gap: 53px;
   @media screen and (max-width: 1830px) {
     grid-template-columns: repeat(4, 1fr);
   }
