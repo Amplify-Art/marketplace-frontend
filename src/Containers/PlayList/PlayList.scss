@@ -1,0 +1,9 @@
+#playlist{
+    display: flex;
+    padding-top: 100px;
+    justify-content: center;
+    .playlist-modal {
+        width: 600px;
+        height: 500px;
+    }
+}

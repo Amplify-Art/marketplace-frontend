@@ -1,0 +1,44 @@
+#create-playlist {
+        .playlist-wrapper {
+            display: flex;
+            .playlist-showcase{
+                width: 60%;
+            }
+        }
+        .playlist-CD{
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .case-wrapper {
+                width: 75%;
+                background-repeat: no-repeat;
+                background: url('../../../assets/images/case-transparent.png');
+                img {
+                    width: 84%;
+                    padding-left: 19px;
+                    padding-top: 3px;
+                }
+            }
+            ul{
+                width: 75%;
+                padding: 0;
+                list-style: none;
+                div{
+                    padding: 6px 20px;
+                    
+                    &:first-child {
+                        background: rgba(196, 196, 196, 0.3);
+                        border-radius: 3px;
+                      }
+                }
+            }
+        }
+        .btn-wrap{
+            text-align: center;
+            button{
+                padding: 10px 20px;
+            }
+        }
+    }
+   

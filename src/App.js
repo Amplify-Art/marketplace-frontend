@@ -14,6 +14,8 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
+import ShowCase from './Containers/ShowCase'; 
+import PlayList from './Containers/PlayList';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -58,6 +60,11 @@ function App() {
         <Route path="/albums" exact component={Albums} />
         <Route path="/my-profile" exact component={MyProfile} />
         <Route path="/artist/:slug" exact component={ArtistProfile} />
+        {/* <Route path="/profile" exact component={Profile} /> */}
+        <Route path="/my-profile" exact component={MyProfile} />
+        <Route path="/artist/:slug" exact component={ArtistProfile} />
+        <Route path="/showcase" exact component={ShowCase} />
+        <Route path="/create-playlist" exact component={PlayList} />
       </Switch>
       {showPlayer && <Player />}
     </>
