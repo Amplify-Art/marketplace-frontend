@@ -16,6 +16,7 @@ import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
 import ShowCase from './Containers/ShowCase'; 
 import PlayList from './Containers/PlayList';
+import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -58,12 +59,13 @@ function App() {
         <Route path="/auth/login" exact component={Login} />
         <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
         <Route path="/albums" exact component={Albums} />
-        <Route path="/profile" exact component={Profile} />
+        {/* <Route path="/profile" exact component={Profile} /> */}
         <Route path="/my-profile" exact component={MyProfile} />
         <Route path="/artist/:slug" exact component={ArtistProfile} />
         {/* <Route path="/profile" exact component={Profile} /> */}
         <Route path="/showcase" exact component={ShowCase} />
         <Route path="/create-playlist" exact component={PlayList} />
+        <Route path="/marketplace" exact component={SecondaryMarketplace} />
       </Switch>
       {showPlayer && <Player />}
     </>

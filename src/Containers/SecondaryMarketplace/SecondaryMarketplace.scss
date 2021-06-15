@@ -1,0 +1,52 @@
+.marketplace-table {
+  font-family: 'Space Grotesk', sans-serif;
+  width: 100%;
+  padding-right: 20px;
+  box-sizing: border-box;
+  .headers {
+    display: flex;
+    justify-content: space-between;
+    .head-item {
+      font-size: 13px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0.5;
+      width: 25%;
+      flex: none;
+    }
+  }
+
+  .table-body {
+    .row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .cell {
+        font-style: normal;
+        font-size: 14px;
+        color: #FFFFFF;
+        opacity: 0.8;
+        width: 25%;
+        flex: none;
+        &.album-info {
+          display: flex;
+          align-items: center;
+          .cover-holder {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            overflow: hidden;
+            filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
+            margin-right: 20px;
+          }
+
+          .title {
+            margin-right: 27px;
+          }
+        }
+      }
+    }
+  }
+}
