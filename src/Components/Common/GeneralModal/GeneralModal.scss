@@ -42,4 +42,10 @@
       text-align: center;
     }
   }
+  .btn-close {
+    position: absolute;
+    top: 12%;
+    left: 82%;
+    z-index: 999;
+  }
 }

@@ -1,14 +1,12 @@
-#addshowcase {
-    
-    
-    #info{
+#addshowcase {  
+    #info {
             font-size: 18px;
             color: #555;
             text-align: center;
             margin-bottom: 25px;
         }
 
-        .scrollbar{
+        .scrollbar {
             max-height: 320px;
             overflow-y: scroll;
             width: 100%;
@@ -22,6 +20,7 @@
         {
             -webkit-box-shadow: inset 0 0 6px #C4C4C4;
             background-color: #F5F5F5;
+            border-radius: 10px;
         }
 
         #style-4::-webkit-scrollbar
@@ -39,6 +38,7 @@
     .row {
         display: flex;
         margin-bottom: 12px;
+        align-items: center;
     }
     .row-wrap {
         width: 60%;
@@ -57,5 +57,6 @@
     .add-btn {
         width: 79px;
         height: 36px;
+        padding: 0;
     }
 }

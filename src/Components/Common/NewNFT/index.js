@@ -117,95 +117,94 @@ function NewNFT(props) {
         <h3>Mint New Album</h3>
         <p>Album is being minted for @2n10se</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="split">
-            <div className="left">
-              <div className="input-holder">
-                <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />
-                {errors.songName && <span>This field is required</span>}
-              </div>
+          <div className="split" id="style-4">
+              <div className="left">
+                <div className="input-holder">
+                  <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />
+                  {errors.songName && <span>This field is required</span>}
+                </div>
 
-              <div className="input-holder">
-                <textarea name="album-description" placeholder="Description" {...register("albumDescription", { required: true })} />
-                {errors.albumDescription && <span>This field is required</span>}
-              </div>
+                <div className="input-holder">
+                  <textarea name="album-description" placeholder="Description" {...register("albumDescription", { required: true })} />
+                  {errors.albumDescription && <span>This field is required</span>}
+                </div>
 
-              <div className="input-holder">
-                <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
-                {errors.albumPrice && <span>This field is required</span>}
-              </div>
+                <div className="input-holder">
+                  <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
+                  {errors.albumPrice && <span>This field is required</span>}
+                </div>
 
-              {/* <div className="input-holder">
-                <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
-                <span>{customError && customError.songFile}</span>
-              </div> */}
+                {/* <div className="input-holder">
+                  <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
+                  <span>{customError && customError.songFile}</span>
+                </div> */}
 
-              <div className="song-list">
-                {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-                  <div className="single-song" key={index}>
-                    <div className="left">
-                      <div className="track">
-                        {/* TODO: limit path length to 15 chars plus extension */}
-                        {file.path} <img src={UploadIconAlt} alt="Upload" />
+                <div className="song-list">
+                  {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
+                    <div className="single-song" key={index}>
+                      <div className="left">
+                        <div className="track">
+                          {/* TODO: limit path length to 15 chars plus extension */}
+                          {file.path} <img src={UploadIconAlt} alt="Upload" />
+                        </div>
+                      </div>
+                      <div className="right">
+                        <div className="input-holder">
+                          <input name={`song-title${index}`} type="text" placeholder="Song Title" onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
+                          {file.error && <span>This field is required</span>}
+                        </div>
+                      </div>
+
+                      <div className="trash">
+                        <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
                       </div>
                     </div>
-                    <div className="right">
-                      <div className="input-holder">
-                        <input name={`song-title${index}`} type="text" placeholder="Song Title" onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
-                        {file.error && <span>This field is required</span>}
-                      </div>
-                    </div>
+                  )) : null}
+                </div>
 
-                    <div className="trash">
-                      <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
-                    </div>
+                <div className="uploader">
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} accept=".mp3,audio/*" />
+                    {
+                      isDragActive ? (
+                        <div className="upload-dropzone">
+                          <img src={UploadIconAlt} alt="Upload" />
+                          <h5>Upload Tracks</h5>
+                          <p>You can add more than one track at a time</p>
+                        </div>
+                      ) : (
+                        <div className="upload-dropzone">
+                          <img src={UploadIconAlt} alt="Upload" />
+                          <h5>Upload Tracks</h5>
+                          <p>You can add more than one track at a time</p>
+                        </div>
+                      )
+                    }
                   </div>
-                )) : null}
+                </div>
+                {customError.songFiles && <span>{customError.songFiles}</span>}
               </div>
 
-              <div className="uploader">
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} accept=".mp3,audio/*" />
-                  {
-                    isDragActive ? (
-                      <div className="upload-dropzone">
-                        <img src={UploadIconAlt} alt="Upload" />
-                        <h5>Upload Tracks</h5>
-                        <p>You can add more than one track at a time</p>
-                      </div>
-                    ) : (
-                      <div className="upload-dropzone">
-                        <img src={UploadIconAlt} alt="Upload" />
-                        <h5>Upload Tracks</h5>
-                        <p>You can add more than one track at a time</p>
-                      </div>
-                    )
-                  }
-                </div>
+              <div className="right">
+                <label htmlFor="albumCover">
+                  <div className="image-upload">
+                    <img src={albumCoverPreview ? albumCoverPreview : ImageUploadIcon} alt="Image Upload" />
+                  </div>
+                </label>
+                <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
+                <span>{customError && customError.albumCover}</span>
               </div>
-              {customError.songFiles && <span>{customError.songFiles}</span>}
             </div>
-
-            <div className="right">
-              <label htmlFor="albumCover">
-                <div className="image-upload">
-                  <img src={albumCoverPreview ? albumCoverPreview : ImageUploadIcon} alt="Image Upload" />
-                </div>
-              </label>
-              <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
-              <span>{customError && customError.albumCover}</span>
+          <div className="policy-wrap">
+            <div className="input-holder checkbox">
+              <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
+              <input type="checkbox" id="terms" name="terms" value="true" {...register("terms", { required: true })} />
             </div>
-          </div>
-
-          <div className="input-holder checkbox">
-            <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
-            <input type="checkbox" id="terms" name="terms" value="true" {...register("terms", { required: true })} />
-          </div>
-
-          <div className="input-holder checkbox">
+            <div className="input-holder checkbox">
             <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
             <input type="checkbox" id="remint" name="remint" value="true" {...register("remint", { required: true })} />
           </div>
-
+          </div>
           <div className="input-holder">
             <input type="submit" />
           </div>
