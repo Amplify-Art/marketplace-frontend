@@ -134,6 +134,11 @@ function NewNFT(props) {
                   {errors.albumPrice && <span>This field is required</span>}
                 </div>
 
+                <div className="input-holder">
+                  <input name="number-of-albums" type="text" placeholder="Number of Albums" {...register("numberOfAlbums", { required: true })} />
+                  {errors.numberOfAlbums && <span>This field is required</span>}
+                </div>
+
                 {/* <div className="input-holder">
                   <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
                   <span>{customError && customError.songFile}</span>
@@ -198,11 +203,11 @@ function NewNFT(props) {
           <div className="policy-wrap">
             <div className="input-holder checkbox">
               <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
-              <input type="checkbox" id="terms" name="terms" value="true" {...register("terms", { required: true })} />
+              <input type="checkbox" id="terms" name="terms" value="true" checked {...register("terms", { required: true })} />
             </div>
             <div className="input-holder checkbox">
             <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
-            <input type="checkbox" id="remint" name="remint" value="true" {...register("remint", { required: true })} />
+            <input type="checkbox" id="remint" name="remint" value="true" checked {...register("remint", { required: true })} />
           </div>
           </div>
           <div className="input-holder">

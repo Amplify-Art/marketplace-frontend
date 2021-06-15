@@ -14,6 +14,11 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
+<<<<<<< Updated upstream
+=======
+// import ShowCase from './Containers/ShowCase';
+import PlayList from './Containers/PlayList';
+>>>>>>> Stashed changes
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 
 // Auth Wrapper
@@ -61,6 +66,8 @@ function App() {
         <Route path="/my-profile" exact component={MyProfile} />
         <Route path="/artist/:slug" exact component={ArtistProfile} />
         {/* <Route path="/profile" exact component={Profile} /> */}
+        {/* <Route path="/showcase" exact component={ShowCase} /> */}
+        <Route path="/create-playlist" exact component={PlayList} />
         <Route path="/marketplace" exact component={SecondaryMarketplace} />
       </Switch>
       {showPlayer && <Player />}
