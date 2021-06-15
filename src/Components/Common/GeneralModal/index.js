@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import CloseIcon from '../../../assets/images/close.svg';
 import './GeneralModal.scss';
 
 function GeneralModal(props) {
@@ -16,9 +17,7 @@ function GeneralModal(props) {
         )) : null}
       </div>
       {isCloseButton &&
-        <div className="btn-close" onClick={closeModal}>
-          Close
-        </div>
+        <img src={CloseIcon} className="btn-close" onClick={closeModal} />
       }
     </div>
   );

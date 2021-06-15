@@ -1,6 +1,4 @@
-#addshowcase {
-    
-    
+#addshowcase {  
     #info {
             font-size: 18px;
             color: #555;
@@ -40,6 +38,7 @@
     .row {
         display: flex;
         margin-bottom: 12px;
+        align-items: center;
     }
     .row-wrap {
         width: 60%;
@@ -58,5 +57,6 @@
     .add-btn {
         width: 79px;
         height: 36px;
+        padding: 0;
     }
 }
