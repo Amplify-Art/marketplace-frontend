@@ -59,6 +59,8 @@ function SandBox(props) {
   const [showNewNftModal, toggleNftModal] = useState(false);
   const [showCongratsModal, toggleCongratsModal] = useState(false);
   const [showNominateModal, toggleNominateModal] = useState(false);
+  const [showPlayListModal, togglePlayListModal] = useState(false);
+  const [showShowCaseModal, toggleShowCaseModal] = useState(false);
 
   const mintNewAlbum = () => {
 
