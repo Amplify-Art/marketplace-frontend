@@ -7,6 +7,7 @@ import { API_ENDPOINT_URL } from '../../../Constants/default'
 import TrashIcon from '../../../assets/images/trash.svg';
 import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
+import ToolTipIcon from '../../../assets/images/infoicon.svg';
 import { getAccessToken } from '../../../Api/index';
 
 function NewNFT(props) {
@@ -214,11 +215,11 @@ function NewNFT(props) {
           </div>
           <div className="policy-wrap">
             <div className="input-holder checkbox">
-              <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
+              <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions <img src={ToolTipIcon} /></label>
               <input type="checkbox" id="terms" name="terms" value="true" checked {...register("terms", { required: true })} />
             </div>
             <div className="input-holder checkbox">
-              <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
+              <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album <img src={ToolTipIcon} /></label>
               <input type="checkbox" id="remint" name="remint" value="true" checked {...register("remint", { required: true })} />
             </div>
           </div>
