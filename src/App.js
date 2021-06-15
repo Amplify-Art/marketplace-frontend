@@ -14,11 +14,8 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
-<<<<<<< Updated upstream
-=======
 // import ShowCase from './Containers/ShowCase';
 import PlayList from './Containers/PlayList';
->>>>>>> Stashed changes
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 
 // Auth Wrapper
