@@ -44,6 +44,7 @@ function NewNFT(props) {
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
+    albumFormData.append('qty', data.albumQty);
     const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -133,7 +134,12 @@ function NewNFT(props) {
                 <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
                 {errors.albumPrice && <span>This field is required</span>}
               </div>
-
+              <div className="input-holder">
+                <input name="album-cost" type="number" min="1" placeholder="Number of Albums" {...register("albumQty", {
+                  required: true, min: 1,
+                })} />
+                {errors.albumQty && <span>This field is required</span>}
+              </div>
               {/* <div className="input-holder">
                 <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
                 <span>{customError && customError.songFile}</span>
