@@ -14,8 +14,8 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
-import ShowCase from './Containers/ShowCase';
-import PlayList from './Containers/PlayList';
+import ShowCase from './Components/Parts/ShowCase';
+import PlayList from './Components/Parts/CreatePlayList';
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 
 // Auth Wrapper

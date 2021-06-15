@@ -44,7 +44,7 @@ function NewNFT(props) {
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
-    albumFormData.append('qty', data.albumQty);
+    albumFormData.append('qty', data.numberOfAlbums);
 
     props.displayLoadingOverlay();
     try {
@@ -129,7 +129,7 @@ function NewNFT(props) {
         <h3>Mint New Album</h3>
         <p>Album is being minted for @2n10se</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="split">
+          <div className="split" id="style-4">
             <div className="left">
               <div className="input-holder">
                 <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />
@@ -145,16 +145,16 @@ function NewNFT(props) {
                 <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
                 {errors.albumPrice && <span>This field is required</span>}
               </div>
+
               <div className="input-holder">
-                <input name="album-cost" type="number" min="1" placeholder="Number of Albums" {...register("albumQty", {
-                  required: true, min: 1,
-                })} />
-                {errors.albumQty && <span>This field is required</span>}
+                <input name="number-of-albums" type="text" placeholder="Number of Albums" {...register("numberOfAlbums", { required: true })} />
+                {errors.numberOfAlbums && <span>This field is required</span>}
               </div>
+
               {/* <div className="input-holder">
-                <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
-                <span>{customError && customError.songFile}</span>
-              </div> */}
+                  <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
+                  <span>{customError && customError.songFile}</span>
+                </div> */}
 
               <div className="song-list">
                 {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
@@ -212,17 +212,16 @@ function NewNFT(props) {
               <span>{customError && customError.albumCover}</span>
             </div>
           </div>
-
-          <div className="input-holder checkbox">
-            <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
-            <input type="checkbox" id="terms" name="terms" value="true" {...register("terms", { required: true })} />
+          <div className="policy-wrap">
+            <div className="input-holder checkbox">
+              <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions</label>
+              <input type="checkbox" id="terms" name="terms" value="true" checked {...register("terms", { required: true })} />
+            </div>
+            <div className="input-holder checkbox">
+              <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
+              <input type="checkbox" id="remint" name="remint" value="true" checked {...register("remint", { required: true })} />
+            </div>
           </div>
-
-          <div className="input-holder checkbox">
-            <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album</label>
-            <input type="checkbox" id="remint" name="remint" value="true" {...register("remint", { required: true })} />
-          </div>
-
           <div className="input-holder">
             <input type="submit" />
           </div>

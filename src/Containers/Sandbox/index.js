@@ -4,9 +4,56 @@ import { withRouter } from 'react-router-dom';
 import NewNFT from '../../Components/Common/NewNFT/index';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import './Sandbox.scss';
+// import GeneralModal from '../../Components/Common/GeneralModal';
+import CreatePlayList from '../../Components/Parts/CreatePlayList';
+import AddShowCase from '../../Components/Parts/AddShowCase';
 
+import showcaseImg from '../../assets/images/showcase.svg';
 import ConfettiImage from '../../assets/images/confetti.png';
 import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+
+export const showCaseData = [
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+  {
+    image: showcaseImg,
+    title: 'What is Love',
+    description: 'Mint #1'
+  },
+];
 
 function SandBox(props) {
   const [showNewNftModal, toggleNftModal] = useState(false);
@@ -22,6 +69,8 @@ function SandBox(props) {
         <button onClick={() => toggleNftModal(!showNewNftModal)}>New NFT Modal</button>
         <button onClick={() => toggleCongratsModal(!showCongratsModal)}>Show Congrats Modal</button>
         <button onClick={() => toggleNominateModal(!showNominateModal)}>Show Nominate Modal</button>
+        <button onClick={() => togglePlayListModal(!showPlayListModal)}>Create New Playlist</button>
+        <button onClick={() => toggleShowCaseModal(!showShowCaseModal)}>Add To Showcase</button>
       </div>
       {showNewNftModal && <NewNFT
         closeNewNftModal={() => toggleNftModal(!showNewNftModal)}
@@ -61,6 +110,24 @@ function SandBox(props) {
         className="centered"
         closeModal={() => toggleNominateModal(!showNominateModal)}
       />}
+
+      {showPlayListModal && <GeneralModal
+        headline="Create New Playlist"
+        bodyChildren={<CreatePlayList showCaseData={showCaseData} />}
+        contentClassName="playlist-modal"
+        closeModal={() => togglePlayListModal(!showPlayListModal)}
+        isCloseButton={true}
+      />
+      }
+
+      {showShowCaseModal && <GeneralModal
+        headline="Add to Showcase"
+        bodyChildren={<AddShowCase showCaseData={showCaseData} />}
+        closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
+        isCloseButton={true}
+      />
+      }
+
     </div>
   );
 }
