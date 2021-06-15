@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import NewNFT from '../../Components/Common/NewNFT/index';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import './Sandbox.scss';
 
 import ConfettiImage from '../../assets/images/confetti.png';
+import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 
 function SandBox(props) {
   const [showNewNftModal, toggleNftModal] = useState(false);
   const [showCongratsModal, toggleCongratsModal] = useState(false);
   const [showNominateModal, toggleNominateModal] = useState(false);
+
+  const mintNewAlbum = () => {
+
+  }
   return (
     <div id="sandbox">
       <div className="button-col">
@@ -16,7 +23,12 @@ function SandBox(props) {
         <button onClick={() => toggleCongratsModal(!showCongratsModal)}>Show Congrats Modal</button>
         <button onClick={() => toggleNominateModal(!showNominateModal)}>Show Nominate Modal</button>
       </div>
-      {showNewNftModal && <NewNFT closeNewNftModal={() => toggleNftModal(!showNewNftModal)} />}
+      {showNewNftModal && <NewNFT
+        closeNewNftModal={() => toggleNftModal(!showNewNftModal)}
+        displayLoadingOverlay={props.displayLoadingOverlay}
+        hideLoadingOverlay={props.hideLoadingOverlay}
+        toggleCongratsModal={toggleCongratsModal}
+      />}
 
       {showCongratsModal && <GeneralModal
         topIcon={ConfettiImage}
@@ -24,11 +36,13 @@ function SandBox(props) {
         buttons={[
           {
             type: 'outlined',
-            text: 'Go Home'
+            text: 'Go Home',
+            onClick: () => props.history.push('/')
           },
           {
             type: 'solid',
-            text: 'Mint Another Album'
+            text: 'Mint Another Album',
+            onClick: mintNewAlbum
           },
         ]}
         className="centered"
@@ -51,4 +65,14 @@ function SandBox(props) {
   );
 }
 
-export default SandBox;
+export default connect(state => {
+  return {
+    loadingOverlay: state.global.loading_overlay,
+  }
+},
+  dispatch => {
+    return {
+      displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
+      hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction())
+    }
+  })(withRouter(SandBox));

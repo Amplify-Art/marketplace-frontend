@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './GeneralModal.scss';
 
 function GeneralModal(props) {
-  const { topIcon, headline, buttons, className, closeModal, bodyText, bodyChildren, contentClassName } = props;
+  const { topIcon, headline, buttons, className, closeModal, bodyText, bodyChildren, contentClassName, onClick } = props;
   return (
     <div id="general-modal" className={`modal ${className}`}>
       <div className="cover" onClick={closeModal} />
@@ -12,7 +12,7 @@ function GeneralModal(props) {
         {bodyText && <p>{bodyText}</p>}
         {bodyChildren && bodyChildren}
         {buttons && buttons.length > 0 ? buttons.map((button, index) => (
-          <button key={index} className={`${button.type}`}>{button.text}</button>
+          <button key={index} className={`${button.type}`} onClick={button.onClick}>{button.text}</button>
         )) : null}
       </div>
     </div>

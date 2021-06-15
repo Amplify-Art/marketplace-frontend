@@ -15,14 +15,21 @@ export default (ComposedComponent) => {
         localStorage.setItem('amplify_app_token', query['?token'])
         let user = jwt.decode(query['?token'])
         if (user.near_connected) {
-          window.location.href = '/'
+          if (localStorage.getItem('__redirect')) {
+            window.location.href = localStorage.getItem('__redirect')
+            localStorage.removeItem('__redirect')
+          } else {
+            window.location.href = '/'
+          }
         } else {
           window.location.href = '/auth/sign-in'
         }
       }
       else {
+        let history = { ...props.history }
         props.history.push('/auth/login')
         setAuth(true);
+        localStorage.setItem('__redirect', history.location.pathname)
       }
     }, []);
     if (isAuth)

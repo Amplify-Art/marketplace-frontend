@@ -45,30 +45,41 @@ function NewNFT(props) {
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
     albumFormData.append('qty', data.albumQty);
-    const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer ' + getAccessToken()
-      },
-    })
-    console.log(mintAlbum, 'mintAlbum')
-    if (mintAlbum.data.success) {
-      let songFormData = new FormData()
 
-      songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
-        title: file.title
-      }))))
-      songFiles.map(file => {
-        songFormData.append('songs', file)
-      })
-      songFormData.append('album_id', mintAlbum.data.album_id)
-      const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
+    props.displayLoadingOverlay();
+    try {
+      const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: 'Bearer ' + getAccessToken()
         },
       })
-      console.log(mintSong, 'mintSong')
+      console.log(mintAlbum, 'mintAlbum')
+      if (mintAlbum.data.success) {
+        let songFormData = new FormData()
+
+        songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
+          title: file.title
+        }))))
+        songFiles.map(file => {
+          songFormData.append('songs', file)
+        })
+        songFormData.append('album_id', mintAlbum.data.album_id)
+        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + getAccessToken()
+          },
+        })
+        console.log(mintSong, 'mintSong')
+        if (mintSong.data.success) {
+          props.toggleCongratsModal(true)
+          props.hideLoadingOverlay();
+          props.closeNewNftModal();
+        }
+      }
+    } catch (e) {
+      props.hideLoadingOverlay();
     }
   };
 
