@@ -4,8 +4,20 @@
     background-image: url('../../assets/images/profile-cover.png');
     width: calc(100% + 220px);
     height: 344px;
-    margin-left: -220px;
+    margin-left: -218px;
     max-width: unset;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 720px;
+      height: 100%;
+      left: 0px;
+      z-index: 9;
+      background: rgb(15,22,29);
+      background: linear-gradient( 90deg, rgba(15,22,29,1) 18%, rgba(9,9,121,0) 100%);
+      top: 0px;
+    }
   }
 
   .profile-head-details {
@@ -14,6 +26,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 99;
     .profile-image {
       margin-top: -40px;
       width: 180px;
