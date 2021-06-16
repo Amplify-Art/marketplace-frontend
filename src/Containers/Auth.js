@@ -22,7 +22,7 @@ export default (ComposedComponent) => {
             window.location.href = '/'
           }
         } else {
-          window.location.href = '/auth/sign-in'
+          window.location.href = '/wallet'
         }
       }
       else {

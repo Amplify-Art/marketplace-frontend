@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as nearAPI from "near-api-js";
 import jwt from 'jsonwebtoken';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Button from '../../Components/Common/Button/index';
 import { createWallet } from '../../Api/Near';
 import './SignIn.scss';
+import { displayLoadingOverlayAction } from '../../redux/actions/GlobalAction'
 
-const { keyStores, connect, WalletConnection, utils } = nearAPI;
+const { keyStores, WalletConnection, utils } = nearAPI;
 
 
 function SignIn(props) {
@@ -23,12 +26,11 @@ function SignIn(props) {
       helperUrl: 'https://helper.testnet.near.org',
       explorerUrl: 'https://explorer.testnet.near.org'
     };
-    const near = await connect(config);
+    const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
     setWallet(wallet)
   }, [])
   useEffect(async () => {
-    console.log(user, wallet)
     if (wallet && !isWalletSigned) {
       wallet.requestSignIn(
         // user.near_account_id,     // contract requesting access 
@@ -39,9 +41,7 @@ function SignIn(props) {
     }
   }, [wallet])
   const onConnect = () => {
-    console.log("COMES", wallet)
     if (wallet.isSignedIn()) {
-      console.log('Its already signed in')
       return
     } else
       wallet.requestSignIn(
@@ -62,7 +62,7 @@ function SignIn(props) {
       explorerUrl: 'https://explorer.testnet.near.org'
     };
     try {
-      const near = await connect(config);
+      const near = await nearAPI.connect(config);
       const account = await near.account(user.near_account_id);
       console.log(account, 'account')
       let balances = await account.getAccountBalance();
@@ -72,6 +72,7 @@ function SignIn(props) {
     }
   }
   const onCreate = async () => {
+    props.displayLoadingOverlay();
     const create = await createWallet()
     console.log(create, 'create')
     if (create.data.success) {
@@ -111,4 +112,8 @@ function SignIn(props) {
   );
 }
 
-export default SignIn;
+export default connect(null, dispatch => {
+  return {
+    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction())
+  }
+})(withRouter(SignIn));

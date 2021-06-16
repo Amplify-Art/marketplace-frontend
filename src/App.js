@@ -44,11 +44,19 @@ function App() {
   let location = useLocation();
   useEffect(() => {
     setPath(location.pathname);
-    if (!(location.pathname === '/' || location.pathname === '/auth/login')) {
+  }, [location]);
+
+  useEffect(() => {
+    if (!path)
+      return
+    if (!["/", "/auth/login"].includes(path)) {
       toggleLeftSidebar(true);
       togglePlayer(true);
+    } else {
+      toggleLeftSidebar(false);
+      togglePlayer(false);
     }
-  }, [location]);
+  }, [path])
 
   return (
     <>
@@ -60,7 +68,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/player" exact component={Auth(Player)} />
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
-          <Route path="/auth/sign-in" exact component={Auth(SignIn)} />
+          <Route path="/wallet" exact component={Auth(SignIn)} />
           <Route path="/sandbox" exact component={SandBox} />
           <Route path="/auth/login" exact component={Login} />
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
