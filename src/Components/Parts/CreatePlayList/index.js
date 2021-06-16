@@ -11,9 +11,7 @@ function CreatePlayList({ showCaseData }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [ loading, setLoading ] = useState(true);
     
-    useEffect(() => {
-        setTimeout(() => setLoading(false), 5000);
-    },[]);
+    useEffect(() => setTimeout(() => setLoading(false), 5000),[]);
 
     const playlistData = [
         { title: "What is Love" },
