@@ -1,119 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
+
 import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 import Shady from '../../assets/images/shady.jpg';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
-import ShareIcon from '../../assets/images/share-icon.svg';
-import CoverOne from '../../assets/images/cd-cover-one.png';
-import CoverTwo from '../../assets/images/cover2.png';
-import CoverThree from '../../assets/images/cover3.png';
-import CoverFour from '../../assets/images/cover4.png';
-import CoverFive from '../../assets/images/cover5.png';
 
 function ArtistProfile(props) {
-  const fakeAlbums = [
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    },
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    },
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    }
-  ];
+  const generateAlbumItem = (album, index) => {
+    return (
+      <SingleAlbum key={index} albumInfo={album} />
+    );
+  }
+
+  useEffect(() => {
+    props.fetchAlbums();
+  }, [])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <div className="profile-cover" />
@@ -138,8 +45,8 @@ function ArtistProfile(props) {
         </div>
 
         <div className="albums" className="album-grid">
-          {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
-            <SingleAlbum key={index} albumInfo={album} />
+          {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
+            generateAlbumItem(album, index)
           ))}
         </div>
       </div>
@@ -147,4 +54,14 @@ function ArtistProfile(props) {
   );
 }
 
-export default ArtistProfile;
+export default connect(state => {
+  return {
+    albums: state.albums.albums,
+  }
+},
+  dispatch => {
+    return {
+      fetchAlbums: () => dispatch(fetchAlbumsAction()),
+    }
+  })(withRouter(ArtistProfile));
+

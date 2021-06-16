@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import jwt_decode from 'jwt-decode';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './MyProfile.scss';
+
+import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -13,117 +19,37 @@ import CoverFour from '../../assets/images/cover4.png';
 import CoverFive from '../../assets/images/cover5.png';
 
 function MyProfile(props) {
-  const fakeAlbums = [
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    },
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    },
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      coverArt: CoverThree
-    },
-    {
-      title: "Here We Go",
-      artist: "Mike",
-      totalAvailable: 10,
-      editionNumber: 5,
-      coverArt: CoverFour
-    },
-    {
-      title: "OH Yeah",
-      artist: "Mike",
-      forSale: false,
-      coverArt: CoverFive
-    }
-  ];
+  const [bannerImage, setBannerImage] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+  const [userName, setUserName] = useState('');
+  
+  const generateAlbumItem = (album, index) => {
+    return (
+      <SingleAlbum key={index} albumInfo={album} />
+    );
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('amplify_app_token');
+    const decodedToken = jwt_decode(token);
+    console.log('decodedToken', decodedToken);
+
+    setBannerImage(decodedToken.banner);
+    setProfileImage(decodedToken.avatar);
+    setUserName(decodedToken.username);
+
+    props.fetchAlbums();
+  }, [])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
-      <div className="profile-cover" />
+      <div className="profile-cover" style={{ backgroundImage: `url(${bannerImage})` }} />
       <div className="profile-head-details">
         <div className="profile-image">
-          <img src={Shady} alt="Shady" />
+          <img src={profileImage.replace("_normal","")} alt="Shady" />
         </div>
 
         <div className="details">
-          <h3>@Chasel3000</h3>
+          <h3>@{userName}</h3>
           <p>234 Songs Owned</p>
         </div>
 
@@ -140,8 +66,8 @@ function MyProfile(props) {
         </div>
 
         <div className="albums" className="album-grid">
-          {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
-            <SingleAlbum key={index} albumInfo={album} />
+          {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
+            generateAlbumItem(album, index)
           ))}
         </div>
       </div>
@@ -149,4 +75,14 @@ function MyProfile(props) {
   );
 }
 
-export default MyProfile;
+
+export default connect(state => {
+  return {
+    albums: state.albums.albums,
+  }
+},
+  dispatch => {
+    return {
+      fetchAlbums: () => dispatch(fetchAlbumsAction()),
+    }
+  })(withRouter(MyProfile));

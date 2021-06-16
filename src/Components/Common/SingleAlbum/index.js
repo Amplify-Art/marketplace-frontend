@@ -7,10 +7,10 @@ function SingleAlbum(props) {
   return (
     <div className="single-album">
       <div className="cd-case">
-        <img src={albumInfo.coverArt} alt="" />
+        <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
         {albumInfo && albumInfo.forSale !== false && (
           <div className="mint-sticker">
-            <span>Mint #<br/>{albumInfo.editionNumber}/{albumInfo.totalAvailable}</span>
+            <span>Mint #<br/>{albumInfo.qty}/{albumInfo.qty}</span>
           </div>
         )}
       </div>
