@@ -19,6 +19,8 @@ function MainSideNav(props) {
         <li><a href="#">Nominate</a></li>
         <li><a href="#">Wallet</a></li>
         <li><a href="#">Logout</a></li>
+        <li className="nav-header">Artist</li>
+        <li><a href="/artist-dashboard/1">Dashboard</a></li>
       </ul>
     </div>
   );

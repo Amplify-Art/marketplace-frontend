@@ -14,10 +14,8 @@ import Home from './Containers/Home/index';
 import SignIn from './Containers/SignIn/index';
 import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
-// import ShowCase from './Containers/ShowCase';
-// import ShowCase from './Containers/ShowCase';
-// import PlayList from './Containers/PlayList';
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
+import ArtistDashboard from './Containers/ArtistDashbord';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -76,10 +74,8 @@ function App() {
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route path="/my-profile" exact component={MyProfile} />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
-          {/* <Route path="/profile" exact component={Profile} /> */}
-          {/* <Route path="/showcase" exact component={ShowCase} /> */}
-          {/* <Route path="/create-playlist" exact component={PlayList} /> */}
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
+          <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
         </Switch>
         {showPlayer && <Player />}
       </GloablLoader>

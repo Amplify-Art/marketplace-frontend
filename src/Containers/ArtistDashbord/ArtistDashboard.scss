@@ -1,0 +1,187 @@
+#artist-dashboard {
+    padding-top: 29px;
+    padding-bottom: 100px;
+    .container {
+        max-width: 100%;
+        padding-right: 232px;
+        padding-left: 185px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    @media (max-width: 768px){
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @media (max-width: 576px){
+        .container {
+            max-width: 540px;
+        }
+    }
+    .bal-wrapper {
+        display: flex;
+        background: #FFFFFF;
+        padding:30px;
+        margin-top: 100px;
+        font-family: Space Grotesk;
+        font-style: normal;
+        font-weight: normal;
+        color: #000000;
+        .left-wrap {
+            width: 32%;
+            text-align: center;
+            border-right: 1px solid #bebdbd;
+            padding-right: 30px;
+        }
+        .bal-title {
+            font-size: 24px;
+            line-height: 31px;
+            padding-bottom: 19px;
+        }
+        .price {
+            font-size: 70px;
+            line-height: 89px;
+            letter-spacing: 0.08em;
+        }
+        .near {
+            font-size: 38px;
+            line-height: 48px;
+            opacity: 0.6;
+        }
+        .withdraw-btn {
+            background: #000000;
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            border-radius: 100px;
+            font-family: Lato;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 19px;
+            color: #FFFFFF;
+            padding: 14px 60px;
+            margin: 30px 0px;
+        }
+        .report-link {
+            font-size: 16px;
+            line-height: 20px;
+            text-decoration-line: underline;
+        }
+    }
+
+    .supporter-wrapper {
+        font-family: Space Grotesk;
+        font-style: normal;
+        font-weight: normal;
+        color: #000000;
+        padding-left: 50px;
+        width: 68%;
+        .support-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .support-title {
+                font-size: 24px;
+                line-height: 31px;
+            }
+            .support-cal {
+                display: flex;
+                border: 1.5px solid #E3E3E3;
+                border-radius: 4px;
+                padding: 10px 12px;
+                .cal-img {
+                    width: 20px;
+                    height: 20px;
+                    color: #000000;
+                }
+                .cal-font {
+                    font-size: 16px;
+                    line-height: 20px;
+                    margin-left: 10px;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .support-content {
+            .support-inner-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 0px;
+                .w-33 {
+                    width: 33%;
+                }
+                .text-align-right {
+                    text-align: right;
+                }
+                .icon-green {
+                    color:#1BBE00;
+                }
+                .icon-gray {
+                    color: #EAEAEA;
+                }
+                .text-month {
+                    text-transform: capitalize;
+                }
+                .text-gwei {
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .song-title {
+        font-family: Space Grotesk;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 26px;
+        color: #FFFFFF;
+        margin: 50px 0 30px 0; 
+    }
+    .song-wrapper {
+        display: flex;
+        justify-content: space-between;
+        .w-50 {
+            width: 50%;
+        }
+        .mr-50 {
+            margin-right: 50px;
+        }
+        .song-inner-content {
+            background: rgba(196, 196, 196, 0.1);
+            box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1), inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(94.2667px);
+            padding: 25px 30px 32px 30px;
+            font-family: Space Grotesk;
+            font-style: normal;
+            font-weight: normal;
+            color: #FFFFFF;
+        }
+        .song-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            .song-head-title {
+                font-size: 24px;
+                line-height: 31px;
+            }
+            .song-count-title {
+                font-size: 16px;
+                line-height: 20px;
+                text-align: right;
+            }
+        }
+        .song-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            line-height: 20px;
+            padding: 8px 0px;
+        }
+
+    }
+}
