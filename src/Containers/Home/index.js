@@ -39,7 +39,7 @@ function Home() {
       <TheTeam />
       <ArtistRegistry />
       <HowItWorks hideTitle={true} />
-      <ThankYou />
+      <ThankYou content={homeContent && homeContent.thank_you_text} />
     </>
   );
 }
