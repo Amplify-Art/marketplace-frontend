@@ -53,9 +53,7 @@ function SecondaryMarketplace(props) {
           {songs.map((song, index) => (
             <div className="row-item" key={index}>
               <div className="cell album-info">
-                <div className="cover-holder">
-                  <img src={CoverOne} alt="" />
-                </div>
+                <div className="play-indicator"></div>
                 <div className="title">{song.title}</div>
                 {song.mint && <div className="mints">#3, #4</div>}
               </div>

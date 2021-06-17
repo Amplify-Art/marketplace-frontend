@@ -29,7 +29,7 @@ function Home() {
   return (
     <>      
       <Banner homeContent={homeContent} />
-      <Partners />
+      <Partners partners={homeContent && homeContent.Partners} />
       <LatestReleases />
       <WeAreFor />
       <WhatPeopleAreSaying />
