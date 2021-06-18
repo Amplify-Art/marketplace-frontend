@@ -1,9 +1,10 @@
+@import "../../../assets/SCSS/Vars.scss";
 .btn {
   background: #FFFFFF;
   border: 1px solid #FFFFFF;
   box-sizing: border-box;
   border-radius: 100px;
-  font-family: "Lato", sans-serif;
+  font-family: $lato;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;

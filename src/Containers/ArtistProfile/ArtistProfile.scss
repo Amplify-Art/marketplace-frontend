@@ -1,3 +1,5 @@
+@import "../../assets/SCSS/Vars.scss";
+
 #profile {
   padding-top: 29px;
   .profile-cover {
@@ -34,6 +36,8 @@
         margin-bottom: 0px;
         font-size: 32px;
         color: #fff;
+        font-family: $space;
+        font-weight: 400;
       }
 
       p {
@@ -54,7 +58,7 @@
         font-size: 16px;
         border-radius: 50px;
         border: 0px;
-        font-family: "Lato", sans-serif;
+        font-family: $lato;
         padding: 15px 34px;
         margin-right: 20px;
         &:last-child {

@@ -30,7 +30,7 @@ function ArtistProfile(props) {
         </div>
 
         <div className="details">
-          <h3>@eminem</h3>
+          <h3>Imagine Dragons</h3>
         </div>
 
         <div className="right-buttons">

@@ -1,3 +1,4 @@
+@import "../../../assets/SCSS/Vars.scss";
 #new-nft-modal {
   .holder {
     .error {
@@ -7,7 +8,7 @@
     .split {
       display: flex;
       margin-bottom: 20px;
-      // max-height: 200px;
+      max-height: 250px;
       overflow-y: scroll;
       border-radius: 10px;
       padding-right: 10px;
@@ -133,7 +134,7 @@ h3 {
   }
   input,
   textarea {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: $space;
     border: 2px solid #e3e3e3;
     border-radius: 8px;
     font-size: 16px;
