@@ -42,8 +42,10 @@ function ArtistDashboard(props) {
     const renderBtnContent = () => {
         return (
             <>
-                <button><img src={TwitterIcon} alt="Twitter" />View All</button>
-                <button><img src={TwitterIcon} alt="Twitter" />View All</button>
+                {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
+                <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
+                <button>Upload Store Banner</button>
+                <button>Mint New Album</button>
             </>
         )
     }

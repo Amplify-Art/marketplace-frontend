@@ -1,3 +1,4 @@
+@import "../../assets/SCSS/Vars.scss";
 #artist-dashboard {
     padding-top: 29px;
     padding-bottom: 100px;
@@ -24,7 +25,7 @@
         background: #FFFFFF;
         padding:30px;
         margin-top: 100px;
-        font-family: Space Grotesk;
+        font-family: $space;
         font-style: normal;
         font-weight: normal;
         color: #000000;
@@ -54,7 +55,7 @@
             border: 1px solid #000000;
             box-sizing: border-box;
             border-radius: 100px;
-            font-family: Lato;
+            font-family: $lato;
             font-style: normal;
             font-weight: bold;
             font-size: 16px;
@@ -71,7 +72,7 @@
     }
 
     .supporter-wrapper {
-        font-family: Space Grotesk;
+        font-family: $space;
         font-style: normal;
         font-weight: normal;
         color: #000000;
@@ -132,7 +133,7 @@
         }
     }
     .song-title {
-        font-family: Space Grotesk;
+        font-family: $space;
         font-style: normal;
         font-weight: normal;
         font-size: 20px;
@@ -154,7 +155,7 @@
             box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1), inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(94.2667px);
             padding: 25px 30px 32px 30px;
-            font-family: Space Grotesk;
+            font-family: $space;
             font-style: normal;
             font-weight: normal;
             color: #FFFFFF;

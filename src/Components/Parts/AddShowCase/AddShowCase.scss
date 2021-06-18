@@ -1,3 +1,4 @@
+@import "../../../assets/SCSS/Vars.scss";
 #addshowcase {  
     #info {
             font-size: 18px;
@@ -44,7 +45,7 @@
         width: 60%;
         padding: 8px 0 8px 20px;
         .row-title {
-            font-family: Space Grotesk;
+            font-family: $space;
             font-style: normal;
             font-weight: normal;
             font-size: 16px;

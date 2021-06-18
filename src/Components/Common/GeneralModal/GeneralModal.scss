@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 #general-modal {
   .holder {
     h5 {
@@ -22,7 +24,7 @@
       border: 1px solid #000000;
       box-sizing: border-box;
       border-radius: 100px;
-      font-family: "Lato", sans-serif;
+      font-family: $lato;
       font-size: 16px;
       color: #FFFFFF;
       margin-right: 10px;
