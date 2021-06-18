@@ -3,6 +3,7 @@
   padding-top: 100px;
   justify-content: center;
   padding-bottom: 3600px;
+  overflow-y: hidden !important;
   .button-col {
     display: flex;
     flex-direction: column;
@@ -21,7 +22,6 @@
     margin-bottom: 20px;
   }
 }
-
 
 ol {
   color: white;

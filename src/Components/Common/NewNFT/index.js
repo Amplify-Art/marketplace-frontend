@@ -130,7 +130,7 @@ function NewNFT(props) {
         <h3>Mint New Album</h3>
         <p>Album is being minted for @2n10se</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="split" id="style-4">
+          <div className="split hide-scroll" id="style-4">
             <div className="left">
               <div className="input-holder">
                 <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />

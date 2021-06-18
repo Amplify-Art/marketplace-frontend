@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
 import jwt from 'jsonwebtoken';
 import jwt_decode from 'jwt-decode';
+import { createWallet } from '../../../Api/Near';
 import MenuIcon from '../../../assets/images/menu-icon.svg';
 import Logo from '../../../assets/images/logo.svg';
 import SearchIcon from '../../../assets/images/search-icon.svg';
@@ -10,8 +11,6 @@ import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import './Header.scss';
-
-import { createWallet } from '../../../Api/Near';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
 
@@ -99,19 +98,19 @@ function Header( props ) {
   const setBreadCrumbs = () => {
     let currentPage = '';
 
-    switch (true) {
-      case path === '/albums':
+    switch (path) {
+      case '/albums':
         currentPage = 'Albums';
         break
-      case path === '/my-profile':
+      case '/my-profile':
         currentPage = 'My Profile';
         break
       case path.includes('/artist/'):
         // Need to pull this from the database response... leaving it hard-coded for now... TODO!!
-        currentPage = 'Eminem'
-        break
+        currentPage = 'Eminem';
+        break;
     }
-
+    console.log(currentPage, 'currentPage')
     return currentPage;
   }
 
@@ -155,6 +154,11 @@ function Header( props ) {
           )}
         </div>
       </header>
+      {setBreadCrumbs() &&
+        <div className="breadcrumbs left-nav-pad">
+          Home / <span className="current">{path && setBreadCrumbs()}</span>
+        </div>
+      }
 
       <div className="breadcrumbs left-nav-pad">
         Home / <span className="current">{path && setBreadCrumbs()}</span>
