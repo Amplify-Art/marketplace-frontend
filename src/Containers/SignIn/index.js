@@ -30,26 +30,25 @@ function SignIn(props) {
     const wallet = new WalletConnection(near);
     setWallet(wallet)
   }, [])
-  useEffect(async () => {
-    if (wallet && !isWalletSigned) {
-      wallet.requestSignIn(
-        // user.near_account_id,     // contract requesting access 
-        "Example App",                  // optional
-        `${window.location.origin}/near/success`,  // optional
-        `${window.location.origin}/near/failure`   // optional
-      );
-    }
-  }, [wallet])
+
   const onConnect = () => {
-    if (wallet.isSignedIn()) {
-      return
-    } else
-      wallet.requestSignIn(
-        user.near_account_id,     // contract requesting access 
-        "Example App",                  // optional
-        `${window.location.origin}/near/success`,  // optional
-        `${window.location.origin}/near/failure`   // optional
-      );
+    props.displayLoadingOverlay();
+    try {
+      if (wallet.isSignedIn()) {
+        wallet.requestSignIn()
+        return
+      } else {
+        wallet.requestSignIn(
+          "test", // by this time, we dont have the account to connect so just passing as test
+          "Amplify App",
+          `${window.location.origin}/near/success`,  // optional
+          `${window.location.origin}/near/failure`
+        );
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
   }
 
   const getAccountDetails = async () => {
@@ -64,7 +63,7 @@ function SignIn(props) {
     try {
       const near = await nearAPI.connect(config);
       const account = await near.account(user.near_account_id);
-      console.log(account, 'account')
+
       let balances = await account.getAccountBalance();
       setBalance(balances)
     } catch (e) {
@@ -74,7 +73,6 @@ function SignIn(props) {
   const onCreate = async () => {
     props.displayLoadingOverlay();
     const create = await createWallet()
-    console.log(create, 'create')
     if (create.data.success) {
       localStorage.setItem('amplify_app_token', create.data.token)
       window.location.reload()
@@ -88,7 +86,7 @@ function SignIn(props) {
   return (
     <div className="sign-in-contain">
       <h1>Welcome</h1>
-      {!user.near_connected &&
+      {user && !user.near_connected &&
         < div className="buttons">
           <Button
             text="Connect to Near Wallet"

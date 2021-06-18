@@ -54,9 +54,24 @@ header {
     }
 
     .wallet {
+      cursor: pointer;
       margin-right: 38px;
       @media screen and (max-width: 492px) {
         display: none;
+      }
+    }
+
+    .login-or-else {
+      text-decoration: none;
+      span {
+        color: white;
+        font-size: 20px;
+      }
+
+      i {
+        color: white;
+        margin-right: 15px;
+        font-size: 20px;
       }
     }
   }
@@ -82,4 +97,31 @@ header {
   img {
     width: 100%;
   }
+}
+
+.wallet-info {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  height: 100vh;
+  width: 500px;
+  background: #0f161d;
+  z-index: 999;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: -10px 0px 20px rgb(0 0 0 / 50%);
+  border-left: solid 1px rgba(225,225,225,.2);
+  color: #fff;
+  .near-icon {
+    font-family: "Inter",sans-serif;
+  }
+}
+
+.sidebar-close-cover {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  z-index: 998;
 }

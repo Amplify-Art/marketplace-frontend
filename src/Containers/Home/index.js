@@ -29,7 +29,7 @@ function Home() {
   return (
     <>      
       <Banner homeContent={homeContent} />
-      <Partners />
+      <Partners partners={homeContent && homeContent.Partners} />
       <LatestReleases />
       <WeAreFor />
       <WhatPeopleAreSaying />
@@ -39,7 +39,7 @@ function Home() {
       <TheTeam />
       <ArtistRegistry />
       <HowItWorks hideTitle={true} />
-      <ThankYou />
+      <ThankYou content={homeContent && homeContent.thank_you_text} />
     </>
   );
 }
