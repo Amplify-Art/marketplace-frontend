@@ -69,7 +69,7 @@ function App() {
           <Route path="/player" exact component={Auth(Player)} />
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
           <Route path="/wallet" exact component={Auth(SignIn)} />
-          <Route path="/sandbox" exact component={SandBox} />
+          <Route path="/sandbox" exact component={Auth(SandBox)} />
           <Route path="/auth/login" exact component={Login} />
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact component={Albums} />
