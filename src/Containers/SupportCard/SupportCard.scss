@@ -1,0 +1,37 @@
+.container {
+    max-width: 100%;
+    padding-right: 232px;
+    padding-left: 185px;
+    margin-right: auto;
+    margin-left: auto;
+}
+@media (max-width: 768px){
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (max-width: 576px){
+    .container {
+        max-width: 540px;
+    }
+}
+.card-title {
+    font-family: Space Grotesk;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin-top: 60px;
+}
+.card-content {
+    margin-top: 44px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    .card-img {
+        float: left;
+        width: 25%;
+    }
+}
