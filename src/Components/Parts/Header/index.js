@@ -168,7 +168,7 @@ function Header(props) {
       <div className="breadcrumbs left-nav-pad">
         Home / <span className="current">{path && setBreadCrumbs()}</span>
       </div>
-
+      
       {showWalletSidebar && (
         <>
           <div className="wallet-info">
