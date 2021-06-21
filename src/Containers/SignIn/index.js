@@ -13,7 +13,7 @@ const { keyStores, WalletConnection, utils } = nearAPI;
 
 function SignIn(props) {
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
-  console.log(user, 'user')
+
   const [wallet, setWallet] = useState(null)
   const [isWalletSigned, setIsWalletSigned] = useState(user.near_connected)
   const [balance, setBalance] = useState(null)

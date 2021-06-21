@@ -13,9 +13,6 @@ import Wallet from '../../../assets/images/wallet-icon.svg';
 // Temp Songs
 import Dub from '../../../assets/Music/dub.mp3';
 
-// User Image
-import Harrison from '../../../assets/images/harrison.jpeg';
-
 // Cover import (This will be dynamic)
 import TestCover from '../../../assets/images/album2.png';
 import Albumtemp from '../../../assets/images/albumtemp.jpg';
@@ -57,6 +54,8 @@ const songs = [
 const audioElement = new Audio();
 
 function Player(props) {
+  const { avatar } = props;
+
   const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
@@ -118,7 +117,7 @@ function Player(props) {
           <div className="bell"><img src={BellIcon} alt="Bell" /></div>
           <div className="wallet"><img src={Wallet} alt="wallet" /></div>
           <div className="user">
-            <img src={Harrison} />
+            <img src={avatar} />
           </div>
         </div>
 

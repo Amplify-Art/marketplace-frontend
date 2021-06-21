@@ -19,7 +19,6 @@ function NewNFT(props) {
 
   const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
-    console.log(data, songFiles, 'data')
     let checkErrors = customError;
     if (!albumCover)
       checkErrors.albumCover = 'Album Cover is required';
@@ -29,7 +28,6 @@ function NewNFT(props) {
     if (songFiles.length) {
       let withErrors = songFiles.map((song) => {
         if (!song.title) {
-          console.log(song, 'song')
           checkErrors.songFile = 'This field is required'
           song.error = 'This field is required'
         } return song;
@@ -55,7 +53,6 @@ function NewNFT(props) {
           Authorization: 'Bearer ' + getAccessToken()
         },
       })
-      console.log(mintAlbum, 'mintAlbum')
       if (mintAlbum.data.success) {
         let songFormData = new FormData()
 
@@ -72,7 +69,6 @@ function NewNFT(props) {
             Authorization: 'Bearer ' + getAccessToken()
           },
         })
-        console.log(mintSong, 'mintSong')
         if (mintSong.data.success) {
           props.toggleCongratsModal(true)
           props.hideLoadingOverlay();
@@ -117,11 +113,7 @@ function NewNFT(props) {
     }
     songs.splice(index, 1, file)
     setSongFiles([...songs])
-
-    console.log(customError.songFiles, 'customError.songFiles')
-
   }
-  console.log('acceptedFiles', customError, songFiles);
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">

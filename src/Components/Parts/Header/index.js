@@ -115,7 +115,6 @@ function Header(props) {
         currentPage = 'Eminem';
         break;
     }
-    console.log(currentPage, 'currentPage')
     return currentPage;
   }
 
@@ -126,7 +125,6 @@ function Header(props) {
   if (userToken) {
     userDetails = jwt_decode(userToken);
   }
-  console.log(user, 'balance')
   return (
     <>
       <header>

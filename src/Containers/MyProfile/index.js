@@ -50,14 +50,13 @@ function MyProfile(props) {
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
     const decodedToken = jwt_decode(token);
-    console.log('decodedToken', decodedToken);
 
     setBannerImage(decodedToken.banner);
     setProfileImage(decodedToken.avatar);
     setUserName(decodedToken.username);
 
     props.fetchAlbums();
-  }, [])
+  }, []);
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />

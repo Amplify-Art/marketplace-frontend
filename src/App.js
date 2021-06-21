@@ -8,6 +8,8 @@ import {
   Link
 } from "react-router-dom";
 
+import jwt_decode from 'jwt-decode';
+
 // Containers
 import Header from './Components/Parts/Header/index';
 import Home from './Containers/Home/index';
@@ -40,6 +42,10 @@ function App() {
   const [path, setPath] = useState('');
   const [showLeftSidebar, toggleLeftSidebar] = useState(false);
   const [showPlayer, togglePlayer] = useState(false);
+  const [bannerImage, setBannerImage] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+  const [userName, setUserName] = useState('');
+
   let location = useLocation();
   useEffect(() => {
     setPath(location.pathname);
@@ -55,7 +61,16 @@ function App() {
       toggleLeftSidebar(false);
       togglePlayer(false);
     }
-  }, [path])
+  }, [path]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('amplify_app_token');
+    const decodedToken = jwt_decode(token);
+
+    setBannerImage(decodedToken.banner);
+    setProfileImage(decodedToken.avatar);
+    setUserName(decodedToken.username);
+  }, []);
 
   return (
     <>
@@ -79,7 +94,7 @@ function App() {
           <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />
         </Switch>
-        {showPlayer && <Player />}
+        {showPlayer && <Player avatar={profileImage} />}
       </GloablLoader>
     </>
   );

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import './loader.scss';
 
 const LO = ({ children, active, text }) => {
-    console.log(children)
     return (
         <LoadingOverlay
             active={active}
