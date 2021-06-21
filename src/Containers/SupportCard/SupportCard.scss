@@ -21,10 +21,15 @@
 .card-content {
   margin-top: 44px;
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   max-width: 100%;
   .card-img {
-    float: left;
-    width: 25%;
+    width: 24%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    &:nth-child(4n) {
+      margin-right: 0px;
+    }
   }
 }

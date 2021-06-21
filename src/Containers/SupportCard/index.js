@@ -12,22 +12,24 @@ import Card3C from '../../assets/images/Card_3_C.png';
 import './SupportCard.scss';
 
 function SupportCard() {
-     const CardData = [Card1A,Card1B,Card1C,Card2A,Card2B,Card2C,Card3A,Card3B,Card3C]; 
-     const renderCards =() => {
-         return CardData.map((card,index) =>(
-             <div className="card-img" key={index}>
-                 <img src={card} alt=""/>
-             </div>
-         ))
-     }  
-    return(
-        <div className="container">
-            <div className="card-title">You own 32 Support Cards</div>
-            <div className="card-content">
-                {renderCards()}
-            </div>
+  const CardData = [Card1A, Card1B, Card1C, Card2A, Card2B, Card2C, Card3A, Card3B, Card3C];
+  const renderCards = () => {
+    return CardData.map((card, index) => (
+      <div className="card-img" key={index}>
+        <img src={card} alt="" />
+      </div>
+    ))
+  }
+  return (
+    <div id="support-card" className="left-nav-pad right-player-pad">
+      <div className="container">
+        <div className="card-title">You own 32 Support Cards</div>
+        <div className="card-content">
+          {renderCards()}
         </div>
-    )
-} 
+      </div>
+    </div>
+  )
+}
 
 export default SupportCard;

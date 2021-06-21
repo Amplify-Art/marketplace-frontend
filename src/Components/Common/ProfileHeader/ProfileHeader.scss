@@ -2,12 +2,25 @@
   // height: 344px;
   .container {
     margin-top: -45px;
+    position: relative;
+    z-index: 9;
   }
   .profile-cover {
     margin-left: -220px;
     margin-right: -30px;
     height: 344px;
     max-width: unset;
+    position: relative;
+    &:after {
+      content: '';
+      height: 344px;
+      width: 700px;
+      background: rgb(15,22,29);
+      background: linear-gradient(90deg, rgba(15,22,29,1) 19%, rgba(15,22,29,0) 100%);
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
   }
   .profile-head-details {
     margin-top: -90px;
@@ -22,6 +35,9 @@
     .profile-image {
       width: 180px;
       height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: solid 3px #fff;
     }
 
     .details {

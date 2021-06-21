@@ -2,75 +2,7 @@
 
 #profile {
   padding-top: 29px;
-  .profile-cover {
-    background-image: url('../../assets/images/profile-cover.png');
-    width: calc(100% + 220px);
-    height: 344px;
-    margin-left: -220px;
-    max-width: unset;
-  }
-
-  .profile-head-details {
-    .profile-image {
-      margin-top: -40px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid #FFFFFF;
-      margin-right: 50px;
-    }
-
-    .details {
-      margin-right: auto;
-      margin-top: -40px;
-      h3 {
-        margin-bottom: 0px;
-        font-size: 32px;
-        color: #fff;
-        font-family: $space;
-        font-weight: 400;
-      }
-
-      p {
-        margin-top: 0px;
-        font-size: 20px;
-        color: #fff;
-      }
-    }
-
-    .right-buttons {
-      display: flex;
-      margin-top: 35px;
-      button {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        font-size: 16px;
-        border-radius: 50px;
-        border: 0px;
-        font-family: $lato;
-        padding: 15px 34px;
-        margin-right: 20px;
-        &:last-child {
-          margin-right: 0px;
-        }
-
-        &:first-child {
-          margin-left: auto;
-        }
-        img {
-          margin-left: 10px;
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-
+  
   .recently-purchased {
     padding-right: 20px;
     padding-top: 50px;

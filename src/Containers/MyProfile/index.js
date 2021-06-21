@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 import './MyProfile.scss';
 
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
-
+import CoverImg from '../../assets/images/profile-cover.png';
+import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
+
+import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 
 import Shady from '../../assets/images/shady.jpg';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
@@ -29,6 +32,21 @@ function MyProfile(props) {
     );
   }
 
+  const ArtistData = {
+    cover: bannerImage,
+    avatar: profileImage,
+    name: userName
+  };
+
+  const renderBtnContent = () => {
+    return (
+      <>
+        <button>Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
+        <button><img src={ShareIcon} alt="Twitter" /> Share</button>
+      </>
+    )
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
     const decodedToken = jwt_decode(token);
@@ -42,22 +60,7 @@ function MyProfile(props) {
   }, [])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
-      <div className="profile-cover" style={{ backgroundImage: `url(${bannerImage})` }} />
-      <div className="profile-head-details">
-        <div className="profile-image">
-          <img src={profileImage.replace("_normal","")} alt="Shady" />
-        </div>
-
-        <div className="details">
-          <h3>@{userName}</h3>
-          <p>234 Songs Owned</p>
-        </div>
-
-        <div className="right-buttons">
-          <button>Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
-          <button><img src={ShareIcon} alt="Twitter" /> Share</button>
-        </div>
-      </div>
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
 
       <div className="recently-purchased">
         <div className="top">

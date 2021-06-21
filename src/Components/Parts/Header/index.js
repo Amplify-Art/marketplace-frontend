@@ -159,15 +159,12 @@ function Header(props) {
           )}
         </div>
       </header>
+
       {setBreadCrumbs() &&
         <div className="breadcrumbs left-nav-pad">
           Home / <span className="current">{path && setBreadCrumbs()}</span>
         </div>
       }
-
-      <div className="breadcrumbs left-nav-pad">
-        Home / <span className="current">{path && setBreadCrumbs()}</span>
-      </div>
       
       {showWalletSidebar && (
         <>

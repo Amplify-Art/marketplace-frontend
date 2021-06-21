@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ProfileHeader from '../../Components/Common/ProfileHeader';
+import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
-
+import CoverImg from '../../assets/images/profile-cover.png';
 import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -12,10 +14,27 @@ import Shady from '../../assets/images/shady.jpg';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
 
 function ArtistProfile(props) {
+  const ArtistData = {
+    cover: CoverImg,
+    avatar: ArtisrAvatar,
+    name: 'Imagine Dragons'
+  };
+
   const generateAlbumItem = (album, index) => {
     return (
       <SingleAlbum key={index} albumInfo={album} />
     );
+  }
+
+  const renderBtnContent = () => {
+    return (
+      <>
+        {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
+        <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
+        <button>Upload Store Banner</button>
+        <button>Mint New Album</button>
+      </>
+    )
   }
 
   useEffect(() => {
@@ -23,20 +42,7 @@ function ArtistProfile(props) {
   }, [])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
-      <div className="profile-cover" />
-      <div className="profile-head-details">
-        <div className="profile-image">
-          <img src={Shady} alt="Shady" />
-        </div>
-
-        <div className="details">
-          <h3>Imagine Dragons</h3>
-        </div>
-
-        <div className="right-buttons">
-          <button><img src={TwitterIcon} alt="Twitter" /> Follow</button>
-        </div>
-      </div>
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
 
       <div className="recently-purchased">
         <div className="top">
