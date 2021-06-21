@@ -16,6 +16,7 @@ import SandBox from './Containers/Sandbox/index';
 import ArtistProfile from './Containers/ArtistProfile/index';
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 import ArtistDashboard from './Containers/ArtistDashbord';
+import SupportCard from './Containers/SupportCard';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -76,6 +77,7 @@ function App() {
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
+          <Route path="/support-card" exact component={SupportCard} />
         </Switch>
         {showPlayer && <Player />}
       </GloablLoader>
