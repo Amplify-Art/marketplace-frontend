@@ -141,7 +141,7 @@ input {
 }
 
 .right-player-pad {
-  padding-right: 120px;
+  padding-right: 150px;
 }
 
 .album-grid {
@@ -156,4 +156,20 @@ input {
   @media screen and (max-width: 1325px) {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.flex {
+  display: flex;
+}
+
+.f-align-center {
+  align-items: center;
+}
+
+.f-jc-space-between {
+  justify-content: space-between;
+}
+
+.f-jc-center {
+  justify-content: center;
 }

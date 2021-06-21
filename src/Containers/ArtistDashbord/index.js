@@ -13,105 +13,107 @@ import './ArtistDashboard.scss';
 
 function ArtistDashboard(props) {
 
-    const ArtistData = {
-        cover: CoverImg,
-        avatar: ArtisrAvatar,
-        name: 'Imagine Dragons'
-    };
+  const ArtistData = {
+    cover: CoverImg,
+    avatar: ArtisrAvatar,
+    name: 'Imagine Dragons'
+  };
 
-    const month_Data = [
-        { month: "june", gwei: "gwei", isChecked: false },
-        { month: "may", gwei: "gwei", isChecked: false },
-        { month: "april", gwei: "gwei", isChecked: true },
-        { month: "march", gwei: "gwei", isChecked: true }
-    ]
+  const month_Data = [
+    { month: "june", gwei: "gwei", isChecked: false },
+    { month: "may", gwei: "gwei", isChecked: false },
+    { month: "april", gwei: "gwei", isChecked: true },
+    { month: "march", gwei: "gwei", isChecked: true }
+  ]
 
-    const mostPlayData = [
-        { name: 'Song Name', count: 13 },
-        { name: 'Song Name', count: 11 },
-        { name: 'Song Name', count: 10 },
-        { name: 'Song Name', count: 9 },
-        { name: 'Song Name', count: 8 },
-        { name: 'Song Name', count: 8 },
-        { name: 'Song Name', count: 5 },
-        { name: 'Song Name', count: 5 },
-        { name: 'Song Name', count: 4 },
-        { name: 'Song Name', count: 3 },
-    ]
+  const mostPlayData = [
+    { name: 'Song Name', count: 13 },
+    { name: 'Song Name', count: 11 },
+    { name: 'Song Name', count: 10 },
+    { name: 'Song Name', count: 9 },
+    { name: 'Song Name', count: 8 },
+    { name: 'Song Name', count: 8 },
+    { name: 'Song Name', count: 5 },
+    { name: 'Song Name', count: 5 },
+    { name: 'Song Name', count: 4 },
+    { name: 'Song Name', count: 3 },
+  ]
 
-    const renderBtnContent = () => {
-        return (
-            <>
-                {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
-                <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-                <button>Upload Store Banner</button>
-                <button>Mint New Album</button>
-            </>
-        )
-    }
-    const renderSongList = () => (
-        mostPlayData.map((song, index) => (
-            <div className="song-content">
-                <div>{song.name}</div>
-                <div>{song.count}</div>
-            </div>
-        ))
-    )
-
+  const renderBtnContent = () => {
     return (
-        <div id="artist-dashboard">
-            <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
-            <div className="container">
-                <div className="bal-wrapper">
-                    <div className="left-wrap">
-                        <div className="bal-title">Pending Award Balance</div>
-                        <div className="price">1.82</div>
-                        <div className="near">NEAR</div>
-                        <button className="withdraw-btn">Withdraw To Balance</button>
-                        <div className="report-link">Export Earnings Report</div>
-                    </div>
-                    <div className="supporter-wrapper">
-                        <div className="support-header">
-                            <div className="support-title">Supporter Rev Share</div>
-                            <div className="support-cal">
-                                <img src={CalanderIcon} alt="" className="cal-img" />
-                                <span className="cal-font">2019</span>
-                                <img src={DownArrowIcon} alt="" className="cal-img" />
-                            </div>
-                        </div>
-                        <div className="support-content">
-                            {month_Data && month_Data.map((item, index) => (
-                                <div className="support-inner-content">
-                                    <div className="text-month w-33">{item.month}</div>
-                                    <div className="text-gwei w-33">{item.gwei}</div>
-                                    <div className="w-33 text-align-right">
-                                        <img src={item.isChecked ? RightIcon : RightIconDisable} alt="" className={`${item.isChecked ? 'icon-green' : 'icon-gray'}`} />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                <div className="song-title">Song Stats</div>
-                <div className="song-wrapper">
-                    <div className="w-50 song-inner-content mr-50">
-                        <div className="song-head">
-                            <span className="song-head-title">Most Played</span>
-                            <span className="song-count-title"># of Plays</span>
-                        </div>
-                        {renderSongList()}
-                    </div>
-                    <div className="w-50 song-inner-content">
-                        <div className="song-head">
-                            <span className="song-head-title">Most Purchased</span>
-                            <span className="song-count-title"># of Sales</span>
-                        </div>
-                        {renderSongList()}
-                    </div>
-                </div>
-            </div>
-        </div>
+      <>
+        {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
+                <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
+        <button>Upload Store Banner</button>
+        <button>Mint New Album</button>
+      </>
     )
+  }
+  const renderSongList = () => (
+    mostPlayData.map((song, index) => (
+      <div className="song-content">
+        <div>{song.name}</div>
+        <div>{song.count}</div>
+      </div>
+    ))
+  )
+
+  return (
+    <div id="artist-dashboard" className="left-nav-pad right-player-pad">
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
+      <div className="content">
+        <div className="container">
+          <div className="bal-wrapper">
+            <div className="left-wrap">
+              <div className="bal-title">Pending Award Balance</div>
+              <div className="price">1.82</div>
+              <div className="near">NEAR</div>
+              <button className="withdraw-btn">Withdraw To Balance</button>
+              <div className="report-link">Export Earnings Report</div>
+            </div>
+            <div className="supporter-wrapper">
+              <div className="support-header">
+                <div className="support-title">Supporter Rev Share</div>
+                <div className="support-cal">
+                  <img src={CalanderIcon} alt="" className="cal-img" />
+                  <span className="cal-font">2019</span>
+                  <img src={DownArrowIcon} alt="" className="cal-img" />
+                </div>
+              </div>
+              <div className="support-content">
+                {month_Data && month_Data.map((item, index) => (
+                  <div className="support-inner-content">
+                    <div className="text-month w-33">{item.month}</div>
+                    <div className="text-gwei w-33">{item.gwei}</div>
+                    <div className="w-33 text-align-right">
+                      <img src={item.isChecked ? RightIcon : RightIconDisable} alt="" className={`${item.isChecked ? 'icon-green' : 'icon-gray'}`} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="song-title">Song Stats</div>
+          <div className="song-wrapper">
+            <div className="w-50 song-inner-content mr-50">
+              <div className="song-head">
+                <span className="song-head-title">Most Played</span>
+                <span className="song-count-title"># of Plays</span>
+              </div>
+              {renderSongList()}
+            </div>
+            <div className="w-50 song-inner-content">
+              <div className="song-head">
+                <span className="song-head-title">Most Purchased</span>
+                <span className="song-count-title"># of Sales</span>
+              </div>
+              {renderSongList()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 };
 
 export default ArtistDashboard;
