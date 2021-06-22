@@ -1,12 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-  Link
-} from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 // Containers
 import Header from './Components/Parts/Header/index';
@@ -17,6 +11,7 @@ import ArtistProfile from './Containers/ArtistProfile/index';
 import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 import ArtistDashboard from './Containers/ArtistDashbord';
 import SupportCard from './Containers/SupportCard';
+import PageNotFound from './Containers/PageNotFound';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -78,6 +73,7 @@ function App() {
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />
+          <Route component={PageNotFound} />
         </Switch>
         {showPlayer && <Player />}
       </GloablLoader>
