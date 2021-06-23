@@ -60,4 +60,8 @@
         height: 36px;
         padding: 0;
     }
+    .loading-skeleton{
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -1,0 +1,133 @@
+import { filter } from 'lodash';
+import * as types from '../../Constants/actions/Playlist';
+
+/* eslint-disable no-case-declarations */
+
+const initialState = {
+  playlist: {},
+  playlists: [],
+  total: 0,
+  loading: false,
+  error: '',
+};
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case types.FETCH_PLAYLISTS_SUCCESS:
+      if (!action.res.success) {
+        return {
+          ...state,
+          playlists: [],
+          error: '',
+          loading: false,
+        };
+      }
+      return {
+        ...state,
+        playlists: (action.res.data && action.res.data.results) || [],
+        total: (action.res.data && action.res.data.total) || 0,
+        status: action.res.success,
+        loading: false,
+      };
+    case types.FETCH_PLAYLISTS_REQUEST:
+      return {
+        ...state,
+        playlists: [],
+        loading: true,
+      };
+    case types.FETCH_PLAYLIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.UPDATE_PLAYLIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.DELETE_PLAYLIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.ADD_PLAYLIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.FETCH_PLAYLISTS_FAILED:
+      return {
+        ...state,
+        playlists: [],
+        error: 'Bad Request',
+        loading: false,
+      };
+    case types.FETCH_PLAYLIST_SUCCESS:
+      if (!action.res.data.success) {
+        return {
+          ...state,
+          playlist: {},
+          error: '',
+          loading: false,
+        };
+      }
+      return {
+        ...state,
+        playlist: action.res.data || {},
+        status: action.res.data.success,
+        loading: false,
+      };
+    case types.FETCH_PLAYLIST_FAILED:
+      return {
+        ...state,
+        playlist: {},
+        error: 'Bad Request',
+        loading: false,
+      };
+    case types.ADD_PLAYLIST_SUCCESS:
+      return {
+        ...state,
+        // playlists: [...state.playlists, action.res.data],
+        status: action.res.success,
+        loading: false,
+      };
+    case types.ADD_PLAYLIST_FAILED:
+      return {
+        ...state,
+        error: 'Bad Request',
+        loading: false,
+      };
+    case types.UPDATE_PLAYLIST_SUCCESS:
+      let playlists = filter(state.playlists, item => item.id !== action.res.data.id);
+      return {
+        ...state,
+        playlist: action.res.data || {},
+        playlists: [...playlists, action.res.data],
+        status: action.res.success,
+        loading: false,
+      };
+    case types.UPDATE_PLAYLIST_FAILED:
+      return {
+        ...state,
+        error: 'Bad Request',
+        loading: false,
+      };
+    case types.DELETE_PLAYLIST_SUCCESS:
+      playlists = filter(state.playlists, item => item.id !== action.payload.id);
+
+      return {
+        ...state,
+        playlists: [...playlists],
+        status: true,
+        loading: false,
+      };
+    case types.DELETE_PLAYLIST_FAILED:
+      return {
+        ...state,
+        error: 'Bad Request',
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}

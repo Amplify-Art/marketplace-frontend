@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './MyProfile.scss';
 
-import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
+import { fetchNFTsAction } from '../../redux/actions/NFTAction';
 import CoverImg from '../../assets/images/profile-cover.png';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -25,10 +25,10 @@ function MyProfile(props) {
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
-  
-  const generateAlbumItem = (album, index) => {
+
+  const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum key={index} albumInfo={album} />
+      <SingleAlbum key={index} albumInfo={nft} />
     );
   }
 
@@ -49,30 +49,36 @@ function MyProfile(props) {
 
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
-    const decodedToken = jwt_decode(token);
-
-    setBannerImage(decodedToken.banner);
-    setProfileImage(decodedToken.avatar);
-    setUserName(decodedToken.username);
-
-    props.fetchAlbums();
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setBannerImage(decodedToken.banner);
+      setProfileImage(decodedToken.avatar);
+      setUserName(decodedToken.username);
+    }
+    props.fetchNFTs();
   }, []);
+  console.log(props.loading)
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
+      {props.nfts.length ?
+        <div className="recently-purchased">
+          <div className="top">
+            <h2>Recently Purchased</h2>
+            <button className="btn outlined">View All</button>
+          </div>
 
-      <div className="recently-purchased">
-        <div className="top">
-          <h2>Recently Purchased</h2>
-          <button className="btn outlined">View All</button>
+          <div className="albums" className="album-grid">
+            {props && props.nfts && props.nfts.length > 0 && props.nfts.map((nft, index) => (
+              generateAlbumItem(nft, index)
+            ))}
+          </div>
         </div>
-
-        <div className="albums" className="album-grid">
-          {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
-            generateAlbumItem(album, index)
-          ))}
-        </div>
-      </div>
+        :
+        !props.loading ?
+          <span>No items to show</span>
+          : null
+      }
     </div>
   );
 }
@@ -80,11 +86,13 @@ function MyProfile(props) {
 
 export default connect(state => {
   return {
-    albums: state.albums.albums,
+    nfts: state.nfts.nfts,
+    total: state.nfts.total,
+    loading: state.nfts.loading
   }
 },
   dispatch => {
     return {
-      fetchAlbums: () => dispatch(fetchAlbumsAction()),
+      fetchNFTs: () => dispatch(fetchNFTsAction()),
     }
   })(withRouter(MyProfile));

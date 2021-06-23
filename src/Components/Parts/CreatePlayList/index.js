@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useForm } from "react-hook-form";
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AddShowCase from '../AddShowCase';
+import { addPlaylistAction } from '../../../redux/actions/PlaylistAction';
+import { fetchAlbumsAction } from '../../../redux/actions/AlbumAction';
+
 
 import CDImg from '../../../assets/images/cd-img.svg';
 
 import './CreatePlayList.scss';
 
-function CreatePlayList({ showCaseData }) {
+function CreatePlayList({ showCaseData, fetchAlbums, albums }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => setTimeout(() => setLoading(false), 1000), []);
+  useEffect(() => {
+    fetchAlbums({})
+  }, []);
 
   const playlistData = [
     { title: "What is Love" },
@@ -21,7 +28,7 @@ function CreatePlayList({ showCaseData }) {
   ];
 
   const renderPlayList = () => {
-    return playlistData.map((list, index) => (
+    return [].map((list, index) => (
       <div>{`${index + 1}. ${list.title}`}</div>
     ))
   }
@@ -43,7 +50,7 @@ function CreatePlayList({ showCaseData }) {
             <div className={`case-box case-wrapper ${loading && 'hidden'}`}>
               <img src={CDImg} alt="" />
             </div>
-            
+
             <ul>
               {renderPlayList()}
             </ul>
@@ -57,4 +64,12 @@ function CreatePlayList({ showCaseData }) {
   )
 };
 
-export default CreatePlayList;
+export default connect(state => {
+  return {
+    albums: state.albums.albums
+  }
+}, dispatch => {
+  return {
+    fetchAlbums: (data) => dispatch(fetchAlbumsAction(data))
+  }
+})(withRouter(CreatePlayList));

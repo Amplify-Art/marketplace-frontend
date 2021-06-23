@@ -1,0 +1,122 @@
+import { put, call, takeLatest, all } from 'redux-saga/effects';
+import { addPlaylist, deletePlaylist, getPlaylistById, getPlaylists, updatePlaylist} from '../../Api/Playlist';
+import * as types from '../../Constants/actions/Playlist';
+import { SET_NOTIFICATION } from '../../Constants/actions/Global';
+
+/* eslint-disable no-use-before-define */
+export default function* watchOptionsListener(context = {}) {
+  yield takeLatest(types.FETCH_PLAYLISTS_REQUEST, fetchPlaylistsSaga);
+  yield takeLatest(types.FETCH_PLAYLIST_REQUEST, fetchPlaylistSaga);
+  yield takeLatest(types.ADD_PLAYLIST_REQUEST, addPlaylistSaga, context);
+  yield takeLatest(types.UPDATE_PLAYLIST_REQUEST, updatePlaylistSaga, context);
+  yield takeLatest(types.DELETE_PLAYLIST_REQUEST, deletePlaylistSaga);
+}
+
+export function* fetchPlaylistsSaga({ payload }) {
+  try {
+    const res = yield call(getPlaylists, payload);
+    yield all([
+      put({ type: types.FETCH_PLAYLISTS_SUCCESS, res }),
+    ]);
+  } catch (error) {
+    yield put({ type: types.FETCH_PLAYLISTS_FAILED, error });
+  }
+}
+
+export function* fetchPlaylistSaga({ payload }) {
+  try {
+    const res = yield call(getPlaylistById, payload);
+    yield all([
+      put({ type: types.FETCH_PLAYLIST_SUCCESS, res }),
+    ]);
+  } catch (error) {
+    yield put({ type: types.FETCH_PLAYLIST_FAILED, error });
+  }
+}
+
+export function* addPlaylistSaga({ history }, { payload }) {
+  try {
+    const res = yield call(addPlaylist, payload);
+    yield all([
+      put({ type: types.ADD_PLAYLIST_SUCCESS, res }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: res.success,
+          message: res.success ? 'Playlist added' : res.message || 'Playlist not added',
+        },
+      }),
+    ]);
+    if (res && res.success && res.data && res.data.id && history) {
+      history.push('/playlists');
+    }
+  } catch (error) {
+    yield all([
+      put({ type: types.ADD_PLAYLIST_FAILED, error }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* updatePlaylistSaga({ history }, { payload }) {
+  try {
+    const res = yield call(updatePlaylist, payload);
+    yield all([
+      put({ type: types.UPDATE_PLAYLIST_SUCCESS, res }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: res.success,
+          message: res.success ? 'Playlist updated' : res.message || 'Playlist not updated',
+        },
+      }),
+    ]);
+    if (res && res.success && res.data && res.data.id && history) {
+      history.push('/playlists');
+    }
+  } catch (error) {
+    yield all([
+      put({ type: types.UPDATE_PLAYLIST_FAILED, error }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* deletePlaylistSaga({ payload }) {
+  try {
+    const res = yield call(deletePlaylist, payload);
+    yield all([
+      put({ type: types.DELETE_PLAYLIST_SUCCESS, payload }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: res.success,
+          message: res.success ? 'Playlist deleted' : res.message || 'Playlist not deleted',
+        },
+      }),
+    ]);
+  } catch (error) {
+    yield all([
+      put({ type: types.DELETE_PLAYLIST_FAILED, error }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+};

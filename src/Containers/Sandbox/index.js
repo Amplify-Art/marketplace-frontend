@@ -124,7 +124,7 @@ function SandBox(props) {
 
       {showShowCaseModal && <GeneralModal
         headline="Add to Showcase"
-        bodyChildren={<AddShowCase showCaseData={showCaseData} />}
+        bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} />}
         closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
         isCloseButton={true}
       />

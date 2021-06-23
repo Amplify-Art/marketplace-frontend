@@ -60,11 +60,12 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
-    const decodedToken = jwt_decode(token);
-
-    setBannerImage(decodedToken.banner);
-    setProfileImage(decodedToken.avatar);
-    setUserName(decodedToken.username);
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setBannerImage(decodedToken.banner);
+      setProfileImage(decodedToken.avatar);
+      setUserName(decodedToken.username);
+    }
   }, []);
 
   return (
