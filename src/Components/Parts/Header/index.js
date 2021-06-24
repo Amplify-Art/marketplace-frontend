@@ -132,7 +132,9 @@ function Header(props) {
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
         <div className="logo">
-          <img src={Logo} alt="Amplify.Art" />
+          <Link to='/' >
+            <img src={Logo} alt="Amplify.Art" />
+          </Link>
         </div>
 
         <div className="search">
@@ -163,7 +165,7 @@ function Header(props) {
           Home / <span className="current">{path && setBreadCrumbs()}</span>
         </div>
       }
-      
+
       {showWalletSidebar && (
         <>
           <div className="wallet-info">

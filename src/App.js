@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation,Redirect } from "react-router-dom";
 
 import jwt_decode from 'jwt-decode';
 
@@ -40,6 +40,7 @@ function App() {
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
+  const user = localStorage.getItem('amplify_app_token')
 
   let location = useLocation();
   useEffect(() => {
@@ -75,7 +76,7 @@ function App() {
         <SideSocialNav />
         {showLeftSidebar && <MainSideNav />}
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact render={() => user ? <Redirect to='/my-profile' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
           <Route path="/wallet" exact component={Auth(SignIn)} />
