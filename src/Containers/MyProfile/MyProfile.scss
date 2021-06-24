@@ -1,23 +1,50 @@
 @import '../../assets/SCSS/Vars.scss';
 #profile {
-  padding-top: 29px;
+	padding-top: 29px;
 
-  .recently-purchased {
-    padding-right: 20px;
-    padding-top: 50px;
-    .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      h2 {
-        font-size: 20px;
-        color: #fff;
-      }
+	.recently-purchased {
+		padding-right: 20px;
+		padding-top: 50px;
+		.top {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 30px;
+			h2 {
+				font-size: 20px;
+				color: #fff;
+			}
 
-      .btn {
-        width: 145px;
-      }
-    }
-  }
+			.btn {
+				width: 145px;
+			}
+		}
+	}
+	.popUp {
+		background: #ffffff;
+		border: 1px solid #ffffff;
+		box-sizing: border-box;
+		border-radius: 10px;
+		font-family: $lato;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: #000000;
+		padding: 7px 14px;
+		cursor: pointer;
+		position: absolute;
+		top: -56px;
+		width: 140px;
+		right: 25px;
+		.popup-div {
+			display: flex;
+			.popup-img {
+				padding-right: 7px;
+			}
+		}
+	}
+}
+
+#profile-header .btn-wrap .set_name {
+	margin-right: 0px;
 }
