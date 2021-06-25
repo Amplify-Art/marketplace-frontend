@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Switch, Route, useLocation,Redirect } from "react-router-dom";
-
+import { Switch, Route, useLocation,Redirect, useHistory } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 // Containers
@@ -33,7 +32,9 @@ import Player from './Components/Common/Player/index';
 // Global Loader
 import GloablLoader from './Components/Common/Loading/index';
 
-function App() {
+function App(props) {
+  let history = useHistory();
+  let location = useLocation();
   const [path, setPath] = useState('');
   const [showLeftSidebar, toggleLeftSidebar] = useState(false);
   const [showPlayer, togglePlayer] = useState(false);
@@ -41,11 +42,14 @@ function App() {
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
   const user = localStorage.getItem('amplify_app_token')
-
-  let location = useLocation();
   useEffect(() => {
     setPath(location.pathname);
+    if(location.pathname === "/logout") {
+      localStorage.removeItem('amplify_app_token')
+      history.push("/") 
+    }
   }, [location]);
+
 
   useEffect(() => {
     if (!path)
