@@ -6,12 +6,12 @@
     .left-wrapper {
         background: linear-gradient(123.48deg, #F18180 0%, #EC5051 52.12%);
         padding: 5px 10px;
-    }
-    .bg-album-img{
-        background: url('../../../assets/images/album_case.png');
-        min-height: 50%;
-        max-height: auto;
         width: 50%;
+    }
+    .bg-album-img {
+        background: url('../../../assets/images/album_case.png');
+        width: 55%;
+        background-size: cover;
     }
     .album-top {
         display: flex;
@@ -19,10 +19,10 @@
             width: 120px;
             height: 120px;
         }
-        .album-right{
+        .album-right {
             padding-left: 20px;
             .title {
-                font-size: 24px;
+                font-size: 20px;
                 line-height: 31px;
                 color: #FFFFFF;
                 margin-bottom: 4px;
@@ -35,7 +35,7 @@
                 opacity: 0.8;
                 margin-bottom: 12px;
             }
-            .view-detail{
+            .view-detail {
                 font-size: 16px;
                 line-height: 20px;
                 text-decoration-line: underline;
@@ -44,10 +44,17 @@
             }
         }
     }
-    .album-bottom{
+    .album-bottom {
         padding-top: 32px;
     }
     .inner-content-album {
         display: flex;
+        justify-content: space-between;
+        .album-title {
+            display: flex;
+        }
+        .pr-10 {
+            padding-right: 10px;
+        }
     }
 }
