@@ -3,9 +3,9 @@ import './PageNotFound.scss';
 
 function PageNotFound() {
     return(
-        <dv id="error-page">
+        <div id="error-page" className="error-page">
             <div className="title">404</div>
-        </dv>
+        </div>
     )
 }
 
