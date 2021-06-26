@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
@@ -9,11 +8,12 @@ import CoverImg from '../../assets/images/profile-cover.png';
 import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
-
-import Shady from '../../assets/images/shady.jpg';
-import TwitterIcon from '../../assets/images/twitter-icon.svg';
+import NewNFT from '../../Components/Common/NewNFT/index';
 
 function ArtistProfile(props) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const ArtistData = {
     cover: CoverImg,
     avatar: ArtisrAvatar,
@@ -26,15 +26,24 @@ function ArtistProfile(props) {
     );
   }
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
   const renderBtnContent = () => {
     return (
       <>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         <button>Upload Store Banner</button>
-        <button>Mint New Album</button>
+        <button onClick={handleOpenModal}>Mint New Album</button>
       </>
     )
+  }
+
+  const handleCloseModal = () => {
+    console.log("call");
+    setIsModalOpen(false)
   }
 
   useEffect(() => {
@@ -56,6 +65,7 @@ function ArtistProfile(props) {
           ))}
         </div>
       </div>
+      {isModalOpen && <NewNFT closeNewNftModal={handleCloseModal} />}
     </div>
   );
 }

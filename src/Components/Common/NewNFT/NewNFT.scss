@@ -48,7 +48,11 @@
 			}
 		}
 	}
-
+	.close-icon {
+		position: absolute;
+    	top: 40px;
+    	right: 500px;
+	}
 	.song-list {
 		.single-song {
 			display: flex;
