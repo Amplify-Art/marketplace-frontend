@@ -24,7 +24,7 @@ function MainSideNav(props) {
         <li><a href="#">Logout</a></li>
         
         <li className="nav-header">Artist</li>
-        <li><a href="/artist-dashboard/1">Dashboard</a></li>
+        <li><a href="/artist-dashboard">Dashboard</a></li>
       </ul>
     </div>
   );
