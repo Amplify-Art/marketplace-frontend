@@ -45,11 +45,14 @@ function MyProfile(props) {
     return (
       <>
         <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
-          <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+        <div className="popup-container">
           {openSharePopup && <div className="popUp" >
-            <div className="popup-div" style={{paddingBottom:'8px'}}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</div>
-            <div className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{paddingRight:'15px'}} />Tweet</div>
+            <a href='#' className="popup-div" style={{ paddingBottom: '16px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
+            <a href='#' className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</a>
           </div>}
+          <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+        </div>
+
       </>
     )
   }
@@ -58,7 +61,7 @@ function MyProfile(props) {
     const token = localStorage.getItem('amplify_app_token');
     if (token) {
       const decodedToken = jwt_decode(token);
-      console.log('decodedToken',decodedToken)
+      console.log('decodedToken', decodedToken)
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
