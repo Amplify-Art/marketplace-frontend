@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
@@ -9,9 +9,22 @@ import CalanderIcon from '../../assets/images/CalanderIcon.svg';
 import RightIcon from '../../assets/images/RightIcon.svg';
 import RightIconDisable from '../../assets/images/RightIconDisable.svg';
 
+import NewNFT from '../../Components/Common/NewNFT/index';
+
 import './ArtistDashboard.scss';
 
 function ArtistDashboard(props) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
 
   const ArtistData = {
     cover: CoverImg,
@@ -45,7 +58,7 @@ function ArtistDashboard(props) {
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         <button>Upload Store Banner</button>
-        <button>Mint New Album</button>
+        <button onClick={handleOpenModal}>Mint New Album</button>
       </>
     )
   }
@@ -112,6 +125,7 @@ function ArtistDashboard(props) {
           </div>
         </div>
       </div>
+      {isModalOpen && <NewNFT closeNewNftModal={handleCloseModal} />}
     </div>
   )
 };
