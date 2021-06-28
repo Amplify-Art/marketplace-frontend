@@ -19,7 +19,7 @@ function MainSideNav(props) {
         
         <li className="nav-header">Profile</li>
         <li><a href="/my-profile">Profile</a></li>
-        <li><a href="#">Nominate</a></li>
+        <li><a href="/nominate">Nominate</a></li>
         <li><a href="/wallet">Wallet</a></li>
         <li><a href="/logout">Logout</a></li>
         

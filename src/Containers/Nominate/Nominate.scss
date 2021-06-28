@@ -1,0 +1,119 @@
+@import "../../assets/SCSS/Vars.scss";
+#nominate-container {
+    // width: 900px;
+    width: 72%;
+    margin: auto;
+    box-sizing: border-box;
+    padding-bottom: 50px;
+	.nominate-banner {
+        margin: 40px 0px;
+		font-family: 'Space Grotesk';
+		font-size: 14px;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
+	}
+    .nominet_border1{
+        height: 441px;
+        width: 872px;
+        background: #000000;
+        position: absolute;
+        -webkit-clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        padding: 2px;
+        margin-top: 6px;
+        margin-left: 10px;
+        z-index: -99999999;
+        .nominet_border2{
+            height: 441px;
+            width: 883px;
+            background: #0f161d;
+            z-index: 9999;
+            clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        }
+
+    }
+    
+    .nominate_wrapp{
+        // position: relative;
+        width: 100%;
+        clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        // background: rgba(196, 196, 196, 0.1);
+        background-color: rgb(39 46 51);
+        box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
+            inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
+            // &::after{
+            //     position: absolute;
+            //     content: "";
+            //     top: 0;
+            //     width: 100%;
+            //     height: auto;
+            //     border: 1px solid red;
+            //     left: 0;
+            //     right: 0;
+            //     bottom: 0;
+            //     padding: 0px;
+            //     margin: auto;
+            // }
+        .content {
+            padding: 100px 110px;
+            .heading {
+                font-size: 37px;
+                font-family: "Space Grotesk", sans-serif;
+                text-transform: capitalize;
+                color: #ffffff;
+                margin-top: 0px;
+                margin-bottom: 20px;
+                text-align: center;
+                font-weight: normal;
+            }
+            .nominate {
+                font-family: $space;
+                font-size: 20px;
+                line-height: 26px;
+                text-align: center;
+                color: #ffffff;
+                margin-bottom: 10px;
+            }
+            .submission {
+                font-family: $space;
+                font-size: 12px;
+                line-height: 15px;
+                color: #ffffff;
+                opacity: 0.5;
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            .search {
+                display: flex;
+                @media screen and (max-width: 912px) {
+                    display: none;
+                }
+                input {
+                    border: 2px solid #515252;
+                    background: transparent;
+                    border-radius: 10px;
+                    padding: 15px 20px 10px 15px;
+                    width: 70%;
+                    box-sizing: border-box;
+                    font-size: 16px;
+                    color: #fff;
+                }
+                .btn {
+                    background: #ffffff;
+                    color: black;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border-radius: 50px;
+                    border: 0px;
+                    font-family: "Lato", sans-serif;
+                    margin-left: 20px;
+                    padding: 14px 22px;
+                }
+            }
+        }
+    }
+	
+}

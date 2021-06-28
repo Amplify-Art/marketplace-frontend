@@ -13,6 +13,7 @@ import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 import ArtistDashboard from './Containers/ArtistDashbord';
 import SupportCard from './Containers/SupportCard';
 import PageNotFound from './Containers/PageNotFound';
+import Nominate from './Containers/Nominate'
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -94,6 +95,7 @@ function App(props) {
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />
+          <Route path='/nominate' exact component={Nominate} />
           <Route component={PageNotFound} />
         </Switch>
         {showPlayer && <Player avatar={profileImage} />}
