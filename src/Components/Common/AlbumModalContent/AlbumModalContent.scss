@@ -1,60 +1,119 @@
 #albums-content {
-    display: flex;
-    font-family: Space Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    .left-wrapper {
-        background: linear-gradient(123.48deg, #F18180 0%, #EC5051 52.12%);
-        padding: 5px 10px;
-        width: 50%;
-    }
-    .bg-album-img {
-        background: url('../../../assets/images/album_case.png');
-        width: 55%;
-        background-size: cover;
-    }
-    .album-top {
-        display: flex;
-        .album-img {
-            width: 120px;
-            height: 120px;
-        }
-        .album-right {
-            padding-left: 20px;
-            .title {
-                font-size: 20px;
-                line-height: 31px;
-                color: #FFFFFF;
-                margin-bottom: 4px;
-                margin-top: 8px;
-            }
-            .artist-title {
-                font-size: 16px;
-                line-height: 20px;
-                color: #FFFFFF;
-                opacity: 0.8;
-                margin-bottom: 12px;
-            }
-            .view-detail {
-                font-size: 16px;
-                line-height: 20px;
-                text-decoration-line: underline;
-                color: #000000;
-                margin-bottom: 8px;
-            }
-        }
-    }
-    .album-bottom {
-        padding-top: 32px;
-    }
-    .inner-content-album {
-        display: flex;
-        justify-content: space-between;
-        .album-title {
-            display: flex;
-        }
-        .pr-10 {
-            padding-right: 10px;
-        }
-    }
+	display: flex;
+	font-family: Space Grotesk;
+	font-style: normal;
+	font-weight: normal;
+	.left-wrapper {
+		background: linear-gradient(123.48deg, #f18180 0%, #ec5051 52.12%);
+		padding: 5px 10px;
+		width: 50%;
+	}
+	.bg-album-img {
+		background: url('../../../assets/images/album_case.png');
+		width: 55%;
+		background-size: cover;
+	}
+	.album-top {
+		display: flex;
+		.album-img {
+			width: 120px;
+			height: 120px;
+		}
+		.album-right {
+			padding-left: 20px;
+			.title {
+				font-size: 20px;
+				line-height: 31px;
+				color: #ffffff;
+				margin-bottom: 4px;
+				margin-top: 8px;
+			}
+			.artist-title {
+				font-size: 16px;
+				line-height: 20px;
+				color: #ffffff;
+				opacity: 0.8;
+				margin-bottom: 12px;
+			}
+			.view-detail {
+				font-size: 16px;
+				line-height: 20px;
+				text-decoration-line: underline;
+				color: #000000;
+				margin-bottom: 8px;
+				cursor: pointer;
+			}
+		}
+	}
+	.viewdetails-top {
+		display: flex;
+		.back-img {
+			height: 22px;
+			width: 16px;
+			margin-top: 7px;
+			margin-left: 5px;
+			cursor: pointer;
+		}
+		.details-banner {
+			font-family: Space Grotesk;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 24px;
+			line-height: 31px;
+			color: #ffffff;
+			margin-left: 18%;
+			margin-top: 3px;
+		}
+	}
+	.details-content {
+		.sub-content {
+			font-family: Space Grotesk;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 20px;
+			color: #ffffff;
+		}
+	}
+	.memory-card {
+		clip-path: polygon(50% 0, 78% 22%, 100% 23%, 100% 100%, 0 100%, 0 0);
+		background: #303030;
+		.mint-text {
+			font-family: Space Grotesk;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 18px;
+			letter-spacing: 0.05em;
+			color: #ffffff;
+		}
+		.mint-number {
+			font-family: Space Grotesk;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 42px;
+			line-height: 54px;
+			letter-spacing: 0.05em;
+			color: #ffffff;
+			text-shadow: 4.08216e-16px 6.66667px 13.3333px rgba(51, 51, 51, 0.492);
+		}
+	}
+	.album-bottom {
+		padding-top: 32px;
+	}
+	.inner-content-album {
+		display: flex;
+		justify-content: space-between;
+		.album-title {
+			display: flex;
+		}
+		.pr-10 {
+			padding-right: 10px;
+		}
+	}
+}
+
+#general-modal .holder .sub-content {
+	text-align: left;
+	margin-left: 7px;
 }
