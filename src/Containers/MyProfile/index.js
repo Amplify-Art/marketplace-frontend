@@ -21,10 +21,11 @@ import CoverThree from '../../assets/images/cover3.png';
 import CoverFour from '../../assets/images/cover4.png';
 import CoverFive from '../../assets/images/cover5.png';
 import copyLink from '../../assets/images/highblack copy 1.svg'
+import defaultProfile from '../../assets/images/default-profile.jpg'
 
 function MyProfile(props) {
   const [bannerImage, setBannerImage] = useState('');
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(defaultProfile);
   const [userName, setUserName] = useState('');
   const [openSharePopup, setSharePopup] = useState(false)
 
@@ -45,10 +46,14 @@ function MyProfile(props) {
       <>
         <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
         <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
-        {openSharePopup && <div className="popUp" >
-          <div className="popup-div" style={{ paddingBottom: '8px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</div>
-          <div className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</div>
-        </div>}
+        <div className="popup-container">
+          {openSharePopup && <div className="popUp" >
+            <a href='#' className="popup-div" style={{ paddingBottom: '16px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
+            <a href='#' className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</a>
+          </div>}
+          <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+        </div>
+
       </>
     )
   }
@@ -57,6 +62,7 @@ function MyProfile(props) {
     const token = localStorage.getItem('amplify_app_token');
     if (token) {
       const decodedToken = jwt_decode(token);
+      console.log('decodedToken', decodedToken)
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);

@@ -92,7 +92,7 @@ function App(props) {
           <Route path="/my-profile" exact component={MyProfile} />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
-          <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
+          <Route path="/artist-dashboard" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />
           <Route component={PageNotFound} />
         </Switch>
