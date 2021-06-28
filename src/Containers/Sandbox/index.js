@@ -65,6 +65,7 @@ function SandBox(props) {
   const mintNewAlbum = () => {
 
   }
+  console.log(showShowCaseModal, 'showShowCaseModal')
   return (
     <div id="sandbox">
       <div className="button-col">
@@ -115,7 +116,7 @@ function SandBox(props) {
 
       {showPlayListModal && <GeneralModal
         headline="Create New Playlist"
-        bodyChildren={<CreatePlayList showCaseData={showCaseData} />}
+        bodyChildren={<CreatePlayList showCaseData={showCaseData} togglePlayListModal={togglePlayListModal} />}
         contentClassName="playlist-modal"
         closeModal={() => togglePlayListModal(!showPlayListModal)}
         isCloseButton={true}

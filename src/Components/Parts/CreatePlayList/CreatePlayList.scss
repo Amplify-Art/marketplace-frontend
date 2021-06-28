@@ -1,9 +1,9 @@
-.holder.playlist-modal{
+.holder.playlist-modal {
     width: 700px;
     #create-playlist {
         .playlist-wrapper {
             display: flex;
-            .playlist-showcase{
+            .playlist-showcase {
                 width: 60%;
             }
         }
@@ -17,7 +17,7 @@
             }
             .case-wrapper {
                 background-repeat: no-repeat;
-                background: url('../../../assets/images/case-transparent.png');
+                background: url("../../../assets/images/case-transparent.png");
                 background-size: cover;
                 img {
                     width: 84%;
@@ -30,12 +30,18 @@
                 list-style: none;
                 width: 80%;
                 margin-left: 10px;
+                .remove {
+                    padding: 2px;
+                    font-size: 10px;
+                    width: 50px;
+                    float: right;
+                }
                 div {
-                    padding: 6px 20px;      
+                    padding: 6px 20px;
                     &:first-child {
                         background: rgba(196, 196, 196, 0.3);
                         border-radius: 3px;
-                      }
+                    }
                 }
             }
         }

@@ -44,11 +44,11 @@ function MyProfile(props) {
     return (
       <>
         <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
-          <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
-          {openSharePopup && <div className="popUp" >
-            <div className="popup-div" style={{paddingBottom:'8px'}}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</div>
-            <div className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{paddingRight:'15px'}} />Tweet</div>
-          </div>}
+        <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+        {openSharePopup && <div className="popUp" >
+          <div className="popup-div" style={{ paddingBottom: '8px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</div>
+          <div className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</div>
+        </div>}
       </>
     )
   }

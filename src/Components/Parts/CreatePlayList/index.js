@@ -5,45 +5,56 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddShowCase from '../AddShowCase';
 import { addPlaylistAction } from '../../../redux/actions/PlaylistAction';
-import { fetchAlbumsAction } from '../../../redux/actions/AlbumAction';
 
 
 import CDImg from '../../../assets/images/cd-img.svg';
 
 import './CreatePlayList.scss';
 
-function CreatePlayList({ showCaseData, fetchAlbums, albums }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchAlbums({})
-  }, []);
-
-  const playlistData = [
-    { title: "What is Love" },
-    { title: "What is Love" },
-    { title: "What is Love" },
-    { title: "What is Love" }
-  ];
+function CreatePlayList({ showCaseData, addPlaylist, togglePlayListModal }) {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [hasSelectedSongs, setHasSelectedSongs] = useState(true);
+  const [selectedSongs, setSelectedSongs] = useState([]);
 
   const renderPlayList = () => {
-    return [].map((list, index) => (
-      <div>{`${index + 1}. ${list.title}`}</div>
+    return selectedSongs.map((list, index) => (
+      <div>{`${index + 1}. ${list.title}`} <button className="remove" onClick={() => removeSelectedSongs(index)}>remove</button></div>
     ))
   }
 
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  const removeSelectedSongs = (i) => {
+    setSelectedSongs(selectedSongs.filter((f, index) => index !== i))
+  }
 
+  const onSubmit = (data) => {
+    if (!selectedSongs.length) {
+      setHasSelectedSongs(false);
+      return
+    }
+    addPlaylist({
+      title: data.playlistName,
+      songs: selectedSongs.map(i => i.id)
+    })
+    togglePlayListModal()
+  };
+
+  const addToPlaylist = (song) => {
+    setHasSelectedSongs(true)
+    setSelectedSongs(
+      [...selectedSongs, song]
+    )
+  }
   return (
     <div id="create-playlist">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="playlist-wrapper">
           <div className="playlist-showcase">
             <div className="input-holder">
-              <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: true })} />
+              <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: 'This is required' })} />
+              {errors && errors.playlistName && <span className="">{errors.playlistName.message}</span>}
             </div>
-            <AddShowCase showCaseData={showCaseData} />
+            <AddShowCase showCaseData={showCaseData} isPlayList addToPlaylist={addToPlaylist} />
           </div>
           <div className="playlist-CD">
             {loading && <Skeleton width={250} height={214} className="case-box" />}
@@ -56,8 +67,9 @@ function CreatePlayList({ showCaseData, fetchAlbums, albums }) {
             </ul>
           </div>
         </div>
+        {!hasSelectedSongs && <span>Alteast one song should be added to playlist!</span>}
         <div className="btn-wrabtn-wrapp input-holder">
-          <input type="submit" value="Create PlayList" />
+          <input type="submit" value="Create PlayList" disabled={isSubmitting} />
         </div>
       </form>
     </div>
@@ -66,10 +78,10 @@ function CreatePlayList({ showCaseData, fetchAlbums, albums }) {
 
 export default connect(state => {
   return {
-    albums: state.albums.albums
+    nfts: state.nfts.nfts,
   }
 }, dispatch => {
   return {
-    fetchAlbums: (data) => dispatch(fetchAlbumsAction(data))
+    addPlaylist: (data) => dispatch(addPlaylistAction(data))
   }
 })(withRouter(CreatePlayList));

@@ -44,6 +44,7 @@
     .row-wrap {
         width: 60%;
         padding: 8px 0 8px 20px;
+        margin-left: 50px;
         .row-title {
             font-family: $space;
             font-style: normal;
@@ -63,5 +64,9 @@
     .loading-skeleton{
         display: flex;
         flex-direction: column;
+    }
+    .cover{
+        height: 60px;
+        width : 60px;
     }
 }

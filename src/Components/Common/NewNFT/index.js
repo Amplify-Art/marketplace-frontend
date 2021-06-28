@@ -9,6 +9,7 @@ import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
 import ToolTipIcon from '../../../assets/images/infoicon.svg';
 import { getAccessToken } from '../../../Api/index';
+import jwt from 'jsonwebtoken'
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
@@ -17,6 +18,7 @@ function NewNFT(props) {
   const [customError, setCustomError] = useState({});
   const [songFiles, setSongFiles] = useState([]);
 
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
     let checkErrors = customError;
@@ -120,7 +122,7 @@ function NewNFT(props) {
       <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>
-        <p>Album is being minted for @2n10se</p>
+        <p>Album is being minted for @{user.username}</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="split hide-scroll" id="style-4">
             <div className="left">

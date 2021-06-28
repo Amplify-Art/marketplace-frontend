@@ -4,13 +4,21 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchNFTsAction } from '../../../redux/actions/NFTAction';
 import { addShowcaseAction } from '../../../redux/actions/ShowcaseAction';
+import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
+import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal }) {
+function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist }) {
   const [loading, setLoading] = useState(true);
-
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  console.log(user)
   useEffect(() => {
-    fetchNFTs()
+    console.log('THIS IS CALLED')
+    fetchNFTs({
+      params: {
+        type: isPlayList ? 'song' : undefined
+      }
+    })
   }, []);
   const onAddingShowcase = (nft) => {
     addshowcase({
@@ -18,18 +26,24 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
     })
     toggleShowCaseModal()
   }
+  const onLoadingImage = (i) => {
+    console.log('i', i)
+    if (nfts.length - 1 === i) {
+      setLoading(false)
+    }
+  }
   return (
     <div id="addshowcase" >
       <div class="scrollbar" id="style-4">
         {nfts && nfts.length > 0 ? nfts.map((nft, item) => (
           <div className="row">
-            <img src={nft.image} className={`${loading && 'hidden'}`} />
+            <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
             {loading && <Skeleton width={60} height={60} />}
             <div className="row-wrap">
-              <div className="row-title">{nft.title}</div>
-              <div className="row-desc">{nft.description}</div>
+              <div className="row-title">{isPlayList ? nft.album && nft.album.title : nft.title}</div>
+              <div className="row-desc">{isPlayList ? nft.album && nft.album.description : nft.description}</div>
             </div>
-            <button className="add-btn" onClick={() => onAddingShowcase(nft)}>Add</button>
+            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>Add</button>
           </div>
         ))
           : !isFetchingNFts ?
