@@ -152,9 +152,8 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Link to="/auth/login" className="login-or-else">
-              <i className="fal fa-raygun" />
-              <span>Login or else!</span>
+            <Link to="/auth/login" className="top-login">
+              <span>Login</span>
             </Link>
           )}
         </div>
