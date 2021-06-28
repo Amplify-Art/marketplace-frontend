@@ -12,6 +12,8 @@
         background: url('../../../assets/images/album_case.png');
         width: 55%;
         background-size: cover;
+        background-repeat: inherit;
+        background-repeat: round;
     }
     .album-top {
         display: flex;
@@ -52,6 +54,9 @@
         justify-content: space-between;
         .album-title {
             display: flex;
+        }
+        .fn-white{
+            color: #FFFFFF;
         }
         .pr-10 {
             padding-right: 10px;
