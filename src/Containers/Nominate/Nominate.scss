@@ -1,116 +1,119 @@
 @import "../../assets/SCSS/Vars.scss";
 #nominate-container {
+    // width: 900px;
+    width: 72%;
+    margin: auto;
+    box-sizing: border-box;
+    padding-bottom: 50px;
 	.nominate-banner {
-		position: absolute;
-		width: 81px;
-		height: 18px;
-		left: 263px;
-		top: 164px;
+        margin: 40px 0px;
 		font-family: 'Space Grotesk';
-		font-style: normal;
-		font-weight: normal;
 		font-size: 14px;
-		line-height: 18px;
-		/* identical to box height */
 		text-transform: uppercase;
 		color: rgba(255, 255, 255, 0.5);
 	}
-	.container {
-            .nominate_wrapp{
-                position: absolute;
-                width: 968px;
-                height: 446px;
-                left: 239px;
-                top: 180px;
-                clip-path: polygon(22% 0, 100% 0, 100% 57%, 81% 100%, 0 100%, 0 44%);
-                background: rgba(196, 196, 196, 0.1);
-                box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
-                    inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
-                    &::after{
-                        content: '';
-                        height: 456px;
-                        left: 249px;
-                        border: 1px solid red;
-                    }
-                .content {
-                    .heading {
-                        position: absolute;
-                        left: 20%;
-                        top: 32%;
-                        font-style: normal;
-                        font-size: 37px;
-                        font-family: "Space Grotesk", sans-serif;
-                        text-transform: capitalize;
-                        color: #ffffff;
-                    }
-                    .nominate {
-                        position: absolute;
-                        width: 622px;
-                        height: 52px;
-                        left: 187px;
-                        top: 220px;
-                        font-family: $space;
-                        font-style: normal;
-                        font-weight: normal;
-                        font-size: 20px;
-                        line-height: 26px;
-                        text-align: center;
-                        color: #ffffff;
-                    }
-                    .submission {
-                        position: absolute;
-                        width: 189px;
-                        height: 15px;
-                        left: 392px;
-                        top: 285px;
-                        font-family: $space;
-                        font-style: normal;
-                        font-weight: normal;
-                        font-size: 12px;
-                        line-height: 15px;
-                        color: #ffffff;
-                        opacity: 0.5;
-                    }
-                    .search {
-                        position: absolute;
-                        width: 400px;
-                        height: 48px;
-                        left: 200px;
-                        top: 350px;
-                        border: 1.5px solid #e3e3e3;
-                        border-radius: 8px;
-                        @media screen and (max-width: 912px) {
-                            display: none;
-                        }
-                        input {
-                            border: 2px solid #515252;
-                            background: transparent;
-                            border-radius: 10px;
-                            padding: 15px 20px 10px 15px;
-                            width: 100%;
-                            box-sizing: border-box;
-                            font-size: 16px;
-                            color: #fff;
-                        }
-                    }
-                    .btn {
-                        background: #ffffff;
-                        color: black;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        font-weight: bold;
-                        font-size: 16px;
-                        border-radius: 50px;
-                        border: 0px;
-                        font-family: "Lato", sans-serif;
-                        margin-right: 20px;
-                        padding: 14px 22px;
-                        position: relative;
-                        top: 351px;
-                        left: 635px;
-                    }
+    .nominet_border1{
+        height: 441px;
+        width: 872px;
+        background: #000000;
+        position: absolute;
+        -webkit-clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        padding: 2px;
+        margin-top: 6px;
+        margin-left: 10px;
+        z-index: -99999999;
+        .nominet_border2{
+            height: 441px;
+            width: 883px;
+            background: #0f161d;
+            z-index: 9999;
+            clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        }
+
+    }
+    
+    .nominate_wrapp{
+        // position: relative;
+        width: 100%;
+        clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+        // background: rgba(196, 196, 196, 0.1);
+        background-color: rgb(39 46 51);
+        box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
+            inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
+            // &::after{
+            //     position: absolute;
+            //     content: "";
+            //     top: 0;
+            //     width: 100%;
+            //     height: auto;
+            //     border: 1px solid red;
+            //     left: 0;
+            //     right: 0;
+            //     bottom: 0;
+            //     padding: 0px;
+            //     margin: auto;
+            // }
+        .content {
+            padding: 100px 110px;
+            .heading {
+                font-size: 37px;
+                font-family: "Space Grotesk", sans-serif;
+                text-transform: capitalize;
+                color: #ffffff;
+                margin-top: 0px;
+                margin-bottom: 20px;
+                text-align: center;
+                font-weight: normal;
+            }
+            .nominate {
+                font-family: $space;
+                font-size: 20px;
+                line-height: 26px;
+                text-align: center;
+                color: #ffffff;
+                margin-bottom: 10px;
+            }
+            .submission {
+                font-family: $space;
+                font-size: 12px;
+                line-height: 15px;
+                color: #ffffff;
+                opacity: 0.5;
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            .search {
+                display: flex;
+                @media screen and (max-width: 912px) {
+                    display: none;
+                }
+                input {
+                    border: 2px solid #515252;
+                    background: transparent;
+                    border-radius: 10px;
+                    padding: 15px 20px 10px 15px;
+                    width: 70%;
+                    box-sizing: border-box;
+                    font-size: 16px;
+                    color: #fff;
+                }
+                .btn {
+                    background: #ffffff;
+                    color: black;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border-radius: 50px;
+                    border: 0px;
+                    font-family: "Lato", sans-serif;
+                    margin-left: 20px;
+                    padding: 14px 22px;
                 }
             }
-	}
+        }
+    }
+	
 }

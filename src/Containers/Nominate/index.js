@@ -4,11 +4,17 @@ import './Nominate.scss'
 const Nominate = (props) => {
     return (
         <div id="nominate-container">
-            <div className='nominate-banner'>Nomination</div>
             <div className='container'>
+            <div className='nominate-banner'>Nomination</div>
+            
+
+            <div className="nominet_border1">
+                <div className="nominet_border2">
+                </div>
+            </div>
                 <div className='nominate_wrapp'>
                     <div className='content'>
-                        <div className='heading'>5 Days Left Until Next Nomination</div>
+                        <h1 className='heading'>5 Days Left Until Next Nomination</h1>
                         <div className="nominate">
                             <div>Nominate yourself for this month's voting period.</div>
                             <div>Enter early in the month for next exposure.</div>
@@ -16,8 +22,9 @@ const Nominate = (props) => {
                         <div className="submission">1 Submission per month per user</div>
                         <div className="search">
                             <input type="text" placeholder="@ Nominate New Artists" />
+                            <button className="btn">Submit Artist</button>
                         </div>
-                        <button className="btn">Submit Artist</button>
+                    
                     </div>
                 </div>
             </div>
