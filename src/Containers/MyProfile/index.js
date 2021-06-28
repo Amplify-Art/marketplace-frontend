@@ -45,7 +45,6 @@ function MyProfile(props) {
     return (
       <>
         <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
-        <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
         <div className="popup-container">
           {openSharePopup && <div className="popUp" >
             <a href='#' className="popup-div" style={{ paddingBottom: '16px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
