@@ -32,9 +32,9 @@ function AlbumModalContent({ albumInfo }) {
                         <div className="inner-content-album" key={`al${index}`}>
                             <div className="album-title">
                                 <div className="pr-10"><img src={playAlbum.icon} alt="" /></div>
-                                <div>{playAlbum.title}</div>
+                                <div className="fn-white">{playAlbum.title}</div>
                             </div>
-                            <div>{playAlbum.playtime}</div>
+                            <div className="fn-white">{playAlbum.playtime}</div>
                         </div>
                     ))}
                 </div>
