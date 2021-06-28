@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import jwt_decode from 'jwt-decode';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
@@ -13,10 +14,24 @@ import './ArtistDashboard.scss';
 
 function ArtistDashboard(props) {
 
+  const [bannerImage, setBannerImage] = useState(CoverImg);
+  const [profileImage, setProfileImage] = useState(ArtisrAvatar);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('amplify_app_token');
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setBannerImage(decodedToken.banner);
+      setProfileImage(decodedToken.avatar);
+      setUserName(decodedToken.username);
+    }
+  }, []);
+
   const ArtistData = {
-    cover: CoverImg,
-    avatar: ArtisrAvatar,
-    name: 'Imagine Dragons'
+    cover: bannerImage,
+    avatar: profileImage,
+    name: userName
   };
 
   const month_Data = [
