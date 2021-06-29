@@ -1,0 +1,43 @@
+#user-dashboard {
+    padding-top: 29px;
+    padding-bottom: 100px;
+    font-family: Space Grotesk;
+    font-style: normal;
+    font-weight: normal;
+    .container {
+        max-width: 100%;
+        padding-right: 232px;
+        padding-left: 185px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    @media (max-width: 768px){
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @media (max-width: 576px){
+        .container {
+            max-width: 540px;
+        }
+    }
+    .album-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header-title {
+            font-size: 20px;
+            line-height: 26px;
+            color: #FFFFFF;
+        }
+        .btn-wrap {
+            border: 1.5px solid #FFFFFF;
+            box-sizing: border-box;
+            border-radius: 100px;
+            padding: 10px 40px;
+            background: transparent;
+            color: #FFFFFF;
+        }
+    }
+}
