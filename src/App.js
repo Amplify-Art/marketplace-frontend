@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { Switch, Route, useLocation,Redirect, useHistory } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import 'react-notifications-component/dist/theme.css';
+
 
 // Containers
 import Header from './Components/Parts/Header/index';
@@ -33,6 +35,9 @@ import Player from './Components/Common/Player/index';
 
 // Global Loader
 import GloablLoader from './Components/Common/Loading/index';
+
+import ReactNotification from 'react-notifications-component';
+import { store } from 'react-notifications-component';
 
 function App(props) {
   let history = useHistory();
@@ -92,7 +97,7 @@ function App(props) {
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact component={Albums} />
           {/* <Route path="/profile" exact component={Profile} /> */}
-          <Route path="/my-profile" exact component={MyProfile} />
+          <Route path="/my-profile" exact component={MyProfile} test="test" />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard" exact component={ArtistDashboard} />

@@ -57,6 +57,7 @@
 		.single-song {
 			display: flex;
 			margin-bottom: 20px;
+      align-items: center;
 			&:last-child {
 				margin-bottom: 0px;
 			}
@@ -70,6 +71,7 @@
 					align-items: center;
 					justify-content: center;
 					cursor: pointer;
+          width: 250px;
 					img {
 						margin-left: 6px;
 					}
