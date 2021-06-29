@@ -24,9 +24,7 @@ function Header(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
 
-  const [showWalletSidebar, toggleWalletSidebar] = useState(false);
-
-  const { path } = props;
+  const { path, showWalletSidebar, toggleWalletSidebar } = props;
 
   useEffect(async () => {
     const config = {

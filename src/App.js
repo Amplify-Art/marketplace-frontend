@@ -42,6 +42,7 @@ function App(props) {
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
+  const [showWalletSidebar, toggleWalletSidebar] = useState(false);
   const user = localStorage.getItem('amplify_app_token')
   useEffect(() => {
     setPath(location.pathname);
@@ -77,9 +78,9 @@ function App(props) {
   return (
     <>
       <GloablLoader >
-        <Header path={path} />
+        <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar && <MainSideNav />}
+        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}
         <Switch>
           <Route path="/" exact render={() => user ? <Redirect to='/my-profile' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
