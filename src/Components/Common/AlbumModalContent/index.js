@@ -19,11 +19,13 @@ function AlbumModalContent({ albumInfo }) {
             <div className="left-wrapper">
                 <div className="album-top">
                     <div className="album-img">
-                        <img src={albumInfo.coverArt} alt='' />
+                        {albumInfo.cover_cid ? (
+                            <img className="album-img" src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt='' />
+                        ) : <img className="album-img" src={albumInfo.coverArt} alt='' />}
                     </div>
                     <div className="album-right">
                         <div className="title">{albumInfo.title}</div>
-                        <div className="artist-title">{albumInfo.artist}</div>
+                        <div className="artist-title">{albumInfo.artist || 'No Artist'}</div>
                         <div className="view-detail">View Details</div>
                     </div>
                 </div>
