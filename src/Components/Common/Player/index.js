@@ -61,7 +61,7 @@ function Player(props) {
         setIsShow(true)
   }, [])
 
-  const { avatar } = props;
+  const { avatar, toggleWalletSidebar } = props;
 
   const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
@@ -125,7 +125,7 @@ function Player(props) {
         <div className="over">
           <div className="top-icons">
             <div className="bell"><img src={BellIcon} alt="Bell" /></div>
-            <div className="wallet"><img src={Wallet} alt="wallet" /></div>
+            <div className="wallet" onClick={toggleWalletSidebar}><img src={Wallet} alt="wallet" /></div>
             <div className="user">
               <img src={avatar} />
             </div>

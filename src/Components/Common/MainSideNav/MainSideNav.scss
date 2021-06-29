@@ -27,6 +27,9 @@
         color: #fff;
         font-weight: normal;
         cursor: pointer;
+        &.current {
+          text-decoration: underline;
+        }
       }
     }
   }

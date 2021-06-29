@@ -99,7 +99,7 @@ function App(props) {
           <Route path='/nominate' exact component={Nominate} />
           <Route component={PageNotFound} />
         </Switch>
-        {showPlayer && <Player avatar={profileImage} />}
+        {showPlayer && <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} />}
       </GloablLoader>
     </>
   );
