@@ -27,8 +27,8 @@ function AlbumModalContent({ albumInfo }) {
                     </div>
                     <div className="album-right">
                         <div className="title">{albumInfo.title}</div>
-                        <div className="artist-title">{albumInfo.artist || 'No Artist'}</div>
-                        <div className="view-detail">View Details</div>
+                        <div className="artist-title">{albumInfo.user.name || 'No Artist'}</div>
+                        <div className="view-detail" onClick={()=>setViewDetails(true)}>View Details</div>
                     </div>
                 </div>
                 <div className="album-bottom">
@@ -51,8 +51,7 @@ function AlbumModalContent({ albumInfo }) {
                         </div>
                     </div>
                     <div className="details-content">
-                        <p className="sub-content" style={{ marginTop: '8px' }}>Nullah Lorem mollit cupidatat irure.Laborum magna nulla duis ullamco cillum dolor.Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.</p>
-                        <p className="sub-content">Nullah Lorem mollit cupidatat irure.Laborum magna nulla duis ullamco cillum dolor.Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.</p>
+                        <p className="sub-content" style={{ marginTop: '8px' }}>{albumInfo.description}</p>
                     </div>
                     <div className="memory-card">
                         <div className="mint-text">Mint</div>

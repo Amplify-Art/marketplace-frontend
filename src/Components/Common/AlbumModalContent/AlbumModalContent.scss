@@ -3,7 +3,7 @@
 	font-family: Space Grotesk;
 	font-style: normal;
 	font-weight: normal;
-  height: 390px;
+	height: 390px;
 	.left-wrapper {
 		background: linear-gradient(123.48deg, #f18180 0%, #ec5051 52.12%);
 		padding: 5px 10px;
@@ -84,7 +84,9 @@
 		border-radius: 6px;
 		margin-bottom: 3%;
 		margin-top: 7%;
-		margin-left: 63%;
+		margin-left: 68%;
+		position: relative;
+		bottom: -195px;
 		.mint-text {
 			font-family: Space Grotesk;
 			font-style: normal;
