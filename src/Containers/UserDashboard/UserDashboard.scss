@@ -31,6 +31,9 @@
             line-height: 26px;
             color: #FFFFFF;
         }
+        .mr-27 {
+            margin-right: 27px;
+        }
         .btn-wrap {
             border: 1.5px solid #FFFFFF;
             box-sizing: border-box;
@@ -38,6 +41,36 @@
             padding: 10px 40px;
             background: transparent;
             color: #FFFFFF;
+        }
+    }
+    .album-block {
+        display: flex;
+        margin: 10px 0px 10px 0px;
+        justify-content: space-around;
+        align-items: center;
+        .single-album {
+            margin-right: 20px;
+            font-family: Space Grotesk;
+            font-style: normal;
+            font-weight: normal;
+            color: #FFFFFF;
+            .album-title {
+                font-size: 18px;
+                line-height: 23px;
+                font-weight: normal;
+            }
+            .artist-name {
+                font-size: 14px;
+                line-height: 18px;
+                opacity: 0.8;
+                margin-bottom: 5px;
+                font-weight: normal;
+            }
+            .album-own {
+                font-size: 14px;
+                margin-top: 2px;
+                font-weight: normal;
+            }
         }
     }
 }

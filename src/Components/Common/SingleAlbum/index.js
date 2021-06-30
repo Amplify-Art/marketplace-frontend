@@ -19,7 +19,11 @@ function SingleAlbum(props) {
     <>
       <div className="single-album" onClick={(albumInfo) => handleModal(albumInfo)}>
         <div className="cd-case">
-          <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
+          {albumInfo.coverArt ? (
+            <img src={albumInfo.coverArt} alt="" />
+          ) :(
+            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
+          )}
           {albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               <span>Mint #<br />{albumInfo.qty}/{albumInfo.qty}</span>
@@ -28,6 +32,7 @@ function SingleAlbum(props) {
         </div>
         <h3 className="album-title">{albumInfo.title}</h3>
         <h4 className="artist-name">{albumInfo.artist}</h4>
+        {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
       <div className="modal-album">
         {isOpen && <GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} />}
