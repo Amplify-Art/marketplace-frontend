@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+
 import './MyProfile.scss';
 
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
@@ -29,6 +30,8 @@ function MyProfile(props) {
   const [userName, setUserName] = useState('');
   const [openSharePopup, setSharePopup] = useState(false)
 
+  console.log('DOES IT WORK?', props.test)
+
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleAlbum key={index} albumInfo={nft} />
@@ -41,13 +44,32 @@ function MyProfile(props) {
     name: userName
   };
 
+  const copyProfileLink = (e) => {
+    e.preventDefault();
+    // const profileLink = document.getElementById("hidden-profile-link");
+
+    // profileLink.select();
+    // profileLink.setSelectionRange(0, 99999); /* For mobile devices */
+
+    // document.execCommand("copy");
+
+    const tempInput = document.createElement("input");
+    tempInput.value = "https://amplify.art/user/23";
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    setSharePopup(false);
+  }
+
   const renderBtnContent = () => {
     return (
       <>
         <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
         <div className="popup-container">
           {openSharePopup && <div className="popUp" >
-            <a href='#' className="popup-div" style={{ paddingBottom: '16px' }}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
+            <a href='#' className="popup-div" style={{ paddingBottom: '16px' }} onClick={copyProfileLink}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
             <a href='#' className="popup-div"><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</a>
           </div>}
           <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
