@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
+import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
 import CoverImg from '../../assets/images/profile-cover.png';
 import './ArtistProfile.scss';
 
@@ -35,6 +36,12 @@ function ArtistProfile(props) {
   }
 
   useEffect(() => {
+    console.log('props--- artist', props.artist)
+    // console.log('slug : ',props.match.params.slug)
+    const payload = {
+      id: props.match.params.slug
+    }
+    props.fetchArtist(payload);
     props.fetchAlbums();
   }, [])
   return (
@@ -60,11 +67,13 @@ function ArtistProfile(props) {
 export default connect(state => {
   return {
     albums: state.albums.albums,
+    artist: state.artist.artist
   }
 },
   dispatch => {
     return {
       fetchAlbums: () => dispatch(fetchAlbumsAction()),
+      fetchArtist: (payload) => dispatch(fetchArtistByIdAction(payload))
     }
   })(withRouter(ArtistProfile));
 

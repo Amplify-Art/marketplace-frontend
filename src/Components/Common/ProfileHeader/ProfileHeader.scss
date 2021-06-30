@@ -11,6 +11,9 @@
     height: 344px;
     max-width: unset;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     &:after {
       content: '';
       height: 344px;
@@ -38,6 +41,10 @@
       border-radius: 50%;
       overflow: hidden;
       border: solid 3px #fff;
+      img{
+        max-width: 100%;
+        height: 100%;
+      }
     }
 
     .details {
