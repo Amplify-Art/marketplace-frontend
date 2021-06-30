@@ -97,7 +97,7 @@ function App(props) {
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact component={Albums} />
           {/* <Route path="/profile" exact component={Profile} /> */}
-          <Route path="/my-profile" exact component={MyProfile} test="test" />
+          <Route path="/my-profile" exact component={Auth(MyProfile)} test="test" />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard" exact component={ArtistDashboard} />
