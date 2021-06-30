@@ -1,4 +1,9 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import GeneralModal from '../../Components/Common/GeneralModal/index';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
@@ -8,15 +13,47 @@ import DownArrowIcon from '../../assets/images/Down_arrow.svg';
 import CalanderIcon from '../../assets/images/CalanderIcon.svg';
 import RightIcon from '../../assets/images/RightIcon.svg';
 import RightIconDisable from '../../assets/images/RightIconDisable.svg';
+import ConfettiImage from '../../assets/images/confetti.png';
+
+import NewNFT from '../../Components/Common/NewNFT/index';
+
+import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 
 import './ArtistDashboard.scss';
 
 function ArtistDashboard(props) {
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const mintNewAlbum = () => {
+
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bannerImage, setBannerImage] = useState(CoverImg);
+  const [profileImage, setProfileImage] = useState(ArtisrAvatar);
+  const [userName, setUserName] = useState('');
+  const [showCongratsModal, toggleCongratsModal] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('amplify_app_token');
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setBannerImage(decodedToken.banner);
+      setProfileImage(decodedToken.avatar);
+      setUserName(decodedToken.username);
+    }
+  }, []);
 
   const ArtistData = {
-    cover: CoverImg,
-    avatar: ArtisrAvatar,
-    name: 'Imagine Dragons'
+    cover: bannerImage,
+    avatar: profileImage,
+    name: userName
   };
 
   const month_Data = [
@@ -37,7 +74,27 @@ function ArtistDashboard(props) {
     { name: 'Song Name', count: 5 },
     { name: 'Song Name', count: 4 },
     { name: 'Song Name', count: 3 },
-  ]
+  ];
+
+
+  {showCongratsModal && <GeneralModal
+    topIcon={ConfettiImage}
+    headline="Congrats, Your album is set to release!"
+    buttons={[
+      {
+        type: 'outlined',
+        text: 'Go Home',
+        onClick: () => props.history.push('/')
+      },
+      {
+        type: 'solid',
+        text: 'Mint Another Album',
+        onClick: mintNewAlbum
+      },
+    ]}
+    className="centered"
+    closeModal={() => toggleCongratsModal(!showCongratsModal)}
+  />}
 
   const renderBtnContent = () => {
     return (
@@ -45,7 +102,7 @@ function ArtistDashboard(props) {
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         <button>Upload Store Banner</button>
-        <button>Mint New Album</button>
+        <button onClick={handleOpenModal}>Mint New Album</button>
       </>
     )
   }
@@ -112,8 +169,24 @@ function ArtistDashboard(props) {
           </div>
         </div>
       </div>
+      {isModalOpen && <NewNFT
+        closeNewNftModal={handleCloseModal}
+        displayLoadingOverlay={props.displayLoadingOverlay}
+        hideLoadingOverlay={props.hideLoadingOverlay}
+        toggleCongratsModal={toggleCongratsModal}
+      />}
     </div>
   )
 };
 
-export default ArtistDashboard;
+export default connect(state => {
+  return {
+    loadingOverlay: state.global.loading_overlay,
+  }
+},
+  dispatch => {
+    return {
+      displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
+      hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction())
+    }
+  })(withRouter(ArtistDashboard));

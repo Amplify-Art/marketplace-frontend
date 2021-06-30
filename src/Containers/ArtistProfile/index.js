@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
@@ -10,10 +9,8 @@ import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
-import Shady from '../../assets/images/shady.jpg';
-import TwitterIcon from '../../assets/images/twitter-icon.svg';
-
 function ArtistProfile(props) {
+
   const ArtistData = {
     cover: CoverImg,
     avatar: ArtisrAvatar,

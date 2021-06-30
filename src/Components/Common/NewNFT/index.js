@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import { API_ENDPOINT_URL } from '../../../Constants/default'
 import TrashIcon from '../../../assets/images/trash.svg';
+import CloseIcon from '../../../assets/images/close.svg';
 import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
 import ToolTipIcon from '../../../assets/images/infoicon.svg';
@@ -223,6 +224,9 @@ function NewNFT(props) {
             <input type="submit" />
           </div>
         </form>
+      </div>
+      <div className="close-icon">
+        <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
       </div>
     </div>
   );

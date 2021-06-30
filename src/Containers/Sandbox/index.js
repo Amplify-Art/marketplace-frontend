@@ -65,7 +65,6 @@ function SandBox(props) {
   const mintNewAlbum = () => {
 
   }
-  console.log(showShowCaseModal, 'showShowCaseModal')
   return (
     <div id="sandbox">
       <div className="button-col">

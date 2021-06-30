@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link,useHistory  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as nearAPI from "near-api-js";
 import jwt from 'jsonwebtoken';
@@ -24,10 +24,8 @@ function Header(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
 
-  const [showWalletSidebar, toggleWalletSidebar] = useState(false);
-
-  const { path } = props;
-
+  const { path, showWalletSidebar, toggleWalletSidebar } = props;
+  let history = useHistory();
   useEffect(async () => {
     const config = {
       networkId: 'testnet',
@@ -53,15 +51,16 @@ function Header(props) {
   }, [wallet])
 
   const onConnect = () => {
-    if (wallet.isSignedIn()) {
-      return
-    } else
-      wallet.requestSignIn(
-        "test",     // at this time, , we dont have account, passing test
-        "Example App",                  // optional
-        `${window.location.origin}/near/success`,  // optional
-        `${window.location.origin}/near/failure`   // optional
-      );
+    history.push("/my-profile");
+    // if (wallet.isSignedIn()) {
+    //   return
+    // } else
+    //   wallet.requestSignIn(
+    //     "test",     // at this time, , we dont have account, passing test
+    //     "Example App",                  // optional
+    //     `${window.location.origin}/near/success`,  // optional
+    //     `${window.location.origin}/near/failure`   // optional
+    //   );
   }
 
   const getAccountDetails = async () => {
@@ -85,13 +84,14 @@ function Header(props) {
   }
 
   const onCreate = async () => {
-    props.displayLoadingOverlay();
-    return
-    const create = await createWallet()
-    if (create.data.success) {
-      localStorage.setItem('amplify_app_token', create.data.token)
-      window.location.reload()
-    }
+    history.push("/my-profile");
+    // props.displayLoadingOverlay();
+    // return
+    // const create = await createWallet()
+    // if (create.data.success) {
+    //   localStorage.setItem('amplify_app_token', create.data.token)
+    //   window.location.reload()
+    // }
   }
 
   useEffect(() => {
@@ -152,9 +152,8 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Link to="/auth/login" className="login-or-else">
-              <i className="fal fa-raygun" />
-              <span>Login or else!</span>
+            <Link to="/auth/login" className="top-login">
+              <span>Login</span>
             </Link>
           )}
         </div>

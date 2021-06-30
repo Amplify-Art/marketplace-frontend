@@ -21,10 +21,15 @@
       &:last-child {
         margin-bottom: 0px;
       }
-      a {
+      a,
+      span {
         text-decoration: none;
         color: #fff;
         font-weight: normal;
+        cursor: pointer;
+        &.current {
+          text-decoration: underline;
+        }
       }
     }
   }

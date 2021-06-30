@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import { Switch, Route, useLocation,Redirect } from "react-router-dom";
-
+import { Switch, Route, useLocation,Redirect, useHistory } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import 'react-notifications-component/dist/theme.css';
+
 
 // Containers
 import Header from './Components/Parts/Header/index';
@@ -14,6 +15,8 @@ import SecondaryMarketplace from './Containers/SecondaryMarketplace'
 import ArtistDashboard from './Containers/ArtistDashbord';
 import SupportCard from './Containers/SupportCard';
 import PageNotFound from './Containers/PageNotFound';
+import Nominate from './Containers/Nominate'
+import UserDashboard from './Containers/UserDashboard';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -33,19 +36,28 @@ import Player from './Components/Common/Player/index';
 // Global Loader
 import GloablLoader from './Components/Common/Loading/index';
 
-function App() {
+import ReactNotification from 'react-notifications-component';
+import { store } from 'react-notifications-component';
+
+function App(props) {
+  let history = useHistory();
+  let location = useLocation();
   const [path, setPath] = useState('');
   const [showLeftSidebar, toggleLeftSidebar] = useState(false);
   const [showPlayer, togglePlayer] = useState(false);
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
+  const [showWalletSidebar, toggleWalletSidebar] = useState(false);
   const user = localStorage.getItem('amplify_app_token')
-
-  let location = useLocation();
   useEffect(() => {
     setPath(location.pathname);
+    if(location.pathname === "/logout") {
+      localStorage.removeItem('amplify_app_token')
+      history.push("/") 
+    }
   }, [location]);
+
 
   useEffect(() => {
     if (!path)
@@ -72,9 +84,9 @@ function App() {
   return (
     <>
       <GloablLoader >
-        <Header path={path} />
+        <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar && <MainSideNav />}
+        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}
         <Switch>
           <Route path="/" exact render={() => user ? <Redirect to='/my-profile' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
@@ -85,14 +97,16 @@ function App() {
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact component={Albums} />
           {/* <Route path="/profile" exact component={Profile} /> */}
-          <Route path="/my-profile" exact component={MyProfile} />
+          <Route path="/my-profile" exact component={MyProfile} test="test" />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
-          <Route path="/artist-dashboard/:slug" exact component={ArtistDashboard} />
+          <Route path="/artist-dashboard" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />
+          <Route path='/nominate' exact component={Nominate} />
+          <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
           <Route component={PageNotFound} />
         </Switch>
-        {showPlayer && <Player avatar={profileImage} />}
+        {showPlayer && <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} />}
       </GloablLoader>
     </>
   );
