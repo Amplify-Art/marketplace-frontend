@@ -1,0 +1,81 @@
+import React, { useState } from 'react';
+import playIcon from '../../../assets/images/play_icon.svg';
+import BackArrowIcon from '../../../assets/images/left-arrow.png'
+import './SongModalContent.scss'
+
+function SongModalContent({ albumInfo }) {
+
+    const playListData = [
+        { icon: playIcon, title: "Another Level", length: "3:43", mints:"#3,#4" },
+        { icon: playIcon, title: "One more time", length: "3:23", mints:"#5" },
+        { icon: playIcon, title: "Everyone now", length: "3:59", mints:"#4" },
+        { icon: playIcon, title: "Just can’t", length: "2.43", mints:"#4" },
+    ]
+
+    const [viewDetails, setViewDetails] = useState(false)
+
+    return (
+        <div id="albums-content">
+            {!viewDetails ? <div className="left-sec-wrapper">
+                <div className="album-top">
+                    <div className="album-img">
+                        {albumInfo.cover_cid ? (
+                            <img className="album-img" src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt='' />
+                        ) : <img className="album-img" src={albumInfo.coverArt} alt='' />}
+                    </div>
+                    <div className="album-right">
+                        <div className="title">{albumInfo.title}</div>
+                        <div className="artist-title">{albumInfo.user.name || 'No Artist'}</div>
+                        <div className="view-detail-sec" onClick={()=>setViewDetails(true)}>View Details</div>
+                    </div>
+                </div>
+                <div className="album-bottom">
+                    <table className="album_song">
+                        <tr>
+                            <th className="first-td">Song Title</th>
+                            <th className="second-td">length</th>
+                            <th className="third-td">Mints</th>
+                        </tr>
+                        
+                    
+                        {playListData && playListData.map((playAlbum, index) => (
+                            // <div className="inner-content-album" key={`al${index}`}>
+                            //     <div className="album-title">
+                            //         <div className="pr-10"><img src={playAlbum.icon} alt="" /></div>
+                            //         <div className="fn-white">{playAlbum.title}</div>
+                            //     </div>
+                            //     <div className="fn-white">{playAlbum.length}</div>
+                            //     <div className="fn-white">{playAlbum.mints}</div>
+                            // </div>
+                            <tr>
+                                <td className="first-td"><div className="album_wrap"><img src={playAlbum.icon} alt="" />{playAlbum.title}  </div></td>
+                                <td className="second-td"><div className="album_wrap"> {playAlbum.length} </div></td>
+                                <td className="third-td"><div className="album_wrap"> {playAlbum.mints}</div></td>
+                            </tr>
+                        ))} 
+                    </table>
+                </div>
+
+            </div>
+                : <div className="left-wrapper">
+                    <div className="viewdetails-top">
+                        <div className="back-img" ><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+                        <div className="details-banner">
+                            Album Details
+                        </div>
+                    </div>
+                    <div className="details-content">
+                        <p className="sub-content" style={{ marginTop: '8px' }}>{albumInfo.description}</p>
+                    </div>
+                    <div className="memory-card">
+                        <div className="mint-text">Mint</div>
+                        <div className="mint-number">001</div>
+                    </div>
+                </div>
+            }
+            <div className="bg-song-img" />
+        </div>
+    )
+}
+
+export default SongModalContent

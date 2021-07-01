@@ -73,7 +73,7 @@ h2 {
   &.red,
   .red {
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: red;
+    -webkit-text-stroke-color: $red;
     color: transparent;
     position: relative;
     z-index: 9;

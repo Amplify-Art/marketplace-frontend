@@ -7,7 +7,7 @@
     padding-bottom: 50px;
 	.nominate-banner {
         margin: 40px 0px;
-		font-family: 'Space Grotesk';
+		font-family: $space;
 		font-size: 14px;
 		text-transform: uppercase;
 		color: rgba(255, 255, 255, 0.5);
@@ -58,7 +58,7 @@
             padding: 100px 110px;
             .heading {
                 font-size: 37px;
-                font-family: "Space Grotesk", sans-serif;
+                font-family: $space;
                 text-transform: capitalize;
                 color: #ffffff;
                 margin-top: 0px;
@@ -108,7 +108,7 @@
                     font-size: 16px;
                     border-radius: 50px;
                     border: 0px;
-                    font-family: "Lato", sans-serif;
+                    font-family: $lato;
                     margin-left: 20px;
                     padding: 14px 22px;
                 }
