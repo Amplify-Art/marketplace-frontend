@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 #profile-header {
   // height: 344px;
   .container {
@@ -50,7 +52,7 @@
     .details {
       margin-left: 50px;
       align-self: center;
-      font-family: Space Grotesk;
+      font-family: $space;
       font-style: normal;
       font-weight: normal;
       font-size: 32px;
@@ -84,7 +86,7 @@
       font-size: 16px;
       border-radius: 50px;
       border: 0px;
-      font-family: "Lato", sans-serif;
+      font-family: $lato;
       margin-right: 20px;
       padding: 14px 22px;
       &:last-child {
