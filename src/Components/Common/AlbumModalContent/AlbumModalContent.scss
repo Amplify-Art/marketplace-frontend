@@ -9,11 +9,12 @@
 		padding: 5px 10px;
 		width: 50%;
 	}
-	.bg-album-img {
-		background: url('../../../assets/images/album_case.png');
-		width: 55%;
-		background-size: cover;
-	}
+    .bg-album-img {
+        background: url('../../../assets/images/album_case.png');
+        width: 55%;
+        background-size: cover;
+        background-repeat: round;
+    }
 	.album-top {
 		display: flex;
 		.album-img {
@@ -112,15 +113,18 @@
 		padding-top: 32px;
 	}
 	.inner-content-album {
-		display: flex;
-		justify-content: space-between;
-		.album-title {
-			display: flex;
-		}
-		.pr-10 {
-			padding-right: 10px;
-		}
-	}
+        display: flex;
+        justify-content: space-between;
+        .album-title {
+            display: flex;
+        }
+        .fn-white {
+            color: #FFFFFF;
+        }
+        .pr-10 {
+            padding-right: 10px;
+        }
+    }
 }
 
 #general-modal .holder .sub-content {
