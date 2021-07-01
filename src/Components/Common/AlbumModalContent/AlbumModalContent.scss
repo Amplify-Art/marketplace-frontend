@@ -9,12 +9,12 @@
 		padding: 5px 10px;
 		width: 50%;
 	}
-    .bg-album-img {
-        background: url('../../../assets/images/album_case.png');
-        width: 55%;
-        background-size: cover;
-        background-repeat: round;
-    }
+	.bg-album-img {
+    background: url('../../../assets/images/album_case.png');
+    width: 55%;
+    background-size: cover;
+    background-repeat: round;
+  }
 	.album-top {
 		display: flex;
 		.album-img {
@@ -113,6 +113,7 @@
 		padding-top: 32px;
 	}
 	.inner-content-album {
+<<<<<<< HEAD
         display: flex;
         justify-content: space-between;
         .album-title {
@@ -125,6 +126,20 @@
             padding-right: 10px;
         }
     }
+=======
+		display: flex;
+		justify-content: space-between;
+		.album-title {
+			display: flex;
+		}
+		.fn-white {
+            color: #FFFFFF;
+        }
+		.pr-10 {
+			padding-right: 10px;
+		}
+	}
+>>>>>>> album-modal-css
 }
 
 #general-modal .holder .sub-content {
