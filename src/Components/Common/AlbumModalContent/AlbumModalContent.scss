@@ -10,10 +10,11 @@
 		width: 50%;
 	}
 	.bg-album-img {
-		background: url('../../../assets/images/album_case.png');
-		width: 55%;
-		background-size: cover;
-	}
+        background: url('../../../assets/images/album_case.png');
+        width: 55%;
+        background-size: cover;
+        background-repeat: round;
+    }
 	.album-top {
 		display: flex;
 		.album-img {
@@ -117,6 +118,9 @@
 		.album-title {
 			display: flex;
 		}
+		.fn-white {
+            color: #FFFFFF;
+        }
 		.pr-10 {
 			padding-right: 10px;
 		}
