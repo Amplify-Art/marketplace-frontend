@@ -18,8 +18,6 @@ export default function (state = initialState, action) {
         loading: true,
       };
     case types.FETCH_ARTIST_BY_ID_SUCCESS:
-        console.log('artist',action.res)
-        console.log('state',state)
       if (!action.res.data.success) {
         return {
           ...state,
