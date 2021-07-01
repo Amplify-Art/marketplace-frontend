@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import playIcon from '../../../assets/images/play_icon.svg';
+import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import './AlbumModalContent.scss'
+
+// songmodal
+import SongModalContent from '../SongModalcontent';
 
 function AlbumModalContent({ albumInfo }) {
 
@@ -16,6 +20,15 @@ function AlbumModalContent({ albumInfo }) {
 
     const [viewDetails, setViewDetails] = useState(false)
 
+    const [songModal,setSongModal] = useState(false);
+
+    const handleSongModal = () => {
+        setSongModal(true);
+    }
+
+    const handleCloseModal = () => { setSongModal(false) }
+
+    
     return (
         <div id="albums-content">
             {!viewDetails ? <div className="left-wrapper">
@@ -27,13 +40,13 @@ function AlbumModalContent({ albumInfo }) {
                     </div>
                     <div className="album-right">
                         <div className="title">{albumInfo.title}</div>
-                        <div className="artist-title">{albumInfo.artist || 'No Artist'}</div>
-                        <div className="view-detail">View Details</div>
+                        <div className="artist-title">{albumInfo.user.name || 'No Artist'}</div>
+                        <div className="view-detail" onClick={()=>setViewDetails(true)}>View Details</div>
                     </div>
                 </div>
                 <div className="album-bottom">
                     {playListData && playListData.map((playAlbum, index) => (
-                        <div className="inner-content-album" key={`al${index}`}>
+                        <div className="inner-content-album" key={`al${index}`} onClick={handleSongModal} >
                             <div className="album-title">
                                 <div className="pr-10"><img src={playAlbum.icon} alt="" /></div>
                                 <div className="fn-white">{playAlbum.title}</div>
@@ -42,6 +55,7 @@ function AlbumModalContent({ albumInfo }) {
                         </div>
                     ))}
                 </div>
+                {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
             </div>
                 : <div className="left-wrapper">
                     <div className="viewdetails-top">
@@ -51,8 +65,7 @@ function AlbumModalContent({ albumInfo }) {
                         </div>
                     </div>
                     <div className="details-content">
-                        <p className="sub-content" style={{ marginTop: '8px' }}>Nullah Lorem mollit cupidatat irure.Laborum magna nulla duis ullamco cillum dolor.Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.</p>
-                        <p className="sub-content">Nullah Lorem mollit cupidatat irure.Laborum magna nulla duis ullamco cillum dolor.Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.</p>
+                        <p className="sub-content" style={{ marginTop: '8px' }}>{albumInfo.description}</p>
                     </div>
                     <div className="memory-card">
                         <div className="mint-text">Mint</div>

@@ -1,21 +1,22 @@
 @import "../../../assets/SCSS/Vars.scss";
+
 #albums-content {
 	display: flex;
 	font-family: $space;
 	font-style: normal;
 	font-weight: normal;
-	height: 390px;
-	.left-wrapper {
-		background: linear-gradient(123.48deg, #f18180 0%, #ec5051 52.12%);
+	height: 370px;
+	.left-sec-wrapper {
+		background: #242424;
 		padding: 5px 10px;
 		width: 50%;
+		color: #fff;
 	}
-	.bg-album-img {
-    background: url('../../../assets/images/album_case.png');
-    width: 55%;
-    background-size: cover;
-    background-repeat: round;
-  }
+	.bg-song-img {
+		background: url('../../../assets/images/cdblack.png');
+		width: 55%;
+		background-size: cover;
+	}
 	.album-top {
 		display: flex;
 		.album-img {
@@ -38,11 +39,11 @@
 				opacity: 0.8;
 				margin-bottom: 12px;
 			}
-			.view-detail {
+			.view-detail-sec {
 				font-size: 16px;
 				line-height: 20px;
 				text-decoration-line: underline;
-				color: #000000;
+				color: #fff;
 				margin-bottom: 8px;
 				cursor: pointer;
 			}
@@ -114,35 +115,59 @@
 	}
 	.album-bottom {
 		padding-top: 32px;
+		.album_song{
+			width: 100%;
+			text-align: left;
+			tr{
+				.first-td{
+					width: 50%;
+				}
+				.second-td{
+					width: 25%;
+				}
+				.third-td{
+					width: 25%;
+				}
+				td{
+					.album_wrap{
+						overflow: hidden;
+						word-break: break-all;
+						text-overflow: clip;
+						font-size: 14px;
+						height: 40px;
+						display: flex;
+    					align-items: center;
+						img{
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+		}
+		.album_Title{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			p{
+				font-family: $space;
+				font-size: 13px;
+				letter-spacing: 2px;
+				color: #FFFFFF;
+				opacity: 50%;
+				text-transform: uppercase;
+			}
+		}
 	}
 	.inner-content-album {
-<<<<<<< HEAD
-        display: flex;
-        justify-content: space-between;
-        .album-title {
-            display: flex;
-        }
-        .fn-white {
-            color: #FFFFFF;
-        }
-        .pr-10 {
-            padding-right: 10px;
-        }
-    }
-=======
 		display: flex;
 		justify-content: space-between;
 		.album-title {
 			display: flex;
 		}
-		.fn-white {
-            color: #FFFFFF;
-        }
 		.pr-10 {
 			padding-right: 10px;
 		}
 	}
->>>>>>> album-modal-css
 }
 
 #general-modal .holder .sub-content {

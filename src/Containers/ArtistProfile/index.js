@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
+import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
 import CoverImg from '../../assets/images/profile-cover.png';
+import PageNotFound from '../PageNotFound'
 import './ArtistProfile.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -35,10 +37,18 @@ function ArtistProfile(props) {
   }
 
   useEffect(() => {
+    
+    // console.log('slug : ',props.match.params.slug)
+    console.log('albums',props.albums)
+    const payload = {
+      id: props.match.params.slug
+    }
+    props.fetchArtist(payload);
     props.fetchAlbums();
   }, [])
+  
   return (
-    <div id="profile" className="left-nav-pad right-player-pad">
+     props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
 
       <div className="recently-purchased">
@@ -53,18 +63,20 @@ function ArtistProfile(props) {
           ))}
         </div>
       </div>
-    </div>
+    </div> : <PageNotFound text="This Artist Could Not Be Found" />
   );
 }
 
 export default connect(state => {
   return {
     albums: state.albums.albums,
+    artist: state.artist.artist
   }
 },
   dispatch => {
     return {
       fetchAlbums: () => dispatch(fetchAlbumsAction()),
+      fetchArtist: (payload) => dispatch(fetchArtistByIdAction(payload))
     }
   })(withRouter(ArtistProfile));
 

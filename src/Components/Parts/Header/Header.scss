@@ -10,9 +10,9 @@ header {
   box-sizing: border-box;
   position: relative;
   z-index: 9;
-  .logo {
-    // margin-left: 40px;
-  }
+  // .logo {
+  //   margin-left: 40px;
+  // }
   .search {
     position: relative;
     margin-left: 90px;
@@ -113,7 +113,7 @@ header {
   border-left: solid 1px rgba(225, 225, 225, 0.2);
   color: #fff;
   .near-icon {
-    font-family: "Inter", sans-serif;
+    font-family: $inter;
   }
 }
 

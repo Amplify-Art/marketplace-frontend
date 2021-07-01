@@ -4,6 +4,7 @@ import nfts from './NFTReducer';
 import playlists from './PlaylistReducer';
 import songs from './SongReducer';
 import showcases from './ShowcaseReducer';
+import artist from './ArtistReducer';
 
 export {
   albums,
@@ -12,4 +13,5 @@ export {
   playlists,
   songs,
   showcases,
+  artist
 };
