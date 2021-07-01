@@ -21,6 +21,7 @@
 		.album-img {
 			width: 120px;
 			height: 120px;
+      overflow: hidden;
 		}
 		.album-right {
 			padding-left: 20px;
@@ -116,20 +117,6 @@
 		padding-top: 32px;
 	}
 	.inner-content-album {
-<<<<<<< HEAD
-        display: flex;
-        justify-content: space-between;
-        .album-title {
-            display: flex;
-        }
-        .fn-white {
-            color: #FFFFFF;
-        }
-        .pr-10 {
-            padding-right: 10px;
-        }
-    }
-=======
 		display: flex;
 		justify-content: space-between;
 		.album-title {
@@ -142,7 +129,6 @@
 			padding-right: 10px;
 		}
 	}
->>>>>>> album-modal-css
 }
 
 #general-modal .holder .sub-content {

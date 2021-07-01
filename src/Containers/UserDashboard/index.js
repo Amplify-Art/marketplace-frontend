@@ -16,100 +16,100 @@ import ProfileAlbum from '../../Components/Common/ProfileAlbum/index';
 
 function UserDashboard() {
 
-    const fakeAlbums = [
-        {
-            title: "A Cool Album",
-            artist: "Jonathon",
-            totalAvailable: 100,
-            editionNumber: 75,
-            own: 4,
-            coverArt: CoverOne
-        },
-        {
-            title: "The Greatest",
-            artist: "Russ",
-            totalAvailable: 50,
-            editionNumber: 2,
-            own: 4,
-            coverArt: CoverTwo
-        },
-        {
-            title: "Another One",
-            artist: "Anil",
-            forSale: false,
-            own: 4,
-            coverArt: CoverThree
-        },
-        {
-            title: "A Cool Album",
-            artist: "Jonathon",
-            totalAvailable: 100,
-            editionNumber: 75,
-            own: 4,
-            coverArt: CoverFour
-        },
-    ];
+  const fakeAlbums = [
+    {
+      title: "A Cool Album",
+      artist: "Jonathon",
+      totalAvailable: 100,
+      editionNumber: 75,
+      own: 4,
+      coverArt: CoverOne
+    },
+    {
+      title: "The Greatest",
+      artist: "Russ",
+      totalAvailable: 50,
+      editionNumber: 2,
+      own: 4,
+      coverArt: CoverTwo
+    },
+    {
+      title: "Another One",
+      artist: "Anil",
+      forSale: false,
+      own: 4,
+      coverArt: CoverThree
+    },
+    {
+      title: "A Cool Album",
+      artist: "Jonathon",
+      totalAvailable: 100,
+      editionNumber: 75,
+      own: 4,
+      coverArt: CoverFour
+    },
+  ];
 
-    const fakeAvatar = [
-        { user_img: Avatar, name: "Imagine Dragons" },
-        { user_img: AvatarTwo, name: "Kid Cudi" },
-        { user_img: AvatarThree, name: "Eminem" },
-        { user_img: AvatarFour, name: "John Mayer" },
-    ]
+  const fakeAvatar = [
+    { user_img: Avatar, name: "Imagine Dragons" },
+    { user_img: AvatarTwo, name: "Kid Cudi" },
+    { user_img: AvatarThree, name: "Eminem" },
+    { user_img: AvatarFour, name: "John Mayer" },
+  ]
 
-    const playlistAlbum = [
-        {
-            title: "You + Me",
-            coverArt: CDPlayer
-        },
-        {
-            title: "The Best Playlist",
-            coverArt: CDPlayer
-        },
-        {
-            title: "Oh The Larceny",
-            coverArt: CDPlayer
-        },
-        {
-            title: "Recovery",
-            coverArt: CDPlayer
-        },
-    ];
+  const playlistAlbum = [
+    {
+      title: "You + Me",
+      coverArt: CDPlayer
+    },
+    {
+      title: "The Best Playlist",
+      coverArt: CDPlayer
+    },
+    {
+      title: "Oh The Larceny",
+      coverArt: CDPlayer
+    },
+    {
+      title: "Recovery",
+      coverArt: CDPlayer
+    },
+  ];
 
-    const renderHeader = (title, isCreateButton = false) => (
-        <div className="album-header">
-            <span className="header-title">{title}</span>
-            <div>
-                {isCreateButton && <button className="btn-wrap mr-27">Create New</button>}
-                <button className="btn-wrap">View All</button>
-            </div>
+  const renderHeader = (title, isCreateButton = false) => (
+    <div className="album-header">
+      <span className="header-title">{title}</span>
+      <div>
+        {isCreateButton && <button className="btn-wrap mr-27">Create New</button>}
+        <button className="btn-wrap">View All</button>
+      </div>
+    </div>
+  )
+
+  return (
+    <div id="user-dashboard" className="left-nav-pad right-player-pad">
+      <div className="container">
+        {renderHeader("Recently Played")}
+        <div className="album-block">
+          {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
+            <SingleAlbum key={index} albumInfo={album} isMint={false} />
+          ))}
         </div>
-    )
-
-    return (
-        <div id="user-dashboard">
-            <div className="container">
-                {renderHeader("Recently Played")}
-                <div className="album-block">
-                    {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
-                        <SingleAlbum key={index} albumInfo={album} isMint={false} />
-                    ))}
-                </div>
-                {renderHeader("Playlists - 4", true)}
-                <div className="album-block">
-                    {playlistAlbum && playlistAlbum.length > 0 && playlistAlbum.map((album, index) => (
-                        <SingleAlbum key={index} albumInfo={album} isMint={false} />
-                    ))}
-                </div>
-                {renderHeader("Followed Artists", false)}
-                <div className="album-block">
-                {fakeAvatar && fakeAvatar.map((avatar,index) =>(
-                        <ProfileAlbum avatarImg={avatar.user_img} name={avatar.name} />
-                ))}
-                </div>
-            </div>
+        {renderHeader("Playlists - 4", true)}
+        <div className="album-block">
+          {playlistAlbum && playlistAlbum.length > 0 && playlistAlbum.map((album, index) => (
+            <SingleAlbum key={index} albumInfo={album} isMint={false} />
+          ))}
         </div>
-    )
+        {renderHeader("Followed Artists", false)}
+        <div className="album-block">
+          {fakeAvatar && fakeAvatar.map((avatar, index) => (
+            <ProfileAlbum avatarImg={avatar.user_img} name={avatar.name} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
 };
 
 export default UserDashboard;

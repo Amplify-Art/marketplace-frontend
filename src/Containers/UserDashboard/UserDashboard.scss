@@ -1,81 +1,85 @@
 @import "../../assets/SCSS/Vars.scss";
 #user-dashboard {
-    padding-top: 29px;
-    padding-bottom: 100px;
-    font-family: $space;
-    font-style: normal;
-    font-weight: normal;
-    .container {
-        max-width: 100%;
-        padding-right: 232px;
-        padding-left: 185px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    @media (max-width: 768px){
-        .container {
-            max-width: 720px;
-        }
-    }
+  padding-top: 29px;
+  padding-bottom: 100px;
+  font-family: $space;
+  font-style: normal;
+  font-weight: normal;
+  // .container {
+  //   max-width: 100%;
+  //   padding-right: 232px;
+  //   padding-left: 185px;
+  //   margin-right: auto;
+  //   margin-left: auto;
+  // }
+  // @media (max-width: 768px) {
+  //   .container {
+  //     max-width: 720px;
+  //   }
+  // }
 
-    @media (max-width: 576px){
-        .container {
-            max-width: 540px;
-        }
+  // @media (max-width: 576px) {
+  //   .container {
+  //     max-width: 540px;
+  //   }
+  // }
+  .album-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    .header-title {
+      font-size: 20px;
+      line-height: 26px;
+      color: #ffffff;
     }
-    .album-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        .header-title {
-            font-size: 20px;
-            line-height: 26px;
-            color: #FFFFFF;
-        }
-        .mr-27 {
-            margin-right: 27px;
-        }
-        .btn-wrap {
-            border: 1.5px solid #FFFFFF;
-            box-sizing: border-box;
-            border-radius: 100px;
-            padding: 10px 40px;
-            background: transparent;
-            color: #FFFFFF;
-        }
+    .mr-27 {
+      margin-right: 27px;
     }
-    .album-block {
-        display: flex;
-        margin: 20px 0px 20px 0px;
-        justify-content: space-around;
-        align-items: center;
-        .single-album {
-            margin-right: 20px;
-            font-family: Space Grotesk;
-            font-style: normal;
-            font-weight: normal;
-            color: #FFFFFF;
-            .album-title {
-                font-size: 18px;
-                line-height: 23px;
-                font-weight: normal;
-            }
-            .artist-name {
-                font-size: 14px;
-                line-height: 18px;
-                opacity: 0.8;
-                margin-bottom: 5px;
-                font-weight: normal;
-            }
-            .album-own {
-                font-size: 14px;
-                margin-top: 2px;
-                font-weight: normal;
-            }
-        }
-        .profile-album-wrap {
-            display: flex;
-        }
+    .btn-wrap {
+      border: 1.5px solid #ffffff;
+      box-sizing: border-box;
+      border-radius: 100px;
+      padding: 10px 40px;
+      background: transparent;
+      color: #ffffff;
+      cursor: pointer;
     }
+  }
+  .album-block {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 35px;
+    row-gap: 53px;
+    .single-album {
+      font-family: Space Grotesk;
+      font-style: normal;
+      font-weight: normal;
+      color: #ffffff;
+      .cd-case {
+        width: 100%;
+        height: auto;
+      }
+      .album-title {
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: normal;
+      }
+      .artist-name {
+        font-size: 14px;
+        line-height: 18px;
+        opacity: 0.8;
+        margin-bottom: 5px;
+        font-weight: normal;
+      }
+      .album-own {
+        font-size: 14px;
+        margin-top: 2px;
+        font-weight: normal;
+      }
+    }
+    .profile-album-wrap {
+      display: flex;
+    }
+  }
 }

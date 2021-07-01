@@ -63,16 +63,16 @@ function ArtistDashboard(props) {
   ]
 
   const mostPlayData = [
-    { name: 'Song Name', count: 13 },
-    { name: 'Song Name', count: 11 },
-    { name: 'Song Name', count: 10 },
-    { name: 'Song Name', count: 9 },
-    { name: 'Song Name', count: 8 },
-    { name: 'Song Name', count: 8 },
-    { name: 'Song Name', count: 5 },
-    { name: 'Song Name', count: 5 },
-    { name: 'Song Name', count: 4 },
-    { name: 'Song Name', count: 3 },
+    // { name: 'Song Name', count: 13 },
+    // { name: 'Song Name', count: 11 },
+    // { name: 'Song Name', count: 10 },
+    // { name: 'Song Name', count: 9 },
+    // { name: 'Song Name', count: 8 },
+    // { name: 'Song Name', count: 8 },
+    // { name: 'Song Name', count: 5 },
+    // { name: 'Song Name', count: 5 },
+    // { name: 'Song Name', count: 4 },
+    // { name: 'Song Name', count: 3 },
   ];
 
 
@@ -122,7 +122,7 @@ function ArtistDashboard(props) {
           <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
-              <div className="price">1.82</div>
+              <div className="price">0</div>
               <div className="near">NEAR</div>
               <button className="withdraw-btn">Withdraw To Balance</button>
               <div className="report-link">Export Earnings Report</div>

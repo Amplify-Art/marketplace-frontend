@@ -1,19 +1,20 @@
-#profile-album {
-    .img-round {
-        width: 150px;
-        height: 150px;
-        border-radius: 100px;
-        margin: 10px;
-    }
-    .avatar-name {
-        font-family: Space Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 23px;
-        color: #FFFFFF;
-        align-items: center;
-        display: flex;
-        text-align: left;
-    }
+.profile-album {
+  .avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 100px;
+    margin: 10px;
+    overflow: hidden;
+  }
+  .avatar-name {
+    font-family: Space Grotesk;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    color: #ffffff;
+    align-items: center;
+    display: flex;
+    text-align: left;
+  }
 }
