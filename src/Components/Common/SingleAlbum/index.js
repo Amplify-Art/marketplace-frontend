@@ -34,9 +34,9 @@ function SingleAlbum(props) {
         <h4 className="artist-name">{albumInfo.artist}</h4>
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
-      <div className="modal-album">
-        {isOpen && <GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} />}
-      </div>
+      
+        {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
+      
     </>
   );
 }

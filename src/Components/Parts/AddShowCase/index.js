@@ -40,7 +40,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
             <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
             {loading && <Skeleton width={60} height={60} />}
             <div className="row-wrap">
-              <div className="row-title">{isPlayList ? nft.album && nft.album.title : nft.title}</div>
+              <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
               <div className="row-desc">{isPlayList ? nft.album && nft.album.description : nft.description}</div>
             </div>
             <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>Add</button>
