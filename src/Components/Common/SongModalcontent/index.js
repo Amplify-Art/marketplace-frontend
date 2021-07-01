@@ -39,14 +39,6 @@ function SongModalContent({ albumInfo }) {
                         
                     
                         {playListData && playListData.map((playAlbum, index) => (
-                            // <div className="inner-content-album" key={`al${index}`}>
-                            //     <div className="album-title">
-                            //         <div className="pr-10"><img src={playAlbum.icon} alt="" /></div>
-                            //         <div className="fn-white">{playAlbum.title}</div>
-                            //     </div>
-                            //     <div className="fn-white">{playAlbum.length}</div>
-                            //     <div className="fn-white">{playAlbum.mints}</div>
-                            // </div>
                             <tr>
                                 <td className="first-td"><div className="album_wrap"><img src={playAlbum.icon} alt="" />{playAlbum.title}  </div></td>
                                 <td className="second-td"><div className="album_wrap"> {playAlbum.length} </div></td>
@@ -57,11 +49,11 @@ function SongModalContent({ albumInfo }) {
                 </div>
 
             </div>
-                : <div className="left-wrapper">
+                : <div className="left-sec-wrapper">
                     <div className="viewdetails-top">
                         <div className="back-img" ><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
                         <div className="details-banner">
-                            Album Details
+                            Song Details
                         </div>
                     </div>
                     <div className="details-content">

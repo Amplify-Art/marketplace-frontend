@@ -119,11 +119,6 @@
 			width: 100%;
 			text-align: left;
 			tr{
-			
-				// th{
-				// 	// width: 33.33%;
-				// 	padding: 7px 10px;
-				// }
 				.first-td{
 					width: 50%;
 				}
@@ -134,8 +129,6 @@
 					width: 25%;
 				}
 				td{
-					// width: 33.33%;
-					// padding: 0px 10px;
 					.album_wrap{
 						overflow: hidden;
 						word-break: break-all;
@@ -158,7 +151,6 @@
 			p{
 				font-family: $space;
 				font-size: 13px;
-				// font-weight: 400;
 				letter-spacing: 2px;
 				color: #FFFFFF;
 				opacity: 50%;
