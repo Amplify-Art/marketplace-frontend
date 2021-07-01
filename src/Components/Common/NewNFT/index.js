@@ -46,6 +46,7 @@ function NewNFT(props) {
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
+    albumFormData.append('price', data.albumPrice);
     albumFormData.append('qty', data.numberOfAlbums);
 
     props.displayLoadingOverlay();
@@ -60,11 +61,12 @@ function NewNFT(props) {
         let songFormData = new FormData()
 
         songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
-          title: file.title
+          title: file.title,
         }))))
         songFiles.map(file => {
           songFormData.append('songs', file)
         })
+        songFormData.append('qty', data.numberOfAlbums)
         songFormData.append('album_id', mintAlbum.data.album_id)
         const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
           headers: {
