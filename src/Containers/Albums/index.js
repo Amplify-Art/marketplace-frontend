@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './Albums.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -7,7 +7,6 @@ import CoverTwo from '../../assets/images/cover2.png';
 import CoverThree from '../../assets/images/cover3.png';
 import CoverFour from '../../assets/images/cover4.png';
 import CoverFive from '../../assets/images/cover5.png';
-import CoverSix from '../../assets/images/cover6.png';
 
 function Albums(props) {
   const fakeAlbums = [

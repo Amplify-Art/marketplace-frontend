@@ -4,27 +4,26 @@ import AlbumModalContent from '../AlbumModalContent/index.js';
 import './SingleAlbum.scss';
 
 function SingleAlbum(props) {
-  const { albumInfo } = props;
+  const { albumInfo, isMint = true} = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
-  const handleModal = (albumInfo) => {
-    console.log('albumInfo', albumInfo)
-    SetModalOpen(true)
-  }
+
+  const handleModal = () => { SetModalOpen(true) }
 
   const handleCloseModal = () => { SetModalOpen(false) }
 
   return (
     <>
-      <div className="single-album" onClick={(albumInfo) => handleModal(albumInfo)}>
+      <div className="single-album" onClick={handleModal}>
         <div className="cd-case">
           {albumInfo.coverArt ? (
             <img src={albumInfo.coverArt} alt="" />
           ) :(
             <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
           )}
-          {albumInfo && albumInfo.forSale !== false && (
+          {console.log("mit--->",isMint)}
+          {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               <span>Mint #<br />{albumInfo.qty}/{albumInfo.qty}</span>
             </div>

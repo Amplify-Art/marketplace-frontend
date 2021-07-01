@@ -1,8 +1,8 @@
 import './SupportArtists.scss';
+
 import Album2 from '../../../assets/images/album2.png';
 import Album3 from '../../../assets/images/album3.png';
 import Album4 from '../../../assets/images/album4.png';
-import Album5 from '../../../assets/images/album5.png';
 
 function SupportArtists() {
   return (
@@ -13,11 +13,11 @@ function SupportArtists() {
       </div>
 
       <div className="albums">
-        <div className="single"><img src={Album2} /></div>
-        <div className="single"><img src={Album3} /></div>
-        <div className="single"><img src={Album4} /></div>
-        <div className="single"><img src={Album2} /></div>
-        <div className="single"><img src={Album3} /></div>
+        <div className="single"><img src={Album2} alt="" /></div>
+        <div className="single"><img src={Album3} alt="" /></div>
+        <div className="single"><img src={Album4} alt="" /></div>
+        <div className="single"><img src={Album2} alt="" /></div>
+        <div className="single"><img src={Album3} alt="" /></div>
       </div>
     </div>
   );
