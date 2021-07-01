@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,20 +7,11 @@ import { connect } from 'react-redux';
 import './MyProfile.scss';
 
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
-import CoverImg from '../../assets/images/profile-cover.png';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
-import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
-
-import Shady from '../../assets/images/shady.jpg';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
 import ShareIcon from '../../assets/images/share-icon.svg';
-import CoverOne from '../../assets/images/cd-cover-one.png';
-import CoverTwo from '../../assets/images/cover2.png';
-import CoverThree from '../../assets/images/cover3.png';
-import CoverFour from '../../assets/images/cover4.png';
-import CoverFive from '../../assets/images/cover5.png';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 

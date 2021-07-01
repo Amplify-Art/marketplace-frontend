@@ -5,6 +5,11 @@ import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
 import './Albums.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
+import CoverOne from '../../assets/images/cd-cover-one.png';
+import CoverTwo from '../../assets/images/cover2.png';
+import CoverThree from '../../assets/images/cover3.png';
+import CoverFour from '../../assets/images/cover4.png';
+import CoverFive from '../../assets/images/cover5.png';
 
 function Albums(props) {
   

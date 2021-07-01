@@ -8,7 +8,6 @@ import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
-import TwitterIcon from '../../assets/images/twitter-icon.svg';
 import DownArrowIcon from '../../assets/images/Down_arrow.svg';
 import CalanderIcon from '../../assets/images/CalanderIcon.svg';
 import RightIcon from '../../assets/images/RightIcon.svg';

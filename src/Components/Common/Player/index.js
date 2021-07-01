@@ -4,8 +4,6 @@ import './Player.scss';
 // Player Icons
 import NextSongIcon from '../../../assets/images/next.svg';
 import PrevSongIcon from '../../../assets/images/prev.svg';
-import PauseIcon from '../../../assets/images/pause.svg';
-import PlayIcon from '../../../assets/images/play.svg';
 import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';

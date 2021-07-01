@@ -1,9 +1,5 @@
 import './Partners.scss';
 
-import EthLogo from '../../../assets/images/ethereum.svg';
-import NearLogo from '../../../assets/images/near.png';
-import ReblockLogo from '../../../assets/images/reblock.png';
-
 function Partners(props) {
   const { partners } = props;
   return (
