@@ -1,24 +1,34 @@
 @import "../../assets/SCSS/Vars.scss";
 
 #profile {
-  padding-top: 29px;
-  
-  .recently-purchased {
-    padding-right: 20px;
-    padding-top: 50px;
-    .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      h2 {
-        font-size: 20px;
-        color: #fff;
-      }
+	padding-top: 29px;
 
-      .btn {
-        width: 145px;
-      }
-    }
-  }
+	.recently-purchased {
+		padding-right: 20px;
+		padding-top: 50px;
+		.top {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 30px;
+			h2 {
+				font-size: 20px;
+				color: #fff;
+			}
+
+			.btn {
+				width: 145px;
+			}
+		}
+	}
+}
+
+.text-title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 65px;
+	text-align: center;
+	color: #ffffff;
+	height: 100%;
 }
