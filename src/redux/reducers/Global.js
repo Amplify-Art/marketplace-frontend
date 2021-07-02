@@ -4,6 +4,7 @@ import * as types from '../../Constants/actions/Global';
 
 const initialState = {
     loading_overlay: false,
+    isErrorPage: false
 };
 
 export default function (state = initialState, action) {
@@ -18,6 +19,16 @@ export default function (state = initialState, action) {
                 ...state,
                 loading_overlay: false,
             };
+        case types.SET_IS_ERROR_PAGE:
+            return {
+                ...state,
+                isErrorPage: true
+            };
+        case types.UNSET_IS_ERROR_PAGE:
+            return {
+                ...state,
+                isErrorPage: false
+            }
         default:
             return state;
     }
