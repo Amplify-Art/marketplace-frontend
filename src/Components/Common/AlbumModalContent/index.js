@@ -10,8 +10,8 @@ import SongModalContent from '../SongModalcontent';
 function AlbumModalContent({ albumInfo }) {
 
   const playListData = [
-    { icon: playIcon, title: "What is love", Playtime: "3:43" },
-    { icon: playIcon, title: "What is love", Playtime: "3:43" },
+    { icon: playIcon, title: "What is love", playtime: "3:43" },
+    { icon: playIcon, title: "What is love", playtime: "3:43" },
     { icon: playIcon, title: "What is love", playtime: "3:43" },
     { icon: playIcon, title: "What is love", playtime: "3:43" },
     { icon: playIcon, title: "What is love", playtime: "3:43" },
@@ -27,7 +27,6 @@ function AlbumModalContent({ albumInfo }) {
   }
 
   const handleCloseModal = () => { setSongModal(false) }
-
 
   return (
     <div id="albums-content">
@@ -46,10 +45,10 @@ function AlbumModalContent({ albumInfo }) {
         </div>
         <div className="album-bottom">
           {playListData && playListData.map((playAlbum, index) => (
-            <div className="inner-content-album" key={`al${index}`} onClick={handleSongModal} >
-              <div className="album-title">
-                <div className="pr-10"><img src={playAlbum.icon} alt="" /></div>
-                <div className="fn-white">{playAlbum.title}</div>
+            <div className="inner-content-album" key={`al${index}`}  >
+              <div className="album-title ">
+                <div className="pr-10 pointer"><img src={playAlbum.icon} alt="" /></div>
+                <div className="fn-white pointer">{playAlbum.title}</div>
               </div>
               <div className="fn-white">{playAlbum.playtime}</div>
             </div>
