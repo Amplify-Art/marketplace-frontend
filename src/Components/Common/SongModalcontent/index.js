@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import playIcon from '../../../assets/images/play_icon.svg';
-import BackArrowIcon from '../../../assets/images/left-arrow.png'
+import BackArrowIconWhite from '../../../assets/images/left-arrow-white.png'
 import './SongModalContent.scss'
 
 function SongModalContent({ albumInfo }) {
@@ -40,18 +40,17 @@ function SongModalContent({ albumInfo }) {
 
             {playListData && playListData.map((playAlbum, index) => (
               <tr>
-                <td className="first-td"><div className="album_wrap"><img src={playAlbum.icon} alt="" />{playAlbum.title}  </div></td>
+                <td className="first-td pointer"><div className="album_wrap"><img src={playAlbum.icon} alt="" />{playAlbum.title}  </div></td>
                 <td className="second-td"><div className="album_wrap"> {playAlbum.length} </div></td>
                 <td className="third-td"><div className="album_wrap"> {playAlbum.mints}</div></td>
               </tr>
             ))}
           </table>
         </div>
-
       </div>
         : <div className="left-sec-wrapper">
           <div className="viewdetails-top">
-            <div className="back-img" ><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+            <div className="back-img" ><img onClick={() => setViewDetails(false)} src={BackArrowIconWhite} alt="left arrow" /></div>
             <div className="details-banner">
               Song Details
             </div>

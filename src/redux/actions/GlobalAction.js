@@ -7,3 +7,11 @@ export const displayLoadingOverlayAction = () => ({
 export const hideLoadingOverlayAction = () => ({
     type: types.UNSET_OVERLAY_LOADER,
 });
+
+export const setIsErrorPage = () => ({
+    type: types.SET_IS_ERROR_PAGE
+})
+
+export const unsetIsErrorPage = () => ({
+    type: types.UNSET_IS_ERROR_PAGE
+})

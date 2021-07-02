@@ -37,16 +37,12 @@ function ArtistProfile(props) {
   }
 
   useEffect(() => {
-    
-    // console.log('slug : ',props.match.params.slug)
-    console.log('albums',props.albums)
     const payload = {
       id: props.match.params.slug
     }
     props.fetchArtist(payload);
     props.fetchAlbums();
   }, [])
-  
   return (
      props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
@@ -63,7 +59,7 @@ function ArtistProfile(props) {
           ))}
         </div>
       </div>
-    </div> : <PageNotFound text="This Artist Could Not Be Found" />
+    </div> : <div className="text-title">This Artist Could Not Be Found</div>
   );
 }
 
