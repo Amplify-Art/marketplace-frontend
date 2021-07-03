@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AlbumSingleSong from '../AlbumSingleSong/index';
 import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
@@ -6,6 +7,7 @@ import './AlbumModalContent.scss'
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
+
 
 function AlbumModalContent({ albumInfo }) {
 
@@ -19,7 +21,6 @@ function AlbumModalContent({ albumInfo }) {
   ]
 
   const [viewDetails, setViewDetails] = useState(false)
-
   const [songModal, setSongModal] = useState(false);
 
   const handleSongModal = () => {
@@ -44,14 +45,8 @@ function AlbumModalContent({ albumInfo }) {
           </div>
         </div>
         <div className="album-bottom">
-          {playListData && playListData.map((playAlbum, index) => (
-            <div className="inner-content-album" key={`al${index}`}  >
-              <div className="album-title ">
-                <div className="pr-10 pointer"><img src={playAlbum.icon} alt="" /></div>
-                <div className="fn-white pointer">{playAlbum.title}</div>
-              </div>
-              <div className="fn-white">{playAlbum.playtime}</div>
-            </div>
+          {albumInfo && albumInfo.songs.map((song, index) => (
+            <AlbumSingleSong song={song} index={index} />
           ))}
         </div>
         {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}

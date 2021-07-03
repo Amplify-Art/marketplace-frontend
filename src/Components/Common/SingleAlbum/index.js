@@ -8,9 +8,7 @@ function SingleAlbum(props) {
 
   const [isOpen, SetModalOpen] = useState(false)
 
-
   const handleModal = () => { SetModalOpen(true) }
-
   const handleCloseModal = () => { SetModalOpen(false) }
 
   return (
@@ -22,7 +20,6 @@ function SingleAlbum(props) {
           ) :(
             <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
           )}
-          {console.log("mit--->",isMint)}
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               <span>Mint #<br />{albumInfo.qty}/{albumInfo.qty}</span>
@@ -34,8 +31,7 @@ function SingleAlbum(props) {
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
       
-        {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
-      
+      {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
     </>
   );
 }

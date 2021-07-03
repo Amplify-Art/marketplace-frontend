@@ -2,13 +2,16 @@
   .cd-case {
     background: url('../../../assets/images/case-transparent.png');
     width: 100%;
-    height: 183px;
+    height: 281px;
     // text-align: right;
     position: relative;
     background-size: cover;
     padding: 3px 5px 5px 20px;
     box-sizing: border-box;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
       width: 100%;
     }
