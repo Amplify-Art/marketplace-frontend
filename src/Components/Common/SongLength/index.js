@@ -26,7 +26,7 @@ function SongLength({ i, song }) {
   request.send();
 
   return (
-    <>{theSongMins && theSongMins}:{theSongSecs > 0 ? theSongSecs : '01'}</>
+    <>{theSongMins}:{theSongSecs > 0 ? theSongSecs : '01'}</>
   )
 }
 
