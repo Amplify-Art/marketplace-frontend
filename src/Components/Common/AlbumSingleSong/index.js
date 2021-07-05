@@ -57,13 +57,13 @@ function AlbumSingleSong(props) {
     return () => {
       audio.removeEventListener("ended", () => setPlaying(false));
     };
-  });
+  },[playing]);
 
   console.log('progress', audio.duration)
 
   return (
-    <div className="inner-content-album" key={`al${index}`}  >
-      <div className="album-title ">
+    <div className="inner-content-album" key={`al${index}`}>
+      <div className="album-title">
         <div className="pr-10 pointer">
           {playing ? (
             <div onClick={toggle}>
