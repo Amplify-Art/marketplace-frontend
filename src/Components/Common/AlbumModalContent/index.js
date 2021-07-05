@@ -30,8 +30,9 @@ function AlbumModalContent({ albumInfo }) {
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div>
           <div className="album-right">
+            {console.log("call------>",albumInfo)}
             <div className="title">{albumInfo && albumInfo.title}</div>
-            <div className="artist-title">{albumInfo && albumInfo.currentOwner.name || 'No Artist'}</div>
+            <div className="artist-title">{albumInfo && albumInfo.user.name || 'No Artist'}</div>
             <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
           </div>
         </div>
