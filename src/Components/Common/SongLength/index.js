@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function SongLength({ i, song }) {
   const [theSongMins, setTheSongMins] = useState();
@@ -26,7 +26,9 @@ function SongLength({ i, song }) {
   request.send();
 
   return (
-    <>{theSongMins}:{theSongSecs > 0 ? theSongSecs : '01'}</>
+    <>
+      {(theSongSecs || theSongSecs === 0) && (<>{theSongMins}:{theSongSecs > 0 ? theSongSecs : '01'}</>) }
+    </>
   )
 }
 
