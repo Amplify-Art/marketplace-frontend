@@ -134,25 +134,20 @@ function NewNFT(props) {
           <div className="split hide-scroll" id="style-4">
             <div className="left">
               <div className="input-holder">
-                <input name="album-title" type="text" placeholder="Album Title" {...register("albumName", { required: true })} />
-                {errors.songName && <span>This field is required</span>}
+                <input name="album-title" type="text" placeholder="Album Title" className={errors.albumName && 'error'} {...register("albumName", { required: true })} />
+                {errors.albumName && <span className="error-message">This field is required</span>}
               </div>
 
               <div className="input-holder">
-                <textarea name="album-description" placeholder="Description" {...register("albumDescription", { required: true })} />
-                {errors.albumDescription && <span>This field is required</span>}
+                <textarea name="album-description" placeholder="Description" className={errors.albumDescription && 'error'} {...register("albumDescription", { required: true })} />
+                {errors.albumDescription && <span className="error-message">This field is required</span>}
               </div>
 
               <div className="input-holder">
-              {/* <Checkbox
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      checked={value}
-                      inputRef={ref}
-                    /> */}
                 <Controller
                   control={control}
                   name="albumPrice"
+                  rules={{ required: true }}
                   render={({
                     field: { onChange, onBlur, value, name, ref },
                     fieldState: { invalid, isTouched, isDirty, error },
@@ -167,6 +162,7 @@ function NewNFT(props) {
                       decimalScale={2}
                       decimalsLimit={2}
                       onValueChange={onChange}
+                      className={errors.albumPrice && 'error'}
                     />
                   )}
                 />
@@ -175,7 +171,7 @@ function NewNFT(props) {
               </div>
 
               <div className="input-holder">
-                <input name="number-of-albums" type="text" placeholder="Number of Albums" {...register("numberOfAlbums", { required: true })} />
+                <input name="number-of-albums" type="number" placeholder="Number of Albums" className={errors.numberOfAlbums && 'error'} {...register("numberOfAlbums", { required: true })} />
                 {errors.numberOfAlbums && <span>This field is required</span>}
               </div>
 
@@ -250,7 +246,7 @@ function NewNFT(props) {
               <input type="checkbox" id="remint" name="remint" value="true" checked {...register("remint", { required: true })} />
             </div>
           </div>
-          <div className="input-holder">
+          <div className="input-holder center-text">
             <input type="submit" />
           </div>
         </form>

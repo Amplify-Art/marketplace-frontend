@@ -81,7 +81,7 @@ h2 {
 }
 
 .center-text {
-  text-align: center;
+  text-align: center !important;
 }
 
 .circle {
@@ -104,6 +104,18 @@ h2 {
 input {
   &:focus {
     outline-width: 0;
+  }
+
+  &.error {
+    border-color: #FF5353 !important;
+    color: initial;
+  }
+}
+
+textarea {
+  &.error {
+    border-color: #FF5353 !important;
+    color: initial;
   }
 }
 
