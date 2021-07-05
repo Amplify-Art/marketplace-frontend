@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import './NewNFT.scss';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
+import CurrencyInput from 'react-currency-input-field';
 import { API_ENDPOINT_URL } from '../../../Constants/default'
 import TrashIcon from '../../../assets/images/trash.svg';
 import CloseIcon from '../../../assets/images/close.svg';
@@ -20,8 +21,9 @@ function NewNFT(props) {
   const [songFiles, setSongFiles] = useState([]);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
-  const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
+    console.log('data', data)
     let checkErrors = customError;
     if (!albumCover)
       checkErrors.albumCover = 'Album Cover is required';
@@ -42,12 +44,14 @@ function NewNFT(props) {
       }
     }
 
-    let albumFormData = new FormData()
+    let albumFormData = new FormData();
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
-    albumFormData.append('price', data.albumPrice);
+    albumFormData.append('price', Math.round(data.albumPrice*100));
     albumFormData.append('qty', data.numberOfAlbums);
+
+    console.log('albumFormData', albumFormData);
 
     props.displayLoadingOverlay();
     try {
@@ -140,7 +144,33 @@ function NewNFT(props) {
               </div>
 
               <div className="input-holder">
-                <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} />
+              {/* <Checkbox
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      checked={value}
+                      inputRef={ref}
+                    /> */}
+                <Controller
+                  control={control}
+                  name="albumPrice"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                    fieldState: { invalid, isTouched, isDirty, error },
+                    formState,
+                  }) => (
+                    <CurrencyInput
+                      name="albumPrice"
+                      placeholder="Album Cost"
+                      // defaultValue={0}
+                      allowNegativeValue={false}
+                      prefix="$"
+                      decimalScale={2}
+                      decimalsLimit={2}
+                      onValueChange={onChange}
+                    />
+                  )}
+                />
+                {/* <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} /> */}
                 {errors.albumPrice && <span>This field is required</span>}
               </div>
 
