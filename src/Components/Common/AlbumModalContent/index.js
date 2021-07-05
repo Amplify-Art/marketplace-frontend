@@ -11,15 +11,6 @@ import SongModalContent from '../SongModalcontent';
 
 function AlbumModalContent({ albumInfo }) {
 
-  const playListData = [
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-    { icon: playIcon, title: "What is love", playtime: "3:43" },
-  ]
-
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
 
