@@ -5,6 +5,8 @@ import watchPlaylistSaga from './PlaylistSaga';
 import watchSongSaga from './SongSaga';
 import watchShowcaseSaga from './ShowcaseSaga';
 import watchArtistSaga from './ArtistSaga';
+import watchUserSaga from './UserSaga';
+import watchNominationSaga from './NominationSaga';
 
 export default function* startForman(context = {}) {
   yield fork(watchAlbumSaga, context);
@@ -13,4 +15,6 @@ export default function* startForman(context = {}) {
   yield fork(watchSongSaga, context);
   yield fork(watchShowcaseSaga, context);
   yield fork(watchArtistSaga, context);
+  yield fork(watchUserSaga, context);
+  yield fork(watchNominationSaga, context);
 }

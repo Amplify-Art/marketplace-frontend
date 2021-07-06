@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Switch, Route, useLocation,Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, useLocation, Redirect, useHistory } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import 'react-notifications-component/dist/theme.css';
 
@@ -52,9 +52,9 @@ function App(props) {
   const user = localStorage.getItem('amplify_app_token')
   useEffect(() => {
     setPath(location.pathname);
-    if(location.pathname === "/logout") {
+    if (location.pathname === "/logout") {
       localStorage.removeItem('amplify_app_token')
-      history.push("/") 
+      history.push("/")
     }
   }, [location]);
 
@@ -84,6 +84,7 @@ function App(props) {
   return (
     <>
       <GloablLoader >
+        <ReactNotification />
         <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
         {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}

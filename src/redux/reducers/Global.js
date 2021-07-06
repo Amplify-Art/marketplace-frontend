@@ -1,5 +1,5 @@
 import * as types from '../../Constants/actions/Global';
-
+import { store } from 'react-notifications-component'
 /* eslint-disable no-case-declarations */
 
 const initialState = {
@@ -29,6 +29,37 @@ export default function (state = initialState, action) {
                 ...state,
                 isErrorPage: false
             }
+        case types.SET_NOTIFICATION:
+            if (action.payload.success) {
+                store.addNotification({
+                    title: "Success",
+                    message: action.payload.message,
+                    type: "success",
+                    insert: "top",
+                    container: "top-left",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true
+                    }
+                });
+            } else {
+                store.addNotification({
+                    title: "Error",
+                    message: action.payload.message,
+                    type: "danger",
+                    insert: "top",
+                    container: "top-left",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true
+                    }
+                });
+            }
+            return state;
         default:
             return state;
     }

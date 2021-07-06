@@ -5,6 +5,8 @@ import playlists from './PlaylistReducer';
 import songs from './SongReducer';
 import showcases from './ShowcaseReducer';
 import artist from './ArtistReducer';
+import users from './UserReducer';
+import nominations from './NominationReducer';
 
 export {
   albums,
@@ -13,5 +15,7 @@ export {
   playlists,
   songs,
   showcases,
-  artist
+  artist,
+  users,
+  nominations,
 };

@@ -5,14 +5,14 @@
     margin: auto;
     box-sizing: border-box;
     padding-bottom: 50px;
-	.nominate-banner {
+    .nominate-banner {
         margin: 40px 0px;
-		font-family: $space;
-		font-size: 14px;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.5);
-	}
-    .nominet_border1{
+        font-family: $space;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .nominet_border1 {
         height: 441px;
         width: 71.8%;
         background: #000000;
@@ -23,17 +23,16 @@
         margin-top: 6px;
         margin-left: 10px;
         z-index: -99999999;
-        .nominet_border2{
+        .nominet_border2 {
             height: 441px;
             width: 100%;
             background: #0f161d;
             z-index: 9999;
             clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
         }
-
     }
-    
-    .nominate_wrapp{
+
+    .nominate_wrapp {
         // position: relative;
         width: 100%;
         clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
@@ -41,19 +40,19 @@
         background-color: rgb(39 46 51);
         box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
             inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
-            // &::after{
-            //     position: absolute;
-            //     content: "";
-            //     top: 0;
-            //     width: 100%;
-            //     height: auto;
-            //     border: 1px solid red;
-            //     left: 0;
-            //     right: 0;
-            //     bottom: 0;
-            //     padding: 0px;
-            //     margin: auto;
-            // }
+        // &::after{
+        //     position: absolute;
+        //     content: "";
+        //     top: 0;
+        //     width: 100%;
+        //     height: auto;
+        //     border: 1px solid red;
+        //     left: 0;
+        //     right: 0;
+        //     bottom: 0;
+        //     padding: 0px;
+        //     margin: auto;
+        // }
         .content {
             padding: 100px 110px;
             .heading {
@@ -89,7 +88,7 @@
                     display: none;
                 }
                 input {
-                    border: 2px solid #E3E3E3;
+                    border: 2px solid #e3e3e3;
                     background: transparent;
                     border-radius: 10px;
                     padding: 15px 20px 10px 15px;
@@ -115,5 +114,10 @@
             }
         }
     }
-	
+    .user-list {
+        li {
+            padding: 10px;
+            cursor: pointer;
+        }
+    }
 }
