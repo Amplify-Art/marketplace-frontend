@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from "react-hook-form";
+import ReactNotification from 'react-notifications-component';
+import { store } from 'react-notifications-component';
 import './NewNFT.scss';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
@@ -23,7 +25,6 @@ function NewNFT(props) {
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
-    console.log('data', data)
     let checkErrors = customError;
     if (!albumCover)
       checkErrors.albumCover = 'Album Cover is required';
@@ -51,8 +52,6 @@ function NewNFT(props) {
     albumFormData.append('price', Math.round(data.albumPrice*100));
     albumFormData.append('qty', data.numberOfAlbums);
 
-    console.log('albumFormData', albumFormData);
-
     props.displayLoadingOverlay();
     try {
       const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
@@ -66,10 +65,10 @@ function NewNFT(props) {
 
         songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
           title: file.title,
-        }))))
+        }))));
         songFiles.map(file => {
           songFormData.append('songs', file)
-        })
+        });
         songFormData.append('qty', data.numberOfAlbums)
         songFormData.append('album_id', mintAlbum.data.album_id)
         const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
@@ -77,16 +76,31 @@ function NewNFT(props) {
             'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + getAccessToken()
           },
-        })
+        });
         if (mintSong.data.success) {
           props.toggleCongratsModal(true)
           props.hideLoadingOverlay();
           props.closeNewNftModal();
-        }
-      }
+        };
+      };
     } catch (e) {
       props.hideLoadingOverlay();
-    }
+      if (store.add !== null) {
+        store.addNotification({
+          title: "Error",
+          message: "Something went wrong, please try again later.",
+          type: "danger",
+          insert: "top",
+          container: "top-left",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+      }
+    };
   };
 
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
@@ -126,6 +140,7 @@ function NewNFT(props) {
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
+      <ReactNotification />
       <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>
