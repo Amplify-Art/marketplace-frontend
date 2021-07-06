@@ -5,18 +5,20 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddShowCase from '../AddShowCase';
 import { addPlaylistAction } from '../../../redux/actions/PlaylistAction';
+import { fetchSongsAction } from '../../../redux/actions/SongAction';
 
 
 import CDImg from '../../../assets/images/cd-img.svg';
 
 import './CreatePlayList.scss';
 
-function CreatePlayList({ showCaseData, addPlaylist, togglePlayListModal }) {
+function CreatePlayList(props) {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const [loading, setLoading] = useState(false);
   const [hasSelectedSongs, setHasSelectedSongs] = useState(true);
   const [selectedSongs, setSelectedSongs] = useState([]);
 
+  const { showCaseData, addPlaylist, togglePlayListModal } = props;
   const renderPlayList = () => {
     return selectedSongs.map((list, index) => (
       <div>{`${index + 1}. ${list.title}`} <button className="remove" onClick={() => removeSelectedSongs(index)}>remove</button></div>
@@ -45,6 +47,10 @@ function CreatePlayList({ showCaseData, addPlaylist, togglePlayListModal }) {
       [...selectedSongs, song]
     )
   }
+
+  useEffect(() => {
+    props.fetchSongs();
+  }, []);
   return (
     <div id="create-playlist">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -79,9 +85,11 @@ function CreatePlayList({ showCaseData, addPlaylist, togglePlayListModal }) {
 export default connect(state => {
   return {
     nfts: state.nfts.nfts,
+    songs: state.songs.songs
   }
 }, dispatch => {
   return {
-    addPlaylist: (data) => dispatch(addPlaylistAction(data))
+    addPlaylist: (data) => dispatch(addPlaylistAction(data)),
+    fetchSongs: () => dispatch(fetchSongsAction())
   }
 })(withRouter(CreatePlayList));

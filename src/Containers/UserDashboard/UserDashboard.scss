@@ -58,7 +58,7 @@
       color: #ffffff;
       .cd-case {
         width: 100%;
-        height: auto;
+        // height: auto;
       }
       .album-title {
         font-size: 18px;
@@ -81,5 +81,13 @@
     .profile-album-wrap {
       display: flex;
     }
+  }
+}
+
+.no-records {
+  h5 {
+    color: #fff;
+    font-size: 30px;
+    margin-top: 0px;
   }
 }

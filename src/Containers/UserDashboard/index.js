@@ -1,4 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import GeneralModal from '../../Components/Common/GeneralModal/index';
+import CreatePlayList from '../../Components/Parts/CreatePlayList';
+
+import { fetchPlaylistsAction } from '../../redux/actions/PlaylistAction'
+
 import './UserDashboard.scss';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -14,8 +23,12 @@ import AvatarFour from '../../assets/images/avatar4.png';
 
 import ProfileAlbum from '../../Components/Common/ProfileAlbum/index';
 
-function UserDashboard() {
+function UserDashboard(props) {
+  const [showPlayListModal, togglePlayListModal] = useState(false);
 
+  useEffect(() => {
+    props.fetchPlaylists();
+  }, []);
   const fakeAlbums = [
     {
       title: "A Cool Album",
@@ -80,27 +93,40 @@ function UserDashboard() {
     <div className="album-header">
       <span className="header-title">{title}</span>
       <div>
-        {isCreateButton && <button className="btn-wrap mr-27">Create New</button>}
+        {isCreateButton && <button className="btn-wrap mr-27" onClick={() => togglePlayListModal(!showPlayListModal)}>Create New</button>}
         <button className="btn-wrap">View All</button>
       </div>
     </div>
-  )
+  );
 
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
         {renderHeader("Recently Played")}
         <div className="album-block">
-          {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
+          {/* {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
             <SingleAlbum key={index} albumInfo={album} isMint={false} />
-          ))}
+          ))} */}
         </div>
-        {renderHeader("Playlists - 4", true)}
-        <div className="album-block">
-          {playlistAlbum && playlistAlbum.length > 0 && playlistAlbum.map((album, index) => (
-            <SingleAlbum key={index} albumInfo={album} isMint={false} />
-          ))}
+
+        <div className="no-records">
+          <h5>No recently played songs</h5>
         </div>
+
+        {renderHeader(`Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`, true)}
+
+        {props.playlists && props.playlists.length > 0 ? (
+          <div className="album-block">
+            {props.playlists.map((album, index) => (
+              <SingleAlbum key={index} albumInfo={album} isMint={false} />
+            ))}
+          </div>
+        ) : (
+          <div className="no-records">
+            <h5>No playlists found</h5>
+          </div>
+        )}
+
         {renderHeader("Followed Artists", false)}
         <div className="album-block">
           {fakeAvatar && fakeAvatar.map((avatar, index) => (
@@ -108,8 +134,27 @@ function UserDashboard() {
           ))}
         </div>
       </div>
+
+      {showPlayListModal && <GeneralModal
+        headline="Create New Playlist"
+        bodyChildren={<CreatePlayList showCaseData={{}} togglePlayListModal={togglePlayListModal} />}
+        contentClassName="playlist-modal"
+        closeModal={() => togglePlayListModal(!showPlayListModal)}
+        isCloseButton={true}
+      />
+      }
     </div>
   )
 };
 
-export default UserDashboard;
+export default connect(state => {
+  return {
+    playlists: state.playlists.playlists,
+    totalPlaylists: state.playlists.total,
+  }
+},
+dispatch => {
+  return {
+    fetchPlaylists: () => dispatch(fetchPlaylistsAction()),
+  }
+})(withRouter(UserDashboard));

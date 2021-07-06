@@ -88,7 +88,7 @@ function App(props) {
         <SideSocialNav />
         {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}
         <Switch>
-          <Route path="/" exact render={() => user ? <Redirect to='/my-profile' /> : <Home />} />
+          <Route path="/" exact render={() => user ? <Redirect to='/user-dashboard' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
           <Route path="/wallet" exact component={Auth(SignIn)} />

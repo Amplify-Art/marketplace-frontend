@@ -13,7 +13,6 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   console.log(user)
   useEffect(() => {
-    console.log('THIS IS CALLED')
     fetchNFTs({
       params: {
         type: isPlayList ? 'song' : undefined

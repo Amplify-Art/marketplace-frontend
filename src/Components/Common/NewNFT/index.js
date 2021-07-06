@@ -182,18 +182,13 @@ function NewNFT(props) {
                   )}
                 />
                 {/* <input name="album-cost" type="text" placeholder="Album Cost" {...register("albumPrice", { required: true })} /> */}
-                {errors.albumPrice && <span>This field is required</span>}
+                {errors.albumPrice && <span className="error-message">This field is required</span>}
               </div>
 
               <div className="input-holder">
                 <input name="number-of-albums" type="number" placeholder="Number of Albums" className={errors.numberOfAlbums && 'error'} {...register("numberOfAlbums", { required: true })} />
-                {errors.numberOfAlbums && <span>This field is required</span>}
+                {errors.numberOfAlbums && <span className="error-message">This field is required</span>}
               </div>
-
-              {/* <div className="input-holder">
-                  <input type="file" name="song" onChange={onSongFileChange} accept="audio/mp3,audio/*" />
-                  <span>{customError && customError.songFile}</span>
-                </div> */}
 
               <div className="song-list">
                 {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
@@ -206,8 +201,8 @@ function NewNFT(props) {
                     </div>
                     <div className="right">
                       <div className="input-holder">
-                        <input name={`song-title${index}`} type="text" placeholder="Song Title" onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
-                        {file.error && <span>This field is required</span>}
+                        <input name={`song-title${index}`} type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
+                        {file.error && <span className="error-message">This field is required</span>}
                       </div>
                     </div>
 
@@ -238,7 +233,7 @@ function NewNFT(props) {
                   }
                 </div>
               </div>
-              {customError.songFiles && <span>{customError.songFiles}</span>}
+              {customError.songFiles && <span className="error-message">{customError.songFiles}</span>}
             </div>
 
             <div className="right">
@@ -248,17 +243,55 @@ function NewNFT(props) {
                 </div>
               </label>
               <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
-              <span>{customError && customError.albumCover}</span>
+              <span className="error-message">{customError && customError.albumCover}</span>
             </div>
           </div>
           <div className="policy-wrap">
             <div className="input-holder checkbox">
               <label htmlFor="terms" className={errors.terms ? 'error' : ''}>I agree to the Terms and Conditions <img src={ToolTipIcon} /></label>
-              <input type="checkbox" id="terms" name="terms" value="true" checked {...register("terms", { required: true })} />
+              <Controller
+                control={control}
+                name="terms"
+                rules={{ required: true }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                  formState,
+                }) => (
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    defaultChecked
+                    value={value}
+                    onChange={onChange}
+                    {...register("terms", { required: true })}
+                  />
+                )}
+              />
             </div>
             <div className="input-holder checkbox">
               <label htmlFor="remint" className={errors.remint ? 'error' : ''}>I will not remint this album <img src={ToolTipIcon} /></label>
-              <input type="checkbox" id="remint" name="remint" value="true" checked {...register("remint", { required: true })} />
+              <Controller
+                control={control}
+                name="terms"
+                rules={{ required: true }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                  formState,
+                }) => (
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    name="remint"
+                    defaultChecked
+                    value={value}
+                    onChange={onChange}
+                    {...register("remint", { required: true })}
+                  />
+                )}
+              />
             </div>
           </div>
           <div className="input-holder center-text">

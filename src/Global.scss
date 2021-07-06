@@ -26,7 +26,7 @@ body {
   margin-right: auto;
   @media screen and (max-width: 1660px) {
     padding-left: 30px;
-    padding-right: 30px;
+    // padding-right: 30px;
     box-sizing: border-box;
   }
   &.small {
@@ -109,6 +109,12 @@ input {
   &.error {
     border-color: #FF5353 !important;
     color: initial;
+  }
+}
+
+span {
+  &.error-message {
+    color: #FF5353;
   }
 }
 

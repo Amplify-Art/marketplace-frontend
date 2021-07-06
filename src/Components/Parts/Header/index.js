@@ -12,7 +12,7 @@ import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
-import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction'
+import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
 import './Header.scss';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
