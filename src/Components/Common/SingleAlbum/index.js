@@ -5,7 +5,7 @@ import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true} = props;
+  const { albumInfo, isMint = true } = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
@@ -18,15 +18,13 @@ function SingleAlbum(props) {
     <>
       <div className="single-album" onClick={handleModal}>
         <div className="cd-case">
-          {/* {albumInfo.coverArt ? (
+          {albumInfo.coverArt ? (
             <img src={albumInfo.coverArt} alt="" />
           ) :(
-            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="" />
-          )} */}
-          {albumInfo.user_id === null ? (
+            albumInfo.cover_cid ?
+            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+            :
             <img src={cdCover} alt="cover image" />
-          ) :(
-            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}`} alt="cover image" />
           )}
           {console.log("mit--->",isMint)}
           {isMint && albumInfo && albumInfo.forSale !== false && (
@@ -39,9 +37,9 @@ function SingleAlbum(props) {
         <h4 className="artist-name">{albumInfo.artist}</h4>
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
-      
-        {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
-      
+
+      {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
+
     </>
   );
 }

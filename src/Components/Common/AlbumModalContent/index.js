@@ -34,15 +34,14 @@ function AlbumModalContent({ albumInfo }) {
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div>
           <div className="album-right">
-            {console.log("call------>",albumInfo)}
             <div className="title">{albumInfo && albumInfo.title}</div>
-            <div className="artist-title">{albumInfo && albumInfo.user.name || 'No Artist'}</div>
+            <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
             <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
           </div>
         </div>
         <div className="album-bottom">
           {albumInfo && albumInfo.songs.map((song, index) => (
-            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`}/>
+            <AlbumSingleSong song={song} index={index} />
           ))}
         </div>
         {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
