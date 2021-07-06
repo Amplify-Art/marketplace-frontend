@@ -10,15 +10,19 @@ import SongModalContent from '../SongModalcontent';
 
 
 function AlbumModalContent({ albumInfo }) {
-
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
+  const [songData, setSongData] = useState(albumInfo.songs);
 
   const handleSongModal = () => {
     setSongModal(true);
   }
 
   const handleCloseModal = () => { setSongModal(false) }
+
+  useEffect(() => {
+    sessionStorage.setItem('songData',JSON.stringify(songData))
+  }, [songData]);
 
   return (
     <div id="albums-content">
