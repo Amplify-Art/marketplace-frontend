@@ -118,7 +118,7 @@ function UserDashboard(props) {
         {props.playlists && props.playlists.length > 0 ? (
           <div className="album-block">
             {props.playlists.map((album, index) => (
-              <SingleAlbum key={index} albumInfo={album} isMint={false} />
+              <SingleAlbum key={index} albumInfo={album} isMint={false} isPlayList/>
             ))}
           </div>
         ) : (
