@@ -20,6 +20,7 @@ function CreatePlayList(props) {
   const [selectedSongs, setSelectedSongs] = useState([]);
 
   const { showCaseData, addPlaylist, togglePlayListModal } = props;
+  console.log('selectedSongs',selectedSongs)
   const renderPlayList = () => {
     return selectedSongs.map((list, index) => (
       <div>{`${index + 1}. ${list.title}`} <button className="remove" onClick={() => removeSelectedSongs(index)}>remove</button></div>
@@ -77,7 +78,7 @@ function CreatePlayList(props) {
               <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: 'This is required' })} />
               {errors && errors.playlistName && <span className="">{errors.playlistName.message}</span>}
             </div>
-            <AddShowCase showCaseData={showCaseData} isPlayList addToPlaylist={addToPlaylist} />
+            <AddShowCase showCaseData={showCaseData} isPlayList addToPlaylist={addToPlaylist} {...{selectedSongs}} />
           </div>
           <div className="playlist-CD">
             {loading && <Skeleton width={250} height={214} className="case-box" />}
@@ -90,9 +91,11 @@ function CreatePlayList(props) {
             </ul>
           </div>
         </div>
+        {console.log('songs',props.songs)}
+        {console.log('nfts',props.nfts)}
         {!hasSelectedSongs && <span>Alteast one song should be added to playlist!</span>}
         <div className="btn-wrabtn-wrapp input-holder">
-          <input type="submit" value="Create PlayList" disabled={isSubmitting} onClick={showMessage} />
+          <input type="submit" value="Create PlayList" disabled={isSubmitting} />
         </div>
       </form>
     </div>

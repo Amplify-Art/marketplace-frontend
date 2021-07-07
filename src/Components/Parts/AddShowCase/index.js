@@ -8,10 +8,19 @@ import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist }) {
+function AddShowCase({ showCaseData, fetchNFTs, selectedSongs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  const [addnfts, setAddNfts] = useState(nfts)
+  console.log('sdsdsd----',addnfts)
+  // const selectedSongsId = selectedSongs.map(song => song.id)
+  // const filterNFTS = addnfts.filter(song => !selectedSongsId.includes(song.id))
+  console.log('nfts', nfts)
   console.log(user)
+
+  const filterNFTSHandler = (nft) => {
+    setAddNfts(addnfts.filter(n => n.id !== nft.id))
+  }
   useEffect(() => {
     fetchNFTs({
       params: {
@@ -34,7 +43,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
   return (
     <div id="addshowcase" >
       <div class="scrollbar" id="style-4">
-        {nfts && nfts.length > 0 ? nfts.map((nft, item) => (
+        {addnfts && addnfts.length > 0 ? addnfts.map((nft, item) => (
           <div className="row">
             <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
             {loading && <Skeleton width={60} height={60} />}
@@ -42,7 +51,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
               <div className="row-desc">{isPlayList ? nft.album && nft.album.description : nft.description}</div>
             </div>
-            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>Add</button>
+            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) && filterNFTSHandler(nft) : onAddingShowcase(nft)}>Add</button>
           </div>
         ))
           : !isFetchingNFts ?
