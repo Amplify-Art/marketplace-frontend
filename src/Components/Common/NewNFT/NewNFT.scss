@@ -54,42 +54,7 @@
     	right: 500px;
 	}
 	.song-list {
-		.single-song {
-			display: flex;
-			margin-bottom: 20px;
-      align-items: center;
-			&:last-child {
-				margin-bottom: 0px;
-			}
-			.left {
-				flex: none;
-				.track {
-					border: 2px solid #000000;
-					border-radius: 8px;
-					padding: 10px 28px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					cursor: pointer;
-          width: 250px;
-					img {
-						margin-left: 6px;
-					}
-				}
-			}
-
-			.right {
-				flex: 1;
-			}
-
-			.trash {
-				display: flex;
-				margin-left: 8px;
-				img {
-					cursor: pointer;
-				}
-			}
-		}
+		
 	}
 
 	.uploader {
@@ -182,3 +147,50 @@ h3 {
 //     }
 //   }
 // }
+
+.draggable-item,
+.sortableHelper  {
+  z-index: 99999;
+}
+
+.drag {
+  cursor: grab;
+  margin-right: 8px;
+}
+
+.single-song {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+  .left {
+    flex: none;
+    .track {
+      border: 2px solid #000000;
+      border-radius: 8px;
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 250px;
+      img {
+        margin-left: 6px;
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+  }
+
+  .trash {
+    display: flex;
+    margin-left: 8px;
+    img {
+      cursor: pointer;
+    }
+  }
+}

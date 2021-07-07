@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
+import {sortableContainer, SortableElement, sortableHandle} from 'react-sortable-hoc';
 import './NewNFT.scss';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
@@ -137,6 +138,35 @@ function NewNFT(props) {
     songs.splice(index, 1, file)
     setSongFiles([...songs])
   }
+
+  const DragHandle = sortableHandle(() => <span className="drag">::</span>);
+
+  const SortableItem = SortableElement(({value, index}) => (
+    <div className="single-song">
+      <DragHandle />
+      <div className="left">
+        <div className="track">
+          {/* TODO: limit path length to 15 chars plus extension */}
+          {value.path} <img src={UploadIconAlt} alt="Upload" />
+        </div>
+      </div>
+      <div className="right">
+        <div className="input-holder">
+          <input name={`song-title${index}`} type="text" placeholder="Song Title" className={value.error && 'error'} onChange={(e) => onSongTitleChange(value, index, e.target.value)} />
+          {value.error && <span className="error-message">This field is required</span>}
+        </div>
+      </div>
+
+      <div className="trash">
+        <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
+      </div>
+    </div>
+  ));
+  
+  const SortableList = sortableContainer(({children}) => {
+    return <>{children}</>;
+  });
+
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
@@ -191,26 +221,12 @@ function NewNFT(props) {
               </div>
 
               <div className="song-list">
-                {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-                  <div className="single-song" key={index}>
-                    <div className="left">
-                      <div className="track">
-                        {/* TODO: limit path length to 15 chars plus extension */}
-                        {file.path} <img src={UploadIconAlt} alt="Upload" />
-                      </div>
-                    </div>
-                    <div className="right">
-                      <div className="input-holder">
-                        <input name={`song-title${index}`} type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, index, e.target.value)} />
-                        {file.error && <span className="error-message">This field is required</span>}
-                      </div>
-                    </div>
-
-                    <div className="trash">
-                      <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
-                    </div>
-                  </div>
-                )) : null}
+                <SortableList helperClass="sortableHelper">
+                  {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
+                    <SortableItem key={`item-${index}`} index={index} value={file} />
+                  )) : null}
+                </SortableList>
+                {/* <SortableList items={songFiles} /> */}
               </div>
 
               <div className="uploader">
