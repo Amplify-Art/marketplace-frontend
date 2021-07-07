@@ -9,6 +9,13 @@
 		background: linear-gradient(123.48deg, #f18180 0%, #ec5051 52.12%);
 		padding: 5px 10px;
 		width: 50%;
+		.active-playlist{
+			text-align: center;
+			.active-playlist-btn{
+				min-width: auto !important;
+				border: 1.5px solid #ffffff
+			}
+		}
 	}
 	.bg-album-img {
     background: url('../../../assets/images/album_case.png');
