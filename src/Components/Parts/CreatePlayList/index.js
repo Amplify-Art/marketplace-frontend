@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { store } from 'react-notifications-component';
 import { useForm } from "react-hook-form";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -49,6 +50,22 @@ function CreatePlayList(props) {
       )
   }
 
+  const showMessage = () => {
+    store.addNotification({
+      title: "Success",
+      message: "Playlist has been created successfully",
+      type: "success",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+          duration: 2000,
+          onScreen: true
+      }
+    });
+  }
+
   useEffect(() => {
     props.fetchSongs();
   }, []);
@@ -76,7 +93,7 @@ function CreatePlayList(props) {
         </div>
         {!hasSelectedSongs && <span>Alteast one song should be added to playlist!</span>}
         <div className="btn-wrabtn-wrapp input-holder">
-          <input type="submit" value="Create PlayList" disabled={isSubmitting} />
+          <input type="submit" value="Create PlayList" disabled={isSubmitting} onClick={showMessage} />
         </div>
       </form>
     </div>

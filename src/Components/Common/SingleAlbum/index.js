@@ -5,7 +5,7 @@ import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true } = props;
+  const { albumInfo, isMint = true,isPlayList=false } = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
@@ -38,7 +38,7 @@ function SingleAlbum(props) {
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
 
-      {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
+      {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>}
 
     </>
   );

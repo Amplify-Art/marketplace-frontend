@@ -9,10 +9,9 @@ import './AlbumModalContent.scss'
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo }) {
+function AlbumModalContent({ albumInfo,isPlayList }) {
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
-  const [songData, setSongData] = useState(albumInfo.songs);
 
   const handleSongModal = () => {
     setSongModal(true);
@@ -20,9 +19,9 @@ function AlbumModalContent({ albumInfo }) {
 
   const handleCloseModal = () => { setSongModal(false) }
 
-  useEffect(() => {
-    sessionStorage.setItem('songData',JSON.stringify(songData))
-  }, [songData]);
+  const addToPlaylist = () => {
+        sessionStorage.setItem('activePlaylist',JSON.stringify(albumInfo.songs))
+  }
 
   return (
     <div id="albums-content">
@@ -44,6 +43,9 @@ function AlbumModalContent({ albumInfo }) {
             <AlbumSingleSong song={song} index={index} />
           ))}
         </div>
+        {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
+          <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist}  />
+        </div> : null}
         {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
       </div>
         : <div className="left-wrapper">
