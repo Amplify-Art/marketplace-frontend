@@ -59,14 +59,14 @@ function Player(props) {
         setIsShow(true)
   }, [])
 
-  const { avatar, toggleWalletSidebar } = props;
+  const { avatar, toggleWalletSidebar, activePlaylist } = props;
 
   const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
   const [isShow, setIsShow] = useState(false);
-  const [currentSongSrc, setSongSrc] = useState('https://ipfs.io/ipfs/QmQvx9dxYNA4kp1ZDzC1jd2LyYgwhffwK3TfBRv7QNqGd8?filename=21guns.mp3');
+  const [currentSongSrc, setSongSrc] = useState(`https://ipfs.io/ipfs/${JSON.parse(activePlaylist)[0].song_cid}`);
 
   const playBar = useRef(null);
 
@@ -86,8 +86,8 @@ function Player(props) {
   }
 
   const nextSong = () => {
-    if ((songIndex + 1) !== songs.length) { // Prevents error by skipping past the number of songs that are available
-      audioElement.src = songs[songIndex + 1].source;
+    if ((songIndex + 1) !== activePlaylist.length) { // Prevents error by skipping past the number of songs that are available
+      audioElement.src = `https://ipfs.io/ipfs/${activePlaylist[songIndex + 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -97,7 +97,7 @@ function Player(props) {
 
   const prevSong = () => {
     if (songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = songs[songIndex - 1].source;
+      audioElement.src = `https://ipfs.io/ipfs/${activePlaylist[songIndex - 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -116,6 +116,7 @@ function Player(props) {
       audioElement.currentTime = (playBar.current.getBoundingClientRect().bottom - e.clientY) * audioElement.duration / playBar.current.getBoundingClientRect().height
     }
   }
+
   return (
     !isShow &&
     (
@@ -131,12 +132,12 @@ function Player(props) {
 
           {isExpanded && <div className="album-info large">
             <div className="cover">
-              <img src={songs[songIndex].cover} alt="Cover" />
+              <img src={TestCover} alt="Cover" />
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{songs[songIndex].song_title}</h5>
-                <h6 className="song-name">{songs[songIndex].album_title}</h6>
+                <h5 className="album-title">{JSON.parse(activePlaylist)[songIndex].title}</h5>
+                {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
           </div>}
@@ -175,18 +176,18 @@ function Player(props) {
 
           {!isExpanded && <div className="album-info">
             <div className="cover">
-              <img src={songs[songIndex].cover} alt="Cover" />
+              {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{songs[songIndex].song_title}</h5>
-                <h6 className="song-name">{songs[songIndex].album_title}</h6>
+                <h5 className="album-title">{JSON.parse(activePlaylist)[songIndex].title}</h5>
+                {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
           </div>}
         </div>
 
-        <div className="background-blur" style={{ backgroundImage: `url(${songs[songIndex].cover})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${TestCover})` }} />
       </div>
     )
 

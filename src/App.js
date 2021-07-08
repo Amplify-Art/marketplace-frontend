@@ -58,18 +58,24 @@ function App(props) {
     }
   }, [location]);
 
+  const activePlaylist = sessionStorage.getItem('activePlaylist');
 
   useEffect(() => {
     if (!path)
       return
     if (!["/", "/auth/login"].includes(path)) {
-      toggleLeftSidebar(true);
-      togglePlayer(true);
+      if (activePlaylist && activePlaylist.length) {
+        toggleLeftSidebar(true);
+        togglePlayer(true);
+      } else {
+        toggleLeftSidebar(false);
+        togglePlayer(false);
+      }
     } else {
       toggleLeftSidebar(false);
       togglePlayer(false);
     }
-  }, [path]);
+  }, [path, activePlaylist]);
 
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
@@ -107,7 +113,7 @@ function App(props) {
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
           <Route component={PageNotFound} />
         </Switch>
-        {showPlayer && <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} />}
+        {showPlayer && <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} activePlaylist={activePlaylist} />}
       </GloablLoader>
     </>
   );

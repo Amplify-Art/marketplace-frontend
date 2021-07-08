@@ -20,7 +20,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   const handleCloseModal = () => { setSongModal(false) }
 
   const addToPlaylist = () => {
-        sessionStorage.setItem('activePlaylist',JSON.stringify(albumInfo.songs))
+    sessionStorage.setItem('activePlaylist',JSON.stringify(albumInfo.songs))
   }
 
   return (

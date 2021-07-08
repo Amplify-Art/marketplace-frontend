@@ -8,82 +8,82 @@ import { addNominationAction } from '../../redux/actions/NominationAction'
 import _ from 'lodash';
 
 function useDebounce(callback, delay) {
-    const debouncedFn = useCallback(
-        _.debounce((...args) => callback(...args), delay),
-        [delay] // will recreate if delay changes
-    );
-    return debouncedFn;
+  const debouncedFn = useCallback(
+    _.debounce((...args) => callback(...args), delay),
+    [delay] // will recreate if delay changes
+  );
+  return debouncedFn;
 }
 
 const Nominate = (props) => {
-    let [search, setSearch] = useState('')
-    let [selected, setSelected] = useState(null)
-    const getUsers = (s) => {
-        props.fetchUsers({
-            params: {
-                search: s && s.replace('@', '')
-            }
-        })
-    }
-    const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
-    const onSearch = (e) => {
-        const { value: nextValue } = e.target;
-        setSearch(nextValue)
-        debouncedSave(nextValue);
-    }
-    const onSelect = user => {
-        setSelected(user)
-    }
-    const onSubmit = (e) => {
-        e.preventDefault()
-        if (!selected) return
-        props.addNomination({
-            nominee: selected.id
-        })
-    }
-    return (
-        <div id="nominate-container">
-            <div className='container'>
-                <div className='nominate-banner'>Nomination</div>
+  let [search, setSearch] = useState('')
+  let [selected, setSelected] = useState(null)
+  const getUsers = (s) => {
+    props.fetchUsers({
+      params: {
+        search: s && s.replace('@', '')
+      }
+    })
+  }
+  const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
+  const onSearch = (e) => {
+    const { value: nextValue } = e.target;
+    setSearch(nextValue)
+    debouncedSave(nextValue);
+  }
+  const onSelect = user => {
+    setSelected(user)
+  }
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (!selected) return
+    props.addNomination({
+      nominee: selected.id
+    })
+  }
+  return (
+    <div id="nominate-container">
+      <div className='container'>
+        <div className='nominate-banner'>Nomination</div>
 
 
-                <div className="nominet_border1">
-                    <div className="nominet_border2">
-                    </div>
-                </div>
-                <div className='nominate_wrapp'>
-                    <div className='content'>
-                        <h1 className='heading'>{moment().daysInMonth() - moment().date()} Days Left Until Next Nomination</h1>
-                        <div className="nominate">
-                            <div>Nominate yourself for this month's voting period.</div>
-                            <div>Enter early in the month for next exposure.</div>
-                        </div>
-                        <div className="submission">1 Submission per month per user</div>
-                        <div className="search">
-                            <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={selected && selected.username || search} />
-                            <button className="btn" onClick={onSubmit}>Submit Artist</button>
-                        </div>
-                        {search && !selected &&
-                            <div className="user-list">
-                                <ul>
-                                    {props.users.map(u => <li onClick={() => onSelect(u)}>{u.username}</li>)}
-                                </ul>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
+        <div className="nominet_border1">
+          <div className="nominet_border2">
+          </div>
         </div>
-    )
+        <div className='nominate_wrapp'>
+          <div className='content'>
+            <h1 className='heading'>{moment().daysInMonth() - moment().date()} Days Left Until Next Nomination</h1>
+            <div className="nominate">
+              <div>Nominate yourself for this month's voting period.</div>
+              <div>Enter early in the month for next exposure.</div>
+            </div>
+            <div className="submission">1 Submission per month per user</div>
+            <div className="search">
+              <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={selected && selected.username || search} />
+              <button className="btn" onClick={onSubmit}>Submit Artist</button>
+            </div>
+            {search && !selected &&
+              <div className="user-list">
+                <ul>
+                  {props.users.map(u => <li onClick={() => onSelect(u)}>{u.username}</li>)}
+                </ul>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default connect(state => {
-    return {
-        users: state.users.users
-    }
+  return {
+    users: state.users.users
+  }
 }, dispatch => {
-    return {
-        fetchUsers: (data) => dispatch(fetchUsersAction(data)),
-        addNomination: (data) => dispatch(addNominationAction(data)),
-    }
+  return {
+    fetchUsers: (data) => dispatch(fetchUsersAction(data)),
+    addNomination: (data) => dispatch(addNominationAction(data)),
+  }
 })(Nominate)
