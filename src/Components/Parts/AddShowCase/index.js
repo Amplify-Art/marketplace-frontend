@@ -11,16 +11,15 @@ import CDImg from '../../../assets/images/cd-img.svg';
 function AddShowCase({ showCaseData, fetchNFTs, selectedSongs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-  const [addnfts, setAddNfts] = useState(nfts)
-  console.log('sdsdsd----',addnfts)
-  // const selectedSongsId = selectedSongs.map(song => song.id)
-  // const filterNFTS = addnfts.filter(song => !selectedSongsId.includes(song.id))
-  console.log('nfts', nfts)
-  console.log(user)
-
-  const filterNFTSHandler = (nft) => {
-    setAddNfts(addnfts.filter(n => n.id !== nft.id))
-  }
+  const [addnfts, setAddNfts] = useState([])
+  useEffect(() => {
+    let song = [...nfts]
+    let ss=[...selectedSongs].map(item=>{
+      return item.id
+    })
+    const result = song.filter(item=>!ss.includes(item.id))
+    setAddNfts(result)
+  },[selectedSongs])
   useEffect(() => {
     fetchNFTs({
       params: {
@@ -28,6 +27,11 @@ function AddShowCase({ showCaseData, fetchNFTs, selectedSongs, nfts, addshowcase
       }
     })
   }, []);
+
+  useEffect(() => {
+    setAddNfts(nfts)
+  }, [nfts])
+
   const onAddingShowcase = (nft) => {
     addshowcase({
       album_id: nft.id
@@ -51,7 +55,7 @@ function AddShowCase({ showCaseData, fetchNFTs, selectedSongs, nfts, addshowcase
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
               <div className="row-desc">{isPlayList ? nft.album && nft.album.description : nft.description}</div>
             </div>
-            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) && filterNFTSHandler(nft) : onAddingShowcase(nft)}>Add</button>
+            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>Add</button>
           </div>
         ))
           : !isFetchingNFts ?

@@ -134,7 +134,6 @@ function UserDashboard(props) {
           ))}
         </div>
       </div>
-
       {showPlayListModal && <GeneralModal
         headline="Create New Playlist"
         bodyChildren={<CreatePlayList showCaseData={{}} togglePlayListModal={togglePlayListModal} />}
