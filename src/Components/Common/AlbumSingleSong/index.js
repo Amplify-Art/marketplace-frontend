@@ -15,7 +15,6 @@ class ProgressRing extends React.Component {
   render() {
     const { radius, stroke, progress } = this.props;
 
-    const strokeDashoffset = this.circumference - progress / 100 * this.circumference;
     return (
       <svg
         height={radius * 2}
@@ -25,8 +24,7 @@ class ProgressRing extends React.Component {
           stroke="white"
           fill="transparent"
           strokeWidth={ stroke }
-          //strokeDasharray={ this.circumference + ' ' + this.circumference }
-          // style={ { strokeDashoffset } }
+          strokeDasharray={ 0 + ' ' + 0 }
           r={ this.normalizedRadius }
           cx={ radius }
           cy={ radius }
@@ -45,8 +43,6 @@ function AlbumSingleSong(props) {
   const [audio] = useState(new Audio(`https://hub.textile.io/ipfs/${song.song_cid}`));
   const [playing, setPlaying] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
-  const [audioTime, setAudioTime] = useState(0);
-  const [duration, setDuration] = useState(0);
 
   const toggle = () => setPlaying(!playing);
   
@@ -60,18 +56,20 @@ function AlbumSingleSong(props) {
     });
     audio.addEventListener("timeupdate", e => {
       const progressElement = document.getElementById('circleProgress')
-        progressElement.style.strokeDasharray = `${audio.currentTime},${audio.duration}` 
-        // setAudioTime(audio.currentTime)
-        // setDuration(audio.duration)
-        // setSongProgress(e.currentTime / e.duration)
+      if(progressElement)
+      {
+        let normalizedRadius = 9;
+        let circumference = normalizedRadius * 2 * Math.PI;
+        let startPoint = (audio.currentTime / audio.duration)* circumference;
+        let endPoint = circumference - (audio.currentTime / audio.duration) / 100 * circumference;
+        progressElement.style.strokeDasharray = `${startPoint},${endPoint}`
+      }
     });
     return () => {
       audio.removeEventListener("ended", () => setPlaying(false));
       audio.removeEventListener("timeupdate", () => {setSongProgress(0)});
     };
   },[playing]);
-
-  console.log('progress', audio.duration)
 
   return (
     <div className="inner-content-album" key={`al${index}`}>
@@ -83,8 +81,6 @@ function AlbumSingleSong(props) {
                 radius={ 13 }
                 stroke={ 2 }
                 progress={ audio.currentTime / audio.duration }
-                // time = {audioTime}
-                // duration = {duration}
               />
             </div>
           ) : (
