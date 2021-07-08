@@ -43,9 +43,10 @@ function CreatePlayList(props) {
 
   const addToPlaylist = (song) => {
     setHasSelectedSongs(true)
-    setSelectedSongs(
-      [...selectedSongs, song]
-    )
+    if (!selectedSongs.map(i => i.id).includes(song.id))
+      setSelectedSongs(
+        [...selectedSongs, song]
+      )
   }
 
   useEffect(() => {

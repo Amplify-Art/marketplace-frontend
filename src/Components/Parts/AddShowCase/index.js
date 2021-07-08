@@ -3,26 +3,38 @@ import Skeleton from 'react-loading-skeleton';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchNFTsAction } from '../../../redux/actions/NFTAction';
-import { addShowcaseAction } from '../../../redux/actions/ShowcaseAction';
+import { addShowcaseAction, updateShowcaseAction } from '../../../redux/actions/ShowcaseAction';
 import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist }) {
+function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   console.log(user)
   useEffect(() => {
     fetchNFTs({
       params: {
-        type: isPlayList ? 'song' : undefined
+        type: isPlayList ? 'song' : 'album',
+        showcase: true
       }
     })
   }, []);
   const onAddingShowcase = (nft) => {
-    addshowcase({
-      album_id: nft.id
-    })
+    let wasFound = nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id)
+    if (wasFound) {
+      console.log('Should remove from here', wasFound)
+      updateShowcase({
+        album_id: null,
+        user_id: null,
+        is_deleted: true,
+        id: wasFound.id
+      })
+    } else {
+      addshowcase({
+        album_id: nft.id
+      })
+    }
     toggleShowCaseModal()
   }
   const onLoadingImage = (i) => {
@@ -42,7 +54,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
               <div className="row-desc">{isPlayList ? nft.album && nft.album.description : nft.description}</div>
             </div>
-            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>Add</button>
+            <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>{nft.currentOwner && nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id) ? 'Remove' : 'Add'}</button>
           </div>
         ))
           : !isFetchingNFts ?
@@ -66,5 +78,6 @@ export default connect(state => {
   return {
     fetchNFTs: (data) => dispatch(fetchNFTsAction(data)),
     addshowcase: (data) => dispatch(addShowcaseAction(data)),
+    updateShowcase: (data) => dispatch(updateShowcaseAction(data)),
   }
 })(withRouter(AddShowCase));

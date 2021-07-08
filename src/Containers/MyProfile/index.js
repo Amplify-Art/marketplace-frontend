@@ -100,7 +100,7 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.nfts && props.nfts.length > 0 && props.nfts.filter(f => f.type === 'album').map((nft, index) => (
+            {props && props.nfts && props.nfts.length > 0 && props.nfts.filter(f => f.type === 'album' && f.is_purchased).map((nft, index) => (
               generateAlbumItem(nft, index)
             ))}
           </div>
