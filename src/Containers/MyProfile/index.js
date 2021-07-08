@@ -124,6 +124,10 @@ export default connect(state => {
 },
   dispatch => {
     return {
-      fetchNFTs: () => dispatch(fetchNFTsAction()),
+      fetchNFTs: () => dispatch(fetchNFTsAction({
+        params: {
+          is_purchased: true
+        }
+      })),
     }
   })(withRouter(MyProfile));

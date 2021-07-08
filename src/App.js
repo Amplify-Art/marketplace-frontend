@@ -64,11 +64,10 @@ function App(props) {
     if (!path)
       return
     if (!["/", "/auth/login"].includes(path)) {
+      toggleLeftSidebar(true);
       if (activePlaylist && activePlaylist.length) {
-        toggleLeftSidebar(true);
         togglePlayer(true);
       } else {
-        toggleLeftSidebar(false);
         togglePlayer(false);
       }
     } else {
