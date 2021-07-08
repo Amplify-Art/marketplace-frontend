@@ -8,10 +8,18 @@ import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase }) {
+function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-  console.log(user)
+  const [addnfts, setAddNfts] = useState([])
+  useEffect(() => {
+    let song = [...nfts]
+    let ss=[...selectedSongs].map(item=>{
+      return item.id
+    })
+    const result = song.filter(item=>!ss.includes(item.id))
+    setAddNfts(result)
+  },[selectedSongs])
   useEffect(() => {
     fetchNFTs({
       params: {
@@ -20,6 +28,11 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
       }
     })
   }, []);
+
+  useEffect(() => {
+    setAddNfts(nfts)
+  }, [nfts])
+
   const onAddingShowcase = (nft) => {
     let wasFound = nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id)
     if (wasFound) {
@@ -46,7 +59,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, addshowcase, isFetchingNFt
   return (
     <div id="addshowcase" >
       <div class="scrollbar" id="style-4">
-        {nfts && nfts.length > 0 ? nfts.map((nft, item) => (
+        {addnfts && addnfts.length > 0 ? addnfts.map((nft, item) => (
           <div className="row">
             <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
             {loading && <Skeleton width={60} height={60} />}
