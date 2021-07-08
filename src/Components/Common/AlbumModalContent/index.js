@@ -9,7 +9,7 @@ import './AlbumModalContent.scss'
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo,isPlayList }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
 
@@ -40,7 +40,7 @@ function AlbumModalContent({ albumInfo,isPlayList }) {
         </div>
         <div className="album-bottom">
           {albumInfo && albumInfo.songs.map((song, index) => (
-            <AlbumSingleSong song={song} index={index} />
+            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} isOpen={isOpen}/>
           ))}
         </div>
         {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">

@@ -26,7 +26,6 @@ function SingleAlbum(props) {
             :
             <img src={cdCover} alt="cover image" />
           )}
-          {console.log("mit--->",isMint)}
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               <span>Mint #<br />{albumInfo.qty}/{albumInfo.qty}</span>
@@ -37,9 +36,7 @@ function SingleAlbum(props) {
         <h4 className="artist-name">{albumInfo.artist}</h4>
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
-
-      {isOpen && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>}
-
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen}  isPlayList={isPlayList}/>} closeModal={handleCloseModal} /></div>
     </>
   );
 }
