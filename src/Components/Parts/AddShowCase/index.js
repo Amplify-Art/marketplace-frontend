@@ -14,12 +14,12 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
   const [addnfts, setAddNfts] = useState([])
   useEffect(() => {
     let song = [...nfts]
-    let ss=[...selectedSongs].map(item=>{
+    let ss = [...selectedSongs].map(item => {
       return item.id
     })
-    const result = song.filter(item=>!ss.includes(item.id))
+    const result = song.filter(item => !ss.includes(item.id))
     setAddNfts(result)
-  },[selectedSongs])
+  }, [selectedSongs])
   useEffect(() => {
     fetchNFTs({
       params: {
@@ -61,7 +61,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
       <div class="scrollbar" id="style-4">
         {addnfts && addnfts.length > 0 ? addnfts.map((nft, item) => (
           <div className="row">
-            <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
+              <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://hub.textile.io/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} style={{width:'14%'}} />
             {loading && <Skeleton width={60} height={60} />}
             <div className="row-wrap">
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
