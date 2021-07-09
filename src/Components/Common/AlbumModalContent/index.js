@@ -4,6 +4,7 @@ import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import './AlbumModalContent.scss'
+import { usePalette } from 'react-palette';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
@@ -20,12 +21,16 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   const handleCloseModal = () => { setSongModal(false) }
 
   const addToPlaylist = () => {
-    sessionStorage.setItem('activePlaylist',JSON.stringify(albumInfo.songs))
+    sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
   }
-
+  const { data, loading, error } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  console.log(data, 'data')
   return (
     <div id="albums-content">
-      {!viewDetails ? <div className="left-wrapper">
+      <div style={{ color: data.lightVibrant }}>
+        Text with the vibrant color
+      </div>
+      {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
         <div className="album-top">
           <div className="album-img">
             {albumInfo && albumInfo.cover_cid ? (
@@ -40,11 +45,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
         </div>
         <div className="album-bottom">
           {albumInfo && albumInfo.songs.map((song, index) => (
-            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} isOpen={isOpen}/>
+            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} isOpen={isOpen} />
           ))}
         </div>
         {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
-          <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist}  />
+          <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
         </div> : null}
         {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
       </div>

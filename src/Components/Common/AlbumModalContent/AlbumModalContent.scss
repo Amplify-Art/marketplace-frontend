@@ -6,29 +6,28 @@
 	font-weight: normal;
 	height: 390px;
 	.left-wrapper {
-		background: linear-gradient(123.48deg, #f18180 0%, #ec5051 52.12%);
 		padding: 5px 10px;
 		width: 50%;
-		.active-playlist{
+		.active-playlist {
 			text-align: center;
-			.active-playlist-btn{
+			.active-playlist-btn {
 				min-width: auto !important;
-				border: 1.5px solid #ffffff
+				border: 1.5px solid #ffffff;
 			}
 		}
 	}
 	.bg-album-img {
-    background: url('../../../assets/images/album_case.png');
-    width: 50%;
-    background-size: cover;
-    background-repeat: round;
-  }
+		background: url("../../../assets/images/album_case.png");
+		width: 50%;
+		background-size: cover;
+		background-repeat: round;
+	}
 	.album-top {
 		display: flex;
 		.album-img {
 			width: 120px;
 			height: 120px;
-      		overflow: hidden;
+			overflow: hidden;
 		}
 		.album-right {
 			padding-left: 20px;
@@ -122,7 +121,7 @@
 	}
 	.album-bottom {
 		padding-top: 32px;
-		.pointer{
+		.pointer {
 			cursor: pointer;
 		}
 	}
@@ -133,8 +132,8 @@
 			display: flex;
 		}
 		.fn-white {
-            color: #FFFFFF;
-        }
+			color: #ffffff;
+		}
 		.pr-10 {
 			padding-right: 10px;
 		}
