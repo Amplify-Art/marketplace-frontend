@@ -5,7 +5,7 @@ import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true,isPlayList=false } = props;
+  const { albumInfo, isMint = true, isPlayList = false } = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
@@ -20,11 +20,11 @@ function SingleAlbum(props) {
         <div className="cd-case">
           {albumInfo.coverArt ? (
             <img src={albumInfo.coverArt} alt="" />
-          ) :(
+          ) : (
             albumInfo.cover_cid ?
-            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
-            :
-            <img src={cdCover} alt="cover image" />
+              <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+              :
+              <img src={cdCover} alt="cover image" />
           )}
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
