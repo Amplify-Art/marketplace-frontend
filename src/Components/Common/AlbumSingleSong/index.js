@@ -40,7 +40,7 @@ const audioElement = new Audio();
 function AlbumSingleSong(props) {
   const { song, index, isOpen } = props;
 
-  const [audio] = useState(new Audio(`https://hub.textile.io/ipfs/${song.song_cid}`));
+  const [audio] = useState(new Audio(`https://gateway.pinata.cloud/ipfs/${song.song_cid}`));
   const [playing, setPlaying] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const toggle = () => setPlaying(!playing);
@@ -91,7 +91,7 @@ function AlbumSingleSong(props) {
         </div>
         <div className="fn-white pointer">{song.title}</div>
       </div>
-      <div className="fn-white"><SongLength i={index} song={`https://hub.textile.io/ipfs/${song.song_cid}`} /></div>
+      <div className="fn-white"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${song.song_cid}`} /></div>
     </div>
   )
 }

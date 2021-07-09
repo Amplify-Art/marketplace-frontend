@@ -22,7 +22,7 @@ function SingleAlbum(props) {
             <img src={albumInfo.coverArt} alt="" />
           ) :(
             albumInfo.cover_cid ?
-            <img src={`https://hub.textile.io/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+            <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
             :
             <img src={cdCover} alt="cover image" />
           )}
