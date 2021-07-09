@@ -3,9 +3,9 @@ import React from 'react';
 import './ProfileAlbum.scss';
 
 function ProfileAlbum(props) {
-  const { avatarImg, name } = props
+  const { avatarImg, name, onClick } = props
   return (
-    <div className="profile-album">
+    <div className="profile-album" onClick={onClick}>
       <div className="avatar">
         <img src={avatarImg} alt="" />
       </div>
