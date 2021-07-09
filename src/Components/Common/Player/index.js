@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Player.scss';
+import { connect } from 'react-redux';
 
 // Player Icons
 import NextSongIcon from '../../../assets/images/next.svg';
@@ -18,18 +19,17 @@ function Player(props) {
   useEffect(() => {
     const isData = document.getElementsByClassName("error-page")[0];
     if (isData)
-        setIsShow(true)
+      setIsShow(true)
   }, [])
 
-  const { avatar, toggleWalletSidebar, activePlaylist } = props;
+  const { avatar, toggleWalletSidebar, currentPlaylists } = props;
 
   const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
   const [isShow, setIsShow] = useState(false);
-  const [currentSongSrc, setSongSrc] = useState(`https://gateway.pinata.cloud/ipfs/${JSON.parse(activePlaylist)[0].song_cid}`);
-
+  const [currentSongSrc, setSongSrc] = useState(`https://gateway.pinata.cloud/ipfs/${props.currentPlaylists[0].song_cid}`);
   const playBar = useRef(null);
 
   const playButtonFunction = () => {
@@ -48,8 +48,8 @@ function Player(props) {
   }
 
   const nextSong = () => {
-    if ((songIndex + 1) !== activePlaylist.length) { // Prevents error by skipping past the number of songs that are available
-      audioElement.src = `https://gateway.pinata.cloud/ipfs/${activePlaylist[songIndex + 1].song_cid}`;
+    if ((songIndex + 1) !== currentPlaylists.length) { // Prevents error by skipping past the number of songs that are available
+      audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex + 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -59,7 +59,7 @@ function Player(props) {
 
   const prevSong = () => {
     if (songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://gateway.pinata.cloud/ipfs/${activePlaylist[songIndex - 1].song_cid}`;
+      audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex - 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -99,7 +99,7 @@ function Player(props) {
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{JSON.parse(activePlaylist)[songIndex].title}</h5>
+                <h5 className="album-title">{currentPlaylists[songIndex].title}</h5>
                 {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
@@ -143,7 +143,7 @@ function Player(props) {
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{JSON.parse(activePlaylist)[songIndex].title}</h5>
+                <h5 className="album-title">{currentPlaylists[songIndex].title}</h5>
                 {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
@@ -157,4 +157,8 @@ function Player(props) {
   );
 }
 
-export default Player;
+export default connect(state => {
+  return {
+    currentPlaylists: state.playlists.current_playlists
+  }
+})(Player);

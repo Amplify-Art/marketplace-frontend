@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addPlaylist, deletePlaylist, getPlaylistById, getPlaylists, updatePlaylist} from '../../Api/Playlist';
+import { addPlaylist, deletePlaylist, getPlaylistById, getPlaylists, updatePlaylist } from '../../Api/Playlist';
 import * as types from '../../Constants/actions/Playlist';
 import { SET_NOTIFICATION } from '../../Constants/actions/Global';
 
@@ -10,6 +10,7 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_PLAYLIST_REQUEST, addPlaylistSaga, context);
   yield takeLatest(types.UPDATE_PLAYLIST_REQUEST, updatePlaylistSaga, context);
   yield takeLatest(types.DELETE_PLAYLIST_REQUEST, deletePlaylistSaga);
+  yield takeLatest(types.UPDATE_CURRENT_PLAYLIST_REQUEST, updateCurrentPlaylistSaga);
 }
 
 export function* fetchPlaylistsSaga({ payload }) {
@@ -115,6 +116,30 @@ export function* deletePlaylistSaga({ payload }) {
         payload: {
           success: false,
           message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+};
+
+export function* updateCurrentPlaylistSaga({ payload }) {
+  try {
+    yield all([
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: true,
+          message: 'Playlist added'
+        },
+      }),
+    ]);
+  } catch (error) {
+    yield all([
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: 'Something went wrong',
         },
       }),
     ]);

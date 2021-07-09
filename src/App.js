@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Switch, Route, useLocation, Redirect, useHistory } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import { connect } from 'react-redux';
 import 'react-notifications-component/dist/theme.css';
 
 
@@ -59,23 +60,23 @@ function App(props) {
     }
   }, [location]);
 
-  const activePlaylist = sessionStorage.getItem('activePlaylist');
+  // const activePlaylist = sessionStorage.getItem('activePlaylist');
 
   useEffect(() => {
     if (!path)
       return
     if (!["/", "/auth/login"].includes(path)) {
       toggleLeftSidebar(true);
-      if (activePlaylist && activePlaylist.length) {
-        togglePlayer(true);
-      } else {
-        togglePlayer(false);
-      }
+      // if (activePlaylist && activePlaylist.length) {
+      //   togglePlayer(true);
+      // } else {
+      //   togglePlayer(false);
+      // }
     } else {
       toggleLeftSidebar(false);
       togglePlayer(false);
     }
-  }, [path, activePlaylist]);
+  }, [path]);
 
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
@@ -114,7 +115,7 @@ function App(props) {
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
           <Route component={PageNotFound} />
         </Switch>
-        {showPlayer && <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} activePlaylist={activePlaylist} />}
+        {props.currentPlaylists.length ? <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} /> : null}
       </GloablLoader>
     </>
   );
@@ -123,4 +124,8 @@ function App(props) {
 const GrabToken = () => {
 
 }
-export default App;
+export default connect(state => {
+  return {
+    currentPlaylists: state.playlists.current_playlists
+  }
+})(App);

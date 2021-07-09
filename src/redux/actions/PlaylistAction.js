@@ -10,6 +10,11 @@ export const fetchPlaylistAction = payload => ({
   payload,
 });
 
+export const updateCurrentPlaylistAction = payload => ({
+  type: types.UPDATE_CURRENT_PLAYLIST_REQUEST,
+  payload,
+});
+
 export const addPlaylistAction = payload => ({
   type: types.ADD_PLAYLIST_REQUEST,
   payload,

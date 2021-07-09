@@ -13,7 +13,6 @@ function SingleAlbum(props) {
   const handleModal = () => { SetModalOpen(true) }
 
   const handleCloseModal = () => { SetModalOpen(false) }
-
   return (
     <>
       <div className="single-album" onClick={handleModal}>
@@ -22,9 +21,9 @@ function SingleAlbum(props) {
             <img src={albumInfo.coverArt} alt="" />
           ) : (
             albumInfo.cover_cid ?
-            <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
-            :
-            <img src={cdCover} alt="cover image" />
+              <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+              :
+              <img src={cdCover} alt="cover image" />
           )}
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
@@ -36,7 +35,7 @@ function SingleAlbum(props) {
         <h4 className="artist-name">{albumInfo.artist}</h4>
         {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen}  isPlayList={isPlayList}/>} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }

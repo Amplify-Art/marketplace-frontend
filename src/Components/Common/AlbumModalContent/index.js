@@ -6,12 +6,14 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
+import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
+import { connect } from 'react-redux'
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist }) {
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
 
@@ -22,6 +24,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   const handleCloseModal = () => { setSongModal(false) }
 
   const addToPlaylist = () => {
+    updateCurrentPlaylist(albumInfo.songs)
     sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
   }
   const { data, loading, error } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
@@ -81,4 +84,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   )
 }
 
-export default AlbumModalContent
+export default connect(null, dispatch => {
+  return {
+    updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data))
+  }
+})(AlbumModalContent)

@@ -2,13 +2,13 @@ import { filter } from 'lodash';
 import * as types from '../../Constants/actions/Playlist';
 
 /* eslint-disable no-case-declarations */
-
 const initialState = {
   playlist: {},
   playlists: [],
   total: 0,
   loading: false,
   error: '',
+  current_playlists: sessionStorage.getItem('activePlaylist') ? JSON.parse(sessionStorage.getItem('activePlaylist')) : []
 };
 
 export default function (state = initialState, action) {
@@ -44,6 +44,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: true,
+      };
+    case types.UPDATE_CURRENT_PLAYLIST_REQUEST:
+      return {
+        ...state,
+        current_playlists: action.payload,
       };
     case types.DELETE_PLAYLIST_REQUEST:
       return {
