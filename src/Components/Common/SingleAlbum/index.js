@@ -5,7 +5,7 @@ import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true,isPlayList=false } = props;
+  const { albumInfo, isMint = true, isPlayList = false } = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
@@ -20,7 +20,7 @@ function SingleAlbum(props) {
         <div className="cd-case">
           {albumInfo.coverArt ? (
             <img src={albumInfo.coverArt} alt="" />
-          ) :(
+          ) : (
             albumInfo.cover_cid ?
             <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
             :

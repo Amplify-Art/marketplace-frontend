@@ -3,6 +3,7 @@ import AlbumSingleSong from '../AlbumSingleSong/index';
 import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
+import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
 
@@ -32,15 +33,19 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
       </div>
       {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
         <div className="album-top">
-          <div className="album-img">
+          {!isPlayList ? <div className="album-img">
             {albumInfo && albumInfo.cover_cid ? (
               <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
             ) : <img src={albumInfo.coverArt} alt='' />}
-          </div>
+          </div> : null}
           <div className="album-right">
             <div className="title">{albumInfo && albumInfo.title}</div>
-            <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
-            <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+            {
+              !isPlayList ? <>
+                <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
+                <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+              </> : null
+            }
           </div>
         </div>
         <div className="album-bottom">
@@ -69,7 +74,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
           </div>
         </div>
       }
-      <div className="bg-album-img" />
+      {isPlayList ? <div className='cd-case'>
+        <img src={CdImage} alt='Cd-image'/>
+      </div> :
+        <div className='bg-album-img' />}
     </div>
   )
 }

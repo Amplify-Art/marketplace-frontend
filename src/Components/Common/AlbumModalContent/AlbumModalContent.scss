@@ -17,11 +17,28 @@
 		}
 	}
 	.bg-album-img {
-		background: url("../../../assets/images/album_case.png");
+		background: url('../../../assets/images/album_case.png');
 		width: 50%;
 		background-size: cover;
 		background-repeat: round;
 	}
+	.cd-case {
+		background: url('../../../assets/images/case-transparent.png');
+		width: 50%;
+		height: 393px;
+		position: relative;
+		background-size: cover;
+		padding: 3px 5px 5px 20px;
+		box-sizing: border-box;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img {
+			width: 92%;
+		}
+	}
+
 	.album-top {
 		display: flex;
 		.album-img {
