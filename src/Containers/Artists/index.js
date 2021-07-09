@@ -8,7 +8,8 @@ import ProfileAlbum from '../../Components/Common/ProfileAlbum/index';
 
 function Artists(props) {
   useEffect(() => {
-    props.fetchArtists();
+    console.log('HERE');
+    props.fetchArtists({});
   }, []);
   return (
     <p>hey</p>

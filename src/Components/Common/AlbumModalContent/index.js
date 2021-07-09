@@ -28,10 +28,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   console.log(data, 'data')
   return (
     <div id="albums-content">
-      <div style={{ color: data.lightVibrant }}>
-        Text with the vibrant color
-      </div>
-      {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
+      {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${isPlayList ? '#f18180' : data.vibrant} 0%, ${isPlayList ? '#ec5051' : data.muted} 52.12%)` }}>
         <div className="album-top">
           {!isPlayList ? <div className="album-img">
             {albumInfo && albumInfo.cover_cid ? (
@@ -74,11 +71,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
           </div>
         </div>
       }
-      {isPlayList ? <div className='cd-case'>
-        <img src={CdImage} alt='Cd-image'/>
-      </div> :
-        <div className='bg-album-img' />}
-    </div>
+      {
+        isPlayList ? <div className='cd-case'>
+          <img src={CdImage} alt='Cd-image' />
+        </div> :
+          <div className='bg-album-img' />
+      }
+    </div >
   )
 }
 
