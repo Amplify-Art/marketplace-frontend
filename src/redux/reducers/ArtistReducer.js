@@ -56,7 +56,7 @@ export default function (state = initialState, action) {
       }
       return {
         ...state,
-        artists: action.res?.data || [],
+        artists: action.res?.data.results || [],
         status: action.res.data.success,
         loading: false,
       };

@@ -1,0 +1,16 @@
+.artists-holder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 35px;
+  column-gap: 35px;
+  grid-row-gap: 53px;
+  row-gap: 53px;
+  .profile-album {
+    cursor: pointer;
+    .avatar {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
