@@ -17,6 +17,7 @@ import SupportCard from './Containers/SupportCard';
 import PageNotFound from './Containers/PageNotFound';
 import Nominate from './Containers/Nominate'
 import UserDashboard from './Containers/UserDashboard';
+import Artists from './Containers/Artists';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -105,6 +106,7 @@ function App(props) {
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route path="/my-profile" exact component={Auth(MyProfile)} test="test" />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
+          <Route path="/artists" exact component={Artists} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
           <Route path="/artist-dashboard" exact component={ArtistDashboard} />
           <Route path="/support-card" exact component={SupportCard} />

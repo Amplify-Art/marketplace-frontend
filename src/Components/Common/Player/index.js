@@ -8,46 +8,8 @@ import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 
-// Temp Songs
-import Dub from '../../../assets/Music/dub.mp3';
-
 // Cover import (This will be dynamic)
 import TestCover from '../../../assets/images/album2.png';
-import Albumtemp from '../../../assets/images/albumtemp.jpg';
-import Albumtemp2 from '../../../assets/images/albumtemp2.jpg';
-import Albumtemp3 from '../../../assets/images/albumtemp3.jpg';
-
-// TODO: These will pull from API
-const songs = [
-  {
-    id: 1,
-    album_title: "Album 1",
-    song_title: "Song 1",
-    source: "https://ipfs.io/ipfs/QmQvx9dxYNA4kp1ZDzC1jd2LyYgwhffwK3TfBRv7QNqGd8?filename=21guns.mp3",
-    cover: TestCover
-  },
-  {
-    id: 2,
-    album_title: "Album 1",
-    song_title: "Song 2",
-    source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    cover: Albumtemp
-  },
-  {
-    id: 3,
-    album_title: "Album 2",
-    song_title: "Song 3",
-    source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
-    cover: Albumtemp2
-  },
-  {
-    id: 4,
-    album_title: "Album 2",
-    song_title: "Song 4",
-    source: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3",
-    cover: Albumtemp3
-  }
-];
 
 const audioElement = new Audio();
 
@@ -66,7 +28,7 @@ function Player(props) {
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
   const [isShow, setIsShow] = useState(false);
-  const [currentSongSrc, setSongSrc] = useState(`https://ipfs.io/ipfs/${JSON.parse(activePlaylist)[0].song_cid}`);
+  const [currentSongSrc, setSongSrc] = useState(`https://gateway.pinata.cloud/ipfs/${JSON.parse(activePlaylist)[0].song_cid}`);
 
   const playBar = useRef(null);
 
@@ -87,7 +49,7 @@ function Player(props) {
 
   const nextSong = () => {
     if ((songIndex + 1) !== activePlaylist.length) { // Prevents error by skipping past the number of songs that are available
-      audioElement.src = `https://ipfs.io/ipfs/${activePlaylist[songIndex + 1].song_cid}`;
+      audioElement.src = `https://gateway.pinata.cloud/ipfs/${activePlaylist[songIndex + 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -97,7 +59,7 @@ function Player(props) {
 
   const prevSong = () => {
     if (songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://ipfs.io/ipfs/${activePlaylist[songIndex - 1].song_cid}`;
+      audioElement.src = `https://gateway.pinata.cloud/ipfs/${activePlaylist[songIndex - 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -132,6 +94,7 @@ function Player(props) {
 
           {isExpanded && <div className="album-info large">
             <div className="cover">
+              {/* If album is owned, show cover here, else use blank CD */}
               <img src={TestCover} alt="Cover" />
             </div>
             <div className="details">
@@ -186,7 +149,7 @@ function Player(props) {
             </div>
           </div>}
         </div>
-
+        {/* If album is owned, show cover here, else use blank CD */}
         <div className="background-blur" style={{ backgroundImage: `url(${TestCover})` }} />
       </div>
     )

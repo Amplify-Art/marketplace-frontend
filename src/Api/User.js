@@ -96,3 +96,19 @@ export const getArtistById = (payload) => {
     message: err.response.data.message,
   }));
 };
+
+export const getArtists = (payload) => {
+  const id = payload.id
+  const url = makeUrl(`${API_ENDPOINT_URL}/users/?type=artist`, { ...(payload.params || {}) });
+  return axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`
+    },
+  }).then(res => ({
+    success: true,
+    data: res.data,
+  })).catch(err => ({
+    success: false,
+    message: err.response.data.message,
+  }));
+};
