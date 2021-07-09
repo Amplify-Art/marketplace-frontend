@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
 import {sortableContainer, SortableElement, sortableHandle} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 import './NewNFT.scss';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
@@ -142,7 +143,8 @@ function NewNFT(props) {
   const DragHandle = sortableHandle(() => <span className="drag">::</span>);
 
   const SortableItem = SortableElement(({value, index}) => (
-    <div className="single-song">
+    // <li tabIndex={0} index={index}>
+    <div className="single-song" >
       <DragHandle />
       <div className="left">
         <div className="track">
@@ -161,11 +163,23 @@ function NewNFT(props) {
         <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
       </div>
     </div>
+    // </li>
   ));
   
-  const SortableList = sortableContainer(({children}) => {
-    return <>{children}</>;
+  const SortableList = sortableContainer(({songFiles}) => {
+    // return <>{children}</>;
+    return(
+      <ul>
+        {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
+            <SortableItem key={`item-${index}`} index={index} value={file} OnSortEnd={OnSortEnd} />
+        )) : null}
+      </ul>
+    )
   });
+
+  const OnSortEnd = ({ oldIndex, newIndex }) => {
+    setSongFiles(arrayMove(songFiles, oldIndex, newIndex))
+  };
 
   return (
     // TODO: move this whole component to the parts folder
@@ -221,11 +235,7 @@ function NewNFT(props) {
               </div>
 
               <div className="song-list">
-                <SortableList helperClass="sortableHelper">
-                  {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-                    <SortableItem key={`item-${index}`} index={index} value={file} />
-                  )) : null}
-                </SortableList>
+                <SortableList helperClass="sortableHelper" songFiles={songFiles}></SortableList>
                 {/* <SortableList items={songFiles} /> */}
               </div>
 
