@@ -95,7 +95,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div>
         </div>
         <div className="album-bottom">
-          {albumInfo && albumInfo.songs.map((song, index) => (
+          {albumInfo && albumInfo.songs?.map((song, index) => (
             <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
           ))}
         </div>
@@ -126,7 +126,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         </div> :
           <div className='bg-album-img' />
       }
-    </div >
+    </div>
   )
 }
 
