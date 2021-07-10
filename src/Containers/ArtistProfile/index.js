@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
-import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
+import { fetchNFTsAction } from '../../redux/actions/NFTAction';
 import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
 import CoverImg from '../../assets/images/profile-cover.png';
 import PageNotFound from '../PageNotFound'
@@ -12,12 +12,8 @@ import './ArtistProfile.scss';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function ArtistProfile(props) {
-
-  const ArtistData = {
-    cover: CoverImg,
-    avatar: ArtisrAvatar,
-    name: 'Imagine Dragons'
-  };
+  const { artist } = props;
+  console.log('artist', artist);
 
   const generateAlbumItem = (album, index) => {
     return (
@@ -39,13 +35,19 @@ function ArtistProfile(props) {
   useEffect(() => {
     const payload = {
       id: props.match.params.slug
-    }
+    };
+    
     props.fetchArtist(payload);
-    props.fetchAlbums();
-  }, [])
+    props.fetchNFTs({
+      is_purchased: false,
+      user_id: props.match.params.slug
+    });
+  }, []);
+
+  console.log('albums', props.albums)
   return (
      props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
+      <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} />
 
       <div className="recently-purchased">
         <div className="top">
@@ -54,9 +56,9 @@ function ArtistProfile(props) {
         </div>
 
         <div className="albums" className="album-grid">
-          {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
+          {/* {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
             generateAlbumItem(album, index)
-          ))}
+          ))} */}
         </div>
       </div>
     </div> : <div className="text-title">This Artist Could Not Be Found</div>
@@ -65,13 +67,13 @@ function ArtistProfile(props) {
 
 export default connect(state => {
   return {
-    albums: state.albums.albums,
+    albums: state.nfts.nfts,
     artist: state.artist.artist
   }
 },
   dispatch => {
     return {
-      fetchAlbums: () => dispatch(fetchAlbumsAction()),
+      fetchNFTs: (payload) => dispatch(fetchNFTsAction(payload)),
       fetchArtist: (payload) => dispatch(fetchArtistByIdAction(payload))
     }
   })(withRouter(ArtistProfile));

@@ -72,7 +72,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
   }
   const { data, loading, error } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
-  console.log(data, 'data')
+
   sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
 
   return (

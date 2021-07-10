@@ -4,7 +4,7 @@ import { API_ENDPOINT_URL } from '../Constants/default.js';
 
 export const getNFTs = (payload = {}) => {
   const url = makeUrl(`${API_ENDPOINT_URL}/nfts/`, { ...(payload.params || {}) });
-
+  console.log('payloadpayload', payload)
   return axios.get(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
