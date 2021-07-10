@@ -37,6 +37,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
     }
   }
 
+  useEffect(()=>{
+    if(!isOpen){
+      setCurrentIndex(-1)
+      setPlaying(false)
+    }
+  },[isOpen]);
+
   useEffect(() => {
     playing ? audio.play() : audio.pause();
   }, [audio, playing, currentIndex]);
@@ -46,7 +53,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
       setPlaying(false)
     });
     audio.addEventListener("timeupdate", e => {
-      const progressElement = document.getElementById('circleProgress')
+      const progressElement = document.getElementById(currentIndex)
       if (progressElement) {
         let normalizedRadius = 9;
         let circumference = normalizedRadius * 2 * Math.PI;
@@ -59,7 +66,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
       audio.removeEventListener("ended", () => setPlaying(false));
       audio.removeEventListener("timeupdate", () => { });
     };
-  }, [playing]);
+  }, [playing,audio]);
 
 
 
@@ -68,7 +75,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen }) {
   const addToPlaylist = () => {
     sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
   }
-  const { data, loading, error } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
   return (
     <div id="albums-content">
