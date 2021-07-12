@@ -84,7 +84,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div> : null}
-          <div className="album-right">
+          <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
             <div className="title">{albumInfo && albumInfo.title}</div>
             {
               !isPlayList ? <>
