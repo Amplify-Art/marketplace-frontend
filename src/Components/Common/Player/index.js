@@ -8,9 +8,8 @@ import PrevSongIcon from '../../../assets/images/prev.svg';
 import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
+import CdImage from '../../../assets/images/cd-img.svg'
 
-// Cover import (This will be dynamic)
-import TestCover from '../../../assets/images/album2.png';
 
 const audioElement = new Audio();
 
@@ -95,7 +94,7 @@ function Player(props) {
           {isExpanded && <div className="album-info large">
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
-              <img src={TestCover} alt="Cover" />
+              {!currentPlaylists[songIndex]?.coverArt ? <img src={CdImage} alt="Cover" /> : <img src={`https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
@@ -150,7 +149,7 @@ function Player(props) {
           </div>}
         </div>
         {/* If album is owned, show cover here, else use blank CD */}
-        <div className="background-blur" style={{ backgroundImage: `url(${TestCover})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}` })` }} />
       </div>
     )
 
