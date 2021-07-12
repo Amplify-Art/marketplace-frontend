@@ -74,13 +74,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
 
   const handleCloseModal = () => { setSongModal(false) }
 
-  const addToPlaylist = () => {
+  const addToPlaylist = async () => {
     updateCurrentPlaylist(albumInfo.songs)
-    sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
+    const songsWithCoverArt = await albumInfo.songs.map(song=> ({...song,coverArt:isPlayList? null: albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid}))
+    sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
   const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
-  sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
 
   return (
     <div id="albums-content">
@@ -91,7 +91,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div> : null}
-          <div className="album-right">
+          <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
             <div className="title">{albumInfo && albumInfo.title}</div>
             {
               !isPlayList ? <>
@@ -102,7 +102,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div>
         </div>
         <div className="album-bottom">
-          {albumInfo && albumInfo.songs.map((song, index) => (
+          {albumInfo && albumInfo.songs?.map((song, index) => (
             <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
           ))}
         </div>
@@ -133,7 +133,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         </div> :
           <div className='bg-album-img' />
       }
-    </div >
+    </div>
   )
 }
 

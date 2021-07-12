@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
@@ -14,6 +14,7 @@ import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 function ArtistProfile(props) {
   const { artist } = props;
   console.log('artist', artist);
+  const [albums,setAlbums] = useState([])
 
   const generateAlbumItem = (album, index) => {
     return (
@@ -26,8 +27,8 @@ function ArtistProfile(props) {
       <>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-        <button>Upload Store Banner</button>
-        <button>Mint New Album</button>
+        {/* <button>Upload Store Banner</button>
+        <button>Mint New Album</button> */}
       </>
     )
   }
@@ -44,6 +45,10 @@ function ArtistProfile(props) {
     });
   }, []);
 
+  useEffect(()=>{
+    const filterAlbums = props.albums.filter(album=>album.user_id == props.match.params.slug && !album.is_purchased)
+    setAlbums(filterAlbums)
+  },[props.albums])
   console.log('albums', props.albums)
   return (
      props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
@@ -56,9 +61,9 @@ function ArtistProfile(props) {
         </div>
 
         <div className="albums" className="album-grid">
-          {/* {props && props.albums && props.albums.length > 0 && props.albums.map((album, index) => (
+          {albums && albums.length > 0 && albums?.map((album, index) => (
             generateAlbumItem(album, index)
-          ))} */}
+          ))}
         </div>
       </div>
     </div> : <div className="text-title">This Artist Could Not Be Found</div>
