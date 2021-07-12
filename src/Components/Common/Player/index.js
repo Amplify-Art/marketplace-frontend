@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Player.scss';
 import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 // Player Icons
 import NextSongIcon from '../../../assets/images/next.svg';
@@ -10,12 +11,12 @@ import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 
 // Cover import (This will be dynamic)
-import TestCover from '../../../assets/images/album2.png';
+import DefaultCover from '../../../assets/images/cd-img.svg';
 
 const audioElement = new Audio();
 
 function Player(props) {
-
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   useEffect(() => {
     const isData = document.getElementsByClassName("error-page")[0];
     if (isData)
@@ -31,7 +32,7 @@ function Player(props) {
   const [isShow, setIsShow] = useState(false);
   const [currentSongSrc, setSongSrc] = useState(`https://gateway.pinata.cloud/ipfs/${props.currentPlaylists[0].song_cid}`);
   const playBar = useRef(null);
-
+  console.log(songIndex, 'songIndex')
   const playButtonFunction = () => {
     togglePlay(!isPlaying);
     if (isPlaying) {
@@ -95,7 +96,7 @@ function Player(props) {
           {isExpanded && <div className="album-info large">
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
-              <img src={TestCover} alt="Cover" />
+              <img src={currentPlaylists[songIndex].album && currentPlaylists[songIndex].album.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex].album.cover_cid}` : DefaultCover} alt="Cover" />
             </div>
             <div className="details">
               <div className="rotate">
@@ -150,7 +151,7 @@ function Player(props) {
           </div>}
         </div>
         {/* If album is owned, show cover here, else use blank CD */}
-        <div className="background-blur" style={{ backgroundImage: `url(${TestCover})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${DefaultCover})` }} />
       </div>
     )
 

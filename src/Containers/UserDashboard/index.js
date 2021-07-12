@@ -27,7 +27,11 @@ function UserDashboard(props) {
   const [showPlayListModal, togglePlayListModal] = useState(false);
 
   useEffect(() => {
-    props.fetchPlaylists();
+    props.fetchPlaylists({
+      params: {
+        related: 'songs.album'
+      }
+    });
   }, []);
   const fakeAlbums = [
     {
@@ -118,7 +122,7 @@ function UserDashboard(props) {
         {props.playlists && props.playlists.length > 0 ? (
           <div className="album-block">
             {props.playlists.map((album, index) => (
-              <SingleAlbum key={index} albumInfo={album} isMint={false} isPlayList/>
+              <SingleAlbum key={index} albumInfo={album} isMint={false} isPlayList />
             ))}
           </div>
         ) : (
@@ -152,8 +156,8 @@ export default connect(state => {
     totalPlaylists: state.playlists.total,
   }
 },
-dispatch => {
-  return {
-    fetchPlaylists: () => dispatch(fetchPlaylistsAction()),
-  }
-})(withRouter(UserDashboard));
+  dispatch => {
+    return {
+      fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
+    }
+  })(withRouter(UserDashboard));

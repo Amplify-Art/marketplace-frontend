@@ -3,7 +3,7 @@ import { getAccessToken, makeUrl, axios } from './index.js';
 import { API_ENDPOINT_URL } from '../Constants/default.js';
 
 export const getPlaylists = (payload = {}) => {
-  const url = makeUrl(`${API_ENDPOINT_URL}/playlists/?related=songs`, { ...(payload.params || {}) });
+  const url = makeUrl(`${API_ENDPOINT_URL}/playlists`, { ...(payload.params || {}) });
 
   return axios.get(url, {
     headers: {

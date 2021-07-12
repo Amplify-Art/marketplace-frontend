@@ -23,7 +23,7 @@
     background-size: 2000px;
     background-position: center;
     z-index: 9;
-    opacity: .7;
+    opacity: 0.7;
     max-width: unset;
   }
 
@@ -61,6 +61,8 @@
       overflow: hidden;
       img {
         transform: rotate(-90deg);
+        height: 320px;
+        width: 320px;
       }
     }
 
@@ -79,7 +81,7 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 23px;
-      color: #FFFFFF;
+      color: #ffffff;
       margin: 0px;
     }
 
@@ -88,9 +90,9 @@
       font-weight: normal;
       font-size: 14px;
       line-height: 18px;
-      color: #FFFFFF;
-      opacity: 0.8;  
-      margin: 0px;    
+      color: #ffffff;
+      opacity: 0.8;
+      margin: 0px;
     }
 
     &.large {
@@ -114,8 +116,8 @@
       align-items: center;
       justify-content: center;
       &.play-pause {
-        background: #FA7C05;
-        transition: ease all .5s;
+        background: #fa7c05;
+        transition: ease all 0.5s;
         border-radius: 100px;
         &:hover {
           background: #b95a00;
@@ -136,7 +138,7 @@
     flex: none;
     width: 24px;
     height: 24px;
-    background: rgba(95,73,85,.3);
+    background: rgba(95, 73, 85, 0.3);
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -198,7 +200,7 @@
           transform: rotate(0deg);
         }
       }
-  
+
       .details {
         height: auto;
         .rotate {
