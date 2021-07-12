@@ -51,7 +51,7 @@ function NewNFT(props) {
     albumFormData.append('cover', albumCover);
     albumFormData.append('name', data.albumName);
     albumFormData.append('description', data.albumDescription);
-    albumFormData.append('price', Math.round(data.albumPrice*100));
+    albumFormData.append('price', Math.round(data.albumPrice * 100));
     albumFormData.append('qty', data.numberOfAlbums);
 
     props.displayLoadingOverlay();
@@ -142,9 +142,8 @@ function NewNFT(props) {
 
   const DragHandle = sortableHandle(() => <span className="drag">::</span>);
 
-  const SortableItem = SortableElement(({value, index}) => (
-    // <li tabIndex={0} index={index}>
-    <div className="single-song" >
+  const SortableItem = SortableElement(({ value, index }) => (
+    <div className="single-song"  >
       <DragHandle />
       <div className="left">
         <div className="track">
@@ -159,26 +158,25 @@ function NewNFT(props) {
         </div>
       </div>
 
-      <div className="trash">
+      <div className="trash" >
         <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
       </div>
     </div>
     // </li>
   ));
-  
-  const SortableList = sortableContainer(({songFiles}) => {
-    // return <>{children}</>;
-    return(
+
+  const SortableList = sortableContainer(({ songFiles }) =>(
       <ul>
-        {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-            <SortableItem key={`item-${index}`} index={index} value={file} OnSortEnd={OnSortEnd} />
-        )) : null}
+        {songFiles && songFiles.length > 0 ? songFiles.map((file, index) =>(
+            <SortableItem key={`item-${index}`} index={index} value={file} />
+          )
+        ) : null}
       </ul>
-    )
-  });
+    ));
 
   const OnSortEnd = ({ oldIndex, newIndex }) => {
-    setSongFiles(arrayMove(songFiles, oldIndex, newIndex))
+    const updateSongFiles = arrayMove(songFiles, oldIndex, newIndex)
+    setSongFiles(updateSongFiles)
   };
 
   return (
@@ -235,8 +233,7 @@ function NewNFT(props) {
               </div>
 
               <div className="song-list">
-                <SortableList helperClass="sortableHelper" songFiles={songFiles}></SortableList>
-                {/* <SortableList items={songFiles} /> */}
+              <SortableList helperClass="sortableHelper" distance={2} songFiles={songFiles} onSortEnd={OnSortEnd} />
               </div>
 
               <div className="uploader">

@@ -16,19 +16,72 @@ import SongModalContent from '../SongModalcontent';
 function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist }) {
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [audio, setAudioSong] = useState(new Audio(''));
+  const [currentIndex, setCurrentIndex] = useState(-1)
 
   const handleSongModal = () => {
     setSongModal(true);
   }
+  const toggle = (songid) => {
+    setAudioSong(new Audio(`https://hub.textile.io/ipfs/${songid}`))
+    if (playing && currentIndex !== songid) {
+      audio.pause()
+      audio.currentTime = 0;
+      setCurrentIndex(songid)
+      setPlaying(true)
+    } else if (!playing && currentIndex === -1) {
+      setCurrentIndex(songid)
+      setPlaying(true)
+    } else {
+      setCurrentIndex(-1)
+      setPlaying(false)
+    }
+  }
+
+  useEffect(()=>{
+    if(!isOpen){
+      setCurrentIndex(-1)
+      setPlaying(false)
+    }
+  },[isOpen]);
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [audio, playing, currentIndex]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => {
+      setPlaying(false)
+    });
+    audio.addEventListener("timeupdate", e => {
+      const progressElement = document.getElementById(currentIndex)
+      if (progressElement) {
+        let normalizedRadius = 9;
+        let circumference = normalizedRadius * 2 * Math.PI;
+        let startPoint = (audio.currentTime / audio.duration) * circumference;
+        let endPoint = circumference - (audio.currentTime / audio.duration) / 100 * circumference;
+        progressElement.style.strokeDasharray = `${startPoint},${endPoint}`
+      }
+    });
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false));
+      audio.removeEventListener("timeupdate", () => { });
+    };
+  }, [playing,audio]);
+
+
 
   const handleCloseModal = () => { setSongModal(false) }
 
-  const addToPlaylist = () => {
+  const addToPlaylist = async () => {
     updateCurrentPlaylist(albumInfo.songs)
-    sessionStorage.setItem('activePlaylist', JSON.stringify(albumInfo.songs))
+    const songsWithCoverArt = await albumInfo.songs.map(song=> ({...song,coverArt:isPlayList? null: albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid}))
+    sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
-  const { data, loading, error } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
-  console.log(data, 'data')
+  const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
+
+
   return (
     <div id="albums-content">
       {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${isPlayList ? '#f18180' : data.vibrant} 0%, ${isPlayList ? '#ec5051' : data.muted} 52.12%)` }}>
@@ -38,7 +91,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div> : null}
-          <div className="album-right">
+          <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
             <div className="title">{albumInfo && albumInfo.title}</div>
             {
               !isPlayList ? <>
@@ -49,8 +102,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div>
         </div>
         <div className="album-bottom">
-          {albumInfo && albumInfo.songs.map((song, index) => (
-            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} isOpen={isOpen} />
+          {albumInfo && albumInfo.songs?.map((song, index) => (
+            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
           ))}
         </div>
         {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
@@ -80,7 +133,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         </div> :
           <div className='bg-album-img' />
       }
-    </div >
+    </div>
   )
 }
 

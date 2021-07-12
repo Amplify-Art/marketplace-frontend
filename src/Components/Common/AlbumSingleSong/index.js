@@ -13,7 +13,7 @@ class ProgressRing extends React.Component {
   }
 
   render() {
-    const { radius, stroke, progress } = this.props;
+    const { radius, stroke, progress, progressId } = this.props;
 
     return (
       <svg
@@ -28,7 +28,7 @@ class ProgressRing extends React.Component {
           r={this.normalizedRadius}
           cx={radius}
           cy={radius}
-          id="circleProgress"
+          id={progressId}
         />
       </svg>
     );
@@ -38,57 +38,25 @@ class ProgressRing extends React.Component {
 const audioElement = new Audio();
 
 function AlbumSingleSong(props) {
-  const { song, index, isOpen } = props;
-
-  const [audio] = useState(new Audio(`https://gateway.pinata.cloud/ipfs/${song.song_cid}`));
-  const [playing, setPlaying] = useState(false);
-  const [songProgress, setSongProgress] = useState(0);
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-    !isOpen && setPlaying(false)
-  }, [isOpen])
-
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
-  }, [audio, playing, audio.currentTime, audio.duration]);
-
-  useEffect(() => {
-    audio.addEventListener("ended", () => {
-      setPlaying(false)
-    });
-    audio.addEventListener("timeupdate", e => {
-      const progressElement = document.getElementById('circleProgress')
-      if (progressElement) {
-        let normalizedRadius = 9;
-        let circumference = normalizedRadius * 2 * Math.PI;
-        let startPoint = (audio.currentTime / audio.duration) * circumference;
-        let endPoint = circumference - (audio.currentTime / audio.duration) / 100 * circumference;
-        progressElement.style.strokeDasharray = `${startPoint},${endPoint}`
-      }
-    });
-    return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
-      audio.removeEventListener("timeupdate", () => { setSongProgress(0) });
-    };
-  }, [playing]);
+  const { song, index, isOpen, toggle, playing, currentIndex, audio } = props;
 
   return (
     <div className="inner-content-album" key={`al${index}`}>
       <div className="album-title">
         <div className="pr-10 pointer">
-          {playing ? (
-            <div onClick={toggle}>
+          {playing && currentIndex === song.song_cid ? (
+            <div onClick={() => toggle(song.song_cid)}>
               <ProgressRing
                 radius={13}
                 stroke={2}
-                progress={audio.currentTime / audio.duration}
+                progress={audio.currentTime && audio.duration ? audio.currentTime / audio.duration : 0}
+                progressId={song.song_cid}
               />
             </div>
           ) : (
-            <img src={playIcon} onClick={toggle} />
+            <img src={playIcon} onClick={() => toggle(song.song_cid)} />
           )}
-        </div>
+        </div> 
         <div className="fn-white pointer">{song.title}</div>
       </div>
       <div className="fn-white"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${song.song_cid}`} /></div>

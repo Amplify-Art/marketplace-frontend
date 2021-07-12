@@ -65,9 +65,7 @@ const Nominate = (props) => {
             </div>
             {search && !selected &&
               <div className="user-list">
-                <ul>
-                  {props.users.map(u => <li onClick={() => onSelect(u)}>{u.username}</li>)}
-                </ul>
+                  {props.users.map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
               </div>
             }
           </div>

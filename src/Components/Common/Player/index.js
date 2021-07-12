@@ -9,6 +9,7 @@ import PrevSongIcon from '../../../assets/images/prev.svg';
 import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
+import CdImage from '../../../assets/images/cd-img.svg'
 
 // Cover import (This will be dynamic)
 import DefaultCover from '../../../assets/images/cd-img.svg';
