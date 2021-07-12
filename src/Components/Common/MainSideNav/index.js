@@ -15,7 +15,7 @@ function MainSideNav(props) {
         <li className="nav-header">Discover</li>
         <li><a href="#">New Releases</a></li>
         <li><a href="#">Top Charts</a></li>
-        <li><NavLink to="/artist/11" activeClassName="current">Artists</NavLink></li>
+        <li><NavLink to="/artists" activeClassName="current">Artists</NavLink></li>
 
         <li className="nav-header">Store</li>
         <li><NavLink to="#">Coming Soon</NavLink></li>
