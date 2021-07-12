@@ -57,11 +57,13 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
     }
   }
   return (
-    <div id="addshowcase" >
+    <div id="addshowcase">
       <div class="scrollbar" id="style-4">
         {addnfts && addnfts.length > 0 ? addnfts.map((nft, item) => (
           <div className="row">
-            <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://gateway.pinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
+            <div className="playlist-cover-holder">
+              <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://gateway.pinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
+            </div>
             {loading && <Skeleton width={60} height={60} />}
             <div className="row-wrap">
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
