@@ -13,7 +13,7 @@ class ProgressRing extends React.Component {
   }
 
   render() {
-    const { radius, stroke, progress } = this.props;
+    const { radius, stroke, progress, progressId } = this.props;
 
     return (
       <svg
@@ -28,7 +28,7 @@ class ProgressRing extends React.Component {
           r={this.normalizedRadius}
           cx={radius}
           cy={radius}
-          id="circleProgress"
+          id={progressId}
         />
       </svg>
     );
@@ -50,12 +50,13 @@ function AlbumSingleSong(props) {
                 radius={13}
                 stroke={2}
                 progress={audio.currentTime && audio.duration ? audio.currentTime / audio.duration : 0}
+                progressId={song.song_cid}
               />
             </div>
           ) : (
             <img src={playIcon} onClick={() => toggle(song.song_cid)} />
           )}
-        </div>
+        </div> 
         <div className="fn-white pointer">{song.title}</div>
       </div>
       <div className="fn-white"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${song.song_cid}`} /></div>
