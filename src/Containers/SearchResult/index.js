@@ -1,5 +1,12 @@
 import React from 'react';
 import SingleAlbum from '../../Components/Common/SingleAlbum';
+import ProfileAlbum from '../../Components/Common/ProfileAlbum';
+import SongList from '../../Components/Parts/SongList'; 
+import Avatar from '../../assets/images/avatar.png';
+import AvatarTwo from '../../assets/images/avatar2.png';
+import AvatarThree from '../../assets/images/avatar3.png';
+import AvatarFour from '../../assets/images/avatar4.png';
+
 import './SearchResult.scss';
 
 function SearchResult() {
@@ -22,7 +29,7 @@ function SearchResult() {
             updated_at: "2021-07-05T12:53:21.334Z",
             user_id: 11,
             Releases: "10/09/2020",
-            
+
             user: {
                 avatar: "http://pbs.twimg.com/profile_images/706372970021830656/8ZAh7dsF_400x400.jpg",
                 banner: "https://pbs.twimg.com/profile_banners/706371877032349696/1623412185",
@@ -180,12 +187,20 @@ function SearchResult() {
         }
     ]
 
+    const fakeAvatar = [
+        { user_img: Avatar, name: "Imagine Dragons" },
+        { user_img: AvatarTwo, name: "Kid Cudi" },
+        { user_img: AvatarThree, name: "Eminem" },
+        { user_img: AvatarFour, name: "John Mayer" },
+    ]
+
+
     const albumDetailRender = (albumNo) => (
-         albums.map((album,index) => albumNo === index && (
+        albums.map((album, index) => albumNo === index && (
             <>
-                <div>{album.title}</div>
-                <div>{album.artist || "Imagine Dragons"}</div>
-                <div>{album.Releases || album.own}</div>
+                <div className="sub-title">{album.title}</div>
+                <div className="sub-artist">{album.artist || "Imagine Dragons"}</div>
+                <div className="sub-title">{album.Releases || album.own}</div>
             </>
         ))
     )
@@ -194,11 +209,20 @@ function SearchResult() {
         <div className="search-result container">
             <div>
                 <div className="album-title">Album results</div>
-            <div className="d-flex">
-                {albums && albums.map((album, index) => (
-                    <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)}/>
-                ))}
+                <div className="d-flex">
+                    {albums && albums.map((album, index) => (
+                        <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
+                    ))}
+                </div>
             </div>
+            <div>
+                <div className="songlist-title">song results</div>
+                <SongList/>
+            </div>
+            <div className="album-search-res">
+                {fakeAvatar && fakeAvatar.map((avatar, index) => (
+                    <ProfileAlbum avatarImg={avatar.user_img} name={avatar.name} />
+                ))}
             </div>
         </div>
     )
