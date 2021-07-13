@@ -57,6 +57,7 @@ function App(props) {
     setPath(location.pathname);
     if (location.pathname === "/logout") {
       localStorage.removeItem('amplify_app_token')
+      sessionStorage.removeItem('activePlaylist')
       history.push("/")
     }
   }, [location]);
