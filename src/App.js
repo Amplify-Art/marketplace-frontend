@@ -95,7 +95,7 @@ function App(props) {
         <ReactNotification />
         <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}
+        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} showMobileMenu={props.showMobileMenu} />}
         <Switch>
           <Route path="/" exact render={() => user ? <Redirect to='/user-dashboard' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
@@ -128,6 +128,7 @@ const GrabToken = () => {
 }
 export default connect(state => {
   return {
-    currentPlaylists: state.playlists.current_playlists
+    currentPlaylists: state.playlists.current_playlists,
+    showMobileMenu: state.global.mobileMenu
   }
 })(App);

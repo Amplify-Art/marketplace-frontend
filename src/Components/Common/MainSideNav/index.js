@@ -4,11 +4,11 @@ import './MainSideNav.scss';
 import jwt from 'jsonwebtoken';
 
 function MainSideNav(props) {
-  const { toggleWalletSidebar } = props;
+  const { toggleWalletSidebar, showMobileMenu } = props;
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   console.log(user, 'user')
   return (
-    <div id="main-side-nav">
+    <div id="main-side-nav" className={`${showMobileMenu && 'mobile-open'}`}>
       <ul>
         <li><a href="/">Home</a></li>
 

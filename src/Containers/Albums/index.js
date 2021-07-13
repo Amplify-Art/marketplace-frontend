@@ -15,10 +15,12 @@ function Albums(props) {
 
   return (
     <div id="albums" className="left-nav-pad right-player-pad">
-       <div className="album-grid">
-        {props?.albums && props.albums?.length > 0 && props.albums.map((album, index) => (
-          <SingleAlbum key={index} albumInfo={album} />
-        ))}
+      <div className="container">
+        <div className="album-grid">
+          {props?.albums && props.albums?.length > 0 && props.albums.map((album, index) => (
+            <SingleAlbum key={index} albumInfo={album} />
+          ))}
+        </div>
       </div>
     </div>
   );

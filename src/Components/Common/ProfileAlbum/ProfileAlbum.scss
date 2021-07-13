@@ -2,9 +2,18 @@
   .avatar {
     width: 180px;
     height: 180px;
-    border-radius: 100px;
+    border-radius: 50%;
     margin: 10px;
     overflow: hidden;
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+      margin: 0px;
+      img {
+        width: 100%;
+      }
+    }
   }
   .avatar-name {
     font-family: Space Grotesk;

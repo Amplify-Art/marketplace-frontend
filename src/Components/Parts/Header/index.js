@@ -6,13 +6,14 @@ import jwt from 'jsonwebtoken';
 import jwt_decode from 'jwt-decode';
 import { createWallet } from '../../../Api/Near';
 import MenuIcon from '../../../assets/images/menu-icon.svg';
+import MenuIconNew from '../../../assets/images/menu-icon-new.svg';
 import Logo from '../../../assets/images/logo.svg';
 import SearchIcon from '../../../assets/images/search-icon.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
-import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
 import './Header.scss';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
@@ -24,7 +25,7 @@ function Header(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
 
-  const { path, showWalletSidebar, toggleWalletSidebar } = props;
+  const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu } = props;
 
   useEffect(async () => {
     const config = {
@@ -145,6 +146,9 @@ function Header(props) {
             <>
               <div className="bell"><img src={BellIcon} alt="Bell" /></div>
               <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
+              <div className="mobile-menu" onClick={toggleMobileMenu}>
+                <img src={MenuIconNew} />
+              </div>
               <div className="user">
                 <img src={userDetails.avatar} />
               </div>
@@ -159,7 +163,9 @@ function Header(props) {
 
       {setBreadCrumbs() &&
         <div className="breadcrumbs left-nav-pad">
-          Home / <span className="current">{path && setBreadCrumbs()}</span>
+          <div className="container">
+            Home / <span className="current">{path && setBreadCrumbs()}</span>
+          </div>
         </div>
       }
 
@@ -199,6 +205,7 @@ function Header(props) {
 
 export default connect(null, dispatch => {
   return {
-    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction())
+    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
+    toggleMobileMenu: () => dispatch(toggleMobileMenuAction())
   }
 })(withRouter(Header));
