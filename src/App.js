@@ -19,6 +19,7 @@ import PageNotFound from './Containers/PageNotFound';
 import Nominate from './Containers/Nominate'
 import UserDashboard from './Containers/UserDashboard';
 import Artists from './Containers/Artists';
+import SearchResult from './Containers/SearchResult';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -56,6 +57,7 @@ function App(props) {
     setPath(location.pathname);
     if (location.pathname === "/logout") {
       localStorage.removeItem('amplify_app_token')
+      sessionStorage.removeItem('activePlaylist')
       history.push("/")
     }
   }, [location]);
@@ -94,7 +96,7 @@ function App(props) {
         <ReactNotification />
         <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} />}
+        {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} showMobileMenu={props.showMobileMenu} />}
         <Switch>
           <Route path="/" exact render={() => user ? <Redirect to='/user-dashboard' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
@@ -113,6 +115,7 @@ function App(props) {
           <Route path="/support-card" exact component={SupportCard} />
           <Route path='/nominate' exact component={Nominate} />
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
+          <Route path="/search-result" exact component={SearchResult} />
           <Route component={PageNotFound} />
         </Switch>
         {props.currentPlaylists.length ? <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} /> : null}
@@ -126,6 +129,7 @@ const GrabToken = () => {
 }
 export default connect(state => {
   return {
-    currentPlaylists: state.playlists.current_playlists
+    currentPlaylists: state.playlists.current_playlists,
+    showMobileMenu: state.global.mobileMenu
   }
 })(App);

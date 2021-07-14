@@ -9,6 +9,9 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   padding-left: 53px;
+  @media screen and (max-width: 600px) {
+    padding-left: 0px;
+  }
 }
 
 .hidden {
@@ -28,6 +31,11 @@ body {
     padding-left: 30px;
     // padding-right: 30px;
     box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    padding-right: 30px;
   }
   &.small {
     width: 1480px;
@@ -156,10 +164,16 @@ textarea {
 
 .left-nav-pad {
   padding-left: 220px;
+  @media screen and (max-width: 600px) {
+    padding-left: 0px;
+  }
 }
 
 .right-player-pad {
   padding-right: 150px;
+  @media screen and (max-width: 600px) {
+    padding-right: 0px;
+  }
 }
 
 .album-grid {
@@ -173,6 +187,11 @@ textarea {
 
   @media screen and (max-width: 1325px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 10px;
   }
 }
 

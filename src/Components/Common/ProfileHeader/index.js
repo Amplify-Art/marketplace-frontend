@@ -29,6 +29,7 @@ function ProfileHeader({ ArtistData, btnContent }) {
         </div>
         <div className="btn-wrap">{btnContent}</div>
       </div>
+      <div className="details mobile">{ArtistData.name}</div>
     </div>
   )
 };

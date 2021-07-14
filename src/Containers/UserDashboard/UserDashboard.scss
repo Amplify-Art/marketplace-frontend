@@ -35,6 +35,9 @@
     }
     .mr-27 {
       margin-right: 27px;
+      @media screen and (max-width: 600px) {
+        margin-right: 15px;
+      }
     }
     .btn-wrap {
       border: 1.5px solid #ffffff;
@@ -44,6 +47,9 @@
       background: transparent;
       color: #ffffff;
       cursor: pointer;
+      @media screen and (max-width: 600px) {
+        padding: 10px;
+      }
     }
   }
   .album-block {
@@ -51,6 +57,9 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 35px;
     row-gap: 53px;
+    @media screen and (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .single-album {
       font-family: Space Grotesk;
       font-style: normal;

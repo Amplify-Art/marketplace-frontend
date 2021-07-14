@@ -5,7 +5,7 @@ import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true, isPlayList = false } = props;
+  const { albumInfo, isMint = true, isPlayList = false, children } = props;
 
   const [isOpen, SetModalOpen] = useState(false)
 
@@ -31,9 +31,16 @@ function SingleAlbum(props) {
             </div>
           )}
         </div>
-        <h3 className="album-title">{albumInfo.title}</h3>
-        <h4 className="artist-name">{albumInfo.artist}</h4>
-        {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
+        {console.log("child----->",children)}
+        {
+          children ? children : (
+            <>
+              <h3 className="album-title">{albumInfo.title}</h3>
+              <h4 className="artist-name">{albumInfo.artist}</h4>
+              {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
+            </>
+          )
+        }
       </div>
       <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>
     </>

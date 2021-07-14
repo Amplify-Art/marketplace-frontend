@@ -12,6 +12,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: 600px) {
+      height: auto;
+    }
     img {
       width: 100%;
     }

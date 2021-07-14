@@ -6,6 +6,9 @@
     margin-top: -45px;
     position: relative;
     z-index: 9;
+    @media screen and (max-width: 600px) {
+      margin-top: -25px;
+    }
   }
   .profile-cover {
     margin-left: -220px;
@@ -40,6 +43,10 @@
     .profile-image {
       width: 180px;
       height: 180px;
+      @media screen and (max-width: 600px) {
+        width: 117px;
+        height: 117px;
+      }
       border-radius: 50%;
       overflow: hidden;
       border: solid 3px #fff;
@@ -58,6 +65,9 @@
       font-size: 32px;
       line-height: 41px;
       color: #ffffff;
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
       h3 {
         margin-bottom: 0px;
         font-size: 32px;
@@ -77,6 +87,10 @@
     // right: 14%;
     display: flex;
     cursor: pointer;
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+      width: 158px;
+    }
     button {
       background: #ffffff;
       color: black;
@@ -90,8 +104,18 @@
       font-family: $lato;
       margin-right: 20px;
       padding: 14px 22px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+      }
       &:last-child {
         margin-right: 0px;
+        @media screen and (max-width: 600px) {
+          margin-top: 10px;
+        }
       }
 
       &:first-child {
@@ -100,6 +124,22 @@
       img {
         margin-left: 10px;
         margin-right: 10px;
+      }
+    }
+  }
+  
+  .details {
+    display: none;
+    @media screen and (max-width: 600px) {
+      &.mobile {
+        margin-left: 30px;
+        display: initial;
+        font-family: $space;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 41px;
+        color: #ffffff;
       }
     }
   }

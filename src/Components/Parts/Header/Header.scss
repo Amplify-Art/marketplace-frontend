@@ -13,6 +13,18 @@ header {
   // .logo {
   //   margin-left: 40px;
   // }
+  @media screen and (max-width: 600px) {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+  }
+  .mobile-menu {
+    display: none;
+    @media screen and (max-width: 600px) {
+      display: initial;
+      margin-right: 10px;
+    }
+  }
   .search {
     position: relative;
     margin-left: 90px;

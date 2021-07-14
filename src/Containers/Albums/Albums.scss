@@ -1,5 +1,8 @@
 #albums {
   padding-top: 100px;
+  @media screen and (max-width: 1830px) {
+    padding-top: 40px;
+  }
   .album-grid {
     column-gap: 25px;
   }

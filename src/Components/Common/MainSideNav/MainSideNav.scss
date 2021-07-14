@@ -4,6 +4,19 @@
   top: 108px;
   left: 56px;
   z-index: 99;
+  @media screen and (max-width: 600px) {
+    display: none;
+    &.mobile-open {
+      display: initial;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      background: #0f161d;
+      width: 100%;
+      height: 100%;
+      z-index: 8;
+    }
+  }
   ul {
     margin: 0px;
     padding-left: 27px;

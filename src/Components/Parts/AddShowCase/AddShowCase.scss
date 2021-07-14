@@ -15,6 +15,17 @@
     overflow-y: scroll;
     margin-bottom: 25px;
     padding: 5px;
+    .playlist-cover-holder {
+      width: 60px;
+      height: 60px;
+      border-radius: 7px;
+      overflow: hidden;
+      img {
+        position: relative;
+        width: 100%;
+        height: auto
+      }
+    }
   }
 
   #style-4::-webkit-scrollbar-track {
@@ -42,7 +53,7 @@
   .row-wrap {
     width: 60%;
     padding: 8px 0 8px 20px;
-    margin-left: 50px;
+    // margin-left: 50px;
     .row-title {
       font-family: $space;
       font-style: normal;
