@@ -30,3 +30,9 @@ export const deletePlaylistAction = payload => ({
   type: types.DELETE_PLAYLIST_REQUEST,
   payload,
 });
+
+
+export const clearCurrentPlayList = payload => ({
+  type: types.CLEAR_CURRENTPLAYLIST_REQUEST,
+  payload
+})
