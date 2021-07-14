@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
-import {sortableContainer, SortableElement, sortableHandle} from 'react-sortable-hoc';
+import { sortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import './NewNFT.scss';
 import axios from 'axios';
@@ -23,6 +23,7 @@ function NewNFT(props) {
   const [albumCoverPreview, setAlbumCoverPreview] = useState(null);
   const [customError, setCustomError] = useState({});
   const [songFiles, setSongFiles] = useState([]);
+  const [focusedInputIndex, setFocusedInputIndex] = useState(0);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
@@ -112,6 +113,10 @@ function NewNFT(props) {
     if (customError.songFiles) {
       delete customError.songFiles;
     }
+    // when next file is added, input focus should be to this song title
+    if (!acceptedFiles.length) {
+      setFocusedInputIndex(focusedInputIndex + 1);
+    }
   }, [acceptedFiles]);
 
   const removeSongFromUploads = (index) => {
@@ -138,41 +143,47 @@ function NewNFT(props) {
     }
     songs.splice(index, 1, file)
     setSongFiles([...songs])
+    // if typying on other song title field, change autofocus to that index
+    if (focusedInputIndex !== index) {
+      setFocusedInputIndex(index);
+    }
   }
-
+  console.log(songFiles, 'songFiles')
   const DragHandle = sortableHandle(() => <span className="drag">::</span>);
 
-  const SortableItem = SortableElement(({ value, index }) => (
-    <div className="single-song"  >
-      <DragHandle />
-      <div className="left">
-        <div className="track">
-          {/* TODO: limit path length to 15 chars plus extension */}
-          {value.path} <img src={UploadIconAlt} alt="Upload" />
+  const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
+    return (
+      <div className="single-song"  >
+        <DragHandle />
+        <div className="left">
+          <div className="track">
+            {/* TODO: limit path length to 15 chars plus extension */}
+            {file.path} <img src={UploadIconAlt} alt="Upload" />
+          </div>
         </div>
-      </div>
-      <div className="right">
-        <div className="input-holder">
-          <input name={`song-title${index}`} type="text" placeholder="Song Title" className={value.error && 'error'} onChange={(e) => onSongTitleChange(value, index, e.target.value)} />
-          {value.error && <span className="error-message">This field is required</span>}
+        <div className="right">
+          <div className="input-holder">
+            <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} tabIndex={0} value={value} autoFocus={focusedInputIndex === songIndex} />
+            {file.error && <span className="error-message">This field is required</span>}
+          </div>
         </div>
-      </div>
 
-      <div className="trash" >
-        <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(index)} />
+        <div className="trash" >
+          <img src={TrashIcon} alt="Delete" onClick={() => removeSongFromUploads(songIndex)} />
+        </div>
       </div>
-    </div>
-    // </li>
+      // </li>
+    )
+  });
+
+  const SortableList = sortableContainer(({ songFiles }) => (
+    <ul>
+      {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
+        <SortableItem key={`item-${index}`} songIndex={index} value={file.title || ''} name={`song-title${index}`} file={file} />
+      )
+      ) : null}
+    </ul>
   ));
-
-  const SortableList = sortableContainer(({ songFiles }) =>(
-      <ul>
-        {songFiles && songFiles.length > 0 ? songFiles.map((file, index) =>(
-            <SortableItem key={`item-${index}`} index={index} value={file} />
-          )
-        ) : null}
-      </ul>
-    ));
 
   const OnSortEnd = ({ oldIndex, newIndex }) => {
     const updateSongFiles = arrayMove(songFiles, oldIndex, newIndex)
@@ -233,7 +244,7 @@ function NewNFT(props) {
               </div>
 
               <div className="song-list">
-              <SortableList helperClass="sortableHelper" distance={2} songFiles={songFiles} onSortEnd={OnSortEnd} />
+                <SortableList helperClass="sortableHelper" distance={2} songFiles={songFiles} onSortEnd={OnSortEnd} />
               </div>
 
               <div className="uploader">
