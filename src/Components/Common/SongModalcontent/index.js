@@ -29,7 +29,7 @@ function SongModalContent({ albumInfo }) {
             <div className="view-detail-sec" onClick={() => setViewDetails(true)}>View Details</div>
           </div>
         </div>
-        <div className="album-bottom">
+        <div className="album-bottom" id="modalScrolling">
           <table className="album_song">
             <tr>
               <th className="first-td">Song Title</th>
