@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import './ProfileAlbum.scss';
+import './UserAvatar.scss';
 
-function ProfileAlbum(props) {
+function UserAvatar(props) {
   const { avatarImg, name, onClick } = props;
   const [height, setHeight] = useState('');
 
@@ -51,4 +51,4 @@ function ProfileAlbum(props) {
   )
 }
 
-export default ProfileAlbum;
+export default UserAvatar;
