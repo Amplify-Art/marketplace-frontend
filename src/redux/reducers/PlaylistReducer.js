@@ -132,6 +132,11 @@ export default function (state = initialState, action) {
         error: 'Bad Request',
         loading: false,
       };
+    case types.CLEAR_CURRENTPLAYLIST_REQUEST:
+      return{
+        ...state,
+        current_playlists:[]
+      }
     default:
       return state;
   }

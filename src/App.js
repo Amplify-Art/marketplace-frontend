@@ -4,6 +4,7 @@ import { Switch, Route, useLocation, Redirect, useHistory } from "react-router-d
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import 'react-notifications-component/dist/theme.css';
+import * as playListAction from './redux/actions/PlaylistAction'
 
 
 // Containers
@@ -58,6 +59,7 @@ function App(props) {
     if (location.pathname === "/logout") {
       localStorage.removeItem('amplify_app_token')
       sessionStorage.removeItem('activePlaylist')
+      props.clearCurrentPlayList()
       history.push("/")
     }
   }, [location]);
@@ -92,6 +94,7 @@ function App(props) {
 
   return (
     <>
+      {console.log('dsds', props.currentPlaylists)}
       <GloablLoader >
         <ReactNotification />
         <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
@@ -131,5 +134,9 @@ export default connect(state => {
   return {
     currentPlaylists: state.playlists.current_playlists,
     showMobileMenu: state.global.mobileMenu
+  }
+}, dispatch => {
+  return {
+    clearCurrentPlayList: () => dispatch(playListAction.clearCurrentPlayList()),
   }
 })(App);
