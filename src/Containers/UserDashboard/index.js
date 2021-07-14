@@ -21,7 +21,7 @@ import AvatarTwo from '../../assets/images/avatar2.png';
 import AvatarThree from '../../assets/images/avatar3.png';
 import AvatarFour from '../../assets/images/avatar4.png';
 
-import ProfileAlbum from '../../Components/Common/ProfileAlbum/index';
+import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function UserDashboard(props) {
   const [showPlayListModal, togglePlayListModal] = useState(false);
@@ -134,7 +134,7 @@ function UserDashboard(props) {
         {renderHeader("Followed Artists", false)}
         <div className="album-block">
           {fakeAvatar && fakeAvatar.map((avatar, index) => (
-            <ProfileAlbum avatarImg={avatar.user_img} name={avatar.name} />
+            <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
           ))}
         </div>
       </div>

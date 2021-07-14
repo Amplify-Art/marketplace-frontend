@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './ProfileAlbum.scss';
+import './UserAvatar.scss';
 
-function ProfileAlbum(props) {
+function UserAvatar(props) {
   const { avatarImg, name, onClick } = props
   return (
-    <div className="profile-album" onClick={onClick}>
+    <div className="user-avatar" onClick={onClick}>
       <div className="avatar">
         <img src={avatarImg} alt="" />
       </div>
@@ -14,4 +14,4 @@ function ProfileAlbum(props) {
   )
 }
 
-export default ProfileAlbum;
+export default UserAvatar;
