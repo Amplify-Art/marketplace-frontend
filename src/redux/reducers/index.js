@@ -7,6 +7,7 @@ import showcases from './ShowcaseReducer';
 import artist from './ArtistReducer';
 import users from './UserReducer';
 import nominations from './NominationReducer';
+import token_transfers from './TokenTransferReducer';
 
 export {
   albums,
@@ -18,4 +19,5 @@ export {
   artist,
   users,
   nominations,
+  token_transfers,
 };

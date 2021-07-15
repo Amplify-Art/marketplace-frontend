@@ -10,6 +10,7 @@ import {
 import './MyProfile.scss';
 
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
+import { fetchTokenTransfersAction } from '../../redux/actions/TokenTransferAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -24,7 +25,8 @@ function MyProfile(props) {
   const [userName, setUserName] = useState('');
   const [userID, setID] = useState(0);
   const [openSharePopup, setSharePopup] = useState(false)
-
+  const token = localStorage.getItem('amplify_app_token');
+  const decodedToken = jwt_decode(token);
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleAlbum key={index} albumInfo={nft} />
@@ -78,16 +80,17 @@ function MyProfile(props) {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('amplify_app_token');
     if (token) {
-      const decodedToken = jwt_decode(token);
-      console.log('decodedToken', decodedToken)
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
       setID(decodedToken.id);
     }
-    props.fetchNFTs();
+    props.fetchTokenTransfers({
+      type: 'album',
+      related: 'album',
+      transfer_to: decodedToken.id
+    });
   }, []);
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
@@ -119,15 +122,12 @@ export default connect(state => {
   return {
     nfts: state.nfts.nfts,
     total: state.nfts.total,
-    loading: state.nfts.loading
+    loading: state.nfts.loading,
+    token_transfer: state.token_transfer.token_transfer
   }
 },
   dispatch => {
     return {
-      fetchNFTs: () => dispatch(fetchNFTsAction({
-        params: {
-          is_purchased: true
-        }
-      })),
+      fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
     }
   })(withRouter(MyProfile));

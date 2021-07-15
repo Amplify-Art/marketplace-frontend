@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy }) {
   const [viewDetails, setViewDetails] = useState(false)
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -39,12 +39,12 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     }
   }
 
-  useEffect(()=>{
-    if(!isOpen){
+  useEffect(() => {
+    if (!isOpen) {
       setCurrentIndex(-1)
       setPlaying(false)
     }
-  },[isOpen]);
+  }, [isOpen]);
 
   useEffect(() => {
     playing ? audio.play() : audio.pause();
@@ -68,7 +68,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
       audio.removeEventListener("ended", () => setPlaying(false));
       audio.removeEventListener("timeupdate", () => { });
     };
-  }, [playing,audio]);
+  }, [playing, audio]);
 
 
 
@@ -76,64 +76,67 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
 
   const addToPlaylist = async () => {
     updateCurrentPlaylist(albumInfo.songs)
-    const songsWithCoverArt = await albumInfo.songs.map(song=> ({...song,coverArt:isPlayList? null: albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid}))
+    const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
   const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
 
   return (
-    <div id="albums-content">
-      {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${isPlayList ? '#f18180' : data.vibrant} 0%, ${isPlayList ? '#ec5051' : data.muted} 52.12%)` }}>
-        <div className="album-top">
-          {!isPlayList ? <div className="album-img">
-            {albumInfo && albumInfo.cover_cid ? (
-              <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
-            ) : <img src={albumInfo.coverArt} alt='' />}
-          </div> : null}
-          <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
-            <div className="title">{albumInfo && albumInfo.title}</div>
-            {
-              !isPlayList ? <>
-                <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
-                <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
-              </> : null
-            }
-          </div>
-        </div>
-        <div className="album-bottom" id="modalScrolling">
-          {albumInfo && albumInfo.songs?.map((song, index) => (
-            <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
-          ))}
-        </div>
-        {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
-          <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
-        </div> : null}
-        {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
-      </div>
-        : <div className="left-wrapper">
-          <div className="viewdetails-top">
-            <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
-            <div className="details-banner">
-              Album Details
+    <>
+      <div id="albums-content">
+        {!viewDetails ? <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${isPlayList ? '#f18180' : data.vibrant} 0%, ${isPlayList ? '#ec5051' : data.muted} 52.12%)` }}>
+          <div className="album-top">
+            {!isPlayList ? <div className="album-img">
+              {albumInfo && albumInfo.cover_cid ? (
+                <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+              ) : <img src={albumInfo.coverArt} alt='' />}
+            </div> : null}
+            <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
+              <div className="title">{albumInfo && albumInfo.title}</div>
+              {
+                !isPlayList ? <>
+                  <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
+                  <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+                </> : null
+              }
             </div>
           </div>
-          <div className="details-content">
-            <p className="sub-content" style={{ marginTop: '8px' }}>{albumInfo.description}</p>
+          <div className="album-bottom" id="modalScrolling">
+            {albumInfo && albumInfo.songs?.map((song, index) => (
+              <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
+            ))}
           </div>
-          <div className="memory-card">
-            <div className="mint-text">Mint</div>
-            <div className="mint-number">001</div>
-          </div>
+          {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
+            <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
+          </div> : null}
+          {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
         </div>
-      }
-      {
-        isPlayList ? <div className='cd-case'>
-          <img src={CdImage} alt='Cd-image' />
-        </div> :
-          <div className='bg-album-img' />
-      }
-    </div>
+          : <div className="left-wrapper">
+            <div className="viewdetails-top">
+              <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+              <div className="details-banner">
+                Album Details
+              </div>
+            </div>
+            <div className="details-content">
+              <p className="sub-content" style={{ marginTop: '8px' }}>{albumInfo.description}</p>
+            </div>
+            <div className="memory-card">
+              <div className="mint-text">Mint</div>
+              <div className="mint-number">001</div>
+            </div>
+          </div>
+        }
+        {
+          isPlayList ? <div className='cd-case'>
+            <img src={CdImage} alt='Cd-image' />
+          </div> :
+            <div className='bg-album-img' />
+        }
+      </div>
+      <button onClick={() => onBuy(albumInfo)} type="button">Buy This</button>
+    </>
   )
 }
 
