@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import './ProfileAlbum.scss';
+import './UserAvatar.scss';
 
-function ProfileAlbum(props) {
-  const { avatarImg, name, onClick } = props;
+function UserAvatar(props) {
+  const { avatarImg, name, onClick } = props
   const [height, setHeight] = useState('');
 
   const getHeight = () => {
@@ -42,8 +42,8 @@ function ProfileAlbum(props) {
   }, [])
 
   return (
-    <div className="profile-album" onClick={onClick}>
-      <div className="avatar" style={{ height: `${height}px` }}>
+    <div className="user-avatar" onClick={onClick}>
+      <div className="avatar">
         <img src={avatarImg} alt="" />
       </div>
       <span className="avatar-name">{name}</span>
@@ -51,4 +51,4 @@ function ProfileAlbum(props) {
   )
 }
 
-export default ProfileAlbum;
+export default UserAvatar;

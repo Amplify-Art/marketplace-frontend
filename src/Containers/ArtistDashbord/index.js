@@ -107,7 +107,7 @@ function ArtistDashboard(props) {
   }
   const renderSongList = () => (
     mostPlayData.map((song, index) => (
-      <div className="song-content">
+      <div className="song-content d-h-between">
         <div>{song.name}</div>
         <div>{song.count}</div>
       </div>
@@ -128,7 +128,7 @@ function ArtistDashboard(props) {
               <div className="report-link">Export Earnings Report</div>
             </div>
             <div className="supporter-wrapper">
-              <div className="support-header">
+              <div className="support-header d-h-between">
                 <div className="support-title">Supporter Rev Share</div>
                 <div className="support-cal">
                   <img src={CalanderIcon} alt="" className="cal-img" />
@@ -138,7 +138,7 @@ function ArtistDashboard(props) {
               </div>
               <div className="support-content">
                 {month_Data && month_Data.map((item, index) => (
-                  <div className="support-inner-content">
+                  <div className="support-inner-content d-h-between">
                     <div className="text-month w-33">{item.month}</div>
                     <div className="text-gwei w-33">{item.gwei}</div>
                     <div className="w-33 text-align-right">
@@ -150,16 +150,16 @@ function ArtistDashboard(props) {
             </div>
           </div>
           <div className="song-title">Song Stats</div>
-          <div className="song-wrapper">
-            <div className="w-50 song-inner-content mr-50">
-              <div className="song-head">
+          <div className="song-wrapper flex f-jc-space-between">
+            <div className="w-50 song-inner-content">
+              <div className="song-head d-h-between">
                 <span className="song-head-title">Most Played</span>
                 <span className="song-count-title"># of Plays</span>
               </div>
               {renderSongList()}
             </div>
             <div className="w-50 song-inner-content">
-              <div className="song-head">
+              <div className="song-head d-h-between">
                 <span className="song-head-title">Most Purchased</span>
                 <span className="song-count-title"># of Sales</span>
               </div>

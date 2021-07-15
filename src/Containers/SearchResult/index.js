@@ -1,6 +1,6 @@
 import React from 'react';
 import SingleAlbum from '../../Components/Common/SingleAlbum';
-import ProfileAlbum from '../../Components/Common/ProfileAlbum';
+import UserAvatar from '../../Components/Common/UserAvatar';
 import SongList from '../../Components/Parts/SongList'; 
 import Avatar from '../../assets/images/avatar.png';
 import AvatarTwo from '../../assets/images/avatar2.png';
@@ -206,7 +206,7 @@ function SearchResult() {
     )
 
     return (
-        <div className="search-result container">
+        <div className="search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
                 <div className="d-flex">
@@ -221,7 +221,7 @@ function SearchResult() {
             </div>
             <div className="album-search-res">
                 {fakeAvatar && fakeAvatar.map((avatar, index) => (
-                    <ProfileAlbum avatarImg={avatar.user_img} name={avatar.name} />
+                    <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
                 ))}
             </div>
         </div>

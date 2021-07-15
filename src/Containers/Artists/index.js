@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchArtists } from '../../redux/actions/ArtistAction';
 import './Artists.scss';
 
-import ProfileAlbum from '../../Components/Common/ProfileAlbum/index';
+import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function Artists(props) {
   const {fetchArtists, artists} = props;
@@ -18,7 +18,7 @@ function Artists(props) {
         <h2 className="page-title">Artists</h2>
           <div className="artists-holder">
             {artists && artists.length && artists.map((artist, index) => (
-              <ProfileAlbum avatarImg={artist.avatar} key={index} name={artist.name} onClick={() => props.history.push(`/artist/${artist.id}`)} />
+              <UserAvatar avatarImg={artist.avatar} key={index} name={artist.name} onClick={() => props.history.push(`/artist/${artist.id}`)} />
             ))}
           </div>
       </div>
