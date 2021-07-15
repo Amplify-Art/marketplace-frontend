@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
@@ -27,7 +28,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
     fetchShowcase({
       params: {
         related: 'album',
-        'filter[user_id]' : user.id
+        'filter[user_id]': user.id
       }
     })
   }, []);
@@ -35,7 +36,30 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
         <div className="shelves">
-          <div className="single-shelf">
+          {
+            showcases &&
+            _.chunk([...showcases, ...(new Array(6 - showcases.length).fill(null))], 3).map((row, i) => (
+              <div className="single-shelf">
+                <div className="albums-on-shelf">
+                  {
+                    row.map((showCaseItem, j) => showCaseItem ?
+                      <div className="single-album-on-shelf" key={`${i}${j}`}>
+                        <div className="single-shelf-album">
+                          <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album.cover_cid}`} />
+                        </div>
+                      </div>
+                      :
+                      <div className="single-album-on-shelf">
+                        <i className="fal fa-plus" />
+                      </div>
+                    )
+                  }
+                </div>
+                <img src={Shelf} />
+              </div>
+            ))
+          }
+          {/* <div className="single-shelf">
             <div className="albums-on-shelf">
               {showcases && showcases.map((showCaseItem, index) => (
                 <div className="single-album-on-shelf" key={index}>
@@ -64,7 +88,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
               </div>
             </div>
             <img src={Shelf} />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="container flex f-jc-space-between f-align-center">

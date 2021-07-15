@@ -14,7 +14,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
   const [addnfts, setAddNfts] = useState([])
   useEffect(() => {
     let song = [...nfts]
-    let ss = [...selectedSongs].map(item => {
+    let ss = [...(selectedSongs || [])].map(item => {
       return item.id
     })
     const result = song.filter(item => !ss.includes(item.id))
