@@ -144,3 +144,31 @@
     }
   }
 }
+
+.shelves {
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  width: 400px;
+  .single-shelf {
+    &:first-child {
+      margin-bottom: 50px;
+    }
+    .albums-on-shelf {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-right: 30px;
+      padding-left: 30px;
+      box-sizing: border-box;
+      .single-album-on-shelf {
+        i {
+          color: #fff;
+          font-size: 30px;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
