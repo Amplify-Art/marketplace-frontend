@@ -42,8 +42,8 @@ function UserAvatar(props) {
   }, [])
 
   return (
-    <div className="profile-album" onClick={onClick}>
-      <div className="avatar" style={{ height: `${height}px` }}>
+    <div className="user-avatar" onClick={onClick}>
+      <div className="avatar">
         <img src={avatarImg} alt="" />
       </div>
       <span className="avatar-name">{name}</span>
