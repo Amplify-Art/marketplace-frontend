@@ -13,46 +13,33 @@
 		color: rgba(255, 255, 255, 0.5);
 	}
 	.nominet_border1 {
-		height: 441px;
-		width: 71.8%;
 		background: #000000;
-		position: absolute;
 		-webkit-clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
 		clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
 		padding: 2px;
-		margin-top: 6px;
 		margin-left: 10px;
 		z-index: -99999999;
+
 		.nominet_border2 {
 			height: 441px;
 			width: 100%;
 			background: #0f161d;
 			z-index: 9999;
 			clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+			@media screen and (max-width: 1324px){
+				height: 382px;
+			}
 		}
 	}
 
 	.nominate_wrapp {
-		// position: relative;
-		width: 100%;
+		height: 441px;
+    	width: 99%;
+		margin-top: -450px;
 		clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
-		// background: rgba(196, 196, 196, 0.1);
 		background-color: rgb(39 46 51);
 		box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
 			inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
-		// &::after{
-		//     position: absolute;
-		//     content: "";
-		//     top: 0;
-		//     width: 100%;
-		//     height: auto;
-		//     border: 1px solid red;
-		//     left: 0;
-		//     right: 0;
-		//     bottom: 0;
-		//     padding: 0px;
-		//     margin: auto;
-		// }
 		.content {
 			padding: 100px 110px;
 			.heading {
@@ -64,6 +51,9 @@
 				margin-bottom: 20px;
 				text-align: center;
 				font-weight: normal;
+				@media screen and (max-width: 1155px){
+					font-size: 30px;
+				}
 			}
 			.nominate {
 				font-family: $space;
@@ -72,6 +62,9 @@
 				text-align: center;
 				color: #ffffff;
 				margin-bottom: 10px;
+				@media screen and (max-width: 1155px){
+					font-size: 17px;
+				}
 			}
 			.submission {
 				font-family: $space;
@@ -110,9 +103,25 @@
 					font-family: $lato;
 					margin-left: 20px;
 					padding: 14px 22px;
+					@media screen and (max-width: 1155px){
+						font-size: 14px;
+						padding: 11px 15px;
+					}
 				}
 			}
+			@media screen and (max-width: 1324px){
+				padding: 70px;
+			}
+
 		}
+		@media screen and (min-width: 2561px){
+			height: 435px;
+		}
+		@media screen and (max-width: 1324px){
+			height: 382px;
+			margin-top: -390px;
+		}
+		
 	}
 	.user-list {
 		display: flex;
