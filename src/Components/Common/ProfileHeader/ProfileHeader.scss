@@ -168,6 +168,18 @@
           margin-bottom: 10px;
           cursor: pointer;
         }
+
+        .single-shelf-album {
+          overflow: hidden;
+          width: 93px;
+          height: 93px;
+          display: flex;
+          position: relative;
+          bottom: -25px;
+          img {
+
+          }
+        }
       }
     }
   }

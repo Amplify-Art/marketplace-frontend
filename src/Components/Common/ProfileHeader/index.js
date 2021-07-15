@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
 
-function ProfileHeader({ ArtistData, btnContent }) {
+import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
+
+function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
   const coverPhoto = () => {
     let coverPhoto;
 
@@ -15,18 +20,31 @@ function ProfileHeader({ ArtistData, btnContent }) {
 
     return coverPhoto;
   }
+
+  useEffect(() => {
+    const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+
+    fetchShowcase({
+      params: {
+        related: 'album',
+        'filter[user_id]' : user.id
+      }
+    })
+  }, []);
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
         <div className="shelves">
           <div className="single-shelf">
             <div className="albums-on-shelf">
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
+              {showcases && showcases.map((showCaseItem, index) => (
+                <div className="single-album-on-shelf" key={index}>
+                  <div className="single-shelf-album">
+                    <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album.cover_cid}`} />
+                  </div>
+                </div>
+              ))}
+
               <div className="single-album-on-shelf">
                 <i className="fal fa-plus" />
               </div>
@@ -66,4 +84,13 @@ function ProfileHeader({ ArtistData, btnContent }) {
   )
 };
 
-export default ProfileHeader;
+export default connect(state => {
+  return {
+    showcases: state.showcases.showcases,
+  }
+},
+  dispatch => {
+    return {
+      fetchShowcase: (params) => dispatch(fetchShowcasesAction(params)),
+    }
+  })(withRouter(ProfileHeader));
