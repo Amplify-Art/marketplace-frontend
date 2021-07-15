@@ -94,7 +94,6 @@ function App(props) {
 
   return (
     <>
-      {console.log('dsds', props.currentPlaylists)}
       <GloablLoader >
         <ReactNotification />
         <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
