@@ -7,20 +7,20 @@ import playBtn from '../../../assets/images/play_btn.svg';
 import './SongList.scss';
 
 const songHeader = () => (
-    <div className="songlist-header flex f-jc-space-around">
-        <label className="header-title">Song Title | Mints owned
+    <div className="songlist-header flex">
+        <div className="header-title">Song Title | Mints owned
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">
+        </div>
+        <div className="header-title">
             album
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">Artist
+        </div>
+        <div className="header-title">Artist
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">For sale
+        </div>
+        <div className="header-title">For sale
             <img src={sortIcon} alt="" />
-        </label>
+        </div>
     </div>
 )
 
@@ -59,18 +59,22 @@ function SongList() {
 
     return (
         <div className="song-list">
+            <span className="song-title-header">Song Results</span>
             {songHeader()}
             <div>
                 {songsList.map((songData,index) => (
-                    <div className="flex f-jc-space-around">
-                        <div className="flex f-jc-space-around">
-                            <img src={playProgress} alt=""/>
-                            <label className="song-data">{songData.title}</label>
-                            <label className="song-data">{songData.mint}</label>
+                    <div className="play-song flex">
+                        <div className="flex">
+                            <div className="song-icon">
+                                <img src={playProgress} alt="" />
+                            </div>
+                            <label className="song-title">
+                                {songData.title} <span>{songData.mint}</span> 
+                            </label>
                         </div>
-                        <div className="song-data">{songData.artist}</div>
-                        <div className="song-data">{songData.album}</div>
-                        <div className="song-data">{songData.forsale}</div>
+                        <div>{songData.artist}</div>
+                        <div>{songData.album}</div>
+                        <div>{songData.forsale}</div>
                     </div>
                 ))}
             </div>

@@ -197,11 +197,11 @@ function SearchResult() {
 
     const albumDetailRender = (albumNo) => (
         albums.map((album, index) => albumNo === index && (
-            <>
-                <div className="sub-title">{album.title}</div>
-                <div className="sub-artist">{album.artist || "Imagine Dragons"}</div>
-                <div className="sub-title">{album.Releases || album.own}</div>
-            </>
+            <div className="album-detail">
+                <div>{album.title}</div>
+                <div>{album.artist || "Imagine Dragons"}</div>
+                <div>{album.Releases || album.own}</div>
+            </div>
         ))
     )
 
@@ -209,7 +209,7 @@ function SearchResult() {
         <div className="search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
-                <div className="d-flex">
+                <div className="flex">
                     {albums && albums.map((album, index) => (
                         <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
                     ))}
@@ -219,7 +219,8 @@ function SearchResult() {
                 <div className="songlist-title">song results</div>
                 <SongList/>
             </div>
-            <div className="album-search-res">
+            <div className="songlist-title">artist result</div>
+            <div className="flex f-jc-space-around">
                 {fakeAvatar && fakeAvatar.map((avatar, index) => (
                     <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
                 ))}
