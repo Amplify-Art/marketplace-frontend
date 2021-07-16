@@ -18,6 +18,7 @@ function useDebounce(callback, delay) {
 const Nominate = (props) => {
   let [search, setSearch] = useState('')
   let [selected, setSelected] = useState(null)
+  let [nominateName,setNominateName] = useState('')
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
@@ -28,11 +29,17 @@ const Nominate = (props) => {
   const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
   const onSearch = (e) => {
     const { value: nextValue } = e.target;
+    if(nominateName===''){
+      setSelected(null)
+    }
+    console.log(nextValue)
+    setNominateName(nextValue)
     setSearch(nextValue)
     debouncedSave(nextValue);
   }
   const onSelect = user => {
     setSelected(user)
+    setNominateName(user.username)
   }
   const onSubmit = (e) => {
     e.preventDefault()
@@ -60,12 +67,14 @@ const Nominate = (props) => {
             </div>
             <div className="submission">1 Submission per month per user</div>
             <div className="search">
-              <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={selected && selected.username || search} />
+              <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={nominateName} />
               <button className="btn" onClick={onSubmit}>Submit Artist</button>
             </div>
             {search && !selected &&
-              <div className="user-list">
+              <div className="user-list" >
+                <div className="user-inner" id="modalScrolling">
                   {props.users.map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
+                  </div>
               </div>
             }
           </div>

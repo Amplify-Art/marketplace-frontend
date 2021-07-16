@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import CreatePlayList from '../../Components/Parts/CreatePlayList';
+import SongList from '../../Components/Parts/SongList/index';
 
 import { fetchPlaylistsAction } from '../../redux/actions/PlaylistAction'
 
@@ -130,6 +131,8 @@ function UserDashboard(props) {
             <h5>No playlists found</h5>
           </div>
         )}
+
+        <SongList />
 
         {renderHeader("Followed Artists", false)}
         <div className="album-block">
