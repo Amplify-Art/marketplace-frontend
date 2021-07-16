@@ -58,7 +58,7 @@ function CreatePlayList(props) {
         <div className="playlist-wrapper">
           <div className="playlist-showcase">
             <div className="input-holder">
-              <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: 'This is required' })} />
+              <input name="playlist-name" type="text" placeholder="Playlist Name" {...register("playlistName", { required: 'This is required' })} className={errors?.playlistName && 'error'} />
               {errors && errors.playlistName && <span className="">{errors.playlistName.message}</span>}
             </div>
             <AddShowCase showCaseData={showCaseData} isPlayList addToPlaylist={addToPlaylist} {...{ selectedSongs }} />
