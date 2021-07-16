@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
+import AddShowCase from '../../Parts/AddShowCase/index';
+import GeneralModal from '../../Common/GeneralModal/index';
+import CreatePlayList from '../../Parts/CreatePlayList/index';
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
@@ -10,6 +13,8 @@ import Shelf from '../../../assets/images/shelf.png';
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
 function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
+  console.log('fetch show case',fetchShowcase);
+  const [showCaseModal, toggleShowCaseModal] = useState(false);
   const coverPhoto = () => {
     let coverPhoto;
 
@@ -20,6 +25,10 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
     }
 
     return coverPhoto;
+  }
+
+  const ShowCaseHandler = () => {
+    return <AddShowCase />;
   }
 
   useEffect(() => {
@@ -50,7 +59,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
                       </div>
                       :
                       <div className="single-album-on-shelf">
-                        <i className="fal fa-plus" />
+                        <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showCaseModal)} />
                       </div>
                     )
                   }
@@ -104,6 +113,15 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
         <div className="btn-wrap">{btnContent}</div>
       </div>
       <div className="details mobile">{ArtistData.name}</div>
+      {showCaseModal && <GeneralModal
+        headline="Add Album"
+        // bodyChildren={<AddShowCase  />}
+        // bodyChildren = { <AddShowCase  addToPlaylist={addToPlaylist} {...{ selectedSongs }} /> }
+        contentClassName="playlist-modal"
+        closeModal={() => toggleShowCaseModal(!showCaseModal)}
+        isCloseButton={true}
+      />
+      }
     </div>
   )
 };
