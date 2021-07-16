@@ -71,8 +71,10 @@ const Nominate = (props) => {
               <button className="btn" onClick={onSubmit}>Submit Artist</button>
             </div>
             {search && !selected &&
-              <div className="user-list">
+              <div className="user-list" >
+                <div className="user-inner" id="modalScrolling">
                   {props.users.map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
+                  </div>
               </div>
             }
           </div>
