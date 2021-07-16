@@ -75,9 +75,6 @@
     padding-left: 50px;
     width: 68%;
     .support-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       .support-title {
         font-size: 24px;
         line-height: 31px;
@@ -102,9 +99,6 @@
     }
     .support-content {
       .support-inner-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 20px 0px;
         .w-33 {
           width: 33%;
@@ -138,13 +132,8 @@
     margin: 50px 0 30px 0;
   }
   .song-wrapper {
-    display: flex;
-    justify-content: space-between;
     .w-50 {
       width: 50%;
-    }
-    .mr-50 {
-      margin-right: 50px;
     }
     .song-inner-content {
       background: rgba(196, 196, 196, 0.1);
@@ -156,11 +145,11 @@
       font-style: normal;
       font-weight: normal;
       color: #ffffff;
+      &:first-child {
+        margin-right: 50px;
+     }
     }
     .song-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 22px;
       .song-head-title {
         font-size: 24px;
@@ -173,9 +162,6 @@
       }
     }
     .song-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       font-size: 16px;
       line-height: 20px;
       padding: 8px 0px;

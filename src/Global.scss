@@ -211,9 +211,19 @@ textarea {
   justify-content: center;
 }
 
+.f-jc-space-around {
+  justify-content: space-around;
+}
+
 .page-title {
   color: #fff;
   margin-top: 40px;
   margin-bottom: 30px;
   font-size: 30px;
+}
+
+.d-h-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
