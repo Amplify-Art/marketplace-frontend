@@ -7,20 +7,20 @@ import playBtn from '../../../assets/images/play_btn.svg';
 import './SongList.scss';
 
 const songHeader = () => (
-    <div className="songlist-header flex ">
-        <label className="header-title header_maindata">Song Title | Mints owned
+    <div className="songlist-header flex">
+        <div className="header-title">Song Title | Mints owned
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">
+        </div>
+        <div className="header-title">
             album
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">Artist
+        </div>
+        <div className="header-title">Artist
             <img src={sortIcon} alt="" />
-        </label>
-        <label className="header-title">For sale
+        </div>
+        <div className="header-title">For sale
             <img src={sortIcon} alt="" />
-        </label>
+        </div>
     </div>
 )
 

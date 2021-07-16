@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './UserAvatar.scss';
 
 function UserAvatar(props) {
-  const { avatarImg, name, onClick } = props
+  const { avatarImg, name, onClick } = props;
   const [height, setHeight] = useState('');
 
   const getHeight = () => {

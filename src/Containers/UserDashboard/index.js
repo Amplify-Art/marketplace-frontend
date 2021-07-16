@@ -98,7 +98,7 @@ function UserDashboard(props) {
     <div className="album-header">
       <span className="header-title">{title}</span>
       <div>
-        {isCreateButton && <button className="btn-wrap mr-27" onClick={() => togglePlayListModal(!showPlayListModal)}>Create New</button>}
+        {isCreateButton && <button className="btn-wrap" onClick={() => togglePlayListModal(!showPlayListModal)}>Create New</button>}
         <button className="btn-wrap">View All</button>
       </div>
     </div>
