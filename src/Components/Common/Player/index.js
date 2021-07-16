@@ -52,11 +52,12 @@ function Player(props) {
     requestAnimationFrame(updateBar);
   },[currentPlaylists])
 
-  // useEffect(() => {
-  //   audioElement.addEventListener('ended', () => {
-  //     nextSong()
-  //   })
-  // }, [audioElement])
+  useEffect(() => {
+    audioElement.addEventListener('ended', () => {
+      togglePlay(true)
+      nextSong()
+    })
+  }, [isPlaying,audioElement])
 
   const updateBar = () => {
     setSongProgress(audioElement.currentTime);
