@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import AddShowCase from '../../Parts/AddShowCase/index';
+import {showCaseData} from '../../../Containers/Sandbox'
 import GeneralModal from '../../Common/GeneralModal/index';
-import CreatePlayList from '../../Parts/CreatePlayList/index';
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
@@ -13,8 +13,8 @@ import Shelf from '../../../assets/images/shelf.png';
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
 function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
-  console.log('fetch show case',fetchShowcase);
-  const [showCaseModal, toggleShowCaseModal] = useState(false);
+  console.log('fetch show case',showcases);
+  const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const coverPhoto = () => {
     let coverPhoto;
 
@@ -59,7 +59,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
                       </div>
                       :
                       <div className="single-album-on-shelf">
-                        <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showCaseModal)} />
+                        <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showShowCaseModal)} />
                       </div>
                     )
                   }
@@ -113,12 +113,19 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
         <div className="btn-wrap">{btnContent}</div>
       </div>
       <div className="details mobile">{ArtistData.name}</div>
-      {showCaseModal && <GeneralModal
+      {/* {showCaseModal && <GeneralModal
         headline="Add Album"
         // bodyChildren={<AddShowCase  />}
         // bodyChildren = { <AddShowCase  addToPlaylist={addToPlaylist} {...{ selectedSongs }} /> }
         contentClassName="playlist-modal"
         closeModal={() => toggleShowCaseModal(!showCaseModal)}
+        isCloseButton={true}
+      />
+      } */}
+      {showShowCaseModal && <GeneralModal
+        headline="Add to Showcase"
+        bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} />}
+        closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
         isCloseButton={true}
       />
       }

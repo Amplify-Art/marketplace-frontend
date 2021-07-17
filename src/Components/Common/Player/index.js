@@ -55,6 +55,7 @@ function Player(props) {
   useEffect(() => {
     audioElement.addEventListener('ended', () => {
       togglePlay(true)
+      audioElement.currentTime = 0
       nextSong()
     })
   }, [isPlaying,audioElement])
