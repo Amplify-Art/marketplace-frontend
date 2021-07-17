@@ -18,8 +18,6 @@ function SearchResult(props) {
     const artistsData = filter(results, item => item.type === "artists")[0]?.data ||[];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
 
-    {console.log("New filter data----->",albumsData,artistsData,songsData)}
-
     const albums = [
         {
             available_qty: 0,
@@ -220,7 +218,7 @@ function SearchResult(props) {
         <div className="search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
-                <div className="flex">
+                <div className="flex flex-wrap">
                     {albumsData && albumsData.map((album, index) => (
                         <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
                     ))}
@@ -228,13 +226,15 @@ function SearchResult(props) {
             </div>
             <div>
                 <div className="songlist-title">song results</div>
-                <SongList/>
+                <SongList songList={songsData}/>
             </div>
             <div className="songlist-title">artist result</div>
             <div className="flex f-jc-space-around">
-                {fakeAvatar && fakeAvatar.map((avatar, index) => (
-                    <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
-                ))}
+                {artistsData.length > 0 ? artistsData.map((artist, index) => (
+                    <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`}/>
+                )) : (
+                    <div className="songlist-title">Not Available</div>
+                )}
             </div>
         </div>
     )
