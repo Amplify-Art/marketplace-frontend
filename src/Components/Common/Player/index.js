@@ -32,6 +32,9 @@ function Player(props) {
   const [songIndex, setSongIndex] = useState(0);
   const [isShow, setIsShow] = useState(false);
   const [currentSongSrc, setSongSrc] = useState(`https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].song_cid}`);
+
+  const coverData = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
+
   const playBar = useRef(null);
   const playButtonFunction = () => {
     console.log(isPlaying)
@@ -167,7 +170,10 @@ function Player(props) {
           </div>}
         </div>
         {/* If album is owned, show cover here, else use blank CD */}
-        <div className="background-blur" style={{ backgroundImage: `url(${DefaultCover})` }} />
+        { currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ?
+            <div className="background-blur" style={{ backgroundImage: `url(${coverData})` }} /> :
+            <div className="background-blur" style={{ backgroundImage: `url(${DefaultCover})` }} />
+        }
       </div>
     )
 
