@@ -31,7 +31,6 @@ function SingleAlbum(props) {
             </div>
           )}
         </div>
-        {console.log("child----->",children)}
         {
           children ? children : (
             <>
@@ -43,6 +42,7 @@ function SingleAlbum(props) {
         }
       </div>
       <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>
+      
     </>
   );
 }
