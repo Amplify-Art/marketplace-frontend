@@ -119,7 +119,6 @@ function Header(props) {
   }
 
   const handleSearch = async(e) => {
-      console.log("search resulut=-------------------->",props)
       await props.searchRes(e.target.value)
       if(e.target.value)
         await props.history.push("/search-result")

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import sortIcon from '../../../assets/images/Sort.svg';
 import playProgress from '../../../assets/images/play_progress.svg';
 import playBtn from '../../../assets/images/play_btn.svg';
+import SongLength from '../../Common/SongLength/index';
 
 import './SongList.scss';
 
@@ -24,55 +25,69 @@ const songHeader = () => (
     </div>
 )
 
-function SongList() {
+function SongList(props) {
+    const {songList} = props;
+    const [playing, setPlaying] = useState(false);
+    const [audio, setAudioSong] = useState(new Audio(''));
+    const [currentIndex, setCurrentIndex] = useState(-1)
 
-    const songsList = [
-        {
-            "title":"Another Level",
-            "artist":"Blood is Rebel",
-            "album":"Oh The Larceny",
-            "forsale":"14/100 Available",
-            "mint":"#3,#4"
-        },
-        {
-            "title":"Real Good Feeling",
-            "artist":"Blood is Rebel",
-            "album":"Oh The Larceny",
-            "forsale":"14/100 Available",
-            "mint":""
-        },
-        {
-            "title":"Moving too fast",
-            "artist":"Blood is Rebel",
-            "album":"Oh The Larceny",
-            "forsale":"14/100 Available",
-            "mint":""
-        },
-        {
-            "title":"Can’t stop this feeling",
-            "artist":"Blood is Rebel",
-            "album":"Oh The Larceny",
-            "forsale":"14/100 Available",
-            "mint":""
-        },
-    ];
 
+    const handleAudio =(songId) => {
+        setAudioSong(new Audio(`https://hub.textile.io/ipfs/${songId}`))
+        if (playing && currentIndex !== songId) {
+            audio.pause()
+            audio.currentTime = 0;
+            setCurrentIndex(songId)
+            setPlaying(true)
+          } else if (!playing && currentIndex === -1) {
+            setCurrentIndex(songId)
+            setPlaying(true)
+          } else {
+                audio.pause()
+                audio.currentTime = 0;
+                setAudioSong(new Audio(''))
+                setCurrentIndex(-1)
+                setPlaying(false)
+          }
+    }
+    useEffect(() => {
+        playing ? audio.play() : audio.pause()
+      }, [audio, playing, currentIndex]);
+     
+      useEffect(() => {
+        audio.addEventListener("ended", () => {
+            setAudioSong(new Audio(''))
+            setCurrentIndex(-1)
+            setPlaying(false)
+        });
+        
+        return () => {
+          audio.removeEventListener("ended", () => {
+            setAudioSong(new Audio(''))
+            setCurrentIndex(-1)
+              setPlaying(false)
+            });
+        };
+      }, [playing,audio]);
     return (
         <div className="song-list">
             <span className="song-title-header">Song Results</span>
             {songHeader()}
             <div>
-                {songsList.map((songData,index) => (
-                    <div className="play_song flex">
-                        <div className="song-data song_maindata flex">
-                            <div className="song-icon">
-                            <img src={playProgress} alt="" />
+                {songList && songList.map((songData,index) => (
+                    <div className="play-song flex">
+                        <div className="flex">
+                            <div className="song-icon cursor-pointer">
+                                <img src={playing && currentIndex === songData.song_cid ? playProgress : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
+                                {/* <div className="audio-time"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                             </div>
-                            <label className="song-data song-title">{songData.title} <span>{songData.mint}</span> </label>
+                            <label className="song-title">
+                                {songData.title} <span>{songData.mint || "#4"}</span> 
+                            </label>
                         </div>
-                        <div className="song-data">{songData.artist}</div>
-                        <div className="song-data">{songData.album}</div>
-                        <div className="song-data forsale">{songData.forsale}</div>
+                        <div>{songData.artist || 'Blood is Rebel'}</div>
+                        <div>{songData.album || 'Oh The Larceny'}</div>
+                        <div>{songData.forsale || '14/100 Available'}</div>
                     </div>
                 ))}
             </div>
