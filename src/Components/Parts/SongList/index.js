@@ -63,18 +63,16 @@ function SongList() {
             {songHeader()}
             <div>
                 {songsList.map((songData,index) => (
-                    <div className="play-song flex">
-                        <div className="flex">
+                    <div className="play_song flex">
+                        <div className="song-data song_maindata flex">
                             <div className="song-icon">
-                                <img src={playProgress} alt="" />
+                            <img src={playProgress} alt="" />
                             </div>
-                            <label className="song-title">
-                                {songData.title} <span>{songData.mint}</span> 
-                            </label>
+                            <label className="song-data song-title">{songData.title} <span>{songData.mint}</span> </label>
                         </div>
-                        <div>{songData.artist}</div>
-                        <div>{songData.album}</div>
-                        <div>{songData.forsale}</div>
+                        <div className="song-data">{songData.artist}</div>
+                        <div className="song-data">{songData.album}</div>
+                        <div className="song-data forsale">{songData.forsale}</div>
                     </div>
                 ))}
             </div>
