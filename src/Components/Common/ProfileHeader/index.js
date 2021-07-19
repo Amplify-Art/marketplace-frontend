@@ -1,10 +1,10 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import AddShowCase from '../../Parts/AddShowCase/index';
-import {showCaseData} from '../../../Containers/Sandbox'
+import { showCaseData } from '../../../Containers/Sandbox'
 import GeneralModal from '../../Common/GeneralModal/index';
 
 import './ProfileHeader.scss';
@@ -13,8 +13,9 @@ import Shelf from '../../../assets/images/shelf.png';
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
 function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
-  console.log('fetch show case',showcases);
+  console.log('fetch show case', showcases);
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
+  const [fetchShowCases, setFetchShowCases] = useState(false)
   const coverPhoto = () => {
     let coverPhoto;
 
@@ -33,14 +34,30 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
 
   useEffect(() => {
     const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-
-    fetchShowcase({
-      params: {
-        related: 'album',
-        'filter[user_id]': user.id
-      }
-    })
+    async function fetchMyAPI() {
+      await fetchShowcase({
+        params: {
+          related: 'album',
+          'filter[user_id]': user.id
+        }
+      })
+    }
+    fetchMyAPI()
   }, []);
+
+  useEffect(() => {
+    const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+    async function fetchMyAPI() {
+      await fetchShowcase({
+        params: {
+          related: 'album',
+          'filter[user_id]': user.id
+        }
+      })
+    }
+    fetchMyAPI()
+  }, [fetchShowCases]);
+
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
@@ -54,7 +71,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
                     row.map((showCaseItem, j) => showCaseItem ?
                       <div className="single-album-on-shelf" key={`${i}${j}`}>
                         <div className="single-shelf-album">
-                          <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album.cover_cid}`} />
+                          <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`} />
                         </div>
                       </div>
                       :
@@ -124,7 +141,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
       } */}
       {showShowCaseModal && <GeneralModal
         headline="Add to Showcase"
-        bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} />}
+        bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} setFetchShowCases={setFetchShowCases} fetchShowCases={fetchShowCases} />}
         closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
         isCloseButton={true}
       />

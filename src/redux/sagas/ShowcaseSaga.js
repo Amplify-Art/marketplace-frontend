@@ -77,9 +77,9 @@ export function* updateShowcaseSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/showcases');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/showcases');
+    // }
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_SHOWCASE_FAILED, error }),

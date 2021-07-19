@@ -32,7 +32,6 @@ export default function (state = initialState, action) {
     case types.FETCH_SHOWCASES_REQUEST:
       return {
         ...state,
-        showcases: [],
         loading: true,
       };
     case types.FETCH_SHOWCASE_REQUEST:

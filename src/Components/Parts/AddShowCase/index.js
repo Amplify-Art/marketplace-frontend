@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase }) {
+function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase,setFetchShowCases,fetchShowCases }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   const [addnfts, setAddNfts] = useState([])
@@ -30,23 +30,25 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
   }, []);
 
   useEffect(() => {
-    setAddNfts(nfts)
+    setAddNfts(nfts)  
   }, [nfts])
 
-  const onAddingShowcase = (nft) => {
+  const onAddingShowcase = async(nft) => {
     let wasFound = nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id)
     if (wasFound) {
       console.log('Should remove from here', wasFound)
-      updateShowcase({
+      await updateShowcase({
         album_id: null,
         user_id: null,
         is_deleted: true,
         id: wasFound.id
       })
+      setFetchShowCases(!fetchShowCases)
     } else {
-      addshowcase({
+      await addshowcase({
         album_id: nft.id
       })
+      setFetchShowCases(!fetchShowCases)
     }
     toggleShowCaseModal()
   }
