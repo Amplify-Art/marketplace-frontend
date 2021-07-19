@@ -87,15 +87,18 @@ function MyProfile(props) {
       setID(decodedToken.id);
     }
     props.fetchTokenTransfers({
-      type: 'album',
-      related: 'album',
-      transfer_to: decodedToken.id
+      params: {
+        type: 'album',
+        related: 'album',
+        transfer_to: decodedToken.id
+      }
     });
   }, []);
+  console.log(props.token_transfers.filter(f => f.type === 'album'))
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
-      {props.nfts.length ?
+      {props.token_transfers.length ?
         <div className="recently-purchased">
           <div className="top">
             <h2>Recently Purchased</h2>
@@ -103,8 +106,8 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.nfts && props.nfts.length > 0 && props.nfts.filter(f => f.type === 'album' && f.is_purchased).map((nft, index) => (
-              generateAlbumItem(nft, index)
+            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type === 'album').map((token, index) => (
+              generateAlbumItem({ ...token.album, copy_number: token.copy_number }, index)
             ))}
           </div>
         </div>
@@ -123,7 +126,7 @@ export default connect(state => {
     nfts: state.nfts.nfts,
     total: state.nfts.total,
     loading: state.nfts.loading,
-    token_transfer: state.token_transfer.token_transfer
+    token_transfers: state.token_transfers.token_transfers
   }
 },
   dispatch => {
