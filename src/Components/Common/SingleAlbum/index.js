@@ -31,7 +31,6 @@ function SingleAlbum(props) {
             </div>
           )}
         </div>
-        {console.log("child----->",children)}
         {
           children ? children : (
             <>

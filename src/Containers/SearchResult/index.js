@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SingleAlbum from '../../Components/Common/SingleAlbum';
 import UserAvatar from '../../Components/Common/UserAvatar';
 import SongList from '../../Components/Parts/SongList'; 
@@ -7,9 +9,15 @@ import AvatarTwo from '../../assets/images/avatar2.png';
 import AvatarThree from '../../assets/images/avatar3.png';
 import AvatarFour from '../../assets/images/avatar4.png';
 
+import { filter } from 'lodash';
 import './SearchResult.scss';
 
-function SearchResult() {
+function SearchResult(props) {
+    const { results } = props.searchResult;
+    const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
+    const artistsData = filter(results, item => item.type === "artists")[0]?.data ||[];
+    const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
+
     const albums = [
         {
             available_qty: 0,
@@ -195,11 +203,12 @@ function SearchResult() {
     ]
 
 
+
     const albumDetailRender = (albumNo) => (
-        albums.map((album, index) => albumNo === index && (
+        albumsData.map((album, index) => albumNo === index && (
             <div className="album-detail">
                 <div>{album.title}</div>
-                <div>{album.artist || "Imagine Dragons"}</div>
+                <div>{album.artist || ""}</div>
                 <div>{album.Releases || album.own}</div>
             </div>
         ))
@@ -209,24 +218,29 @@ function SearchResult() {
         <div className="search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
-                <div className="flex">
-                    {albums && albums.map((album, index) => (
+                <div className="flex flex-wrap">
+                    {albumsData && albumsData.map((album, index) => (
                         <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
                     ))}
                 </div>
             </div>
             <div>
                 <div className="songlist-title">song results</div>
-                <SongList/>
+                <SongList songList={songsData}/>
             </div>
             <div className="songlist-title">artist result</div>
             <div className="flex f-jc-space-around">
-                {fakeAvatar && fakeAvatar.map((avatar, index) => (
-                    <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
-                ))}
+                {artistsData.length > 0 ? artistsData.map((artist, index) => (
+                    <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`}/>
+                )) : (
+                    <div className="songlist-title">Not Available</div>
+                )}
             </div>
         </div>
     )
 }
-
-export default SearchResult
+export default connect(state => {
+    return {
+      searchResult: state.searchRes.searchResult,
+    }
+  })(withRouter(SearchResult));

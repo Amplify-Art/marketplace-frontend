@@ -14,6 +14,7 @@ import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
+import {fetchSearchResult } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
@@ -117,6 +118,15 @@ function Header(props) {
     return currentPage;
   }
 
+  const handleSearch = async(e) => {
+      console.log("search resulut=-------------------->",props,e)
+      await props.searchRes(e.target.value)
+      if(e.target.value)
+        await props.history.push("/search-result")
+      else
+        await props.history.push("/")
+  }
+
   const userToken = localStorage.getItem('amplify_app_token');
 
   let userDetails = {};
@@ -138,7 +148,7 @@ function Header(props) {
 
         <div className="search">
           <img src={SearchIcon} alt="Search" />
-          <input type="text" placeholder="Search for songs, artists..." />
+          <input type="text" placeholder="Search for songs, artists..." onChange={handleSearch} />
         </div>
 
         <div className="right">
@@ -206,6 +216,7 @@ function Header(props) {
 export default connect(null, dispatch => {
   return {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
-    toggleMobileMenu: () => dispatch(toggleMobileMenuAction())
+    toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
+    searchRes: (payload) => dispatch(fetchSearchResult(payload))
   }
 })(withRouter(Header));
