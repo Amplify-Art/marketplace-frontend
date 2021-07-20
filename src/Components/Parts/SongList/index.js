@@ -41,7 +41,6 @@ function SongList(props) {
                         <div className="flex">
                             <div className="song-icon cursor-pointer">
                                 <img src={playProgress} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
-                                {/* <div className="audio-time"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                             </div>
                             <label className="song-title">
                                 {songData.title} <span>{songData.mint || "#4"}</span> 

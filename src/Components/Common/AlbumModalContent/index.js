@@ -34,6 +34,9 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
       setCurrentIndex(songid)
       setPlaying(true)
     } else {
+      audio.pause()
+      audio.currentTime = 0;
+      setAudioSong(new Audio(''))
       setCurrentIndex(-1)
       setPlaying(false)
     }
@@ -52,7 +55,9 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
 
   useEffect(() => {
     audio.addEventListener("ended", () => {
-      setPlaying(false)
+      setAudioSong(new Audio(''))
+            setCurrentIndex(-1)
+              setPlaying(false)
     });
     audio.addEventListener("timeupdate", e => {
       const progressElement = document.getElementById(currentIndex)
@@ -65,7 +70,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
       }
     });
     return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
+      audio.removeEventListener("ended", () => {
+        setAudioSong(new Audio(''))
+            setCurrentIndex(-1)
+              setPlaying(false)
+      });
       audio.removeEventListener("timeupdate", () => { });
     };
   }, [playing,audio]);
