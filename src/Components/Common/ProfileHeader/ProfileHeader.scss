@@ -162,10 +162,13 @@
       padding-left: 30px;
       box-sizing: border-box;
       .single-album-on-shelf {
+        width: 93px;
+        text-align: center;
         i {
           color: #fff;
           font-size: 30px;
-          margin-bottom: 10px;
+          position: relative;
+          bottom: 20px;
           cursor: pointer;
         }
 
@@ -175,7 +178,7 @@
           height: 93px;
           display: flex;
           position: relative;
-          bottom: -25px;
+          bottom: -9px;
           img {
 
           }
