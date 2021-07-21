@@ -115,7 +115,8 @@ function Player(props) {
           {isExpanded && <div className="album-info large">
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
-              <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" />
+              {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
+              {!currentPlaylists[songIndex]?.coverArt ? <img src={CdImage} alt="Cover" /> : <img src={`https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
@@ -170,9 +171,10 @@ function Player(props) {
           </div>}
         </div>
         {/* If album is owned, show cover here, else use blank CD */}
-        {
+        {/* {
             <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
-        }
+        } */}
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}` })` }} />
       </div>
     )
 
