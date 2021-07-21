@@ -49,6 +49,10 @@
           margin-right: 15px;
         }
       }
+
+      &:last-child {
+        margin-right: 0px;
+      }
       @media screen and (max-width: 600px) {
         padding: 10px;
       }
