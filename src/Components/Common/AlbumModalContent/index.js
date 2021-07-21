@@ -84,8 +84,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   const handleCloseModal = () => { setSongModal(false) }
 
   const addToPlaylist = async () => {
-    const songsWithCoverArt = await albumInfo.songs.map(song=> ({...song,coverArt:isPlayList? null: albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid}))
-    updateCurrentPlaylist(songsWithCoverArt)
+    const songsWithCoverArt =  albumInfo.songs.map(song=> ({...song,coverArt:isPlayList? null: albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid}))
+    await updateCurrentPlaylist(songsWithCoverArt)
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
   const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
