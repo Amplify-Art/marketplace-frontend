@@ -1,18 +1,11 @@
 @import "../../../assets/SCSS/Vars.scss";
 
 .song-list {
-    margin-top: 50px;
     font-family: $space;
     font-style: normal;
     font-weight: normal;
     color: white;
-    .song-title-header {
-        font-size: 20px;
-        color:#ffffff;
-        font-family: $space;
-    }
     .songlist-header {
-        margin-top: 30px;
         margin-bottom: 20px;
         .header-title {
             font-size: 13px;
