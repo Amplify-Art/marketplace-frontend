@@ -29,6 +29,7 @@ header {
     position: relative;
     margin-left: 90px;
     width: 718px;
+    margin-right: 30px;
     @media screen and (max-width: 912px) {
       display: none;
     }
@@ -56,6 +57,8 @@ header {
     align-items: center;
     .bell {
       margin-right: 46px;
+      width: 27px;
+      flex: none;
       img {
         width: 25px;
       }
@@ -68,6 +71,8 @@ header {
     .wallet {
       cursor: pointer;
       margin-right: 38px;
+      width: 27px;
+      flex: none;
       @media screen and (max-width: 492px) {
         display: none;
       }

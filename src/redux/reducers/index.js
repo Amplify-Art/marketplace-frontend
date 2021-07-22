@@ -8,6 +8,7 @@ import artist from './ArtistReducer';
 import users from './UserReducer';
 import nominations from './NominationReducer';
 import token_transfers from './TokenTransferReducer';
+import searchRes from './SearchResReducer';
 
 export {
   albums,
@@ -20,4 +21,5 @@ export {
   users,
   nominations,
   token_transfers,
+  searchRes,
 };

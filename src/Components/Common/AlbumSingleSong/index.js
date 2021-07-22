@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SongLength from '../SongLength/index';
 import playIcon from '../../../assets/images/play_icon.svg';
-
+import pauseIcon from '../../../assets/images/pause_icon.svg';
 class ProgressRing extends React.Component {
   constructor(props) {
     super(props);
@@ -20,13 +20,14 @@ class ProgressRing extends React.Component {
         height={radius * 2}
         width={radius * 2}
       >
+        <image id="mybutton" x={radius-9} y={radius-4} r="50" width={radius} height="30%" xlinkHref={pauseIcon}></image>
         <circle
           stroke="white"
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={0 + ' ' + 0}
           r={this.normalizedRadius}
-          cx={radius}
+          cx={radius -2.5}
           cy={radius}
           id={progressId}
         />
