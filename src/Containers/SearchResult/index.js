@@ -27,14 +27,16 @@ function SearchResult(props) {
     )
 
     return (
-        <div className="search-result left-nav-pad right-player-pad">
+        <div className="container search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
+                <div className="" id="search-album">
                     <div className="album-grid">
                         {albumsData && albumsData.map((album, index) => (
                             <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
                         ))}
                     </div>
+                </div>
             </div>
             <div>
                 <div className="songlist-title">song results</div>
