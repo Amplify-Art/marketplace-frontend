@@ -12,34 +12,37 @@
 		text-transform: uppercase;
 		color: rgba(255, 255, 255, 0.5);
 	}
-	.nominet_border1 {
-		background: #000000;
-		-webkit-clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
-		clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
-		padding: 2px;
-		margin-left: 10px;
-		z-index: -99999999;
+	// .nominet_border1 {
+	// 	background: #000000;
+	// 	-webkit-clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+	// 	clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+	// 	padding: 2px;
+	// 	margin-left: 10px;
+	// 	z-index: -99999999;
 
-		.nominet_border2 {
-			height: 441px;
-			width: 100%;
-			background: #0f161d;
-			z-index: 9999;
-			clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
-			@media screen and (max-width: 1324px){
-				height: 382px;
-			}
-		}
-	}
+	// 	.nominet_border2 {
+	// 		height: 441px;
+	// 		width: 100%;
+	// 		background: #0f161d;
+	// 		z-index: 9999;
+	// 		clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+	// 		@media screen and (max-width: 1324px){
+	// 			height: 382px;
+	// 		}
+	// 	}
+	// }
 
 	.nominate_wrapp {
-		height: 441px;
-    	width: 99%;
-		margin-top: -450px;
-		clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
-		background-color: rgb(39 46 51);
-		box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
-			inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
+		height: 460px;
+    	width: 100%;
+		background-image: url(../../assets/images/clipparth.png);
+		background-repeat: no-repeat;
+		background-size: contain;
+		// margin-top: -450px;
+		// clip-path: polygon(15% 0, 100% 0, 100% 72%, 85% 100%, 0 100%, 0 33%);
+		// background-color: rgb(39 46 51);
+		// box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
+		// 	inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
 		.content {
 			padding: 100px 110px;
 			.heading {
@@ -113,15 +116,19 @@
 				}
 			}
 			@media screen and (max-width: 1324px){
-				padding: 70px;
+				padding: 30px;
 			}
 		}
+		@media screen and (min-width: 1840px){
+			height: 540px;
+			background-size: cover;
+		}
 		@media screen and (min-width: 2561px){
-			height: 435px;
+			height: 670px;
 		}
 		@media screen and (max-width: 1324px){
 			height: 382px;
-			margin-top: -390px;
+			// margin-top: -390px;
 		}
 	}
 	.user-list {
@@ -137,13 +144,15 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		height: 80px;
-		overflow-y: scroll;
+		// height: 130px;
+		// overflow-y: scroll;
 	}
 		span {
 			padding: 10px;
 			cursor: pointer;
-            font-weight: bold;
+			font-weight: bold;
+			// font-size: 15px;
+			// line-height: 30px;
 		}
 	}
 }
