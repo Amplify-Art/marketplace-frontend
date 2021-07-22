@@ -85,36 +85,6 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
               </div>
             ))
           }
-          {/* <div className="single-shelf">
-            <div className="albums-on-shelf">
-              {showcases && showcases.map((showCaseItem, index) => (
-                <div className="single-album-on-shelf" key={index}>
-                  <div className="single-shelf-album">
-                    <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album.cover_cid}`} />
-                  </div>
-                </div>
-              ))}
-
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
-            </div>
-            <img src={Shelf} />
-          </div>
-          <div className="single-shelf">
-            <div className="albums-on-shelf">
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
-              <div className="single-album-on-shelf">
-                <i className="fal fa-plus" />
-              </div>
-            </div>
-            <img src={Shelf} />
-          </div> */}
         </div>
       </div>
       <div className="container flex f-jc-space-between f-align-center">
@@ -130,15 +100,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
         <div className="btn-wrap">{btnContent}</div>
       </div>
       <div className="details mobile">{ArtistData.name}</div>
-      {/* {showCaseModal && <GeneralModal
-        headline="Add Album"
-        // bodyChildren={<AddShowCase  />}
-        // bodyChildren = { <AddShowCase  addToPlaylist={addToPlaylist} {...{ selectedSongs }} /> }
-        contentClassName="playlist-modal"
-        closeModal={() => toggleShowCaseModal(!showCaseModal)}
-        isCloseButton={true}
-      />
-      } */}
+      
       {showShowCaseModal && <GeneralModal
         headline="Add to Showcase"
         bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} setFetchShowCases={setFetchShowCases} fetchShowCases={fetchShowCases} />}
