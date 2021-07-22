@@ -51,9 +51,9 @@ export function* addTokenTransferSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/token_transfers');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/token_transfers');
+    // }
   } catch (error) {
     yield all([
       put({ type: UNSET_OVERLAY_LOADER }),
@@ -82,9 +82,9 @@ export function* updateTokenTransferSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/token_transfers');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/token_transfers');
+    // }
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_TOKENTRANSFER_FAILED, error }),

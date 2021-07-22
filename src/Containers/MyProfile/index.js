@@ -88,8 +88,9 @@ function MyProfile(props) {
     }
     props.fetchTokenTransfers({
       params: {
-        type: 'album',
-        related: 'album',
+        type: 'album_bundle',
+        related: 'album.songs',
+        orderBy: '-id',
         transfer_to: decodedToken.id
       }
     });
@@ -106,7 +107,7 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type === 'album').map((token, index) => (
+            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type === 'album_bundle').map((token, index) => (
               generateAlbumItem({ ...token.album, copy_number: token.copy_number }, index)
             ))}
           </div>
