@@ -9,9 +9,10 @@ import { filter } from 'lodash';
 import './SearchResult.scss';
 
 function SearchResult(props) {
-    const { results } = props.searchResult;
+    const { results } = props?.searchResult;
+    console.log('result', results)
     const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
-    const artistsData = filter(results, item => item.type === "artists")[0]?.data ||[];
+    const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
 
 
@@ -29,20 +30,20 @@ function SearchResult(props) {
         <div className="search-result left-nav-pad right-player-pad">
             <div>
                 <div className="album-title">Album results</div>
-                <div className="flex flex-wrap">
-                    {albumsData && albumsData.map((album, index) => (
-                        <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
-                    ))}
-                </div>
+                    <div className="album-grid">
+                        {albumsData && albumsData.map((album, index) => (
+                            <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
+                        ))}
+                    </div>
             </div>
             <div>
                 <div className="songlist-title">song results</div>
-                <SongList songList={songsData}/>
+                <SongList songList={songsData} />
             </div>
             <div className="songlist-title">artist result</div>
-            <div className="flex f-jc-space-around">
+            <div className="flex f-jc-space-between">
                 {artistsData.length > 0 ? artistsData.map((artist, index) => (
-                    <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`}/>
+                    <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} />
                 )) : (
                     <div className="songlist-title">Not Available</div>
                 )}
@@ -52,6 +53,6 @@ function SearchResult(props) {
 }
 export default connect(state => {
     return {
-      searchResult: state.searchRes.searchResult,
+        searchResult: state.searchRes.searchResult,
     }
-  })(withRouter(SearchResult));
+})(withRouter(SearchResult));
