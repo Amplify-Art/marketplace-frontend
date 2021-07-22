@@ -27,7 +27,8 @@ function SingleAlbum(props) {
           )}
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
-              <span>Mint #<br />{albumInfo.qty}/{albumInfo.qty}</span>
+              {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
+              <span>Mint #<br />{albumInfo.copy_number || albumInfo.available_qty}/{albumInfo.qty}</span>
             </div>
           )}
         </div>
@@ -41,8 +42,7 @@ function SingleAlbum(props) {
           )
         }
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} />} closeModal={handleCloseModal} /></div>
-      
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }

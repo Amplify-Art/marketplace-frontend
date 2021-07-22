@@ -10,6 +10,7 @@ import {
 import './MyProfile.scss';
 
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
+import { fetchTokenTransfersAction } from '../../redux/actions/TokenTransferAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -24,7 +25,8 @@ function MyProfile(props) {
   const [userName, setUserName] = useState('');
   const [userID, setID] = useState(0);
   const [openSharePopup, setSharePopup] = useState(false)
-
+  const token = localStorage.getItem('amplify_app_token');
+  const decodedToken = jwt_decode(token);
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleAlbum key={index} albumInfo={nft} />
@@ -78,21 +80,26 @@ function MyProfile(props) {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('amplify_app_token');
     if (token) {
-      const decodedToken = jwt_decode(token);
-      console.log('decodedToken', decodedToken)
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
       setID(decodedToken.id);
     }
-    props.fetchNFTs();
+    props.fetchTokenTransfers({
+      params: {
+        type: 'album_bundle',
+        related: 'album.songs',
+        orderBy: '-id',
+        transfer_to: decodedToken.id
+      }
+    });
   }, []);
+  console.log(props.token_transfers.filter(f => f.type === 'album'))
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
-      {props.nfts.length ?
+      {props.token_transfers.length ?
         <div className="recently-purchased">
           <div className="top">
             <h2>Recently Purchased</h2>
@@ -100,8 +107,8 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.nfts && props.nfts.length > 0 && props.nfts.filter(f => f.type === 'album' && f.is_purchased).map((nft, index) => (
-              generateAlbumItem(nft, index)
+            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type === 'album_bundle').map((token, index) => (
+              generateAlbumItem({ ...token.album, copy_number: token.copy_number }, index)
             ))}
           </div>
         </div>
@@ -119,15 +126,12 @@ export default connect(state => {
   return {
     nfts: state.nfts.nfts,
     total: state.nfts.total,
-    loading: state.nfts.loading
+    loading: state.nfts.loading,
+    token_transfers: state.token_transfers.token_transfers
   }
 },
   dispatch => {
     return {
-      fetchNFTs: () => dispatch(fetchNFTsAction({
-        params: {
-          is_purchased: true
-        }
-      })),
+      fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
     }
   })(withRouter(MyProfile));
