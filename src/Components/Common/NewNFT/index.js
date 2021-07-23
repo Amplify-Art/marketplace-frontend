@@ -40,7 +40,7 @@ function NewNFT(props) {
       },
     });
     console.log(mintSong)
-    let 
+    // let 
     setSongFiles()
     return mintSong;
   }
