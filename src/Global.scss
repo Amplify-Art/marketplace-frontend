@@ -107,6 +107,15 @@ h2 {
     font-weight: 300;
     padding: 20px 40px;
   }
+
+  &.btn-black {
+    background: #000;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
 }
 
 input {
@@ -147,7 +156,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9;
+  z-index: 99;
   .cover {
     position: absolute;
     z-index: 998;
@@ -175,6 +184,13 @@ textarea {
 
 .right-player-pad {
   padding-right: 150px;
+  @media screen and (max-width: 600px) {
+    padding-right: 0px;
+  }
+}
+
+.normal-right-pad {
+  padding-right: 60px;
   @media screen and (max-width: 600px) {
     padding-right: 0px;
   }

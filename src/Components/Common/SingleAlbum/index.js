@@ -25,6 +25,22 @@ function SingleAlbum(props) {
 
   const handleCloseModal = () => { SetModalOpen(false) }
 
+  const checkImage = (url) => {
+    // Trying to check if image exists here. If it doesn't, we should show some backup image.
+    const request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.send();
+    request.onload = function() {
+      const theStatus = request.status;
+      if (request.status == 200) //if(statusText == OK)
+      {
+        console.log("image exists");
+      } else {
+        console.log("image doesn't exist");
+      }
+    }
+  }
+
   useEffect(() => {
     let width;
     const box = document.querySelector('.art-cover');
@@ -50,6 +66,8 @@ function SingleAlbum(props) {
       window.removeEventListener('resize', resizeListener);
     }
   }, []);
+
+  checkImage(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
   return (
     <>

@@ -4,6 +4,8 @@ import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
 import { sortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import './NewNFT.scss';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
@@ -24,6 +26,10 @@ function NewNFT(props) {
   const [customError, setCustomError] = useState({});
   const [songFiles, setSongFiles] = useState([]);
   const [focusedInputIndex, setFocusedInputIndex] = useState(0);
+  const [image, setImage] = useState('https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg');
+  const [cropData, setCropData] = useState("#");
+  const [cropper, setCropper] = useState();
+  const [showCropper, setShowCropper] = useState(false);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
@@ -154,6 +160,15 @@ function NewNFT(props) {
     delete customError.albumCover;
     setAlbumCover(e.target.files[0]);
     setAlbumCoverPreview(URL.createObjectURL(e.target.files[0]));
+
+    const files = e.target.files;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+    setImage(e.target.files[0])
+    setShowCropper(true);
   }
 
   const onSongTitleChange = (file, index, value) => {
@@ -169,7 +184,7 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
-  console.log(songFiles, 'songFiles')
+  console.log(cropData, 'cropData')
   const DragHandle = sortableHandle(() => <span className="drag">::</span>);
 
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
@@ -209,6 +224,14 @@ function NewNFT(props) {
   const OnSortEnd = ({ oldIndex, newIndex }) => {
     const updateSongFiles = arrayMove(songFiles, oldIndex, newIndex)
     setSongFiles(updateSongFiles)
+  };
+
+  const getCropData = () => {
+    if (typeof cropper !== "undefined") {
+      setCropData(cropper.getCroppedCanvas().toDataURL());
+    }
+
+    setShowCropper(false)
   };
 
   return (
@@ -294,7 +317,7 @@ function NewNFT(props) {
             <div className="right">
               <label htmlFor="albumCover">
                 <div className="image-upload">
-                  <img src={albumCoverPreview ? albumCoverPreview : ImageUploadIcon} alt="Image Upload" />
+                  <img src={cropData !== "#" ? cropData : ImageUploadIcon} alt="Image Upload" />
                 </div>
               </label>
               <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
@@ -357,6 +380,34 @@ function NewNFT(props) {
       <div className="close-icon">
         <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
       </div>
+
+      {showCropper && albumCover && (
+        <div className="crop-modal">
+          <Cropper
+            style={{ height: 500, width: "100%" }}
+            // zoomTo={0.5}
+            initialAspectRatio={1}
+            aspectRatio={1}
+            // preview=".img-preview"
+            src={image}
+            viewMode={1}
+            minCropBoxHeight={10}
+            minCropBoxWidth={10}
+            background={false}
+            responsive={true}
+            autoCropArea={1}
+            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+            onInitialized={(instance) => {
+              setCropper(instance);
+            }}
+            guides={true}
+          />
+
+          <div className="bottom">
+            <button className="btn btn-black" onClick={getCropData}>Apply Crop</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
