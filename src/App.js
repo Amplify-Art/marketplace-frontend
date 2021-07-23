@@ -71,11 +71,6 @@ function App(props) {
       return
     if (!["/", "/auth/login"].includes(path)) {
       toggleLeftSidebar(true);
-      // if (activePlaylist && activePlaylist.length) {
-      //   togglePlayer(true);
-      // } else {
-      //   togglePlayer(false);
-      // }
     } else {
       toggleLeftSidebar(false);
       togglePlayer(false);
@@ -107,7 +102,7 @@ function App(props) {
           <Route path="/sandbox" exact component={Auth(SandBox)} />
           <Route path="/auth/login" exact component={Login} />
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
-          <Route path="/albums" exact component={Albums} />
+          <Route path="/albums" exact render={() => (<Albums playerActive={props && props.currentPlaylists.length > 0} />)} />
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route path="/my-profile" exact component={Auth(MyProfile)} test="test" />
           <Route path="/artist/:slug" exact component={ArtistProfile} />

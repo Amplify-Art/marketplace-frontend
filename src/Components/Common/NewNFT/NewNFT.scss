@@ -209,3 +209,16 @@ h3 {
     }
   }
 }
+
+.crop-modal {
+  position: absolute;
+  z-index: 999;
+  background: #fff;
+  padding: 40px;
+  max-height: 90%;
+  max-width: 90%;
+  .bottom {
+    text-align: center;
+    padding-top: 20px;
+  }
+}

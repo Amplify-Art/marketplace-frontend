@@ -8,7 +8,7 @@ import { addTokenTransferAction } from '../../redux/actions/TokenTransferAction'
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function Albums(props) {
-
+  console.log('PROPS', props)
   useEffect(() => {
     props.fetchAlbums();
   }, [])
@@ -22,7 +22,7 @@ function Albums(props) {
 
   }
   return (
-    <div id="albums" className="left-nav-pad right-player-pad">
+    <div id="albums" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="container">
         <div className="album-grid">
           {props?.albums && props.albums?.length > 0 && props.albums.map((album, index) => (
