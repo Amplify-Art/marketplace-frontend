@@ -27,6 +27,24 @@ function NewNFT(props) {
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
+
+  const uploadSong = async (file) => {
+    console.log(uploadSong)
+    let songFormData = new FormData()
+    songFormData.append('file', file)
+    songFormData.append('name', 'test name')
+    const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'Bearer ' + getAccessToken()
+      },
+    });
+    console.log(mintSong)
+    let 
+    setSongFiles()
+    return mintSong;
+  }
+
   const onSubmit = async (data) => {
     let checkErrors = customError;
     if (!albumCover)
@@ -74,7 +92,7 @@ function NewNFT(props) {
         });
         songFormData.append('qty', data.numberOfAlbums)
         songFormData.append('album_id', mintAlbum.data.album_id)
-        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songFormData, {
+        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + getAccessToken()
@@ -116,6 +134,9 @@ function NewNFT(props) {
     // when next file is added, input focus should be to this song title
     if (!acceptedFiles.length) {
       setFocusedInputIndex(focusedInputIndex + 1);
+    }
+    if (acceptedFiles[acceptedFiles.length - 1]) {
+      uploadSong(acceptedFiles[acceptedFiles.length - 1])
     }
   }, [acceptedFiles]);
 
