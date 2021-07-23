@@ -14,7 +14,7 @@ import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
-import {fetchSearchResult } from '../../../redux/actions/SearchResAction';
+import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
@@ -118,99 +118,99 @@ function Header(props) {
     return currentPage;
   }
 
-  const handleSearch = async(e) => {
-      console.log("search resulut=-------------------->",props,e)
+  const handleSearch = async (e) => {
+    if (e.target.value && (e.key === 'Enter' || e.keyCode === 13)) {
       await props.searchRes(e.target.value)
-      if(e.target.value)
-        await props.history.push("/search-result")
-      else
-        await props.history.push("/")
+      await props.history.push("/search-result")
+  }else if(!e.target.value){
+    await props.history.push("/")
   }
+}
 
-  const userToken = localStorage.getItem('amplify_app_token');
+const userToken = localStorage.getItem('amplify_app_token');
 
-  let userDetails = {};
+let userDetails = {};
 
-  if (userToken) {
-    userDetails = jwt_decode(userToken);
-  }
-  return (
-    <>
-      <header>
-        {/* <div className="menu">
+if (userToken) {
+  userDetails = jwt_decode(userToken);
+}
+return (
+  <>
+    <header>
+      {/* <div className="menu">
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
-        <div className="logo">
-          <Link to='/' >
-            <img src={Logo} alt="Amplify.Art" />
-          </Link>
-        </div>
+      <div className="logo">
+        <Link to='/' >
+          <img src={Logo} alt="Amplify.Art" />
+        </Link>
+      </div>
 
-        <div className="search">
-          <img src={SearchIcon} alt="Search" />
-          <input type="text" placeholder="Search for songs, artists..." onChange={handleSearch} />
-        </div>
+      <div className="search">
+        <img src={SearchIcon} alt="Search" />
+        <input type="text" placeholder="Search for songs, artists..." onKeyUp={handleSearch} />
+      </div>
 
-        <div className="right">
-          {userToken ? (
-            <>
-              <div className="bell"><img src={BellIcon} alt="Bell" /></div>
-              <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
-              <div className="mobile-menu" onClick={toggleMobileMenu}>
-                <img src={MenuIconNew} />
-              </div>
-              <div className="user">
-                <img src={userDetails.avatar} />
-              </div>
-            </>
-          ) : (
-            <Link to="/auth/login" className="top-login">
-              <span>Login</span>
-            </Link>
-          )}
-        </div>
-      </header>
-
-      {setBreadCrumbs() &&
-        <div className="breadcrumbs left-nav-pad">
-          <div className="container">
-            Home / <span className="current">{path && setBreadCrumbs()}</span>
-          </div>
-        </div>
-      }
-
-      {showWalletSidebar && (
-        <>
-          <div className="wallet-info">
-            <h4>Your Wallet:</h4>
-            {user.near_connected && balance && <div className="details">
-              <h3>Account Details</h3>
-              <p>Available Balance: $200 / {balance && balance.available / 10 ** 24} <span className="near-icon">Ⓝ</span></p>
-              <span>Total : <span>{Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}</span></span>
-              <br />
-              <span>Available : <span>{Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}</span> <span className="near-icon">Ⓝ</span></span>
+      <div className="right">
+        {userToken ? (
+          <>
+            <div className="bell"><img src={BellIcon} alt="Bell" /></div>
+            <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
+            <div className="mobile-menu" onClick={toggleMobileMenu}>
+              <img src={MenuIconNew} />
             </div>
-            }
-            {user && !user.near_connected &&
-              < div className="buttons">
-                <Button
-                  text="Connect to Near Wallet"
-                  onClick={() => onConnect()}
-                />
+            <div className="user">
+              <img src={userDetails.avatar} />
+            </div>
+          </>
+        ) : (
+          <Link to="/auth/login" className="top-login">
+            <span>Login</span>
+          </Link>
+        )}
+      </div>
+    </header>
 
-                <Button
-                  text="Create New Wallet"
-                  onClick={() => onCreate()}
-                />
-              </div>
-            }
+    {setBreadCrumbs() &&
+      <div className="breadcrumbs left-nav-pad">
+        <div className="container">
+          Home / <span className="current">{path && setBreadCrumbs()}</span>
+        </div>
+      </div>
+    }
+
+    {showWalletSidebar && (
+      <>
+        <div className="wallet-info">
+          <h4>Your Wallet:</h4>
+          {user.near_connected && balance && <div className="details">
+            <h3>Account Details</h3>
+            <p>Available Balance: $200 / {balance && balance.available / 10 ** 24} <span className="near-icon">Ⓝ</span></p>
+            <span>Total : <span>{Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}</span></span>
+            <br />
+            <span>Available : <span>{Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}</span> <span className="near-icon">Ⓝ</span></span>
           </div>
+          }
+          {user && !user.near_connected &&
+            < div className="buttons">
+              <Button
+                text="Connect to Near Wallet"
+                onClick={() => onConnect()}
+              />
 
-          <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
-        </>
-      )}
-    </>
-  );
+              <Button
+                text="Create New Wallet"
+                onClick={() => onCreate()}
+              />
+            </div>
+          }
+        </div>
+
+        <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
+      </>
+    )}
+  </>
+);
 }
 
 export default connect(null, dispatch => {
