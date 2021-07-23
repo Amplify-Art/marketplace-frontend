@@ -28,7 +28,6 @@ function UserAvatar(props) {
 
     const resizeListener = () => {
       // change width from the state object
-      console.log('TRIGGER')
       getHeight();
     };
     // set resize listener
@@ -39,7 +38,7 @@ function UserAvatar(props) {
       // remove resize listener
       window.removeEventListener('resize', resizeListener);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="user-avatar" onClick={onClick}>

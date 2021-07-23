@@ -118,6 +118,10 @@ input {
     border-color: #FF5353 !important;
     color: initial;
   }
+
+  &[type="submit"] {
+    cursor: pointer;
+  }
 }
 
 span {

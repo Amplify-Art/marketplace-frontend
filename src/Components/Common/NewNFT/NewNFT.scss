@@ -1,5 +1,16 @@
 @import "../../../assets/SCSS/Vars.scss";
 #new-nft-modal {
+  .single-song {
+    .drag {
+      color: #000;
+    }
+    .left {
+      .track {
+        color: #000;
+        justify-content: space-between;
+      }
+    }
+  }
 	.holder {
 		.error {
 			color: $red;
@@ -50,9 +61,10 @@
 	}
 	.close-icon {
 		position: absolute;
-    	top: 40px;
-    	right: 500px;
+    top: 40px;
+    right: 500px;
 		z-index: 999;
+    cursor: pointer;
 	}
 	.song-list {
 		ul {

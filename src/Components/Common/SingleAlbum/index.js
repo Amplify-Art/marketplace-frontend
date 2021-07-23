@@ -7,24 +7,64 @@ import cdCover from '../../../assets/images/cd-img.svg';
 function SingleAlbum(props) {
   const { albumInfo, isMint = true, isPlayList = false, children } = props;
 
-  const [isOpen, SetModalOpen] = useState(false)
+  const [isOpen, SetModalOpen] = useState(false);
+  const [height, setHeight] = useState('');
+
+  const getHeight = () => {
+    let width = '300';
+    const box = document.querySelector('.art-cover');
+    if (box) {
+      width = box.clientWidth;
+    }
+  
+    setHeight(width);
+  }
 
 
   const handleModal = () => { SetModalOpen(true) }
 
   const handleCloseModal = () => { SetModalOpen(false) }
+
+  useEffect(() => {
+    let width;
+    const box = document.querySelector('.art-cover');
+    if (!height) {
+      if (box) {
+        width = box.clientWidth;
+        setHeight(width);
+        console.log('width', width)
+      }
+    }
+
+    const resizeListener = () => {
+      // change width from the state object
+      console.log('Fire')
+      getHeight();
+    };
+    // set resize listener
+    window.addEventListener('resize', resizeListener);
+
+    // clean up function
+    return () => {
+      // remove resize listener
+      window.removeEventListener('resize', resizeListener);
+    }
+  }, []);
+
   return (
     <>
       <div className="single-album" onClick={handleModal}>
-        <div className="cd-case">
-          {albumInfo.coverArt ? (
-            <img src={albumInfo.coverArt} alt="" />
-          ) : (
-            albumInfo.cover_cid ?
-              <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
-              :
-              <img src={cdCover} alt="cover image" />
-          )}
+        <div className="cd-case" style={{ height: `${height}px`}}>
+          <div className="art-cover">
+            {albumInfo.coverArt ? (
+              <img src={albumInfo.coverArt} alt="" />
+            ) : (
+              albumInfo.cover_cid ?
+                <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+                :
+                <img src={cdCover} alt="cover image" />
+            )}
+          </div>
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
