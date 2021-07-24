@@ -13,7 +13,6 @@ import Shelf from '../../../assets/images/shelf.png';
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
 function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
-  console.log('fetch show case', showcases);
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false)
   const coverPhoto = () => {

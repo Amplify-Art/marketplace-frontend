@@ -37,7 +37,6 @@ function Player(props) {
 
   const playBar = useRef(null);
   const playButtonFunction = () => {
-    console.log(isPlaying)
     togglePlay(!isPlaying);
     if (isPlaying) {
       audioElement.pause();

@@ -8,13 +8,11 @@ import { addTokenTransferAction } from '../../redux/actions/TokenTransferAction'
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function Albums(props) {
-  console.log('PROPS', props)
   useEffect(() => {
     props.fetchAlbums();
   }, [])
 
   const onBuy = (album) => {
-    console.log(album)
     props.addTokenTransfer({
       type: 'album',
       "token_id": album.id,

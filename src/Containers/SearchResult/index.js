@@ -10,7 +10,6 @@ import './SearchResult.scss';
 
 function SearchResult(props) {
     const { results } = props?.searchResult;
-    console.log('result', results)
     const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
     const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];

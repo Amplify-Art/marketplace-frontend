@@ -13,7 +13,6 @@ import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function ArtistProfile(props) {
   const { artist } = props;
-  console.log('artist', artist);
   const [albums,setAlbums] = useState([])
 
   const generateAlbumItem = (album, index) => {
@@ -48,8 +47,7 @@ function ArtistProfile(props) {
   useEffect(()=>{
     const filterAlbums = props.albums.filter(album=>album.user_id == props.match.params.slug && !album.is_purchased)
     setAlbums(filterAlbums)
-  },[props.albums])
-  console.log('albums', props.albums)
+  },[props.albums]);
   return (
      props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} />

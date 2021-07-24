@@ -10,7 +10,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  console.log("call res------------->",action.res)
   switch (action.type) {
     case types.FETCH_SEARCH_SUCCESS:
       return {
