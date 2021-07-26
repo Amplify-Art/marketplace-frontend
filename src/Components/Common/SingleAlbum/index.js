@@ -16,7 +16,7 @@ function SingleAlbum(props) {
     if (box) {
       width = box.clientWidth;
     }
-  
+
     setHeight(width);
   }
 
@@ -30,7 +30,7 @@ function SingleAlbum(props) {
     const request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.send();
-    request.onload = function() {
+    request.onload = function () {
       const theStatus = request.status;
       if (request.status == 200) //if(statusText == OK)
       {
@@ -72,7 +72,7 @@ function SingleAlbum(props) {
   return (
     <>
       <div className="single-album" onClick={handleModal}>
-        <div className="cd-case" style={{ height: `${height}px`}}>
+        <div className="cd-case" style={{ height: `${height}px` }}>
           <div className="art-cover">
             {albumInfo.coverArt ? (
               <img src={albumInfo.coverArt} alt="" />
@@ -86,7 +86,7 @@ function SingleAlbum(props) {
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
-              <span>Mint #<br />{albumInfo.copy_number || albumInfo.available_qty}/{albumInfo.qty}</span>
+              <span>Mint #<br />{albumInfo.copy_number || ((albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>
             </div>
           )}
         </div>

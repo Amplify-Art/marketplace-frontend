@@ -17,7 +17,8 @@ import UploadIconAlt from '../../../assets/images/upload.svg';
 import ImageUploadIcon from '../../../assets/images/image-upload.svg';
 import ToolTipIcon from '../../../assets/images/infoicon.svg';
 import { getAccessToken } from '../../../Api/index';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import dataURItoBlob from '../../../Utils/covert';
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
@@ -30,12 +31,16 @@ function NewNFT(props) {
   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState();
   const [showCropper, setShowCropper] = useState(false);
+  const [albumUploadingIndex, setAlbumUploadingIndex] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
 
-  const uploadSong = async (file) => {
-    console.log(uploadSong)
+  const uploadFile = async (fileInfo, type) => {
+    let file = fileInfo;
+    setIsUploading(true)
+    file.is_uploading = true
     let songFormData = new FormData()
     songFormData.append('file', file)
     songFormData.append('name', 'test name')
@@ -44,19 +49,55 @@ function NewNFT(props) {
         'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + getAccessToken()
       },
+      onUploadProgress: (e) => onUploadProgress(e, file, type),
+    }).catch(error => {
+      setIsUploading(false)
+      console.error(error)
     });
-    console.log(mintSong)
-    // let 
-    setSongFiles()
+    if (type === 'song') {
+      console.log(songFiles, file, 'songFiles')
+      // let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
+      // console.log([...songFilesClone], 'HERE')
+      file.uploaded = true
+      file.is_uploading = false
+      file.hash = mintSong.data.IpfsHash
+      // songFilesClone.push(file)
+      // setSongFiles([...songFilesClone, {...JSON.parse(file.toString())}])
+    } else {
+      setAlbumCover(mintSong.data.IpfsHash)
+    }
     return mintSong;
   }
-
+  const onUploadProgress = (progressEvent, file, type) => {
+    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    file.progress = percentCompleted
+    if (percentCompleted === 100) {
+      setIsUploading(false)
+      customError.songFiles = null
+      return
+    }
+    if (type === 'album') {
+      setAlbumUploadingIndex(percentCompleted)
+    } else {
+      file.progress = percentCompleted
+      let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
+      // songFilesClone.push(file)
+      setSongFiles([...songFilesClone, JSON.parse(file.toString())])
+    }
+  }
   const onSubmit = async (data) => {
     let checkErrors = customError;
-    if (!albumCover)
+    if (!albumCover) {
       checkErrors.albumCover = 'Album Cover is required';
+      return
+    }
     if (!songFiles.length) {
       checkErrors.songFiles = 'Atleast one music file is required';
+      return
+    }
+    if (isUploading) {
+      checkErrors.songFiles = 'Files are uploading, please wait...';
+      return
     }
     if (songFiles.length) {
       let withErrors = songFiles.map((song) => {
@@ -72,35 +113,34 @@ function NewNFT(props) {
       }
     }
 
-    let albumFormData = new FormData();
-    albumFormData.append('cover', albumCover);
-    albumFormData.append('name', data.albumName);
-    albumFormData.append('description', data.albumDescription);
-    albumFormData.append('price', Math.round(data.albumPrice * 100));
-    albumFormData.append('qty', data.numberOfAlbums);
+    let albumBody = {}
+    albumBody.cover = albumCover;
+    albumBody.name = data.albumName;
+    albumBody.description = data.albumDescription;
+    albumBody.price = Math.round(data.albumPrice * 100);
+    albumBody.qty = data.numberOfAlbums;
 
     props.displayLoadingOverlay();
     try {
-      const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumFormData, {
+      const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumBody, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
           Authorization: 'Bearer ' + getAccessToken()
         },
       })
       if (mintAlbum.data.success) {
-        let songFormData = new FormData()
+        let songBody = {}
 
-        songFormData.append('metadata', JSON.stringify(songFiles.map(file => ({
+        songBody.metadata = songFiles.map(file => ({
           title: file.title,
-        }))));
-        songFiles.map(file => {
-          songFormData.append('songs', file)
-        });
-        songFormData.append('qty', data.numberOfAlbums)
-        songFormData.append('album_id', mintAlbum.data.album_id)
-        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
+          hash: file.hash
+        }));
+
+        songBody.qty = data.numberOfAlbums
+        songBody.album_id = mintAlbum.data.album_id
+        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songBody, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getAccessToken()
           },
         });
@@ -141,10 +181,15 @@ function NewNFT(props) {
     if (!acceptedFiles.length) {
       setFocusedInputIndex(focusedInputIndex + 1);
     }
-    if (acceptedFiles[acceptedFiles.length - 1]) {
-      uploadSong(acceptedFiles[acceptedFiles.length - 1])
-    }
   }, [acceptedFiles]);
+
+  useEffect(() => {
+    let notUploaded = songFiles.find(file => !file.uploaded && !file.is_uploading)
+    if (notUploaded) {
+      console.log(notUploaded, 'notUploaded')
+      uploadFile(notUploaded, 'song')
+    }
+  }, [songFiles])
 
   const removeSongFromUploads = (index) => {
     const newSongSet = songFiles.splice(index, 1);
@@ -159,8 +204,6 @@ function NewNFT(props) {
   const onAlbumCoverChange = (e) => {
     delete customError.albumCover;
     setAlbumCover(e.target.files[0]);
-    setAlbumCoverPreview(URL.createObjectURL(e.target.files[0]));
-
     const files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
@@ -184,9 +227,7 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
-  console.log(cropData, 'cropData')
   const DragHandle = sortableHandle(() => <span className="drag">::</span>);
-
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
       <div className="single-song"  >
@@ -200,6 +241,12 @@ function NewNFT(props) {
         <div className="right">
           <div className="input-holder">
             <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} tabIndex={0} value={value} autoFocus={focusedInputIndex === songIndex} />
+            {
+              file.progress ? <span className="upload-holder">
+                <span className="upload-progress" style={{ width: `${file.progress}%` }}></span>
+                <span>{(file.progress || 0)}%</span>
+              </span> : null
+            }
             {file.error && <span className="error-message">This field is required</span>}
           </div>
         </div>
@@ -228,12 +275,12 @@ function NewNFT(props) {
 
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
+      let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
+      uploadFile(file, 'album')
       setCropData(cropper.getCroppedCanvas().toDataURL());
     }
-
     setShowCropper(false)
   };
-
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
@@ -294,6 +341,7 @@ function NewNFT(props) {
               <div className="uploader">
                 <div {...getRootProps()}>
                   <input {...getInputProps()} accept=".mp3,audio/*" />
+
                   {
                     isDragActive ? (
                       <div className="upload-dropzone">
@@ -322,6 +370,11 @@ function NewNFT(props) {
               </label>
               <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
               <span className="error-message">{customError && customError.albumCover}</span>
+              {albumUploadingIndex ? <div className="album-uploader">
+                <span className="upload-progress" style={{ width: `${albumUploadingIndex}%` }}></span>
+                <span>{albumUploadingIndex}%</span>
+              </div> : null
+              }
             </div>
           </div>
           <div className="policy-wrap">
