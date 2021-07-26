@@ -1,16 +1,16 @@
 @import "../../../assets/SCSS/Vars.scss";
 #new-nft-modal {
-  .single-song {
-    .drag {
-      color: #000;
-    }
-    .left {
-      .track {
-        color: #000;
-        justify-content: space-between;
-      }
-    }
-  }
+	.single-song {
+		.drag {
+			color: #000;
+		}
+		.left {
+			.track {
+				color: #000;
+				justify-content: space-between;
+			}
+		}
+	}
 	.holder {
 		.error {
 			color: $red;
@@ -61,15 +61,15 @@
 	}
 	.close-icon {
 		position: absolute;
-    top: 40px;
-    right: 500px;
+		top: 40px;
+		right: 500px;
 		z-index: 999;
-    cursor: pointer;
+		cursor: pointer;
 	}
 	.song-list {
 		ul {
-      padding-left: 0px;
-    }
+			padding-left: 0px;
+		}
 	}
 
 	.uploader {
@@ -112,11 +112,37 @@ h3 {
 	width: fit-content;
 	margin: 0 auto;
 }
+.album-uploader {
+	margin-top: 5px;
+	display: flex;
+	flex-direction: row;
+	color: black;
+	align-items: center;
+	justify-content: space-between;
+	.upload-progress {
+		background: blue;
+		height: 5px;
+	}
+}
 .input-holder {
 	margin-bottom: 10px;
 	text-align: left;
 	&:last-child {
 		margin-bottom: 0px;
+	}
+	display: flex;
+	flex-direction: column;
+	.upload-holder {
+		margin-top: 5px;
+		display: flex;
+		flex-direction: row;
+		color: black;
+		align-items: center;
+		justify-content: space-between;
+		.upload-progress {
+			background: blue;
+			height: 5px;
+		}
 	}
 	input,
 	textarea {
@@ -164,50 +190,50 @@ h3 {
 // }
 
 .draggable-item,
-.sortableHelper  {
-  z-index: 99999;
+.sortableHelper {
+	z-index: 99999;
 }
 
 .drag {
-  cursor: grab;
-  margin-right: 8px;
+	cursor: grab;
+	margin-right: 8px;
 }
 
 .single-song {
-  display: flex;
-  margin-bottom: 20px;
-  align-items: center;
-  &:last-child {
-    margin-bottom: 0px;
-  }
-  .left {
-    flex: none;
-    .track {
-      border: 2px solid #000000;
-      border-radius: 8px;
-      padding: 10px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      width: 250px;
-      img {
-        margin-left: 6px;
-      }
-    }
-  }
+	display: flex;
+	margin-bottom: 20px;
+	align-items: center;
+	&:last-child {
+		margin-bottom: 0px;
+	}
+	.left {
+		flex: none;
+		.track {
+			border: 2px solid #000000;
+			border-radius: 8px;
+			padding: 10px 28px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			width: 250px;
+			img {
+				margin-left: 6px;
+			}
+		}
+	}
 
-  .right {
-    flex: 1;
-  }
+	.right {
+		flex: 1;
+	}
 
-  .trash {
-    display: flex;
-    margin-left: 8px;
-    img {
-      cursor: pointer;
-    }
-  }
+	.trash {
+		display: flex;
+		margin-left: 8px;
+		img {
+			cursor: pointer;
+		}
+	}
 }
 
 .crop-modal {
