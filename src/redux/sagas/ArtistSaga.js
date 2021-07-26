@@ -25,7 +25,6 @@ export function* fetchArtistsSaga({ payload }) {
       put({ type: types.FETCH_ARTISTS_SUCCESS, res }),
     ]);
   } catch (error) {
-    console.log(error);
     yield put({ type: types.FETCH_ARTISTS_FAILED, error });
   }
 }

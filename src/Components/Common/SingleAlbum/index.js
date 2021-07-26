@@ -48,13 +48,11 @@ function SingleAlbum(props) {
       if (box) {
         width = box.clientWidth;
         setHeight(width);
-        console.log('width', width)
       }
     }
 
     const resizeListener = () => {
       // change width from the state object
-      console.log('Fire')
       getHeight();
     };
     // set resize listener

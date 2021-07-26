@@ -95,7 +95,6 @@ function MyProfile(props) {
       }
     });
   }, []);
-  console.log(props.token_transfers.filter(f => f.type === 'album'))
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />

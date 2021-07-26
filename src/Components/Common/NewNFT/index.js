@@ -278,6 +278,7 @@ function NewNFT(props) {
       let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
       uploadFile(file, 'album')
       setCropData(cropper.getCroppedCanvas().toDataURL());
+      setAlbumCover(cropper.getCroppedCanvas().toDataURL());
     }
     setShowCropper(false)
   };
@@ -435,31 +436,34 @@ function NewNFT(props) {
       </div>
 
       {showCropper && albumCover && (
-        <div className="crop-modal">
-          <Cropper
-            style={{ height: 500, width: "100%" }}
-            // zoomTo={0.5}
-            initialAspectRatio={1}
-            aspectRatio={1}
-            // preview=".img-preview"
-            src={image}
-            viewMode={1}
-            minCropBoxHeight={10}
-            minCropBoxWidth={10}
-            background={false}
-            responsive={true}
-            autoCropArea={1}
-            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-            onInitialized={(instance) => {
-              setCropper(instance);
-            }}
-            guides={true}
-          />
+        <>
+          <div className="crop-modal">
+            <Cropper
+              style={{ height: 500, width: "100%" }}
+              // zoomTo={0.5}
+              initialAspectRatio={1}
+              aspectRatio={1}
+              // preview=".img-preview"
+              src={image}
+              viewMode={1}
+              minCropBoxHeight={10}
+              minCropBoxWidth={10}
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+              onInitialized={(instance) => {
+                setCropper(instance);
+              }}
+              guides={true}
+            />
 
-          <div className="bottom">
-            <button className="btn btn-black" onClick={getCropData}>Apply Crop</button>
+            <div className="bottom">
+              <button className="btn btn-black" onClick={getCropData}>Apply Crop</button>
+            </div>
           </div>
-        </div>
+          <div className="crop-cover" />
+        </>
       )}
     </div>
   );

@@ -8,7 +8,6 @@ import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function Artists(props) {
   const {fetchArtists, artists} = props;
-  console.log('artists', artists)
   useEffect(() => {
     fetchArtists({});
   }, []);

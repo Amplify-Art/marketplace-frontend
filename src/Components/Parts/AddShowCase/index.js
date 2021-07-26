@@ -36,7 +36,6 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
   const onAddingShowcase = async(nft) => {
     let wasFound = nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id)
     if (wasFound) {
-      console.log('Should remove from here', wasFound)
       await updateShowcase({
         album_id: null,
         user_id: null,
@@ -53,7 +52,6 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
     toggleShowCaseModal()
   }
   const onLoadingImage = (i) => {
-    console.log('i', i)
     if (nfts.length - 1 === i) {
       setLoading(false)
     }

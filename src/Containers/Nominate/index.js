@@ -32,7 +32,6 @@ const Nominate = (props) => {
     if(nominateName===''){
       setSelected(null)
     }
-    console.log(nextValue)
     setNominateName(nextValue)
     setSearch(nextValue)
     debouncedSave(nextValue);

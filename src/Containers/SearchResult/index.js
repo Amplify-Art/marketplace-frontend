@@ -10,11 +10,10 @@ import './SearchResult.scss';
 
 function SearchResult(props) {
     const { results } = props?.searchResult;
-    console.log('result', results)
     const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
     const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
-
+    console.log('result',results)
 
     const albumDetailRender = (albumNo) => (
         albumsData.map((album, index) => albumNo === index && (
@@ -43,7 +42,7 @@ function SearchResult(props) {
                 <SongList songList={songsData} />
             </div>
             <div className="songlist-title">artist result</div>
-            <div className="flex f-jc-space-between">
+            <div className="artist-holder">
                 {artistsData.length > 0 ? artistsData.map((artist, index) => (
                     <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} />
                 )) : (
