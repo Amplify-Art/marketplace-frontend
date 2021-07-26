@@ -90,7 +90,6 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
-  console.log('albumInfo', albumInfo)
   return (
     <>
       <div id="albums-content">
@@ -144,7 +143,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${albumInfo.price}</button>
+      {!isPlayList && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price/100).toFixed(2)}</button>}
     </>
   )
 }

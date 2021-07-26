@@ -44,7 +44,7 @@ function AlbumSingleSong(props) {
   return (
     <div className="inner-content-album" key={`al${index}`}>
       <div className="album-title">
-        <div className="pr-10 pointer">
+        <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
             <div onClick={() => toggle(song.song_cid)}>
               <ProgressRing

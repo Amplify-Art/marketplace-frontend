@@ -132,7 +132,7 @@ function UserDashboard(props) {
           </div>
         )}
 
-        <SongList />
+        {/* <SongList /> */}
 
         {renderHeader("Followed Artists", false)}
         <div className="album-block">

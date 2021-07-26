@@ -165,8 +165,20 @@
 	.inner-content-album {
 		display: flex;
 		justify-content: space-between;
+    align-items: center;
 		.album-title {
+      align-items: center;
 			display: flex;
+      .play-pause-btn {
+        display: flex;
+        align-items: center;
+        height: 36px;
+        width: 25px;
+        > div {
+          display: flex;
+          align-items: center;
+        }
+      }
 		}
 		.pr-10 {
 			padding-right: 10px;

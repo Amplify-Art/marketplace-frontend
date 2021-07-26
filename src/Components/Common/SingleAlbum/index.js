@@ -91,7 +91,7 @@ function SingleAlbum(props) {
         {
           children ? children : (
             <>
-              <h3 className="album-title">{albumInfo.title}</h3>
+              <div className={`the-title ${isPlayList && 'playlist-title'}`}><h3 className="album-title">{albumInfo.title}</h3></div>
               <h4 className="artist-name">{albumInfo.artist}</h4>
               {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
             </>

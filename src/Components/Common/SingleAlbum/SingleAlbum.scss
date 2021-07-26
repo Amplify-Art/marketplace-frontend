@@ -1,4 +1,5 @@
 .single-album {
+  position: relative;
   .cd-case {
     background: url('../../../assets/images/case-transparent.png');
     width: 100%;
@@ -73,3 +74,21 @@
   .d-block {
     display: block;
   }
+
+.the-title {
+  &.playlist-title {
+    text-align: center;
+    position: absolute;
+    bottom: 51px;
+    width: 100%;
+    padding-left: 23px;
+    padding-right: 5px;
+    box-sizing: border-box;
+    h3 {
+      font-family: 'Permanent Marker', cursive;
+      width: 150px;
+      display: inline-block;
+      color: #000;
+    }
+  }
+}
