@@ -132,7 +132,7 @@ function ArtistDashboard(props) {
                 <div className="support-title">Supporter Rev Share</div>
                 <div className="support-cal">
                   <img src={CalanderIcon} alt="" className="cal-img" />
-                  <span className="cal-font">2019</span>
+                  <span className="cal-font">2021</span>
                   <img src={DownArrowIcon} alt="" className="cal-img" />
                 </div>
               </div>
