@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as nearAPI from "near-api-js";
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import jwt_decode from 'jwt-decode';
 import { createWallet } from '../../../Api/Near';
@@ -25,6 +26,7 @@ function Header(props) {
   const [wallet, setWallet] = useState(null);
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
+  const [nearPrice, setNearPrice] = useState(0);
 
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu } = props;
 
@@ -134,6 +136,21 @@ let userDetails = {};
 if (userToken) {
   userDetails = jwt_decode(userToken);
 }
+
+const getNearPrice = () => {
+  // https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD
+  if (nearPrice < 0.01) {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNearPrice(res.data.USD);
+    });
+  }
+}
+
+useEffect(() => {
+  getNearPrice()
+}, [nearPrice])
+
+
 return (
   <>
     <header>
@@ -185,10 +202,27 @@ return (
           <h4>Your Wallet:</h4>
           {user.near_connected && balance && <div className="details">
             <h3>Account Details</h3>
-            <p>Available Balance: $200 / {balance && balance.available / 10 ** 24} <span className="near-icon">Ⓝ</span></p>
-            <span>Total : <span>{Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}</span></span>
-            <br />
-            <span>Available : <span>{Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}</span> <span className="near-icon">Ⓝ</span></span>
+            {/* TODO: Convert NEAR to USD using API */}
+            <div className="stat-holder">
+              <p>Available Balance:</p>
+              <div className="stat">
+                ${(nearPrice * (balance && balance.available / 10 ** 24)).toFixed(2)} / <span className="near-icon">Ⓝ</span> {balance && balance.available / 10 ** 24}
+              </div>
+            </div>
+
+            <div className="stat-holder">
+              <p>Total :</p>
+              <div className="stat">
+                {Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}
+              </div>
+            </div>
+
+            <div className="stat-holder">
+              <p>Available:</p>
+              <div className="stat">
+                {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
+              </div>
+            </div>
           </div>
           }
           {user && !user.near_connected &&

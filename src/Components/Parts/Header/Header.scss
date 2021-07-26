@@ -118,6 +118,7 @@ header {
 
 .wallet-info {
   position: fixed;
+  font-family: 'Space Grotesk', sans-serif;
   top: 0px;
   right: 0px;
   height: 100vh;
@@ -131,6 +132,23 @@ header {
   color: #fff;
   .near-icon {
     font-family: $inter;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  .stat-holder {
+    margin-bottom: 15px;
+    p {
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .stat {
+      color: #FA7C05;
+    }
   }
 }
 
