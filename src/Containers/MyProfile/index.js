@@ -87,22 +87,33 @@ function MyProfile(props) {
       const userId = props.match.params.id;
       props.fetchUser({
         id: userId
-      })
+      });
+
+      props.fetchTokenTransfers({
+        params: {
+          type: 'album_bundle',
+          related: 'album.songs',
+          orderBy: '-id',
+          transfer_to: userId
+        }
+      });
+
       setID(userId);
     } else if (token) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
       setID(decodedToken.id);
+
+      props.fetchTokenTransfers({
+        params: {
+          type: 'album_bundle',
+          related: 'album.songs',
+          orderBy: '-id',
+          transfer_to: decodedToken.id
+        }
+      });
     }
-    props.fetchTokenTransfers({
-      params: {
-        type: 'album_bundle',
-        related: 'album.songs',
-        orderBy: '-id',
-        transfer_to: decodedToken.id
-      }
-    });
   }, []);
 
   useEffect(() => {
