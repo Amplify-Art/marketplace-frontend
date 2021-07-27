@@ -116,7 +116,7 @@ function ArtistDashboard(props) {
 
   return (
     <div id="artist-dashboard" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} />
       <div className="content">
         <div className="container">
           <div className="bal-wrapper">

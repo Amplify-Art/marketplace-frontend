@@ -12,9 +12,9 @@ import Shelf from '../../../assets/images/shelf.png';
 
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
-function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
+function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
-  const [fetchShowCases, setFetchShowCases] = useState(false)
+  const [fetchShowCases, setFetchShowCases] = useState(false);
   const coverPhoto = () => {
     let coverPhoto;
 
@@ -60,31 +60,33 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases }) {
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
-        <div className="shelves">
-          {
-            showcases &&
-            _.chunk([...showcases, ...(new Array(6 - showcases.length).fill(null))], 3).map((row, i) => (
-              <div className="single-shelf">
-                <div className="albums-on-shelf">
-                  {
-                    row.map((showCaseItem, j) => showCaseItem ?
-                      <div className="single-album-on-shelf" key={`${i}${j}`}>
-                        <div className="single-shelf-album">
-                          <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`} />
+        {showShowcase && !showShowcase === false && (
+          <div className="shelves">
+            {
+              showcases &&
+              _.chunk([...showcases, ...(new Array(6 - showcases.length).fill(null))], 3).map((row, i) => (
+                <div className="single-shelf">
+                  <div className="albums-on-shelf">
+                    {
+                      row.map((showCaseItem, j) => showCaseItem ?
+                        <div className="single-album-on-shelf" key={`${i}${j}`}>
+                          <div className="single-shelf-album">
+                            <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`} />
+                          </div>
                         </div>
-                      </div>
-                      :
-                      <div className="single-album-on-shelf">
-                        <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showShowCaseModal)} />
-                      </div>
-                    )
-                  }
+                        :
+                        <div className="single-album-on-shelf">
+                          {!isPublicProfile && <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showShowCaseModal)} />}
+                        </div>
+                      )
+                    }
+                  </div>
+                  <img src={Shelf} />
                 </div>
-                <img src={Shelf} />
-              </div>
-            ))
-          }
-        </div>
+              ))
+            }
+          </div>
+        )}
       </div>
       <div className="container flex f-jc-space-between f-align-center">
         <div className="profile-head-details">

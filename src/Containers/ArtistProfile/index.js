@@ -50,7 +50,7 @@ function ArtistProfile(props) {
   },[props.albums]);
   return (
      props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} />
+      <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
 
       <div className="recently-purchased">
         <div className="top">

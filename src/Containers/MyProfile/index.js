@@ -11,6 +11,7 @@ import './MyProfile.scss';
 
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
 import { fetchTokenTransfersAction } from '../../redux/actions/TokenTransferAction';
+import { fetchUserAction } from '../../redux/actions/UserAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -20,11 +21,13 @@ import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 
 function MyProfile(props) {
+
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState(defaultProfile);
   const [userName, setUserName] = useState('');
   const [userID, setID] = useState(0);
-  const [openSharePopup, setSharePopup] = useState(false)
+  const [openSharePopup, setSharePopup] = useState(false);
+  const [isPublicProfile] = useState(props && props.location && props.location.pathname && props.location.pathname.includes('user'));
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
   const generateAlbumItem = (nft, index) => {
@@ -61,7 +64,7 @@ function MyProfile(props) {
   const renderBtnContent = () => {
     return (
       <>
-        <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>
+        {!isPublicProfile && <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>}
         <div className="popup-container">
           {openSharePopup && <div className="popUp" >
             <a href='#' className="popup-div" style={{ paddingBottom: '16px' }} onClick={copyProfileLink}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
@@ -80,7 +83,13 @@ function MyProfile(props) {
   }
 
   useEffect(() => {
-    if (token) {
+    if (isPublicProfile) {
+      const userId = props.match.params.id;
+      props.fetchUser({
+        id: userId
+      })
+      setID(userId);
+    } else if (token) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
@@ -95,9 +104,17 @@ function MyProfile(props) {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (isPublicProfile) {
+      setBannerImage(props.user.banner);
+      setProfileImage(props.user.avatar);
+      setUserName(props.user.name);
+    }
+  }, [props.user])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} />
       {props.token_transfers.length ?
         <div className="recently-purchased">
           <div className="top">
@@ -124,6 +141,7 @@ function MyProfile(props) {
 export default connect(state => {
   return {
     nfts: state.nfts.nfts,
+    user: state.users.user,
     total: state.nfts.total,
     loading: state.nfts.loading,
     token_transfers: state.token_transfers.token_transfers
@@ -132,5 +150,6 @@ export default connect(state => {
   dispatch => {
     return {
       fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
+      fetchUser: (data) => dispatch(fetchUserAction(data)),
     }
   })(withRouter(MyProfile));

@@ -104,7 +104,8 @@ function App(props) {
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact render={() => (<Albums playerActive={props && props.currentPlaylists.length > 0} />)} />
           {/* <Route path="/profile" exact component={Profile} /> */}
-          <Route path="/my-profile" exact component={Auth(MyProfile)} test="test" />
+          <Route path="/my-profile" exact component={Auth(MyProfile)} />
+          <Route path="/user/:id" exact component={Auth(MyProfile)} />
           <Route path="/artist/:slug" exact component={ArtistProfile} />
           <Route path="/artists" exact component={Artists} />
           <Route path="/marketplace" exact component={SecondaryMarketplace} />
