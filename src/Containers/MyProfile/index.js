@@ -125,7 +125,7 @@ function MyProfile(props) {
   }, [props.user])
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} />
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
       {props.token_transfers.length ?
         <div className="recently-purchased">
           <div className="top">
