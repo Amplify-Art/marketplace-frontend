@@ -27,10 +27,6 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
     return coverPhoto;
   }
 
-  const ShowCaseHandler = () => {
-    return <AddShowCase />;
-  }
-
   useEffect(() => {
     let user;
     if (isPublicProfile) {

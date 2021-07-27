@@ -94,7 +94,7 @@ function MyProfile(props) {
           type: 'album_bundle',
           related: 'album.songs',
           orderBy: '-id',
-          transfer_to: userId
+          'filter[transfer_to]': userId
         }
       });
 
@@ -110,7 +110,7 @@ function MyProfile(props) {
           type: 'album_bundle',
           related: 'album.songs',
           orderBy: '-id',
-          transfer_to: decodedToken.id
+          'filter[transfer_to]': decodedToken.id
         }
       });
     }
@@ -122,7 +122,8 @@ function MyProfile(props) {
       setProfileImage(props.user.avatar);
       setUserName(props.user.name);
     }
-  }, [props.user])
+  }, [props.user]);
+
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
@@ -134,8 +135,8 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type === 'album_bundle').map((token, index) => (
-              generateAlbumItem({ ...token.album, copy_number: token.copy_number }, index)
+            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type !== null).map((token, index) => (
+              generateAlbumItem({ token, copy_number: token.copy_number }, index)
             ))}
           </div>
         </div>
