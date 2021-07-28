@@ -55,7 +55,6 @@ function NewNFT(props) {
       console.error(error)
     });
     if (type === 'song') {
-      console.log(songFiles, file, 'songFiles')
       // let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
       // console.log([...songFilesClone], 'HERE')
       file.uploaded = true
@@ -70,7 +69,6 @@ function NewNFT(props) {
   }
   const onUploadProgress = (progressEvent, file, type) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    console.log(percentCompleted, type)
     file.progress = percentCompleted
     if (percentCompleted === 100) {
       setAlbumUploadingIndex(percentCompleted)
@@ -188,7 +186,6 @@ function NewNFT(props) {
   useEffect(() => {
     let notUploaded = songFiles.find(file => !file.uploaded && !file.is_uploading)
     if (notUploaded) {
-      console.log(notUploaded, 'notUploaded')
       uploadFile(notUploaded, 'song')
     }
   }, [songFiles])
@@ -286,7 +283,6 @@ function NewNFT(props) {
     }
     setShowCropper(false)
   };
-  console.log(songFiles, 'songFiles');
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
