@@ -9,6 +9,7 @@ function SingleAlbum(props) {
 
   const [isOpen, SetModalOpen] = useState(false);
   const [height, setHeight] = useState('');
+  const [albumCover, setAlbumCover] = useState(cdCover);
 
   const getHeight = () => {
     let width = '300';
@@ -65,21 +66,26 @@ function SingleAlbum(props) {
     }
   }, []);
 
-  checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
+
+  console.log('albumInfoalbumInfoalbumInfo', albumInfo);
+
+  useEffect(() => {
+    if (albumInfo.cover_cid) {
+      setAlbumCover(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
+    } else if (albumInfo && albumInfo.token && albumInfo.token.album && albumInfo.token.album.cover_cid) {
+      setAlbumCover(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.token.album.cover_cid}`);
+    } else {
+      setAlbumCover(cdCover);
+    }
+  }, []);
 
   return (
     <>
       <div className="single-album" onClick={handleModal}>
         <div className="cd-case" style={{ height: `${height}px` }}>
           <div className="art-cover">
-            {albumInfo.coverArt ? (
-              <img src={albumInfo.coverArt} alt="" />
-            ) : (
-              albumInfo.cover_cid ?
-                <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
-                :
-                <img src={cdCover} alt="cover image" />
-            )}
+            <img src={albumCover} alt="cover image" />
           </div>
           {isMint && albumInfo && albumInfo.forSale !== false && (
             <div className="mint-sticker">

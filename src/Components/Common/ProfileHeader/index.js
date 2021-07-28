@@ -12,7 +12,7 @@ import Shelf from '../../../assets/images/shelf.png';
 
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
-function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile }) {
+function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile, userId }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
   const coverPhoto = () => {
@@ -27,35 +27,21 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
     return coverPhoto;
   }
 
-  const ShowCaseHandler = () => {
-    return <AddShowCase />;
-  }
-
   useEffect(() => {
-    const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-    async function fetchMyAPI() {
-      await fetchShowcase({
-        params: {
-          related: 'album',
-          'filter[user_id]': user.id
-        }
-      })
+    let user;
+    if (isPublicProfile) {
+      user = userId;
+    } else {
+      user = jwt.decode(localStorage.getItem('amplify_app_token')).id;
     }
-    fetchMyAPI()
+
+    fetchShowcase({
+      params: {
+        related: 'album',
+        'filter[user_id]': user
+      }
+    });
   }, []);
-
-  useEffect(() => {
-    const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-    async function fetchMyAPI() {
-      await fetchShowcase({
-        params: {
-          related: 'album',
-          'filter[user_id]': user.id
-        }
-      })
-    }
-    fetchMyAPI()
-  }, [fetchShowCases]);
 
   return (
     <div id="profile-header">
