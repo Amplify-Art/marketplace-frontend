@@ -9,6 +9,7 @@ import users from './UserReducer';
 import nominations from './NominationReducer';
 import token_transfers from './TokenTransferReducer';
 import searchRes from './SearchResReducer';
+import followers from './FollowerReducer';
 
 export {
   albums,
@@ -22,4 +23,5 @@ export {
   nominations,
   token_transfers,
   searchRes,
+  followers,
 };

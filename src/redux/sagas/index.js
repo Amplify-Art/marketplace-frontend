@@ -9,6 +9,7 @@ import watchUserSaga from './UserSaga';
 import watchNominationSaga from './NominationSaga';
 import watchTokenTransferSaga from './TokenTransferSaga';
 import watchSearchSaga from './SearchResSaga';
+import watchFollowerSaga from './FollowerSaga';
 
 export default function* startForman(context = {}) {
   yield fork(watchAlbumSaga, context);
@@ -21,4 +22,5 @@ export default function* startForman(context = {}) {
   yield fork(watchNominationSaga, context);
   yield fork(watchTokenTransferSaga, context);
   yield fork(watchSearchSaga, context);
+  yield fork(watchFollowerSaga, context);
 }

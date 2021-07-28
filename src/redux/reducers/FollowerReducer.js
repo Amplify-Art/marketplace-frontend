@@ -1,11 +1,11 @@
 import { filter } from 'lodash';
-import * as types from '../../Constants/actions/Showcase';
+import * as types from '../../Constants/actions/Follower';
 
 /* eslint-disable no-case-declarations */
 
 const initialState = {
-  showcase: {},
-  showcases: [],
+  follower: {},
+  followers: [],
   total: 0,
   loading: false,
   error: '',
@@ -13,114 +13,115 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case types.FETCH_SHOWCASES_SUCCESS:
+    case types.FETCH_FOLLOWERS_SUCCESS:
       if (!action.res.success) {
         return {
           ...state,
-          showcases: [],
+          followers: [],
           error: '',
           loading: false,
         };
       }
       return {
         ...state,
-        showcases: (action.res.data && action.res.data.results) || [],
+        followers: (action.res.data && action.res.data.results) || [],
         total: (action.res.data && action.res.data.total) || 0,
         status: action.res.success,
         loading: false,
       };
-    case types.FETCH_SHOWCASES_REQUEST:
+    case types.FETCH_FOLLOWERS_REQUEST:
+      return {
+        ...state,
+        followers: [],
+        loading: true,
+      };
+    case types.FETCH_FOLLOWER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case types.FETCH_SHOWCASE_REQUEST:
+    case types.UPDATE_FOLLOWER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case types.UPDATE_SHOWCASE_REQUEST:
+    case types.DELETE_FOLLOWER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case types.DELETE_SHOWCASE_REQUEST:
+    case types.ADD_FOLLOWER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case types.ADD_SHOWCASE_REQUEST:
+    case types.FETCH_FOLLOWERS_FAILED:
       return {
         ...state,
-        loading: true,
-      };
-    case types.FETCH_SHOWCASES_FAILED:
-      return {
-        ...state,
-        showcases: [],
+        followers: [],
         error: 'Bad Request',
         loading: false,
       };
-    case types.FETCH_SHOWCASE_SUCCESS:
+    case types.FETCH_FOLLOWER_SUCCESS:
       if (!action.res.data.success) {
         return {
           ...state,
-          showcase: {},
+          follower: {},
           error: '',
           loading: false,
         };
       }
       return {
         ...state,
-        showcase: action.res.data || {},
+        follower: action.res.data || {},
         status: action.res.data.success,
         loading: false,
       };
-    case types.FETCH_SHOWCASE_FAILED:
+    case types.FETCH_FOLLOWER_FAILED:
       return {
         ...state,
-        showcase: {},
+        follower: {},
         error: 'Bad Request',
         loading: false,
       };
-    case types.ADD_SHOWCASE_SUCCESS:
+    case types.ADD_FOLLOWER_SUCCESS:
       return {
         ...state,
-        showcases: [...state.showcases, action.res.data],
+        followers: [...state.followers, action.res.data],
         status: action.res.success,
         loading: false,
       };
-    case types.ADD_SHOWCASE_FAILED:
+    case types.ADD_FOLLOWER_FAILED:
       return {
         ...state,
         error: 'Bad Request',
         loading: false,
       };
-    case types.UPDATE_SHOWCASE_SUCCESS:
-      let showcases = filter(state.showcases, item => item.id !== action.res.data.id);
+    case types.UPDATE_FOLLOWER_SUCCESS:
+      let followers = filter(state.followers, item => item.id !== action.res.data.id);
       return {
         ...state,
-        showcase: action.res.data || {},
-        showcases: [...showcases],
+        follower: action.res.data || {},
+        followers: [...followers, action.res.data],
         status: action.res.success,
         loading: false,
       };
-    case types.UPDATE_SHOWCASE_FAILED:
+    case types.UPDATE_FOLLOWER_FAILED:
       return {
         ...state,
         error: 'Bad Request',
         loading: false,
       };
-    case types.DELETE_SHOWCASE_SUCCESS:
-      showcases = filter(state.showcases, item => item.id !== action.payload.id);
+    case types.DELETE_FOLLOWER_SUCCESS:
+      followers = filter(state.followers, item => item.id !== action.payload.id);
 
       return {
         ...state,
-        showcases: [...showcases],
+        followers: [...followers],
         status: true,
         loading: false,
       };
-    case types.DELETE_SHOWCASE_FAILED:
+    case types.DELETE_FOLLOWER_FAILED:
       return {
         ...state,
         error: 'Bad Request',

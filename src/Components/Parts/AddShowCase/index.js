@@ -8,18 +8,10 @@ import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase,setFetchShowCases,fetchShowCases }) {
+function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase, setFetchShowCases, fetchShowCases }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
-  const [addnfts, setAddNfts] = useState([])
-  useEffect(() => {
-    let song = [...nfts]
-    let ss = [...(selectedSongs || [])].map(item => {
-      return item.id
-    })
-    const result = song.filter(item => !ss.includes(item.id))
-    setAddNfts(result)
-  }, [selectedSongs])
+
   useEffect(() => {
     fetchNFTs({
       params: {
@@ -29,14 +21,10 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
     })
   }, []);
 
-  useEffect(() => {
-    setAddNfts(nfts)  
-  }, [nfts])
-
-  const onAddingShowcase = async(nft) => {
+  const onAddingShowcase = async (nft) => {
     let wasFound = nft.currentOwner.showcases.find(f => f.user_id === user.id && nft.id === f.album_id)
     if (wasFound) {
-      await updateShowcase({
+      updateShowcase({
         album_id: null,
         user_id: null,
         is_deleted: true,
@@ -44,7 +32,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
       })
       setFetchShowCases(!fetchShowCases)
     } else {
-      await addshowcase({
+      addShowcase({
         album_id: nft.id
       })
       setFetchShowCases(!fetchShowCases)
@@ -59,10 +47,10 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addshowcase
   return (
     <div id="addshowcase">
       <div class="scrollbar" id="style-4">
-        {addnfts && addnfts.length > 0 ? addnfts.map((nft, item) => (
+        {nfts && nfts.length > 0 ? nfts.map((nft, item) => (
           <div className="row">
             <div className="playlist-cover-holder">
-              <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
+              <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://gateway.pinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
               {loading && <Skeleton width={60} height={60} />}
             </div>
             <div className="row-wrap">
@@ -92,7 +80,7 @@ export default connect(state => {
 }, dispatch => {
   return {
     fetchNFTs: (data) => dispatch(fetchNFTsAction(data)),
-    addshowcase: (data) => dispatch(addShowcaseAction(data)),
+    addShowcase: (data) => dispatch(addShowcaseAction(data)),
     updateShowcase: (data) => dispatch(updateShowcaseAction(data)),
   }
 })(withRouter(AddShowCase));

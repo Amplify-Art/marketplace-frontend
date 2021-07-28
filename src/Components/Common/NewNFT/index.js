@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
-import { sortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -70,8 +70,10 @@ function NewNFT(props) {
   }
   const onUploadProgress = (progressEvent, file, type) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    console.log(percentCompleted, type)
     file.progress = percentCompleted
     if (percentCompleted === 100) {
+      setAlbumUploadingIndex(percentCompleted)
       setIsUploading(false)
       customError.songFiles = null
       return
@@ -202,8 +204,10 @@ function NewNFT(props) {
   }
 
   const onAlbumCoverChange = (e) => {
+    if (!e.target.files[0])
+      return
+
     delete customError.albumCover;
-    setAlbumCover(e.target.files[0]);
     const files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
@@ -227,10 +231,10 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
-  const DragHandle = sortableHandle(() => <span className="drag">::</span>);
+  const DragHandle = SortableHandle(() => <span className="drag">::</span>);
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
-      <div className="single-song"  >
+      <div className="single-song" tabIndex={0} >
         <DragHandle />
         <div className="left">
           <div className="track">
@@ -240,7 +244,7 @@ function NewNFT(props) {
         </div>
         <div className="right">
           <div className="input-holder">
-            <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} tabIndex={0} value={value} autoFocus={focusedInputIndex === songIndex} />
+            <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} value={value} autoFocus={focusedInputIndex === songIndex} />
             {
               file.progress ? <span className="upload-holder">
                 <span className="upload-progress" style={{ width: `${file.progress}%` }}></span>
@@ -259,10 +263,10 @@ function NewNFT(props) {
     )
   });
 
-  const SortableList = sortableContainer(({ songFiles }) => (
+  const SortableList = SortableContainer(({ songFiles }) => (
     <ul>
       {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-        <SortableItem key={`item-${index}`} songIndex={index} value={file.title || ''} name={`song-title${index}`} file={file} />
+        <SortableItem key={`item-${index}`} songIndex={index} index={index} value={file.title || ''} name={`song-title${index}`} file={file} />
       )
       ) : null}
     </ul>
@@ -282,6 +286,7 @@ function NewNFT(props) {
     }
     setShowCropper(false)
   };
+  console.log(songFiles, 'songFiles');
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
@@ -336,7 +341,7 @@ function NewNFT(props) {
               </div>
 
               <div className="song-list">
-                <SortableList helperClass="sortableHelper" distance={2} songFiles={songFiles} onSortEnd={OnSortEnd} />
+                <SortableList helperClass="sortableHelper" distance={1} songFiles={songFiles} onSortEnd={OnSortEnd} />
               </div>
 
               <div className="uploader">
@@ -435,7 +440,7 @@ function NewNFT(props) {
         <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
       </div>
 
-      {showCropper && albumCover && (
+      {showCropper && (
         <>
           <div className="crop-modal">
             <Cropper

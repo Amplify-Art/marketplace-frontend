@@ -9,7 +9,12 @@ import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function Albums(props) {
   useEffect(() => {
-    props.fetchAlbums();
+    props.fetchAlbums({
+      params: {
+        'orderBy': '-id',
+        'related': 'songs,user'
+      }
+    });
   }, [])
 
   const onBuy = (album) => {
@@ -39,7 +44,7 @@ export default connect(state => {
 },
   dispatch => {
     return {
-      fetchAlbums: () => dispatch(fetchAlbumsAction()),
+      fetchAlbums: (data) => dispatch(fetchAlbumsAction(data)),
       addTokenTransfer: (data) => dispatch(addTokenTransferAction(data)),
     }
   })(withRouter(Albums));

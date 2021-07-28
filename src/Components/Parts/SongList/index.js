@@ -23,52 +23,52 @@ const songHeader = () => (
     </div>
 )
 function SongList(props) {
-    const {songList} = props;
+    const { songList } = props;
     const [playing, setPlaying] = useState(false);
     const [audio, setAudioSong] = useState(new Audio(''));
     const [currentIndex, setCurrentIndex] = useState(-1)
-    const handleAudio =(songId) => {
-        setAudioSong(new Audio(`https://hub.textile.io/ipfs/${songId}`))
+    const handleAudio = (songId) => {
+        setAudioSong(new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songId}`))
         if (playing && currentIndex !== songId) {
             audio.pause()
             audio.currentTime = 0;
             setCurrentIndex(songId)
             setPlaying(true)
-          } else if (!playing && currentIndex === -1) {
+        } else if (!playing && currentIndex === -1) {
             setCurrentIndex(songId)
             setPlaying(true)
-          } else {
-                audio.pause()
-                audio.currentTime = 0;
-                setAudioSong(new Audio(''))
-                setCurrentIndex(-1)
-                setPlaying(false)
-          }
+        } else {
+            audio.pause()
+            audio.currentTime = 0;
+            setAudioSong(new Audio(''))
+            setCurrentIndex(-1)
+            setPlaying(false)
+        }
     }
     useEffect(() => {
         playing ? audio.play() : audio.pause()
-      }, [audio, playing, currentIndex]);
-     
-      useEffect(() => {
+    }, [audio, playing, currentIndex]);
+
+    useEffect(() => {
         audio.addEventListener("ended", () => {
             setAudioSong(new Audio(''))
             setCurrentIndex(-1)
             setPlaying(false)
         });
-        
+
         return () => {
-          audio.removeEventListener("ended", () => {
-            setAudioSong(new Audio(''))
-            setCurrentIndex(-1)
-              setPlaying(false)
+            audio.removeEventListener("ended", () => {
+                setAudioSong(new Audio(''))
+                setCurrentIndex(-1)
+                setPlaying(false)
             });
         };
-      }, [playing,audio]);
+    }, [playing, audio]);
     return (
         <div className="song-list">
             {songHeader()}
             <div>
-                {songList && songList.map((songData,index) => (
+                {songList && songList.map((songData, index) => (
                     <div className="play-song flex">
                         <div className="flex">
                             <div className="song-icon cursor-pointer">
@@ -76,12 +76,12 @@ function SongList(props) {
                                 {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                             </div>
                             <label className="song-title">
-                                {songData.title} <span>{songData.mint || "#4"}</span> 
+                                {songData.title} <span>{songData.mint || "#4"}</span>
                             </label>
                         </div>
-                        <div>{songData.artist || 'Blood is Rebel'}</div>
-                        <div>{songData.album || 'Oh The Larceny'}</div>
-                        <div>{songData.forsale || '14/100 Available'}</div>
+                        <div>{songData.artist && songData.artist.name}</div>
+                        <div>{songData.album && songData.album.title}</div>
+                        <div>{songData.available_qty} / {songData.qty} {' '} Available</div>
                     </div>
                 ))}
             </div>

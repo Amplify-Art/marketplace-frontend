@@ -12,6 +12,7 @@ import './MyProfile.scss';
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
 import { fetchTokenTransfersAction } from '../../redux/actions/TokenTransferAction';
 import { fetchUserAction } from '../../redux/actions/UserAction';
+import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
@@ -61,6 +62,24 @@ function MyProfile(props) {
     setSharePopup(false);
   }
 
+  const onFollow = () => {
+    // console.log(props.myFollowings, userID, decodedToken)
+    let follow = props.myFollowings.find(f => f.artist_id === userID)
+    console.log(follow)
+    if (follow) {
+      props.updateFollower({
+        id: follow.id,
+        is_deleted: true,
+        artist_id: null,
+        follower_id: null,
+      })
+    } else {
+      props.addFollower({
+        artist_id: userID,
+        follower_id: decodedToken.id,
+      })
+    }
+  }
   const renderBtnContent = () => {
     return (
       <>
@@ -76,6 +95,7 @@ function MyProfile(props) {
             ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</TwitterShareButton>
           </div>}
           <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+          <button className="set_name" onClick={() => onFollow()} ><img src={ShareIcon} alt="Twitter" />{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
         </div>
 
       </>
@@ -98,7 +118,7 @@ function MyProfile(props) {
         }
       });
 
-      setID(userId);
+      setID(parseInt(userId));
     } else if (token) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
@@ -121,6 +141,12 @@ function MyProfile(props) {
       setBannerImage(props.user.banner);
       setProfileImage(props.user.avatar);
       setUserName(props.user.name);
+      props.fetchFollowers({
+        params: {
+          'filter[follower_id]]': decodedToken.id,
+          'filter[artist_id]]': props.user.id,
+        }
+      })
     }
   }, [props.user]);
 
@@ -156,12 +182,16 @@ export default connect(state => {
     user: state.users.user,
     total: state.nfts.total,
     loading: state.nfts.loading,
-    token_transfers: state.token_transfers.token_transfers
+    token_transfers: state.token_transfers.token_transfers,
+    myFollowings: state.followers.followers,
   }
 },
   dispatch => {
     return {
       fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
       fetchUser: (data) => dispatch(fetchUserAction(data)),
+      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
+      updateFollower: (data) => dispatch(updateFollowerAction(data)),
+      addFollower: (data) => dispatch(addFollowerAction(data)),
     }
   })(withRouter(MyProfile));

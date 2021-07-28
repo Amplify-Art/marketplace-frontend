@@ -27,6 +27,7 @@ function SingleAlbum(props) {
   const handleCloseModal = () => { SetModalOpen(false) }
 
   const checkImage = (url) => {
+    console.log('CALL2')
     // Trying to check if image exists here. If it doesn't, we should show some backup image.
     const request = new XMLHttpRequest();
     request.open("GET", url, true);
@@ -66,12 +67,14 @@ function SingleAlbum(props) {
     }
   }, []);
 
-  checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
-
-  console.log('albumInfoalbumInfoalbumInfo', albumInfo);
+  // checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
   useEffect(() => {
-    if (albumInfo.cover_cid) {
+    // if this is rendered for playlist, we dont have cover for playlist, show CD cover
+    if (isPlayList) {
+      setAlbumCover(cdCover);
+    }
+    else if (albumInfo.cover_cid) {
       setAlbumCover(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
     } else if (albumInfo && albumInfo.token && albumInfo.token.album && albumInfo.token.album.cover_cid) {
       setAlbumCover(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.token.album.cover_cid}`);

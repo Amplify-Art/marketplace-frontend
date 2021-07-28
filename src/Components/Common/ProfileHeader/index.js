@@ -42,7 +42,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
       }
     });
   }, []);
-
+  console.log(_.chunk([...showcases, ...(new Array(6 - showcases.length).fill(null))], 3), 'isPublicProfile')
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
@@ -61,8 +61,8 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
                           </div>
                         </div>
                         :
-                        <div className="single-album-on-shelf">
-                          {!isPublicProfile && <i className="fal fa-plus" onClick={() => toggleShowCaseModal(!showShowCaseModal)} />}
+                        <div className="single-album-on-shelf" onClick={() => toggleShowCaseModal(!showShowCaseModal)} >
+                          {!isPublicProfile && <i className="fal fa-plus" />}
                         </div>
                       )
                     }
@@ -87,7 +87,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
         <div className="btn-wrap">{btnContent}</div>
       </div>
       <div className="details mobile">{ArtistData.name}</div>
-      
+
       {showShowCaseModal && <GeneralModal
         headline="Add to Showcase"
         bodyChildren={<AddShowCase showCaseData={showCaseData} toggleShowCaseModal={toggleShowCaseModal} setFetchShowCases={setFetchShowCases} fetchShowCases={fetchShowCases} />}

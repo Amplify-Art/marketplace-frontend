@@ -2,8 +2,8 @@
 import { getAccessToken, makeUrl, axios } from './index.js';
 import { API_ENDPOINT_URL } from '../Constants/default.js';
 
-export const getAlbums = (payload = {}) => {
-  const url = makeUrl(`${API_ENDPOINT_URL}/albums`, { ...(payload.params || {}) });
+export const getFollowers = (payload = {}) => {
+  const url = makeUrl(`${API_ENDPOINT_URL}/followers/`, { ...(payload.params || {}) });
 
   return axios.get(url, {
     headers: {
@@ -18,9 +18,9 @@ export const getAlbums = (payload = {}) => {
   }));
 };
 
-export const getAlbumById = (payload) => {
+export const getFollowerById = (payload) => {
   const id = payload.id
-  const url = makeUrl(`${API_ENDPOINT_URL}/albums/${id}`, { ...(payload.params || {}) });
+  const url = makeUrl(`${API_ENDPOINT_URL}/followers/${id}`, { ...(payload.params || {}) });
   return axios.get(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`
@@ -34,8 +34,8 @@ export const getAlbumById = (payload) => {
   }));
 };
 
-export const addAlbum = (payload) => {
-  const url = `${API_ENDPOINT_URL}/albums`;
+export const addFollower = (payload) => {
+  const url = `${API_ENDPOINT_URL}/followers`;
   return axios.post(url, payload, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -49,9 +49,9 @@ export const addAlbum = (payload) => {
   }));
 };
 
-export const updateAlbum = (payload) => {
+export const updateFollower = (payload) => {
   const id = payload.id
-  const url = `${API_ENDPOINT_URL}/albums/${id}`;
+  const url = `${API_ENDPOINT_URL}/followers/${id}`;
   return axios.patch(url, payload, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -65,9 +65,9 @@ export const updateAlbum = (payload) => {
   }));
 };
 
-export const deleteAlbum = (payload) => {
+export const deleteFollower = (payload) => {
   const id = payload.id
-  const url = `${API_ENDPOINT_URL}/albums/${id}`;
+  const url = `${API_ENDPOINT_URL}/followers/${id}`;
   return axios.delete(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,

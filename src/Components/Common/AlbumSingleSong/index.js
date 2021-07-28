@@ -20,14 +20,14 @@ class ProgressRing extends React.Component {
         height={radius * 2}
         width={radius * 2}
       >
-        <image id="mybutton" x={radius-9} y={radius-4} r="50" width={radius} height="30%" xlinkHref={pauseIcon}></image>
+        <image id="mybutton" x={radius - 9} y={radius - 4} r="50" width={radius} height="30%" xlinkHref={pauseIcon}></image>
         <circle
           stroke="white"
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={0 + ' ' + 0}
           r={this.normalizedRadius}
-          cx={radius -2.5}
+          cx={radius - 2.5}
           cy={radius}
           id={progressId}
         />
@@ -57,10 +57,10 @@ function AlbumSingleSong(props) {
           ) : (
             <img src={playIcon} onClick={() => toggle(song.song_cid)} />
           )}
-        </div> 
+        </div>
         <div className="fn-white pointer">{song.title}</div>
       </div>
-      <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div>
+      {/* <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div> */}
     </div>
   )
 }

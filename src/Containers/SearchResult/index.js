@@ -10,10 +10,11 @@ import './SearchResult.scss';
 
 function SearchResult(props) {
     const { results } = props?.searchResult;
+    console.log(results, '')
     const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
     const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
-    console.log('result',results)
+    console.log('result', songsData)
 
     const albumDetailRender = (albumNo) => (
         albumsData.map((album, index) => albumNo === index && (
