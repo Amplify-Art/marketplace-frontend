@@ -20,7 +20,7 @@ function SongModalContent({ albumInfo }) {
         <div className="album-top">
           <div className="album-img">
             {albumInfo && albumInfo.cover_cid ? (
-              <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+              <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
             ) : <img src={albumInfo.coverArt} alt='' />}
           </div>
           <div className="album-right">

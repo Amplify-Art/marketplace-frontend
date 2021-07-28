@@ -71,7 +71,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
                       row.map((showCaseItem, j) => showCaseItem ?
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            <img src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`} />
+                            <img src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`} />
                           </div>
                         </div>
                         :

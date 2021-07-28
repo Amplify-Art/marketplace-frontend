@@ -88,7 +88,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
-  const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
   return (
     <>
@@ -97,7 +97,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           <div className="album-top">
             {!isPlayList ? <div className="album-img">
               {albumInfo && albumInfo.cover_cid ? (
-                <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+                <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
               ) : <img src={albumInfo.coverArt} alt='' />}
             </div> : null}
             <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>

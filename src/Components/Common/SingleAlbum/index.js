@@ -65,7 +65,7 @@ function SingleAlbum(props) {
     }
   }, []);
 
-  checkImage(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
 
   return (
     <>
@@ -76,7 +76,7 @@ function SingleAlbum(props) {
               <img src={albumInfo.coverArt} alt="" />
             ) : (
               albumInfo.cover_cid ?
-                <img src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
+                <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}` || cdCover} alt="" />
                 :
                 <img src={cdCover} alt="cover image" />
             )}
