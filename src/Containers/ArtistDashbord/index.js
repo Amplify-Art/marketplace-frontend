@@ -145,15 +145,6 @@ function ArtistDashboard(props) {
     setImage(e.target.files[0])
     console.log(e.target.files[0], 'e.target.files[0]')
   }
-  const getCropData = () => {
-    if (typeof cropper !== "undefined") {
-      let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
-      uploadFile(file, 'album')
-      setCropData(cropper.getCroppedCanvas().toDataURL());
-      // setAlbumCover(cropper.getCroppedCanvas().toDataURL());
-    }
-    setShowCropper(false)
-  };
   const uploadFile = async (fileInfo, type) => {
     let file = fileInfo;
     // setIsUploading(true)
