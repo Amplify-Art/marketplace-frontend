@@ -1,60 +1,158 @@
 @import "../../../assets/SCSS/Vars.scss";
 
 .song-list {
-    font-family: $space;
-    font-style: normal;
-    font-weight: normal;
-    color: white;
-    .songlist-header {
-        margin-bottom: 20px;
-        .header-title {
-            font-size: 13px;
-            line-height: 17px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            width: 20%;
-            align-items: center;
-            color: #ffffff6e;
-            &:first-of-type {
-                width: 40%;
-            }
-            img {
-                margin-left: 10px;
-            }
-        }
+  font-family: $space;
+  font-style: normal;
+  font-weight: normal;
+  color: white;
+  .songlist-header {
+    margin-bottom: 20px;
+    .header-title {
+      font-size: 13px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      width: 20%;
+      align-items: center;
+      color: #ffffff6e;
+      &:first-of-type {
+        width: 40%;
+      }
+      &:last-child {
+        width: unset;
+        margin-left: auto;
+      }
+      img {
+        margin-left: 10px;
+      }
     }
-    .play-song {
-        align-items: center;
-        margin-bottom: 10px;
-        >div {
-            font-size: 14px;
-            line-height: 23px;   
-            width: 20%;
-            align-items: center;
+  }
+  .play-song {
+    align-items: center;
+    margin-bottom: 10px;
+    > div {
+      font-size: 14px;
+      line-height: 23px;
+      width: 20%;
+      align-items: center;
+    }
+    :first-child {
+      width: 40%;
+    }
+    div:last-child {
+      border: 1px solid;
+      width: 135px;
+      text-align: center;
+      padding: 2px 0px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+    .song-icon {
+      width: 20%;
+      img {
+        width: 33%;
+      }
+    }
+    .song-title {
+      width: 80%;
+      font-size: 18px;
+      span {
+        color: rgba(255, 255, 255, 0.397);
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.song-copies {
+  height: 0px;
+  overflow: hidden;
+  transition: .5s ease all;
+  background-size: cover;
+  background-position: center;
+  &.expanded {
+    height: 300px;
+  }
+
+  .mint {
+    width: 90px;
+  }
+
+  .date-listed-by {
+    width: 300px;
+    margin-left: 183px;
+  }
+
+  .asking-price {
+    width: 108px;
+    margin-left: 156px;
+  }
+
+  .action {
+    margin-left: auto;
+  }
+
+  .copy {
+    background: rgb(0 0 0 / 80%);
+    backdrop-filter: saturate(180%) blur(10px);
+    height: 100%;
+    overflow-y: scroll;
+    padding: 30px;
+    box-sizing: border-box;
+    .headers {
+      margin-bottom: 39px;
+      .item {
+        font-family: $space;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 17px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        opacity: 0.5;
+      }
+    }
+
+    .info {
+      .singleSong {
+        margin-bottom: 21px;
+        &:last-child {
+          margin-bottom: 0px;
         }
-        :first-child{
-            width: 40%;
+        > div {
+          font-family: $space;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 20px;
+          text-transform: capitalize;
+          color: #FFFFFF;   
+          display: flex;
+          align-items: center;       
         }
-        div:last-child {
-            border: 1px solid;
-            width: 135px;
-            text-align: center;
-            padding: 2px 0px;
+
+        .action {
+          width: 150px;
+          button {
+            background: #FA7C05;
             border-radius: 4px;
+            font-family: $space;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            text-transform: capitalize;
+            color: #FFFFFF;
+            padding-left: 24px;
+            padding-right: 24px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border: 0px;
+          }
         }
-        .song-icon {
-            width: 20%;
-            img {
-                width: 33%;
-            }
-        }
-        .song-title {
-            width: 80%;
-            font-size: 18px;            
-            span {
-                color: rgba(255, 255, 255, 0.397);
-                font-size: 14px;
-            }
-        }
-    }    
+      }
+    }
+  }
 }

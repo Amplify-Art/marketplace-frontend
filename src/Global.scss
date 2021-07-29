@@ -22,6 +22,10 @@ body {
   max-width: 100%;
 }
 
+button {
+  cursor: pointer;
+}
+
 .container {
   width: 1600px;
   max-width: 100%;
@@ -162,7 +166,7 @@ textarea {
     z-index: 998;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0, .8);
+    background: rgba(0,0,0, .6);
   }
 
   .holder {

@@ -13,7 +13,7 @@ function GeneralModal(props) {
         {bodyText && <p>{bodyText}</p>}
         {bodyChildren && bodyChildren}
         {buttons && buttons.length > 0 ? buttons.map((button, index) => (
-          <button key={index} className={`${button.type}`} onClick={button.onClick}>{button.text}</button>
+          <button key={index} className={`${button.type} ${button.className && button.className}`} onClick={button.onClick}>{button.text}</button>
         )) : null}
       </div>
       {isCloseButton &&

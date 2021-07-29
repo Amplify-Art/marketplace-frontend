@@ -1,4 +1,29 @@
 @import '../../assets/SCSS/Vars.scss';
+#secondary-marketplace {
+  padding-top: 125px;
+  .buy-modal {
+    .modal {
+      .holder {
+        color: #000;
+        p {
+          text-align: left;
+        }
+
+        .buy-confirm {
+          padding: 10px 20px;
+          border: solid 2px #000;
+        }
+        
+        .buy-cancel {
+          padding: 10px 20px;
+          border: solid 2px #000;
+          color: #000;
+          background: #fff;
+        }
+      }
+    }
+  }
+}
 .marketplace-table {
   font-family: $space;
   width: 100%;

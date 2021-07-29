@@ -60,4 +60,4 @@ export default connect(state => {
     }
 })(withRouter(SearchResult));
 
-const NoResult = () => <h4 className="no-result">No Results!</h4>
+const NoResult = () => <h4 className="no-result">No Results</h4>
