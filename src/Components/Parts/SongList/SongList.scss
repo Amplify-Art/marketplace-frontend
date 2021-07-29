@@ -35,6 +35,7 @@
       line-height: 23px;
       width: 20%;
       align-items: center;
+      cursor: pointer;
     }
     :first-child {
       width: 40%;
@@ -56,6 +57,7 @@
     .song-title {
       width: 80%;
       font-size: 18px;
+      cursor: pointer;
       span {
         color: rgba(255, 255, 255, 0.397);
         font-size: 14px;

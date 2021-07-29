@@ -85,7 +85,7 @@ function SongList(props) {
                   <img src={playing && currentIndex === songData.song_cid ? playProgress : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
                   {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                 </div>
-                <label className="song-title" onClick={(index) => expandSongList(index)}>
+                <label className="song-title" onClick={() => expandSongList(index)}>
                   {songData.title} <span>{songData.mint || "#4"}</span>
                 </label>
               </div>
