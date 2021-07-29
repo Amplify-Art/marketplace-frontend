@@ -10,18 +10,16 @@ import './SearchResult.scss';
 
 function SearchResult(props) {
     const { results } = props?.searchResult;
-    console.log(results, '')
     const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
     const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
     const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
-    console.log('result', songsData)
 
     const albumDetailRender = (albumNo) => (
         albumsData.map((album, index) => albumNo === index && (
             <div className="album-detail">
                 <div>{album.title}</div>
-                <div>{album.artist || ""}</div>
-                <div>{album.Releases || album.own}</div>
+                <div>{album.artist || "Imagine Dragons"}</div>
+                <div>{album.Releases || album.own || "You Own: #9"}</div>
             </div>
         ))
     )
@@ -32,7 +30,7 @@ function SearchResult(props) {
                 <div className="album-title">Album results</div>
                 {albumsData && albumsData.length ? <div className="" id="search-album">
                     <div className="album-grid">
-                        {albumsData && albumsData.map((album, index) => (
+                        {albumsData && albumsData?.map((album, index) => (
                             <SingleAlbum key={index} albumInfo={album} children={albumDetailRender(index)} />
                         ))}
                     </div>

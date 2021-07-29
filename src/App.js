@@ -21,6 +21,7 @@ import Nominate from './Containers/Nominate'
 import UserDashboard from './Containers/UserDashboard';
 import Artists from './Containers/Artists';
 import SearchResult from './Containers/SearchResult';
+import Songs from './Containers/Songs'
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -114,6 +115,7 @@ function App(props) {
           <Route path='/nominate' exact component={Nominate} />
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
           <Route path="/search-result" exact component={SearchResult} />
+          <Route path="/songs" exact component={Songs} />
           <Route component={PageNotFound} />
         </Switch>
         {props.currentPlaylists.length ? <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} /> : null}
