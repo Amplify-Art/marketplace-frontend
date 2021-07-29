@@ -44,7 +44,6 @@ function ArtistDashboard(props) {
   const [userName, setUserName] = useState('');
   const [showCongratsModal, toggleCongratsModal] = useState(false);
   const [cropData, setCropData] = useState("#");
-  const [showCropper, setShowCropper] = useState(false);
   const [image, setImage] = useState('https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg');
   const [cropper, setCropper] = useState(null);
 
@@ -125,7 +124,7 @@ function ArtistDashboard(props) {
     ))
   )
 
-  const BannerUploaderForm = ({ showCropper }) => <div>
+  const BannerUploaderForm = ({ }) => <div>
     <label htmlFor="albumCover">
       <div className="image-upload">
         <img src={cropData !== "#" ? cropData : ImageUploadIcon} alt="Banner Upload" className="banner" />
@@ -145,7 +144,6 @@ function ArtistDashboard(props) {
     reader.readAsDataURL(files[0]);
     setImage(e.target.files[0])
     console.log(e.target.files[0], 'e.target.files[0]')
-    setShowCropper(true);
   }
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
@@ -268,39 +266,8 @@ function ArtistDashboard(props) {
         // ]}
         className="centered"
         closeModal={() => toggleCongratsModal(!showCongratsModal)}
-        bodyChildren={<BannerUploaderForm showCropper={showCropper} />}
-      >
-        {showCropper && (
-          <>
-            <div className="crop-modal">
-              <Cropper
-                style={{ height: 500, width: "100%" }}
-                // zoomTo={0.5}
-                initialAspectRatio={1}
-                aspectRatio={1}
-                // preview=".img-preview"
-                src={image}
-                viewMode={1}
-                minCropBoxHeight={10}
-                minCropBoxWidth={10}
-                background={false}
-                responsive={true}
-                autoCropArea={1}
-                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                onInitialized={(instance) => {
-                  setCropper(instance);
-                }}
-                guides={true}
-              />
-
-              <div className="bottom">
-                <button className="btn btn-black" onClick={getCropData}>Apply Crop</button>
-              </div>
-            </div>
-            <div className="crop-cover" />
-          </>
-        )}
-      </GeneralModal>
+        bodyChildren={<BannerUploaderForm />}
+      />
     </div>
 
   )
