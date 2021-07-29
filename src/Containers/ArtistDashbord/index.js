@@ -240,7 +240,7 @@ function ArtistDashboard(props) {
         hideLoadingOverlay={props.hideLoadingOverlay}
         toggleCongratsModal={toggleCongratsModal}
       />}
-      <GeneralModal
+      {/* <GeneralModal
         // topIcon={ConfettiImage}
         headline="Upload Banner"
         // buttons={[
@@ -258,7 +258,7 @@ function ArtistDashboard(props) {
         className="centered"
         closeModal={() => toggleCongratsModal(!showCongratsModal)}
         bodyChildren={<BannerUploaderForm />}
-      />
+      /> */}
     </div>
 
   )
