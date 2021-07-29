@@ -95,7 +95,8 @@ function MyProfile(props) {
             ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</TwitterShareButton>
           </div>}
           <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
-          <button className="set_name" onClick={() => onFollow()} ><img src={ShareIcon} alt="Twitter" />{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+          {/* Only show this button if it is a artist profile */}
+          {/* <button className="set_name" onClick={() => onFollow()} ><img src={ShareIcon} alt="Twitter" />{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button> */}
         </div>
 
       </>
