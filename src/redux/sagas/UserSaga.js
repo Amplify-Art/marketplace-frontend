@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addUser, deleteUser, getUserById, getUsers, updateUser} from '../../Api/User';
+import { addUser, deleteUser, getUserById, getUsers, updateUser } from '../../Api/User';
 import * as types from '../../Constants/actions/User';
 import { SET_NOTIFICATION } from '../../Constants/actions/Global';
 
@@ -47,9 +47,6 @@ export function* addUserSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/users');
-    }
   } catch (error) {
     yield all([
       put({ type: types.ADD_USER_FAILED, error }),
@@ -77,9 +74,6 @@ export function* updateUserSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/users');
-    }
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_USER_FAILED, error }),

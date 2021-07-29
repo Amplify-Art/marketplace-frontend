@@ -99,6 +99,9 @@ export default function (state = initialState, action) {
       };
     case types.UPDATE_USER_SUCCESS:
       let users = filter(state.users, item => item.id !== action.res.data.id);
+      if (action.res.data.token) {
+        localStorage.setItem('amplify_app_token', action.res.data.token)
+      }
       return {
         ...state,
         user: action.res.data || {},

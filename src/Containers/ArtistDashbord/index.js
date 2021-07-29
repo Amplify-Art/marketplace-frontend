@@ -19,8 +19,7 @@ import ImageUploadIcon from '../../assets/images/image-upload.svg';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import NewNFT from '../../Components/Common/NewNFT/index';
 import { getAccessToken } from '../../Api/index';
-import dataURItoBlob from '../../Utils/covert';
-
+import { updateUserAction } from '../../redux/actions/UserAction';
 import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 
 import './ArtistDashboard.scss';
@@ -43,26 +42,29 @@ function ArtistDashboard(props) {
   const [profileImage, setProfileImage] = useState(ArtisrAvatar);
   const [userName, setUserName] = useState('');
   const [showCongratsModal, toggleCongratsModal] = useState(false);
-  const [cropData, setCropData] = useState("#");
-  const [image, setImage] = useState('https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg');
-  const [cropper, setCropper] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('amplify_app_token');
-    if (token) {
-      const decodedToken = jwt_decode(token);
-      setBannerImage(decodedToken.banner);
-      setProfileImage(decodedToken.avatar);
-      setUserName(decodedToken.username);
-    }
-  }, []);
-
-  const ArtistData = {
+  const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+  const [bannerUploadProgress, setBannerUploadProgress] = useState(0);
+  const token = localStorage.getItem('amplify_app_token');
+  const decodedToken = jwt_decode(token);
+  const [showBannerModal, setShowBannerModal] = useState(false);
+  const [ArtistData, setArtistData] = useState({
     cover: bannerImage,
     avatar: profileImage,
     name: userName
-  };
-
+  });
+  useEffect(() => {
+    if (token) {
+      setBannerImage(decodedToken.banner);
+      setProfileImage(decodedToken.avatar);
+      setUserName(decodedToken.username);
+      setArtistData({
+        cover: decodedToken.banner,
+        avatar: decodedToken.avatar,
+        name: decodedToken.username
+      })
+    }
+  }, []);
   const month_Data = [
     { month: "june", gwei: "gwei", isChecked: false },
     { month: "may", gwei: "gwei", isChecked: false },
@@ -110,7 +112,7 @@ function ArtistDashboard(props) {
       <>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-        <button>Upload Store Banner</button>
+        <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button>
         <button onClick={handleOpenModal}>Mint New Album</button>
       </>
     )
@@ -126,13 +128,32 @@ function ArtistDashboard(props) {
 
   const BannerUploaderForm = ({ }) => <div>
     <label htmlFor="albumCover">
-      <div className="image-upload">
-        <img src={cropData !== "#" ? cropData : ImageUploadIcon} alt="Banner Upload" className="banner" />
+      <div className="banner-upload">
+        <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className="banner" className={image ? '' : 'default'} />
       </div>
     </label>
-    <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
+    <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onBannerChange} accept="image/*" />
+    {bannerUploadProgress ? <div className="album-uploader">
+      <span className="upload-progress" style={{ width: `${bannerUploadProgress}%` }}></span>
+      <span>{bannerUploadProgress}%</span>
+    </div> : null
+    }
+    {imageURL && <button onClick={onUpdateBanner} className="banner-update-button">Set Banner</button>}
   </div>
-  const onAlbumCoverChange = (e) => {
+
+
+  const onUpdateBanner = () => {
+    try {
+      props.updateUser({
+        id: decodedToken.id,
+        banner: imageURL,
+      })
+      setShowBannerModal(false)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const onBannerChange = async (e) => {
     if (!e.target.files[0])
       return
 
@@ -142,43 +163,34 @@ function ArtistDashboard(props) {
       setImage(reader.result);
     };
     reader.readAsDataURL(files[0]);
-    setImage(e.target.files[0])
-    console.log(e.target.files[0], 'e.target.files[0]')
+    let uploadBanner = await uploadFile(e.target.files[0])
+    setImageURL(`https://amplify-dev.mypinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`)
+    setArtistData({
+      ...ArtistData,
+      cover: `https://amplify-dev.mypinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`
+    })
   }
-  const uploadFile = async (fileInfo, type) => {
+  const uploadFile = async (fileInfo) => {
     let file = fileInfo;
-    // setIsUploading(true)
     file.is_uploading = true
-    let songFormData = new FormData()
-    songFormData.append('file', file)
-    songFormData.append('name', 'test name')
-    const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
+    let bannerFormData = new FormData()
+    bannerFormData.append('file', file)
+    bannerFormData.append('name', file.name)
+    const uploadBanner = await axios.post(`${API_ENDPOINT_URL}/uploads`, bannerFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + getAccessToken()
       },
-      onUploadProgress: (e) => onUploadProgress(e, file, type),
+      onUploadProgress: (e) => onUploadProgress(e),
     }).catch(error => {
-      // setIsUploading(false)
       console.error(error)
     });
-    if (type === 'song') {
-      // let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
-      // console.log([...songFilesClone], 'HERE')
-      file.uploaded = true
-      file.is_uploading = false
-      file.hash = mintSong.data.IpfsHash
-      // songFilesClone.push(file)
-      // setSongFiles([...songFilesClone, {...JSON.parse(file.toString())}])
-    } else {
-      // setAlbumCover(mintSong.data.IpfsHash)
-    }
-    return mintSong;
+    return uploadBanner;
   }
 
-  const onUploadProgress = (progressEvent, file, type) => {
+  const onUploadProgress = (progressEvent) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    file.progress = percentCompleted
+    setBannerUploadProgress(percentCompleted)
   }
   return (
     <div id="artist-dashboard" className="left-nav-pad right-player-pad">
@@ -240,25 +252,14 @@ function ArtistDashboard(props) {
         hideLoadingOverlay={props.hideLoadingOverlay}
         toggleCongratsModal={toggleCongratsModal}
       />}
-      {/* <GeneralModal
-        // topIcon={ConfettiImage}
-        headline="Upload Banner"
-        // buttons={[
-        //   {
-        //     type: 'outlined',
-        //     text: 'Go Home',
-        //     onClick: () => props.history.push('/')
-        //   },
-        //   {
-        //     type: 'solid',
-        //     text: 'Mint Another Album',
-        //     onClick: mintNewAlbum
-        //   },
-        // ]}
-        className="centered"
-        closeModal={() => toggleCongratsModal(!showCongratsModal)}
-        bodyChildren={<BannerUploaderForm />}
-      /> */}
+      {showBannerModal &&
+        <GeneralModal
+          headline="Upload Banner"
+          className="centered"
+          closeModal={() => toggleCongratsModal(!showCongratsModal)}
+          bodyChildren={<BannerUploaderForm />}
+        />
+      }
     </div>
 
   )
@@ -272,6 +273,7 @@ export default connect(state => {
   dispatch => {
     return {
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
-      hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction())
+      hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
+      updateUser: (data) => dispatch(updateUserAction(data))
     }
   })(withRouter(ArtistDashboard));

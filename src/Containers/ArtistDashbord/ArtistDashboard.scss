@@ -147,7 +147,7 @@
       color: #ffffff;
       &:first-child {
         margin-right: 50px;
-     }
+      }
     }
     .song-head {
       margin-bottom: 22px;
@@ -187,6 +187,17 @@
   left: 0px;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.9);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 999;
+}
+.banner-upload {
+  margin-top: 20px;
+  .default {
+    height: 200px;
+  }
+}
+.banner-update-button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 140px;
 }
