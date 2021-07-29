@@ -79,8 +79,8 @@ function SongList(props) {
                                 {songData.title} <span>{songData.mint || "#4"}</span>
                             </label>
                         </div>
-                        <div>{songData.artist && songData.artist.name}</div>
                         <div>{songData.album && songData.album.title}</div>
+                        <div>{songData.artist && songData.artist.name}</div>
                         <div>{songData.available_qty} / {songData.qty} {' '} Available</div>
                     </div>
                 ))}

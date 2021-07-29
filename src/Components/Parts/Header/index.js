@@ -17,6 +17,7 @@ import Button from '../../Common/Button/index';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
 import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
+import q from 'querystring';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
 
@@ -28,6 +29,21 @@ function Header(props) {
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
   const [search, setSearch] = useState('');
+
+
+  useEffect(() => {
+    if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
+      setSearch('')
+    }
+  }, [props.history.location.pathname])
+
+  useEffect(() => {
+    if (props.history.location.search) {
+      let querySearch = q.parse(props.history.location.search && props.history.location.search.replace('?', ''))
+      setSearch(querySearch.search)
+      props.searchRes(querySearch.search)
+    }
+  }, [props.history.location.search])
 
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu } = props;
 
@@ -127,7 +143,7 @@ function Header(props) {
   const handleSubmit = (e) => {
     if (e.target.value && (e.key === 'Enter' || e.keyCode === 13)) {
       props.searchRes(e.target.value)
-      props.history.push("/search-result")
+      props.history.push(`/search-result?search=${search}`)
     }
   }
   const userToken = localStorage.getItem('amplify_app_token');
@@ -151,11 +167,6 @@ function Header(props) {
     getNearPrice()
   }, [nearPrice])
 
-  useEffect(() => {
-    if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
-      setSearch('')
-    }
-  }, [props.history.location.pathname])
   return (
     <>
       <header>

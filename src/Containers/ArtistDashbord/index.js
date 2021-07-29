@@ -1,7 +1,9 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Cropper from "react-cropper";
+import axios from 'axios';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
@@ -13,8 +15,11 @@ import CalanderIcon from '../../assets/images/CalanderIcon.svg';
 import RightIcon from '../../assets/images/RightIcon.svg';
 import RightIconDisable from '../../assets/images/RightIconDisable.svg';
 import ConfettiImage from '../../assets/images/confetti.png';
-
+import ImageUploadIcon from '../../assets/images/image-upload.svg';
+import { API_ENDPOINT_URL } from '../../Constants/default'
 import NewNFT from '../../Components/Common/NewNFT/index';
+import { getAccessToken } from '../../Api/index';
+import dataURItoBlob from '../../Utils/covert';
 
 import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 
@@ -38,6 +43,10 @@ function ArtistDashboard(props) {
   const [profileImage, setProfileImage] = useState(ArtisrAvatar);
   const [userName, setUserName] = useState('');
   const [showCongratsModal, toggleCongratsModal] = useState(false);
+  const [cropData, setCropData] = useState("#");
+  const [showCropper, setShowCropper] = useState(false);
+  const [image, setImage] = useState('https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg');
+  const [cropper, setCropper] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('amplify_app_token');
@@ -76,24 +85,26 @@ function ArtistDashboard(props) {
   ];
 
 
-  {showCongratsModal && <GeneralModal
-    topIcon={ConfettiImage}
-    headline="Congrats, Your album is set to release!"
-    buttons={[
-      {
-        type: 'outlined',
-        text: 'Go Home',
-        onClick: () => props.history.push('/')
-      },
-      {
-        type: 'solid',
-        text: 'Mint Another Album',
-        onClick: mintNewAlbum
-      },
-    ]}
-    className="centered"
-    closeModal={() => toggleCongratsModal(!showCongratsModal)}
-  />}
+  {
+    showCongratsModal && <GeneralModal
+      topIcon={ConfettiImage}
+      headline="Congrats, Your album is set to release!"
+      buttons={[
+        {
+          type: 'outlined',
+          text: 'Go Home',
+          onClick: () => props.history.push('/')
+        },
+        {
+          type: 'solid',
+          text: 'Mint Another Album',
+          onClick: mintNewAlbum
+        },
+      ]}
+      className="centered"
+      closeModal={() => toggleCongratsModal(!showCongratsModal)}
+    />
+  }
 
   const renderBtnContent = () => {
     return (
@@ -114,6 +125,72 @@ function ArtistDashboard(props) {
     ))
   )
 
+  const BannerUploaderForm = ({ showCropper }) => <div>
+    <label htmlFor="albumCover">
+      <div className="image-upload">
+        <img src={cropData !== "#" ? cropData : ImageUploadIcon} alt="Banner Upload" className="banner" />
+      </div>
+    </label>
+    <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onAlbumCoverChange} accept="image/*" />
+  </div>
+  const onAlbumCoverChange = (e) => {
+    if (!e.target.files[0])
+      return
+
+    const files = e.target.files;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+    setImage(e.target.files[0])
+    console.log(e.target.files[0], 'e.target.files[0]')
+    setShowCropper(true);
+  }
+  const getCropData = () => {
+    if (typeof cropper !== "undefined") {
+      let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
+      uploadFile(file, 'album')
+      setCropData(cropper.getCroppedCanvas().toDataURL());
+      // setAlbumCover(cropper.getCroppedCanvas().toDataURL());
+    }
+    setShowCropper(false)
+  };
+  const uploadFile = async (fileInfo, type) => {
+    let file = fileInfo;
+    // setIsUploading(true)
+    file.is_uploading = true
+    let songFormData = new FormData()
+    songFormData.append('file', file)
+    songFormData.append('name', 'test name')
+    const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'Bearer ' + getAccessToken()
+      },
+      onUploadProgress: (e) => onUploadProgress(e, file, type),
+    }).catch(error => {
+      // setIsUploading(false)
+      console.error(error)
+    });
+    if (type === 'song') {
+      // let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
+      // console.log([...songFilesClone], 'HERE')
+      file.uploaded = true
+      file.is_uploading = false
+      file.hash = mintSong.data.IpfsHash
+      // songFilesClone.push(file)
+      // setSongFiles([...songFilesClone, {...JSON.parse(file.toString())}])
+    } else {
+      // setAlbumCover(mintSong.data.IpfsHash)
+    }
+    return mintSong;
+  }
+
+  const onUploadProgress = (progressEvent, file, type) => {
+    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    file.progress = percentCompleted
+  }
   return (
     <div id="artist-dashboard" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} />
@@ -174,7 +251,58 @@ function ArtistDashboard(props) {
         hideLoadingOverlay={props.hideLoadingOverlay}
         toggleCongratsModal={toggleCongratsModal}
       />}
+      <GeneralModal
+        // topIcon={ConfettiImage}
+        headline="Upload Banner"
+        // buttons={[
+        //   {
+        //     type: 'outlined',
+        //     text: 'Go Home',
+        //     onClick: () => props.history.push('/')
+        //   },
+        //   {
+        //     type: 'solid',
+        //     text: 'Mint Another Album',
+        //     onClick: mintNewAlbum
+        //   },
+        // ]}
+        className="centered"
+        closeModal={() => toggleCongratsModal(!showCongratsModal)}
+        bodyChildren={<BannerUploaderForm showCropper={showCropper} />}
+      >
+        {showCropper && (
+          <>
+            <div className="crop-modal">
+              <Cropper
+                style={{ height: 500, width: "100%" }}
+                // zoomTo={0.5}
+                initialAspectRatio={1}
+                aspectRatio={1}
+                // preview=".img-preview"
+                src={image}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                onInitialized={(instance) => {
+                  setCropper(instance);
+                }}
+                guides={true}
+              />
+
+              <div className="bottom">
+                <button className="btn btn-black" onClick={getCropData}>Apply Crop</button>
+              </div>
+            </div>
+            <div className="crop-cover" />
+          </>
+        )}
+      </GeneralModal>
     </div>
+
   )
 };
 
