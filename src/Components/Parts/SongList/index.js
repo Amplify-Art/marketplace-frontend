@@ -68,7 +68,7 @@ function SongList(props) {
         <div className="song-list">
             {songHeader()}
             <div>
-                {songList && songList.map((songData, index) => (
+                {songList && songList?.map((songData,index) => (
                     <div className="play-song flex">
                         <div className="flex">
                             <div className="song-icon cursor-pointer">

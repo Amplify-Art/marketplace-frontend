@@ -123,7 +123,7 @@ function Header(props) {
   const handleSearch = async (e) => {
     if (e.target.value && (e.key === 'Enter' || e.keyCode === 13)) {
       await props.searchRes(e.target.value)
-      await props.history.push("/search-result")
+      props.history.push("/search-result")
   }else if(!e.target.value){
     await props.history.push("/")
   }
