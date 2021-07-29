@@ -27,6 +27,7 @@ function Header(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
+  const [search, setSearch] = useState('');
 
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu } = props;
 
@@ -121,130 +122,134 @@ function Header(props) {
   }
 
   const handleSearch = async (e) => {
+    setSearch(e.target.value)
+  }
+  const handleSubmit = (e) => {
     if (e.target.value && (e.key === 'Enter' || e.keyCode === 13)) {
-      await props.searchRes(e.target.value)
-      await props.history.push("/search-result")
-  }else if(!e.target.value){
-    await props.history.push("/")
+      props.searchRes(e.target.value)
+      props.history.push("/search-result")
+    }
   }
-}
+  const userToken = localStorage.getItem('amplify_app_token');
 
-const userToken = localStorage.getItem('amplify_app_token');
+  let userDetails = {};
 
-let userDetails = {};
-
-if (userToken) {
-  userDetails = jwt_decode(userToken);
-}
-
-const getNearPrice = () => {
-  // https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD
-  if (nearPrice < 0.01) {
-    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
-      setNearPrice(res.data.USD);
-    });
+  if (userToken) {
+    userDetails = jwt_decode(userToken);
   }
-}
 
-useEffect(() => {
-  getNearPrice()
-}, [nearPrice])
+  const getNearPrice = () => {
+    // https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD
+    if (nearPrice < 0.01) {
+      axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+        setNearPrice(res.data.USD);
+      });
+    }
+  }
 
+  useEffect(() => {
+    getNearPrice()
+  }, [nearPrice])
 
-return (
-  <>
-    <header>
-      {/* <div className="menu">
+  useEffect(() => {
+    if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
+      setSearch('')
+    }
+  }, [props.history.location.pathname])
+  return (
+    <>
+      <header>
+        {/* <div className="menu">
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
-      <div className="logo">
-        <Link to='/' >
-          <img src={Logo} alt="Amplify.Art" />
-        </Link>
-      </div>
-
-      <div className="search">
-        <img src={SearchIcon} alt="Search" />
-        <input type="text" placeholder="Search for songs, artists..." onKeyUp={handleSearch} />
-      </div>
-
-      <div className="right">
-        {userToken ? (
-          <>
-            <div className="bell"><img src={BellIcon} alt="Bell" /></div>
-            <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
-            <div className="mobile-menu" onClick={toggleMobileMenu}>
-              <img src={MenuIconNew} />
-            </div>
-            <div className="user">
-              <img src={userDetails.avatar} />
-            </div>
-          </>
-        ) : (
-          <Link to="/auth/login" className="top-login">
-            <span>Login</span>
+        <div className="logo">
+          <Link to='/' >
+            <img src={Logo} alt="Amplify.Art" />
           </Link>
-        )}
-      </div>
-    </header>
-
-    {setBreadCrumbs() &&
-      <div className="breadcrumbs left-nav-pad">
-        <div className="container">
-          Home / <span className="current">{path && setBreadCrumbs()}</span>
         </div>
-      </div>
-    }
 
-    {showWalletSidebar && (
-      <>
-        <div className="wallet-info">
-          <h4>Your Wallet:</h4>
-          {user.near_connected && balance && <div className="details">
-            <h3>Account Details</h3>
-            {/* TODO: Convert NEAR to USD using API */}
-            <div className="stat-holder">
-              <p>Available Balance:</p>
-              <div className="stat">
-                ${(nearPrice * (balance && balance.available / 10 ** 24)).toFixed(2)} / <span className="near-icon">Ⓝ</span> {balance && balance.available / 10 ** 24}
-              </div>
-            </div>
+        <div className="search">
+          <img src={SearchIcon} alt="Search" />
+          <input type="text" placeholder="Search for songs, artists..." onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
+        </div>
 
-            <div className="stat-holder">
-              <p>Total :</p>
-              <div className="stat">
-                {Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}
+        <div className="right">
+          {userToken ? (
+            <>
+              <div className="bell"><img src={BellIcon} alt="Bell" /></div>
+              <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
+              <div className="mobile-menu" onClick={toggleMobileMenu}>
+                <img src={MenuIconNew} />
               </div>
-            </div>
+              <div className="user">
+                <img src={userDetails.avatar} />
+              </div>
+            </>
+          ) : (
+            <Link to="/auth/login" className="top-login">
+              <span>Login</span>
+            </Link>
+          )}
+        </div>
+      </header>
 
-            <div className="stat-holder">
-              <p>Available:</p>
-              <div className="stat">
-                {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
-              </div>
-            </div>
+      {setBreadCrumbs() &&
+        <div className="breadcrumbs left-nav-pad">
+          <div className="container">
+            Home / <span className="current">{path && setBreadCrumbs()}</span>
           </div>
-          }
-          {user && !user.near_connected &&
-            < div className="buttons">
-              <Button
-                text="Connect to Near Wallet"
-                onClick={() => onConnect()}
-              />
-
-              <Button
-                text="Create New Wallet"
-                onClick={() => onCreate()}
-              />
-            </div>
-          }
         </div>
+      }
 
-        <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
-      </>
-    )}
-  </>
-);
+      {showWalletSidebar && (
+        <>
+          <div className="wallet-info">
+            <h4>Your Wallet:</h4>
+            {user.near_connected && balance && <div className="details">
+              <h3>Account Details</h3>
+              {/* TODO: Convert NEAR to USD using API */}
+              <div className="stat-holder">
+                <p>Available Balance:</p>
+                <div className="stat">
+                  ${(nearPrice * (balance && balance.available / 10 ** 24)).toFixed(2)} / <span className="near-icon">Ⓝ</span> {balance && balance.available / 10 ** 24}
+                </div>
+              </div>
+
+              <div className="stat-holder">
+                <p>Total :</p>
+                <div className="stat">
+                  {Number(utils.format.formatNearAmount(balance.total)).toFixed(5)}
+                </div>
+              </div>
+
+              <div className="stat-holder">
+                <p>Available:</p>
+                <div className="stat">
+                  {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
+                </div>
+              </div>
+            </div>
+            }
+            {user && !user.near_connected &&
+              < div className="buttons">
+                <Button
+                  text="Connect to Near Wallet"
+                  onClick={() => onConnect()}
+                />
+
+                <Button
+                  text="Create New Wallet"
+                  onClick={() => onCreate()}
+                />
+              </div>
+            }
+          </div>
+
+          <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
+        </>
+      )}
+    </>
+  );
 }
 
 export default connect(null, dispatch => {

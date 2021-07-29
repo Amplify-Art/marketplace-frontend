@@ -143,7 +143,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      {!isPlayList && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price/100).toFixed(2)}</button>}
+      {!isPlayList && albumInfo.available_qty ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
   )
 }
