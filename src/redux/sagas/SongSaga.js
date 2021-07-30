@@ -48,7 +48,7 @@ export function* addSongSaga({ history }, { payload }) {
       }),
     ]);
     if (res && res.success && res.data && res.data.id && history) {
-      history.push('/songs');
+      history.push('/marketplace');
     }
   } catch (error) {
     yield all([
@@ -78,7 +78,7 @@ export function* updateSongSaga({ history }, { payload }) {
       }),
     ]);
     if (res && res.success && res.data && res.data.id && history) {
-      history.push('/songs');
+      history.push('/marketplace');
     }
   } catch (error) {
     yield all([

@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
+import PaymentForm from './Parts/paymentForm';
 import sortIcon from '../../../assets/images/Sort.svg';
 import playProgress from '../../../assets/images/play_progress.svg';
 import playBtn from '../../../assets/images/play_btn.svg';
 import SongLength from '../../Common/SongLength/index';
 import GeneralModal from '../../Common/GeneralModal/index';
 import './SongList.scss';
+import { some } from 'lodash';
 const songHeader = () => (
   <div className="songlist-header flex">
     <div className="header-title">Song Title | Mints owned
@@ -89,6 +91,7 @@ function SongList(props) {
                   {songData.title} <span>{songData.mint || "#4"}</span>
                 </label>
               </div>
+              
               <div onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
               <div onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
               <div onClick={() => expandSongList(index)}>{songData.available_qty} / {songData.qty} {' '} Available</div>
@@ -144,22 +147,17 @@ function SongList(props) {
             {showBuyModal && (<div className="buy-modal">
               <GeneralModal
                 headline="Buy Album"
-                bodyText="Are you sure you want to buy this album for $100.00?"
+                bodyText="Enter your payment details below."
                 // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
-                buttons={[
-                  {
-                    type: 'button',
-                    onClick: () => toggleBuyModal(false),
-                    text: 'Confirm',
-                    className: 'buy-confirm'
-                  },
-                  {
-                    type: 'button',
-                    onClick: () => toggleBuyModal(false),
-                    text: 'Cancel',
-                    className: 'buy-cancel'
-                  }
-                ]}
+                bodyChildren={<PaymentForm />}
+                // buttons={[
+                //   {
+                //     type: 'button',
+                //     onClick: () => toggleBuyModal(false),
+                //     text: 'Cancel',
+                //     className: 'buy-cancel'
+                //   }
+                // ]}
                 isCloseButton={true}
               />
             </div>)}

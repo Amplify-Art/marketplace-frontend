@@ -19,7 +19,7 @@ function MainSideNav(props) {
         <li className="nav-header">Store</li>
         {/* <li><NavLink to="#">Coming Soon</NavLink></li> */}
         <li><NavLink to="/albums" activeClassName="current">Albums</NavLink></li>
-        <li><NavLink to="/songs" activeClassName="current">Songs</NavLink></li>
+        <li><NavLink to="/marketplace" activeClassName="current">Songs</NavLink></li>
 
         <li className="nav-header">Profile</li>
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>

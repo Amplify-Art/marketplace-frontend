@@ -22,6 +22,36 @@
         }
       }
     }
+
+    .payment-form {
+      .buy-confirm,
+      .buy-cancel {
+        margin-top: 25px;
+      }
+
+      .exp-and-cvv {
+        .exp,
+        .cvv {
+          width: 50%;
+        }
+
+        .exp {
+          margin-right: 5px;
+        }
+
+        .cvv {
+          margin-left: 5px;
+        }
+      }
+
+      .field {
+        border: solid 1px #cacaca;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 .marketplace-table {
