@@ -75,6 +75,8 @@ function SongList(props) {
     };
   }, [playing, audio]);
 
+  console.log('songList', songList);
+
   return (
     <div className="song-list">
       {songHeader()}
@@ -96,7 +98,7 @@ function SongList(props) {
               <div onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
               <div onClick={() => expandSongList(index)}>{songData.available_qty} / {songData.qty} {' '} Available</div>
             </div>
-            <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songList[0].album.cover_cid})` }}>
+            <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songList[index].album.cover_cid})` }}>
               <div className="copy">
                 <div className="headers flex">
                   <div className="item mint">Mint</div>
