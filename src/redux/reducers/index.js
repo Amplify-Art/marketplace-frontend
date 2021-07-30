@@ -10,6 +10,7 @@ import nominations from './NominationReducer';
 import token_transfers from './TokenTransferReducer';
 import searchRes from './SearchResReducer';
 import followers from './FollowerReducer';
+import marketplace_songs from './MarketplaceSongReducer';
 
 export {
   albums,
@@ -24,4 +25,5 @@ export {
   token_transfers,
   searchRes,
   followers,
+  marketplace_songs,
 };
