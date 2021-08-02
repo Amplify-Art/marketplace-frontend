@@ -16,10 +16,14 @@ import RightIcon from '../../assets/images/RightIcon.svg';
 import RightIconDisable from '../../assets/images/RightIconDisable.svg';
 import ConfettiImage from '../../assets/images/confetti.png';
 import ImageUploadIcon from '../../assets/images/image-upload.svg';
+import SupportCardCover from '../../assets/images/support-card.png';
+import Vote from '../../assets/images/Vote.svg';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import NewNFT from '../../Components/Common/NewNFT/index';
 import { getAccessToken } from '../../Api/index';
 import { updateUserAction } from '../../redux/actions/UserAction';
+import { addNominationVoteAction } from '../../redux/actions/NominationVoteAction';
+import { fetchNominationsAction } from '../../redux/actions/NominationAction';
 import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 
 import './ArtistDashboard.scss';
@@ -53,6 +57,7 @@ function ArtistDashboard(props) {
     avatar: profileImage,
     name: userName
   });
+
   useEffect(() => {
     if (token) {
       setBannerImage(decodedToken.banner);
@@ -64,6 +69,11 @@ function ArtistDashboard(props) {
         name: decodedToken.username
       })
     }
+    props.fetchNominations({
+      params: {
+        related: 'votedFor, votes'
+      }
+    })
   }, []);
   const month_Data = [
     { month: "june", gwei: "gwei", isChecked: false },
@@ -73,40 +83,17 @@ function ArtistDashboard(props) {
   ]
 
   const mostPlayData = [
-    // { name: 'Song Name', count: 13 },
-    // { name: 'Song Name', count: 11 },
-    // { name: 'Song Name', count: 10 },
-    // { name: 'Song Name', count: 9 },
-    // { name: 'Song Name', count: 8 },
-    // { name: 'Song Name', count: 8 },
-    // { name: 'Song Name', count: 5 },
-    // { name: 'Song Name', count: 5 },
-    // { name: 'Song Name', count: 4 },
-    // { name: 'Song Name', count: 3 },
+    { name: 'Song Name', count: 13 },
+    { name: 'Song Name', count: 11 },
+    { name: 'Song Name', count: 10 },
+    { name: 'Song Name', count: 9 },
+    { name: 'Song Name', count: 8 },
+    { name: 'Song Name', count: 8 },
+    { name: 'Song Name', count: 5 },
+    { name: 'Song Name', count: 5 },
+    { name: 'Song Name', count: 4 },
+    { name: 'Song Name', count: 3 },
   ];
-
-
-  {
-    showCongratsModal && <GeneralModal
-      topIcon={ConfettiImage}
-      headline="Congrats, Your album is set to release!"
-      buttons={[
-        {
-          type: 'outlined',
-          text: 'Go Home',
-          onClick: () => props.history.push('/')
-        },
-        {
-          type: 'solid',
-          text: 'Mint Another Album',
-          onClick: mintNewAlbum
-        },
-      ]}
-      className="centered"
-      closeModal={() => toggleCongratsModal(!showCongratsModal)}
-    />
-  }
-
   const renderBtnContent = () => {
     return (
       <>
@@ -121,11 +108,26 @@ function ArtistDashboard(props) {
     mostPlayData.map((song, index) => (
       <div className="song-content d-h-between">
         <div>{song.name}</div>
-        <div>{song.count}</div>
+        <div>{song.votes}</div>
       </div>
     ))
   )
 
+  const renderVoteList = () => (
+    props.nominations.map((nomination, index) => (
+      <div className="song-content d-h-between voter-list">
+        <div>{nomination.votedFor && nomination.votedFor.name}</div>
+        <div className="vote-actions">{<span>{nomination.votes && nomination.votes.length || 1}</span>}
+          <img src={Vote} onClick={() => onVote(nomination)} />
+        </div>
+      </div>
+    ))
+  )
+  const onVote = (nomination) => {
+    props.addNominationVote({
+      nomination_id: nomination.id
+    })
+  }
   const BannerUploaderForm = ({ }) => <div>
     <label htmlFor="albumCover">
       <div className="banner-upload">
@@ -194,9 +196,31 @@ function ArtistDashboard(props) {
   }
   return (
     <div id="artist-dashboard" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} />
+      {/* <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} /> */}
       <div className="content">
         <div className="container">
+          <div className="container1">
+            <div className="col1">
+              <img src={SupportCardCover} />
+              <div className="owned-cards">
+                <p>32 Cards Owned. <span>View Card Gallery</span></p>
+              </div>
+            </div>
+            <div className="song-wrapper flex f-jc-space-between col2">
+              <div className="w-100 song-inner-content">
+                <div className="song-head d-h-between">
+                  <span className="song-head-title">Supporter Voting</span>
+                  <div className="support-cal">
+                    <img src={CalanderIcon} alt="" className="cal-img" />
+                    <span className="cal-font">2021</span>
+                    <img src={DownArrowIcon} alt="" className="cal-img" />
+                  </div>
+                </div>
+                <p>You have 32 Votes left for this voting period.</p>
+                {renderVoteList()}
+              </div>
+            </div>
+          </div>
           <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
@@ -260,6 +284,21 @@ function ArtistDashboard(props) {
           bodyChildren={<BannerUploaderForm />}
         />
       }
+      {
+        showCongratsModal && <GeneralModal
+          topIcon={ConfettiImage}
+          headline="Congrats, Your album is set to release!"
+          buttons={[
+            {
+              type: 'outlined',
+              text: 'Go Home',
+              onClick: () => props.history.push('/')
+            }
+          ]}
+          className="centered"
+        // closeModal={() => toggleCongratsModal(!showCongratsModal)}
+        />
+      }
     </div>
 
   )
@@ -268,12 +307,15 @@ function ArtistDashboard(props) {
 export default connect(state => {
   return {
     loadingOverlay: state.global.loading_overlay,
+    nominations: state.nominations && state.nominations.nominations
   }
 },
   dispatch => {
     return {
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
-      updateUser: (data) => dispatch(updateUserAction(data))
+      updateUser: (data) => dispatch(updateUserAction(data)),
+      addNominationVote: (data) => dispatch(addNominationVoteAction(data)),
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data))
     }
   })(withRouter(ArtistDashboard));

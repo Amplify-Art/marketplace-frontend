@@ -79,23 +79,6 @@
         font-size: 24px;
         line-height: 31px;
       }
-      .support-cal {
-        display: flex;
-        border: 1.5px solid #e3e3e3;
-        border-radius: 4px;
-        padding: 10px 12px;
-        .cal-img {
-          width: 20px;
-          height: 20px;
-          color: #000000;
-        }
-        .cal-font {
-          font-size: 16px;
-          line-height: 20px;
-          margin-left: 10px;
-          margin-right: 5px;
-        }
-      }
     }
     .support-content {
       .support-inner-content {
@@ -200,4 +183,53 @@
   margin-top: 10px;
   padding: 10px;
   width: 140px;
+}
+.container1 {
+  display: flex;
+  flex-direction: row;
+  .col1 {
+    width: 40%;
+  }
+  .col2 {
+    width: 60%;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .owned-cards {
+    p {
+      text-align: center;
+      color: #ffff;
+    }
+  }
+  .voter-list {
+    .vote-actions {
+      display: flex;
+      align-items: center;
+      img {
+        margin-left: 10px;
+      }
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.support-cal {
+  display: flex;
+  border: 1.5px solid #e3e3e3;
+  border-radius: 4px;
+  padding: 10px 12px;
+  .cal-img {
+    width: 20px;
+    height: 20px;
+    color: #000000;
+  }
+  .cal-font {
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
 }

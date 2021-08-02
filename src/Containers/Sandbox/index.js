@@ -89,15 +89,9 @@ function SandBox(props) {
             type: 'outlined',
             text: 'Go Home',
             onClick: () => props.history.push('/')
-          },
-          {
-            type: 'solid',
-            text: 'Mint Another Album',
-            onClick: mintNewAlbum
-          },
+          }
         ]}
         className="centered"
-        closeModal={() => toggleCongratsModal(!showCongratsModal)}
       />}
 
       {showNominateModal && <GeneralModal

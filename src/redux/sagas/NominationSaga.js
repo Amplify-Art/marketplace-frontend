@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addNomination, deleteNomination, getNominationById, getNominations, updateNomination } from '../../Api/Nomination';
+import { addNomination, deleteNomination, getNominationById, getNominations, updateNomination} from '../../Api/Nomination';
 import * as types from '../../Constants/actions/Nomination';
 import { SET_NOTIFICATION } from '../../Constants/actions/Global';
 
@@ -43,13 +43,13 @@ export function* addNominationSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'Nominated Succesfully!' : res.message || 'Nomination not added',
+          message: res.success ? 'Nomination added' : res.message || 'Nomination not added',
         },
       }),
     ]);
-    // if (res && res.success && res.data && res.data.id && history) {
-    //   history.push('/nominations');
-    // }
+    if (res && res.success && res.data && res.data.id && history) {
+      history.push('/nominations');
+    }
   } catch (error) {
     yield all([
       put({ type: types.ADD_NOMINATION_FAILED, error }),
@@ -77,9 +77,9 @@ export function* updateNominationSaga({ history }, { payload }) {
         },
       }),
     ]);
-    // if (res && res.success && res.data && res.data.id && history) {
-    //   history.push('/nominations');
-    // }
+    if (res && res.success && res.data && res.data.id && history) {
+      history.push('/nominations');
+    }
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_NOMINATION_FAILED, error }),
