@@ -71,6 +71,7 @@ function SingleAlbum(props) {
 
   useEffect(() => {
     // if this is rendered for playlist, we dont have cover for playlist, show CD cover
+    console.log(albumInfo, 'albumInfo12345')
     if (isPlayList) {
       setAlbumCover(cdCover);
     }
@@ -81,7 +82,7 @@ function SingleAlbum(props) {
     } else {
       setAlbumCover(cdCover);
     }
-  }, []);
+  }, [albumInfo]);
 
   return (
     <>
