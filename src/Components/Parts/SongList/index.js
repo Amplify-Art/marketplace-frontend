@@ -149,17 +149,22 @@ function SongList(props) {
             {showBuyModal && (<div className="buy-modal">
               <GeneralModal
                 headline="Buy Album"
-                bodyText="Enter your payment details below."
+                bodyText="Please confirm your purchase"
                 // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
-                bodyChildren={<PaymentForm />}
-                // buttons={[
-                //   {
-                //     type: 'button',
-                //     onClick: () => toggleBuyModal(false),
-                //     text: 'Cancel',
-                //     className: 'buy-cancel'
-                //   }
-                // ]}
+                buttons={[
+                  {
+                    type: 'button',
+                    onClick: () => toggleBuyModal(false),
+                    text: 'Confirm',
+                    className: 'buy-confirm'
+                  },
+                  {
+                    type: 'button',
+                    onClick: () => toggleBuyModal(false),
+                    text: 'Cancel',
+                    className: 'buy-cancel'
+                  }
+                ]}
                 isCloseButton={true}
               />
             </div>)}
