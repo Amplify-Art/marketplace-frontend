@@ -66,3 +66,57 @@
     cursor: pointer;
   }
 }
+
+.buy-modal {
+  .modal,
+  #general-modal {
+    .holder {
+      color: #000;
+      p {
+        text-align: left;
+      }
+
+      .buy-confirm {
+        padding: 10px 20px;
+        border: solid 2px #000;
+      }
+      
+      .buy-cancel {
+        padding: 10px 20px;
+        border: solid 2px #000;
+        color: #000;
+        background: #fff;
+      }
+    }
+  }
+
+  .payment-form {
+    .buy-confirm,
+    .buy-cancel {
+      margin-top: 25px;
+    }
+
+    .exp-and-cvv {
+      .exp,
+      .cvv {
+        width: 50%;
+      }
+
+      .exp {
+        margin-right: 5px;
+      }
+
+      .cvv {
+        margin-left: 5px;
+      }
+    }
+
+    .field {
+      border: solid 1px #cacaca;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+  }
+}
