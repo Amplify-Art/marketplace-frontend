@@ -92,7 +92,7 @@ export default function (state = initialState, action) {
     case types.ADD_PLAYLIST_SUCCESS:
       return {
         ...state,
-        // playlists: [...state.playlists, action.res.data],
+        playlists: [action.res.data, ...state.playlists],
         status: action.res.success,
         loading: false,
       };
@@ -133,9 +133,9 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case types.CLEAR_CURRENTPLAYLIST_REQUEST:
-      return{
+      return {
         ...state,
-        current_playlists:[]
+        current_playlists: []
       }
     default:
       return state;

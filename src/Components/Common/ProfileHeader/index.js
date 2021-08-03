@@ -17,7 +17,6 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
   const [fetchShowCases, setFetchShowCases] = useState(false);
   const coverPhoto = () => {
     let coverPhoto;
-
     if (ArtistData.cover) {
       coverPhoto = ArtistData.cover;
     } else if (ArtistData.banner) {
@@ -42,7 +41,6 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
       }
     });
   }, []);
-  console.log(_.chunk([...showcases, ...(new Array(6 - showcases.length).fill(null))], 3), 'isPublicProfile')
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>

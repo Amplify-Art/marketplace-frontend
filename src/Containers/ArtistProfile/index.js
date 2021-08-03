@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 import { fetchNFTsAction } from '../../redux/actions/NFTAction';
@@ -8,13 +9,26 @@ import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
 import CoverImg from '../../assets/images/profile-cover.png';
 import PageNotFound from '../PageNotFound'
 import './ArtistProfile.scss';
+import ShareIcon from '../../assets/images/share-icon.svg';
+import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function ArtistProfile(props) {
   const { artist } = props;
-  const [albums,setAlbums] = useState([])
+  const [albums, setAlbums] = useState([])
+  const token = localStorage.getItem('amplify_app_token');
+  const decodedToken = jwt_decode(token);
+  const [userID, setID] = useState(null);
 
+  useEffect(() => {
+    console.log(props.match)
+    const userId = parseInt(props.match.params.slug);
+    console.log(userId)
+    if (userId) {
+      setID(userId)
+    }
+  }, [])
   const generateAlbumItem = (album, index) => {
     return (
       <SingleAlbum key={index} albumInfo={album} />
@@ -28,6 +42,7 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
+        <button className="set_name" onClick={() => onFollow()} ><img src={ShareIcon} alt="Twitter" />{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
       </>
     )
   }
@@ -36,7 +51,7 @@ function ArtistProfile(props) {
     const payload = {
       id: props.match.params.slug
     };
-    
+
     props.fetchArtist(payload);
     props.fetchNFTs({
       is_purchased: false,
@@ -44,12 +59,33 @@ function ArtistProfile(props) {
     });
   }, []);
 
-  useEffect(()=>{
-    const filterAlbums = props.albums.filter(album=>album.user_id == props.match.params.slug && !album.is_purchased)
+  useEffect(() => {
+    const filterAlbums = props.albums.filter(album => album.user_id == props.match.params.slug && !album.is_purchased)
     setAlbums(filterAlbums)
-  },[props.albums]);
+  }, [props.albums]);
+
+
+  const onFollow = () => {
+    // console.log(props.myFollowings, userID, decodedToken)
+    let follow = props.myFollowings.find(f => f.artist_id === userID)
+    console.log(follow)
+    if (follow) {
+      props.updateFollower({
+        id: follow.id,
+        is_deleted: true,
+        artist_id: null,
+        follower_id: null,
+      })
+    } else {
+      props.addFollower({
+        artist_id: userID,
+        follower_id: decodedToken.id,
+      })
+    }
+  }
+
   return (
-     props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
+    props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
 
       <div className="recently-purchased">
@@ -75,13 +111,17 @@ function ArtistProfile(props) {
 export default connect(state => {
   return {
     albums: state.nfts.nfts,
-    artist: state.artist.artist
+    artist: state.artist.artist,
+    myFollowings: state.followers.followers,
   }
 },
   dispatch => {
     return {
       fetchNFTs: (payload) => dispatch(fetchNFTsAction(payload)),
-      fetchArtist: (payload) => dispatch(fetchArtistByIdAction(payload))
+      fetchArtist: (payload) => dispatch(fetchArtistByIdAction(payload)),
+      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
+      updateFollower: (data) => dispatch(updateFollowerAction(data)),
+      addFollower: (data) => dispatch(addFollowerAction(data)),
     }
   })(withRouter(ArtistProfile));
 

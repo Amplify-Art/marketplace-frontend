@@ -48,9 +48,9 @@ export function* addPlaylistSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/playlists');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/playlists');
+    // }
   } catch (error) {
     yield all([
       put({ type: types.ADD_PLAYLIST_FAILED, error }),
@@ -78,9 +78,9 @@ export function* updatePlaylistSaga({ history }, { payload }) {
         },
       }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/playlists');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/playlists');
+    // }
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_PLAYLIST_FAILED, error }),

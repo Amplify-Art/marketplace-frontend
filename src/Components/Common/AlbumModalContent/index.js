@@ -7,7 +7,8 @@ import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
 import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
@@ -19,6 +20,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
   const handleSongModal = () => {
     setSongModal(true);
@@ -89,7 +91,6 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
-  console.log(albumInfo, 'albumInfo.coverArt')
 
   return (
     <>
@@ -144,7 +145,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      {!isPlayList && albumInfo.available_qty ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
   )
 }

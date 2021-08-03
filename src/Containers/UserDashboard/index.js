@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import CreatePlayList from '../../Components/Parts/CreatePlayList';
 import SongList from '../../Components/Parts/SongList/index';
 
 import { fetchPlaylistsAction } from '../../redux/actions/PlaylistAction'
+import { fetchFollowersAction } from '../../redux/actions/FollowerAction';
 
 import './UserDashboard.scss';
 
@@ -26,13 +28,19 @@ import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function UserDashboard(props) {
   const [showPlayListModal, togglePlayListModal] = useState(false);
-
+  const token = jwt.decode(localStorage.getItem('amplify_app_token'))
   useEffect(() => {
     props.fetchPlaylists({
       params: {
         related: 'songs.album'
       }
     });
+    props.fetchFollowers({
+      params: {
+        'filter[follower_id]': token.id,
+        'related': 'artist'
+      }
+    })
   }, []);
   const fakeAlbums = [
     {
@@ -99,11 +107,10 @@ function UserDashboard(props) {
       <span className="header-title">{title}</span>
       <div>
         {isCreateButton && <button className="btn-wrap" onClick={() => togglePlayListModal(!showPlayListModal)}>Create New</button>}
-        <button className="btn-wrap">View All</button>
+        {/* <button className="btn-wrap">View All</button> */}
       </div>
     </div>
   );
-
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
@@ -136,8 +143,8 @@ function UserDashboard(props) {
 
         {renderHeader("Followed Artists", false)}
         <div className="album-block">
-          {fakeAvatar && fakeAvatar.map((avatar, index) => (
-            <UserAvatar avatarImg={avatar.user_img} name={avatar.name} />
+          {props.myFollowings.map((following, index) => (
+            <UserAvatar avatarImg={following.artist.avatar} name={following.artist.name} />
           ))}
         </div>
       </div>
@@ -157,10 +164,12 @@ export default connect(state => {
   return {
     playlists: state.playlists.playlists,
     totalPlaylists: state.playlists.total,
+    myFollowings: state.followers.followers,
   }
 },
   dispatch => {
     return {
       fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
+      fetchFollowers: (data) => dispatch(fetchFollowersAction(data))
     }
   })(withRouter(UserDashboard));

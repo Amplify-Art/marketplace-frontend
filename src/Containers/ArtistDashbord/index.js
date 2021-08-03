@@ -63,6 +63,7 @@ function ArtistDashboard(props) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
+      console.log(decodedToken, 'decodedToken')
       setArtistData({
         cover: decodedToken.banner,
         avatar: decodedToken.avatar,
@@ -196,10 +197,11 @@ function ArtistDashboard(props) {
   }
   return (
     <div id="artist-dashboard" className="left-nav-pad right-player-pad">
-      {/* <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} /> */}
+      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} />
       <div className="content">
         <div className="container">
-          <div className="container1">
+          {/* This would be useful for support card */}
+          {/* <div className="container1">
             <div className="col1">
               <img src={SupportCardCover} />
               <div className="owned-cards">
@@ -220,7 +222,7 @@ function ArtistDashboard(props) {
                 {renderVoteList()}
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
