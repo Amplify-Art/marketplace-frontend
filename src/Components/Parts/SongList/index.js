@@ -7,7 +7,8 @@ import playBtn from '../../../assets/images/play_btn.svg';
 import SongLength from '../../Common/SongLength/index';
 import GeneralModal from '../../Common/GeneralModal/index';
 import './SongList.scss';
-import { some } from 'lodash';
+import moment from 'moment';
+
 const songHeader = () => (
   <div className="songlist-header flex">
     <div className="header-title">Song Title | Mints owned
@@ -93,7 +94,7 @@ function SongList(props) {
                   {songData.title} <span>{songData.mint || "#4"}</span>
                 </label>
               </div>
-              
+
               <div onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
               <div onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
               <div onClick={() => expandSongList(index)}>{songData.available_qty} / {songData.qty} {' '} Available</div>
@@ -105,43 +106,18 @@ function SongList(props) {
                   <div className="item date-listed-by">Date Listed/By</div>
                   <div className="item asking-price">Asking Price</div>
                 </div>
+                {
+
+                }
                 <div className="info">
-                  <div className="singleSong flex">
-                    <div className="mint">#3</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$100.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>
-                  <div className="singleSong flex">
-                    <div className="mint">#5</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$125.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>
-                  <div className="singleSong flex">
-                    <div className="mint">#9</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$99.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>
-                  <div className="singleSong flex">
-                    <div className="mint">#74</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$159.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>
-                  <div className="singleSong flex">
-                    <div className="mint">#85</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$250.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>
-                  <div className="singleSong flex">
-                    <div className="mint">#121</div>
-                    <div className="date-listed-by">10/22/2020 by @2n10se</div>
-                    <div className="asking-price">$1,100.00</div>
-                    <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
-                  </div>  
+                  {
+                    songData.transfers.map(transfer => <div className="singleSong flex">
+                      <div className="mint">#{transfer.copy_number}</div>
+                      <div className="date-listed-by"> {moment(transfer.created_at).format('MM/DD/YYYY')} by @{transfer.transferTo.name}</div>
+                      <div className="asking-price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer.bidding_price / 100)}</div>
+                      <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
+                    </div>)
+                  }
                 </div>
               </div>
             </div>

@@ -18,13 +18,13 @@
 		}
 	}
 	.bg-album-img {
-		background: url('../../../assets/images/cd-img.svg');
+		background: url("../../../assets/images/cd-img.svg");
 		width: 50%;
 		background-size: cover;
 		background-repeat: round;
 	}
 	.cd-case {
-		background: url('../../../assets/images/case-transparent.png');
+		background: url("../../../assets/images/case-transparent.png");
 		width: 50%;
 		height: 393px;
 		position: relative;
@@ -52,14 +52,14 @@
 			.title {
 				font-size: 20px;
 				line-height: 31px;
-				color: #ffffff;
+				color: black !important;
 				margin-bottom: 4px;
 				margin-top: 8px;
 			}
 			.artist-title {
 				font-size: 16px;
 				line-height: 20px;
-				color: #ffffff;
+				color: black !important;
 				opacity: 0.8;
 				margin-bottom: 12px;
 			}
@@ -154,7 +154,7 @@
 			display: flex;
 		}
 		.fn-white {
-			color: #ffffff;
+			color: black;
 		}
 		.pr-10 {
 			padding-right: 10px;
@@ -167,19 +167,16 @@
 	margin-left: 7px;
 }
 
-#modalScrolling::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+#modalScrolling::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #f5f5f5;
 }
 
-#modalScrolling::-webkit-scrollbar
-{
+#modalScrolling::-webkit-scrollbar {
 	width: 6px;
-	background-color: #F5F5F5;
+	background-color: #f5f5f5;
 }
 
-#modalScrolling::-webkit-scrollbar-thumb
-{
+#modalScrolling::-webkit-scrollbar-thumb {
 	background-color: #000000;
 }

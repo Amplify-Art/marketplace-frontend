@@ -89,6 +89,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  console.log(albumInfo, 'albumInfo.coverArt')
 
   return (
     <>
