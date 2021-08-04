@@ -20,6 +20,7 @@ function ArtistProfile(props) {
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
   const [userID, setID] = useState(null);
+  const [artistFound, setArtistFound] = useState(false)
 
   useEffect(() => {
     console.log(props.match)
@@ -34,7 +35,10 @@ function ArtistProfile(props) {
       <SingleAlbum key={index} albumInfo={album} />
     );
   }
-
+  useEffect(() => {
+    if (props.artist)
+      setArtistFound(true)
+  }, [props.artist && props.artist.id])
   const renderBtnContent = () => {
     return (
       <>
@@ -49,7 +53,10 @@ function ArtistProfile(props) {
 
   useEffect(() => {
     const payload = {
-      id: props.match.params.slug
+      id: props.match.params.slug,
+      params: {
+        type: 'artist'
+      }
     };
 
     props.fetchArtist(payload);
@@ -87,29 +94,31 @@ function ArtistProfile(props) {
     }
   }
 
-  console.log('artist', artist)
+  console.log('artist', artistFound, props.artist)
 
   return (
-    props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
-      <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
+    artistFound ?
+      props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className="left-nav-pad right-player-pad">
+        <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
 
-      <div className="recently-purchased">
-        <div className="top">
-          <h2>Recently Released</h2>
-          {/* {albums && albums.length > 20 && <button className="btn outlined">View All</button>} */}
-        </div>
+        <div className="recently-purchased">
+          <div className="top">
+            <h2>Recently Released</h2>
+            {/* {albums && albums.length > 20 && <button className="btn outlined">View All</button>} */}
+          </div>
 
-        <div className="albums" className={`${albums && albums.length > 0 && 'album-grid'}`}>
-          {albums && albums.length > 0 ? albums?.map((album, index) => (
-            generateAlbumItem(album, index)
-          )) : (
-            <div className="no-results">
-              <h4>This artist currently has no recent releases. Please check back again later.</h4>
-            </div>
-          )}
+          <div className="albums" className={`${albums && albums.length > 0 && 'album-grid'}`}>
+            {albums && albums.length > 0 ? albums?.map((album, index) => (
+              generateAlbumItem(album, index)
+            )) : (
+              <div className="no-results">
+                <h4>This artist currently has no recent releases. Please check back again later.</h4>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div> : <div className="text-title">This Artist Could Not Be Found</div>
+      </div> : <div className="text-title">This Artist Could Not Be Found</div>
+      : <></>
   );
 }
 

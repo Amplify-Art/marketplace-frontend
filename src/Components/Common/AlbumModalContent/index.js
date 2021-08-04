@@ -116,7 +116,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
           </div>
           <div className="album-bottom" id="modalScrolling">
-            {albumInfo && albumInfo.songs?.map((song, index) => (
+            {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
             ))}
           </div>

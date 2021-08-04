@@ -283,6 +283,8 @@ function NewNFT(props) {
     }
     setShowCropper(false)
   };
+  console.log(songFiles, 'songFiles')
+
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
