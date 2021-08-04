@@ -292,7 +292,7 @@ function ArtistDashboard(props) {
           headline="Congrats, Your album is set to release!"
           buttons={[
             {
-              type: 'outlined',
+              type: 'solid go-home',
               text: 'Go Home',
               onClick: () => props.history.push('/')
             }

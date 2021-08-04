@@ -29,6 +29,9 @@
       color: #FFFFFF;
       margin-right: 10px;
       margin-bottom: 0px;
+      &.go-home {
+        padding: 10px 30px;
+      }
       &:last-child {
         margin-right: 0px;
       }
