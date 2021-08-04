@@ -71,6 +71,9 @@
 		}
 	}
 	.details-content {
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
 		.sub-content {
 			font-family: $space;
 			font-style: normal;
@@ -86,11 +89,6 @@
 		width: 115px;
 		height: 84px;
 		border-radius: 6px;
-		margin-bottom: 3%;
-		margin-top: 7%;
-		margin-left: 68%;
-		position: relative;
-		bottom: -195px;
 		.mint-text {
 			font-family: $space;
 			font-style: normal;

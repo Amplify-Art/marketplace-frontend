@@ -8,6 +8,7 @@
 	.left-wrapper {
 		padding: 5px 10px;
 		width: 50%;
+    position: relative;
 		.active-playlist {
 			text-align: center;
 			.active-playlist-btn {
@@ -94,6 +95,9 @@
 		}
 	}
 	.details-content {
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
 		.sub-content {
 			font-family: $space;
 			font-style: normal;
@@ -109,11 +113,9 @@
 		width: 115px;
 		height: 84px;
 		border-radius: 6px;
-		margin-bottom: 3%;
-		margin-top: 7%;
-		margin-left: 68%;
-		position: relative;
-		bottom: -195px;
+		position: absolute;
+		bottom: 0px;
+    right: 0px;
 		.mint-text {
 			font-family: $space;
 			font-style: normal;
