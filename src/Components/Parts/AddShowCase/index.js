@@ -55,7 +55,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase
             </div>
             <div className="row-wrap">
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
-              <div className="row-desc">{isPlayList ? nft.album && nft.album.description.substring(0,50) : nft.description.substring(0,50)}</div>
+              <div className="row-desc">{isPlayList ? nft.album && nft.album.description.substring(0,50) : nft.description.substring(0,50)}...</div>
             </div>
             <button className="add-btn" type="button" onClick={() => isPlayList ? addToPlaylist(nft) : onAddingShowcase(nft)}>{nft.currentOwner && nft.currentOwner.showcases?.find(f => f.user_id === user.id && nft.id === f.album_id) ? 'Remove' : 'Add'}</button>
           </div>
