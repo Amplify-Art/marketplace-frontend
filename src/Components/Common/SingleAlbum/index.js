@@ -10,6 +10,7 @@ function SingleAlbum(props) {
   const [isOpen, SetModalOpen] = useState(false);
   const [height, setHeight] = useState('');
   const [albumCover, setAlbumCover] = useState(cdCover);
+  const [showSticker, setShowSticker] = useState(false);
 
   const getHeight = () => {
     let width = '300';
@@ -71,7 +72,7 @@ function SingleAlbum(props) {
 
   useEffect(() => {
     // if this is rendered for playlist, we dont have cover for playlist, show CD cover
-    console.log(albumInfo, 'albumInfo12345')
+    
     if (isPlayList) {
       setAlbumCover(cdCover);
     }
@@ -82,6 +83,13 @@ function SingleAlbum(props) {
     } else {
       setAlbumCover(cdCover);
     }
+
+    if (albumInfo && albumInfo.token && albumInfo.token.is_owner) {
+      setShowSticker(false);
+    } else if (isMint && albumInfo && albumInfo.forSale !== false) {
+      setShowSticker(true);
+      console.log('albumInfoalbumInfoalbumInfo', albumInfo)
+    }
   }, [albumInfo]);
 
   return (
@@ -91,7 +99,7 @@ function SingleAlbum(props) {
           <div className="art-cover">
             <img src={albumCover} alt="cover image" />
           </div>
-          {isMint && albumInfo && albumInfo.forSale !== false && (
+          {showSticker && (
             <div className="mint-sticker">
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
               <span>Mint #<br />{albumInfo.copy_number || ((albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>

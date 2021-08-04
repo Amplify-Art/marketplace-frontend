@@ -161,7 +161,7 @@ function MyProfile(props) {
 
           <div className="albums" className="album-grid">
             {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type !== null).map((token, index) => (
-              generateAlbumItem({ token, copy_number: token.copy_number }, index)
+              generateAlbumItem({ token, copy_number: token.copy_number, hideSticker: true }, index)
             ))}
           </div>
         </div>
