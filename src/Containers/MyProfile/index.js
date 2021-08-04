@@ -83,7 +83,7 @@ function MyProfile(props) {
   const renderBtnContent = () => {
     return (
       <>
-        {!isPublicProfile && <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>}
+        {/* {!isPublicProfile && <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>} */}
         <div className="popup-container">
           {openSharePopup && <div className="popUp" >
             <a href='#' className="popup-div" style={{ paddingBottom: '16px' }} onClick={copyProfileLink}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>

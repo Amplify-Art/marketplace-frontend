@@ -84,6 +84,8 @@ function ArtistProfile(props) {
     }
   }
 
+  console.log('artist', artist)
+
   return (
     props.artist?.success ? <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
