@@ -12,17 +12,17 @@ import moment from 'moment';
 const songHeader = () => (
   <div className="songlist-header flex">
     <div className="header-title">Song Title | Mints owned
-      <img src={sortIcon} alt="" />
+      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="header-title">
       album
-      <img src={sortIcon} alt="" />
+      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="header-title">Artist
-      <img src={sortIcon} alt="" />
+      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="header-title">For sale
-      <img src={sortIcon} alt="" />
+      {/* <img src={sortIcon} alt="" /> */}
     </div>
   </div>
 )
