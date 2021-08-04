@@ -9,7 +9,11 @@ import UserAvatar from '../../Components/Common/UserAvatar/index';
 function Artists(props) {
   const {fetchArtists, artists} = props;
   useEffect(() => {
-    fetchArtists({});
+    fetchArtists({
+      params: {
+        'filter[type]': 'artist',
+      }
+    });
   }, []);
   return (
     <div id="artists-page" className="left-nav-pad right-player-pad">

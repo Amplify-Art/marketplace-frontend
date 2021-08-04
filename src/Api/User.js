@@ -99,7 +99,7 @@ export const getArtistById = (payload) => {
 
 export const getArtists = (payload) => {
   const id = payload.id
-  const url = makeUrl(`${API_ENDPOINT_URL}/users/?type=artist`, { ...(payload.params || {}) });
+  const url = makeUrl(`${API_ENDPOINT_URL}/users/`, { ...(payload.params || {}) });
   return axios.get(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`
