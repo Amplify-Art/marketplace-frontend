@@ -45,7 +45,7 @@ const Nominate = (props) => {
     if (!selected) return
     props.addNomination({
       nominee: selected.id
-    })
+    });
   }
   return (
     <div id="nominate-container">
