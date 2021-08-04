@@ -1,7 +1,7 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 import { addTokenTransfer, deleteTokenTransfer, getTokenTransferById, getTokenTransfers, updateTokenTransfer } from '../../Api/TokenTransfer';
 import * as types from '../../Constants/actions/TokenTransfer';
-import { SET_NOTIFICATION, SET_OVERLAY_LOADER, UNSET_OVERLAY_LOADER } from '../../Constants/actions/Global';
+import { SET_NOTIFICATION, SET_OVERLAY_LOADER, UNSET_OVERLAY_LOADER, SHOW_PURCHASE_MODAL } from '../../Constants/actions/Global';
 
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
@@ -43,13 +43,7 @@ export function* addTokenTransferSaga({ history }, { payload }) {
     yield all([
       put({ type: types.ADD_TOKENTRANSFER_SUCCESS, res }),
       put({ type: UNSET_OVERLAY_LOADER }),
-      put({
-        type: SET_NOTIFICATION,
-        payload: {
-          success: res.success,
-          message: res.success ? 'TokenTransfer added' : res.message || 'TokenTransfer not added',
-        },
-      }),
+      put({ type: SHOW_PURCHASE_MODAL })
     ]);
     // if (res && res.success && res.data && res.data.id && history) {
     //   history.push('/token_transfers');

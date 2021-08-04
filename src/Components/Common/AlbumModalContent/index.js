@@ -6,15 +6,17 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
+import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction'
 import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, history, showPurchaseModal, hidePurchaseModal }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -94,6 +96,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
+  const onClose = () => {
+    hidePurchaseModal();
+    history.push('/')
+  }
   return (
     <>
       <div id="albums-content">
@@ -147,13 +153,30 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
+      {showPurchaseModal && <GeneralModal
+        topIcon={playIcon}
+        headline="Thank You For Your Purchase!"
+        buttons={[
+          {
+            type: 'outlined',
+            text: 'Go Home',
+            onClick: () => onClose()
+          }
+        ]}
+        className="centered"
+      />}
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
   )
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
   return {
-    updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data))
+    showPurchaseModal: state.global && state.global.showPurchaseModal
   }
-})(AlbumModalContent)
+}, dispatch => {
+  return {
+    updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
+    hidePurchaseModal: () => dispatch(hidePurchaseModalAction())
+  }
+})(withRouter(AlbumModalContent))

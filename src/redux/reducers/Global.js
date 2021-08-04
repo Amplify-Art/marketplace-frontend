@@ -6,6 +6,7 @@ const initialState = {
   loading_overlay: false,
   isErrorPage: false,
   mobileMenu: false,
+  showPurchaseModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -34,6 +35,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         mobileMenu: !state.mobileMenu
+      }
+    case types.SHOW_PURCHASE_MODAL:
+      return {
+        ...state,
+        showPurchaseModal: true
+      }
+    case types.HIDE_PURCHASE_MODAL:
+      return {
+        ...state,
+        showPurchaseModal: false
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {

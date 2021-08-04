@@ -19,3 +19,11 @@ export const setIsErrorPage = () => ({
 export const unsetIsErrorPage = () => ({
   type: types.UNSET_IS_ERROR_PAGE
 })
+
+export const showPurchaseModalAction = () => ({
+  type: types.SHOW_PURCHASE_MODAL
+});
+
+export const hidePurchaseModalAction = () => ({
+  type: types.HIDE_PURCHASE_MODAL
+})
