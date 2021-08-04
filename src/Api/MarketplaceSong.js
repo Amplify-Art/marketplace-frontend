@@ -3,7 +3,7 @@ import { getAccessToken, makeUrl, axios } from './index.js';
 import { API_ENDPOINT_URL } from '../Constants/default.js';
 
 export const getMarketplaceSongs = (payload = {}) => {
-  const url = makeUrl(`${API_ENDPOINT_URL}/marketplacesongs/`, { ...(payload.params || {}) });
+  const url = makeUrl(`${API_ENDPOINT_URL}/marketplace/songs/`, { ...(payload.params || {}) });
 
   return axios.get(url, {
     headers: {
@@ -20,7 +20,7 @@ export const getMarketplaceSongs = (payload = {}) => {
 
 export const getMarketplaceSongById = (payload) => {
   const id = payload.id
-  const url = makeUrl(`${API_ENDPOINT_URL}/marketplacesongs/${id}`, { ...(payload.params || {}) });
+  const url = makeUrl(`${API_ENDPOINT_URL}/marketplace/songs/${id}`, { ...(payload.params || {}) });
   return axios.get(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`
@@ -35,7 +35,7 @@ export const getMarketplaceSongById = (payload) => {
 };
 
 export const addMarketplaceSong = (payload) => {
-  const url = `${API_ENDPOINT_URL}/marketplacesongs`;
+  const url = `${API_ENDPOINT_URL}/marketplace/songs`;
   return axios.post(url, payload, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -51,7 +51,7 @@ export const addMarketplaceSong = (payload) => {
 
 export const updateMarketplaceSong = (payload) => {
   const id = payload.id
-  const url = `${API_ENDPOINT_URL}/marketplacesongs/${id}`;
+  const url = `${API_ENDPOINT_URL}/marketplace/songs/${id}`;
   return axios.patch(url, payload, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -67,7 +67,7 @@ export const updateMarketplaceSong = (payload) => {
 
 export const deleteMarketplaceSong = (payload) => {
   const id = payload.id
-  const url = `${API_ENDPOINT_URL}/marketplacesongs/${id}`;
+  const url = `${API_ENDPOINT_URL}/marketplace/songs/${id}`;
   return axios.delete(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,

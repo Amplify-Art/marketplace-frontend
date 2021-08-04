@@ -18,7 +18,7 @@ function useDebounce(callback, delay) {
 const Nominate = (props) => {
   let [search, setSearch] = useState('')
   let [selected, setSelected] = useState(null)
-  let [nominateName,setNominateName] = useState('')
+  let [nominateName, setNominateName] = useState('')
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
@@ -29,7 +29,7 @@ const Nominate = (props) => {
   const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
   const onSearch = (e) => {
     const { value: nextValue } = e.target;
-    if(nominateName===''){
+    if (nominateName === '') {
       setSelected(null)
     }
     setNominateName(nextValue)
@@ -46,6 +46,7 @@ const Nominate = (props) => {
     props.addNomination({
       nominee: selected.id
     });
+    setNominateName('')
   }
   return (
     <div id="nominate-container">
@@ -73,7 +74,7 @@ const Nominate = (props) => {
               <div className="user-list" >
                 <div className="user-inner" id="modalScrolling">
                   {props.users.map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
-                  </div>
+                </div>
               </div>
             }
           </div>

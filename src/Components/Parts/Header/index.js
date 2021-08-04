@@ -105,7 +105,6 @@ function Header(props) {
 
   const onCreate = async () => {
     props.displayLoadingOverlay();
-    return
     const create = await createWallet()
     if (create.data.success) {
       localStorage.setItem('amplify_app_token', create.data.token)

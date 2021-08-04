@@ -85,6 +85,9 @@ function App(props) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.username);
+      if (!decodedToken.near_connected) {
+        toggleWalletSidebar(true)
+      }
     }
   }, []);
 
