@@ -11,6 +11,7 @@ function SingleAlbum(props) {
   const [height, setHeight] = useState('');
   const [albumCover, setAlbumCover] = useState(cdCover);
   const [showSticker, setShowSticker] = useState(false);
+  const [viewDetails, setViewDetails] = useState(false);
 
   const getHeight = () => {
     let width = '300';
@@ -25,7 +26,10 @@ function SingleAlbum(props) {
 
   const handleModal = () => { SetModalOpen(true) }
 
-  const handleCloseModal = () => { SetModalOpen(false) }
+  const handleCloseModal = () => {
+    SetModalOpen(false)
+    setViewDetails(false)
+  }
 
   const checkImage = (url) => {
     console.log('CALL2')
@@ -72,7 +76,7 @@ function SingleAlbum(props) {
 
   useEffect(() => {
     // if this is rendered for playlist, we dont have cover for playlist, show CD cover
-    
+
     if (isPlayList) {
       setAlbumCover(cdCover);
     }
@@ -88,7 +92,6 @@ function SingleAlbum(props) {
       setShowSticker(false);
     } else if (isMint && albumInfo && albumInfo.forSale !== false) {
       setShowSticker(true);
-      console.log('albumInfoalbumInfoalbumInfo', albumInfo)
     }
   }, [albumInfo]);
 
@@ -116,7 +119,7 @@ function SingleAlbum(props) {
           )
         }
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} />} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }

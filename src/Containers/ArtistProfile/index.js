@@ -93,9 +93,6 @@ function ArtistProfile(props) {
       })
     }
   }
-
-  console.log('artist', artistFound, props.artist)
-
   return (
     artistFound ?
       props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className="left-nav-pad right-player-pad">
