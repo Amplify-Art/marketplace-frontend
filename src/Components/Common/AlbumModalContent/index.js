@@ -83,14 +83,17 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
 
 
 
-  const handleCloseModal = () => { setSongModal(false) }
+  const handleCloseModal = () => {
+    setSongModal(false);
+    setViewDetails(false);
+  }
 
   const addToPlaylist = async () => {
     updateCurrentPlaylist(albumInfo.songs)
     const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
   }
-  const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`)
+  const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
   return (
     <>
