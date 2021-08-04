@@ -12,7 +12,7 @@ function SecondaryMarketplace(props) {
       <div className="container">
         {songs && songs.length > 0 ? <SongList songList={songs} /> : (
           <div>
-            <h4 className="large-white">No songs are currently for sale</h4>
+            <h4 className="large-white center-text">No songs are currently for sale</h4>
           </div>
         )}
       </div>

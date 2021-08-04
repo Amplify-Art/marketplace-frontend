@@ -167,7 +167,7 @@ function MyProfile(props) {
         </div>
         :
         !props.loading ?
-          <span>No items to show</span>
+          <h4 className="large-white center-text">No items to show</h4>
           : null
       }
     </div>
