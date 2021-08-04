@@ -55,7 +55,10 @@ function ArtistProfile(props) {
     props.fetchArtist(payload);
     props.fetchNFTs({
       is_purchased: false,
-      user_id: props.match.params.slug
+      user_id: props.match.params.slug,
+      params: {
+        'filter[type]': 'album',
+      }
     });
   }, []);
 
