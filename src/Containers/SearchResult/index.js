@@ -17,11 +17,10 @@ function SearchResult(props) {
   const albumDetailRender = (albumNo) => (
     albumsData.map((album, index) => albumNo === index && (
       <div className="album-detail">
-        {console.log('album', album)}
         <div>{album.title}</div>
-        <div>{album.artist || "Imagine Dragons"}</div>
-        <div>{album.Releases || album.own || "You Own: #9"}</div>
-      </div>
+        <div>{album.user && album.user.name}</div>
+        <div>{album.mints_owned.length ? `You Own: ${album.mints_owned.map(m => '#' + m).join(',')}` : ''}</div>
+      </div >
     ))
   )
 

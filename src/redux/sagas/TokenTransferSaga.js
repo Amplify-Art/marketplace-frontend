@@ -40,6 +40,12 @@ export function* addTokenTransferSaga({ history }, { payload }) {
       put({ type: SET_OVERLAY_LOADER }),
     ])
     const res = yield call(addTokenTransfer, payload);
+    console.log(res, 'RES')
+    if (!res.success) {
+      throw {
+        message: res.message
+      }
+    }
     yield all([
       put({ type: types.ADD_TOKENTRANSFER_SUCCESS, res }),
       put({ type: UNSET_OVERLAY_LOADER }),
@@ -49,6 +55,7 @@ export function* addTokenTransferSaga({ history }, { payload }) {
     //   history.push('/token_transfers');
     // }
   } catch (error) {
+    console.log(error);
     yield all([
       put({ type: UNSET_OVERLAY_LOADER }),
       put({ type: types.ADD_TOKENTRANSFER_FAILED, error }),

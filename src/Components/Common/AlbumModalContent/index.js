@@ -100,6 +100,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     hidePurchaseModal();
     history.push('/')
   }
+  console.log(albumInfo, 'albumInfo')
   return (
     <>
       <div id="albums-content">
