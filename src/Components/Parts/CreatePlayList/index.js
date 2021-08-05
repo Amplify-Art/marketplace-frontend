@@ -50,7 +50,11 @@ function CreatePlayList(props) {
   }
 
   useEffect(() => {
-    props.fetchSongs();
+    props.fetchSongs({
+      params: {
+        related: 'album'
+      }
+    });
   }, []);
   return (
     <div id="create-playlist">
@@ -91,6 +95,6 @@ export default connect(state => {
 }, dispatch => {
   return {
     addPlaylist: (data) => dispatch(addPlaylistAction(data)),
-    fetchSongs: () => dispatch(fetchSongsAction())
+    fetchSongs: (data) => dispatch(fetchSongsAction(data))
   }
 })(withRouter(CreatePlayList));

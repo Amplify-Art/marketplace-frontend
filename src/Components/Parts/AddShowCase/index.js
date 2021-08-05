@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import './AddShowCase.scss';
 import CDImg from '../../../assets/images/cd-img.svg';
 
-function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase, setFetchShowCases, fetchShowCases }) {
+function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addShowcase, isFetchingNFts, toggleShowCaseModal, isPlayList, addToPlaylist, updateShowcase, setFetchShowCases, fetchShowCases }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
@@ -45,10 +45,16 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase
     }
   }
   console.log(selectedSongs, 'selectedSongs')
+  let data = []
+  if (isPlayList) {
+    data = songs
+  } else {
+    data = nfts
+  }
   return (
     <div id="addshowcase">
       <div class="scrollbar" id="style-4">
-        {nfts && nfts.length > 0 ? nfts.map((nft, item) => (
+        {data && data.length > 0 ? data.map((nft, item) => (
           <div className="row">
             <div className="playlist-cover-holder">
               <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
@@ -56,7 +62,7 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase
             </div>
             <div className="row-wrap">
               <div className="row-title">{isPlayList ? nft && nft.title : nft.title}</div>
-              <div className="row-desc">{isPlayList ? nft.album && nft.album.description.substring(0, 50) : nft.description.substring(0, 50)}...</div>
+              <div className="row-desc">{isPlayList ? nft.album && nft.album.description && nft.album.description.substring(0, 50) : nft.description && nft.description.substring(0, 50)}...</div>
             </div>
             {/* Button for playlist  */}
             {isPlayList && <button className="add-btn" type="button" onClick={() => addToPlaylist(nft)}>{selectedSongs.map(i => i.id).includes(nft.id) ? 'Remove' : 'Add'}</button>}
@@ -79,7 +85,8 @@ function AddShowCase({ showCaseData, fetchNFTs, nfts, selectedSongs, addShowcase
 export default connect(state => {
   return {
     nfts: state.nfts.nfts,
-    isFetchingNFts: state.nfts.loading
+    songs: state.songs.songs,
+    isFetchingNFts: state.nfts.loading || state.songs.loading
   }
 }, dispatch => {
   return {
