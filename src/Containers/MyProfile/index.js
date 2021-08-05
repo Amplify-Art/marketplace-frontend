@@ -110,7 +110,7 @@ function MyProfile(props) {
 
       props.fetchTokenTransfers({
         params: {
-          type: 'album_bundle',
+          'filter[type]': 'album_bundle',
           related: 'album.songs',
           orderBy: '-id',
           'filter[transfer_to]': userId
@@ -126,7 +126,7 @@ function MyProfile(props) {
 
       props.fetchTokenTransfers({
         params: {
-          type: 'album_bundle',
+          'filter[type]': 'album_bundle',
           related: 'album.songs',
           orderBy: '-id',
           'filter[transfer_to]': decodedToken.id

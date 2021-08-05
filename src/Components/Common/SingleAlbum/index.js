@@ -94,7 +94,7 @@ function SingleAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-
+  console.log(albumInfo, 'album')
   return (
     <>
       <div className="single-album" onClick={handleModal}>
@@ -105,7 +105,7 @@ function SingleAlbum(props) {
           {showSticker && (
             <div className="mint-sticker">
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
-              <span>Mint #<br />{albumInfo.copy_number || ((albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>
+              <span>Mint #<br />{albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>
             </div>
           )}
         </div>
@@ -119,7 +119,7 @@ function SingleAlbum(props) {
           )
         }
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} />} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }
