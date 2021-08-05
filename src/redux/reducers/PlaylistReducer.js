@@ -95,6 +95,7 @@ export default function (state = initialState, action) {
         playlists: [action.res.data, ...state.playlists],
         status: action.res.success,
         loading: false,
+        total: state.total + 1
       };
     case types.ADD_PLAYLIST_FAILED:
       return {

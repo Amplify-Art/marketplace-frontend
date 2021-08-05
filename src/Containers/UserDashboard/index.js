@@ -32,7 +32,8 @@ function UserDashboard(props) {
   useEffect(() => {
     props.fetchPlaylists({
       params: {
-        related: 'songs.album'
+        related: 'songs.album',
+        orderBy: '-id'
       }
     });
     props.fetchFollowers({
