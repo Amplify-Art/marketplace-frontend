@@ -97,7 +97,7 @@ function SongList(props) {
 
               <div onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
               <div onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
-              <div onClick={() => expandSongList(index)}>{songData.available_qty} / {songData.qty} {' '} Available</div>
+              <div onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
             </div>
             <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid})` }}>
               <div className="copy">
