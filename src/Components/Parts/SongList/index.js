@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PaymentForm from './Parts/paymentForm';
 import sortIcon from '../../../assets/images/Sort.svg';
 import playProgress from '../../../assets/images/play_progress.svg';
+import pauseIcon from '../../../assets/images/pause_icon.svg';
 import playBtn from '../../../assets/images/play_btn.svg';
 import SongLength from '../../Common/SongLength/index';
 import GeneralModal from '../../Common/GeneralModal/index';
@@ -87,7 +88,7 @@ function SongList(props) {
             <div className="play-song flex">
               <div className="flex">
                 <div className="song-icon cursor-pointer">
-                  <img src={playing && currentIndex === songData.song_cid ? playProgress : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
+                  <img src={playing ? pauseIcon : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
                   {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>
