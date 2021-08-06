@@ -19,6 +19,7 @@ import ToolTipIcon from '../../../assets/images/infoicon.svg';
 import { getAccessToken } from '../../../Api/index';
 import jwt from 'jsonwebtoken';
 import dataURItoBlob from '../../../Utils/covert';
+import _ from 'lodash';
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
@@ -55,13 +56,15 @@ function NewNFT(props) {
       console.error(error)
     });
     if (type === 'song') {
-      // let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
-      // console.log([...songFilesClone], 'HERE')
       file.uploaded = true
       file.is_uploading = false
       file.hash = mintSong.data.IpfsHash
-      // songFilesClone.push(file)
-      // setSongFiles([...songFilesClone, {...JSON.parse(file.toString())}])
+      // sometimes event does not give 100%
+      file.progress = 100
+      let songFilesClone = [...songFiles]
+      const index = songFiles.findIndex(f => f.name === file.name)
+      songFilesClone.splice(index, 1, Object.assign({}, file))
+      setSongFiles(_.uniqBy(songFilesClone, 'name'))
     } else {
       setAlbumCover(mintSong.data.IpfsHash)
     }
@@ -70,8 +73,7 @@ function NewNFT(props) {
   const onUploadProgress = (progressEvent, file, type) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
     file.progress = percentCompleted
-    if (percentCompleted === 100) {
-      setAlbumUploadingIndex(percentCompleted)
+    if (percentCompleted === 100 && type === 'song') {
       setIsUploading(false)
       customError.songFiles = null
       return
@@ -80,9 +82,11 @@ function NewNFT(props) {
       setAlbumUploadingIndex(percentCompleted)
     } else {
       file.progress = percentCompleted
-      let songFilesClone = [...songFiles.filter(f => f.title !== file.title)]
-      // songFilesClone.push(file)
-      setSongFiles([...songFilesClone, JSON.parse(file.toString())])
+      let songFilesClone = [...songFiles]
+      // to have the order persistant while changing upload progress
+      const index = songFiles.findIndex(f => f.name === file.name)
+      songFilesClone.splice(index, 1, Object.assign({}, file))
+      setSongFiles(_.uniqBy(songFilesClone, 'name'))
     }
   }
   const onSubmit = async (data) => {
@@ -184,11 +188,12 @@ function NewNFT(props) {
   }, [acceptedFiles]);
 
   useEffect(() => {
-    let notUploaded = songFiles.find(file => !file.uploaded && !file.is_uploading)
-    if (notUploaded) {
-      uploadFile(notUploaded, 'song')
+    let clones = [...songFiles]
+    let notUploadedSongs = clones.filter(file => !file.is_uploading)
+    if (notUploadedSongs.length) {
+      notUploadedSongs.map(song => uploadFile(song, 'song'))
     }
-  }, [songFiles])
+  }, [songFiles.length])
 
   const removeSongFromUploads = (index) => {
     const newSongSet = songFiles.splice(index, 1);
@@ -231,7 +236,7 @@ function NewNFT(props) {
   const DragHandle = SortableHandle(() => <span className="drag">::</span>);
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
-      <div className="single-song" tabIndex={0} >
+      <div className="single-song" tabIndex={songIndex} >
         <DragHandle />
         <div className="left">
           <div className="track">
@@ -283,8 +288,6 @@ function NewNFT(props) {
     }
     setShowCropper(false)
   };
-  console.log(songFiles, 'songFiles')
-
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
