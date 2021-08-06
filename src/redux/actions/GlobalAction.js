@@ -27,3 +27,11 @@ export const showPurchaseModalAction = () => ({
 export const hidePurchaseModalAction = () => ({
   type: types.HIDE_PURCHASE_MODAL
 })
+
+export const showWalletAction = () => ({
+  type: types.SHOW_WALLET
+});
+
+export const hideWalletAction = () => ({
+  type: types.HIDE_WALLET
+})

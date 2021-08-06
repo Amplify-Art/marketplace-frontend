@@ -24,7 +24,7 @@ function Player(props) {
       setIsShow(true)
   }, [])
 
-  const { avatar, toggleWalletSidebar, currentPlaylists } = props;
+  const { avatar, toggleWalletSidebar, currentPlaylists, showWallet } = props;
 
   const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
@@ -46,17 +46,16 @@ function Player(props) {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setSongIndex(0)
     togglePlay(false)
     audioElement.currentTime = 0
     audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
     requestAnimationFrame(updateBar);
-  },[currentPlaylists])
+  }, [currentPlaylists])
 
 
-  audioElement.onended=function()
-  {
+  audioElement.onended = function () {
     togglePlay(true)
     nextSong()
   }
@@ -106,7 +105,7 @@ function Player(props) {
         <div className="over">
           <div className="top-icons">
             <div className="bell"><img src={BellIcon} alt="Bell" /></div>
-            <div className="wallet" onClick={() => toggleWalletSidebar()}><img src={Wallet} alt="wallet" /></div>
+            <div className="wallet" onClick={() => toggleWalletSidebar(!showWallet)}><img src={Wallet} alt="wallet" /></div>
             <div className="user">
               <img src={avatar} />
             </div>
@@ -173,7 +172,7 @@ function Player(props) {
         {/* {
             <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
         } */}
-        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}` })` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`})` }} />
       </div>
     )
 
@@ -182,6 +181,7 @@ function Player(props) {
 
 export default connect(state => {
   return {
+    showWallet: state.global.showWallet,
     currentPlaylists: state.playlists.current_playlists
   }
 })(Player);

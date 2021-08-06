@@ -43,6 +43,7 @@ import GloablLoader from './Components/Common/Loading/index';
 
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
+import { showWalletAction, hideWalletAction } from './redux/actions/GlobalAction'
 
 function App(props) {
   let history = useHistory();
@@ -53,7 +54,7 @@ function App(props) {
   const [bannerImage, setBannerImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [userName, setUserName] = useState('');
-  const [showWalletSidebar, toggleWalletSidebar] = useState(false);
+  // const [showWalletSidebar, toggleWalletSidebar] = useState(true);
   const user = localStorage.getItem('amplify_app_token')
   useEffect(() => {
     setPath(location.pathname);
@@ -90,12 +91,19 @@ function App(props) {
       }
     }
   }, []);
-
+  const toggleWalletSidebar = (bool) => {
+    console.log(bool)
+    if (bool) {
+      props.showWallet()
+    } else {
+      props.hideWallet()
+    }
+  }
   return (
     <>
       <GloablLoader >
         <ReactNotification />
-        <Header path={path} showWalletSidebar={showWalletSidebar} toggleWalletSidebar={toggleWalletSidebar} />
+        <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
         {showLeftSidebar && <MainSideNav toggleWalletSidebar={toggleWalletSidebar} showMobileMenu={props.showMobileMenu} />}
         <Switch>
@@ -136,6 +144,8 @@ export default connect(state => {
   }
 }, dispatch => {
   return {
+    showWallet: () => dispatch(showWalletAction()),
+    hideWallet: () => dispatch(hideWalletAction()),
     clearCurrentPlayList: () => dispatch(playListAction.clearCurrentPlayList()),
   }
 })(App);

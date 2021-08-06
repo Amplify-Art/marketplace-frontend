@@ -262,7 +262,11 @@ function Header(props) {
   );
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+  return {
+    showWalletSidebar: state.global.showWallet
+  }
+}, dispatch => {
   return {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),

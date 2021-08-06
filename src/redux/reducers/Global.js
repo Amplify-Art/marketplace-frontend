@@ -7,6 +7,7 @@ const initialState = {
   isErrorPage: false,
   mobileMenu: false,
   showPurchaseModal: false,
+  showWallet: false,
 };
 
 export default function (state = initialState, action) {
@@ -45,6 +46,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showPurchaseModal: false
+      }
+    case types.SHOW_WALLET:
+      return {
+        ...state,
+        showWallet: true
+      }
+    case types.HIDE_WALLET:
+      return {
+        ...state,
+        showWallet: false
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {
