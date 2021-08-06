@@ -87,12 +87,14 @@ function SingleAlbum(props) {
     } else {
       setAlbumCover(cdCover);
     }
-
-    if (albumInfo && albumInfo.token && albumInfo.token.is_owner) {
+    if (props.albumInfo.hideSticker) {
       setShowSticker(false);
-    } else if (isMint && albumInfo && albumInfo.forSale !== false) {
-      setShowSticker(true);
-    }
+    } else
+      if (albumInfo && albumInfo.token && albumInfo.token.is_owner) {
+        setShowSticker(false);
+      } else if (isMint && albumInfo && albumInfo.forSale !== false) {
+        setShowSticker(true);
+      }
   }, [albumInfo]);
   return (
     <>
