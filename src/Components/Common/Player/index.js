@@ -104,7 +104,7 @@ function Player(props) {
       <div id="amplify-player" className={`amplify-player ${isExpanded && 'full'}`}>
         <div className="over">
           <div className="top-icons">
-            <div className="bell"><img src={BellIcon} alt="Bell" /></div>
+            {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
             <div className="wallet" onClick={() => toggleWalletSidebar(!showWallet)}><img src={Wallet} alt="wallet" /></div>
             <div className="user">
               <img src={avatar} />
