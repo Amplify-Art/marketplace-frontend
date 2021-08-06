@@ -15,7 +15,8 @@ import { fetchUserAction } from '../../redux/actions/UserAction';
 import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
-
+import GeneralModal from '../../Components/Common/GeneralModal/index';
+import PurchasedSongs from '../../Components/Parts/PurchasedSongs';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
 import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
@@ -33,10 +34,13 @@ function MyProfile(props) {
   const decodedToken = jwt_decode(token);
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum key={index} albumInfo={nft} />
+      <SingleAlbum key={index} albumInfo={nft} onClick={() => onClick(nft)} />
     );
   }
 
+  const onClick = (nft) => {
+    console.log(nft, 'DDF')
+  }
   const ArtistData = {
     cover: bannerImage,
     avatar: profileImage,
@@ -169,6 +173,17 @@ function MyProfile(props) {
         !props.loading ?
           <h4 className="large-white center-text">No items to show</h4>
           : null
+      }
+      {false && <GeneralModal
+        // headline="Create New Playlist"
+        bodyChildren={<PurchasedSongs
+        // showCaseData={showCaseData}
+        // togglePlayListModal={togglePlayListModal}
+        />}
+        contentClassName="playlist-modal"
+        // closeModal={() => togglePlayListModal(!showPlayListModal)}
+        isCloseButton={true}
+      />
       }
     </div>
   );

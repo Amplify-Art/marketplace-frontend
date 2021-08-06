@@ -1,0 +1,89 @@
+.holder.playlist-modal {
+    width: 500px;
+    .album-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .right {
+            font-family: Space Grotesk;
+            font-style: normal;
+            font-weight: normal;
+            .large-text {
+                font-size: 24px;
+                line-height: 31px;
+                color: #000000;
+            }
+            .small-text {
+                font-size: 16px;
+                line-height: 20px;
+            }
+        }
+    }
+    #create-playlist {
+        .purchase {
+            display: flex;
+            width: 100%;
+            ul {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                li {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    list-style: none;
+                    justify-content: space-around;
+                }
+            }
+        }
+        .playlist-CD {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .case-box {
+                margin-left: 30px;
+            }
+            .case-wrapper {
+                background-repeat: no-repeat;
+                background: url("../../../assets/images/case-transparent.png");
+                background-size: cover;
+                img {
+                    width: 84%;
+                    padding-left: 19px;
+                    padding-top: 3px;
+                }
+            }
+            ul {
+                padding: 0;
+                list-style: none;
+                width: 80%;
+                margin-left: 10px;
+                .remove {
+                    padding: 2px;
+                    font-size: 10px;
+                    width: 50px;
+                    float: right;
+                }
+                div {
+                    padding: 6px 20px;
+                    &:first-child {
+                        background: rgba(196, 196, 196, 0.3);
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+        .btn-wrap {
+            text-align: center;
+            cursor: pointer;
+            button {
+                padding: 10px 20px;
+            }
+            input {
+                min-width: 155px;
+                margin-top: 0px;
+            }
+        }
+    }
+}

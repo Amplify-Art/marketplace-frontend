@@ -94,10 +94,9 @@ function SingleAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-  console.log(albumInfo, 'album')
   return (
     <>
-      <div className="single-album" onClick={handleModal}>
+      <div className="single-album" onClick={props.onClick ? props.onClick : handleModal}>
         <div className="cd-case" style={{ height: `${height}px` }}>
           <div className="art-cover">
             <img src={albumCover} alt="cover image" />
