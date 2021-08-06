@@ -117,7 +117,7 @@ function App(props) {
           <Route path="/support-card" exact component={SupportCard} />
           <Route path='/nominate' exact component={Nominate} />
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
-          <Route path="/search-result" exact component={SearchResult} />
+          <Route path="/search-result" exact render={() => (<SearchResult playerActive={props && props.currentPlaylists.length > 0} />)} />
           <Route component={PageNotFound} />
         </Switch>
         {props.currentPlaylists.length ? <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} /> : null}

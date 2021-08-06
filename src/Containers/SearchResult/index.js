@@ -25,7 +25,7 @@ function SearchResult(props) {
   )
 
   return (
-    <div className="container search-result left-nav-pad right-player-pad">
+    <div className={`container search-result left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div>
         <div className="album-title">Album results</div>
         {albumsData && albumsData.length ? <div className="" id="search-album">
