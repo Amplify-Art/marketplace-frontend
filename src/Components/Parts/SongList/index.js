@@ -77,7 +77,7 @@ function SongList(props) {
     };
   }, [playing, audio]);
 
-  console.log('songList', songList);
+  console.log('songList', currentIndex);
 
   return (
     <div className="song-list">
@@ -88,7 +88,7 @@ function SongList(props) {
             <div className="play-song flex">
               <div className="flex">
                 <div className="song-icon cursor-pointer">
-                  <img src={playing ? pauseIcon : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
+                  <img src={playing && songData.song_cid === currentIndex ? pauseIcon : playBtn} alt="" onClick={(id) => handleAudio(songData.song_cid)} />
                   {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>

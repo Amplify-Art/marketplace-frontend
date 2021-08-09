@@ -27,7 +27,7 @@ function NewNFT(props) {
   const [albumCoverPreview, setAlbumCoverPreview] = useState(null);
   const [customError, setCustomError] = useState({});
   const [songFiles, setSongFiles] = useState([]);
-  const [focusedInputIndex, setFocusedInputIndex] = useState(0);
+  const [focusedInputIndex, setFocusedInputIndex] = useState(-1);
   const [image, setImage] = useState('https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg');
   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState();
@@ -182,7 +182,7 @@ function NewNFT(props) {
       delete customError.songFiles;
     }
     // when next file is added, input focus should be to this song title
-    if (!acceptedFiles.length) {
+    if (acceptedFiles.length) {
       setFocusedInputIndex(focusedInputIndex + 1);
     }
   }, [acceptedFiles]);
