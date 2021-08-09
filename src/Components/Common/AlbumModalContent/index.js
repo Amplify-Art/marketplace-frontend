@@ -100,7 +100,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     hidePurchaseModal();
     history.push('/')
   }
-  console.log(albumInfo, 'albumInfo')
+  const zeroPad = (num, places) => String(num).padStart(places, '0')
+
   return (
     <>
       <div id="albums-content">
@@ -143,7 +144,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
             <div className="memory-card">
               <div className="mint-text">Mint</div>
-              <div className="mint-number">001</div>
+              <div className="mint-number">{zeroPad(albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1), 3)}</div>
             </div>
           </div>
         }

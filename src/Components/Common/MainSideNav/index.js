@@ -29,7 +29,7 @@ function MainSideNav(props) {
         {user && user.type === 'artist' &&
           <>
             <li className="nav-header">Artist</li>
-            <li><a href="/artist-dashboard">Dashboard</a></li>
+            <li><NavLink to="/artist-dashboard">Dashboard</NavLink></li>
           </>
         }
       </ul>
