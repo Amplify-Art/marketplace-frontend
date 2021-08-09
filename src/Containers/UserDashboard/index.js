@@ -33,7 +33,8 @@ function UserDashboard(props) {
     props.fetchPlaylists({
       params: {
         related: 'songs.album',
-        orderBy: '-id'
+        orderBy: '-id',
+        'filter[user_id]': token.id
       }
     });
     props.fetchFollowers({
