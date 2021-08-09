@@ -154,7 +154,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      {showPurchaseModal && <GeneralModal
+      {!showPurchaseModal && <GeneralModal
         topIcon={playIcon}
         headline="Thank You For Your Purchase!"
         buttons={[
@@ -164,7 +164,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             onClick: () => onClose()
           }
         ]}
-        className="centered"
+        className="centered white-small"
       />}
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>

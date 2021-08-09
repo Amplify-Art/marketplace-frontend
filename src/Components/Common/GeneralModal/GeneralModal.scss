@@ -1,6 +1,16 @@
 @import "../../../assets/SCSS/Vars.scss";
 
 #general-modal {
+  .white-small {
+    .holder {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+      z-index: 999;
+      width: 400px;
+    }
+  }
   .holder {
     h5 {
       font-size: 24px;
