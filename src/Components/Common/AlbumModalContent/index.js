@@ -154,7 +154,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      {!showPurchaseModal && <GeneralModal
+      {showPurchaseModal && <GeneralModal
         topIcon={playIcon}
         headline="Thank You For Your Purchase!"
         buttons={[
