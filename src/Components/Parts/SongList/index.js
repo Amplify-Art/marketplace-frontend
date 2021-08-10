@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PaymentForm from './Parts/paymentForm';
 import sortIcon from '../../../assets/images/Sort.svg';
 import playProgress from '../../../assets/images/play_progress.svg';
@@ -9,6 +9,7 @@ import SongLength from '../../Common/SongLength/index';
 import GeneralModal from '../../Common/GeneralModal/index';
 import './SongList.scss';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
 const songHeader = () => (
   <div className="songlist-header flex">
@@ -30,7 +31,8 @@ const songHeader = () => (
 function SongList(props) {
   const { songList } = props;
   const [playing, setPlaying] = useState(false);
-  const [audio, setAudioSong] = useState(new Audio(''));
+  let audio = useRef();
+  // const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [showBuyModal, toggleBuyModal] = useState(false);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
@@ -40,44 +42,62 @@ function SongList(props) {
   }
 
   const handleAudio = (songId) => {
-    setAudioSong(new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songId}`))
-    if (playing && currentIndex !== songId) {
-      audio.pause()
-      audio.currentTime = 0;
+    if (!playing) {
+      audio.current = new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songId}`)
+      audio.current.currentTime = 0;
+      setCurrentIndex(songId)
+      setPlaying(true)
+    }
+    else if (playing && currentIndex !== songId) {
+      audio.current.pause()
+      audio.current = new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songId}`)
+      audio.current.currentTime = 0;
       setCurrentIndex(songId)
       setPlaying(true)
     } else if (!playing && currentIndex === -1) {
       setCurrentIndex(songId)
       setPlaying(true)
     } else {
-      audio.pause()
-      audio.currentTime = 0;
-      setAudioSong(new Audio(''))
+      audio.current.pause()
+      audio.current.currentTime = 0;
+      audio.current = new Audio(``)
+      // setAudioSong(new Audio(''))
       setCurrentIndex(-1)
       setPlaying(false)
     }
   }
   useEffect(() => {
-    playing ? audio.play() : audio.pause()
+    if (audio.current)
+      playing ? audio.current.play() : audio.current.pause()
   }, [audio, playing, currentIndex]);
 
   useEffect(() => {
-    audio.addEventListener("ended", () => {
-      setAudioSong(new Audio(''))
-      setCurrentIndex(-1)
-      setPlaying(false)
-    });
-
-    return () => {
-      audio.removeEventListener("ended", () => {
-        setAudioSong(new Audio(''))
+    if (audio.current)
+      audio.current.addEventListener("ended", () => {
+        audio.current = new Audio(``)
+        // setAudioSong(new Audio(''))
         setCurrentIndex(-1)
         setPlaying(false)
       });
+
+    return () => {
+      if (audio.current)
+        audio.current.removeEventListener("ended", () => {
+          audio.current = new Audio(``)
+          // setAudioSong(new Audio(''))
+          setCurrentIndex(-1)
+          setPlaying(false)
+        });
     };
   }, [playing, audio]);
 
-  console.log('songList', currentIndex);
+  useEffect(() => {
+    return () => {
+      if (audio.current) {
+        audio.current.pause()
+      }
+    }
+  }, [props.history.location])
 
   return (
     <div className="song-list">
@@ -151,4 +171,4 @@ function SongList(props) {
     </div>
   )
 }
-export default SongList;
+export default withRouter(SongList);

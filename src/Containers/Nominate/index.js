@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { fetchUsersAction } from '../../redux/actions/UserAction'
 import { addNominationAction } from '../../redux/actions/NominationAction'
 import _ from 'lodash';
+import jwt from 'jsonwebtoken'
 
 function useDebounce(callback, delay) {
   const debouncedFn = useCallback(
@@ -19,6 +20,8 @@ const Nominate = (props) => {
   let [search, setSearch] = useState('')
   let [selected, setSelected] = useState(null)
   let [nominateName, setNominateName] = useState('')
+  let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
+
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
@@ -73,7 +76,7 @@ const Nominate = (props) => {
             {search && !selected &&
               <div className="user-list" >
                 <div className="user-inner" id="modalScrolling">
-                  {props.users.map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
+                  {props.users.filter(f => f.id !== currentUser.id).map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
                 </div>
               </div>
             }
