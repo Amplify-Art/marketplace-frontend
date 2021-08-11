@@ -25,6 +25,7 @@ function MainSideNav(props) {
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
         <li><NavLink to="/nominate" activeClassName="current">Nominate</NavLink></li>
         <li onClick={toggleWalletSidebar}><span>Wallet</span></li>
+        <li ><a href={`https://buy-staging.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">buy more NEAR</a></li>
         <li><NavLink to="/logout">Logout</NavLink></li>
         {user && user.type === 'artist' &&
           <>
