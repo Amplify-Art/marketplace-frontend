@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addSong, deleteSong, getSongById, getSongs, updateSong} from '../../Api/Song';
+import { addSong, deleteSong, getSongById, getSongs, updateSong, buySong } from '../../Api/Song';
 import * as types from '../../Constants/actions/Song';
 import { SET_NOTIFICATION } from '../../Constants/actions/Global';
 
@@ -10,6 +10,7 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_SONG_REQUEST, addSongSaga, context);
   yield takeLatest(types.UPDATE_SONG_REQUEST, updateSongSaga, context);
   yield takeLatest(types.DELETE_SONG_REQUEST, deleteSongSaga);
+  yield takeLatest(types.BUY_SONG_REQUEST, buySongSaga, context);
 }
 
 export function* fetchSongsSaga({ payload }) {
@@ -83,6 +84,34 @@ export function* updateSongSaga({ history }, { payload }) {
   } catch (error) {
     yield all([
       put({ type: types.UPDATE_SONG_FAILED, error }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* buySongSaga({ history }, { payload }) {
+  try {
+    const res = yield call(buySong, payload);
+    yield all([
+      put({ type: types.BUY_SONG_SUCCESS, res }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: res.success,
+          message: res.success ? 'Song updated' : res.message || 'Song not updated',
+        },
+      }),
+    ]);
+  } catch (error) {
+    console.log(error)
+    yield all([
+      put({ type: types.BUY_SONG_FAILED, error }),
       put({
         type: SET_NOTIFICATION,
         payload: {

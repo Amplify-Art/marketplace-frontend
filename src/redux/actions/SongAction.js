@@ -20,8 +20,22 @@ export const updateSongAction = payload => ({
   payload,
 });
 
+export const buySongAction = payload => ({
+  type: types.BUY_SONG_REQUEST,
+  payload,
+});
 
 export const deleteSongAction = payload => ({
   type: types.DELETE_SONG_REQUEST,
+  payload,
+});
+
+export const showBuyModalAction = payload => ({
+  type: types.SHOW_BUY_MODAL,
+  payload,
+});
+
+export const hideBuyModalAction = payload => ({
+  type: types.HIDE_BUY_MODAL,
   payload,
 });

@@ -10,6 +10,8 @@ import GeneralModal from '../../Common/GeneralModal/index';
 import './SongList.scss';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { buySongAction, showBuyModalAction, hideBuyModalAction } from '../../../redux/actions/SongAction'
 
 const songHeader = () => (
   <div className="songlist-header flex">
@@ -34,7 +36,7 @@ function SongList(props) {
   let audio = useRef();
   // const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [showBuyModal, toggleBuyModal] = useState(false);
+  const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
 
   const expandSongList = (index) => {
@@ -98,7 +100,16 @@ function SongList(props) {
       }
     }
   }, [props.history.location])
-
+  const onBuy = () => {
+    props.buySong({
+      id: buyingSong.id,
+      price: buyingSong.bidding_price
+    })
+  }
+  const onModalChange = (song) => {
+    props.showBuyModal()
+    setBuyingSong(song)
+  }
   return (
     <div className="song-list">
       {songHeader()}
@@ -136,14 +147,14 @@ function SongList(props) {
                       <div className="mint">#{transfer && transfer.copy_number}</div>
                       <div className="date-listed-by"> {moment(transfer && transfer.created_at).format('MM/DD/YYYY')} by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
                       <div className="asking-price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
-                      <div className="action"><button onClick={() => toggleBuyModal(true)}>Buy Now</button></div>
+                      <div className="action"><button onClick={() => onModalChange(transfer)}>Buy Now</button></div>
                     </div>)
                   }
                 </div>
               </div>
             </div>
 
-            {showBuyModal && (<div className="buy-modal">
+            {props.displayBuyModal && (<div className="buy-modal">
               <GeneralModal
                 headline="Buy Album"
                 bodyText="Please confirm your purchase"
@@ -151,13 +162,13 @@ function SongList(props) {
                 buttons={[
                   {
                     type: 'button',
-                    onClick: () => toggleBuyModal(false),
+                    onClick: () => onBuy(songData),
                     text: 'Confirm',
                     className: 'buy-confirm'
                   },
                   {
                     type: 'button',
-                    onClick: () => toggleBuyModal(false),
+                    onClick: () => props.hideBuyModal(),
                     text: 'Cancel',
                     className: 'buy-cancel'
                   }
@@ -171,4 +182,14 @@ function SongList(props) {
     </div>
   )
 }
-export default withRouter(SongList);
+export default connect(state => {
+  return {
+    displayBuyModal: state.songs.showBuyModal
+  }
+}, dispatch => {
+  return {
+    buySong: (data) => dispatch(buySongAction(data)),
+    showBuyModal: () => dispatch(showBuyModalAction()),
+    hideBuyModal: () => dispatch(hideBuyModalAction())
+  }
+})(withRouter(SongList));
