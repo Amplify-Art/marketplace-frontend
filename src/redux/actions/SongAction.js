@@ -20,6 +20,10 @@ export const updateSongAction = payload => ({
   payload,
 });
 
+export const buySongAction = payload => ({
+  type: types.BUY_SONG_REQUEST,
+  payload,
+});
 
 export const deleteSongAction = payload => ({
   type: types.DELETE_SONG_REQUEST,
