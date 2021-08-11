@@ -9,6 +9,7 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
+  showBuyModal: false
 };
 
 export default function (state = initialState, action) {
@@ -111,6 +112,26 @@ export default function (state = initialState, action) {
         ...state,
         error: 'Bad Request',
         loading: false,
+      };
+    case types.BUY_SONG_FAILED:
+      return {
+        ...state,
+        showBuyModal: false,
+      };
+    case types.BUY_SONG_SUCCESS:
+      return {
+        ...state,
+        showBuyModal: false,
+      };
+    case types.SHOW_BUY_MODAL:
+      return {
+        ...state,
+        showBuyModal: true,
+      };
+    case types.HIDE_BUY_MODAL:
+      return {
+        ...state,
+        showBuyModal: false,
       };
     case types.DELETE_SONG_SUCCESS:
       songs = filter(state.songs, item => item.id !== action.payload.id);

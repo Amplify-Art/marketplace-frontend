@@ -99,7 +99,7 @@ export function* buySongSaga({ history }, { payload }) {
   try {
     const res = yield call(buySong, payload);
     yield all([
-      put({ type: types.UPDATE_SONG_SUCCESS, res }),
+      put({ type: types.BUY_SONG_SUCCESS, res }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -111,7 +111,7 @@ export function* buySongSaga({ history }, { payload }) {
   } catch (error) {
     console.log(error)
     yield all([
-      put({ type: types.UPDATE_SONG_FAILED, error }),
+      put({ type: types.BUY_SONG_FAILED, error }),
       put({
         type: SET_NOTIFICATION,
         payload: {

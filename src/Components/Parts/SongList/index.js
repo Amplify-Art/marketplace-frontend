@@ -11,7 +11,7 @@ import './SongList.scss';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { buySongAction } from '../../../redux/actions/SongAction'
+import { buySongAction, showBuyModalAction, hideBuyModalAction } from '../../../redux/actions/SongAction'
 
 const songHeader = () => (
   <div className="songlist-header flex">
@@ -36,7 +36,6 @@ function SongList(props) {
   let audio = useRef();
   // const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [showBuyModal, toggleBuyModal] = useState(false);
   const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
 
@@ -108,7 +107,7 @@ function SongList(props) {
     })
   }
   const onModalChange = (song) => {
-    toggleBuyModal(true)
+    props.showBuyModal()
     setBuyingSong(song)
   }
   return (
@@ -155,7 +154,7 @@ function SongList(props) {
               </div>
             </div>
 
-            {showBuyModal && (<div className="buy-modal">
+            {props.displayBuyModal && (<div className="buy-modal">
               <GeneralModal
                 headline="Buy Album"
                 bodyText="Please confirm your purchase"
@@ -169,7 +168,7 @@ function SongList(props) {
                   },
                   {
                     type: 'button',
-                    onClick: () => toggleBuyModal(false),
+                    onClick: () => props.hideBuyModal(),
                     text: 'Cancel',
                     className: 'buy-cancel'
                   }
@@ -184,9 +183,13 @@ function SongList(props) {
   )
 }
 export default connect(state => {
-
+  return {
+    displayBuyModal: state.songs.showBuyModal
+  }
 }, dispatch => {
   return {
-    buySong: (data) => dispatch(buySongAction(data))
+    buySong: (data) => dispatch(buySongAction(data)),
+    showBuyModal: () => dispatch(showBuyModalAction()),
+    hideBuyModal: () => dispatch(hideBuyModalAction())
   }
 })(withRouter(SongList));
