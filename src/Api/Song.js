@@ -81,6 +81,23 @@ export const buySong = (payload) => {
   }));
 };
 
+
+export const sellSong = (payload) => {
+  const id = payload.id
+  const url = `${API_ENDPOINT_URL}/songs/sell`;
+  return axios.post(url, payload, {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  }).then(res => ({
+    success: true,
+    data: res.data,
+  })).catch(err => ({
+    success: false,
+    message: err.response.data.message,
+  }));
+};
+
 export const deleteSong = (payload) => {
   const id = payload.id
   const url = `${API_ENDPOINT_URL}/songs/${id}`;

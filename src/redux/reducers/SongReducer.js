@@ -9,7 +9,8 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
-  showBuyModal: false
+  showBuyModal: false,
+  showSellModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -132,6 +133,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showBuyModal: false,
+      };
+    case types.SHOW_SELL_MODAL:
+      return {
+        ...state,
+        showSellModal: true,
+      };
+    case types.HIDE_SELL_MODAL:
+      return {
+        ...state,
+        showSellModal: false,
       };
     case types.DELETE_SONG_SUCCESS:
       songs = filter(state.songs, item => item.id !== action.payload.id);

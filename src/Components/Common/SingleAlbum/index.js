@@ -6,7 +6,6 @@ import cdCover from '../../../assets/images/cd-img.svg';
 
 function SingleAlbum(props) {
   const { albumInfo, isMint = true, isPlayList = false, children } = props;
-
   const [isOpen, SetModalOpen] = useState(false);
   const [height, setHeight] = useState('');
   const [albumCover, setAlbumCover] = useState(cdCover);
@@ -120,7 +119,7 @@ function SingleAlbum(props) {
           )
         }
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} />} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }

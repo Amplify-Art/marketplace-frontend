@@ -21,6 +21,7 @@ import TwitterIcon from '../../assets/images/twitter-icon.svg';
 import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
+import { sellSongAction, showSellModalAction, hideSellModalAction } from '../../redux/actions/SongAction';
 
 function MyProfile(props) {
 
@@ -28,18 +29,35 @@ function MyProfile(props) {
   const [profileImage, setProfileImage] = useState(defaultProfile);
   const [userName, setUserName] = useState('');
   const [userID, setID] = useState(0);
+  const [sellingSong, setSellingSong] = useState(null);
+  const [sellingCopy, setSellingCopy] = useState(null);
   const [openSharePopup, setSharePopup] = useState(false);
+  const [selectedAlbumToken, setSelectedAlbumToken] = useState(null);
   const [isPublicProfile] = useState(props && props.location && props.location.pathname && props.location.pathname.includes('user'));
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum key={index} albumInfo={nft} onClick={() => onClick(nft)} />
+      <SingleAlbum key={index} albumInfo={nft} onSingleSongClick={(song) => onSingleSongClick(song, index)} />
     );
   }
 
-  const onClick = (nft) => {
-    console.log(nft, 'DDF')
+  const onSingleSongClick = (song, index) => {
+    console.log(song)
+    props.showSellModal()
+    setSellingSong(song)
+    setSelectedAlbumToken(props.token_transfers[index])
+  }
+
+  const onSell = (token) => {
+    setSellingCopy(token)
+  }
+  const onListSong = (e, price) => {
+    e.preventDefault()
+    props.sellSong({
+      id: sellingCopy.id,
+      price: price && parseInt(price.replace(/^\D+/g, '')) * 100
+    })
   }
   const ArtistData = {
     cover: bannerImage,
@@ -131,7 +149,7 @@ function MyProfile(props) {
       props.fetchTokenTransfers({
         params: {
           'filter[type]': 'album_bundle',
-          related: 'album.songs',
+          related: 'album.songs.transfers',
           orderBy: '-id',
           'filter[transfer_to]': decodedToken.id
         }
@@ -153,6 +171,15 @@ function MyProfile(props) {
     }
   }, [props.user]);
 
+  const closeModals = () => {
+    console.log(props.displaySellModal, 'props.displaySellModal')
+    if (props.displaySellModal && sellingCopy) {
+      setSellingCopy(null)
+    } else {
+      setSellingSong(null)
+      props.hideSellModal()
+    }
+  }
   return (
     <div id="profile" className="left-nav-pad right-player-pad">
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
@@ -174,14 +201,17 @@ function MyProfile(props) {
           <h4 className="large-white center-text">No items to show</h4>
           : null
       }
-      {false && <GeneralModal
-        // headline="Create New Playlist"
+      {props.displaySellModal && <GeneralModal
         bodyChildren={<PurchasedSongs
-        // showCaseData={showCaseData}
-        // togglePlayListModal={togglePlayListModal}
+          transfers={(sellingSong && sellingSong.transfers) || []}
+          onSell={onSell}
+          sellingCopy={sellingCopy}
+          sellingSong={sellingSong}
+          onListSong={onListSong}
+          selectedAlbumToken={selectedAlbumToken}
         />}
         contentClassName="playlist-modal"
-        // closeModal={() => togglePlayListModal(!showPlayListModal)}
+        closeModal={() => closeModals()}
         isCloseButton={true}
       />
       }
@@ -198,6 +228,7 @@ export default connect(state => {
     loading: state.nfts.loading,
     token_transfers: state.token_transfers.token_transfers,
     myFollowings: state.followers.followers,
+    displaySellModal: state.songs.showSellModal
   }
 },
   dispatch => {
@@ -207,5 +238,8 @@ export default connect(state => {
       fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
       updateFollower: (data) => dispatch(updateFollowerAction(data)),
       addFollower: (data) => dispatch(addFollowerAction(data)),
+      sellSong: (data) => dispatch(sellSongAction(data)),
+      showSellModal: () => dispatch(showSellModalAction()),
+      hideSellModal: () => dispatch(hideSellModalAction())
     }
   })(withRouter(MyProfile));

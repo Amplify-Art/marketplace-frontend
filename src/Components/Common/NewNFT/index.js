@@ -80,6 +80,7 @@ function NewNFT(props) {
     }
     if (type === 'album') {
       setAlbumUploadingIndex(percentCompleted)
+      setIsUploading(false)
     } else {
       file.progress = percentCompleted
       let songFilesClone = [...songFiles]

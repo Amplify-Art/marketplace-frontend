@@ -16,7 +16,7 @@ import jwt from 'jsonwebtoken';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, history, showPurchaseModal, hidePurchaseModal }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, history, showPurchaseModal, hidePurchaseModal, onSingleSongClick, token }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -124,7 +124,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div>
           <div className="album-bottom" id="modalScrolling">
             {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
-              <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} />
+              <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
           {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
@@ -167,7 +167,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         ]}
         className="centered white-small"
       />}
-      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
   )
 }

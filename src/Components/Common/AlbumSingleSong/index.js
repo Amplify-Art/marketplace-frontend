@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SongLength from '../SongLength/index';
 import playIcon from '../../../assets/images/play_icon.svg';
 import pauseIcon from '../../../assets/images/pause_icon.svg';
+import jwt from 'jsonwebtoken';
 class ProgressRing extends React.Component {
   constructor(props) {
     super(props);
@@ -39,8 +40,8 @@ class ProgressRing extends React.Component {
 const audioElement = new Audio();
 
 function AlbumSingleSong(props) {
-  const { song, index, isOpen, toggle, playing, currentIndex, audio } = props;
-
+  const { song, index, isOpen, toggle, playing, currentIndex, audio, onSingleSongClick, token } = props;
+  const [user, setUser] = useState(jwt.decode(localStorage.getItem('amplify_app_token')))
   return (
     <div className="inner-content-album-modal" key={`al${index}`}>
       <div className="modal-album-title">
@@ -58,7 +59,7 @@ function AlbumSingleSong(props) {
             <img src={playIcon} onClick={() => toggle(song.song_cid)} />
           )}
         </div>
-        <div className="fn-white pointer">{song.title}</div>
+        <div className="fn-white pointer" onClick={() => (song.transfers || []).filter(f => f.copy_number === (token && token.copy_number)).some((trans => (trans.is_owner && trans.transfer_to === user.id) && !trans.is_for_sale)) ? onSingleSongClick(song) : null}>{song.title}</div>
       </div>
       {/* <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div> */}
     </div>
