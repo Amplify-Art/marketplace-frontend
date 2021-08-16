@@ -282,7 +282,7 @@ function ArtistDashboard(props) {
         <GeneralModal
           headline="Upload Banner"
           className="centered"
-          closeModal={() => toggleCongratsModal(!showCongratsModal)}
+          closeModal={() => setShowBannerModal(!showBannerModal)}
           bodyChildren={<BannerUploaderForm />}
         />
       }

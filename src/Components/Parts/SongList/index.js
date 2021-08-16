@@ -40,7 +40,11 @@ function SongList(props) {
   const [songListExpanded, toggleSongListExpansion] = useState(null);
 
   const expandSongList = (index) => {
-    toggleSongListExpansion(index);
+    if (index === songListExpanded) {
+      toggleSongListExpansion(null);
+    } else {
+      toggleSongListExpansion(index);
+    }
   }
 
   const handleAudio = (songId) => {

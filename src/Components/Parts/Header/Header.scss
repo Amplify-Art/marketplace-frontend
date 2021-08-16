@@ -40,7 +40,7 @@ header {
       width: 25px;
     }
     input {
-      border: 2px solid #E3E3E3;
+      border: 2px solid #e3e3e3;
       background: transparent;
       border-radius: 30px;
       padding: 16px 20px 16px 76px;
@@ -118,7 +118,7 @@ header {
 
 .wallet-info {
   position: fixed;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   top: 0px;
   right: 0px;
   height: 100vh;
@@ -147,7 +147,7 @@ header {
     }
 
     .stat {
-      color: #FA7C05;
+      color: #fa7c05;
     }
   }
 }
@@ -166,5 +166,10 @@ header {
   flex-direction: column;
   button {
     margin: 10px;
+  }
+}
+.details {
+  a {
+    color: white;
   }
 }

@@ -18,6 +18,7 @@ import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../re
 import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 import q from 'querystring';
+import { store } from 'react-notifications-component';
 
 const { keyStores, WalletConnection, utils } = nearAPI;
 
@@ -108,7 +109,35 @@ function Header(props) {
     const create = await createWallet()
     if (create.data.success) {
       localStorage.setItem('amplify_app_token', create.data.token)
+      store.addNotification({
+        title: "Success",
+        message: 'NEAR wallet has been created',
+        type: "success",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
       window.location.reload()
+    }
+    else {
+      store.addNotification({
+        title: "Error",
+        message: 'Error while creating NEAR wallet',
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     }
   }
 
@@ -238,6 +267,7 @@ function Header(props) {
                   {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
                 </div>
               </div>
+              <a href={`https://buy-staging.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">Buy More NEAR</a>
             </div>
             }
             {user && !user.near_connected &&
