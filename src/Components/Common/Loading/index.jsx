@@ -7,7 +7,7 @@ const LO = ({ children, active, text }) => {
         <LoadingOverlay
             active={active}
             spinner
-            className="loader"
+            className={`loader ${active ? 'active' : ''}`}
             text={text}
         >
             {children}
