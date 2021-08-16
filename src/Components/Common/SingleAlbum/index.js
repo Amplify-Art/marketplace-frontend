@@ -103,7 +103,7 @@ function SingleAlbum(props) {
             <img src={albumCover} alt="cover image" />
           </div>
           {showSticker && (
-            <div className="mint-sticker">
+            <div className={`mint-sticker ${albumInfo.available_qty === 0 ? 'sold' : 'available'}`}>
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
               <span>Mint #<br />{albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>
             </div>
@@ -113,7 +113,7 @@ function SingleAlbum(props) {
           children ? children : (
             <>
               <div className={`the-title ${isPlayList && 'playlist-title'}`}><h3 className="album-title">{albumInfo.title}</h3></div>
-              <h4 className="artist-name">{albumInfo.artist}</h4>
+              <h4 className="artist-name">{albumInfo.user && albumInfo.user.name}</h4>
               {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
             </>
           )

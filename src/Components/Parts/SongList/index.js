@@ -40,10 +40,12 @@ function SongList(props) {
   const [songListExpanded, toggleSongListExpansion] = useState(null);
 
   const expandSongList = (index) => {
-    if (index === songListExpanded) {
-      toggleSongListExpansion(null);
-    } else {
-      toggleSongListExpansion(index);
+    if (songList[index].transfers.length) {
+      if (index === songListExpanded) {
+        toggleSongListExpansion(null);
+      } else {
+        toggleSongListExpansion(index);
+      }
     }
   }
 

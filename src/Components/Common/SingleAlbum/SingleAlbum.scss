@@ -1,7 +1,7 @@
 .single-album {
   position: relative;
   .cd-case {
-    background: url('../../../assets/images/case-transparent.png');
+    background: url("../../../assets/images/case-transparent.png");
     width: 100%;
     height: 281px;
     // text-align: right;
@@ -25,7 +25,22 @@
       width: 100%;
     }
     .mint-sticker {
-      background-image: url('../../../assets/images/mint-sticker.png');
+      &.available {
+        background-image: url("../../../assets/images/mint-sticker.png");
+        span {
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+      &.sold {
+        background-image: url("../../../assets/images/sold-out.png");
+        background-size: 59px 59px;
+        span {
+          display: none;
+        }
+      }
       height: 59px;
       width: 59px;
       position: absolute;
@@ -35,12 +50,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      span {
-        font-size: 11px;
-        text-transform: uppercase;
-        font-weight: bold;
-        text-align: center;
-      }
     }
   }
 
@@ -56,25 +65,24 @@
     color: #fff;
     margin-top: 0px;
   }
-
 }
-  .modal-album {
-    position: absolute;
-    .modal {
-      .holder {
-        padding: 10px 15px;
-        background: #D3D3D3;
-        border-radius: 0;
-        width: 900px;
-      }
+.modal-album {
+  position: absolute;
+  .modal {
+    .holder {
+      padding: 10px 15px;
+      background: #d3d3d3;
+      border-radius: 0;
+      width: 900px;
     }
   }
-  .d-none{
-    display: none;
-  }
-  .d-block {
-    display: block;
-  }
+}
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block;
+}
 
 .the-title {
   &.playlist-title {
@@ -86,7 +94,7 @@
     padding-right: 5px;
     box-sizing: border-box;
     h3 {
-      font-family: 'Permanent Marker', cursive;
+      font-family: "Permanent Marker", cursive;
       width: 150px;
       display: inline-block;
       color: #000;
