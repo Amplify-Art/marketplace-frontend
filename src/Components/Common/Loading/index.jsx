@@ -16,6 +16,6 @@ const LO = ({ children, active, text }) => {
 }
 export default connect(state => {
   return {
-    active: !state.global.loading_overlay
+    active: state.global.loading_overlay
   }
 })(LO);
