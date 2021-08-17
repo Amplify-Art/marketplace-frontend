@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cropper from "react-cropper";
 import axios from 'axios';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
@@ -195,8 +196,20 @@ function ArtistDashboard(props) {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
     setBannerUploadProgress(percentCompleted)
   }
+  let artistRef = useRef()
+
+  useEffect(() => {
+    if (isModalOpen && artistRef) {
+      disableBodyScroll(artistRef)
+    } else if (artistRef) {
+      enableBodyScroll(artistRef);
+    }
+    return () => {
+      clearAllBodyScrollLocks();
+    }
+  }, [artistRef, isModalOpen])
   return (
-    <div id="artist-dashboard" className="left-nav-pad right-player-pad">
+    <div id="artist-dashboard" className={`left-nav-pad right-player-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} />
       <div className="content">
         <div className="container">
@@ -272,13 +285,16 @@ function ArtistDashboard(props) {
           </div>
         </div>
       </div>
-      {isModalOpen && <NewNFT
-        closeNewNftModal={handleCloseModal}
-        displayLoadingOverlay={props.displayLoadingOverlay}
-        hideLoadingOverlay={props.hideLoadingOverlay}
-        toggleCongratsModal={toggleCongratsModal}
-      />}
-      {showBannerModal &&
+      {
+        isModalOpen && <NewNFT
+          closeNewNftModal={handleCloseModal}
+          displayLoadingOverlay={props.displayLoadingOverlay}
+          hideLoadingOverlay={props.hideLoadingOverlay}
+          toggleCongratsModal={toggleCongratsModal}
+        />
+      }
+      {
+        showBannerModal &&
         <GeneralModal
           headline="Upload Banner"
           className="centered"
@@ -301,7 +317,7 @@ function ArtistDashboard(props) {
         // closeModal={() => toggleCongratsModal(!showCongratsModal)}
         />
       }
-    </div>
+    </div >
 
   )
 };

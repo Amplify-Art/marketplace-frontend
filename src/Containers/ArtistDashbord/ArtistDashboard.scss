@@ -2,6 +2,9 @@
 #artist-dashboard {
   padding-top: 29px;
   padding-bottom: 100px;
+  &.disable-scroll {
+    overflow: hidden;
+  }
   @media (max-width: 768px) {
     .container {
       max-width: 720px;
