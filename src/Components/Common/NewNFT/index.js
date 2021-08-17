@@ -34,14 +34,16 @@ function NewNFT(props) {
   const [showCropper, setShowCropper] = useState(false);
   const [albumUploadingIndex, setAlbumUploadingIndex] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [currentUploadingFile, setCurrentUploadingFile] = useState(null);
+  const [uploadingFiles, setUploadingFiles] = useState([]);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
 
   const uploadFile = async (fileInfo, type) => {
+    console.log(uploadingFiles, 'AT UPLOAD')
     let file = fileInfo;
-    setIsUploading(true)
-    file.is_uploading = true
+    // file.is_uploading = true
     let songFormData = new FormData()
     songFormData.append('file', file)
     songFormData.append('name', 'test name')
@@ -56,15 +58,21 @@ function NewNFT(props) {
       console.error(error)
     });
     if (type === 'song') {
-      file.uploaded = true
-      file.is_uploading = false
-      file.hash = mintSong.data.IpfsHash
+      console.log('FINAL', uploadingFiles, currentUploadingFile)
+      let songFilesClone = [...uploadingFiles]
+      const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
+      songFilesClone.splice(index, 1, Object.assign({ is_uploading: false, is_uploaded: true }, currentUploadingFile))
+      setUploadingFiles([...songFilesClone])
+      // setUploadingFiles(uploadingFiles.filter(f => f.path !== currentUploadingFile.path))
+      setCurrentUploadingFile(Object.assign({ progress: 100, is_uploading: false, is_uploaded: true }, currentUploadingFile))
+      // setCurrentUploadingFile(null)
+      setIsUploading(false)
+      // file.hash = mintSong.data.IpfsHash
       // sometimes event does not give 100%
-      file.progress = 100
-      let songFilesClone = [...songFiles]
-      const index = songFiles.findIndex(f => f.name === file.name)
-      songFilesClone.splice(index, 1, Object.assign({}, file))
-      setSongFiles(_.uniqBy(songFilesClone, 'name'))
+      // let songFilesClone = [...songFiles]
+      // const index = songFiles.findIndex(f => f.name === file.name)
+      // songFilesClone.splice(index, 1, Object.assign({ is_uploading: false, is_uploaded: true }, file))
+      // setSongFiles(_.uniqBy(songFilesClone, 'name'))
     } else {
       setAlbumCover(mintSong.data.IpfsHash)
     }
@@ -72,9 +80,9 @@ function NewNFT(props) {
   }
   const onUploadProgress = (progressEvent, file, type) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    file.progress = percentCompleted
+    // file.progress = percentCompleted
     if (percentCompleted === 100 && type === 'song') {
-      setIsUploading(false)
+      // setIsUploading(false)
       customError.songFiles = null
       return
     }
@@ -82,12 +90,20 @@ function NewNFT(props) {
       setAlbumUploadingIndex(percentCompleted)
       setIsUploading(false)
     } else {
-      file.progress = percentCompleted
-      let songFilesClone = [...songFiles]
-      // to have the order persistant while changing upload progress
-      const index = songFiles.findIndex(f => f.name === file.name)
-      songFilesClone.splice(index, 1, Object.assign({}, file))
-      setSongFiles(_.uniqBy(songFilesClone, 'name'))
+      // currentUploadingFile.progress = percentCompleted
+      setCurrentUploadingFile(Object.assign({ progress: percentCompleted, is_uploading: true }, currentUploadingFile))
+      if (!currentUploadingFile.is_uploading) {
+        let songFilesClone = [...uploadingFiles]
+        const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
+        songFilesClone.splice(index, 1, Object.assign({ is_uploading: true }, currentUploadingFile))
+        console.log(songFilesClone, 'songFilesClone')
+        setUploadingFiles(songFilesClone)
+      }
+      // let songFilesClone = [...songFiles]
+      // // to have the order persistant while changing upload progress
+      // const index = songFiles.findIndex(f => f.name === file.name)
+      // songFilesClone.splice(index, 1, Object.assign({}, file))
+      // setSongFiles(_.uniqBy(songFilesClone, 'name'))
     }
   }
   const onSubmit = async (data) => {
@@ -178,23 +194,44 @@ function NewNFT(props) {
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
 
   useEffect(() => {
-    setSongFiles(songFiles => [...songFiles, ...acceptedFiles])
-    if (customError.songFiles) {
-      delete customError.songFiles;
-    }
-    // when next file is added, input focus should be to this song title
+    console.log('HERERER', acceptedFiles.length);
     if (acceptedFiles.length) {
-      setFocusedInputIndex(focusedInputIndex + 1);
+      setSongFiles(songFiles => [...songFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
+      setUploadingFiles([...uploadingFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
+      if (customError.songFiles) {
+        delete customError.songFiles;
+      }
+      // when next file is added, input focus should be to this song title
+      if (acceptedFiles.length) {
+        setFocusedInputIndex(focusedInputIndex + 1);
+      }
     }
   }, [acceptedFiles]);
 
   useEffect(() => {
     let clones = [...songFiles]
-    let notUploadedSongs = clones.filter(file => !file.is_uploading)
-    if (notUploadedSongs.length) {
-      notUploadedSongs.map(song => uploadFile(song, 'song'))
-    }
+    // let notUploadedSongs = clones.filter(file => !uploadingFiles.map(f => f.name).includes(file.name))
+    // if (notUploadedSongs.length) {
+    //   console.log(notUploadedSongs, 'notUploadedSongs')
+    //   setUploadingFiles([...uploadingFiles, ...notUploadedSongs])
+    // }
   }, [songFiles.length])
+
+  useEffect(() => {
+    console.log(isUploading, uploadingFiles, 'isUploading')
+    let inQueue = uploadingFiles.find(f => !f.is_uploaded && !f.is_uploading)
+    if (uploadingFiles.length && !isUploading && inQueue) {
+      console.log(inQueue, ';inQueue')
+      setCurrentUploadingFile(inQueue)
+      setIsUploading(true)
+    }
+  }, [uploadingFiles.length, isUploading])
+
+  useEffect(() => {
+    if (currentUploadingFile && (!currentUploadingFile.is_uploaded && !currentUploadingFile.is_uploading)) {
+      uploadFile(currentUploadingFile.content, 'song')
+    }
+  }, [currentUploadingFile])
 
   const removeSongFromUploads = (index) => {
     const newSongSet = songFiles.splice(index, 1);
@@ -234,6 +271,7 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
+  console.log(uploadingFiles, 'uploadingFiles')
   const DragHandle = SortableHandle(() => <span className="drag">::</span>);
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
@@ -249,9 +287,9 @@ function NewNFT(props) {
           <div className="input-holder">
             <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} value={value} autoFocus={focusedInputIndex === songIndex} />
             {
-              file.progress ? <span className="upload-holder">
-                <span className="upload-progress" style={{ width: `${file.progress}%` }}></span>
-                <span>{(file.progress || 0)}%</span>
+              currentUploadingFile && currentUploadingFile.path === file.path && currentUploadingFile.progress ? <span className="upload-holder">
+                <span className="upload-progress" style={{ width: `${currentUploadingFile.progress}%` }}></span>
+                <span>{(currentUploadingFile.progress || 0)}%</span>
               </span> : null
             }
             {file.error && <span className="error-message">This field is required</span>}
@@ -265,7 +303,6 @@ function NewNFT(props) {
       // </li>
     )
   });
-
   const SortableList = SortableContainer(({ songFiles }) => (
     <ul>
       {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
