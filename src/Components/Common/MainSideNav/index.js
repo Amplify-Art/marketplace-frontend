@@ -2,10 +2,18 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from "react-router-dom";
 import './MainSideNav.scss';
 import jwt from 'jsonwebtoken';
+import * as playListAction from '../../../redux/actions/PlaylistAction'
+import { connect } from 'react-redux';
 
 function MainSideNav(props) {
   const { toggleWalletSidebar, showMobileMenu } = props;
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  const onLogout = () => {
+    localStorage.removeItem('amplify_app_token')
+    sessionStorage.removeItem('activePlaylist')
+    props.clearCurrentPlayList()
+    // history.push("/")
+  }
   return (
     <div id="main-side-nav" className={`${showMobileMenu && 'mobile-open'}`}>
       <ul>
@@ -25,7 +33,7 @@ function MainSideNav(props) {
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
         <li><NavLink to="/nominate" activeClassName="current">Nominate</NavLink></li>
         <li onClick={toggleWalletSidebar}><span>Wallet</span></li>
-        <li><NavLink to="/logout">Logout</NavLink></li>
+        <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
         {user && user.type === 'artist' &&
           <>
             <li className="nav-header">Artist</li>
@@ -37,4 +45,8 @@ function MainSideNav(props) {
   );
 }
 
-export default MainSideNav;
+export default connect(null, dispatch => {
+  return {
+    clearCurrentPlayList: () => dispatch(playListAction.clearCurrentPlayList()),
+  }
+})(MainSideNav);

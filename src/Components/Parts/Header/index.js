@@ -184,16 +184,17 @@ function Header(props) {
 
   const getNearPrice = () => {
     // https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD
-    if (nearPrice < 0.01) {
-      axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
-        setNearPrice(res.data.USD);
-      });
-    }
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNearPrice(res.data.USD);
+    });
   }
 
   useEffect(() => {
-    getNearPrice()
-  }, [nearPrice])
+    if (showWalletSidebar) {
+      console.log('nearPrice')
+      getNearPrice()
+    }
+  }, [showWalletSidebar])
 
   return (
     <>
