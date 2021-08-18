@@ -6,6 +6,7 @@ import _ from 'lodash';
 import AddShowCase from '../../Parts/AddShowCase/index';
 import { showCaseData } from '../../../Containers/Sandbox'
 import GeneralModal from '../../Common/GeneralModal/index';
+import defaultProfile from '../../../assets/images/default-profile.jpg'
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
@@ -15,6 +16,7 @@ import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile, userId }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
+  const [isDefaultImage, setDefaultImage] = useState(null);
   const coverPhoto = () => {
     let coverPhoto;
     if (ArtistData.cover) {
@@ -41,6 +43,10 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
       }
     });
   }, []);
+
+  const onImageLoadError = (e) => {
+    setDefaultImage(defaultProfile)
+  }
   return (
     <div id="profile-header">
       <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
@@ -76,7 +82,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
         <div className="profile-head-details">
           <div className="profile-wrap">
             <div className="profile-image">
-              <img src={ArtistData.avatar} />
+              <img src={isDefaultImage ? isDefaultImage : ArtistData.avatar} onError={onImageLoadError} />
             </div>
 
             <div className="details">{ArtistData.name}</div>
