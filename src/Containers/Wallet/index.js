@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Auth from '../../Containers/Auth'
 
 function Wallet(props) {
   return (
@@ -8,4 +9,4 @@ function Wallet(props) {
   )
 }
 
-export default Wallet;
+export default Auth(Wallet);
