@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
+import Image from '../Image'
 import './UserAvatar.scss';
+import defaultProfile from '../../../assets/images/default-profile.jpg';
 
 function UserAvatar(props) {
   const { avatarImg, name, onClick } = props;
@@ -12,7 +13,7 @@ function UserAvatar(props) {
     if (box) {
       width = box.clientWidth;
     }
-  
+
     setHeight(width);
   }
 
@@ -43,7 +44,7 @@ function UserAvatar(props) {
   return (
     <div className="user-avatar" onClick={onClick}>
       <div className="avatar">
-        <img src={avatarImg} alt="" />
+        <Image src={avatarImg} alt="" fallbackImage={defaultProfile} />
       </div>
       <span className="avatar-name">{name}</span>
     </div>
