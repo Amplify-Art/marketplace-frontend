@@ -42,9 +42,7 @@ function NewNFT(props) {
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
 
   const uploadFile = async (fileInfo, type, uploadingFiles, songFiles) => {
-    console.log(uploadingFiles, 'AT UPLOAD')
     let file = fileInfo;
-    // file.is_uploading = true
     let songFormData = new FormData()
     songFormData.append('file', file)
     songFormData.append('name', file.path)
@@ -59,16 +57,8 @@ function NewNFT(props) {
       console.error(error)
     });
     if (type === 'song') {
-      console.log('FINAL', uploadingFiles, currentUploadingFile)
-      // let songFilesClone = [...uploadingFiles]
-      // const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
-      // songFilesClone.splice(index, 1, Object.assign({ is_uploading: false, is_uploaded: true }, currentUploadingFile))
-      // setUploadingFiles([...songFilesClone])
-      // setUploadingFiles(uploadingFiles.filter(f => f.path !== currentUploadingFile.path))
       setCurrentUploadingFile(Object.assign({ progress: 100, is_uploading: false, is_uploaded: true }, currentUploadingFile))
-      // setCurrentUploadingFile(null)
       setIsUploading(false)
-      // file.hash = mintSong.data.IpfsHash
       setUploadedIpfs([...uploadedIpfs, mintSong.data.IpfsHash])
     } else {
       setAlbumCover(mintSong.data.IpfsHash)
@@ -82,7 +72,6 @@ function NewNFT(props) {
       return
     }
     if (type === 'album') {
-      console.log(percentCompleted, 'percentCompleted')
       setAlbumUploadingIndex(percentCompleted)
       setIsUploading(false)
     } else {
@@ -91,7 +80,6 @@ function NewNFT(props) {
         let songFilesClone = [...uploadingFiles]
         const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
         songFilesClone.splice(index, 1, Object.assign({ is_uploading: true }, currentUploadingFile))
-        console.log(songFilesClone, 'songFilesClone')
         setUploadingFiles(songFilesClone)
       }
     }
@@ -197,10 +185,8 @@ function NewNFT(props) {
   }, [acceptedFiles]);
 
   useEffect(() => {
-    console.log(isUploading, uploadingFiles, 'isUploading')
     let inQueue = uploadingFiles.find(f => !f.is_uploaded && !f.is_uploading)
     if (uploadingFiles.length && !isUploading && inQueue) {
-      console.log(inQueue, ';inQueue')
       setCurrentUploadingFile(inQueue)
       setIsUploading(true)
     }
@@ -250,7 +236,6 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
-  console.log(uploadingFiles, 'uploadingFiles')
   const DragHandle = SortableHandle(() => <span className="drag">::</span>);
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
@@ -292,7 +277,6 @@ function NewNFT(props) {
   ));
 
   const OnSortEnd = ({ oldIndex, newIndex }) => {
-    console.log(oldIndex, newIndex)
     const updateSongFiles = arrayMove(songFiles, oldIndex, newIndex)
     const sortIpfsHashes = arrayMove(uploadedIpfs, oldIndex, newIndex)
     setSongFiles(updateSongFiles)
