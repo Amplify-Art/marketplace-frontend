@@ -85,6 +85,9 @@
 			justify-content: center;
 			padding: 20px;
 			height: 110px;
+      &.disabled {
+        background: #dedede;
+      }
 			h5,
 			p {
 				margin: 0px;

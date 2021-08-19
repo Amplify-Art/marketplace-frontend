@@ -34,60 +34,66 @@ function NewNFT(props) {
   const [showCropper, setShowCropper] = useState(false);
   const [albumUploadingIndex, setAlbumUploadingIndex] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [currentUploadingFile, setCurrentUploadingFile] = useState(null);
+  const [uploadingFiles, setUploadingFiles] = useState([]);
+  const [uploadedIpfs, setUploadedIpfs] = useState([])
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
 
-  const uploadFile = async (fileInfo, type) => {
+  const uploadFile = async (fileInfo, type, uploadingFiles, songFiles) => {
+    console.log(uploadingFiles, 'AT UPLOAD')
     let file = fileInfo;
-    setIsUploading(true)
-    file.is_uploading = true
+    // file.is_uploading = true
     let songFormData = new FormData()
     songFormData.append('file', file)
-    songFormData.append('name', 'test name')
+    songFormData.append('name', file.path)
     const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + getAccessToken()
       },
-      onUploadProgress: (e) => onUploadProgress(e, file, type),
+      onUploadProgress: (e) => onUploadProgress(e, file, type, uploadingFiles, songFiles),
     }).catch(error => {
       setIsUploading(false)
       console.error(error)
     });
     if (type === 'song') {
-      file.uploaded = true
-      file.is_uploading = false
-      file.hash = mintSong.data.IpfsHash
-      // sometimes event does not give 100%
-      file.progress = 100
-      let songFilesClone = [...songFiles]
-      const index = songFiles.findIndex(f => f.name === file.name)
-      songFilesClone.splice(index, 1, Object.assign({}, file))
-      setSongFiles(_.uniqBy(songFilesClone, 'name'))
+      console.log('FINAL', uploadingFiles, currentUploadingFile)
+      // let songFilesClone = [...uploadingFiles]
+      // const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
+      // songFilesClone.splice(index, 1, Object.assign({ is_uploading: false, is_uploaded: true }, currentUploadingFile))
+      // setUploadingFiles([...songFilesClone])
+      // setUploadingFiles(uploadingFiles.filter(f => f.path !== currentUploadingFile.path))
+      setCurrentUploadingFile(Object.assign({ progress: 100, is_uploading: false, is_uploaded: true }, currentUploadingFile))
+      // setCurrentUploadingFile(null)
+      setIsUploading(false)
+      // file.hash = mintSong.data.IpfsHash
+      setUploadedIpfs([...uploadedIpfs, mintSong.data.IpfsHash])
     } else {
       setAlbumCover(mintSong.data.IpfsHash)
     }
     return mintSong;
   }
-  const onUploadProgress = (progressEvent, file, type) => {
+  const onUploadProgress = (progressEvent, file, type, uploadingFiles) => {
     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    file.progress = percentCompleted
     if (percentCompleted === 100 && type === 'song') {
-      setIsUploading(false)
       customError.songFiles = null
       return
     }
     if (type === 'album') {
+      console.log(percentCompleted, 'percentCompleted')
       setAlbumUploadingIndex(percentCompleted)
       setIsUploading(false)
     } else {
-      file.progress = percentCompleted
-      let songFilesClone = [...songFiles]
-      // to have the order persistant while changing upload progress
-      const index = songFiles.findIndex(f => f.name === file.name)
-      songFilesClone.splice(index, 1, Object.assign({}, file))
-      setSongFiles(_.uniqBy(songFilesClone, 'name'))
+      setCurrentUploadingFile(Object.assign({ progress: percentCompleted, is_uploading: true }, currentUploadingFile))
+      if (!currentUploadingFile.is_uploading) {
+        let songFilesClone = [...uploadingFiles]
+        const index = uploadingFiles.findIndex(f => f.path === currentUploadingFile.path)
+        songFilesClone.splice(index, 1, Object.assign({ is_uploading: true }, currentUploadingFile))
+        console.log(songFilesClone, 'songFilesClone')
+        setUploadingFiles(songFilesClone)
+      }
     }
   }
   const onSubmit = async (data) => {
@@ -135,10 +141,9 @@ function NewNFT(props) {
       })
       if (mintAlbum.data.success) {
         let songBody = {}
-
-        songBody.metadata = songFiles.map(file => ({
+        songBody.metadata = songFiles.map((file, index) => ({
           title: file.title,
-          hash: file.hash
+          hash: uploadedIpfs[index],
         }));
 
         songBody.qty = data.numberOfAlbums
@@ -178,23 +183,34 @@ function NewNFT(props) {
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
 
   useEffect(() => {
-    setSongFiles(songFiles => [...songFiles, ...acceptedFiles])
-    if (customError.songFiles) {
-      delete customError.songFiles;
-    }
-    // when next file is added, input focus should be to this song title
     if (acceptedFiles.length) {
-      setFocusedInputIndex(focusedInputIndex + 1);
+      setSongFiles(songFiles => [...songFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
+      setUploadingFiles([...uploadingFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
+      if (customError.songFiles) {
+        delete customError.songFiles;
+      }
+      // when next file is added, input focus should be to this song title
+      if (acceptedFiles.length) {
+        setFocusedInputIndex(focusedInputIndex + 1);
+      }
     }
   }, [acceptedFiles]);
 
   useEffect(() => {
-    let clones = [...songFiles]
-    let notUploadedSongs = clones.filter(file => !file.is_uploading)
-    if (notUploadedSongs.length) {
-      notUploadedSongs.map(song => uploadFile(song, 'song'))
+    console.log(isUploading, uploadingFiles, 'isUploading')
+    let inQueue = uploadingFiles.find(f => !f.is_uploaded && !f.is_uploading)
+    if (uploadingFiles.length && !isUploading && inQueue) {
+      console.log(inQueue, ';inQueue')
+      setCurrentUploadingFile(inQueue)
+      setIsUploading(true)
     }
-  }, [songFiles.length])
+  }, [uploadingFiles.length, isUploading])
+
+  useEffect(() => {
+    if (currentUploadingFile && (!currentUploadingFile.is_uploaded && !currentUploadingFile.is_uploading)) {
+      uploadFile(currentUploadingFile.content, 'song', uploadingFiles, songFiles)
+    }
+  }, [currentUploadingFile])
 
   const removeSongFromUploads = (index) => {
     const newSongSet = songFiles.splice(index, 1);
@@ -234,11 +250,12 @@ function NewNFT(props) {
       setFocusedInputIndex(index);
     }
   }
+  console.log(uploadingFiles, 'uploadingFiles')
   const DragHandle = SortableHandle(() => <span className="drag">::</span>);
   const SortableItem = SortableElement(({ name, value, songIndex, file }) => {
     return (
       <div className="single-song" tabIndex={songIndex} >
-        <DragHandle />
+        {!isUploading && <DragHandle />}
         <div className="left">
           <div className="track">
             {/* TODO: limit path length to 15 chars plus extension */}
@@ -249,9 +266,9 @@ function NewNFT(props) {
           <div className="input-holder">
             <input type="text" placeholder="Song Title" className={file.error && 'error'} onChange={(e) => onSongTitleChange(file, songIndex, e.target.value)} value={value} autoFocus={focusedInputIndex === songIndex} />
             {
-              file.progress ? <span className="upload-holder">
-                <span className="upload-progress" style={{ width: `${file.progress}%` }}></span>
-                <span>{(file.progress || 0)}%</span>
+              currentUploadingFile && currentUploadingFile.path === file.path && currentUploadingFile.progress && currentUploadingFile.progress !== 100 ? <span className="upload-holder">
+                <span className="upload-progress" style={{ width: `${currentUploadingFile.progress}%` }}></span>
+                <span>{(currentUploadingFile.progress || 0)}%</span>
               </span> : null
             }
             {file.error && <span className="error-message">This field is required</span>}
@@ -265,25 +282,27 @@ function NewNFT(props) {
       // </li>
     )
   });
-
   const SortableList = SortableContainer(({ songFiles }) => (
     <ul>
       {songFiles && songFiles.length > 0 ? songFiles.map((file, index) => (
-        <SortableItem key={`item-${index}`} songIndex={index} index={index} value={file.title || ''} name={`song-title${index}`} file={file} />
+        <SortableItem key={`item-${index}`} songIndex={index} index={index} value={file.title || ''} name={`song-title${index}`} file={file} disabled={isUploading} />
       )
       ) : null}
     </ul>
   ));
 
   const OnSortEnd = ({ oldIndex, newIndex }) => {
+    console.log(oldIndex, newIndex)
     const updateSongFiles = arrayMove(songFiles, oldIndex, newIndex)
+    const sortIpfsHashes = arrayMove(uploadedIpfs, oldIndex, newIndex)
     setSongFiles(updateSongFiles)
+    setUploadedIpfs(sortIpfsHashes)
   };
 
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
       let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
-      uploadFile(file, 'album')
+      uploadFile(file, 'album', uploadingFiles, songFiles)
       setCropData(cropper.getCroppedCanvas().toDataURL());
       setAlbumCover(cropper.getCroppedCanvas().toDataURL());
     }
@@ -342,29 +361,27 @@ function NewNFT(props) {
                 {errors.numberOfAlbums && <span className="error-message">This field is required</span>}
               </div>
 
-              <div className="song-list">
-                <SortableList helperClass="sortableHelper" distance={1} songFiles={songFiles} onSortEnd={OnSortEnd} />
-              </div>
+              {songFiles.length > 0 && (
+                <div className="song-list">
+                  <SortableList helperClass="sortableHelper" distance={1} songFiles={songFiles} onSortEnd={OnSortEnd} />
+                </div>
+              )}
 
               <div className="uploader">
                 <div {...getRootProps()}>
-                  <input {...getInputProps()} accept=".mp3,audio/*" />
+                  <input {...getInputProps()} accept=".mp3,audio/*" disabled={isUploading} />
 
-                  {
-                    isDragActive ? (
-                      <div className="upload-dropzone">
-                        <img src={UploadIconAlt} alt="Upload" />
-                        <h5>Upload Tracks</h5>
-                        <p>You can add more than one track at a time</p>
-                      </div>
+                  <div className={`upload-dropzone ${isUploading && 'disabled'}`}>
+                    <img src={UploadIconAlt} alt="Upload" />
+                    {isUploading ? (
+                      <h5>Song Uploading(s)...</h5>
                     ) : (
-                      <div className="upload-dropzone">
-                        <img src={UploadIconAlt} alt="Upload" />
+                      <>
                         <h5>Upload Tracks</h5>
                         <p>You can add more than one track at a time</p>
-                      </div>
-                    )
-                  }
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
               {customError.songFiles && <span className="error-message">{customError.songFiles}</span>}
@@ -434,7 +451,7 @@ function NewNFT(props) {
             </div>
           </div>
           <div className="input-holder center-text">
-            <input type="submit" />
+            <input type="submit" disabled={isUploading} />
           </div>
         </form>
       </div>
