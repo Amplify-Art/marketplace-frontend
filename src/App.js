@@ -21,7 +21,8 @@ import Nominate from './Containers/Nominate'
 import UserDashboard from './Containers/UserDashboard';
 import Artists from './Containers/Artists';
 import SearchResult from './Containers/SearchResult';
-import Songs from './Containers/Songs'
+import Songs from './Containers/Songs';
+import Wallet from './Containers/Wallet';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -110,7 +111,7 @@ function App(props) {
           <Route path="/" exact render={() => user ? <Redirect to='/user-dashboard' /> : <Home />} />
           <Route path="/player" exact component={Auth(Player)} />
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
-          <Route path="/wallet" exact render={Auth(SignIn)} />
+          <Route path="/wallet" exact render={() => Auth(<Wallet playerActive={props && props.currentPlaylists.length > 0} />)} />
           <Route path="/sandbox" exact component={Auth(SandBox)} />
           <Route path="/auth/login" exact component={Login} />
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
