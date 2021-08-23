@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from '../Image'
 import './UserAvatar.scss';
 import defaultProfile from '../../../assets/images/default-profile.jpg';
+import greyFace from '../../../assets/images/grey_face.gif';
 
 function UserAvatar(props) {
   const { avatarImg, name, onClick } = props;
@@ -44,7 +45,7 @@ function UserAvatar(props) {
   return (
     <div className="user-avatar" onClick={onClick}>
       <div className="avatar">
-        <Image src={avatarImg} alt="" fallbackImage={defaultProfile} />
+        <Image src={avatarImg} alt="" fallbackImage={greyFace} />
       </div>
       <span className="avatar-name">{name}</span>
     </div>
