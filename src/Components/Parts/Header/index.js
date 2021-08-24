@@ -161,6 +161,8 @@ function Header(props) {
         // Need to pull this from the database response... leaving it hard-coded for now... TODO!!
         currentPage = 'Eminem';
         break;
+      case '/transaction-list':
+        currentPage = 'Transactions'
     }
     return currentPage;
   }
