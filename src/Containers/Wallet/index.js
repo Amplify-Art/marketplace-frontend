@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
+import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 
 const testTransaction = [ // TODO: need to remove
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
-  {id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12'},
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
+  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
 ]
 
 function Wallet(props) {
+  useEffect(() => {
+    props.fetchTransactions({
+
+    })
+  }, [])
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
@@ -53,11 +60,19 @@ function Wallet(props) {
           </Link>
         </div>
         <TransactionList
-          transactionList={testTransaction}
+          transactionList={props.transactionList}
         />
       </div>
     </div>
   )
 }
 
-export default Auth(Wallet);
+export default connect(state => {
+  return {
+    transactionList: state.transactions.transactions
+  }
+}, dispatch => {
+  return {
+    fetchTransactions: data => dispatch(fetchTransactionsAction(data))
+  }
+})(Auth(withRouter(Wallet)));
