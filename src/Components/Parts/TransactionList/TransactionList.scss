@@ -1,0 +1,32 @@
+.transactionWrapper {
+  width: 100%;
+  .transTable {
+    width: 100%;
+    .transRow {
+      width: 100%;
+      color: white;
+      font-weight: 300;
+      font-size: 18px;
+      .transId {
+        padding: 20px;
+      }
+      .transDate {
+        padding: 20px;
+      }
+      .transAmt {
+        text-align: right;
+        padding: 20px;
+        .greenTxt {
+          color: #22BE00;
+        }
+        .redTxt {
+          color: #F84F4D;
+        }
+        .smallTxt {
+          color: white;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
