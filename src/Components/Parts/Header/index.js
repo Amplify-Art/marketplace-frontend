@@ -15,6 +15,7 @@ import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
+import { setNearBalanceAction } from '../../../redux/actions/UserAction';
 import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 import q from 'querystring';
@@ -99,6 +100,7 @@ function Header(props) {
 
       let balances = await account.getAccountBalance();
       setBalance(balances)
+      props.setNearBalance(balances.available)
     } catch (e) {
       console.error(e);
     }
@@ -303,6 +305,7 @@ export default connect(state => {
   return {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
-    searchRes: (payload) => dispatch(fetchSearchResult(payload))
+    searchRes: (payload) => dispatch(fetchSearchResult(payload)),
+    setNearBalance: (payload) => dispatch(setNearBalanceAction(payload))
   }
 })(withRouter(Header));

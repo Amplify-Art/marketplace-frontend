@@ -130,6 +130,11 @@ export default function (state = initialState, action) {
         error: 'Bad Request',
         loading: false,
       };
+    case types.SET_NEAR_BALANCE:
+      return {
+        ...state,
+        user: { ...state.user, near_balance: action.payload },
+      };
     default:
       return state;
   }

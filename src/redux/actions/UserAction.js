@@ -25,3 +25,8 @@ export const deleteUserAction = payload => ({
   type: types.DELETE_USER_REQUEST,
   payload,
 });
+
+export const setNearBalanceAction = payload => ({
+  type: types.SET_NEAR_BALANCE,
+  payload,
+});
