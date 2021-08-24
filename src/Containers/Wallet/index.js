@@ -48,7 +48,7 @@ function Wallet(props) {
       <div className="transactionListWrapper">
         <div className="transactionList">
           <div className="heading">Recent Transactions</div>
-          <Link className="viewFullLink" to={{ pathname: '/' }}>
+          <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
             View full list
           </Link>
         </div>
