@@ -1,20 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
+import TransactionList from '../../Components/Parts/TransactionList';
+import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 
 function Wallet(props) {
+  const [near, setNear] = useState(null);
+  const [amontToConvert, setAmontToConvert] = useState(null);
+  useEffect(() => {
+    props.fetchTransactions({
+
+    })
+  }, [])
+  const onAmountChange = (e) => {
+    setAmontToConvert(e.target.value)
+  }
+  const getNearPrice = () => {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNear(res.data.USD);
+    });
+  }
+  useEffect(() => {
+    getNearPrice()
+  }, [])
+
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
         <div className="left">
           <h4>Total Balance</h4>
           <div className="near-amount">
-            <span>222.53</span>
+            <span>{props.user.near_balance && (props.user.near_balance / 10 ** 24).toFixed(2)}</span>
             <span className="near-label">NEAR</span>
           </div>
 
-          <div className="usd">$968.91</div>
+          <div className="usd">{props.user.near_balance && `$${(props.user.near_balance / (10 ** 24 * near)).toFixed(3)}`}</div>
 
           <div className="buttons">
             <Button text="Send" className="btn black-outline" />
@@ -24,13 +48,41 @@ function Wallet(props) {
 
         <div className="right">
           <h4>Add funds to your balance</h4>
-          <input type="text" placeholder="Enter Amount in USD" />
-          <span className="conversion-to-near">0.000 Near</span>
+          <input
+            type="text"
+            placeholder="Enter Amount in USD"
+            onChange={onAmountChange}
+            onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
+            value={amontToConvert} type="number"
+          />
+          {near && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
           <Button text="Add Funds to Balance" className="btn solid-black" />
         </div>
-      </div>  
+      </div>
+
+      <div className="transactionListWrapper">
+        <div className="transactionList">
+          <div className="heading">Recent Transactions</div>
+          <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
+            View full list
+          </Link>
+        </div>
+        <TransactionList
+          transactionList={props.transactionList}
+          near={near}
+        />
+      </div>
     </div>
   )
 }
 
-export default Auth(Wallet);
+export default connect(state => {
+  return {
+    transactionList: state.transactions.transactions,
+    user: state.users.user
+  }
+}, dispatch => {
+  return {
+    fetchTransactions: data => dispatch(fetchTransactionsAction(data))
+  }
+})(Auth(withRouter(Wallet)));

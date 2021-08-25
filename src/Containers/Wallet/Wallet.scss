@@ -76,4 +76,25 @@
       }
     }
   }
+  .transactionListWrapper {
+    margin-top: 50px;
+    background: #c4c4c42e;
+    .transactionList {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 200;
+      .heading {
+        color: white;
+        padding: 20px;
+        font-size: 24px;
+      }
+      .viewFullLink {
+        color: white;
+        padding: 20px;
+        font-size: 20px;
+      }
+    }
+  }
 }

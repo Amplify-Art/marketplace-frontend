@@ -12,6 +12,7 @@ import searchRes from './SearchResReducer';
 import followers from './FollowerReducer';
 import marketplace_songs from './MarketplaceSongReducer';
 import nomination_votes from './NominationVoteReducer';
+import transactions from './TransactionReducer';
 
 export {
   albums,
@@ -28,4 +29,5 @@ export {
   followers,
   marketplace_songs,
   nomination_votes,
+  transactions,
 };
