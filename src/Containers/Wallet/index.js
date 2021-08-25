@@ -38,7 +38,7 @@ function Wallet(props) {
             <span className="near-label">NEAR</span>
           </div>
 
-          <div className="usd">{props.user.near_balance && `$${(props.user.near_balance / (10 ** 24 * near)).toFixed(3)}`}</div>
+          <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
             <Button text="Send" className="btn black-outline" />

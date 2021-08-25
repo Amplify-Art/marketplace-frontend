@@ -32,7 +32,7 @@ function MainSideNav(props) {
         <li className="nav-header">Profile</li>
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
         <li><NavLink to="/nominate" activeClassName="current">Nominate</NavLink></li>
-        <li onClick={toggleWalletSidebar}><span>Wallet</span></li>
+        <li ><NavLink to="/wallet" activeClassName="current">Wallet</NavLink></li>
         <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
         {user && user.type === 'artist' &&
           <>
