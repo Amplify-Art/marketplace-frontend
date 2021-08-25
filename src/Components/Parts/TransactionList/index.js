@@ -21,7 +21,7 @@ function TransactionList(props) {
                 <td className="transId">{textEllipsis(transaction.transaction_hash || '')}</td>
                 <td className="transDate">{moment(transaction.created_at).format('MMM DD, YYYY')}</td>
                 <td className="transAmt">
-                  <div className={String(transaction.price).includes('-') ? 'redTxt' : 'greenTxt'}>{String(transaction.price).includes('-') ? + props.near && (transaction.price / (100 * props.near)).toFixed(4) + ' NEAR' : '+' + props.near && (transaction.price / (100 * props.near)).toFixed(4) + ' NEAR'}</div>
+                  <div className={String(transaction.price).includes('-') ? 'redTxt' : 'greenTxt'}>{String(transaction.price).includes('-') ? (transaction.price_in_yocto_near / 10 ** 24).toFixed(4) + ' NEAR' : '+' + (transaction.price_in_yocto_near / 10 ** 24).toFixed(4) + ' NEAR'}</div>
                   <div className="smallTxt">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Math.abs(transaction.price) / 100)}</div>
                 </td>
               </tr>
