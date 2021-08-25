@@ -8,19 +8,6 @@ import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 
-const testTransaction = [ // TODO: need to remove
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-]
-
 function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState(null);
