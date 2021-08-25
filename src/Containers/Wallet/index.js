@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import CurrencyInput from 'react-currency-input-field';
 import axios from 'axios';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
@@ -10,14 +11,15 @@ import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
-  const [amontToConvert, setAmontToConvert] = useState(null);
+  const [amontToConvert, setAmontToConvert] = useState('');
   useEffect(() => {
     props.fetchTransactions({
 
     })
   }, [])
-  const onAmountChange = (e) => {
-    setAmontToConvert(e.target.value)
+  const onAmountChange = (value) => {
+    console.log(value, 'EE')
+    setAmontToConvert(value)
   }
   const getNearPrice = () => {
     axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
@@ -48,14 +50,25 @@ function Wallet(props) {
 
         <div className="right">
           <h4>Add funds to your balance</h4>
-          <input
+          <CurrencyInput
+            placeholder="Enter Amount in USD"
+            // defaultValue={0}
+            allowNegativeValue={false}
+            prefix="$"
+            decimalScale={2}
+            decimalsLimit={2}
+            onValueChange={onAmountChange}
+            onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
+            value={amontToConvert}
+          />
+          {/* <input
             type="text"
             placeholder="Enter Amount in USD"
-            onChange={onAmountChange}
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
-            value={amontToConvert} type="number"
-          />
-          {near && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
+            value={amontToConvert}
+            type="number"
+          /> */}
+          {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
           <Button text="Add Funds to Balance" className="btn solid-black" />
         </div>
       </div>
