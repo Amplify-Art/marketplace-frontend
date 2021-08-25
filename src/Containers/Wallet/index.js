@@ -52,7 +52,6 @@ function Wallet(props) {
           <h4>Add funds to your balance</h4>
           <CurrencyInput
             placeholder="Enter Amount in USD"
-            // defaultValue={0}
             allowNegativeValue={false}
             prefix="$"
             decimalScale={2}
@@ -61,13 +60,6 @@ function Wallet(props) {
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             value={amontToConvert}
           />
-          {/* <input
-            type="text"
-            placeholder="Enter Amount in USD"
-            onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
-            value={amontToConvert}
-            type="number"
-          /> */}
           {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
           <Button text="Add Funds to Balance" className="btn solid-black" />
         </div>
