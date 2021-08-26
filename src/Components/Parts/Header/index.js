@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as nearAPI from "near-api-js";
@@ -14,6 +14,8 @@ import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
+import useDebounce from '../../Common/UseDebounce';
+import SearchResultCard from '../SearchResultCard';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
 import { setNearBalanceAction } from '../../../redux/actions/UserAction';
 import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
@@ -31,7 +33,9 @@ function Header(props) {
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
   const [search, setSearch] = useState('');
-
+  const [showSearchResult, setShowSearchResult] = useState(false);
+  const debouncedSearchTerm = useDebounce(search, 500);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
     if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
@@ -39,15 +43,22 @@ function Header(props) {
     }
   }, [props.history.location.pathname])
 
-  useEffect(() => {
-    if (props.history.location.search) {
-      let querySearch = q.parse(props.history.location.search && props.history.location.search.replace('?', ''))
-      setSearch(querySearch.search)
-      props.searchRes(querySearch.search)
-    }
-  }, [props.history.location.search])
+  // useEffect(() => {
+  //   if (props.history.location.search) {
+  //     let querySearch = q.parse(props.history.location.search && props.history.location.search.replace('?', ''))
+  //     setSearch(querySearch.search)
+  //     props.searchRes(querySearch.search)
+  //   }
+  // }, [props.history.location.search])
 
-  const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu } = props;
+  useEffect(() => {
+    if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== '') {
+      let querySearch = q.parse(props.history.location.search && props.history.location.search.replace('?', ''))
+      props.searchRes(debouncedSearchTerm)
+    }
+  }, [debouncedSearchTerm]);
+
+  const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu, searchLoading, searchResult } = props;
 
   useEffect(async () => {
     const config = {
@@ -193,6 +204,20 @@ function Header(props) {
     });
   }
 
+  const handleClickOutside = (event) => {
+    const { current: wrap } = wrapperRef;
+    if (wrap && !wrap.contains(event.target)) {
+      setShowSearchResult(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     if (showWalletSidebar) {
       console.log('nearPrice')
@@ -212,11 +237,38 @@ function Header(props) {
           </Link>
         </div>
 
-        <div className="search">
-          <img src={SearchIcon} alt="Search" />
-          <input type="text" placeholder="Search for songs, artists..." onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
+        <div ref={wrapperRef} className="searchWrapper">
+          <div className="search">
+            <img src={SearchIcon} alt="Search" />
+            <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
+          </div>
+          {
+            (search.trim() !== '' && showSearchResult) &&
+            <div className="scrollSearchResult">
+              {
+                searchLoading
+                ? 'Loading...' // TODO: can add any animation
+                : (
+                  searchResult && searchResult.results.length &&
+                  <>
+                    {
+                      searchResult && searchResult.results.map(item => (
+                        item.data.map(data => (
+                          <SearchResultCard
+                            data={data}
+                            type={item.type}
+                            songsCount={searchResult.results[2].data.length}
+                          />
+                        ))
+                      ))
+                    }
+                  </>
+                )
+              }
+            </div>
+          }
         </div>
-
+        
         <div className="right">
           {userToken ? (
             <>
@@ -299,7 +351,9 @@ function Header(props) {
 
 export default connect(state => {
   return {
-    showWalletSidebar: state.global.showWallet
+    showWalletSidebar: state.global.showWallet,
+    searchResult: state.searchRes.searchResult,
+    searchLoading: state.searchRes.loading,
   }
 }, dispatch => {
   return {
