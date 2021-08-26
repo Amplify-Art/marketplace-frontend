@@ -37,6 +37,9 @@ function Header(props) {
     if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
       setSearch('')
     }
+    if (isWalletSigned) {
+      getAccountDetails()
+    }
   }, [props.history.location.pathname])
 
   useEffect(() => {
@@ -195,7 +198,10 @@ function Header(props) {
 
   useEffect(() => {
     if (showWalletSidebar) {
-      console.log('nearPrice')
+      // fetch latest account balance
+      if (isWalletSigned) {
+        getAccountDetails()
+      }
       getNearPrice()
     }
   }, [showWalletSidebar])
