@@ -8,10 +8,13 @@ import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
+import GeneralModal from '../../Components/Common/GeneralModal/index';
+import MoonPay from './MoonPay';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
+  const [showMoonPay, setShowMoonPay] = useState(null);
   useEffect(() => {
     props.fetchTransactions({
 
@@ -30,6 +33,9 @@ function Wallet(props) {
     getNearPrice()
   }, [])
 
+  const onWithDrawAmount = () => {
+    setShowMoonPay(!showMoonPay)
+  }
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
@@ -44,12 +50,12 @@ function Wallet(props) {
 
           <div className="buttons">
             <Button text="Send" className="btn black-outline" />
-            <Button text="Withdraw" className="btn black-outline" />
+            <Button text="Withdraw" className="btn black-outline" onClick={onWithDrawAmount} />
           </div>
         </div>
 
         <div className="right">
-          <h4>Add funds to your balance</h4>
+          <h4 >Add funds to your balance</h4>
           <CurrencyInput
             placeholder="Enter Amount in USD"
             allowNegativeValue={false}
@@ -61,7 +67,7 @@ function Wallet(props) {
             value={amontToConvert}
           />
           {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
-          <Button text="Add Funds to Balance" className="btn solid-black" />
+          <Button text="Add Funds to Balance" className="btn solid-black" onClick={onWithDrawAmount} />
         </div>
       </div>
 
@@ -77,6 +83,13 @@ function Wallet(props) {
           near={near}
         />
       </div>
+      {showMoonPay && <GeneralModal
+        headline="Withdraw"
+        contentClassName="moonpay centered"
+        closeModal={() => setShowMoonPay(!showMoonPay)}
+        bodyChildren={<MoonPay />}
+      />
+      }
     </div>
   )
 }
