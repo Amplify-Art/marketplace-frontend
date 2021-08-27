@@ -249,7 +249,7 @@ function Header(props) {
                 searchLoading
                 ? 'Loading...' // TODO: can add any animation
                 : (
-                  searchResult && searchResult.results.length &&
+                  searchResult && searchResult.results && searchResult.results.length &&
                   <>
                     {
                       searchResult && searchResult.results.map(item => (
@@ -258,6 +258,7 @@ function Header(props) {
                             data={data}
                             type={item.type}
                             songsCount={searchResult.results[2].data.length}
+                            handleClick={() => setShowSearchResult(false)}
                           />
                         ))
                       ))

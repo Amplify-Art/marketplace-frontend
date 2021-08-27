@@ -2,7 +2,7 @@ import './SearchResultCard.scss';
 
 function SearchResultCard(props) {
   return (
-    <div className="cardWrapper">
+    <div className="cardWrapper" onClick={props.handleClick}>
       <div className="imageHolder">
         <img src={
           props.data.banner
