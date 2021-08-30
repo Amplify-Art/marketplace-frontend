@@ -1,0 +1,39 @@
+.cardWrapper {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 25px;
+  cursor: pointer;
+  .imageHolder {
+    width: 15%;
+    height: 15%;
+    .image {
+      box-shadow: 5px 5px #f3f3f387;
+      border-radius: 10px;
+    }
+  }
+  .content {
+    width: 100%;
+    margin-left: 20px;
+    .content-heading {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 3px;
+    }
+    .content-details {
+      padding: 3px;
+      opacity: 0.7; 
+    }
+  }
+  .contentType {
+    text-align: end;
+    opacity: 0.7;
+    .contentType-heading {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .contentType-detail {
+      font-size: 16px;
+    }
+  }
+}
