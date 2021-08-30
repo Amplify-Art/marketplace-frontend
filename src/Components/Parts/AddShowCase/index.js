@@ -46,8 +46,9 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
   }
   console.log(selectedSongs, 'selectedSongs')
   let data = []
+  const mappedSelectedIds = selectedSongs.map(s => s.id)
   if (isPlayList) {
-    data = songs
+    data = songs.filter(f => !mappedSelectedIds.includes(f.id))
   } else {
     data = nfts
   }
@@ -70,12 +71,14 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
             {!isPlayList && <button className="add-btn" type="button" onClick={() => onAddingShowcase(nft)}>{nft.currentOwner && nft.currentOwner.showcases?.find(f => f.user_id === user.id && nft.id === f.album_id) ? 'Remove' : 'Add'}</button>}
           </div>
         ))
-          : !isFetchingNFts ?
-            <span>No NFts yet!</span>
-            :
-            <div className="loading-skeleton">
-              {[1, 2, 3, 4, 5].map(() => <Skeleton width={`100%`} height={60} />)}
-            </div>
+          : songs.length ?
+            <></>
+            : !isFetchingNFts ?
+              <span>No NFts yet!</span>
+              :
+              <div className="loading-skeleton">
+                {[1, 2, 3, 4, 5].map(() => <Skeleton width={`100%`} height={60} />)}
+              </div>
         }
       </div>
     </div>
