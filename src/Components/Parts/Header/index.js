@@ -211,6 +211,11 @@ function Header(props) {
     }
   };
 
+  const handleSearchClicked = () => {
+    props.history.push(`/search-result?search=${search}`);
+    setShowSearchResult(false);
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -250,20 +255,9 @@ function Header(props) {
                 ? 'Loading...' // TODO: can add any animation
                 : (
                   searchResult && searchResult.results && searchResult.results.length &&
-                  <>
-                    {
-                      searchResult && searchResult.results.map(item => (
-                        item.data.map(data => (
-                          <SearchResultCard
-                            data={data}
-                            type={item.type}
-                            songsCount={searchResult.results[2].data.length}
-                            handleClick={() => setShowSearchResult(false)}
-                          />
-                        ))
-                      ))
-                    }
-                  </>
+                    <SearchResultCard
+                      handleClick={() => handleSearchClicked()}
+                    />
                 )
               }
             </div>

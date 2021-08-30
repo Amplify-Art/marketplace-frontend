@@ -2,12 +2,15 @@
   display: flex;
   align-items: center;
   background-color: white;
-  padding: 30px;
+  padding: 25px;
+  cursor: pointer;
   .imageHolder {
     width: 15%;
     height: 15%;
-    border-radius: 10px;
-    box-shadow: 5px 5px #f3f3f387;
+    .image {
+      box-shadow: 5px 5px #f3f3f387;
+      border-radius: 10px;
+    }
   }
   .content {
     width: 100%;
