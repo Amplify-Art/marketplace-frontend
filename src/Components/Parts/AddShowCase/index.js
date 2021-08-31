@@ -60,7 +60,7 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
         {data && data.length > 0 ? data.map((nft, item) => (
           <div className="row">
             <div className="playlist-cover-holder">
-              <img src={isPlayList && (nft.album && (nft.album.user_id !== user.id || !nft.album.has_copy)) ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} onError />
+              <img src={isPlayList && !nft.is_album_cover_owner ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} onError />
               {loading && <Skeleton width={60} height={60} />}
             </div>
             <div className="row-wrap">
