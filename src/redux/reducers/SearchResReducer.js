@@ -7,6 +7,9 @@ const initialState = {
   searchResult: [],
   loading: false,
   error: '',
+  isSongSelected: false,
+  isAlbumSelected: false,
+  selectedAlbum: {},
 };
 
 export default function (state = initialState, action) {
@@ -21,6 +24,21 @@ export default function (state = initialState, action) {
           ...state,
           loading: true,
         };
+    case types.TOGGLE_IS_SONG_SELECTED:
+      return {
+        ...state,
+        isSongSelected: !state.isSongSelected,
+      };
+    case types.STORE_SELECTED_ALBUM:
+      return {
+        ...state,
+        selectedAlbum: action.payload.albumData,
+      };
+    case types.TOGGLE_IS_ALBUM_SELECTED:
+      return {
+        ...state,
+        isAlbumSelected: action.payload.isAlbumSelected,
+      };
       default:
       return state;
   }

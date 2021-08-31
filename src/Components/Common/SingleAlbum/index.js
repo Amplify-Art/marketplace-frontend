@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import GeneralModal from '../GeneralModal/index.js';
 import AlbumModalContent from '../AlbumModalContent/index.js';
+import { setIsAlbumSelected, storeSelectedAlbum } from '../../../redux/actions/SearchResAction.js';
 import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 
@@ -11,6 +13,9 @@ function SingleAlbum(props) {
   const [albumCover, setAlbumCover] = useState(cdCover);
   const [showSticker, setShowSticker] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
+  const isAlbumSelected = useSelector(state => state.searchRes?.isAlbumSelected || false);
+  const selectedAlbum = useSelector(state => state.searchRes?.selectedAlbum || {});
+  const dispatch = useDispatch();
 
   const getHeight = () => {
     let width = '300';
@@ -28,6 +33,8 @@ function SingleAlbum(props) {
   const handleCloseModal = () => {
     SetModalOpen(false)
     setViewDetails(false)
+    dispatch(setIsAlbumSelected({ isAlbumSelected: false }));
+    dispatch(storeSelectedAlbum({ albumData: {} }));
   }
 
   const checkImage = (url) => {
@@ -95,6 +102,13 @@ function SingleAlbum(props) {
         setShowSticker(true);
       }
   }, [albumInfo]);
+
+  useEffect(() => {
+    if (isAlbumSelected) {
+      // SetModalOpen(true);
+    }
+  }, [isAlbumSelected]);
+
   return (
     <>
       <div className="single-album" onClick={props.onClick ? props.onClick : handleModal}>
@@ -119,6 +133,9 @@ function SingleAlbum(props) {
           )
         }
       </div>
+      {
+
+      }
       <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
     </>
   );

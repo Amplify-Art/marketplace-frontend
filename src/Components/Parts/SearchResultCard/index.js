@@ -26,9 +26,9 @@ function SearchResultCard(props) {
     else return cdCover;
   };
 
-  const ResultCard = ({cover, contentHeading, contentDetail, contentTypeHeading, contentTypeDetail}) => {
+  const ResultCard = ({cover, contentHeading, contentDetail, contentTypeHeading, contentTypeDetail, rowData}) => {
     return (
-      <div className="cardWrapper" onClick={props.handleClick}>
+      <div className="cardWrapper" onClick={() => props.handleClick(contentTypeHeading, rowData)}>
         <div className="imageHolder">
           <img className="image" src={cover} alt="cover" />
         </div>
@@ -51,9 +51,10 @@ function SearchResultCard(props) {
           <ResultCard
             cover={findSongCover(song)}
             contentHeading={song.title}
-            contentDetail={song.album && song.album.title}
+            contentDetail={song.artist?.name}
             contentTypeHeading="Song"
             contentTypeDetail={song.mints_owned.length ? `You Own: ${song.mints_owned.map(m => '#' + m).join(',')}` : ''}
+            rowData={song}
           />
         ))
         : null
@@ -64,9 +65,10 @@ function SearchResultCard(props) {
           <ResultCard
             cover={findAlbumCover(album)}
             contentHeading={album.title}
-            contentDetail={`${album.songs.length} Songs`}
+            contentDetail={album.user?.name}
             contentTypeHeading="Album"
-            contentTypeDetail={album.mints_owned.length ? `You Own: ${album.mints_owned.map(m => '#' + m).join(',')}` : ''}
+            contentTypeDetail={album.mints_owned?.length ? `You Own: ${album.mints_owned.map(m => '#' + m).join(',')}` : ''}
+            rowData={album}
           />
         ))
         : null
@@ -77,9 +79,10 @@ function SearchResultCard(props) {
           <ResultCard
             cover={artist.avatar}
             contentHeading={artist.name}
-            contentDetail={artist.songs}
+            contentDetail={artist.songs <= 0 ? '0 Songs' : artist.songs === 1 ? '1 Song' : `${artist.songs} Songs`}
             contentTypeHeading="Artist"
             contentTypeDetail=""
+            rowData={artist}
           />
         ))
         : null
