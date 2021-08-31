@@ -18,7 +18,7 @@ import useDebounce from '../../Common/UseDebounce';
 import SearchResultCard from '../SearchResultCard';
 import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
 import { setNearBalanceAction } from '../../../redux/actions/UserAction';
-import { fetchSearchResult } from '../../../redux/actions/SearchResAction';
+import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSelected } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 import q from 'querystring';
 import { store } from 'react-notifications-component';
@@ -211,9 +211,20 @@ function Header(props) {
     }
   };
 
-  const handleSearchClicked = () => {
-    props.history.push(`/search-result?search=${search}`);
-    setShowSearchResult(false);
+  const handleSearchClicked = (type, data) => {
+    if (type === 'Artist') {
+      props.history.push(`/artist/${data.id}`);
+      setShowSearchResult(false);
+    } else if (type === 'Album') {
+      props.history.push(`/search-result?search=${search}`);
+      props.setSelectedAlbum({ albumData: data });
+      props.setIsAlbumSelected({ isAlbumSelected: true });
+      setShowSearchResult(false);
+    } else {
+      props.history.push(`/search-result?search=${search}`);
+      props.setIsSongSelected();
+      setShowSearchResult(false);
+    }
   };
 
   useEffect(() => {
@@ -256,7 +267,7 @@ function Header(props) {
                 : (
                   searchResult && searchResult.results && searchResult.results.length &&
                     <SearchResultCard
-                      handleClick={() => handleSearchClicked()}
+                      handleClick={(type, data) => handleSearchClicked(type, data)}
                     />
                 )
               }
@@ -355,6 +366,9 @@ export default connect(state => {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
     searchRes: (payload) => dispatch(fetchSearchResult(payload)),
-    setNearBalance: (payload) => dispatch(setNearBalanceAction(payload))
+    setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
+    setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
+    setIsSongSelected: () => dispatch(setIsSongSelected()),
+    setIsAlbumSelected: (payload) => dispatch(setIsAlbumSelected(payload)),
   }
 })(withRouter(Header));

@@ -5,3 +5,17 @@ export const fetchSearchResult = payload => ({
   payload,
 });
 
+export const setIsSongSelected = payload => ({
+  type: types.TOGGLE_IS_SONG_SELECTED,
+  payload,
+});
+
+export const storeSelectedAlbum = payload => ({
+  type: types.STORE_SELECTED_ALBUM,
+  payload,
+});
+
+export const setIsAlbumSelected = payload => ({
+  type: types.TOGGLE_IS_ALBUM_SELECTED,
+  payload,
+})
