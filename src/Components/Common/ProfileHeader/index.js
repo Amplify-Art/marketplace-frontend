@@ -6,7 +6,8 @@ import _ from 'lodash';
 import AddShowCase from '../../Parts/AddShowCase/index';
 import { showCaseData } from '../../../Containers/Sandbox'
 import GeneralModal from '../../Common/GeneralModal/index';
-import defaultProfile from '../../../assets/images/default-profile.jpg'
+import defaultProfile from '../../../assets/images/default-profile.jpg';
+import bannerDefault from '../../../assets/images/banner_default.jpeg';
 
 import './ProfileHeader.scss';
 import Shelf from '../../../assets/images/shelf.png';
@@ -17,12 +18,16 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
   const [isDefaultImage, setDefaultImage] = useState(null);
+
   const coverPhoto = () => {
     let coverPhoto;
+
     if (ArtistData.cover) {
       coverPhoto = ArtistData.cover;
     } else if (ArtistData.banner) {
       coverPhoto = ArtistData.banner;
+    } else {
+      coverPhoto = bannerDefault;
     }
 
     return coverPhoto;
@@ -42,6 +47,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
         'filter[user_id]': user
       }
     });
+
   }, []);
 
   const onImageLoadError = (e) => {
@@ -49,7 +55,7 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
   }
   return (
     <div id="profile-header">
-      <div className="profile-cover" style={{ backgroundImage: `url(${coverPhoto()})` }}>
+      <div className={`profile-cover ${coverPhoto() === bannerDefault && 'default'}`} style={{ backgroundImage: `url(${coverPhoto()})` }}>
         {showShowcase && !showShowcase === false && (
           <div className="shelves">
             {

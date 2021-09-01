@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import './Player.scss';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
@@ -105,7 +106,7 @@ function Player(props) {
         <div className="over">
           <div className="top-icons">
             {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
-            <div className="wallet" onClick={() => toggleWalletSidebar(!showWallet)}><img src={Wallet} alt="wallet" /></div>
+            <div className="wallet"><Link to="/wallet"><img src={Wallet} alt="wallet" /></Link></div>
             <div className="user">
               <img src={avatar} />
             </div>
@@ -184,4 +185,4 @@ export default connect(state => {
     showWallet: state.global.showWallet,
     currentPlaylists: state.playlists.current_playlists
   }
-})(Player);
+})(withRouter(Player));

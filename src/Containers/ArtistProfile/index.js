@@ -46,7 +46,7 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
-        <button className="set_name" onClick={() => onFollow()} ><img src={ShareIcon} alt="Twitter" />{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        <button className="set_name" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
       </>
     )
   }
@@ -96,7 +96,7 @@ function ArtistProfile(props) {
   console.log(albums, 'albums')
   return (
     artistFound ?
-      props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className="left-nav-pad right-player-pad">
+      props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
         <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
 
         <div className="recently-purchased">

@@ -285,7 +285,9 @@ function Header(props) {
           {userToken ? (
             <>
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
-              <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
+              <div className="wallet">
+                <Link to="/wallet"><img src={Wallet} alt="wallet" /></Link>
+              </div>
               <div className="mobile-menu" onClick={toggleMobileMenu}>
                 <img src={MenuIconNew} />
               </div>
