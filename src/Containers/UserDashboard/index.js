@@ -113,6 +113,7 @@ function UserDashboard(props) {
       </div>
     </div>
   );
+
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
@@ -146,7 +147,7 @@ function UserDashboard(props) {
         {renderHeader("Followed Artists", false)}
         <div className="album-block">
           {props.myFollowings.map((following, index) => (
-            <UserAvatar avatarImg={following.artist.avatar} name={following.artist.name} />
+            <UserAvatar avatarImg={following.artist.avatar} onClick={() => props.history.push(`/artist/${following.artist.id}`)} name={following.artist.name} />
           ))}
         </div>
       </div>
