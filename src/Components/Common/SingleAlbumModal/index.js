@@ -1,0 +1,129 @@
+import React, { useState, useEffect } from "react";
+import { usePalette } from 'react-palette';
+
+import AlbumSingleSong from '../AlbumSingleSong/index';
+import BackArrowIcon from '../../../assets/images/left-arrow.png';
+import './SingleAlbumModal.scss';
+
+
+const SingleAlbumModal = ({ isOpen = false, albumData}) => {
+  const [viewDetails, setViewDetails] = useState(false);
+  const [audio, setAudioSong] = useState(new Audio(''));
+  const [playing, setPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`);
+  const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+  const toggle = (songid) => {
+    setAudioSong(new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songid}`))
+    if (playing && currentIndex !== songid) {
+      audio.pause()
+      audio.currentTime = 0;
+      setCurrentIndex(songid)
+      setPlaying(true)
+    } else if (!playing && currentIndex === -1) {
+      setCurrentIndex(songid)
+      setPlaying(true)
+    } else {
+      audio.pause()
+      audio.currentTime = 0;
+      setAudioSong(new Audio(''))
+      setCurrentIndex(-1)
+      setPlaying(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCurrentIndex(-1)
+      setPlaying(false)
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [audio, playing, currentIndex]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => {
+      setAudioSong(new Audio(''))
+      setCurrentIndex(-1)
+      setPlaying(false)
+    });
+    audio.addEventListener("timeupdate", e => {
+      const progressElement = document.getElementById(currentIndex)
+      if (progressElement) {
+        let normalizedRadius = 9;
+        let circumference = normalizedRadius * 2 * Math.PI;
+        let startPoint = (audio.currentTime / audio.duration) * circumference;
+        let endPoint = circumference - (audio.currentTime / audio.duration) / 100 * circumference;
+        progressElement.style.strokeDasharray = `${startPoint},${endPoint}`
+      }
+    });
+    return () => {
+      audio.removeEventListener("ended", () => {
+        setAudioSong(new Audio(''))
+        setCurrentIndex(-1)
+        setPlaying(false)
+      });
+      audio.removeEventListener("timeupdate", () => { });
+    };
+  }, [playing, audio]);
+
+  return (
+    <div id="albums-content">
+      {!viewDetails
+        ?
+          <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
+            <div className="album-top">
+              <div className="album-img">
+                {albumData && albumData.cover_cid
+                  ?
+                    <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
+                  :
+                    <img src={albumData.coverArt} alt='' />}
+              </div>
+            <div className="album-right">
+              <div className="title">{albumData && albumData.title}</div>
+                <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
+                <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+            </div>
+          </div>
+          <div className="album-bottom" id="modalScrolling">
+            {albumData?.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
+              <AlbumSingleSong
+                song={song}
+                index={index}
+                key={`${index}singlesong`}
+                audio={audio}
+                currentIndex={currentIndex}
+                playing={playing}
+                isOpen={isOpen}
+                toggle={(data) => toggle(data)}
+              />
+            ))}
+          </div>
+        </div>
+      :
+        <div className="left-wrapper">
+          <div className="viewdetails-top">
+            <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+            <div className="details-banner">
+              Album Details
+            </div>
+          </div>
+          <div className="details-content">
+            <p className="sub-content" style={{ marginTop: '8px' }}>{albumData.description}</p>
+          </div>
+          <div className="memory-card">
+            <div className="mint-text">Mint</div>
+            <div className="mint-number">{zeroPad(albumData.copy_number || (albumData.available_qty === 0 ? albumData.available_qty : (albumData.qty - albumData.available_qty) + 1), 3)}</div>
+          </div>
+        </div>
+      }
+      <div className='bg-album-img' />
+    </div>
+  );
+};
+
+export default SingleAlbumModal;
