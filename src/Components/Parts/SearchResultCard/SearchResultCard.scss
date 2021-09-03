@@ -2,15 +2,23 @@
   display: flex;
   align-items: center;
   background-color: white;
-  padding: 25px;
   cursor: pointer;
   font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
   .imageHolder {
-    width: 15%;
-    height: 15%;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 5px 5px #f3f3f387;
+    flex: none;
     .image {
       box-shadow: 6px 6px 17px #bebebe, -17px -17px 17px #ffffff;
       border-radius: 8px;
+      width: 100%;
     }
   }
   .content {
@@ -19,10 +27,8 @@
     .content-heading {
       font-size: 20px;
       font-weight: bold;
-      padding: 3px;
     }
     .content-details {
-      padding: 3px;
       opacity: 0.7; 
     }
   }
@@ -32,6 +38,7 @@
     .contentType-heading {
       font-size: 18px;
       font-weight: bold;
+      color: #999;
     }
     .contentType-detail {
       font-size: 16px;

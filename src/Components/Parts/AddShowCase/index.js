@@ -39,25 +39,28 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
     }
     toggleShowCaseModal()
   }
-  const onLoadingImage = (i) => {
-    if (nfts.length - 1 === i) {
-      setLoading(false)
-    }
-  }
-  console.log(selectedSongs, 'selectedSongs')
   let data = []
+  const mappedSelectedIds = (selectedSongs || []).map(s => s.id)
   if (isPlayList) {
-    data = songs
+    data = songs.filter(f => !mappedSelectedIds.includes(f.id))
   } else {
     data = nfts
   }
+  const onLoadingImage = (i) => {
+    console.log(data.length, i)
+    if (data.length - 1 === i) {
+      setLoading(false)
+    }
+  }
+  console.log(data, 'data')
+
   return (
     <div id="addshowcase">
       <div class="scrollbar" id="style-4">
         {data && data.length > 0 ? data.map((nft, item) => (
           <div className="row">
             <div className="playlist-cover-holder">
-              <img src={isPlayList && nft.album && nft.album.current_owner !== user.id ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} />
+              <img src={isPlayList && !nft.is_album_cover_owner ? CDImg : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList ? nft.album && nft.album.cover_cid : nft.cover_cid}`} onLoad={() => onLoadingImage(item)} className={`cover ${loading && 'hidden'}`} onError />
               {loading && <Skeleton width={60} height={60} />}
             </div>
             <div className="row-wrap">
@@ -70,12 +73,14 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
             {!isPlayList && <button className="add-btn" type="button" onClick={() => onAddingShowcase(nft)}>{nft.currentOwner && nft.currentOwner.showcases?.find(f => f.user_id === user.id && nft.id === f.album_id) ? 'Remove' : 'Add'}</button>}
           </div>
         ))
-          : !isFetchingNFts ?
-            <span>No NFts yet!</span>
-            :
-            <div className="loading-skeleton">
-              {[1, 2, 3, 4, 5].map(() => <Skeleton width={`100%`} height={60} />)}
-            </div>
+          : songs.length ?
+            <></>
+            : !isFetchingNFts ?
+              <span>No NFts yet!</span>
+              :
+              <div className="loading-skeleton">
+                {[1, 2, 3, 4, 5].map(() => <Skeleton width={`100%`} height={60} />)}
+              </div>
         }
       </div>
     </div>

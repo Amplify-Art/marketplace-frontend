@@ -41,6 +41,9 @@ function Header(props) {
     if (props.history.location.pathname && props.history.location.pathname !== '/search-result') {
       setSearch('')
     }
+    if (isWalletSigned) {
+      getAccountDetails()
+    }
   }, [props.history.location.pathname])
 
   // useEffect(() => {
@@ -236,7 +239,10 @@ function Header(props) {
 
   useEffect(() => {
     if (showWalletSidebar) {
-      console.log('nearPrice')
+      // fetch latest account balance
+      if (isWalletSigned) {
+        getAccountDetails()
+      }
       getNearPrice()
     }
   }, [showWalletSidebar])
@@ -279,7 +285,9 @@ function Header(props) {
           {userToken ? (
             <>
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
-              <div className="wallet"><img src={Wallet} alt="wallet" onClick={() => toggleWalletSidebar(!showWalletSidebar)} /></div>
+              <div className="wallet">
+                <Link to="/wallet"><img src={Wallet} alt="wallet" /></Link>
+              </div>
               <div className="mobile-menu" onClick={toggleMobileMenu}>
                 <img src={MenuIconNew} />
               </div>

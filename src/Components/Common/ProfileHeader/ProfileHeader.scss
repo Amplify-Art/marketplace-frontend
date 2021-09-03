@@ -12,7 +12,7 @@
   }
   .profile-cover {
     margin-left: -220px;
-    margin-right: -30px;
+    margin-right: -60px;
     height: 344px;
     max-width: unset;
     position: relative;
@@ -28,6 +28,12 @@
       position: absolute;
       top: 0px;
       left: 0px;
+    }
+
+    &.default {
+      background-size: contain;
+      background-position: right;
+      background-color: #5a6c7a;
     }
   }
   .profile-head-details {
@@ -129,7 +135,9 @@
   }
   
   .details {
-    display: none;
+    &.mobile {
+      display: none;
+    }
     @media screen and (max-width: 600px) {
       &.mobile {
         margin-left: 30px;

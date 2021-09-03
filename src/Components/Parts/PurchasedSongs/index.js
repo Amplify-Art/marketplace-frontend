@@ -24,14 +24,6 @@ function PurchasedSongs(props) {
     ))
   }
 
-
-  useEffect(() => {
-    props.fetchSongs({
-      params: {
-        related: 'album'
-      }
-    });
-  }, []);
   return (
     <div id="create-playlist">
       <div className="album-info">
@@ -80,7 +72,6 @@ function PurchasedSongs(props) {
 export default connect(state => {
   return {
     nfts: state.nfts.nfts,
-    songs: state.songs.songs
   }
 }, dispatch => {
   return {

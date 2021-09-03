@@ -1,36 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import CurrencyInput from 'react-currency-input-field';
 import axios from 'axios';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
-
-const testTransaction = [ // TODO: need to remove
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '-$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-  { id: 'GDHsjdh734637g2357', date: '04/10/2020', nearAmount: '+$13.4545 NEAR', amount: '$2.12' },
-]
+import GeneralModal from '../../Components/Common/GeneralModal/index';
+import MoonPay from './MoonPay';
+import TransactionModal from './Parts/TransactionModal';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
-  const [amontToConvert, setAmontToConvert] = useState(null);
+  const [amontToConvert, setAmontToConvert] = useState('');
+  const [showMoonPay, setShowMoonPay] = useState(null);
   useEffect(() => {
     props.fetchTransactions({
 
     })
   }, [])
-  const onAmountChange = (e) => {
-    setAmontToConvert(e.target.value)
+  const onAmountChange = (value) => {
+    console.log(value, 'EE')
+    setAmontToConvert(value)
   }
   const getNearPrice = () => {
     axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
@@ -40,6 +33,10 @@ function Wallet(props) {
   useEffect(() => {
     getNearPrice()
   }, [])
+
+  const onWithDrawAmount = () => {
+    setShowMoonPay(!showMoonPay)
+  }
 
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
@@ -51,25 +48,28 @@ function Wallet(props) {
             <span className="near-label">NEAR</span>
           </div>
 
-          <div className="usd">{props.user.near_balance && `$${(props.user.near_balance / (10 ** 24 * near)).toFixed(3)}`}</div>
+          <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
             <Button text="Send" className="btn black-outline" />
-            <Button text="Withdraw" className="btn black-outline" />
+            <Button text="Withdraw" className="btn black-outline" onClick={onWithDrawAmount} />
           </div>
         </div>
 
         <div className="right">
-          <h4>Add funds to your balance</h4>
-          <input
-            type="text"
+          <h4 >Add funds to your balance</h4>
+          <CurrencyInput
             placeholder="Enter Amount in USD"
-            onChange={onAmountChange}
+            allowNegativeValue={false}
+            prefix="$"
+            decimalScale={2}
+            decimalsLimit={2}
+            onValueChange={onAmountChange}
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
-            value={amontToConvert} type="number"
+            value={amontToConvert}
           />
-          {near && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
-          <Button text="Add Funds to Balance" className="btn solid-black" />
+          {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
+          <Button text="Add Funds to Balance" className="btn solid-black" onClick={onWithDrawAmount} />
         </div>
       </div>
 
@@ -83,6 +83,21 @@ function Wallet(props) {
         <TransactionList
           transactionList={props.transactionList}
           near={near}
+        />
+      </div>
+      {showMoonPay && <GeneralModal
+        headline="Withdraw"
+        contentClassName="moonpay centered"
+        closeModal={() => setShowMoonPay(!showMoonPay)}
+        bodyChildren={<MoonPay />}
+      />
+      }
+
+      <div className="transaction-modal">
+        <GeneralModal
+          headline="Transaction Details."
+          bodyChildren={<TransactionModal />}
+          isCloseButton={true}
         />
       </div>
     </div>
