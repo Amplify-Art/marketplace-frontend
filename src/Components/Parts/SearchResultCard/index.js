@@ -2,9 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { filter } from 'lodash';
+
+import Image from '../../Common/Image';
 import './SearchResultCard.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
-
+import greyFace from '../../../assets/images/grey_face.gif'
 
 function SearchResultCard(props) {
   const { results } = props?.searchResult;
@@ -30,7 +32,7 @@ function SearchResultCard(props) {
     return (
       <div className="cardWrapper" onClick={() => props.handleClick(contentTypeHeading, rowData)}>
         <div className="imageHolder">
-          <img className="image" src={cover} alt="cover" />
+          <Image className="image" src={cover} alt="" fallbackImage={greyFace} />
         </div>
         <div className="content">
           <div className="content-heading">{contentHeading}</div>
