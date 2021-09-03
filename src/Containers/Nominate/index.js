@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import './Nominate.scss'
 import moment from 'moment'
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUsersAction } from '../../redux/actions/UserAction'
 import { addNominationAction } from '../../redux/actions/NominationAction'
+import NominateModal from '../../Components/Parts/NominateModal';
+import GeneralModal from '../../Components/Common/GeneralModal';
+import ConfettiImage from '../../assets/images/confetti.png';
 import _ from 'lodash';
 import jwt from 'jsonwebtoken'
 
@@ -21,6 +23,8 @@ const Nominate = (props) => {
   let [selected, setSelected] = useState(null)
   let [nominateName, setNominateName] = useState('')
   let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
+  const [showNominateModal, setShowNominateModal] = useState(true);
+  const [showCongratsModal, toggleCongratsModal] = useState(false);
 
   const getUsers = (s) => {
     props.fetchUsers({
@@ -50,40 +54,46 @@ const Nominate = (props) => {
       nominee: selected.id
     });
     setNominateName('')
+    setShowNominateModal(false);
+    toggleCongratsModal(true);
   }
   return (
-    <div id="nominate-container">
-      <div className='container'>
-        <div className='nominate-banner'>Nomination</div>
-
-
-        <div className="nominet_border1">
-          <div className="nominet_border2">
-          </div>
-        </div>
-        <div className='nominate_wrapp'>
-          <div className='content'>
-            <h1 className='heading'>{moment().daysInMonth() - moment().date()} Days Left Until Next Nomination</h1>
-            <div className="nominate">
-              <div>Nominate yourself for this month's voting period.</div>
-              <div>Enter early in the month for next exposure.</div>
-            </div>
-            <div className="submission">1 Submission per month per user</div>
-            <div className="search">
-              <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={nominateName} />
-              <button className="btn" onClick={onSubmit}>Submit Artist</button>
-            </div>
-            {search && !selected &&
-              <div className="user-list" >
-                <div className="user-inner" id="modalScrolling">
-                  {props.users.filter(f => f.id !== currentUser.id).map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
-                </div>
-              </div>
+    <>
+      {
+        showNominateModal &&
+        <GeneralModal
+          bodyChildren={
+            <NominateModal
+              daysLeft={moment().daysInMonth() - moment().date()}
+              onChange={onSearch}
+              onClick={onSubmit}
+              onClose={() => setShowNominateModal(false)}
+              inputValue={nominateName}
+              suggestion={props.users}
+              search={search}
+              selected={selected}
+              currentUser={currentUser}
+              onSelect={onSelect}
+            />
+          }
+        />
+      }
+      {
+        showCongratsModal &&
+        <GeneralModal
+          topIcon={ConfettiImage}
+          headline="Thank You For Your Nomination"
+          buttons={[
+            {
+              type: 'solid go-home',
+              text: 'Go Home',
+              onClick: () => props.history.push('/')
             }
-          </div>
-        </div>
-      </div>
-    </div>
+          ]}
+          className="centered"
+        />
+      }
+    </>
   )
 }
 
