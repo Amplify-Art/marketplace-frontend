@@ -93,13 +93,13 @@ function Wallet(props) {
       />
       }
 
-      <div className="transaction-modal">
+      {/* <div className="transaction-modal">
         <GeneralModal
           headline="Transaction Details."
           bodyChildren={<TransactionModal />}
           isCloseButton={true}
         />
-      </div>
+      </div> */}
     </div>
   )
 }
