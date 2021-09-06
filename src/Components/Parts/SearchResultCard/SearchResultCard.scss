@@ -16,6 +16,8 @@
     box-shadow: 5px 5px #f3f3f387;
     flex: none;
     .image {
+      box-shadow: 6px 6px 17px #bebebe, -17px -17px 17px #ffffff;
+      border-radius: 8px;
       width: 100%;
     }
   }
