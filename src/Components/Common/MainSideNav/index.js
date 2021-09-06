@@ -3,17 +3,20 @@ import { NavLink } from "react-router-dom";
 import './MainSideNav.scss';
 import jwt from 'jsonwebtoken';
 import * as playListAction from '../../../redux/actions/PlaylistAction'
+import { toggleNominateModal } from '../../../redux/actions/NominationAction';
 import { connect } from 'react-redux';
 
 function MainSideNav(props) {
   const { toggleWalletSidebar, showMobileMenu } = props;
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  // const isNominate = useSelector(state => state.searchRes?.isAlbumSelected || false);
   const onLogout = () => {
     localStorage.removeItem('amplify_app_token')
     sessionStorage.removeItem('activePlaylist')
     props.clearCurrentPlayList()
     // history.push("/")
   }
+
   return (
     <div id="main-side-nav" className={`${showMobileMenu && 'mobile-open'}`}>
       <ul>
@@ -31,7 +34,7 @@ function MainSideNav(props) {
 
         <li className="nav-header">Profile</li>
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
-        <li><NavLink to="/nominate" activeClassName="current">Nominate</NavLink></li>
+        <li><NavLink to="/nominate" activeClassName="current" onClick={() => props.toggleNominateModal(true)}>Nominate</NavLink></li>
         <li ><NavLink to="/wallet" activeClassName="current">Wallet</NavLink></li>
         <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
         {user && user.type === 'artist' &&
@@ -48,5 +51,6 @@ function MainSideNav(props) {
 export default connect(null, dispatch => {
   return {
     clearCurrentPlayList: () => dispatch(playListAction.clearCurrentPlayList()),
+    toggleNominateModal: (data) => dispatch(toggleNominateModal(data)),
   }
 })(MainSideNav);

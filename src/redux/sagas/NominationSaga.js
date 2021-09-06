@@ -46,10 +46,14 @@ export function* addNominationSaga({ history }, { payload }) {
           message: res.success ? 'Nomination added' : res.message || 'Nomination not added',
         },
       }),
+      put({
+        type: types.TOGGLE_NOMINATE_CONGRATS_MODAL,
+        payload: res.success,
+      }),
     ]);
-    if (res && res.success && res.data && res.data.id && history) {
-      history.push('/nominations');
-    }
+    // if (res && res.success && res.data && res.data.id && history) {
+    //   history.push('/nominations');
+    // }
   } catch (error) {
     yield all([
       put({ type: types.ADD_NOMINATION_FAILED, error }),
