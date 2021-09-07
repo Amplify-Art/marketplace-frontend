@@ -88,10 +88,13 @@ function Wallet(props) {
         />
       </div>
       {showMoonPay && <GeneralModal
-        headline={moonpayType === 'withdraw' ? `Withdraw` : 'Add Funds to Balance'}
+        headline={moonpayType === 'withdraw' ? `Withdraw` : 'Purchase'}
         contentClassName="moonpay centered"
         closeModal={() => setShowMoonPay(!showMoonPay)}
-        bodyChildren={<MoonPay />}
+        bodyChildren={<MoonPay
+          amontToConvert={amontToConvert}
+          type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
+        />}
       />
       }
 
