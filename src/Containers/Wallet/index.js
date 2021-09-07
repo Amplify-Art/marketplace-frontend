@@ -11,11 +11,13 @@ import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
+import SendModal from './Parts/SendModal';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
   const [showMoonPay, setShowMoonPay] = useState(null);
+  const [showSendModal, setShowSendModal] = useState(false);
   useEffect(() => {
     props.fetchTransactions({
 
@@ -51,7 +53,7 @@ function Wallet(props) {
           <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
-            <Button text="Send" className="btn black-outline" />
+            <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />
             <Button text="Withdraw" className="btn black-outline" onClick={onWithDrawAmount} />
           </div>
         </div>
@@ -91,6 +93,16 @@ function Wallet(props) {
         closeModal={() => setShowMoonPay(!showMoonPay)}
         bodyChildren={<MoonPay />}
       />
+      }
+      {
+        showSendModal &&
+        <GeneralModal
+          bodyChildren={
+            <SendModal
+              onClose={() => setShowSendModal(false)}
+            />
+          }
+        />
       }
 
       {/* <div className="transaction-modal">
