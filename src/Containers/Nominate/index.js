@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import './Nominate.scss'
 import moment from 'moment'
 import { connect } from 'react-redux';
 import { fetchUsersAction } from '../../redux/actions/UserAction'
-import { addNominationAction } from '../../redux/actions/NominationAction'
+import { addNominationAction, toggleNominateModal, toggleNominateCongratsModal } from '../../redux/actions/NominationAction'
 import NominateModal from '../../Components/Parts/NominateModal';
 import GeneralModal from '../../Components/Common/GeneralModal';
 import ConfettiImage from '../../assets/images/confetti.png';
@@ -23,8 +23,6 @@ const Nominate = (props) => {
   let [selected, setSelected] = useState(null)
   let [nominateName, setNominateName] = useState('')
   let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
-  const [showNominateModal, setShowNominateModal] = useState(true);
-  const [showCongratsModal, toggleCongratsModal] = useState(false);
 
   const getUsers = (s) => {
     props.fetchUsers({
@@ -54,20 +52,25 @@ const Nominate = (props) => {
       nominee: selected.id
     });
     setNominateName('')
-    setShowNominateModal(false);
-    toggleCongratsModal(true);
+    props.toggleNominateModal(false);
   }
+
+  const handleGoHome = () => {
+    props.history.push('/');
+    props.toggleNominateCongratsModal(false);
+  };
+
   return (
     <>
       {
-        showNominateModal &&
+        props.showNominationModal &&
         <GeneralModal
           bodyChildren={
             <NominateModal
               daysLeft={moment().daysInMonth() - moment().date()}
               onChange={onSearch}
               onClick={onSubmit}
-              onClose={() => setShowNominateModal(false)}
+              onClose={() => props.toggleNominateModal(false)}
               inputValue={nominateName}
               suggestion={props.users}
               search={search}
@@ -79,7 +82,7 @@ const Nominate = (props) => {
         />
       }
       {
-        showCongratsModal &&
+        props.showCongratsModal &&
         <GeneralModal
           topIcon={ConfettiImage}
           headline="Thank You For Your Nomination"
@@ -87,7 +90,7 @@ const Nominate = (props) => {
             {
               type: 'solid go-home',
               text: 'Go Home',
-              onClick: () => props.history.push('/')
+              onClick: () => handleGoHome()
             }
           ]}
           className="centered"
@@ -99,11 +102,15 @@ const Nominate = (props) => {
 
 export default connect(state => {
   return {
-    users: state.users.users
+    users: state.users.users,
+    showNominationModal: state.nominations?.showNominationModal,
+    showCongratsModal: state.nominations?.showCongratsModal,
   }
 }, dispatch => {
   return {
     fetchUsers: (data) => dispatch(fetchUsersAction(data)),
     addNomination: (data) => dispatch(addNominationAction(data)),
+    toggleNominateModal: (data) => dispatch(toggleNominateModal(data)),
+    toggleNominateCongratsModal: (data) => dispatch(toggleNominateCongratsModal(data)),
   }
 })(Nominate)
