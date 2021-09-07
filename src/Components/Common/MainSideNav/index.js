@@ -34,8 +34,8 @@ function MainSideNav(props) {
 
         <li className="nav-header">Profile</li>
         <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
-        <li><NavLink to="/nominate" activeClassName="current" onClick={() => props.toggleNominateModal(true)}>Nominate</NavLink></li>
-        <li ><NavLink to="/wallet" activeClassName="current">Wallet</NavLink></li>
+        <li><div to="/nominate" className="clickable-link" onClick={() => props.toggleNominateModal(true)}>Nominate</div></li>
+        <li><NavLink to="/wallet" activeClassName="current">Wallet</NavLink></li>
         <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
         {user && user.type === 'artist' &&
           <>
