@@ -9,6 +9,8 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
+  showNominationModal: false,
+  showCongratsModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -126,6 +128,16 @@ export default function (state = initialState, action) {
         ...state,
         error: 'Bad Request',
         loading: false,
+      };
+    case types.TOGGLE_NOMINATE_MODAL:
+      return {
+        ...state,
+        showNominationModal: action.payload,
+      };
+    case types.TOGGLE_NOMINATE_CONGRATS_MODAL:
+      return {
+        ...state,
+        showCongratsModal: action.payload,
       };
     default:
       return state;
