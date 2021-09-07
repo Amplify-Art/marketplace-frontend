@@ -26,11 +26,6 @@ export const deleteNominationAction = payload => ({
   payload,
 });
 
-export const toggleNominateModal = payload => ({
-  type: types.TOGGLE_NOMINATE_MODAL,
-  payload,
-});
-
 export const toggleNominateCongratsModal = payload => ({
   type: types.TOGGLE_NOMINATE_CONGRATS_MODAL,
   payload,

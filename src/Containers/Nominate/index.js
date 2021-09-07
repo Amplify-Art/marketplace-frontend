@@ -3,7 +3,7 @@ import './Nominate.scss'
 import moment from 'moment'
 import { connect } from 'react-redux';
 import { fetchUsersAction } from '../../redux/actions/UserAction'
-import { addNominationAction, toggleNominateModal, toggleNominateCongratsModal } from '../../redux/actions/NominationAction'
+import { addNominationAction, toggleNominateCongratsModal } from '../../redux/actions/NominationAction'
 import NominateModal from '../../Components/Parts/NominateModal';
 import GeneralModal from '../../Components/Common/GeneralModal';
 import ConfettiImage from '../../assets/images/confetti.png';
@@ -22,6 +22,7 @@ const Nominate = (props) => {
   let [search, setSearch] = useState('')
   let [selected, setSelected] = useState(null)
   let [nominateName, setNominateName] = useState('')
+  const [showNominateModal, setNominateModal] = useState(false);
   let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
 
   const getUsers = (s) => {
@@ -52,7 +53,7 @@ const Nominate = (props) => {
       nominee: selected.id
     });
     setNominateName('')
-    props.toggleNominateModal(false);
+    setNominateModal(false);
   }
 
   const handleGoHome = () => {
@@ -63,14 +64,14 @@ const Nominate = (props) => {
   return (
     <>
       {
-        props.showNominationModal &&
+        showNominateModal &&
         <GeneralModal
           bodyChildren={
             <NominateModal
               daysLeft={moment().daysInMonth() - moment().date()}
               onChange={onSearch}
               onClick={onSubmit}
-              onClose={() => props.toggleNominateModal(false)}
+              onClose={() => setNominateModal(false)}
               inputValue={nominateName}
               suggestion={props.users}
               search={search}
@@ -103,14 +104,12 @@ const Nominate = (props) => {
 export default connect(state => {
   return {
     users: state.users.users,
-    showNominationModal: state.nominations?.showNominationModal,
     showCongratsModal: state.nominations?.showCongratsModal,
   }
 }, dispatch => {
   return {
     fetchUsers: (data) => dispatch(fetchUsersAction(data)),
     addNomination: (data) => dispatch(addNominationAction(data)),
-    toggleNominateModal: (data) => dispatch(toggleNominateModal(data)),
     toggleNominateCongratsModal: (data) => dispatch(toggleNominateCongratsModal(data)),
   }
 })(Nominate)
