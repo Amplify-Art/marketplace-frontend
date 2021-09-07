@@ -16,6 +16,7 @@ function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
   const [showMoonPay, setShowMoonPay] = useState(null);
+  const [moonpayType, setMoonpayType] = useState(null);
   useEffect(() => {
     props.fetchTransactions({
 
@@ -34,8 +35,9 @@ function Wallet(props) {
     getNearPrice()
   }, [])
 
-  const onWithDrawAmount = () => {
+  const onWithDrawAmount = (type) => {
     setShowMoonPay(!showMoonPay)
+    setMoonpayType(type)
   }
 
   return (
@@ -52,7 +54,7 @@ function Wallet(props) {
 
           <div className="buttons">
             <Button text="Send" className="btn black-outline" />
-            <Button text="Withdraw" className="btn black-outline" onClick={onWithDrawAmount} />
+            <Button text="Withdraw" className="btn black-outline" onClick={() => onWithDrawAmount('withdraw')} />
           </div>
         </div>
 
@@ -69,7 +71,7 @@ function Wallet(props) {
             value={amontToConvert}
           />
           {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
-          <Button text="Add Funds to Balance" className="btn solid-black" onClick={onWithDrawAmount} />
+          <Button text="Add Funds to Balance" className="btn solid-black" onClick={() => onWithDrawAmount('add_funds')} />
         </div>
       </div>
 
@@ -86,7 +88,7 @@ function Wallet(props) {
         />
       </div>
       {showMoonPay && <GeneralModal
-        headline="Withdraw"
+        headline={moonpayType === 'withdraw' ? `Withdraw` : 'Add Funds to Balance'}
         contentClassName="moonpay centered"
         closeModal={() => setShowMoonPay(!showMoonPay)}
         bodyChildren={<MoonPay />}
