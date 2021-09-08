@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Nominate.scss'
 import moment from 'moment'
 import { connect } from 'react-redux';
@@ -7,22 +7,14 @@ import { addNominationAction, toggleNominateCongratsModal } from '../../redux/ac
 import NominateModal from '../../Components/Parts/NominateModal';
 import GeneralModal from '../../Components/Common/GeneralModal';
 import ConfettiImage from '../../assets/images/confetti.png';
-import _ from 'lodash';
+import useDebounce from '../../Components/Common/UseDebounce';
 import jwt from 'jsonwebtoken'
 
-function useDebounce(callback, delay) {
-  const debouncedFn = useCallback(
-    _.debounce((...args) => callback(...args), delay),
-    [delay] // will recreate if delay changes
-  );
-  return debouncedFn;
-}
-
-const Nominate = (props) => {
-  let [search, setSearch] = useState('')
-  let [selected, setSelected] = useState(null)
-  let [nominateName, setNominateName] = useState('')
-  const [showNominateModal, setNominateModal] = useState(false);
+const Nominate = ({ showNominateModal, setShowNominateModal, ...props}) => {
+  const [search, setSearch] = useState('');
+  const [selected, setSelected] = useState(null);
+  const [nominateName, setNominateName] = useState('');
+  const debouncedSearchTerm = useDebounce(search, 500);
   let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
 
   const getUsers = (s) => {
@@ -31,21 +23,22 @@ const Nominate = (props) => {
         search: s && s.replace('@', '')
       }
     })
-  }
-  const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
+  };
+
   const onSearch = (e) => {
     const { value: nextValue } = e.target;
     if (nominateName === '') {
       setSelected(null)
     }
     setNominateName(nextValue)
-    setSearch(nextValue)
-    debouncedSave(nextValue);
-  }
+    setSearch(nextValue);
+  };
+
   const onSelect = user => {
     setSelected(user)
     setNominateName(user.username)
-  }
+  };
+
   const onSubmit = (e) => {
     e.preventDefault()
     if (!selected) return
@@ -53,13 +46,19 @@ const Nominate = (props) => {
       nominee: selected.id
     });
     setNominateName('')
-    setNominateModal(false);
-  }
+    setShowNominateModal(false);
+  };
 
   const handleGoHome = () => {
     props.history.push('/');
     props.toggleNominateCongratsModal(false);
   };
+
+  useEffect(() => {
+    if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== '') {
+      getUsers(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <>
@@ -71,7 +70,7 @@ const Nominate = (props) => {
               daysLeft={moment().daysInMonth() - moment().date()}
               onChange={onSearch}
               onClick={onSubmit}
-              onClose={() => setNominateModal(false)}
+              onClose={() => setShowNominateModal(false)}
               inputValue={nominateName}
               suggestion={props.users}
               search={search}
