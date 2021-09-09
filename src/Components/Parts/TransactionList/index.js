@@ -17,7 +17,7 @@ function TransactionList(props) {
           props.transactionList.length
             ?
             props.transactionList.map(transaction => (
-              <tr className="transRow">
+              <tr className="transRow" onClick={() => props.onClickItem(transaction)}>
                 <td className="transId">{textEllipsis(transaction.transaction_hash || '')}</td>
                 <td className="transDate">{moment(transaction.created_at).format('MMM DD, YYYY')}</td>
                 <td className="transAmt">

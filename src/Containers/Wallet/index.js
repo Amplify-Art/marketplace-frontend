@@ -16,6 +16,8 @@ function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
   const [showMoonPay, setShowMoonPay] = useState(null);
+  const [showTranactionModal, setShowTranactionModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
   useEffect(() => {
     props.fetchTransactions({
@@ -40,6 +42,10 @@ function Wallet(props) {
     setMoonpayType(type)
   }
 
+  const onClickItem = (item) => {
+    setSelectedTransaction(item)
+    setShowTranactionModal(!showTranactionModal)
+  }
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
@@ -85,11 +91,12 @@ function Wallet(props) {
         <TransactionList
           transactionList={props.transactionList}
           near={near}
+          onClickItem={onClickItem}
         />
       </div>
       {showMoonPay && <GeneralModal
         headline={moonpayType === 'withdraw' ? `Withdraw` : 'Purchase'}
-        contentClassName="moonpay centered"
+        contentClassName="moonpay centered "
         closeModal={() => setShowMoonPay(!showMoonPay)}
         bodyChildren={<MoonPay
           amontToConvert={amontToConvert}
@@ -97,14 +104,18 @@ function Wallet(props) {
         />}
       />
       }
-
-      {/* <div className="transaction-modal">
-        <GeneralModal
-          headline="Transaction Details."
-          bodyChildren={<TransactionModal />}
-          isCloseButton={true}
-        />
-      </div> */}
+      {showTranactionModal &&
+        <div className="transaction-modal">
+          <GeneralModal
+            headline={<><span>Transaction Details.</span><span className="close" onClick={() => setShowTranactionModal(!showTranactionModal)}> ⤫</span></>}
+            contentClassName="transaction-modal"
+            bodyChildren={<TransactionModal
+              transaction={selectedTransaction || {}}
+            />}
+            closeModal={() => setShowTranactionModal(!showTranactionModal)}
+          />
+        </div>
+      }
     </div>
   )
 }

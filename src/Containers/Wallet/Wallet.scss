@@ -113,3 +113,91 @@
     padding: 5px;
   }
 }
+.transaction-modal {
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  h5 {
+    font-family: Space Grotesk;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 31px;
+    .close {
+      color: #bcbcbc;
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  .near-price {
+    font-size: 40px !important;
+    line-height: 100%;
+    letter-spacing: 0.08em;
+    color: #000000;
+    text-align: left !important;
+    span {
+      font-size: 16px;
+      line-height: 20px;
+      opacity: 0.6;
+    }
+  }
+  .fee {
+    font-size: 14px !important;
+    line-height: 18px !important;
+    text-align: left !important;
+  }
+  .purchase {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      font-size: 20px;
+      line-height: 26px;
+      font-weight: 400;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+    .t1 {
+      font-size: 18px;
+      line-height: 23px;
+    }
+    .t2 {
+      font-size: 14px;
+      line-height: 18px;
+      opacity: 0.8;
+    }
+    img {
+      height: 60px;
+      width: 60px;
+    }
+    .type {
+      font-size: 14px;
+      line-height: 18px;
+      text-align: right;
+      opacity: 0.4;
+    }
+  }
+  .user-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    :first-child {
+      font-size: 16px;
+      line-height: 20px;
+      opacity: 0.8;
+    }
+  }
+}
