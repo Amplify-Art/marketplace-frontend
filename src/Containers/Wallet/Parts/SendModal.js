@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const SendModal = ({ onClose }) => {
   const [activeView, setActiveView] = useState('view1');
   const [nearToDollar, setNearToDollar] = useState(0);
+  const [selectedAddress, setSelectedAddress] = useState('walletAddress');
 
   const handleNearToDollar = (e) => {
     
@@ -41,7 +42,7 @@ const SendModal = ({ onClose }) => {
             </div>
             <div className="sm-detail-right">
               <div className="available-near">23.863 <span>NEAR</span></div>
-              <div className="available-dollar">$78.50927</div>
+              <div className="available-dollar">{`$${78.50927.toFixed(2)}`}</div>
             </div>
           </div>
           <div>
@@ -61,13 +62,13 @@ const SendModal = ({ onClose }) => {
           <div className="send-modal-radio-btn-wrapper">
             <div className="radio-btn">
               <label className="radio">
-                <input name="radio" type="radio" />
+                <input name="radio" type="radio" checked={selectedAddress === 'walletAddress'} onClick={() => setSelectedAddress('walletAddress')} />
                 <span>Wallet Address</span>
               </label>
             </div>
             <div className="radio-btn">
               <label className="radio">
-                <input name="radio" type="radio" />
+                <input name="radio" type="radio" checked={selectedAddress === 'userName'} onClick={() => setSelectedAddress('userName')} />
                 <span>Username</span>
               </label>
             </div>
@@ -76,7 +77,7 @@ const SendModal = ({ onClose }) => {
             <input
               type="text"
               className="send-modal-vew2-input"
-              placeholder='Enter Recipient Address'
+              placeholder={selectedAddress === 'userName' ? '@ Username' : 'Enter Recipient Address'}
             />
           </div>
           <div className="send-modal-view2-detail">
@@ -99,7 +100,7 @@ const SendModal = ({ onClose }) => {
           <div className="send-modal-view3-near">
             20.000 <span>NEAR</span>
           </div>
-          <div className="send-modal-view3-dollar">$73.321</div>
+          <div className="send-modal-view3-dollar">{`$${73.321.toFixed(2)}`}</div>
           <div className="send-modal-view3-detail-wrapper">
             <div className="send-modal-view3-heading">To</div>
             <div className="send-modal-view3-detail">jonathon.NEAR</div>
