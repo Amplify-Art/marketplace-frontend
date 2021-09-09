@@ -11,12 +11,14 @@ import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
+import SendModal from './Parts/SendModal';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
   const [showMoonPay, setShowMoonPay] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
+  const [showSendModal, setShowSendModal] = useState(false);
   useEffect(() => {
     props.fetchTransactions({
 
@@ -96,6 +98,16 @@ function Wallet(props) {
           type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
         />}
       />
+      }
+      {
+        showSendModal &&
+        <GeneralModal
+          bodyChildren={
+            <SendModal
+              onClose={() => setShowSendModal(false)}
+            />
+          }
+        />
       }
 
       {/* <div className="transaction-modal">
