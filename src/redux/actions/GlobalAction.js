@@ -35,3 +35,16 @@ export const showWalletAction = () => ({
 export const hideWalletAction = () => ({
   type: types.HIDE_WALLET
 })
+
+export const sendNearAction = (payload) => ({
+  type: types.SEND_NEAR_REQUEST,
+  payload
+})
+
+export const showSendModalAction = () => ({
+  type: types.SHOW_SEND_MODAL
+});
+
+export const hideSendModalAction = () => ({
+  type: types.HIDE_SEND_MODAL
+})

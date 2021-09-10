@@ -8,6 +8,7 @@ const initialState = {
   mobileMenu: false,
   showPurchaseModal: false,
   showWallet: false,
+  showSendModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +47,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showPurchaseModal: false
+      }
+    case types.SHOW_SEND_MODAL:
+      return {
+        ...state,
+        showSendModal: true
+      }
+    case types.HIDE_SEND_MODAL:
+      return {
+        ...state,
+        showSendModal: false
       }
     case types.SHOW_WALLET:
       return {
