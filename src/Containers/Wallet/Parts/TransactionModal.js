@@ -13,20 +13,24 @@ function TransactionModal({ transaction }) {
     <div className="wrapper">
       <p className="near-price">{(transaction.price_in_yocto_near / 10 ** 24).toFixed('4')} <span>NEAR</span></p>
       <p className="fee">Fee: 1 Near</p>
-      <div className="purchase">
-        <h3>Purchased</h3>
-        <p>{moment(transaction.created_at).format('MMM DD, YYYY')}</p>
-      </div>
-      <div className="item">
-        <div>
-          <img src={`https://amplify-dev.mypinata.cloud/ipfs/${transaction.cover}`} />
-        </div>
-        <div className="content">
-          <span className="t1">{transaction.title}</span>
-          <span className="t2">{transaction.description}</span>
-        </div>
-        <div className="type">{transaction.type === 'song' ? 'Song' : 'Album'}</div>
-      </div>
+      {transaction.type !== 'send' &&
+        <>
+          <div className="purchase">
+            <h3>Purchased</h3>
+            <p>{moment(transaction.created_at).format('MMM DD, YYYY')}</p>
+          </div>
+          <div className="item">
+            <div>
+              <img src={`https://amplify-dev.mypinata.cloud/ipfs/${transaction.cover}`} />
+            </div>
+            <div className="content">
+              <span className="t1">{transaction.title}</span>
+              <span className="t2">{transaction.description}</span>
+            </div>
+            <div className="type">{transaction.type === 'song' ? 'Song' : 'Album'}</div>
+          </div>
+        </>
+      }
       <div className="user-info">
         <div>From</div>
         <div className="name">@{transaction.transferBy.username}</div>

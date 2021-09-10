@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import useDebounce from '../../../Components/Common/UseDebounce';
 import { fetchUsersAction } from '../../../redux/actions/UserAction'
+import { sendNearAction } from '../../../redux/actions/GlobalAction'
+import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
 
-
-const SendModal = ({ onClose, user, near, fetchUsers, users }) => {
+const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLoadingOverlay }) => {
   const [activeView, setActiveView] = useState('view1');
   const [nearToDollar, setNearToDollar] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState('walletAddress');
@@ -50,6 +51,15 @@ const SendModal = ({ onClose, user, near, fetchUsers, users }) => {
       setSearch('')
       setSelectedUser(null)
     }
+  }
+  const onSubmit = () => {
+    sendNear({
+      is_wallet: selectedAddress === 'walletAddress',
+      near_price: parseFloat(nearToDollar),
+      receiver_id: selectedAddress === 'walletAddress' ? undefined : selectedUser.id,
+      wallet: selectedAddress === 'walletAddress' ? search : undefined,
+    });
+    displayLoadingOverlay();
   }
   return (
     <div className="send-modal-wrapper">
@@ -168,6 +178,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users }) => {
           <div>
             <button
               className="nominate-button"
+              onClick={onSubmit}
             >
               Submit
             </button>
@@ -186,5 +197,7 @@ export default connect(state => {
 }, dispatch => {
   return {
     fetchUsers: (data) => dispatch(fetchUsersAction(data)),
+    sendNear: (data) => dispatch(sendNearAction(data)),
+    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
   }
 })(SendModal);

@@ -31,3 +31,18 @@ export const LinkWallet = (payload) => {
         message: err.response.data.message,
     }));
 };
+
+export const sendNear = (payload) => {
+    const url = `${API_ENDPOINT_URL}/near/send`;
+    return axios.post(url, payload, {
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
+    }).then(res => ({
+        success: true,
+        data: res.data,
+    })).catch(err => ({
+        success: false,
+        message: err.response.data.message,
+    }));
+};

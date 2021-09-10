@@ -8,6 +8,7 @@ import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
+import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
@@ -20,7 +21,14 @@ function Wallet(props) {
   const [showTranactionModal, setShowTranactionModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
-  const [showSendModal, setShowSendModal] = useState(false);
+
+  const setShowSendModal = (bool) => {
+    if (bool) {
+      props.showSendModal()
+    } else {
+      props.hideSendModal()
+    }
+  }
   useEffect(() => {
     props.fetchTransactions({
 
@@ -119,7 +127,7 @@ function Wallet(props) {
         </div>
       }
       {
-        showSendModal &&
+        props.displaySendModal &&
         <GeneralModal
           bodyChildren={
             <SendModal
@@ -144,10 +152,14 @@ function Wallet(props) {
 export default connect(state => {
   return {
     transactionList: state.transactions.transactions,
-    user: state.users.user
+    user: state.users.user,
+    displaySendModal: state.global.showSendModal
   }
 }, dispatch => {
   return {
-    fetchTransactions: data => dispatch(fetchTransactionsAction(data))
+    fetchTransactions: data => dispatch(fetchTransactionsAction(data)),
+    showSendModal: () => dispatch(showSendModalAction()),
+    hideSendModal: data => dispatch(hideSendModalAction(data)),
+    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data))
   }
 })(Auth(withRouter(Wallet)));
