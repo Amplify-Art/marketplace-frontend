@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import './MainSideNav.scss';
 import * as playListAction from '../../../redux/actions/PlaylistAction'
+import { toggleNominate } from '../../../redux/actions/NominationAction'
 import Nominate from '../../../Containers/Nominate';
 
 
@@ -20,6 +21,11 @@ function MainSideNav(props) {
     props.clearCurrentPlayList()
     // history.push("/")
   };
+
+  const handleNominate = () => {
+    props.toggleNominate(true);
+    setShowNominateModal(true);
+  }
 
   return (
     <>
@@ -39,7 +45,7 @@ function MainSideNav(props) {
 
           <li className="nav-header">Profile</li>
           <li><NavLink to="/my-profile" activeClassName="current">Profile</NavLink></li>
-          <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
+          <li className=""><span onClick={() => handleNominate()}>Nominate</span></li>
           <li><NavLink to="/wallet" activeClassName="current">Wallet</NavLink></li>
           <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
           {user && user.type === 'artist' &&
@@ -51,7 +57,7 @@ function MainSideNav(props) {
         </ul>
       </div>
       {
-        showNominateModal &&
+        props.showNominate &&
         <Nominate
           showNominateModal={showNominateModal}
           setShowNominateModal={setShowNominateModal}
@@ -61,8 +67,13 @@ function MainSideNav(props) {
   );
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+  return {
+    showNominate: state.nominations?.showNominate,
+  }
+}, dispatch => {
   return {
     clearCurrentPlayList: () => dispatch(playListAction.clearCurrentPlayList()),
+    toggleNominate: (data) => dispatch(toggleNominate(data)),
   }
 })(MainSideNav);
