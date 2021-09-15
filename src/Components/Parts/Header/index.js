@@ -343,10 +343,10 @@ function Header(props) {
             }
             {user && !user.near_connected &&
               < div className="buttons">
-                {/* <Button
+                <Button
                   text="Connect to Near Wallet"
                   onClick={() => onConnect()}
-                /> */}
+                />
 
                 <Button
                   text="Create New Wallet"
