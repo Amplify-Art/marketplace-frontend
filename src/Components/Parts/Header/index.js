@@ -92,7 +92,7 @@ function Header(props) {
       return
     } else
       wallet.requestSignIn(
-        "test",     // at this time, , we dont have account, passing test
+        "pixeltest2.testnet",     // at this time, , we dont have account, passing test
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
