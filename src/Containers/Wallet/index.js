@@ -8,15 +8,27 @@ import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
+import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
+import SendModal from './Parts/SendModal';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
   const [amontToConvert, setAmontToConvert] = useState('');
   const [showMoonPay, setShowMoonPay] = useState(null);
+  const [showTranactionModal, setShowTranactionModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
+
+  const setShowSendModal = (bool) => {
+    if (bool) {
+      props.showSendModal()
+    } else {
+      props.hideSendModal()
+    }
+  }
   useEffect(() => {
     props.fetchTransactions({
 
@@ -40,6 +52,10 @@ function Wallet(props) {
     setMoonpayType(type)
   }
 
+  const onClickItem = (item) => {
+    setSelectedTransaction(item)
+    setShowTranactionModal(!showTranactionModal)
+  }
   return (
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
@@ -53,7 +69,7 @@ function Wallet(props) {
           <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
-            <Button text="Send" className="btn black-outline" />
+            <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />
             <Button text="Withdraw" className="btn black-outline" onClick={() => onWithDrawAmount('withdraw')} />
           </div>
         </div>
@@ -85,17 +101,41 @@ function Wallet(props) {
         <TransactionList
           transactionList={props.transactionList}
           near={near}
+          onClickItem={onClickItem}
         />
       </div>
       {showMoonPay && <GeneralModal
         headline={moonpayType === 'withdraw' ? `Withdraw` : 'Purchase'}
-        contentClassName="moonpay centered"
+        contentClassName="moonpay centered "
         closeModal={() => setShowMoonPay(!showMoonPay)}
         bodyChildren={<MoonPay
           amontToConvert={amontToConvert}
           type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
         />}
       />
+      }
+      {showTranactionModal &&
+        <div className="transaction-modal">
+          <GeneralModal
+            headline={<><span>Transaction Details.</span><span className="close" onClick={() => setShowTranactionModal(!showTranactionModal)}> ⤫</span></>}
+            contentClassName="transaction-modal"
+            bodyChildren={<TransactionModal
+              transaction={selectedTransaction || {}}
+            />}
+            closeModal={() => setShowTranactionModal(!showTranactionModal)}
+          />
+        </div>
+      }
+      {
+        props.displaySendModal &&
+        <GeneralModal
+          bodyChildren={
+            <SendModal
+              onClose={() => setShowSendModal(false)}
+              near={near}
+            />
+          }
+        />
       }
 
       {/* <div className="transaction-modal">
@@ -112,10 +152,14 @@ function Wallet(props) {
 export default connect(state => {
   return {
     transactionList: state.transactions.transactions,
-    user: state.users.user
+    user: state.users.user,
+    displaySendModal: state.global.showSendModal
   }
 }, dispatch => {
   return {
-    fetchTransactions: data => dispatch(fetchTransactionsAction(data))
+    fetchTransactions: data => dispatch(fetchTransactionsAction(data)),
+    showSendModal: () => dispatch(showSendModalAction()),
+    hideSendModal: data => dispatch(hideSendModalAction(data)),
+    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data))
   }
 })(Auth(withRouter(Wallet)));

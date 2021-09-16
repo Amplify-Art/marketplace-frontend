@@ -1,10 +1,11 @@
 .artists-holder {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
   grid-column-gap: 35px;
-  column-gap: 35px;
   grid-row-gap: 53px;
-  row-gap: 53px;
   .profile-album,
   .user-avatar {
     cursor: pointer;

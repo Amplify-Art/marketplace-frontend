@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import GeneralModal from '../GeneralModal/index.js';
 import AlbumModalContent from '../AlbumModalContent/index.js';
 import SingleAlbumModal from '../SingleAlbumModal/index.js';
@@ -14,8 +14,6 @@ function SingleAlbum(props) {
   const [albumCover, setAlbumCover] = useState(cdCover);
   const [showSticker, setShowSticker] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
-  const isAlbumSelected = useSelector(state => state.searchRes?.isAlbumSelected || false);
-  const selectedAlbum = useSelector(state => state.searchRes?.selectedAlbum || {});
   const dispatch = useDispatch();
 
   const getHeight = () => {
@@ -128,13 +126,13 @@ function SingleAlbum(props) {
           )
         }
       </div>
-      <div className={`modal-album ${!isAlbumSelected ? 'd-none' : 'd-block'}`}>
+      <div className={`modal-album ${!props.isAlbumSelected ? 'd-none' : 'd-block'}`}>
         <GeneralModal
           isCloseButton="true"
           bodyChildren={
             <SingleAlbumModal
-              isOpen={isAlbumSelected}
-              albumData={selectedAlbum}
+              isOpen={props.isAlbumSelected}
+              albumData={props.selectedAlbum}
             />}
           closeModal={handleCloseModal}
         />
@@ -144,4 +142,13 @@ function SingleAlbum(props) {
   );
 }
 
-export default SingleAlbum;
+export default connect(state => {
+  return {
+    isAlbumSelected: state.searchRes?.isAlbumSelected || false,
+    selectedAlbum: state.searchRes?.selectedAlbum || {}
+  }
+}, dispatch => {
+  return {
+
+  }
+})(SingleAlbum);

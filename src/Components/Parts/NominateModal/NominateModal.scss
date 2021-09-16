@@ -15,7 +15,6 @@
 }
 .nominate-modal-wrapper {
   width: 400px;
-  height: 383px;
   font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 400;
@@ -78,6 +77,9 @@
       .nominate-input {
         height: 48px;
         width: 375px;
+        @media screen and (max-width: 600px) {
+          width: 313px;
+        }
         border-radius: 8px;
         border: 1px solid #999999;
         padding-left: 10px;

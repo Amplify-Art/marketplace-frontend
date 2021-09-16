@@ -1,5 +1,6 @@
 import { filter } from 'lodash';
 import * as types from '../../Constants/actions/Transaction';
+import { SEND_NEAR_SUCCESS, SEND_NEAR_FAILURE, SEND_NEAR_REQUEST } from '../../Constants/actions/Global';
 
 /* eslint-disable no-case-declarations */
 
@@ -9,6 +10,7 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
+  sendingNear: false,
 };
 
 export default function (state = initialState, action) {
@@ -69,6 +71,24 @@ export default function (state = initialState, action) {
         error: 'Bad Request',
         loading: false,
       };
+    case SEND_NEAR_FAILURE:
+      console.log([action.res.data, ...state.transactions], 'SHU')
+      return {
+        ...state,
+        sendingNear: false
+      }
+    case SEND_NEAR_SUCCESS:
+      console.log([action.res.data, ...state.transactions], 'SHU')
+      return {
+        ...state,
+        // sendingNear: false,
+        transactions: [action.res.data, ...state.transactions]
+      }
+    case SEND_NEAR_REQUEST:
+      return {
+        ...state,
+        sendingNear: true
+      }
     default:
       return state;
   }
