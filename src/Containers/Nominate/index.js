@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import './Nominate.scss'
 import moment from 'moment'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { fetchUsersAction } from '../../redux/actions/UserAction'
-import { addNominationAction, toggleNominateCongratsModal } from '../../redux/actions/NominationAction'
+import { addNominationAction, toggleNominateCongratsModal, toggleNominate } from '../../redux/actions/NominationAction'
 import NominateModal from '../../Components/Parts/NominateModal';
 import GeneralModal from '../../Components/Common/GeneralModal';
 import ConfettiImage from '../../assets/images/confetti.png';
@@ -52,6 +53,7 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props}) => {
   const handleGoHome = () => {
     props.history.push('/');
     props.toggleNominateCongratsModal(false);
+    props.toggleNominate(false);
   };
 
   useEffect(() => {
@@ -110,5 +112,6 @@ export default connect(state => {
     fetchUsers: (data) => dispatch(fetchUsersAction(data)),
     addNomination: (data) => dispatch(addNominationAction(data)),
     toggleNominateCongratsModal: (data) => dispatch(toggleNominateCongratsModal(data)),
+    toggleNominate: (data) => dispatch(toggleNominate(data)),
   }
-})(Nominate)
+})(withRouter(Nominate))

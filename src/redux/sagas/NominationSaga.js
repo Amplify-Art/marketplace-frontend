@@ -64,6 +64,10 @@ export function* addNominationSaga({ history }, { payload }) {
           message: error && error.message ? error.message : 'Server error',
         },
       }),
+      put({
+        type: types.TOGGLE_NOMINATE,
+        payload: false,
+      }),
     ]);
   }
 }
