@@ -27,6 +27,11 @@
         text-align: center;
         font-size: 30px;
         padding: 30px 300px;
+				@media screen and (max-width: 600px) {
+					padding: 0px 20px;
+					font-weight: 300;
+					font-size: 28px;
+				}
       }
     }
 	}

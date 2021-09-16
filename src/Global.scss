@@ -2,6 +2,9 @@
 
 body {
   font-family: $lato;
+  @media screen and (max-width: 600px) {
+    font-family: 'Space Grotesk';
+  }
   padding: 0px;
   margin: 0px;
   background: #0f161d;
@@ -40,7 +43,7 @@ button {
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    padding-right: 30px;
+    padding: 30px;
   }
   &.small {
     width: 1480px;
@@ -177,6 +180,9 @@ textarea {
     position: relative;
     z-index: 999;
     width: 400px;
+    @media screen and (max-width: 600px) {
+      width: 335px;
+    }
   }
 }
 
@@ -253,6 +259,10 @@ textarea {
   margin-top: 40px;
   margin-bottom: 30px;
   font-size: 30px;
+  @media screen and (max-width: 600px) {
+    margin-top: 10px;
+    font-size: 25px;
+  }
 }
 
 .d-h-between {
@@ -265,4 +275,7 @@ textarea {
   color: #fff;
   font-size: 30px;
   padding: 30px 300px;
+  @media screen and (max-width: 600px) {
+    padding: 0px;
+  }
 }

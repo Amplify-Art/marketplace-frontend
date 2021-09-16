@@ -5,6 +5,9 @@
 	.recently-purchased {
 		// padding-right: 20px;
 		padding-top: 50px;
+		@media screen and (max-width: 600px) {
+			padding-top: 7px;
+		}
 		.top {
 			display: flex;
 			align-items: center;
@@ -13,6 +16,10 @@
 			h2 {
 				font-size: 20px;
 				color: #fff;
+				@media screen and (max-width: 600px) {
+					font-weight: 300;
+					margin-left: 30px;
+				}
 			}
 
 			.btn {
