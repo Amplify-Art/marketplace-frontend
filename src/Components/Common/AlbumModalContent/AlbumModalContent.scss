@@ -42,14 +42,27 @@
 	}
 
 	.album-top {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		@media screen and (max-width: 600px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		grid-column-gap: 20px;
+  	grid-row-gap: 5px;
 		.album-img {
 			width: 120px;
 			height: 120px;
+			@media screen and (max-width: 600px) {
+				width: 165px;
+				height: 165px;
+			}
 			overflow: hidden;
 		}
 		.album-right {
 			padding-left: 20px;
+			@media screen and (max-width: 600px) {
+				padding-left: 0px;
+			}
 			.title {
 				font-size: 20px;
 				line-height: 31px;
@@ -143,6 +156,10 @@
 		// padding-top: 32px;
 		overflow-y: scroll;
 		height: 200px;
+		@media screen and (max-width: 600px) {
+			height: 100px;
+			margin-top: 0px;
+		}
 		padding-right: 15px;
 		margin-top: 32px;
 		.pointer {

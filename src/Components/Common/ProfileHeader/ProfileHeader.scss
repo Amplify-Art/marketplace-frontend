@@ -14,6 +14,9 @@
     margin-left: -220px;
     margin-right: -60px;
     height: 344px;
+    @media screen and (max-width: 600px) {
+      height: 220px;
+    }
     max-width: unset;
     position: relative;
     background-repeat: no-repeat;
@@ -22,6 +25,9 @@
     &:after {
       content: '';
       height: 344px;
+      @media screen and (max-width: 600px) {
+        height: 220px;
+      }
       width: 700px;
       background: rgb(15,22,29);
       background: linear-gradient(90deg, rgba(15,22,29,1) 19%, rgba(15,22,29,0) 100%);
@@ -120,7 +126,7 @@
       &:last-child {
         margin-right: 0px;
         @media screen and (max-width: 600px) {
-          margin-top: 10px;
+          margin-top: -38px;
         }
       }
 
@@ -145,7 +151,7 @@
         font-family: $space;
         font-style: normal;
         font-weight: normal;
-        font-size: 32px;
+        font-size: 30px;
         line-height: 41px;
         color: #ffffff;
       }
