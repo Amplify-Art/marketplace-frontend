@@ -1,3 +1,18 @@
+@mixin overflowScrollBar {
+  &::-webkit-scrollbar {
+    width: 8;
+    height: 8;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: 'rgba(232, 232, 232, .35)';
+    border-radius: 4;
+  }
+  &::-webkit-scrollbar-thumb {
+    outline: 0;
+    background-color: '#D2E2EA';
+    border-radius: 4;
+  }
+}
 @mixin send-modal-view1 {
   .send-modal-middle {
     display: flex;
@@ -23,17 +38,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     border: 1px solid #999999;
     border-radius: 8px;
     padding-inline: 10px;
     .modal-textfield {
       border: none;
       outline: none;
+      font-size: 17px;
+      line-height: 3;
       &::-webkit-input-placeholder {
         font-size: 17px;
         font-weight: 200;
         color: #7c7c7cb3;
+      }
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     }
     .near-dollar {
@@ -41,6 +63,10 @@
       line-height: 3;
       color: #7c7c7cb3;
     }
+  }
+  .errMsg {
+    margin-bottom: 30px;
+    padding-left: 5px;
   }
   .send-modal-detail {
     display: flex;
@@ -68,6 +94,7 @@
         font-size: 12px;
         line-height: 15.31px;
         color: #000000;
+        opacity: 0.5;
       }
     }
   }
@@ -152,6 +179,29 @@
         color: #7c7c7cb3;
       }
     }
+    .errMsg {
+      margin-top: 5px;
+      padding-left: 5px;
+    }
+    .send-modal-search-result {
+      padding: 20px;
+      width: 355px;
+      overflow: auto;
+      border-radius: 8px;
+      border: 1px solid #999999;
+      max-height: 120px;
+      position: absolute;
+      top: 58px;
+      z-index: 1;
+      background: #fff;
+      @include overflowScrollBar();
+      .send-modal-result-card {
+        font-size: 18px;
+        font-weight: 500;
+        padding-bottom: 8px;
+        cursor: pointer;
+      }
+    }
   }
   .send-modal-view2-detail {
     font-size: 16px;
@@ -169,11 +219,25 @@
     display: inline-flex;
     align-items: center;
     margin-bottom: 5px;
-    span {
+    justify-content: space-between;
+    width: 100%;
+    .send-modal-view3-near-amount {
+      display: inline-flex;
+      align-items: center;
+      span {
+        font-size: 16px;
+        line-height: 20.42px;
+        opacity: 0.5;
+        padding-left: 10px;
+      }
+    }
+    .change {
       font-size: 16px;
+      text-align: right;
       line-height: 20.42px;
-      opacity: 0.5;
-      padding-left: 10px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
     }
   }
   .send-modal-view3-dollar {
@@ -190,7 +254,21 @@
       margin-bottom: 5px;
     }
     .send-modal-view3-detail {
-      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      .send-modal-view3-detail-left {
+        font-weight: 500;
+      }
+      .send-modal-view3-detail-right {
+        font-size: 16px;
+        text-align: right;
+        line-height: 20.42px;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+      }
     }
   }
   .send-modal-view3-total-wrapper {
