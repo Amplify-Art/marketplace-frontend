@@ -4,6 +4,7 @@ import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
+import ConfettiImage from '../../../assets/images/confetti.png';
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
 import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction'
@@ -156,16 +157,16 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         }
       </div>
       {showPurchaseModal && <GeneralModal
-        topIcon={playIcon}
+        topIcon={ConfettiImage}
         headline="Thank You For Your Purchase!"
         buttons={[
           {
-            type: 'outlined',
+            type: 'solid go-home',
             text: 'Go Home',
             onClick: () => onClose()
           }
         ]}
-        className="centered white-small"
+        className="centered"
       />}
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
