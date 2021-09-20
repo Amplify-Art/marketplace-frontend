@@ -9,6 +9,16 @@
       font-size: 18px;
       .transId {
         padding: 10px 20px;
+        @media screen and (max-width: 600px) {
+          .transIdHolder {
+            font-size: 16px;
+            line-height: 20.42px;
+          }
+          .transDateHolder {
+            font-size: 12px;
+            line-height: 15.31px;
+          }
+        }
       }
       .transDate {
         padding: 10px 20px;
@@ -18,13 +28,22 @@
         padding: 10px 20px;
         .greenTxt {
           color: #22BE00;
+          @media screen and (max-width: 600px) {
+            font-size: 16px;
+          }
         }
         .redTxt {
           color: #F84F4D;
+          @media screen and (max-width: 600px) {
+            font-size: 16px;
+          }
         }
         .smallTxt {
           color: white;
           font-size: 14px;
+          @media screen and (max-width: 600px) {
+            font-size: 12px;
+          }
         }
       }
     }

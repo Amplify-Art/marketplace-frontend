@@ -86,7 +86,7 @@ function Wallet(props) {
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             value={amontToConvert}
           />
-          {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
+          <span className="conversion-to-near">{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>
           <Button text="Add Funds to Balance" className="btn solid-black" onClick={() => onWithDrawAmount('add_funds')} />
         </div>
       </div>

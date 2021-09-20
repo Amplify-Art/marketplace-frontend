@@ -7,7 +7,7 @@
     position: relative;
     z-index: 8;
     @media screen and (max-width: 600px) {
-      margin-top: -25px;
+      margin-top: 0px;
     }
   }
   .profile-cover {
@@ -44,6 +44,9 @@
   }
   .profile-head-details {
     margin-top: -90px;
+    @media screen and (max-width: 600px) {
+      margin-top: -80px;
+    }
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,6 +105,7 @@
     @media screen and (max-width: 600px) {
       flex-direction: column;
       width: 158px;
+      margin-top: -70px;
     }
     button {
       background: #ffffff;
@@ -126,7 +130,7 @@
       &:last-child {
         margin-right: 0px;
         @media screen and (max-width: 600px) {
-          margin-top: -38px;
+          margin-top: -15px;
         }
       }
 
@@ -146,7 +150,7 @@
     }
     @media screen and (max-width: 600px) {
       &.mobile {
-        margin-left: 30px;
+        margin-left: 20px;
         display: initial;
         font-family: $space;
         font-style: normal;
@@ -162,6 +166,9 @@
 .shelves {
   position: absolute;
   bottom: 40px;
+  @media screen and (max-width: 600px) {
+    bottom: 8px;
+  }
   right: 30px;
   width: 400px;
   .single-shelf {
