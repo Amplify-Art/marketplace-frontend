@@ -8,5 +8,8 @@
   font-size: 16px;
   color: #ffffff47;
   padding: 30px 20px 5px 20px;
+  @media screen and (max-width: 600px) {
+    padding: 0px 20px 5px 20px;
+  }
   text-transform: uppercase;
 }
