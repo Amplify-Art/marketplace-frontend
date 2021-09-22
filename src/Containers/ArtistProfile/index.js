@@ -97,7 +97,7 @@ function ArtistProfile(props) {
   return (
     artistFound ?
       props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
-        <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} editShowCase />
+        <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} />
 
         <div className="recently-purchased">
           <div className="top">

@@ -4,10 +4,8 @@ import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
-import ConfettiImage from '../../../assets/images/confetti.png';
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
-import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction'
 import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,7 +15,7 @@ import jwt from 'jsonwebtoken';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, history, showPurchaseModal, hidePurchaseModal, onSingleSongClick, token }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -97,10 +95,6 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
-  const onClose = () => {
-    hidePurchaseModal();
-    history.push('/')
-  }
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
   return (
@@ -156,30 +150,14 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             <div className='bg-album-img' />
         }
       </div>
-      {showPurchaseModal && <GeneralModal
-        topIcon={ConfettiImage}
-        headline="Thank You For Your Purchase!"
-        buttons={[
-          {
-            type: 'solid go-home',
-            text: 'Go Home',
-            onClick: () => onClose()
-          }
-        ]}
-        className="centered"
-      />}
+      
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
     </>
   )
 }
 
-export default connect(state => {
-  return {
-    showPurchaseModal: state.global && state.global.showPurchaseModal
-  }
-}, dispatch => {
+export default connect(null, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
-    hidePurchaseModal: () => dispatch(hidePurchaseModalAction())
   }
 })(withRouter(AlbumModalContent))
