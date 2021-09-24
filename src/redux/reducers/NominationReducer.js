@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   error: '',
   showCongratsModal: false,
+  showNominate: false,
 };
 
 export default function (state = initialState, action) {
@@ -132,6 +133,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showCongratsModal: action.payload,
+      };
+    case types.TOGGLE_NOMINATE:
+      return {
+        ...state,
+        showNominate: action.payload,
       };
     default:
       return state;
