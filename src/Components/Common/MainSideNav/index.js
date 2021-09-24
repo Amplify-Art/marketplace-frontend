@@ -55,7 +55,6 @@ function MainSideNav(props) {
   };
 
   const handleSearchClicked = (type, data) => {
-    console.log('***type, data', type, data);
     if (type === 'Artist') {
       props.history.push(`/artist/${data.id}`);
       setShowSearchResult(false);
