@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import GeneralModal from '../GeneralModal/index.js';
 import AlbumModalContent from '../AlbumModalContent/index.js';
 import SingleAlbumModal from '../SingleAlbumModal/index.js';
 import { setIsAlbumSelected, storeSelectedAlbum } from '../../../redux/actions/SearchResAction.js';
+import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction';
 import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
+import ConfettiImage from '../../../assets/images/confetti.png';
 
 function SingleAlbum(props) {
-  const { albumInfo, isMint = true, isPlayList = false, children } = props;
+  const { albumInfo, isMint = true, isPlayList = false, children, history, hidePurchaseModal, showPurchaseModal } = props;
   const [isOpen, SetModalOpen] = useState(false);
   const [height, setHeight] = useState('');
   const [albumCover, setAlbumCover] = useState(cdCover);
@@ -51,6 +54,16 @@ function SingleAlbum(props) {
         console.log("image doesn't exist");
       }
     }
+  }
+
+  const onClose = () => {
+    hidePurchaseModal();
+    history.push('/')
+  }
+
+  const handleBuy = (albumInfo) => {
+    props.onBuy(albumInfo)
+    SetModalOpen(false);
   }
 
   useEffect(() => {
@@ -137,7 +150,19 @@ function SingleAlbum(props) {
           closeModal={handleCloseModal}
         />
       </div>
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={props.onBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
+      {showPurchaseModal && <GeneralModal
+        topIcon={ConfettiImage}
+        headline="Thank You For Your Purchase!"
+        buttons={[
+          {
+            type: 'solid go-home',
+            text: 'Go Home',
+            onClick: () => onClose()
+          }
+        ]}
+        className="centered"
+      />}
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent albumInfo={albumInfo.hasOwnProperty('copy_number') ? albumInfo.token.album : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={handleBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
     </>
   );
 }
@@ -145,10 +170,11 @@ function SingleAlbum(props) {
 export default connect(state => {
   return {
     isAlbumSelected: state.searchRes?.isAlbumSelected || false,
-    selectedAlbum: state.searchRes?.selectedAlbum || {}
+    selectedAlbum: state.searchRes?.selectedAlbum || {},
+    showPurchaseModal: state.global && state.global.showPurchaseModal
   }
 }, dispatch => {
   return {
-
+    hidePurchaseModal: () => dispatch(hidePurchaseModalAction())
   }
-})(SingleAlbum);
+})(withRouter(SingleAlbum));

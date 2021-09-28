@@ -1,0 +1,13 @@
+.inner-content-album-modal {
+  display: flex;
+  justify-content: space-between;
+  .modal-album-title {
+    display: flex;
+  }
+  .fn-white {
+    color: black;
+  }
+  .pr-10 {
+    padding-right: 10px;
+  }
+}

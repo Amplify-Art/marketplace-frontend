@@ -4,10 +4,8 @@ import playIcon from '../../../assets/images/play_icon.svg';
 import GeneralModal from '../GeneralModal/index.js';
 import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
-import ConfettiImage from '../../../assets/images/confetti.png';
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
-import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction'
 import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,7 +15,7 @@ import jwt from 'jsonwebtoken';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, history, showPurchaseModal, hidePurchaseModal, onSingleSongClick, token }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -97,10 +95,6 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
-  const onClose = () => {
-    hidePurchaseModal();
-    history.push('/')
-  }
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
   return (
@@ -155,31 +149,68 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div> :
             <div className='bg-album-img' />
         }
-      </div>
-      {showPurchaseModal && <GeneralModal
-        topIcon={ConfettiImage}
-        headline="Thank You For Your Purchase!"
-        buttons={[
-          {
-            type: 'solid go-home',
-            text: 'Go Home',
-            onClick: () => onClose()
-          }
-        ]}
-        className="centered"
-      />}
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+      </div>
+      <div className="mobileAlbumContent">
+        <div className="cdCoverMobile">
+          <div className="cdLeftCover" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }} />
+          <div className="cdMiddleBar" />
+          <div className="cdRightCover">
+            <div>
+              <img className="cdCover" src={CdImage} alt="cover" />
+            </div>
+          </div>
+        </div>
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {
+          !viewDetails
+          ? (
+            <>
+              <div className="mobileAlbumDetailWrapper">
+                <div className="albumImgHolder">
+                  {
+                  albumInfo && albumInfo.cover_cid
+                    ? <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+                    : <img src={albumInfo.coverArt} alt='' />}
+                </div>
+                <div className="albumDetail">
+                  <div className="albumTitle">{albumInfo && albumInfo.title}</div>
+                  <div className="albumArtistTitle">{albumInfo?.user?.name || 'No Artist'}</div>
+                  <div className="albumViewDetail"onClick={() => setViewDetails(true)}>View Details</div>
+                </div>
+              </div>
+              <div className="albumSongsWrapper">
+                {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
+                  <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
+                ))}
+              </div>
+            </>
+          )
+          : (
+            <div className="albumViewDetailWrapper">
+              <div className="albumViewDetailTop">
+                <div className="backImg"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+                <div className="albumDetailBanner">
+                  Album Details
+                </div>
+              </div>
+              <div className="albumDetailContent">
+                <p className="subContent">{albumInfo.description}</p>
+              </div>
+              <div className="albumMemoryCard">
+                <div className="mintText">Mint</div>
+                <div className="mintNumber">{zeroPad(albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1), 3)}</div>
+              </div>
+            </div>
+          )
+        }
+      </div>
     </>
   )
 }
 
-export default connect(state => {
-  return {
-    showPurchaseModal: state.global && state.global.showPurchaseModal
-  }
-}, dispatch => {
+export default connect(null, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
-    hidePurchaseModal: () => dispatch(hidePurchaseModalAction())
   }
 })(withRouter(AlbumModalContent))

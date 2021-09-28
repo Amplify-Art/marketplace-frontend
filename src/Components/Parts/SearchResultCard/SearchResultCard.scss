@@ -12,6 +12,11 @@
     width: 60px;
     height: 60px;
     border-radius: 10px;
+    @media screen and (max-width: 600px) {
+			width: 50px;
+      height: 50px;
+      border-radius: 8px;
+		}
     overflow: hidden;
     box-shadow: 5px 5px #f3f3f387;
     flex: none;
@@ -26,6 +31,9 @@
     margin-left: 20px;
     .content-heading {
       font-size: 20px;
+      @media screen and (max-width: 600px) {
+        font-size: 16px;
+      }
       font-weight: bold;
     }
     .content-details {
@@ -37,11 +45,17 @@
     opacity: 0.7;
     .contentType-heading {
       font-size: 18px;
+      @media screen and (max-width: 600px) {
+        font-size: 14px;
+      }
       font-weight: bold;
       color: #999;
     }
     .contentType-detail {
       font-size: 16px;
+      @media screen and (max-width: 600px) {
+        font-size: 11px;
+      }
     }
   }
 }

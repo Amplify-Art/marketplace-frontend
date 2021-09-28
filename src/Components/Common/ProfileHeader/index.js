@@ -14,7 +14,7 @@ import Shelf from '../../../assets/images/shelf.png';
 
 import { fetchShowcasesAction } from '../../../redux/actions/ShowcaseAction';
 
-function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile, userId, editShowCase }) {
+function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showShowcase, isPublicProfile, userId }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
   const [isDefaultImage, setDefaultImage] = useState(null);
@@ -71,11 +71,9 @@ function ProfileHeader({ ArtistData, btnContent, fetchShowcase, showcases, showS
                           </div>
                         </div>
                         :
-                        editShowCase ?
                         <div className="single-album-on-shelf" onClick={() => toggleShowCaseModal(!showShowCaseModal)} >
                           {!isPublicProfile && <i className="fal fa-plus" />}
                         </div>
-                        : null
                       )
                     }
                   </div>

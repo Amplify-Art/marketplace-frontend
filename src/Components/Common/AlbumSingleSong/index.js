@@ -3,6 +3,7 @@ import SongLength from '../SongLength/index';
 import playIcon from '../../../assets/images/play_icon.svg';
 import pauseIcon from '../../../assets/images/pause_icon.svg';
 import jwt from 'jsonwebtoken';
+import './AlbumSingleSong.scss'
 class ProgressRing extends React.Component {
   constructor(props) {
     super(props);
