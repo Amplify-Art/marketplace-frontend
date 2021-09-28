@@ -8,19 +8,29 @@
       font-weight: 300;
       font-size: 18px;
       .transId {
-        padding: 10px 20px;
         @media screen and (max-width: 600px) {
-          .transIdHolder {
-            font-size: 16px;
-            line-height: 20.42px;
-          }
-          .transDateHolder {
-            font-size: 12px;
-            line-height: 15.31px;
-          }
+          display: none;
+        }
+        padding: 10px 20px;
+      }
+      .transIdMobile {
+        @media screen and (min-width: 700px) {
+          display: none;
+        }
+        padding: 10px 20px;
+        .transIdHolder {
+          font-size: 16px;
+          line-height: 20.42px;
+        }
+        .transDateHolder {
+          font-size: 12px;
+          line-height: 15.31px;
         }
       }
       .transDate {
+        @media screen and (max-width: 600px) {
+          display: none;
+        }
         padding: 10px 20px;
       }
       .transAmt {
