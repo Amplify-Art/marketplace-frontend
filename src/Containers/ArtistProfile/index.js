@@ -70,7 +70,9 @@ function ArtistProfile(props) {
   }, []);
 
   useEffect(() => {
+    console.log(props.match.params.slug, props.albums, 'props.match.params.slug')
     const filterAlbums = props.albums.filter(album => album.user_id == props.match.params.slug && !album.is_purchased)
+    console.log(filterAlbums, 'filterAlbums')
     setAlbums(filterAlbums)
   }, [props.albums]);
 

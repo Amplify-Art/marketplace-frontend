@@ -132,7 +132,7 @@ function SongList(props) {
                   {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>
-                  <div>{songData.title} <span>{songData.mint || "#4"}</span></div>
+                  <div>{songData.title} <span>{(songData.mints_owned || []).map(i => `#${i}`).join(' ,')}</span></div>
                   <p className="song-title-mobile">{songData.artist && songData.artist.name}</p>
                 </label>
               </div>
