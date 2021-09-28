@@ -20,6 +20,7 @@
   z-index: 99;
   @media screen and (max-width: 600px) {
     display: none;
+    padding-top: 105px;
     &.mobile-open {
       display: initial;
       position: fixed;
@@ -32,6 +33,9 @@
     }
   }
   .mobileSearchWrapper {
+    @media screen and (min-width: 700px) {
+      display: none;
+    }
     position: relative;
     .mobileSearch {
       position: relative;

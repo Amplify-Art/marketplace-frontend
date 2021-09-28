@@ -12,6 +12,7 @@ import Nominate from '../../../Containers/Nominate';
 import useDebounce from '../UseDebounce';
 import SearchResultCard from '../../Parts/SearchResultCard';
 import SearchIcon from '../../../assets/images/search-icon.svg';
+import SideSocialNav from '../SideSocialNav';
 
 function MainSideNav(props) {
   const [showNominateModal, setShowNominateModal] = useState(false);
@@ -140,6 +141,11 @@ function MainSideNav(props) {
           }
           <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
         </ul>
+        {
+          showMobileMenu
+          ? <SideSocialNav />
+          : null
+        }
       </div>
       {
         props.showNominate &&
