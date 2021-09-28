@@ -149,9 +149,62 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div> :
             <div className='bg-album-img' />
         }
-      </div>
-      
       {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+      </div>
+      <div className="mobileAlbumContent">
+        <div className="cdCoverMobile">
+          <div className="cdLeftCover" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }} />
+          <div className="cdMiddleBar" />
+          <div className="cdRightCover">
+            <div>
+              <img className="cdCover" src={CdImage} alt="cover" />
+            </div>
+          </div>
+        </div>
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {
+          !viewDetails
+          ? (
+            <>
+              <div className="mobileAlbumDetailWrapper">
+                <div className="albumImgHolder">
+                  {
+                  albumInfo && albumInfo.cover_cid
+                    ? <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+                    : <img src={albumInfo.coverArt} alt='' />}
+                </div>
+                <div className="albumDetail">
+                  <div className="albumTitle">{albumInfo && albumInfo.title}</div>
+                  <div className="albumArtistTitle">{albumInfo?.user?.name || 'No Artist'}</div>
+                  <div className="albumViewDetail"onClick={() => setViewDetails(true)}>View Details</div>
+                </div>
+              </div>
+              <div className="albumSongsWrapper">
+                {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
+                  <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
+                ))}
+              </div>
+            </>
+          )
+          : (
+            <div className="albumViewDetailWrapper">
+              <div className="albumViewDetailTop">
+                <div className="backImg"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+                <div className="albumDetailBanner">
+                  Album Details
+                </div>
+              </div>
+              <div className="albumDetailContent">
+                <p className="subContent">{albumInfo.description}</p>
+              </div>
+              <div className="albumMemoryCard">
+                <div className="mintText">Mint</div>
+                <div className="mintNumber">{zeroPad(albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1), 3)}</div>
+              </div>
+            </div>
+          )
+        }
+      </div>
     </>
   )
 }
