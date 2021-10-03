@@ -136,11 +136,10 @@ function MainSideNav(props) {
           <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
           <li className="nav-header">Artist</li>
           {user && user.type === 'artist' &&
-            <>
-              <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
-              <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
-            </>
+            <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
+
           }
+          <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
         </ul>
         {
           showMobileMenu
