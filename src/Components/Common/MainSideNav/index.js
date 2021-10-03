@@ -96,26 +96,26 @@ function MainSideNav(props) {
       <div id="main-side-nav" className={`${showMobileMenu && 'mobile-open'}`}>
         {showMobileMenu &&
           <div ref={wrapperRef} className="mobileSearchWrapper">
-          <div className="mobileSearch">
-            <img src={SearchIcon} alt="Search" />
-            <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={(e) => setSearch(e.target.value)} onKeyDown={handleSubmit} value={search} />
-          </div>
-          {
-            (search.trim() !== '' && showSearchResult) &&
-            <div className="mobileScrollSearchResult">
-              {
-                props.searchLoading
-                ? 'Loading...' // TODO: can add any animation
-                : (
-                  props.searchResult && props.searchResult.results && props.searchResult.results.length &&
-                    <SearchResultCard
-                      handleClick={(type, data) => handleSearchClicked(type, data)}
-                    />
-                )
-              }
+            <div className="mobileSearch">
+              <img src={SearchIcon} alt="Search" />
+              <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={(e) => setSearch(e.target.value)} onKeyDown={handleSubmit} value={search} />
             </div>
-          }
-        </div>
+            {
+              (search.trim() !== '' && showSearchResult) &&
+              <div className="mobileScrollSearchResult">
+                {
+                  props.searchLoading
+                    ? 'Loading...' // TODO: can add any animation
+                    : (
+                      props.searchResult && props.searchResult.results && props.searchResult.results.length &&
+                      <SearchResultCard
+                        handleClick={(type, data) => handleSearchClicked(type, data)}
+                      />
+                    )
+                }
+              </div>
+            }
+          </div>
         }
         <ul>
           <li><a href="/">Home</a></li>
@@ -132,19 +132,20 @@ function MainSideNav(props) {
 
           <li className="nav-header">Profile</li>
           <li><NavLink to="/my-profile" onClick={handleOnClick} activeClassName="current">Profile</NavLink></li>
-          <li className=""><span onClick={() => handleNominate()}>Nominate</span></li>
           <li><NavLink to="/wallet" onClick={handleOnClick} activeClassName="current">Wallet</NavLink></li>
           <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
           <li className="nav-header">Artist</li>
           {user && user.type === 'artist' &&
-            <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
+            <>
+              <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
+              <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
+            </>
           }
-          <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
         </ul>
         {
           showMobileMenu
-          ? <SideSocialNav />
-          : null
+            ? <SideSocialNav />
+            : null
         }
       </div>
       {
