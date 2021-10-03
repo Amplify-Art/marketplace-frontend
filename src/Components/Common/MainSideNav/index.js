@@ -139,7 +139,7 @@ function MainSideNav(props) {
             <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
 
           }
-          <li className=""><span onClick={() => setShowNominateModal(true)}>Nominate</span></li>
+          <li className=""><span onClick={() => handleNominate()}>Nominate</span></li>
         </ul>
         {
           showMobileMenu
