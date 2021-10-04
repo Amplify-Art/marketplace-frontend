@@ -71,58 +71,60 @@ const SingleAlbumModal = ({ isOpen = false, albumData}) => {
   }, [playing, audio]);
 
   return (
-    <div id="albums-content">
-      {!viewDetails
-        ?
-          <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
-            <div className="album-top">
-              <div className="album-img">
-                {albumData && albumData.cover_cid
-                  ?
-                    <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
-                  :
-                    <img src={albumData.coverArt} alt='' />}
+    <>
+      <div id="albums-content">
+        {!viewDetails
+          ?
+            <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
+              <div className="album-top">
+                <div className="album-img">
+                  {albumData && albumData.cover_cid
+                    ?
+                      <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
+                    :
+                      <img src={albumData.coverArt} alt='' />}
+                </div>
+              <div className="album-right">
+                <div className="title">{albumData && albumData.title}</div>
+                  <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
+                  <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
               </div>
-            <div className="album-right">
-              <div className="title">{albumData && albumData.title}</div>
-                <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
-                <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+            </div>
+            <div className="album-bottom" id="modalScrolling">
+              {albumData?.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
+                <AlbumSingleSong
+                  song={song}
+                  index={index}
+                  key={`${index}singlesong`}
+                  audio={audio}
+                  currentIndex={currentIndex}
+                  playing={playing}
+                  isOpen={isOpen}
+                  toggle={(data) => toggle(data)}
+                />
+              ))}
             </div>
           </div>
-          <div className="album-bottom" id="modalScrolling">
-            {albumData?.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
-              <AlbumSingleSong
-                song={song}
-                index={index}
-                key={`${index}singlesong`}
-                audio={audio}
-                currentIndex={currentIndex}
-                playing={playing}
-                isOpen={isOpen}
-                toggle={(data) => toggle(data)}
-              />
-            ))}
-          </div>
-        </div>
-      :
-        <div className="left-wrapper">
-          <div className="viewdetails-top">
-            <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
-            <div className="details-banner">
-              Album Details
+        :
+          <div className="left-wrapper">
+            <div className="viewdetails-top">
+              <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+              <div className="details-banner">
+                Album Details
+              </div>
+            </div>
+            <div className="details-content">
+              <p className="sub-content" style={{ marginTop: '8px' }}>{albumData.description}</p>
+            </div>
+            <div className="memory-card">
+              <div className="mint-text">Mint</div>
+              <div className="mint-number">{zeroPad(albumData.copy_number || (albumData.available_qty === 0 ? albumData.available_qty : (albumData.qty - albumData.available_qty) + 1), 3)}</div>
             </div>
           </div>
-          <div className="details-content">
-            <p className="sub-content" style={{ marginTop: '8px' }}>{albumData.description}</p>
-          </div>
-          <div className="memory-card">
-            <div className="mint-text">Mint</div>
-            <div className="mint-number">{zeroPad(albumData.copy_number || (albumData.available_qty === 0 ? albumData.available_qty : (albumData.qty - albumData.available_qty) + 1), 3)}</div>
-          </div>
-        </div>
-      }
-      <div className='bg-album-img' />
-    </div>
+        }
+        <div className='bg-album-img' />
+      </div>
+    </>
   );
 };
 

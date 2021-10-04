@@ -4,12 +4,12 @@
     height: 8;
   }
   &::-webkit-scrollbar-track {
-    background-color: 'rgba(232, 232, 232, .35)';
+    background-color: "rgba(232, 232, 232, .35)";
     border-radius: 4;
   }
   &::-webkit-scrollbar-thumb {
     outline: 0;
-    background-color: '#D2E2EA';
+    background-color: "#D2E2EA";
     border-radius: 4;
   }
 }
@@ -419,9 +419,22 @@
   padding: 20px !important;
   max-height: 600px !important;
   iframe {
-    min-height: 65vh;
+    min-height: 56vh;
     width: 100%;
+    max-height: 50vh;
     border: 1px solid #0000001f;
+    @media screen and (max-height: 600px) {
+      min-height: 65vh;
+    }
+    @media screen and (min-height: 601px) and(max-height: 900px) {
+      min-height: 55vh;
+    }
+    @media screen and (min-height: 901px) and (max-height: 1200px) {
+      min-height: 46vh;
+    }
+    @media screen and (min-height: 1201px) {
+      min-height: 39vh;
+    }
   }
   h5 {
     text-align: center;
