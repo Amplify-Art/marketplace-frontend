@@ -443,91 +443,148 @@
     padding: 5px;
   }
 }
-.transaction-modal {
-  .wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-  }
-  h5 {
-    font-family: Space Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 31px;
-    .close {
-      color: #bcbcbc;
-      float: right;
-      font-size: 20px;
-      cursor: pointer;
-    }
-  }
-  .near-price {
-    font-size: 40px !important;
-    line-height: 100%;
-    letter-spacing: 0.08em;
-    color: #000000;
-    text-align: left !important;
-    span {
-      font-size: 16px;
-      line-height: 20px;
-      opacity: 0.6;
-    }
-  }
-  .fee {
-    font-size: 14px !important;
-    line-height: 18px !important;
-    text-align: left !important;
-  }
-  .purchase {
-    display: flex;
-    justify-content: space-between;
-    h3 {
-      font-size: 20px;
-      line-height: 26px;
-      font-weight: 400;
-    }
-    p {
-      font-size: 16px;
-    }
-  }
-  .item {
+.transDetail-modal-wrapper {
+  width: 400px;
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0em;
+  .transDetail-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .content {
-      display: flex;
-      flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    .transDetail-heading {
+      font-size: 24px;
+      line-height: 31px;
+      text-align: left;
+      color: #000000;
     }
-    .t1 {
-      font-size: 18px;
-      line-height: 23px;
-    }
-    .t2 {
-      font-size: 14px;
-      line-height: 18px;
-      opacity: 0.8;
-    }
-    img {
-      height: 60px;
-      width: 60px;
-    }
-    .type {
-      font-size: 14px;
-      line-height: 18px;
-      text-align: right;
-      opacity: 0.4;
+    .transDetail-close-button {
+      height: 26px;
+      width: 26px;
+      font-size: 28px;
+      background: white;
+      color: #CCCCCC;
+      cursor: pointer;
+      margin-top: -8px;
     }
   }
-  .user-info {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    :first-child {
+  .transaction-modal-near-amount {
+    display: inline-flex;
+    align-items: center;
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    span {
       font-size: 16px;
-      line-height: 20px;
-      opacity: 0.8;
+      line-height: 20.42px;
+      opacity: 0.5;
+      padding-left: 10px;
+    }
+  }
+  .transaction-modal-fee {
+    font-size: 14px;
+    line-height: 17.86px;
+    margin-bottom: 30px;
+  }
+  .transaction-modal-purchase-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    .purchase-headline {
+      font-size: 20px;
+      line-height: 25.52px;
+      font-weight: 600;
+    }
+    .purchase-date {
+      font-size: 16px;
+      line-height: 20.42px;
+      font-weight: 400;
+    }
+  }
+  .transaction-modal-purchase-item-wrapper {
+    margin-bottom: 30px;
+    .cardWrapper {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 20px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      .imageHolder {
+        width: 60px;
+        height: 60px;
+        border-radius: 1px;
+        @media screen and (max-width: 600px) {
+          width: 50px;
+          height: 50px;
+          border-radius: 8px;
+        }
+        overflow: hidden;
+        box-shadow: 5px 5px #f3f3f387;
+        flex: none;
+        .image {
+          box-shadow: 6px 6px 17px #bebebe, -17px -17px 17px #ffffff;
+          border-radius: 8px;
+          width: 100%;
+        }
+      }
+      .content {
+        width: 100%;
+        margin-left: 20px;
+        .content-heading {
+          font-size: 20px;
+          @media screen and (max-width: 600px) {
+            font-size: 16px;
+          }
+          font-weight: bold;
+        }
+        .content-details {
+          opacity: 0.7; 
+        }
+      }
+      .contentType {
+        text-align: end;
+        opacity: 0.7;
+        .contentType-heading {
+          font-size: 18px;
+          @media screen and (max-width: 600px) {
+            font-size: 14px;
+          }
+          font-weight: bold;
+          color: #999;
+        }
+        .contentType-detail {
+          font-size: 16px;
+          @media screen and (max-width: 600px) {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+  .transaction-modal-address-wrapper {
+    margin-bottom: 20px;
+    .transaction-modal-from {
+      font-size: 16px;
+      line-height: 20.42px;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+    .transaction-modal-heading {
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .transaction-modal-detail {
+      font-weight: 400;
+      font-size: 14px;
     }
   }
 }
