@@ -64,13 +64,14 @@ function Header(props) {
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu, searchLoading, searchResult } = props;
 
   useEffect(async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
@@ -100,13 +101,14 @@ function Header(props) {
   }
 
   const getAccountDetails = async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     try {
       const near = await nearAPI.connect(config);
@@ -269,18 +271,18 @@ function Header(props) {
             <div className="scrollSearchResult">
               {
                 searchLoading
-                ? 'Loading...' // TODO: can add any animation
-                : (
-                  searchResult && searchResult.results && searchResult.results.length &&
+                  ? 'Loading...' // TODO: can add any animation
+                  : (
+                    searchResult && searchResult.results && searchResult.results.length &&
                     <SearchResultCard
                       handleClick={(type, data) => handleSearchClicked(type, data)}
                     />
-                )
+                  )
               }
             </div>
           }
         </div>
-        
+
         <div className="right">
           {userToken ? (
             <>
