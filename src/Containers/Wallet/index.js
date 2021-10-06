@@ -126,16 +126,14 @@ function Wallet(props) {
       />
       }
       {showTranactionModal &&
-        <div className="transaction-modal">
-          <GeneralModal
-            headline={<><span>Transaction Details.</span><span className="close" onClick={() => setShowTranactionModal(!showTranactionModal)}> ⤫</span></>}
-            contentClassName="transaction-modal"
-            bodyChildren={<TransactionModal
+        <GeneralModal
+          bodyChildren={
+            <TransactionModal
               transaction={selectedTransaction || {}}
-            />}
-            closeModal={() => setShowTranactionModal(!showTranactionModal)}
-          />
-        </div>
+              onClose={() => setShowTranactionModal(!showTranactionModal)}
+            />
+          }
+        />
       }
       {
         props.displaySendModal &&
