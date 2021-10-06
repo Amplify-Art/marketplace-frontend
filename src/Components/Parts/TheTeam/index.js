@@ -4,32 +4,36 @@ import Em from '../../../assets/images/em.jpeg';
 function TheTeam() {
   const theTeam = [
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'Donflaquito_',
+      support_cards: 310
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'AmplifyArt',
+      support_cards: 215
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'Russfranky',
+      support_cards: 50
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'TLin1990',
+      support_cards: 50
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'Reblock_Digital',
+      support_cards: 25
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'adamamcbride',
+      support_cards: 20
     },
     {
-      handle: 'eminem',
-      support_cards: 30
+      handle: 'iamjchase',
+      support_cards: 15
+    },
+    {
+      handle: 'vzcek',
+      support_cards: 10
     },
     {
       handle: 'eminem',
