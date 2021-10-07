@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
+import Image from '../../../Components/Common/Image';
+import greyFace from '../../../assets/images/grey_face.gif'
+
 const textEllipsis = (txt) => {
   if (txt.length > 13) {
     return txt.substr(0, 9) + '...' + txt.substr(txt.length - 4, txt.length);
@@ -8,38 +11,45 @@ const textEllipsis = (txt) => {
   return txt;
 }
 
-function TransactionModal({ transaction }) {
+function TransactionModal({ transaction, onClose }) {
   return (
-    <div className="wrapper">
-      <p className="near-price">{(transaction.price_in_yocto_near / 10 ** 24).toFixed('4')} <span>NEAR</span></p>
-      <p className="fee">Fee: 1 Near</p>
-      {transaction.type !== 'send' &&
-        <>
-          <div className="purchase">
-            <h3>Purchased</h3>
-            <p>{moment(transaction.created_at).format('MMM DD, YYYY')}</p>
-          </div>
-          <div className="item">
-            <div>
-              <img src={`https://amplify-dev.mypinata.cloud/ipfs/${transaction.cover}`} />
-            </div>
-            <div className="content">
-              <span className="t1">{transaction.title}</span>
-              <span className="t2">{transaction.description}</span>
-            </div>
-            <div className="type">{transaction.type === 'song' ? 'Song' : 'Album'}</div>
-          </div>
-        </>
-      }
-      <div className="user-info">
-        <div>From</div>
-        <div className="name">@{transaction.transferBy.username}</div>
-        <div>{textEllipsis(transaction.transaction_hash)}</div>
+    <div className="transDetail-modal-wrapper">
+      <div className="transDetail-top">
+        <div className="transDetail-heading">Transaction Details.</div>
+        <div className="transDetail-close-button" onClick={onClose}>
+          ⤫
+        </div>
       </div>
-      <div className="user-info">
-        <div>To</div>
-        <div>@{transaction.transferTo.username}</div>
-        <div>{textEllipsis(transaction.transaction_hash)}</div>
+      <div className="transaction-modal-near-amount">{(transaction.price_in_yocto_near / 10 ** 24).toFixed('4')} <span>NEAR</span></div>
+      <div className="transaction-modal-fee">Fee: 1 NEAR</div>
+
+      <div className="transaction-modal-purchase-detail">
+        <div className="purchase-headline">Purchased</div>
+        <div className="purchase-date">{moment(transaction.created_at).format('MMM DD, YYYY')}</div>
+      </div>
+      <div className="transaction-modal-purchase-item-wrapper">
+        <div className="cardWrapper">
+          <div className="imageHolder">
+            <Image className="image" src={`https://amplify-dev.mypinata.cloud/ipfs/${transaction.cover}`} alt="" fallbackImage={greyFace} />
+          </div>
+          <div className="content">
+            <div className="content-heading">{transaction.title}</div>
+            <div className="content-details">{transaction.description || ''}</div>
+          </div>
+          <div className="contentType">
+            <div className="contentType-heading">{transaction.type === 'song' ? 'Song' : 'Album'}</div>
+            <div className="contentType-detail"></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="transaction-modal-address-wrapper">
+        <div className="transaction-modal-from">From</div>
+        <div className="transaction-modal-heading">@ {transaction.transferBy.username}</div>
+      </div>
+      <div className="transaction-modal-address-wrapper">
+        <div className="transaction-modal-from">To</div>
+        <div className="transaction-modal-heading">@ {transaction.transferTo.username}</div>
       </div>
     </div>
   )
