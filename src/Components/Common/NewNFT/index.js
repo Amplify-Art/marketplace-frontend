@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from "react-hook-form";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
@@ -20,6 +22,10 @@ import { getAccessToken } from '../../../Api/index';
 import jwt from 'jsonwebtoken';
 import dataURItoBlob from '../../../Utils/covert';
 import _ from 'lodash';
+import { mintNFTAction } from '../../../redux/actions/NFTAction';
+import * as nearAPI from 'near-api-js'
+
+const { utils: { format: { parseNearAmount } } } = nearAPI;
 
 function NewNFT(props) {
   const [songFile, setSongFile] = useState(null);
@@ -135,33 +141,58 @@ function NewNFT(props) {
 
     props.displayLoadingOverlay();
     try {
-      const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumBody, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + getAccessToken()
-        },
-      })
-      if (mintAlbum.data.success) {
-        let songBody = {}
-        songBody.metadata = songFiles.map((file, index) => ({
+      let minting_info = {
+        cover: albumCover,
+        title: data.albumName,
+        description: data.albumDescription,
+        price: Math.round(data.albumPrice * 100),
+        qty: data.numberOfAlbums,
+        songs: songFiles.map((file, index) => ({
           title: file.title,
           hash: uploadedIpfs[index],
-        }));
+        }))
+      }
+      localStorage.setItem('minting_info', JSON.stringify(minting_info))
+      let result = await (props.wallet.account()).functionCall(
+        process.env.NFT_CONTRACT || 'nft.dev-1631962167293-57148505657038',
+        'add_token_types',
+        {
+          album_hash: albumCover,
+          cover_songslist: uploadedIpfs,
+          number_of_album_copies: parseInt(data.numberOfAlbums),
+          price: parseNearAmount(`${Math.round(data.albumPrice * 100)}`),
+        },
+        200000000000000,
+        parseNearAmount('0.1'),
+      )
+      // const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumBody, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: 'Bearer ' + getAccessToken()
+      //   },
+      // })
+      // if (mintAlbum.data.success) {
+      //   let songBody = {}
+      //   songBody.metadata = songFiles.map((file, index) => ({
+      //     title: file.title,
+      //     hash: uploadedIpfs[index],
+      //   }));
 
-        songBody.qty = data.numberOfAlbums
-        songBody.album_id = mintAlbum.data.album_id
-        const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songBody, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + getAccessToken()
-          },
-        });
-        if (mintSong.data.success) {
-          props.toggleCongratsModal(true)
-          props.hideLoadingOverlay();
-          props.closeNewNftModal();
-        };
-      };
+      //   songBody.qty = data.numberOfAlbums
+      //   songBody.album_id = mintAlbum.data.album_id
+      //   const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads/song`, songBody, {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: 'Bearer ' + getAccessToken()
+      //     },
+      //   });
+      //   if (mintSong.data.success) {
+      //     props.toggleCongratsModal(true)
+      //     props.hideLoadingOverlay();
+      //     props.closeNewNftModal();
+      //   };
+      // };
+
     } catch (e) {
       props.hideLoadingOverlay();
       if (store.add !== null) {
@@ -491,4 +522,8 @@ function NewNFT(props) {
   );
 }
 
-export default NewNFT;
+export default connect(state => {
+  return {
+    wallet: state.global && state.global.wallet
+  }
+})(withRouter(NewNFT));

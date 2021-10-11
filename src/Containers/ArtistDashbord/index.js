@@ -59,6 +59,18 @@ function ArtistDashboard(props) {
     name: userName
   });
 
+  // check for mint transactions from URL
+
+  useEffect(() => {
+    console.log('history', props.history);
+    if (props.history.location.search.includes('errorCode')) {
+      console.log('ERRRROR from TRANS')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      console.log('SUCCESSSSS')
+      // need to call api here
+    }
+  }, [])
+
   useEffect(() => {
     if (token) {
       setBannerImage(decodedToken.banner);

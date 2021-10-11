@@ -9,6 +9,7 @@ const initialState = {
   showPurchaseModal: false,
   showWallet: false,
   showSendModal: false,
+  wallet: null,
 };
 
 export default function (state = initialState, action) {
@@ -67,6 +68,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showWallet: false
+      }
+    case types.SET_WALLET:
+      return {
+        ...state,
+        wallet: action.payload
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {
