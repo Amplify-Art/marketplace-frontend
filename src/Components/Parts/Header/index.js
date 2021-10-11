@@ -64,7 +64,7 @@ function Header(props) {
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu, searchLoading, searchResult } = props;
 
   useEffect(async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -101,7 +101,7 @@ function Header(props) {
   }
 
   const getAccountDetails = async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
