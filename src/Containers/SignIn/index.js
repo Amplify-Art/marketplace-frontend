@@ -18,7 +18,7 @@ function SignIn(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user.near_connected)
   const [balance, setBalance] = useState(null)
   useEffect(async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -53,7 +53,7 @@ function SignIn(props) {
   }
 
   const getAccountDetails = async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainet' : 'testnet'
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
