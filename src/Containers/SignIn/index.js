@@ -90,10 +90,10 @@ function SignIn(props) {
       <h1>Welcome</h1>
       {user && !user.near_connected &&
         < div className="buttons">
-          {/* <Button
+          <Button
             text="Connect to Near Wallet"
             onClick={() => onConnect()}
-          /> */}
+          />
 
           <Button
             text="Create New Wallet"

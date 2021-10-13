@@ -53,3 +53,11 @@ export const setWalletAction = (payload) => ({
   type: types.SET_WALLET,
   payload
 });
+
+export const showMintSuccessModalAction = () => ({
+  type: types.SHOW_MINT_SUCCESS_MODAL
+});
+
+export const hideMintSuccessModalAction = () => ({
+  type: types.HIDE_MINT_SUCCESS_MODAL
+});
