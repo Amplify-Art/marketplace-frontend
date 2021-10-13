@@ -114,7 +114,7 @@ function App(props) {
           <Route path="/auth/redirect" exact component={Auth(() => <></>)} />
           <Route path="/wallet" exact render={() => <Wallet playerActive={props && props.currentPlaylists.length > 0} />} />
           <Route path="/sandbox" exact component={Auth(SandBox)} />
-          <Route path="/auth/login" exact component={Login} />
+          {/* <Route path="/auth/login" exact component={Login} /> */}
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact render={() => (<Albums playerActive={props && props.currentPlaylists.length > 0} />)} />
           {/* <Route path="/profile" exact component={Profile} /> */}
