@@ -41,11 +41,12 @@ function NewNFT(props) {
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
 
-  const uploadFile = async (fileInfo, type, uploadingFiles, songFiles) => {
+  const uploadFile = async (fileInfo, type, uploadingFiles, songFiles, setIsUploading) => {
     let file = fileInfo;
     let songFormData = new FormData()
     songFormData.append('file', file)
     songFormData.append('name', file.path)
+    songFormData.append('type', type)
     const mintSong = await axios.post(`${API_ENDPOINT_URL}/uploads`, songFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -53,15 +54,28 @@ function NewNFT(props) {
       },
       onUploadProgress: (e) => onUploadProgress(e, file, type, uploadingFiles, songFiles),
     }).catch(error => {
-      setIsUploading(false)
-      console.error(error)
+      store.addNotification({
+        title: "Error",
+        message: error.response.data.message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     });
-    if (type === 'song') {
+    if (mintSong && type === 'song') {
       setCurrentUploadingFile(Object.assign({ progress: 100, is_uploading: false, is_uploaded: true }, currentUploadingFile))
       setIsUploading(false)
       setUploadedIpfs([...uploadedIpfs, mintSong.data.IpfsHash])
-    } else {
+    } else if (mintSong) {
       setAlbumCover(mintSong.data.IpfsHash)
+    } else {
+      setIsUploading(false)
     }
     return mintSong;
   }
@@ -194,7 +208,7 @@ function NewNFT(props) {
 
   useEffect(() => {
     if (currentUploadingFile && (!currentUploadingFile.is_uploaded && !currentUploadingFile.is_uploading)) {
-      uploadFile(currentUploadingFile.content, 'song', uploadingFiles, songFiles)
+      uploadFile(currentUploadingFile.content, 'song', uploadingFiles, songFiles, setIsUploading)
     }
   }, [currentUploadingFile])
 
@@ -286,7 +300,7 @@ function NewNFT(props) {
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
       let file = dataURItoBlob(cropper.getCroppedCanvas().toDataURL())
-      uploadFile(file, 'album', uploadingFiles, songFiles)
+      uploadFile(file, 'album', uploadingFiles, songFiles, setIsUploading)
       setCropData(cropper.getCroppedCanvas().toDataURL());
       setAlbumCover(cropper.getCroppedCanvas().toDataURL());
     }
