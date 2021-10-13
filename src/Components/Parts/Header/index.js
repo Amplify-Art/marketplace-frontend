@@ -22,6 +22,7 @@ import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSel
 import './Header.scss';
 import q from 'querystring';
 import { store } from 'react-notifications-component';
+import Login from '../../../Containers/Login'
 
 const { keyStores, WalletConnection, utils } = nearAPI;
 
@@ -64,13 +65,14 @@ function Header(props) {
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu, searchLoading, searchResult } = props;
 
   useEffect(async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
@@ -100,13 +102,14 @@ function Header(props) {
   }
 
   const getAccountDetails = async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     try {
       const near = await nearAPI.connect(config);
@@ -258,29 +261,36 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </Link>
         </div>
-
-        <div ref={wrapperRef} className="searchWrapper">
-          <div className="search">
-            <img src={SearchIcon} alt="Search" />
-            <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
-          </div>
-          {
-            (search.trim() !== '' && showSearchResult) &&
-            <div className="scrollSearchResult">
+        {
+          !userToken ?
+            <div className="nav">
+              <p>Digiverse</p>
+              <p>Edication Portal</p>
+              <p>Contact us</p>
+            </div>
+            :
+            <div ref={wrapperRef} className="searchWrapper">
+              <div className="search">
+                <img src={SearchIcon} alt="Search" />
+                <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
+              </div>
               {
-                searchLoading
-                ? 'Loading...' // TODO: can add any animation
-                : (
-                  searchResult && searchResult.results && searchResult.results.length &&
-                    <SearchResultCard
-                      handleClick={(type, data) => handleSearchClicked(type, data)}
-                    />
-                )
+                (search.trim() !== '' && showSearchResult) &&
+                <div className="scrollSearchResult">
+                  {
+                    searchLoading
+                      ? 'Loading...' // TODO: can add any animation
+                      : (
+                        searchResult && searchResult.results && searchResult.results.length &&
+                        <SearchResultCard
+                          handleClick={(type, data) => handleSearchClicked(type, data)}
+                        />
+                      )
+                  }
+                </div>
               }
             </div>
-          }
-        </div>
-        
+        }
         <div className="right">
           {userToken ? (
             <>
@@ -296,9 +306,7 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Link to="/auth/login" className="top-login">
-              <span>Login</span>
-            </Link>
+            <Login />
           )}
         </div>
       </header>
