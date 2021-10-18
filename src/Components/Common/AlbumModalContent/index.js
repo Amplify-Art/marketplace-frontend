@@ -15,12 +15,13 @@ import jwt from 'jsonwebtoken';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  let url = props.history.location
 
   const handleSongModal = () => {
     setSongModal(true);
@@ -149,7 +150,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div> :
             <div className='bg-album-img' />
         }
-      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
       </div>
       <div className="mobileAlbumContent">
         <div className="cdCoverMobile">
@@ -161,7 +162,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
           </div>
         </div>
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
         {
           !viewDetails
           ? (

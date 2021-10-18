@@ -157,8 +157,15 @@ function SongList(props) {
                     songData.transfers.map(transfer => <div className="singleSong flex">
                       <div className="mint">#{transfer && transfer.copy_number}</div>
                       <div className="date-listed-by"> {moment(transfer && transfer.created_at).format('MM/DD/YYYY')} by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
-                      <div className="asking-price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
+                      <div className="songPrice">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
                       <div className="action"><button onClick={() => onModalChange(transfer)}>Buy Now</button></div>
+                      <div className="mobileAction">
+                        <button
+                          onClick={() => onModalChange(transfer)}
+                        >
+                          Buy Now {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}
+                        </button>
+                      </div>
                     </div>)
                   }
                 </div>
