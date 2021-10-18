@@ -48,3 +48,8 @@ export const showSendModalAction = () => ({
 export const hideSendModalAction = () => ({
   type: types.HIDE_SEND_MODAL
 })
+
+export const sendNotificationAction = ({ success, message }) => ({
+  type: types.SET_NOTIFICATION,
+  payload: { success, message },
+})
