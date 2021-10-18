@@ -61,3 +61,8 @@ export const showMintSuccessModalAction = () => ({
 export const hideMintSuccessModalAction = () => ({
   type: types.HIDE_MINT_SUCCESS_MODAL
 });
+
+export const sendNotificationAction = ({ success, message }) => ({
+  type: types.SET_NOTIFICATION,
+  payload: { success, message },
+})

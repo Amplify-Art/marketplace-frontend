@@ -16,7 +16,7 @@ import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import useDebounce from '../../Common/UseDebounce';
 import SearchResultCard from '../SearchResultCard';
-import { displayLoadingOverlayAction, toggleMobileMenuAction, setWalletAction } from '../../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, toggleMobileMenuAction, setWalletAction, sendNotificationAction } from '../../../redux/actions/GlobalAction';
 import { setNearBalanceAction } from '../../../redux/actions/UserAction';
 import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSelected } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
@@ -126,7 +126,7 @@ function Header(props) {
   const onCreate = async () => {
     props.displayLoadingOverlay();
     const create = await createWallet()
-    if (create.data.success) {
+    if (create.data && create.data.success) {
       localStorage.setItem('amplify_app_token', create.data.token)
       store.addNotification({
         title: "Success",
@@ -230,6 +230,17 @@ function Header(props) {
       props.history.push(`/search-result?search=${search}`);
       props.setIsSongSelected();
       setShowSearchResult(false);
+    }
+  };
+
+  const handleCloseWalletSidebar = () => {
+    if (isWalletSigned) {
+      toggleWalletSidebar(!showWalletSidebar);
+    } else {
+      props.sendNotificationAction({
+        success: false,
+        message: 'Please create wallet',
+      })
     }
   };
 
@@ -380,9 +391,11 @@ function Header(props) {
               </div>
             }
           </div>
-          <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
+
+          <div className="sidebar-close-cover" onClick={handleCloseWalletSidebar} />
         </>
-      )}
+      )
+}
     </>
   );
 }
@@ -398,6 +411,7 @@ export default connect(state => {
   return {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
+    sendNotificationAction: (payload) => dispatch(sendNotificationAction(payload)),
     searchRes: (payload) => dispatch(fetchSearchResult(payload)),
     setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
     setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
