@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cropper from "react-cropper";
 import axios from 'axios';
+import { store } from 'react-notifications-component';
+import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
@@ -25,7 +27,7 @@ import { getAccessToken } from '../../Api/index';
 import { updateUserAction } from '../../redux/actions/UserAction';
 import { addNominationVoteAction } from '../../redux/actions/NominationVoteAction';
 import { fetchNominationsAction } from '../../redux/actions/NominationAction';
-import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, hideLoadingOverlayAction, hideMintSuccessModalAction } from '../../redux/actions/GlobalAction';
 import { mintNFTAction } from '../../redux/actions/NFTAction';
 
 import './ArtistDashboard.scss';
@@ -63,14 +65,27 @@ function ArtistDashboard(props) {
   // check for mint transactions from URL
 
   useEffect(() => {
-    let mintInfo = localStorage.getItem('minting_info')
-    console.log(mintInfo, 'minting_info')
+    let mintInfo = JSON.parse(localStorage.getItem('minting_info'))
     if (props.history.location.search.includes('errorCode')) {
-      console.log('ERRRROR from TRANS')
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      props.history.push('/artist-dashboard')
     } else if (props.history.location.search.includes('transactionHashes')) {
-      console.log('SUCCESSSSS')
-      // need to call api here
-      props.mintNFT(JSON.parse(mintInfo))
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      mintInfo.txn_hash = txtId
+      props.mintNFT(mintInfo)
     }
   }, [])
 
@@ -325,7 +340,10 @@ function ArtistDashboard(props) {
             {
               type: 'solid go-home',
               text: 'Go Home',
-              onClick: () => props.history.push('/')
+              onClick: () => {
+                props.hideMintSuccessModal();
+                props.history.push('/')
+              }
             }
           ]}
           className="centered"
@@ -352,5 +370,6 @@ export default connect(state => {
       addNominationVote: (data) => dispatch(addNominationVoteAction(data)),
       fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
       mintNFT: (data) => dispatch(mintNFTAction(data)),
+      hideMintSuccessModal: () => dispatch(hideMintSuccessModalAction())
     }
   })(withRouter(ArtistDashboard));
