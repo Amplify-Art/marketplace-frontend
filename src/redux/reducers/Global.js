@@ -9,6 +9,8 @@ const initialState = {
   showPurchaseModal: false,
   showWallet: false,
   showSendModal: false,
+  wallet: null,
+  showMintSuccessModal: false
 };
 
 export default function (state = initialState, action) {
@@ -67,6 +69,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showWallet: false
+      }
+    case types.SHOW_MINT_SUCCESS_MODAL:
+      return {
+        ...state,
+        showMintSuccessModal: true
+      }
+    case types.HIDE_MINT_SUCCESS_MODAL:
+      return {
+        ...state,
+        showMintSuccessModal: false
+      }
+    case types.SET_WALLET:
+      return {
+        ...state,
+        wallet: action.payload
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {

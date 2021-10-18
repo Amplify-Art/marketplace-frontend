@@ -1,13 +1,14 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT} from '../../Api/NFT';
+import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT } from '../../Api/NFT';
 import * as types from '../../Constants/actions/NFT';
-import { SET_NOTIFICATION } from '../../Constants/actions/Global';
+import { SET_NOTIFICATION, SHOW_MINT_SUCCESS_MODAL, UNSET_OVERLAY_LOADER } from '../../Constants/actions/Global';
 
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.FETCH_NFTS_REQUEST, fetchNFTsSaga);
   yield takeLatest(types.FETCH_NFT_REQUEST, fetchNFTSaga);
   yield takeLatest(types.ADD_NFT_REQUEST, addNFTSaga, context);
+  yield takeLatest(types.MINT_NFT_REQUEST, mintNFTSaga, context);
   yield takeLatest(types.UPDATE_NFT_REQUEST, updateNFTSaga, context);
   yield takeLatest(types.DELETE_NFT_REQUEST, deleteNFTSaga);
 }
@@ -53,6 +54,32 @@ export function* addNFTSaga({ history }, { payload }) {
   } catch (error) {
     yield all([
       put({ type: types.ADD_NFT_FAILED, error }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* mintNFTSaga({ history }, { payload }) {
+  try {
+    const res = yield call(mintNFT, payload);
+    yield all([
+      put({ type: types.MINT_NFT_SUCCESS, res }),
+      put({
+        type: SHOW_MINT_SUCCESS_MODAL,
+      }),
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+    ]);
+  } catch (error) {
+    yield all([
+      put({ type: types.MINT_NFT_FAILED, error }),
       put({
         type: SET_NOTIFICATION,
         payload: {

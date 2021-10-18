@@ -48,6 +48,21 @@ export const addNFT = (payload) => {
   }));
 };
 
+export const mintNFT = (payload) => {
+  const url = `${API_ENDPOINT_URL}/nfts/mint`;
+  return axios.post(url, payload, {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  }).then(res => ({
+    success: true,
+    data: res.data,
+  })).catch(err => ({
+    success: false,
+    message: err.response.data.message,
+  }));
+};
+
 export const updateNFT = (payload) => {
   const id = payload.id
   const url = `${API_ENDPOINT_URL}/nfts/${id}`;

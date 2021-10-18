@@ -26,6 +26,7 @@ import { updateUserAction } from '../../redux/actions/UserAction';
 import { addNominationVoteAction } from '../../redux/actions/NominationVoteAction';
 import { fetchNominationsAction } from '../../redux/actions/NominationAction';
 import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { mintNFTAction } from '../../redux/actions/NFTAction';
 
 import './ArtistDashboard.scss';
 
@@ -58,6 +59,20 @@ function ArtistDashboard(props) {
     avatar: profileImage,
     name: userName
   });
+
+  // check for mint transactions from URL
+
+  useEffect(() => {
+    let mintInfo = localStorage.getItem('minting_info')
+    console.log(mintInfo, 'minting_info')
+    if (props.history.location.search.includes('errorCode')) {
+      console.log('ERRRROR from TRANS')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      console.log('SUCCESSSSS')
+      // need to call api here
+      props.mintNFT(JSON.parse(mintInfo))
+    }
+  }, [])
 
   useEffect(() => {
     if (token) {
@@ -303,7 +318,7 @@ function ArtistDashboard(props) {
         />
       }
       {
-        showCongratsModal && <GeneralModal
+        props.showMintSuccessModal && <GeneralModal
           topIcon={ConfettiImage}
           headline="Congrats, Your album is set to release!"
           buttons={[
@@ -325,7 +340,8 @@ function ArtistDashboard(props) {
 export default connect(state => {
   return {
     loadingOverlay: state.global.loading_overlay,
-    nominations: state.nominations && state.nominations.nominations
+    nominations: state.nominations && state.nominations.nominations,
+    showMintSuccessModal: state.global.showMintSuccessModal
   }
 },
   dispatch => {
@@ -334,6 +350,7 @@ export default connect(state => {
       hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
       updateUser: (data) => dispatch(updateUserAction(data)),
       addNominationVote: (data) => dispatch(addNominationVoteAction(data)),
-      fetchNominations: (data) => dispatch(fetchNominationsAction(data))
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
+      mintNFT: (data) => dispatch(mintNFTAction(data)),
     }
   })(withRouter(ArtistDashboard));
