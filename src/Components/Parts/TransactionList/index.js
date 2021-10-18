@@ -3,13 +3,13 @@ import moment from 'moment';
 import './TransactionList.scss';
 
 function TransactionList(props) {
-
   const textEllipsis = (txt) => {
     if (txt.length > 13) {
       return txt.substr(0, 9) + '...' + txt.substr(txt.length - 4, txt.length);
     }
     return txt;
-  }
+  };
+
   return (
     <div className="transactionWrapper">
       <table className="transTable">
@@ -18,6 +18,14 @@ function TransactionList(props) {
             ?
             props.transactionList.map(transaction => (
               <tr className="transRow" onClick={() => props.onClickItem(transaction)}>
+                <td className="transIdMobile">
+                  <div className="transIdHolder">
+                    {textEllipsis(transaction.transaction_hash || '')}
+                  </div>
+                  <div className="transDateHolder">
+                    {moment(transaction.created_at).format('MMM DD, YYYY')}
+                  </div>
+                </td>
                 <td className="transId">{textEllipsis(transaction.transaction_hash || '')}</td>
                 <td className="transDate">{moment(transaction.created_at).format('MMM DD, YYYY')}</td>
                 <td className="transAmt">

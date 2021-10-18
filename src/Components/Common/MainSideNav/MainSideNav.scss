@@ -1,3 +1,17 @@
+@mixin overflowScrollBar {
+  &::-webkit-scrollbar {
+    width: 6px;
+	  background-color: #f5f5f5;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	  background-color: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+}
 #main-side-nav {
   padding-top: 133px;
   position: fixed;
@@ -6,6 +20,7 @@
   z-index: 99;
   @media screen and (max-width: 600px) {
     display: none;
+    padding-top: 105px;
     &.mobile-open {
       display: initial;
       position: fixed;
@@ -14,7 +29,49 @@
       background: #0f161d;
       width: 100%;
       height: 100%;
-      z-index: 8;
+      z-index: 9;
+    }
+  }
+  .mobileSearchWrapper {
+    @media screen and (min-width: 700px) {
+      display: none;
+    }
+    position: relative;
+    .mobileSearch {
+      position: relative;
+      margin-left: 20px;
+      width: 370px;
+      margin-bottom: 30px;
+      img {
+        position: absolute;
+        left: 21px;
+        top: 11px;
+        width: 18px;
+      }
+      input {
+        border: 2px solid #e3e3e3;
+        background: transparent;
+        border-radius: 30px;
+        padding: 10px 20px 9px 60px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+    .mobileScrollSearchResult {
+      top: 47px;
+      max-height: 400px;
+      overflow: auto;
+      margin-left: 20px;
+      width: 370px;
+      position: absolute;
+      z-index: 1;
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+      box-sizing: border-box;
+      @include overflowScrollBar()
     }
   }
   ul {

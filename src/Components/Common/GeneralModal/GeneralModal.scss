@@ -9,6 +9,9 @@
       position: relative;
       z-index: 999;
       width: 400px;
+      @media screen and (max-width: 600px) {
+        width: 335px;
+      }
     }
   }
   .holder {

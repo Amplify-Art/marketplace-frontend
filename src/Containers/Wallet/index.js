@@ -13,6 +13,7 @@ import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
 import SendModal from './Parts/SendModal';
+import { getSignedKey } from '../../Api/Moonpay'
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
@@ -21,6 +22,7 @@ function Wallet(props) {
   const [showTranactionModal, setShowTranactionModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
+  const [moonPaySignature, setMoonPaySignature] = useState(null);
 
   const setShowSendModal = (bool) => {
     if (bool) {
@@ -47,9 +49,17 @@ function Wallet(props) {
     getNearPrice()
   }, [])
 
-  const onWithDrawAmount = (type) => {
+  const onWithDrawAmount = async (type) => {
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
+    if (!showMoonPay) {
+      const res = await getSignedKey({});
+      if (res.success) {
+        setMoonPaySignature(res.data.signature)
+      }
+    } else {
+      setMoonPaySignature(null)
+    }
   }
 
   const onClickItem = (item) => {
@@ -86,7 +96,7 @@ function Wallet(props) {
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             value={amontToConvert}
           />
-          {near && amontToConvert && <span className="conversion-to-near">{(amontToConvert / near).toFixed(3)} Near</span>}
+          <span className="conversion-to-near">{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>
           <Button text="Add Funds to Balance" className="btn solid-black" onClick={() => onWithDrawAmount('add_funds')} />
         </div>
       </div>
@@ -111,20 +121,19 @@ function Wallet(props) {
         bodyChildren={<MoonPay
           amontToConvert={amontToConvert}
           type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
+          signature={moonPaySignature}
         />}
       />
       }
       {showTranactionModal &&
-        <div className="transaction-modal">
-          <GeneralModal
-            headline={<><span>Transaction Details.</span><span className="close" onClick={() => setShowTranactionModal(!showTranactionModal)}> ⤫</span></>}
-            contentClassName="transaction-modal"
-            bodyChildren={<TransactionModal
+        <GeneralModal
+          bodyChildren={
+            <TransactionModal
               transaction={selectedTransaction || {}}
-            />}
-            closeModal={() => setShowTranactionModal(!showTranactionModal)}
-          />
-        </div>
+              onClose={() => setShowTranactionModal(!showTranactionModal)}
+            />
+          }
+        />
       }
       {
         props.displaySendModal &&

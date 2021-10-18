@@ -75,6 +75,9 @@
       background: #d3d3d3;
       border-radius: 0;
       width: 900px;
+      @media screen and (max-width: 600px) {
+        width: 350px;
+      }
     }
   }
 }

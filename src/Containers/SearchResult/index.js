@@ -56,13 +56,18 @@ function SearchResult(props) {
 
       </div>
       <div className="songlist-title">artist result</div>
-      <div className="artist-holder">
-        {artistsData.length > 0 ? artistsData.map((artist, index) => (
-          <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.id}`)} />
-        )) : (
-          <NoResult />
-        )}
-      </div>
+      {
+        artistsData.length
+        ? (
+            <div className="artist-holder">
+              {artistsData.length > 0 ? artistsData.map((artist, index) => (
+                <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.id}`)} />
+              )) : null}
+            </div>
+        )
+        : <NoResult />
+      }
+      
     </div>
   )
 }

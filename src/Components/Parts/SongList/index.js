@@ -25,6 +25,9 @@ const songHeader = () => (
     <div className="header-title">Artist
       {/* <img src={sortIcon} alt="" /> */}
     </div>
+    <div className="mobile-header-title">
+      Song Title &nbsp; | &nbsp; Artist &nbsp; | &nbsp; Mint Owned
+    </div>
     <div className="header-title">For sale
       {/* <img src={sortIcon} alt="" /> */}
     </div>
@@ -129,12 +132,14 @@ function SongList(props) {
                   {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>
-                  {songData.title} <span>{songData.mint || "#4"}</span>
+                  <div>{songData.title} <span>{(songData.mints_owned || []).map(i => `#${i}`).join(' ,')}</span></div>
+                  <p className="song-title-mobile">{songData.artist && songData.artist.name}</p>
                 </label>
               </div>
 
-              <div onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
-              <div onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
+              <div className="song-album" onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
+              <div className="song-artist" onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
+              <div className="song-mint-mobile" onClick={() => expandSongList(index)}>{songData.mint || "#4"}</div>
               <div onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
             </div>
             <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid})` }}>

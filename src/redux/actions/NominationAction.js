@@ -30,3 +30,8 @@ export const toggleNominateCongratsModal = payload => ({
   type: types.TOGGLE_NOMINATE_CONGRATS_MODAL,
   payload,
 });
+
+export const toggleNominate = payload => ({
+  type: types.TOGGLE_NOMINATE,
+  payload,
+});

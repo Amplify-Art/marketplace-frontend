@@ -18,13 +18,14 @@ function SignIn(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user.near_connected)
   const [balance, setBalance] = useState(null)
   useEffect(async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
@@ -52,13 +53,14 @@ function SignIn(props) {
   }
 
   const getAccountDetails = async () => {
+    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
     const config = {
-      networkId: 'testnet',
+      networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
-      nodeUrl: 'https://rpc.testnet.near.org',
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org'
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
     };
     try {
       const near = await nearAPI.connect(config);
@@ -88,10 +90,10 @@ function SignIn(props) {
       <h1>Welcome</h1>
       {user && !user.near_connected &&
         < div className="buttons">
-          <Button
+          {/* <Button
             text="Connect to Near Wallet"
             onClick={() => onConnect()}
-          />
+          /> */}
 
           <Button
             text="Create New Wallet"

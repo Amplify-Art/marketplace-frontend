@@ -7,13 +7,16 @@
     position: relative;
     z-index: 8;
     @media screen and (max-width: 600px) {
-      margin-top: -25px;
+      margin-top: 0px;
     }
   }
   .profile-cover {
     margin-left: -220px;
     margin-right: -60px;
     height: 344px;
+    @media screen and (max-width: 600px) {
+      height: 220px;
+    }
     max-width: unset;
     position: relative;
     background-repeat: no-repeat;
@@ -22,6 +25,9 @@
     &:after {
       content: '';
       height: 344px;
+      @media screen and (max-width: 600px) {
+        height: 220px;
+      }
       width: 700px;
       background: rgb(15,22,29);
       background: linear-gradient(90deg, rgba(15,22,29,1) 19%, rgba(15,22,29,0) 100%);
@@ -38,6 +44,9 @@
   }
   .profile-head-details {
     margin-top: -90px;
+    @media screen and (max-width: 600px) {
+      margin-top: -80px;
+    }
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -96,6 +105,7 @@
     @media screen and (max-width: 600px) {
       flex-direction: column;
       width: 158px;
+      margin-top: -70px;
     }
     button {
       background: #ffffff;
@@ -120,7 +130,7 @@
       &:last-child {
         margin-right: 0px;
         @media screen and (max-width: 600px) {
-          margin-top: 10px;
+          margin-top: -15px;
         }
       }
 
@@ -140,12 +150,12 @@
     }
     @media screen and (max-width: 600px) {
       &.mobile {
-        margin-left: 30px;
+        margin-left: 20px;
         display: initial;
         font-family: $space;
         font-style: normal;
         font-weight: normal;
-        font-size: 32px;
+        font-size: 30px;
         line-height: 41px;
         color: #ffffff;
       }
@@ -156,6 +166,9 @@
 .shelves {
   position: absolute;
   bottom: 40px;
+  @media screen and (max-width: 600px) {
+    bottom: 8px;
+  }
   right: 30px;
   width: 400px;
   .single-shelf {

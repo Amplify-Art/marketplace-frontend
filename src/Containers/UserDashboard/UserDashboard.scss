@@ -31,6 +31,7 @@
     margin-top: 50px;
     .header-title {
       font-size: 20px;
+      font-weight: 300;
       line-height: 26px;
       color: #ffffff;
     }
@@ -42,7 +43,7 @@
       background: transparent;
       color: #ffffff;
       cursor: pointer;
-      
+
       &:first-child {
         margin-right: 27px;
         @media screen and (max-width: 600px) {

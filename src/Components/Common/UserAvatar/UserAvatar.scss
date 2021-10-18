@@ -27,5 +27,8 @@
     align-items: center;
     display: flex;
     text-align: left;
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
   }
 }
