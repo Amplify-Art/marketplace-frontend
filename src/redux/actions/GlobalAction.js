@@ -65,4 +65,8 @@ export const hideMintSuccessModalAction = () => ({
 export const sendNotificationAction = ({ success, message }) => ({
   type: types.SET_NOTIFICATION,
   payload: { success, message },
-})
+});
+
+export const setCurrentNearPrice = () => ({
+  type: types.CURRENT_NEAR_PRICE_REQUEST,
+});

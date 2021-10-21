@@ -1,7 +1,8 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT } from '../../Api/NFT';
+import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT, buyAlbumBundleNFT } from '../../Api/NFT';
 import * as types from '../../Constants/actions/NFT';
-import { SET_NOTIFICATION, SHOW_MINT_SUCCESS_MODAL, UNSET_OVERLAY_LOADER } from '../../Constants/actions/Global';
+import { SET_NOTIFICATION, SHOW_MINT_SUCCESS_MODAL, UNSET_OVERLAY_LOADER, SET_OVERLAY_LOADER } from '../../Constants/actions/Global';
+import { UPDATE_ALBUM_SUCCESS } from '../../Constants/actions/Album';
 
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
@@ -9,6 +10,7 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.FETCH_NFT_REQUEST, fetchNFTSaga);
   yield takeLatest(types.ADD_NFT_REQUEST, addNFTSaga, context);
   yield takeLatest(types.MINT_NFT_REQUEST, mintNFTSaga, context);
+  yield takeLatest(types.BUY_ALBUM_BUNDLE_NFT_REQUEST, buyAlbumBundleNFTSaga, context);
   yield takeLatest(types.UPDATE_NFT_REQUEST, updateNFTSaga, context);
   yield takeLatest(types.DELETE_NFT_REQUEST, deleteNFTSaga);
 }
@@ -65,7 +67,42 @@ export function* addNFTSaga({ history }, { payload }) {
   }
 }
 
+export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
+  yield all([
+    put({
+      type: SET_OVERLAY_LOADER,
+    })
+  ])
+  try {
+    const res = yield call(buyAlbumBundleNFT, payload);
+    yield all([
+      put({ type: UPDATE_ALBUM_SUCCESS, res }),
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+    ]);
+  } catch (error) {
+    yield all([
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
 export function* mintNFTSaga({ history }, { payload }) {
+  yield all([
+    put({
+      type: SET_OVERLAY_LOADER,
+    })
+  ])
   try {
     const res = yield call(mintNFT, payload);
     yield all([
@@ -80,6 +117,9 @@ export function* mintNFTSaga({ history }, { payload }) {
   } catch (error) {
     yield all([
       put({ type: types.MINT_NFT_FAILED, error }),
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
       put({
         type: SET_NOTIFICATION,
         payload: {

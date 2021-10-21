@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import * as nearAPI from 'near-api-js';
 import {
   TwitterShareButton
 } from "react-share";
@@ -22,6 +22,8 @@ import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 import { sellSongAction, showSellModalAction, hideSellModalAction } from '../../redux/actions/SongAction';
+
+const { utils: { format: { parseNearAmount } } } = nearAPI;
 
 function MyProfile(props) {
 
@@ -43,7 +45,7 @@ function MyProfile(props) {
   }
 
   const onSingleSongClick = (song, index) => {
-    console.log(song)
+    console.log(song, props.token_transfers[index])
     props.showSellModal()
     setSellingSong(song)
     setSelectedAlbumToken(props.token_transfers[index])
@@ -52,12 +54,37 @@ function MyProfile(props) {
   const onSell = (token) => {
     setSellingCopy(token)
   }
-  const onListSong = (e, price) => {
+  const onListSong = async (e, songPrice) => {
     e.preventDefault()
-    props.sellSong({
-      id: sellingCopy.id,
-      price: price && parseInt(price.replace(/^\D+/g, '')) * 100
-    })
+    if (decodedToken.near_account_type === 'connected') {
+      let price = songPrice && parseInt(songPrice.replace(/^\D+/g, '')) * 100
+      let nearPrice = price
+      let selling_song = {
+        id: sellingCopy.id,
+        price,
+        yocto_near_price: parseNearAmount(`${nearPrice}`)
+      }
+      let songtokenid = `${selectedAlbumToken.album.cover_cid}:${selectedAlbumToken.copy_number}:${sellingCopy.token}`
+      console.log(songtokenid, sellingCopy, 'songtokenid')
+
+      localStorage.setItem('selling_song', JSON.stringify(selling_song))
+      await (props.wallet.account()).functionCall(
+        process.env.NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+        'nft_approve',
+        {
+          token_id: songtokenid,
+          account_id: process.env.NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
+          price: parseNearAmount(`${nearPrice}`),
+        },
+        300000000000000,
+        parseNearAmount('0.01'),
+      )
+    } else {
+      props.sellSong({
+        id: sellingCopy.id,
+        price: songPrice && parseInt(songPrice.replace(/^\D+/g, '')) * 100
+      })
+    }
   }
   const ArtistData = {
     cover: bannerImage,
@@ -228,7 +255,8 @@ export default connect(state => {
     loading: state.nfts.loading,
     token_transfers: state.token_transfers.token_transfers,
     myFollowings: state.followers.followers,
-    displaySellModal: state.songs.showSellModal
+    displaySellModal: state.songs.showSellModal,
+    wallet: state.global.wallet
   }
 },
   dispatch => {

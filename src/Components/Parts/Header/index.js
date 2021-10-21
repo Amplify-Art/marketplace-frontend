@@ -16,7 +16,7 @@ import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import useDebounce from '../../Common/UseDebounce';
 import SearchResultCard from '../SearchResultCard';
-import { displayLoadingOverlayAction, toggleMobileMenuAction, setWalletAction, sendNotificationAction } from '../../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, toggleMobileMenuAction, setWalletAction, sendNotificationAction, setCurrentNearPrice } from '../../../redux/actions/GlobalAction';
 import { setNearBalanceAction } from '../../../redux/actions/UserAction';
 import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSelected } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
@@ -44,6 +44,7 @@ function Header(props) {
     if (isWalletSigned) {
       getAccountDetails()
     }
+    props.setCurrentNearPrice();
   }, [props.history.location.pathname])
 
   // useEffect(() => {
@@ -395,7 +396,7 @@ function Header(props) {
           <div className="sidebar-close-cover" onClick={handleCloseWalletSidebar} />
         </>
       )
-}
+      }
     </>
   );
 }
@@ -418,5 +419,6 @@ export default connect(state => {
     setIsSongSelected: () => dispatch(setIsSongSelected()),
     setIsAlbumSelected: (payload) => dispatch(setIsAlbumSelected(payload)),
     setWallet: (payload) => dispatch(setWalletAction(payload)),
+    setCurrentNearPrice: () => dispatch(setCurrentNearPrice())
   }
 })(withRouter(Header));

@@ -81,12 +81,14 @@ function ArtistDashboard(props) {
           onScreen: true
         }
       });
+
       props.history.push('/artist-dashboard')
     } else if (props.history.location.search.includes('transactionHashes')) {
       let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
       mintInfo.txn_hash = txtId
       props.mintNFT(mintInfo)
     }
+    localStorage.removeItem('minting_info')
   }, [])
 
   useEffect(() => {

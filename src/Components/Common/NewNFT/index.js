@@ -22,7 +22,6 @@ import { getAccessToken } from '../../../Api/index';
 import jwt from 'jsonwebtoken';
 import dataURItoBlob from '../../../Utils/covert';
 import _ from 'lodash';
-import { mintNFTAction } from '../../../redux/actions/NFTAction';
 import * as nearAPI from 'near-api-js'
 
 const { utils: { format: { parseNearAmount } } } = nearAPI;
@@ -142,12 +141,14 @@ function NewNFT(props) {
     props.displayLoadingOverlay();
     try {
       if (user.near_account_type === 'connected') {
+        let yocto_near_price = parseNearAmount(`${data.albumPrice / props.nearPrice}`)
         let minting_info = {
           cover: albumCover,
           title: data.albumName,
           description: data.albumDescription,
           price: Math.round(data.albumPrice * 100),
           qty: data.numberOfAlbums,
+          yocto_near_price,
           songs: songFiles.map((file, index) => ({
             title: file.title,
             hash: uploadedIpfs[index],
@@ -161,7 +162,7 @@ function NewNFT(props) {
             album_hash: albumCover,
             cover_songslist: uploadedIpfs,
             number_of_album_copies: parseInt(data.numberOfAlbums),
-            price: parseNearAmount(`${Math.round(data.albumPrice * 100)}`),
+            price: yocto_near_price,
           },
           200000000000000,
           parseNearAmount('0.1'),
@@ -526,6 +527,7 @@ function NewNFT(props) {
 
 export default connect(state => {
   return {
-    wallet: state.global && state.global.wallet
+    wallet: state.global && state.global.wallet,
+    nearPrice: state.global.nearPrice
   }
 })(withRouter(NewNFT));
