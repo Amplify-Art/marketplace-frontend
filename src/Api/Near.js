@@ -46,3 +46,14 @@ export const sendNear = (payload) => {
         message: err.response.data.message,
     }));
 };
+
+export const getNearPrice = () => {
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD`;
+    return axios.get(url).then(res => ({
+        success: true,
+        data: res.data,
+    })).catch(err => ({
+        success: false,
+        message: err.response.data.message,
+    }));
+};
