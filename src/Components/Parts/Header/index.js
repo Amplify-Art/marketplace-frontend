@@ -95,7 +95,7 @@ function Header(props) {
       return
     } else
       wallet.requestSignIn(
-        "pixeltest2.testnet",     // at this time, , we dont have account, passing test
+        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // at this time, , we dont have account, passing test
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -396,22 +396,22 @@ function Header(props) {
 
           <div className="sidebar-close-cover" onClick={handleCloseWalletSidebar} />
         </>
-          )
+      )
       }
-        </>
-      );
+    </>
+  );
 }
 
 export default connect(state => {
   return {
-        showWalletSidebar: state.global.showWallet,
-      searchResult: state.searchRes.searchResult,
-      searchLoading: state.searchRes.loading,
-      wallet: state.global.wallet
+    showWalletSidebar: state.global.showWallet,
+    searchResult: state.searchRes.searchResult,
+    searchLoading: state.searchRes.loading,
+    wallet: state.global.wallet
   }
 }, dispatch => {
   return {
-        displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
+    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
     sendNotificationAction: (payload) => dispatch(sendNotificationAction(payload)),
     searchRes: (payload) => dispatch(fetchSearchResult(payload)),
