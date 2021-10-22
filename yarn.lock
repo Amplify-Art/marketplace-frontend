@@ -3325,7 +3325,7 @@ browserslist@^4.0.0, browserslist@^4.12.0, browserslist@^4.16.6, browserslist@^4
     escalade "^3.1.1"
     node-releases "^1.1.71"
 
-bs58@^4.0.0:
+bs58@^4.0.0, bs58@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/bs58/-/bs58-4.0.1.tgz#be161e76c354f6f788ae4071f63f34e8c4f0a42a"
   integrity sha1-vhYedsNU9veIrkBx9j806MTwpCo=
@@ -8085,6 +8085,13 @@ near-api-js@^0.41.0:
     node-fetch "^2.6.1"
     text-encoding-utf-8 "^1.0.2"
     tweetnacl "^1.0.1"
+
+near-transaction-manager@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/near-transaction-manager/-/near-transaction-manager-0.1.1.tgz#d285745602a1b08c6f639831a406f532dcc50ab2"
+  integrity sha512-kG98kg/5RNt4c4x4QPd/gAkSLiTkRQQPYtRm/NNH1tE/SmNlxdgALj1XxuKHkz3O067kCVi+6WI1aakcHKdXfw==
+  dependencies:
+    bs58 "^4.0.1"
 
 negotiator@0.6.2:
   version "0.6.2"

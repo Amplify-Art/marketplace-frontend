@@ -11,6 +11,7 @@ const initialState = {
   error: '',
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.FETCH_ALBUMS_SUCCESS:
@@ -98,11 +99,13 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case types.UPDATE_ALBUM_SUCCESS:
-      let albums = filter(state.albums, item => item.id !== action.res.data.id);
+      let index = state.albums.filter(item => item.id === action.res.data.id);
+      let albums = state.albums;
+      albums.splice(index, 1, action.res.data);
       return {
         ...state,
         album: action.res.data || {},
-        albums: [...albums, action.res.data],
+        albums: [...albums],
         status: action.res.success,
         loading: false,
       };

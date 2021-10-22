@@ -24,6 +24,7 @@ import SearchResult from './Containers/SearchResult';
 import Songs from './Containers/Songs';
 import Wallet from './Containers/Wallet';
 import TransactionDetails from './Containers/TransactionDetails';
+import WalletSignTransaction from './Containers/WalletSignTransaction';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -129,6 +130,8 @@ function App(props) {
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
           <Route path="/search-result" exact render={() => (<SearchResult playerActive={props && props.currentPlaylists.length > 0} />)} />
           <Route path="/transaction-list" exact component={Auth(TransactionDetails)} /> 
+          <Route path="/transaction-sign" exact component={Auth(WalletSignTransaction)} /> 
+
           <Route component={PageNotFound} />
         </Switch>
         {props.currentPlaylists.length ? <Player avatar={profileImage} toggleWalletSidebar={toggleWalletSidebar} /> : null}
