@@ -3,6 +3,8 @@ import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as nearAPI from 'near-api-js';
+import { store } from 'react-notifications-component';
+import q from 'querystring';
 import {
   TwitterShareButton
 } from "react-share";
@@ -22,6 +24,7 @@ import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 import { sellSongAction, showSellModalAction, hideSellModalAction } from '../../redux/actions/SongAction';
+import { sellSongNFTAction } from '../../redux/actions/NFTAction'
 
 const { utils: { format: { parseNearAmount } } } = nearAPI;
 
@@ -54,18 +57,45 @@ function MyProfile(props) {
   const onSell = (token) => {
     setSellingCopy(token)
   }
+
+  useEffect(() => {
+    let sellingSong = JSON.parse(localStorage.getItem('selling_song'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      localStorage.removeItem('selling_song')
+      props.history.push('/my-profile')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      sellingSong.hash = txtId
+      props.sellSongNFT(sellingSong)
+      localStorage.removeItem('selling_song')
+      props.history.push('/my-profile')
+    }
+  }, [])
   const onListSong = async (e, songPrice) => {
     e.preventDefault()
     if (decodedToken.near_account_type === 'connected') {
       let price = songPrice && parseInt(songPrice.replace(/^\D+/g, '')) * 100
-      let nearPrice = price
+      let nearPrice = price / (props.nearPrice * 100)
       let selling_song = {
         id: sellingCopy.id,
         price,
         yocto_near_price: parseNearAmount(`${nearPrice}`)
       }
       let songtokenid = `${selectedAlbumToken.album.cover_cid}:${selectedAlbumToken.copy_number}:${sellingCopy.token}`
-      console.log(songtokenid, sellingCopy, 'songtokenid')
 
       localStorage.setItem('selling_song', JSON.stringify(selling_song))
       await (props.wallet.account()).functionCall(
@@ -256,7 +286,8 @@ export default connect(state => {
     token_transfers: state.token_transfers.token_transfers,
     myFollowings: state.followers.followers,
     displaySellModal: state.songs.showSellModal,
-    wallet: state.global.wallet
+    wallet: state.global.wallet,
+    nearPrice: state.global.nearPrice
   }
 },
   dispatch => {
@@ -268,6 +299,7 @@ export default connect(state => {
       addFollower: (data) => dispatch(addFollowerAction(data)),
       sellSong: (data) => dispatch(sellSongAction(data)),
       showSellModal: () => dispatch(showSellModalAction()),
-      hideSellModal: () => dispatch(hideSellModalAction())
+      hideSellModal: () => dispatch(hideSellModalAction()),
+      sellSongNFT: (data) => dispatch(sellSongNFTAction(data))
     }
   })(withRouter(MyProfile));

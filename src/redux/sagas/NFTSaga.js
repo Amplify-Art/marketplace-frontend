@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT, buyAlbumBundleNFT } from '../../Api/NFT';
+import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT, buyAlbumBundleNFT, sellSongNFT, buySongNFT } from '../../Api/NFT';
 import * as types from '../../Constants/actions/NFT';
 import { SET_NOTIFICATION, SHOW_MINT_SUCCESS_MODAL, UNSET_OVERLAY_LOADER, SET_OVERLAY_LOADER } from '../../Constants/actions/Global';
 import { UPDATE_ALBUM_SUCCESS } from '../../Constants/actions/Album';
@@ -11,6 +11,8 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_NFT_REQUEST, addNFTSaga, context);
   yield takeLatest(types.MINT_NFT_REQUEST, mintNFTSaga, context);
   yield takeLatest(types.BUY_ALBUM_BUNDLE_NFT_REQUEST, buyAlbumBundleNFTSaga, context);
+  yield takeLatest(types.SELL_SONG_NFT_REQUEST, sellSongNFTSaga, context);
+  yield takeLatest(types.BUY_SONG_NFT_REQUEST, buySongNFTSaga, context);
   yield takeLatest(types.UPDATE_NFT_REQUEST, updateNFTSaga, context);
   yield takeLatest(types.DELETE_NFT_REQUEST, deleteNFTSaga);
 }
@@ -81,6 +83,56 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: UNSET_OVERLAY_LOADER,
       }),
     ]);
+  } catch (error) {
+    yield all([
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* sellSongNFTSaga({ history }, { payload }) {
+  yield all([
+    put({
+      type: SET_OVERLAY_LOADER,
+    })
+  ])
+  try {
+    const res = yield call(sellSongNFT, payload);
+    window.location.reload();
+  } catch (error) {
+    yield all([
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: false,
+          message: error && error.message ? error.message : 'Server error',
+        },
+      }),
+    ]);
+  }
+}
+
+export function* buySongNFTSaga({ history }, { payload }) {
+  yield all([
+    put({
+      type: SET_OVERLAY_LOADER,
+    })
+  ])
+  try {
+    const res = yield call(buySongNFT, payload);
+    window.location.reload();
   } catch (error) {
     yield all([
       put({
