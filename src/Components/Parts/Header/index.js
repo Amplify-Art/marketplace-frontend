@@ -385,6 +385,7 @@ function Header(props) {
                   text="Connect to Near Wallet"
                   onClick={() => onConnect()}
                 />
+                <span>OR</span>
                 <Button
                   text="Create New Wallet"
                   onClick={() => onCreate()}
@@ -395,22 +396,22 @@ function Header(props) {
 
           <div className="sidebar-close-cover" onClick={handleCloseWalletSidebar} />
         </>
-      )
+          )
       }
-    </>
-  );
+        </>
+      );
 }
 
 export default connect(state => {
   return {
-    showWalletSidebar: state.global.showWallet,
-    searchResult: state.searchRes.searchResult,
-    searchLoading: state.searchRes.loading,
-    wallet: state.global.wallet
+        showWalletSidebar: state.global.showWallet,
+      searchResult: state.searchRes.searchResult,
+      searchLoading: state.searchRes.loading,
+      wallet: state.global.wallet
   }
 }, dispatch => {
   return {
-    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
+        displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
     sendNotificationAction: (payload) => dispatch(sendNotificationAction(payload)),
     searchRes: (payload) => dispatch(fetchSearchResult(payload)),
