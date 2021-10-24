@@ -10,6 +10,6 @@ if (window.location.origin == "https://amplifyart.netlify.app") {
     API_ENDPOINT_URL = "https://api.amplify.art";
 } else {
     API_ENDPOINT_URL = 'http://localhost:8000'
-    // API_ENDPOINT_URL = 'https://amplify-api.herokuapp.com';
+    API_ENDPOINT_URL = 'https://amplify-api.herokuapp.com';
 }
 export { API_ENDPOINT_URL };
