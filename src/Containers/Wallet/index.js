@@ -14,6 +14,7 @@ import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
 import SendModal from './Parts/SendModal';
 import { getSignedKey } from '../../Api/Moonpay'
+import jwt from 'jsonwebtoken';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
@@ -23,6 +24,8 @@ function Wallet(props) {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
   const [moonPaySignature, setMoonPaySignature] = useState(null);
+
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
   const setShowSendModal = (bool) => {
     if (bool) {
@@ -70,7 +73,8 @@ function Wallet(props) {
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
         <div className="left">
-          <h4>Total Balance</h4>
+          <h4 className="balance">Total Balance </h4>
+          {user.near_account_id && <h3>{user.near_account_id}</h3>}
           <div className="near-amount">
             <span>{props.user.near_balance && (props.user.near_balance / 10 ** 24).toFixed(2)}</span>
             <span className="near-label">NEAR</span>
