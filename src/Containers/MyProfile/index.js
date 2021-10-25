@@ -242,6 +242,7 @@ function MyProfile(props) {
   const onClose = () => {
     props.hideSellConfirmation();
     props.history.push('/')
+    window.location.reload()
   }
   return (
     <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
