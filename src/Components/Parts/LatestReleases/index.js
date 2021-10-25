@@ -7,7 +7,7 @@ function LatestReleases() {
         <div className="container">
             <div className="headers">
                 <h2 className="large white">Latest</h2>
-                <h2 className="large red">Releases</h2>
+                <h2 className="large red">Release</h2>
             </div>
 
             <div className="album">
