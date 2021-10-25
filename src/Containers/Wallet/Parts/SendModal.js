@@ -4,8 +4,9 @@ import useDebounce from '../../../Components/Common/UseDebounce';
 import { fetchUsersAction } from '../../../redux/actions/UserAction'
 import { sendNearAction } from '../../../redux/actions/GlobalAction'
 import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
+import jwt from 'jsonwebtoken';
 
-const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLoadingOverlay }) => {
+const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLoadingOverlay, wallet }) => {
   const [activeView, setActiveView] = useState('view1');
   const [enteredNearAmt, setEnteredNearAmt] = useState(0);
   const [view1ErrorMessage, setView1ErrorMessage] = useState('');
@@ -17,6 +18,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
   const [networkFee, setNetworkFee] = useState(2);
   const [showDropDown, setShowDropdown] = useState(false);
   const wrapperRef = useRef(null);
+  const currentUser = jwt.decode(localStorage.getItem('amplify_app_token'))
 
   const handleNearToDollar = (e) => {
     setEnteredNearAmt(e.target.value);
@@ -63,12 +65,23 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
   };
 
   const onSubmit = () => {
-    sendNear({
-      is_wallet: selectedAddress === 'walletAddress',
-      near_price: parseFloat(enteredNearAmt),
-      receiver_id: selectedAddress === 'walletAddress' ? undefined : selectedUser.id,
-      wallet: selectedAddress === 'walletAddress' ? search : undefined,
-    });
+    if (currentUser.near_account_type === 'connected') {
+      let send_info = {
+        yocto_near_price: ''
+      }
+      localStorage.setItem('send_info')
+      wallet.account().sendMoney(
+        selectedAddress === 'walletAddress' ? search : selectedUser.near_account_id, // receiver account
+        "1000000000000000000000000" // amount in yoctoNEAR
+      );
+    } else {
+      sendNear({
+        is_wallet: selectedAddress === 'walletAddress',
+        near_price: parseFloat(enteredNearAmt),
+        receiver_id: selectedAddress === 'walletAddress' ? undefined : selectedUser.id,
+        wallet: selectedAddress === 'walletAddress' ? search : undefined,
+      });
+    }
     displayLoadingOverlay();
     setView1ErrorMessage('');
     setView2ErrorMessage('');
@@ -78,7 +91,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
     switch (tab) {
       case 'view2':
         if (enteredNearAmt <= 0) setView1ErrorMessage('Please enter valid NEAR amount.');
-        else if (( enteredNearAmt > ((user.near_balance && (user.near_balance / (10 ** 24)).toFixed(3)) || 0))) setView1ErrorMessage('Entered amount is greater than available amount.');
+        else if ((enteredNearAmt > ((user.near_balance && (user.near_balance / (10 ** 24)).toFixed(3)) || 0))) setView1ErrorMessage('Entered amount is greater than available amount.');
         else setActiveView(tab);
         break;
       case 'view3':
@@ -267,6 +280,7 @@ export default connect(state => {
   return {
     user: state.users.user,
     users: state.users.users,
+    wallet: state.global.wallet
   }
 }, dispatch => {
   return {
