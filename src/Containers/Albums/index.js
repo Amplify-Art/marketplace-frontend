@@ -61,7 +61,7 @@ function Albums(props) {
 
       localStorage.setItem('album_bundle_info', JSON.stringify(album_bundle_info))
       await (props.wallet.account()).functionCall(
-        process.env.MARKET_REACT_APP_NFT_CONTRACT || 'market.dev-1633963337441-72420501486968',
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
         'offer_album',
         {
           nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
