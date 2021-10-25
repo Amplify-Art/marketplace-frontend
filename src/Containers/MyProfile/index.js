@@ -8,6 +8,7 @@ import q from 'querystring';
 import {
   TwitterShareButton
 } from "react-share";
+import ConfettiImage from '../../assets/images/confetti.png';
 
 import './MyProfile.scss';
 
@@ -23,7 +24,7 @@ import TwitterIcon from '../../assets/images/twitter-icon.svg';
 import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
-import { sellSongAction, showSellModalAction, hideSellModalAction } from '../../redux/actions/SongAction';
+import { sellSongAction, showSellModalAction, hideSellModalAction, hideSellSongConfirmation } from '../../redux/actions/SongAction';
 import { sellSongNFTAction } from '../../redux/actions/NFTAction'
 
 const { utils: { format: { parseNearAmount } } } = nearAPI;
@@ -237,6 +238,12 @@ function MyProfile(props) {
       props.hideSellModal()
     }
   }
+
+  const onClose = () => {
+    props.hideSellConfirmation();
+    props.history.push('/')
+    window.location.reload()
+  }
   return (
     <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
@@ -267,11 +274,23 @@ function MyProfile(props) {
           onListSong={onListSong}
           selectedAlbumToken={selectedAlbumToken}
         />}
-        contentClassName="playlist-modal"
+        contentClassName="sellSong-modal"
         closeModal={() => closeModals()}
         isCloseButton={true}
       />
       }
+      {props.showSellConfirmation && <GeneralModal
+        topIcon={ConfettiImage}
+        headline="Congrats, Your Song Has Been Listed!"
+        buttons={[
+          {
+            type: 'solid go-home',
+            text: 'Go Home',
+            onClick: () => onClose()
+          }
+        ]}
+        className="centered"
+      />}
     </div>
   );
 }
@@ -287,7 +306,8 @@ export default connect(state => {
     myFollowings: state.followers.followers,
     displaySellModal: state.songs.showSellModal,
     wallet: state.global.wallet,
-    nearPrice: state.global.nearPrice
+    nearPrice: state.global.nearPrice,
+    showSellConfirmation: state.songs.showSellConfirmation,
   }
 },
   dispatch => {
@@ -300,6 +320,7 @@ export default connect(state => {
       sellSong: (data) => dispatch(sellSongAction(data)),
       showSellModal: () => dispatch(showSellModalAction()),
       hideSellModal: () => dispatch(hideSellModalAction()),
+      hideSellConfirmation: () => dispatch(hideSellSongConfirmation()),
       sellSongNFT: (data) => dispatch(sellSongNFTAction(data))
     }
   })(withRouter(MyProfile));
