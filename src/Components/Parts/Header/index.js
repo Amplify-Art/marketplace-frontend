@@ -298,7 +298,7 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </Link>
         </div>
-        {
+        {/* {
           !userToken ?
             <div className="nav">
               <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
@@ -327,7 +327,7 @@ function Header(props) {
                 </div>
               }
             </div>
-        }
+        } */}
         <div className="right">
           {userToken ? (
             <>
