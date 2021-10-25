@@ -82,10 +82,10 @@ function Header(props) {
     props.setWallet(wallet);
   }, [])
   useEffect(async () => {
-    if (wallet && !wallet.isSignedIn()) {
+    if (wallet && !isWalletSigned) {
       console.log('SHOULD REQUEST for Signing in')
       wallet.requestSignIn(
-        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // contract requesting access 
+        // process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // contract requesting access 
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
