@@ -61,10 +61,10 @@ function Albums(props) {
 
       localStorage.setItem('album_bundle_info', JSON.stringify(album_bundle_info))
       await (props.wallet.account()).functionCall(
-        process.env.MARKET_NFT_CONTRACT || 'market.dev-1633963337441-72420501486968',
+        process.env.MARKET_REACT_APP_NFT_CONTRACT || 'market.dev-1633963337441-72420501486968',
         'offer_album',
         {
-          nft_contract_id: process.env.NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
           albumipfs_hash_copy: `${album.cover_cid}:${copy_no}`,
         },
         200000000000000,
