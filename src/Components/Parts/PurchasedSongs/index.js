@@ -20,36 +20,33 @@ function PurchasedSongs(props) {
   const { onSell, showPriceModal, sellingCopy, sellingSong, onListSong, selectedAlbumToken } = props;
   const renderPlayList = () => {
     return props.transfers.filter(f => f.copy_number === selectedAlbumToken.copy_number && !f.bidding_price).map((list, index) => (
-      <li><div>Mint #{list.copy_number}</div> <div><button className="remove" onClick={() => onSell(list)}>sell</button></div></li>
+      <><div>Mint #{list.copy_number}</div> <div><button className="sellButton" onClick={() => onSell(list)}>Sell</button></div></>
     ))
   }
 
   return (
     <div id="create-playlist">
       <div className="album-info">
-        <div className="left">
+        <div className="sellSongImg">
           <img src={CDImg} />
         </div>
-        <div className="right text">
-          <span className="large-text">{selectedAlbumToken.album && selectedAlbumToken.album.title}</span>
-          <br />
-          <span className="small-text">{selectedAlbumToken.album && selectedAlbumToken.album.description}</span>
+        <div className="sellSongRight">
+          <div className="title">{selectedAlbumToken.album && selectedAlbumToken.album.title}</div>
+          <div className="artist-title">{selectedAlbumToken.album && selectedAlbumToken.album.description}</div>
         </div>
       </div>
-      <p>{sellingSong.title}</p>
+      <div className="sellSongTittle">{sellingSong.title}</div>
       {!sellingCopy &&
         <div className="purchase">
           {loading && <Skeleton width={250} height={214} className="case-box" />}
-          <ul>
             {renderPlayList()}
-          </ul>
         </div>
       }
       {
         sellingCopy &&
-        <div>
-          <p>Mint #{sellingCopy.copy_number}</p>
-          <form onSubmit={(e) => onListSong(e, price)}>
+        <>
+          <div className="sellSongTittle">Mint #{sellingCopy.copy_number}</div>
+          <form className="sellForPrice" onSubmit={(e) => onListSong(e, price)}>
             <CurrencyInput
               name="albumPrice"
               placeholder="Asking Price?"
@@ -59,11 +56,12 @@ function PurchasedSongs(props) {
               decimalScale={2}
               decimalsLimit={2}
               onChange={e => setPrice(e.target.value)}
+              className="currencyInput"
               required
             />
-            <button type="submit">List Song</button>
+            <button className="sellButton" type="submit">Submit</button>
           </form>
-        </div>
+        </>
       }
     </div>
   )

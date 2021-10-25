@@ -297,9 +297,9 @@ function Header(props) {
         {
           !userToken ?
             <div className="nav">
-              <p>Digiverse</p>
-              <p>Edication Portal</p>
-              <p>Contact us</p>
+              <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
+              <a>Edication Portal</a>
+              <a>Contact us</a>
             </div>
             :
             <div ref={wrapperRef} className="searchWrapper">
