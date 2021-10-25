@@ -11,6 +11,7 @@ const initialState = {
   error: '',
   showBuyModal: false,
   showSellModal: false,
+  showSellConfirmation: false,
 };
 
 export default function (state = initialState, action) {
@@ -159,6 +160,11 @@ export default function (state = initialState, action) {
         error: 'Bad Request',
         loading: false,
       };
+    case types.SELL_SONG_CONFIRMATION:
+      return {
+        ...state,
+        showSellConfirmation: !state.showSellConfirmation,
+      }
     default:
       return state;
   }
