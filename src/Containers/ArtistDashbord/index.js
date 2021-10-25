@@ -268,7 +268,7 @@ function ArtistDashboard(props) {
               </div>
             </div>
           </div> */}
-          <div className="bal-wrapper">
+          {/* <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
               <div className="price">0</div>
@@ -297,8 +297,8 @@ function ArtistDashboard(props) {
                 ))}
               </div>
             </div>
-          </div>
-          <div className="song-title">Song Stats</div>
+          </div> */}
+          {/* <div className="song-title">Song Stats</div>
           <div className="song-wrapper flex f-jc-space-between">
             <div className="w-50 song-inner-content">
               <div className="song-head d-h-between">
@@ -314,7 +314,7 @@ function ArtistDashboard(props) {
               </div>
               {renderSongList()}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {
