@@ -77,13 +77,15 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
+    console.log(wallet)
     setWalletState(wallet)
     props.setWallet(wallet);
   }, [])
   useEffect(async () => {
     if (wallet && !isWalletSigned) {
+      console.log('SHOULD REQUEST for Signing in')
       wallet.requestSignIn(
-        // user.near_account_id,     // contract requesting access 
+        // process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // contract requesting access 
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -283,6 +285,8 @@ function Header(props) {
       console.log(error)
     }
   }
+
+  console.log(wallet && wallet.isSignedIn(), 'wallet.isSignedIn()')
   return (
     <>
       <header>
@@ -294,7 +298,7 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </Link>
         </div>
-        {
+        {/* {
           !userToken ?
             <div className="nav">
               <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
@@ -323,7 +327,7 @@ function Header(props) {
                 </div>
               }
             </div>
-        }
+        } */}
         <div className="right">
           {userToken ? (
             <>
