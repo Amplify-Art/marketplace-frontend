@@ -25,6 +25,15 @@ header {
   box-sizing: border-box;
   position: relative;
   z-index: 9;
+  .nav {
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+    p {
+      font-size: 20px;
+      color: white;
+    }
+  }
   @media screen and (max-width: 600px) {
     z-index: 10;
   }

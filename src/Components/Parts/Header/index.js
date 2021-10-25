@@ -22,6 +22,7 @@ import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSel
 import './Header.scss';
 import q from 'querystring';
 import { store } from 'react-notifications-component';
+import Login from '../../../Containers/Login'
 
 const { keyStores, WalletConnection, utils, utils: { format: { parseNearAmount } } } = nearAPI;
 
@@ -293,32 +294,36 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </Link>
         </div>
-        {/* <Button
-          text="Mint"
-          onClick={() => callMint()}
-        /> */}
-        <div ref={wrapperRef} className="searchWrapper">
-          <div className="search">
-            <img src={SearchIcon} alt="Search" />
-            <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
-          </div>
-          {
-            (search.trim() !== '' && showSearchResult) &&
-            <div className="scrollSearchResult">
+        {
+          !userToken ?
+            <div className="nav">
+              <p>Digiverse</p>
+              <p>Edication Portal</p>
+              <p>Contact us</p>
+            </div>
+            :
+            <div ref={wrapperRef} className="searchWrapper">
+              <div className="search">
+                <img src={SearchIcon} alt="Search" />
+                <input type="text" placeholder="Search for songs, artists..." onClick={() => setShowSearchResult(!showSearchResult)} onChange={handleSearch} onKeyDown={handleSubmit} value={search} />
+              </div>
               {
-                searchLoading
-                  ? 'Loading...' // TODO: can add any animation
-                  : (
-                    searchResult && searchResult.results && searchResult.results.length &&
-                    <SearchResultCard
-                      handleClick={(type, data) => handleSearchClicked(type, data)}
-                    />
-                  )
+                (search.trim() !== '' && showSearchResult) &&
+                <div className="scrollSearchResult">
+                  {
+                    searchLoading
+                      ? 'Loading...' // TODO: can add any animation
+                      : (
+                        searchResult && searchResult.results && searchResult.results.length &&
+                        <SearchResultCard
+                          handleClick={(type, data) => handleSearchClicked(type, data)}
+                        />
+                      )
+                  }
+                </div>
               }
             </div>
-          }
-        </div>
-
+        }
         <div className="right">
           {userToken ? (
             <>
@@ -334,9 +339,7 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Link to="/auth/login" className="top-login">
-              <span>Login</span>
-            </Link>
+            <Login />
           )}
         </div>
       </header>
