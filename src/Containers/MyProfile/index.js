@@ -99,11 +99,11 @@ function MyProfile(props) {
 
       localStorage.setItem('selling_song', JSON.stringify(selling_song))
       await (props.wallet.account()).functionCall(
-        process.env.NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+        process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
         'nft_approve',
         {
           token_id: songtokenid,
-          account_id: process.env.NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
+          account_id: process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
           price: parseNearAmount(`${nearPrice}`),
         },
         300000000000000,
