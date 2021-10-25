@@ -298,7 +298,7 @@ function Header(props) {
           !userToken ?
             <div className="nav">
               <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
-              <a>Edication Portal</a>
+              <a>Education Portal</a>
               <a>Contact us</a>
             </div>
             :
