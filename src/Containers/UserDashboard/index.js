@@ -152,7 +152,7 @@ function UserDashboard(props) {
         </div>
       </div>
       {showPlayListModal && <GeneralModal
-        headline={<><span>Create New Playlist</span><span style={{ float: 'right', color: '#bcbcbc' }} onClick={() => togglePlayListModal(!showPlayListModal)}> ⤫</span></>}
+        headline={<><span>Create New Playlist</span><span style={{ float: 'right', color: '#bcbcbc', cursor: 'pointer' }} onClick={() => togglePlayListModal(!showPlayListModal)}> ⤫</span></>}
         bodyChildren={<CreatePlayList showCaseData={{}} togglePlayListModal={togglePlayListModal} />}
         contentClassName="playlist-modal"
       />
