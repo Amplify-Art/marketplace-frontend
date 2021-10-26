@@ -64,7 +64,7 @@ function ArtistProfile(props) {
       user_id: props.match.params.slug,
       params: {
         'filter[user_id]': parseInt(props.match.params.slug),
-        related: 'songs'
+        related: 'user,songs'
       }
     });
   }, []);
