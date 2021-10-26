@@ -298,13 +298,14 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </Link>
         </div>
-        {/* {
+        {
           !userToken ?
-            <div className="nav">
-              <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
-              <a>Education Portal</a>
-              <a>Contact us</a>
-            </div>
+            // <div className="nav">
+            //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
+            //   <a>Education Portal</a>
+            //   <a>Contact us</a>
+            // </div>
+            <></>
             :
             <div ref={wrapperRef} className="searchWrapper">
               <div className="search">
@@ -327,7 +328,7 @@ function Header(props) {
                 </div>
               }
             </div>
-        } */}
+        }
         <div className="right">
           {userToken ? (
             <>
