@@ -35,11 +35,11 @@ function Home() {
       {/* <WhatPeopleAreSaying /> */}
       {/* <HowItWorks /> */}
       {/* <SupportArtists /> */}
-      <TheTech />
-      <TheTeam />
+      {/* <TheTech /> */}
+      {/* <TheTeam /> */}
       {/* <ArtistRegistry /> */}
       {/* <HowItWorks hideTitle={true} /> */}
-      <ThankYou content={homeContent && homeContent.thank_you_text} />
+      {/* <ThankYou content={homeContent && homeContent.thank_you_text} /> */}
     </>
   );
 }
