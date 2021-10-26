@@ -27,7 +27,7 @@ import defaultProfile from '../../assets/images/default-profile.jpg'
 import { sellSongAction, showSellModalAction, hideSellModalAction, hideSellSongConfirmation } from '../../redux/actions/SongAction';
 import { sellSongNFTAction } from '../../redux/actions/NFTAction'
 
-const { utils: { format: { parseNearAmount } } } = nearAPI;
+const { utils: { format: { parseNearAmount } }, keyStores } = nearAPI;
 
 function MyProfile(props) {
 
@@ -81,11 +81,49 @@ function MyProfile(props) {
     } else if (props.history.location.search.includes('transactionHashes')) {
       let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
       sellingSong.hash = txtId
+      checkTxnStatus(sellingSong)
       props.sellSongNFT(sellingSong)
       localStorage.removeItem('selling_song')
       props.history.push('/my-profile')
     }
   }, [])
+
+  const checkTxnStatus = async (sellingSong) => {
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
+    const config = {
+      networkId: net,
+      keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
+    };
+    const near = await nearAPI.connect(config);
+    const response = await near.connection.provider.txStatus(
+      sellingSong.hash,
+      decodedToken.near_account_id
+    );
+    if (response.receipts_outcome.some(f => f.outcome.status.Failure)) {
+      let error = (response.receipts_outcome.find(f => f.outcome.status.Failure)).outcome.status.Failure.ActionError.kind.FunctionCallError.ExecutionError;
+      store.addNotification({
+        title: "Error",
+        message: error,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    } else {
+      props.sellSongNFT(sellingSong)
+    }
+    localStorage.removeItem('selling_song')
+    props.history.push('/my-profile')
+  }
   const onListSong = async (e, songPrice) => {
     e.preventDefault()
     if (decodedToken.near_account_type === 'connected') {

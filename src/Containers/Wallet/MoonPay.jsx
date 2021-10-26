@@ -12,7 +12,7 @@ const MoonPay = ({ amontToConvert, type, signature }) => {
   return (
     <iframe
       title="Moon Pay"
-      src={`${url}?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(
+      src={`${url}?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=near&email=${encodeURIComponent(
         user.email
       )}&walletAddress=${
         user.near_account_id

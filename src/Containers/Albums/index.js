@@ -11,7 +11,7 @@ import { addTokenTransferAction } from '../../redux/actions/TokenTransferAction'
 import { buyAlbumBundleNFTAction } from '../../redux/actions/NFTAction';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
-const { utils: { format: { parseNearAmount } } } = nearAPI;
+const { utils: { format: { parseNearAmount } }, keyStores } = nearAPI;
 
 function Albums(props) {
   useEffect(() => {
@@ -43,14 +43,51 @@ function Albums(props) {
           onScreen: true
         }
       });
+      localStorage.removeItem('album_bundle_info')
+      props.history.push('/albums')
     } else if (props.history.location.search.includes('transactionHashes')) {
       let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
       albumBundleInfo.hash = txtId
+      checkTxnStatus(albumBundleInfo);
+    }
+  }, [])
+
+  const checkTxnStatus = async (albumBundleInfo) => {
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
+    const config = {
+      networkId: net,
+      keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
+    };
+    const near = await nearAPI.connect(config);
+    const response = await near.connection.provider.txStatus(
+      albumBundleInfo.hash,
+      user.near_account_id
+    );
+    if (response.receipts_outcome.some(f => f.outcome.status.Failure)) {
+      let error = (response.receipts_outcome.find(f => f.outcome.status.Failure)).outcome.status.Failure.ActionError.kind.FunctionCallError.ExecutionError;
+      store.addNotification({
+        title: "Error",
+        message: error,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    } else {
       props.buyAlbumBundleNFT(albumBundleInfo)
     }
     localStorage.removeItem('album_bundle_info')
     props.history.push('/albums')
-  }, [])
+  }
 
   const onBuy = async (album) => {
     if (user.near_account_type === 'connected') {
