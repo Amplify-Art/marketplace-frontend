@@ -70,9 +70,7 @@ function ArtistProfile(props) {
   }, []);
 
   useEffect(() => {
-    console.log(props.match.params.slug, props.albums, 'props.match.params.slug')
-    const filterAlbums = props.albums.filter(album => album.user_id == props.match.params.slug && !album.is_purchased)
-    console.log(filterAlbums, 'filterAlbums')
+    const filterAlbums = props.albums.filter(album => album.user_id == props.match.params.slug)
     setAlbums(filterAlbums)
   }, [props.albums]);
 
@@ -95,7 +93,6 @@ function ArtistProfile(props) {
       })
     }
   }
-  console.log(albums, 'albums')
   return (
     artistFound ?
       props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>

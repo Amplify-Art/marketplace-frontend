@@ -83,6 +83,7 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: UNSET_OVERLAY_LOADER,
       }),
     ]);
+    window.location.reload()
   } catch (error) {
     yield all([
       put({

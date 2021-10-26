@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import { store } from 'react-notifications-component';
+import q from 'querystring';
+import * as nearAPI from 'near-api-js';
 import GeneralModal from '../GeneralModal/index.js';
 import AlbumModalContent from '../AlbumModalContent/index.js';
 import SingleAlbumModal from '../SingleAlbumModal/index.js';
 import { setIsAlbumSelected, storeSelectedAlbum } from '../../../redux/actions/SearchResAction.js';
+import { addTokenTransferAction } from '../../../redux/actions/TokenTransferAction'
 import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction';
+import { buyAlbumBundleNFTAction } from '../../../redux/actions/NFTAction';
 import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
 import ConfettiImage from '../../../assets/images/confetti.png';
+
+const { utils: { format: { parseNearAmount } }, keyStores } = nearAPI;
 
 function SingleAlbum(props) {
   const { albumInfo, isMint = true, isPlayList = false, children, history, hidePurchaseModal, showPurchaseModal } = props;
@@ -17,6 +25,7 @@ function SingleAlbum(props) {
   const [albumCover, setAlbumCover] = useState(cdCover);
   const [showSticker, setShowSticker] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   const dispatch = useDispatch();
 
   const getHeight = () => {
@@ -63,8 +72,94 @@ function SingleAlbum(props) {
     history.push('/')
   }
 
-  const handleBuy = (albumInfo) => {
-    props.onBuy(albumInfo)
+  // check for mint transactions from URL
+  useEffect(() => {
+    let albumBundleInfo = JSON.parse(localStorage.getItem('album_bundle_info'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      localStorage.removeItem('album_bundle_info')
+      props.history.push('/albums')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      albumBundleInfo.hash = txtId
+      checkTxnStatus(albumBundleInfo);
+    }
+  }, [])
+
+  const checkTxnStatus = async (albumBundleInfo) => {
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
+    const config = {
+      networkId: net,
+      keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
+      nodeUrl: `https://rpc.${net}.near.org`,
+      walletUrl: `https://wallet.${net}.near.org`,
+      helperUrl: `https://helper.${net}.near.org`,
+      explorerUrl: `https://explorer.${net}.near.org`
+    };
+    const near = await nearAPI.connect(config);
+    const response = await near.connection.provider.txStatus(
+      albumBundleInfo.hash,
+      user.near_account_id
+    );
+    if (response.receipts_outcome.some(f => f.outcome.status.Failure)) {
+      let error = (response.receipts_outcome.find(f => f.outcome.status.Failure)).outcome.status.Failure.ActionError.kind.FunctionCallError.ExecutionError;
+      store.addNotification({
+        title: "Error",
+        message: error,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    } else {
+      props.buyAlbumBundleNFT(albumBundleInfo)
+    }
+    localStorage.removeItem('album_bundle_info')
+    props.history.push('/albums')
+  }
+
+  const handleBuy = async (albumInfo) => {
+    if (user.near_account_type === 'connected') {
+      let album_bundle_info = {
+        token_id: albumInfo.id
+      }
+      let copy_no = albumInfo.qty - albumInfo.available_qty + 1
+
+      localStorage.setItem('album_bundle_info', JSON.stringify(album_bundle_info))
+      await (props.wallet.account()).functionCall(
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
+        'offer_album',
+        {
+          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+          albumipfs_hash_copy: `${albumInfo.cover_cid}:${copy_no}`,
+        },
+        200000000000000,
+        albumInfo.yocto_near_price,
+      )
+    } else {
+      props.addTokenTransfer({
+        type: 'album',
+        "token_id": albumInfo.id,
+      });
+    }
     SetModalOpen(false);
   }
 
@@ -173,10 +268,13 @@ export default connect(state => {
   return {
     isAlbumSelected: state.searchRes?.isAlbumSelected || false,
     selectedAlbum: state.searchRes?.selectedAlbum || {},
-    showPurchaseModal: state.global && state.global.showPurchaseModal
+    showPurchaseModal: state.global && state.global.showPurchaseModal,
+    wallet: state.global.wallet,
   }
 }, dispatch => {
   return {
-    hidePurchaseModal: () => dispatch(hidePurchaseModalAction())
+    hidePurchaseModal: () => dispatch(hidePurchaseModalAction()),
+    addTokenTransfer: (data) => dispatch(addTokenTransferAction(data)),
+    buyAlbumBundleNFT: (data) => dispatch(buyAlbumBundleNFTAction(data))
   }
 })(withRouter(SingleAlbum));
