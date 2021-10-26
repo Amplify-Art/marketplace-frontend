@@ -139,7 +139,8 @@ function SingleAlbum(props) {
   const handleBuy = async (albumInfo) => {
     if (user.near_account_type === 'connected') {
       let album_bundle_info = {
-        token_id: albumInfo.id
+        token_id: albumInfo.id,
+        copy_number: parseInt(albumInfo.qty) - albumInfo.available_qty + 1
       }
       let copy_no = albumInfo.qty - albumInfo.available_qty + 1
 
