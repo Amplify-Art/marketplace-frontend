@@ -5,6 +5,9 @@ import { fetchUsersAction } from '../../../redux/actions/UserAction'
 import { sendNearAction } from '../../../redux/actions/GlobalAction'
 import { displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
 import jwt from 'jsonwebtoken';
+import * as nearAPI from 'near-api-js'
+
+const { utils: { format: { parseNearAmount } } } = nearAPI;
 
 const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLoadingOverlay, wallet }) => {
   const [activeView, setActiveView] = useState('view1');
@@ -67,12 +70,15 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
   const onSubmit = () => {
     if (currentUser.near_account_type === 'connected') {
       let send_info = {
-        yocto_near_price: ''
+        near_price: parseNearAmount(enteredNearAmt),
+        receiver_id: selectedAddress === 'walletAddress' ? undefined : selectedUser.id,
+        wallet: selectedAddress === 'walletAddress' ? search : undefined,
+        is_wallet: selectedAddress === 'walletAddress',
       }
-      localStorage.setItem('send_info')
+      localStorage.setItem('send_info', JSON.stringify(send_info))
       wallet.account().sendMoney(
         selectedAddress === 'walletAddress' ? search : selectedUser.near_account_id, // receiver account
-        "1000000000000000000000000" // amount in yoctoNEAR
+        parseNearAmount(enteredNearAmt) // amount in yoctoNEAR
       );
     } else {
       sendNear({
@@ -247,7 +253,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
             <div className="send-modal-view3-heading">To</div>
             <div className="send-modal-view3-detail">
               <div className="send-modal-view3-detail-left">
-                {selectedUser ? selectedUser.name : search}.NEAR
+                {selectedUser ? selectedUser.near_account_id : search}
               </div>
               <div className="send-modal-view3-detail-right" onClick={() => setActiveView('view2')}>
                 Change

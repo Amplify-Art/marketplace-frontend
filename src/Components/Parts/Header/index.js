@@ -77,8 +77,12 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
+    console.log(wallet, 'wallet');
     setWalletState(wallet)
     props.setWallet(wallet);
+    return () => {
+      setWalletState(null);
+    }
   }, [])
   useEffect(async () => {
     if (wallet && !isWalletSigned) {

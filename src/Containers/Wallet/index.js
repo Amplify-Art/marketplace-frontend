@@ -11,6 +11,7 @@ import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { sendMoneyAction } from '../../redux/actions/NFTAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
@@ -52,9 +53,9 @@ function Wallet(props) {
     } else if (props.history.location.search.includes('transactionHashes')) {
       let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
       sendInfo.hash = txtId
-      props.sendNear(sendInfo)
+      props.sendMoney(sendInfo)
       localStorage.removeItem('send_info')
-      props.history.push('/market')
+      props.history.push('/wallet')
     }
   }, [])
 
@@ -204,6 +205,7 @@ export default connect(state => {
     fetchTransactions: data => dispatch(fetchTransactionsAction(data)),
     showSendModal: () => dispatch(showSendModalAction()),
     hideSendModal: data => dispatch(hideSendModalAction(data)),
-    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data))
+    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data)),
+    sendMoney: data => dispatch(sendMoneyAction(data))
   }
 })(Auth(withRouter(Wallet)));
