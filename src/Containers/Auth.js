@@ -27,7 +27,7 @@ export default (ComposedComponent) => {
       }
       else {
         let history = { ...props.history }
-        props.history.push('/auth/login')
+        props.history.push('/')
         setAuth(true);
         localStorage.setItem('__redirect', history.location.pathname)
       }
