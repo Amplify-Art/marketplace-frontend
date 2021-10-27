@@ -205,12 +205,9 @@ function SingleAlbum(props) {
     }
     if (props.albumInfo.hideSticker) {
       setShowSticker(false);
-    } else
-      if (albumInfo && albumInfo.token && albumInfo.token.is_owner) {
-        setShowSticker(false);
-      } else if (isMint && albumInfo && albumInfo.forSale !== false) {
-        setShowSticker(true);
-      }
+    } else if (albumInfo && albumInfo.forSale !== false) {
+      setShowSticker(true);
+    }
   }, [albumInfo]);
 
   return (
@@ -223,7 +220,7 @@ function SingleAlbum(props) {
           {showSticker && (
             <div className={`mint-sticker ${albumInfo.available_qty === 0 ? 'sold' : 'available'}`}>
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
-              <span>Mint #<br />{albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty}</span>
+              <span>Mint #<br />{albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1)}/{albumInfo.qty || albumInfo.token.album.qty}</span>
             </div>
           )}
         </div>
