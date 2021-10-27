@@ -44,3 +44,8 @@ export const sellSongNFTAction = payload => ({
   type: types.SELL_SONG_NFT_REQUEST,
   payload,
 });
+
+export const sendMoneyAction = payload => ({
+  type: types.UPDATE_SEND_MONEY_REQUEST,
+  payload,
+});

@@ -3,12 +3,15 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CurrencyInput from 'react-currency-input-field';
 import axios from 'axios';
+import { store } from 'react-notifications-component';
+import q from 'querystring';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
 import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { sendMoneyAction } from '../../redux/actions/NFTAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
@@ -26,6 +29,35 @@ function Wallet(props) {
   const [moonPaySignature, setMoonPaySignature] = useState(null);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+
+  // check for any transactions
+  useEffect(() => {
+    let sendInfo = JSON.parse(localStorage.getItem('send_info'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      localStorage.removeItem('send_info')
+      props.history.push('/wallet')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      sendInfo.hash = txtId
+      props.sendMoney(sendInfo)
+      localStorage.removeItem('send_info')
+      props.history.push('/wallet')
+    }
+  }, [])
 
   const setShowSendModal = (bool) => {
     if (bool) {
@@ -83,7 +115,7 @@ function Wallet(props) {
           <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
-            {user.near_account_type === 'new' && <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />}
+            {user.near_account_type && <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />}
             <Button text="Withdraw" className="btn black-outline" onClick={() => onWithDrawAmount('withdraw')} />
           </div>
         </div>
@@ -173,6 +205,7 @@ export default connect(state => {
     fetchTransactions: data => dispatch(fetchTransactionsAction(data)),
     showSendModal: () => dispatch(showSendModalAction()),
     hideSendModal: data => dispatch(hideSendModalAction(data)),
-    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data))
+    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data)),
+    sendMoney: data => dispatch(sendMoneyAction(data))
   }
 })(Auth(withRouter(Wallet)));
