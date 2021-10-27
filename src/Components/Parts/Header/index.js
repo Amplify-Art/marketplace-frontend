@@ -83,9 +83,9 @@ function Header(props) {
   }, [])
   useEffect(async () => {
     let token = localStorage.getItem('amplify_app_token')
-    if (wallet && !wallet.isSignedIn() && token) {
+    if (wallet && !wallet.isSignedIn() && token && user.near_account_type === 'connected') {
       wallet.requestSignIn(
-        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // contract requesting access 
+        user.near_account_id,     // contract requesting access 
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
