@@ -49,7 +49,7 @@ function TransactionModal({ transaction, onClose }) {
       </div>
       <div className="transaction-modal-address-wrapper">
         <div className="transaction-modal-from">To</div>
-        <div className="transaction-modal-heading">@ {transaction.transferTo.username}</div>
+        <div className="transaction-modal-heading">@ {transaction.transferTo && transaction.transferTo.username}</div>
       </div>
     </div>
   )

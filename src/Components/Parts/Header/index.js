@@ -80,6 +80,9 @@ function Header(props) {
     console.log(wallet)
     setWalletState(wallet)
     props.setWallet(wallet);
+    return () => {
+      setWalletState(null);
+    }
   }, [])
   useEffect(async () => {
     let token = localStorage.getItem('amplify_app_token')
