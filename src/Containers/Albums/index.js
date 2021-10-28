@@ -18,7 +18,7 @@ function Albums(props) {
     props.fetchAlbums({
       params: {
         'orderBy': '-id',
-        'related': 'songs,user'
+        'related': 'songs.transfers,user'
       }
     });
   }, [])

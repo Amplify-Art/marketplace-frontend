@@ -63,6 +63,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     setCurrentIndex(-1)
     setPlaying(false)
   }
+  const hasOwnedPlayingSong = playing && (((albumInfo.songs || []).find(f => f.song_cid === currentIndex) || {}).transfers || []).some(f => f.transfer_to === user.id && f.is_owner)
+  console.log(hasOwnedPlayingSong, 'hasOwnedPlayingSong')
   useEffect(() => {
     audio.addEventListener("ended", () => {
       setAudioSong(new Audio(''))
@@ -70,8 +72,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
       setPlaying(false)
     });
     audio.addEventListener("timeupdate", e => {
-      console.log(audio.currentTime)
-      if (audio.currentTime > 30) {
+      if (audio.currentTime > 30 && !hasOwnedPlayingSong) {
         stopSong()
       }
       const progressElement = document.getElementById(currentIndex)
