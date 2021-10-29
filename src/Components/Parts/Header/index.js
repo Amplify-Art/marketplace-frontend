@@ -298,17 +298,17 @@ function Header(props) {
         </div> */}
         <div className="logo">
           <Link to='/' >
-            <img src={Logo} alt="Amplify.Art" />
+            <div alt="Amplify.Art" />
           </Link>
         </div>
         {
           !userToken ?
-            // <div className="nav">
-            //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
-            //   <a>Education Portal</a>
-            //   <a>Contact us</a>
-            // </div>
-            <></>
+            <div className="nav">
+              <a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
+              <a target="_blank" href="https://education.amplify.art">Education Portal</a>
+              <a target="_blank" href="https://education.amplify.art">News</a>
+              <a href="mailto:contact@amplify.art">Contact Us</a>
+            </div>
             :
             <div ref={wrapperRef} className="searchWrapper">
               <div className="search">

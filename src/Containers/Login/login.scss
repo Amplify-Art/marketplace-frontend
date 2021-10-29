@@ -24,4 +24,17 @@
       height: 30px;
     }
   }
+  @media screen and (max-width: 600px) {
+    a {
+      width: auto;
+      background: none;
+      .login-text {
+        width: 10px;
+        display: none;
+      }
+      svg {
+        height: 30px;
+      }
+    }
+  }
 }

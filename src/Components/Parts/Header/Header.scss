@@ -37,11 +37,22 @@ header {
   }
   @media screen and (max-width: 600px) {
     z-index: 10;
+    .nav {
+      a {
+        font-size: 10px;
+      }
+    }
   }
   .logo {
+    background: url(../../../assets/images/logo.png);
+    background-repeat: no-repeat;
+    width: 170px;
+    height: 50px;
     @media screen and (max-width: 600px) {
-      width: 121px;
-      height: 24px;
+      background-image: url(../../../assets/images/logo-image.png) center;
+      width: 50px;
+      height: 30px;
+      background-repeat: no-repeat;
     }
   }
   @media screen and (max-width: 600px) {
