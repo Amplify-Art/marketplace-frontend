@@ -228,8 +228,9 @@ function SingleAlbum(props) {
           children ? children : (
             <>
               <div className={`the-title ${isPlayList && 'playlist-title'}`}><h3 className="album-title">{albumInfo.title}</h3></div>
-              <h4 className="artist-name">{albumInfo.user && albumInfo.user.name}</h4>
-              {albumInfo.own && <h5 className="album-own">Your Own: #{albumInfo.own}</h5>}
+              <h4 className="artist-name">{(albumInfo.user && albumInfo.user.name) || (albumInfo.token && albumInfo.token.album && albumInfo.token.album.user && albumInfo.token.album.user.name)}</h4>
+              {albumInfo.mints_owned && albumInfo.mints_owned.length ? <h5 className="album-own">Your Own: {albumInfo.mints_owned.map(m => '#' + m).join(',')}</h5> : null}
+              {props.history.location.pathname === "/my-profile" && <h5 className="album-own">Your Own: #{albumInfo.copy_number}</h5>}
             </>
           )
         }

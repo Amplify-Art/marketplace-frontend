@@ -1,5 +1,8 @@
 .single-album {
   position: relative;
+  .album-own {
+    color: white;
+  }
   .cd-case {
     background: url("../../../assets/images/case-transparent.png");
     width: 100%;
