@@ -107,7 +107,7 @@ function ArtistProfile(props) {
           <div className="albums" className={`${albums && albums.length > 0 && 'album-grid'}`}>
             {
               albums && albums.length > 0 ? albums?.map((album, index) => (
-                generateAlbumItem({ ...album, hideSticker: true }, index)
+                generateAlbumItem({ ...album, hideSticker: false }, index)
               )) : (
                 <div className="no-results">
                   <h4>This artist currently has no recent releases. Please check back again later.</h4>

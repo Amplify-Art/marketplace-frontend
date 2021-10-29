@@ -203,7 +203,7 @@ function SingleAlbum(props) {
     } else {
       setAlbumCover(cdCover);
     }
-    if (props.albumInfo.hideSticker) {
+    if (props.albumInfo?.hideSticker) {
       setShowSticker(false);
     } else if (props.history.location.pathname === "/my-profile") {
       setShowSticker(false);
