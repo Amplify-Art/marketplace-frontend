@@ -205,6 +205,8 @@ function SingleAlbum(props) {
     }
     if (props.albumInfo.hideSticker) {
       setShowSticker(false);
+    } else if (props.history.location.pathname === "/my-profile") {
+      setShowSticker(false);
     } else if (albumInfo && albumInfo.forSale !== false) {
       setShowSticker(true);
     }
