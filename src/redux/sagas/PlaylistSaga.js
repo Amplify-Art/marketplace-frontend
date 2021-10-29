@@ -39,7 +39,6 @@ export function* addPlaylistSaga({ history }, { payload }) {
   try {
     const res = yield call(addPlaylist, payload);
     yield all([
-      put({ type: types.ADD_PLAYLIST_SUCCESS, res }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -47,6 +46,7 @@ export function* addPlaylistSaga({ history }, { payload }) {
           message: res.success ? 'Playlist added' : res.message || 'Playlist not added',
         },
       }),
+      put({ type: types.ADD_PLAYLIST_SUCCESS, res }),
     ]);
     // if (res && res.success && res.data && res.data.id && history) {
     //   history.push('/playlists');
