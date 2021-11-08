@@ -150,9 +150,11 @@ function Wallet(props) {
       <div className="transactionListWrapper">
         <div className="transactionList">
           <div className="heading">Recent Transactions</div>
-          <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
-            View full list
-          </Link>
+          {props.total > 0 &&
+            <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
+              View full list
+            </Link>
+          }
         </div>
         <TransactionList
           transactionList={props.transactionList}
@@ -208,7 +210,8 @@ export default connect(state => {
   return {
     transactionList: state.transactions.transactions,
     user: state.users.user,
-    displaySendModal: state.global.showSendModal
+    displaySendModal: state.global.showSendModal,
+    total: state.transactions.total
   }
 }, dispatch => {
   return {
