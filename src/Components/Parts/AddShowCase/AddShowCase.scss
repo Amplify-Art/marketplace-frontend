@@ -15,6 +15,9 @@
     overflow-y: scroll;
     margin-bottom: 25px;
     padding: 5px;
+    .error {
+      color: red;
+    }
     .playlist-cover-holder {
       width: 60px;
       height: 60px;
@@ -23,7 +26,7 @@
       img {
         position: relative;
         width: 100%;
-        height: auto
+        height: auto;
       }
     }
   }
