@@ -10,7 +10,7 @@ import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
-import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
 import { sendMoneyAction } from '../../redux/actions/NFTAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
@@ -73,7 +73,9 @@ function Wallet(props) {
     })
   }, [])
   const onAmountChange = (value) => {
-    console.log(value, 'EE')
+    if (amontToConvertError) {
+      setAmontToConvertError(false);
+    }
     setAmontToConvert(value)
   }
   const getNearPrice = () => {
@@ -90,6 +92,7 @@ function Wallet(props) {
       setAmontToConvertError(true)
       return
     }
+    props.displayLoadingOverlay();
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
     if (!showMoonPay) {
@@ -97,6 +100,7 @@ function Wallet(props) {
       if (res.success) {
         setMoonPaySignature(res.data.signature)
       }
+      props.hideLoadingOverlay();
     } else {
       setMoonPaySignature(null)
     }
@@ -156,7 +160,7 @@ function Wallet(props) {
           onClickItem={onClickItem}
         />
       </div>
-      {showMoonPay && <GeneralModal
+      {showMoonPay && moonPaySignature && <GeneralModal
         headline={moonpayType === 'withdraw' ? `Withdraw` : 'Purchase'}
         contentClassName="moonpay centered "
         closeModal={() => setShowMoonPay(!showMoonPay)}
@@ -212,6 +216,7 @@ export default connect(state => {
     showSendModal: () => dispatch(showSendModalAction()),
     hideSendModal: data => dispatch(hideSendModalAction(data)),
     displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data)),
+    hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
     sendMoney: data => dispatch(sendMoneyAction(data))
   }
 })(Auth(withRouter(Wallet)));
