@@ -151,6 +151,9 @@ header {
   margin-top: 39px;
   font-weight: 500;
   font-family: $space;
+  .home {
+    cursor: pointer;
+  }
   .current {
     font-weight: 100;
   }

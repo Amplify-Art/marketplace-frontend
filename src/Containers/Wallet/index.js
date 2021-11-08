@@ -27,6 +27,7 @@ function Wallet(props) {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
   const [moonPaySignature, setMoonPaySignature] = useState(null);
+  const [amontToConvertError, setAmontToConvertError] = useState(false);
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
@@ -85,6 +86,10 @@ function Wallet(props) {
   }, [])
 
   const onWithDrawAmount = async (type) => {
+    if (!amontToConvert) {
+      setAmontToConvertError(true)
+      return
+    }
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
     if (!showMoonPay) {
@@ -132,7 +137,8 @@ function Wallet(props) {
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             value={amontToConvert}
           />
-          <span className="conversion-to-near">{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>
+          {amontToConvertError && <span className="conversion-to-near">Please enter valid USD amount.</span>}
+          {!amontToConvertError && <span className={`conversion-to-near`}>{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>}
           <Button text="Add Funds to Balance" className="btn solid-black" onClick={() => onWithDrawAmount('add_funds')} />
         </div>
       </div>
