@@ -204,13 +204,13 @@ function MyProfile(props) {
         {/* {!isPublicProfile && <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>} */}
         <div className="popup-container">
           {openSharePopup && <div className="popUp" >
-            <a href='#' className="popup-div" style={{ paddingBottom: '16px' }} onClick={copyProfileLink}><img src={copyLink} alt="Copy Link" className="popup-img" />Copy Link</a>
+            <a href='#' className="popup-div" onClick={copyProfileLink}><img src={copyLink} alt="Copy Link" className="popup-img" /><span>Copy Link</span></a>
             <TwitterShareButton
               className="popup-div"
               title="Check out my Amplify.art profile!"
               url={`https://amplfy.art/user/${userID}`}
               via="amplifyart"
-            ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ paddingRight: '15px' }} />Tweet</TwitterShareButton>
+            ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ width: '32px' }} /><span>Tweet</span></TwitterShareButton>
           </div>}
           <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
         </div>

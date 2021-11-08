@@ -10,7 +10,7 @@ import AlbumModalContent from '../AlbumModalContent/index.js';
 import SingleAlbumModal from '../SingleAlbumModal/index.js';
 import { setIsAlbumSelected, storeSelectedAlbum } from '../../../redux/actions/SearchResAction.js';
 import { addTokenTransferAction } from '../../../redux/actions/TokenTransferAction'
-import { hidePurchaseModalAction } from '../../../redux/actions/GlobalAction';
+import { hidePurchaseModalAction, displayLoadingOverlayAction } from '../../../redux/actions/GlobalAction';
 import { buyAlbumBundleNFTAction } from '../../../redux/actions/NFTAction';
 import './SingleAlbum.scss';
 import cdCover from '../../../assets/images/cd-img.svg';
@@ -138,6 +138,7 @@ function SingleAlbum(props) {
 
   const handleBuy = async (albumInfo) => {
     if (user.near_account_type === 'connected') {
+      props.displayLoadingOverlay();
       let album_bundle_info = {
         token_id: albumInfo.id,
         copy_number: parseInt(albumInfo.qty) - albumInfo.available_qty + 1
@@ -274,6 +275,7 @@ export default connect(state => {
   }
 }, dispatch => {
   return {
+    displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     hidePurchaseModal: () => dispatch(hidePurchaseModalAction()),
     addTokenTransfer: (data) => dispatch(addTokenTransferAction(data)),
     buyAlbumBundleNFT: (data) => dispatch(buyAlbumBundleNFTAction(data))

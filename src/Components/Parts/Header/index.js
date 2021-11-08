@@ -289,7 +289,14 @@ function Header(props) {
     }
   }
 
-  console.log(wallet && wallet.isSignedIn(), 'wallet.isSignedIn()')
+  const hasData = () => {
+    if (searchResult.results) {
+      if (!searchResult.results.some(d => d.data.length)) {
+        return true;
+      }
+    }
+    return false;
+  }
   return (
     <>
       <header>
@@ -317,7 +324,7 @@ function Header(props) {
               </div>
               {
                 (search.trim() !== '' && showSearchResult) &&
-                <div className="scrollSearchResult">
+                <div className={`scrollSearchResult ${hasData() && !searchLoading ? "p-0" : ""}`}>
                   {
                     searchLoading
                       ? 'Loading...' // TODO: can add any animation
@@ -355,7 +362,7 @@ function Header(props) {
       {setBreadCrumbs() &&
         <div className="breadcrumbs left-nav-pad">
           <div className="container">
-            Home / <span className="current">{path && setBreadCrumbs()}</span>
+            <span className="home" onClick={() => props.history.push('/')}>Home </span>/ <span className="current">{path && setBreadCrumbs()}</span>
           </div>
         </div>
       }

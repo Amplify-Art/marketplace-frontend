@@ -1,4 +1,4 @@
-@import '../../assets/SCSS/Vars.scss';
+@import "../../assets/SCSS/Vars.scss";
 #profile {
 	padding-top: 29px;
 
@@ -8,7 +8,7 @@
 		@media screen and (max-width: 600px) {
 			padding-top: 7px;
 			padding-left: 20px;
-    	padding-right: 20px;
+			padding-right: 20px;
 		}
 		.top {
 			display: flex;
@@ -37,19 +37,23 @@
 			border: 1px solid #ffffff;
 			box-sizing: border-box;
 			border-radius: 10px;
-			padding: 18px 19px;
-    		position: absolute;
-    		top: -84px;
-    		width: 150px;
+			padding: 12px 14px;
+			position: absolute;
+			top: -74px;
+			width: 130px;
+			font-size: 14px;
 			.popup-div {
 				display: flex;
 				text-decoration: none;
 				color: #000000;
-				font-weight: bold;
-				font-size: 16px;
 				font-family: $lato;
+				margin-top: 5px;
+				span {
+					margin-left: 5px;
+				}
 				.popup-img {
-					padding-right: 7px;
+					margin: 0px;
+					width: 32px;
 				}
 			}
 		}
@@ -61,5 +65,5 @@
 }
 
 .copy-input-hidden {
-  width: 0px;
+	width: 0px;
 }
