@@ -99,6 +99,9 @@ header {
       background: #fff;
       box-sizing: border-box;
       @include overflowScrollBar();
+      &.p-0 {
+        padding: 0;
+      }
     }
   }
 

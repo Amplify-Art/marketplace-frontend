@@ -109,7 +109,7 @@ export default function (state = initialState, action) {
         });
       } else {
         store.addNotification({
-          title: "Error",
+          title: action.payload.title || "Error",
           message: action.payload.message,
           type: "danger",
           insert: "top",
