@@ -1,5 +1,6 @@
 .single-album {
   position: relative;
+  font-family: "Space Grotesk";
   .album-own {
     color: white;
   }
@@ -36,6 +37,7 @@
           text-transform: uppercase;
           font-weight: bold;
           text-align: center;
+          font-family: Gotham;
         }
       }
       &.sold {
