@@ -119,18 +119,18 @@ function App(props) {
           <Route path="/near/success" exact component={Auth(NearSuccessLogin)} />
           <Route path="/albums" exact render={() => (<Albums playerActive={props && props.currentPlaylists.length > 0} />)} />
           {/* <Route path="/profile" exact component={Profile} /> */}
-          <Route path="/my-profile" exact render={() => (<MyProfile playerActive={props && props.currentPlaylists.length > 0} />)} />
+          <Route path="/my-profile" exact render={Auth(() => (<MyProfile playerActive={props && props.currentPlaylists.length > 0} />))} />
           <Route path="/user/:id" exact component={Auth(MyProfile)} />
           <Route path="/artist/:slug" exact render={() => (<ArtistProfile playerActive={props && props.currentPlaylists.length > 0} />)} />
           <Route path="/artists" exact component={Artists} />
-          <Route path="/marketplace" exact component={SecondaryMarketplace} />
+          <Route path="/marketplace" exact component={Auth(SecondaryMarketplace)} />
           <Route path="/artist-dashboard" exact component={ArtistDashboard} />
-          <Route path="/support-card" exact component={SupportCard} />
+          <Route path="/support-card" exact component={Auth(SupportCard)} />
           <Route path='/nominate' exact component={Nominate} />
           <Route path='/user-dashboard' exact component={Auth(UserDashboard)} />
-          <Route path="/search-result" exact render={() => (<SearchResult playerActive={props && props.currentPlaylists.length > 0} />)} />
-          <Route path="/transaction-list" exact component={Auth(TransactionDetails)} /> 
-          <Route path="/transaction-sign" exact component={Auth(WalletSignTransaction)} /> 
+          <Route path="/search-result" exact render={Auth(() => (<SearchResult playerActive={props && props.currentPlaylists.length > 0} />))} />
+          <Route path="/transaction-list" exact component={Auth(TransactionDetails)} />
+          <Route path="/transaction-sign" exact component={Auth(WalletSignTransaction)} />
 
           <Route component={PageNotFound} />
         </Switch>
