@@ -71,7 +71,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     });
     audio.addEventListener("timeupdate", e => {
       console.log(props.history.location.pathname, "RWWJJ")
-      if (audio.currentTime > 30) {
+      if (audio.currentTime > 15) {
         stopSong()
       }
       const progressElement = document.getElementById(currentIndex)
