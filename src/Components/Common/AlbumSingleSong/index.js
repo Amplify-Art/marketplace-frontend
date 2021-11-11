@@ -61,7 +61,7 @@ function AlbumSingleSong(props) {
           )}
         </div>
         <div className="fn-white pointer" onClick={() => (song.transfers || []).filter(f => f.copy_number === (token && token.copy_number)).some((trans => (trans.is_owner && trans.transfer_to === user.id) && !trans.is_for_sale)) ? onSingleSongClick(song) : null}>{song.title}</div>
-        <div className="duration">{`${Math.floor(song.duration / 60)}:${parseInt(((song.duration / 60) - Math.floor(song.duration / 60)) * 60)}`}</div>
+        <div className="duration">{`${Math.floor(song.duration / 60)}:${parseInt(Math.ceil((song.duration / 60) - Math.floor(song.duration / 60)) * 60)}`}</div>
       </div>
       {/* <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div> */}
     </div>
