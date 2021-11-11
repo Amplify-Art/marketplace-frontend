@@ -33,7 +33,10 @@ const songHeader = () => (
       {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="mobile-header-title">
-      Song Title &nbsp; | &nbsp; Artist &nbsp; | &nbsp; Mint Owned
+      <div>Song Market</div>
+      <div className="mobile-header-title-right">
+      <i className="far fa-sort-alt" /><span className="sort">SORT</span>
+      </div>
     </div>
     <div className="header-title">For sale
       {/* <img src={sortIcon} alt="" /> */}
@@ -178,6 +181,14 @@ function SongList(props) {
     props.showBuyModal()
     setBuyingSong(song)
   }
+
+  const textEllipsis = (txt) => {
+    if (txt.length > 9) {
+      return txt.substr(0, 9) + '...';
+    }
+    return txt;
+  };
+
   return (
     <div className="song-list">
       {songHeader()}
@@ -192,14 +203,17 @@ function SongList(props) {
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>
                   <div>{songData.title} <span>{(songData.mints_owned || []).map(i => `#${i}`).join(' ,')}</span></div>
-                  <p className="song-title-mobile">{songData.artist && songData.artist.name}</p>
+                  <p className="song-title-mobile">
+                    {textEllipsis((songData.artist && songData.artist.name) || '')} / {textEllipsis((songData.album && songData.album.title) || '')}</p>
+                  <div className="song-mint-mobile" onClick={() => expandSongList(index)}>{songData.mint || "#4"}</div>
+                  <div style={{ border: 0}} />
                 </label>
               </div>
 
               <div className="song-album" onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
               <div className="song-artist" onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
-              <div className="song-mint-mobile" onClick={() => expandSongList(index)}>{songData.mint || "#4"}</div>
-              <div onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
+              <div className="song-available-mobile" onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty}</div>
+              <div className="song-available" onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
             </div>
             <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid})` }}>
               <div className="copy">
@@ -216,6 +230,10 @@ function SongList(props) {
                     songData.transfers.map(transfer => <div className="singleSong flex">
                       <div className="mint">#{transfer && transfer.copy_number}</div>
                       <div className="date-listed-by"> {moment(transfer && transfer.created_at).format('MM/DD/YYYY')} by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
+                      <div className="date-listed-by-mobile">
+                        <div style={{ width: '100%' }}>{moment(transfer && transfer.created_at).format('MM/DD/YYYY')}</div>
+                        <div style={{ width: '100%' }}>by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
+                      </div>
                       <div className="songPrice">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
                       <div className="action"><button onClick={() => onModalChange({ ...transfer, token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}` })}>Buy Now</button></div>
                       <div className="mobileAction">
