@@ -42,6 +42,7 @@ function NewNFT(props) {
   const [currentUploadingFile, setCurrentUploadingFile] = useState(null);
   const [uploadingFiles, setUploadingFiles] = useState([]);
   const [uploadedIpfs, setUploadedIpfs] = useState([])
+  const [fileDuration, setFileDuration] = useState({})
 
   const user = jwt.decode(localStorage.getItem('amplify_app_token'))
   const { register, handleSubmit, control, getValues, watch, formState: { errors } } = useForm();
@@ -152,6 +153,7 @@ function NewNFT(props) {
           songs: songFiles.map((file, index) => ({
             title: file.title,
             hash: uploadedIpfs[index],
+            duration: fileDuration[file.name]
           }))
         }
         localStorage.setItem('minting_info', JSON.stringify(minting_info))
@@ -179,6 +181,7 @@ function NewNFT(props) {
           songBody.metadata = songFiles.map((file, index) => ({
             title: file.title,
             hash: uploadedIpfs[index],
+            duration: fileDuration[file.name]
           }));
 
           songBody.qty = data.numberOfAlbums
@@ -218,8 +221,23 @@ function NewNFT(props) {
 
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
 
+  const getDuration = async (file) => {
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = function () {
+      audioContext.decodeAudioData(reader.result, function (buffer) {
+        setFileDuration({
+          ...fileDuration,
+          [file.name]: Math.ceil(buffer.duration)
+        })
+      })
+    }
+  }
   useEffect(() => {
     if (acceptedFiles.length) {
+      // acceptedFiles.forEach(file => getDuration(file))
+      // getDuration(acceptedFileÎs, setFileDuration)
       setSongFiles(songFiles => [...songFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
       setUploadingFiles([...uploadingFiles, ...acceptedFiles.map(file => Object.assign({ content: file, path: file.path, name: file.name }, file))])
       if (customError.songFiles) {
@@ -235,6 +253,7 @@ function NewNFT(props) {
   useEffect(() => {
     let inQueue = uploadingFiles.find(f => !f.is_uploaded && !f.is_uploading)
     if (uploadingFiles.length && !isUploading && inQueue) {
+      getDuration(inQueue.content);
       setCurrentUploadingFile(inQueue)
       setIsUploading(true)
     }
@@ -247,8 +266,14 @@ function NewNFT(props) {
   }, [currentUploadingFile])
 
   const removeSongFromUploads = (index) => {
+    let tobeRemoved = songFiles.find((f, i) => i === index);
     const newSongSet = songFiles.splice(index, 1);
     setSongFile(newSongSet);
+    let newFileDuration = fileDuration;
+    delete newFileDuration[tobeRemoved.name];
+    setFileDuration({
+      ...newFileDuration
+    })
   }
 
   const onSongFileChange = (e) => {
@@ -340,6 +365,8 @@ function NewNFT(props) {
     }
     setShowCropper(false)
   };
+  console.log(fileDuration, 'fileDuration');
+
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
