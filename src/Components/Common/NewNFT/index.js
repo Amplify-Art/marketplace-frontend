@@ -141,32 +141,43 @@ function NewNFT(props) {
     props.displayLoadingOverlay();
     try {
       if (user.near_account_type === 'connected') {
-        let yocto_near_price = parseNearAmount(`${data.albumPrice / props.nearPrice}`)
-        let minting_info = {
-          cover: albumCover,
-          title: data.albumName,
-          description: data.albumDescription,
-          price: Math.round(data.albumPrice * 100),
-          qty: data.numberOfAlbums,
-          yocto_near_price,
-          songs: songFiles.map((file, index) => ({
-            title: file.title,
-            hash: uploadedIpfs[index],
-          }))
-        }
-        localStorage.setItem('minting_info', JSON.stringify(minting_info))
-        await (props.wallet.account()).functionCall(
-          process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
-          'add_token_types',
-          {
-            album_hash: albumCover,
-            cover_songslist: uploadedIpfs,
-            number_of_album_copies: parseInt(data.numberOfAlbums),
-            price: yocto_near_price,
+        const albumMeta = await axios.post(`${API_ENDPOINT_URL}/uploads/album/meta`, albumBody, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getAccessToken()
           },
-          200000000000000,
-          parseNearAmount('0.1'),
-        )
+        })
+        console.log(albumMeta.data, 'albumMeta.data')
+        if (albumMeta.data.success) {
+          let yocto_near_price = parseNearAmount(`${data.albumPrice / props.nearPrice}`)
+          let minting_info = {
+            cover: albumCover,
+            title: data.albumName,
+            description: data.albumDescription,
+            // price: Math.round(data.albumPrice * 100),
+            price: 1234,
+            qty: data.numberOfAlbums,
+            yocto_near_price,
+            songs: songFiles.map((file, index) => ({
+              title: file.title,
+              hash: uploadedIpfs[index],
+            }))
+          }
+          console.log(`${albumCover}:${albumMeta.data.IpfsHash}`, '`${albumCover}:${albumMeta.data.IpfsHash}`')
+          localStorage.setItem('minting_info', JSON.stringify(minting_info))
+          await (props.wallet.account()).functionCall(
+            process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+            'add_token_types',
+            {
+              album_hash: `${albumCover}:${albumMeta.data.IpfsHash}`,
+              cover_songslist: uploadedIpfs,
+              number_of_album_copies: parseInt(data.numberOfAlbums),
+              price: parseNearAmount('0.1'),
+            },
+            200000000000000,
+            parseNearAmount('0.1'),
+          )
+        }
       } else {
         const mintAlbum = await axios.post(`${API_ENDPOINT_URL}/uploads/album`, albumBody, {
           headers: {
