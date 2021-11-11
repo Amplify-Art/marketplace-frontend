@@ -141,10 +141,10 @@ function MainSideNav(props) {
 
           <li className="nav-header">Store</li>
           {/* <li><NavLink to="#">Coming Soon</NavLink></li> */}
-          <li><NavLink to="/albums" onClick={handleOnClick} activeClassName="current">Albums</NavLink></li>
-          <li><NavLink to="/marketplace" onClick={handleOnClick} activeClassName="current">Songs</NavLink></li>
+          <li><NavLink to="/albums" onClick={handleOnClick} activeClassName="current">Full Albums</NavLink></li>
+          <li><NavLink to="/marketplace" onClick={handleOnClick} activeClassName="current">Single Songs</NavLink></li>
 
-          <li className="nav-header">Profile</li>
+          <li className="nav-header">Account</li>
           <li><NavLink to="/my-profile" onClick={handleOnClick} activeClassName="current">Profile</NavLink></li>
           <li><NavLink to="/wallet" onClick={handleOnClick} activeClassName="current">Wallet</NavLink></li>
           <li><NavLink to="/" onClick={(e) => onLogout(e)}>Logout</NavLink></li>

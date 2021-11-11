@@ -349,7 +349,7 @@ function Header(props) {
               <div className="mobile-menu" onClick={toggleMobileMenu}>
                 <img src={MenuIconNew} />
               </div>
-              <div className="user">
+              <div className="user" onClick={() => props.history.push('/my-profile')}>
                 <img src={userDetails.avatar} />
               </div>
             </>

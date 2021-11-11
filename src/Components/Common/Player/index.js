@@ -107,7 +107,7 @@ function Player(props) {
           <div className="top-icons">
             {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
             <div className="wallet"><Link to="/wallet"><img src={Wallet} alt="wallet" /></Link></div>
-            <div className="user">
+            <div className="user" >
               <img src={avatar} />
             </div>
           </div>
