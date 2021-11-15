@@ -31,20 +31,13 @@
 		margin-top: 7px;
 	}
 	.cd-case {
-		background: url("../../../assets/images/case-transparent.png");
-		width: 50%;
-		height: 393px;
-		position: relative;
+		background: url("../../../assets/images/cd-img.svg");
 		background-size: cover;
-		padding: 3px 5px 5px 20px;
-		box-sizing: border-box;
-		overflow: hidden;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		img {
-			width: 92%;
-		}
+		background-repeat: round;
+		width: 410px;
+		height: 410px;
+		margin-left: 76px;
+		margin-top: 7px;
 	}
 
 	.album-top {
