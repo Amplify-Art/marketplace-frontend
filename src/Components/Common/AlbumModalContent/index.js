@@ -157,7 +157,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         }
         {
           isPlayList ? <div className='cd-case'>
-            <img src={CdImage} alt='Cd-image' />
+            {/* <img src={CdImage} alt='Cd-image' /> */}
           </div> :
             <div className='bg-album-img' />
         }
