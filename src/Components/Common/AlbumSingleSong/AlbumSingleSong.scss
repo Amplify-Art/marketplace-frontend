@@ -4,6 +4,9 @@
   .modal-album-title {
     display: flex;
     width: 100%;
+    .pointer {
+      white-space: nowrap;
+    }
   }
   .fn-white {
     color: black;
