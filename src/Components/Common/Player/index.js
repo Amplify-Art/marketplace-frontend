@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import './Player.scss';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
-
+import PayerQueue from './PlayerQueue';
 // Player Icons
 import NextSongIcon from '../../../assets/images/next.svg';
 import PrevSongIcon from '../../../assets/images/prev.svg';
@@ -11,6 +11,8 @@ import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import CdImage from '../../../assets/images/cd-img.svg'
+import CDIcon from '../../../assets/images/cd-icon.svg';
+import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
 
 // Cover import (This will be dynamic)
 import DefaultCover from '../../../assets/images/cd-img.svg';
@@ -59,6 +61,10 @@ function Player(props) {
   audioElement.onended = function () {
     togglePlay(true)
     nextSong()
+    props.updateCurrentPlaylist([
+      ...currentPlaylists.filter((f, i) => i !== songIndex),
+      currentPlaylists.find((f, i) => i === songIndex)
+    ])
   }
 
 
@@ -106,6 +112,9 @@ function Player(props) {
         <div className="over">
           <div className="top-icons">
             {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
+            <div className="cd">
+              <img src={CDIcon} alt="wallet" />
+            </div>
             <div className="wallet"><Link to="/wallet"><img src={Wallet} alt="wallet" /></Link></div>
             <div className="user" >
               <img src={avatar} />
@@ -115,7 +124,7 @@ function Player(props) {
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
               {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-              {!currentPlaylists[songIndex]?.coverArt ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`} alt="Cover" />}
+              {!currentPlaylists[songIndex]?.album.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
@@ -154,9 +163,7 @@ function Player(props) {
               <img src={PrevSongIcon} alt="Previous Song" />
             </div>
           </div>
-
-          {isExpanded && <p className="mini-player-btn" onClick={() => toggleExpanded(false)}>Mini Player</p>}
-
+          {isExpanded && <PayerQueue currentPlaylists={currentPlaylists} songIndex={songIndex} />}
           {!isExpanded && <div className="album-info">
             <div className="cover">
               {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
@@ -173,7 +180,7 @@ function Player(props) {
         {/* {
             <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
         } */}
-        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.album.cover_cid ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`})` }} />
       </div>
     )
 
@@ -184,5 +191,9 @@ export default connect(state => {
   return {
     showWallet: state.global.showWallet,
     currentPlaylists: state.playlists.current_playlists
+  }
+}, dispatch => {
+  return {
+    updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data))
   }
 })(withRouter(Player));
