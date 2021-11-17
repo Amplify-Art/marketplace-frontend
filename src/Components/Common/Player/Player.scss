@@ -45,10 +45,12 @@
         cursor: pointer;
       }
       .cd {
-        height: 20px;
-        width: 20px;
-        background: #fff;
         margin-right: 28px;
+        cursor: pointer;
+        img {
+          height: 30px;
+          width: 30px;
+        }
       }
       .wallet {
         margin-right: 68px;
@@ -258,13 +260,14 @@
     line-height: 18px;
     text-transform: uppercase;
     opacity: 0.5;
-    margin: 10px 0px 0px 10px;
+    margin: 10px 0px 0px 0px;
   }
   .queue-items {
     .queue-item {
       margin-top: 15px;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: start;
+      align-items: center;
       img {
         height: 40px;
         width: 40px;
@@ -272,7 +275,8 @@
       .title {
         display: flex;
         flex-direction: column;
-        margin-right: 70px;
+        margin-left: 25px;
+        min-width: 242px;
         .song-title {
           font-size: 18px;
           line-height: 23px;

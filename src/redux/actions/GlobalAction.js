@@ -70,3 +70,7 @@ export const sendNotificationAction = ({ success, message }) => ({
 export const setCurrentNearPrice = () => ({
   type: types.CURRENT_NEAR_PRICE_REQUEST,
 });
+
+export const togglePlayerAction = () => ({
+  type: types.TOGGLE_PLAYER_REQUEST,
+});
