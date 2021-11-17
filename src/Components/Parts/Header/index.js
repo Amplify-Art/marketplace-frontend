@@ -344,9 +344,11 @@ function Header(props) {
         <div className="right">
           {userToken ? (
             <>
-              <div className="cd" onClick={() => props.togglePlayer()}>
+              {props.currentPlaylists.length ? <div className="cd" onClick={() => props.togglePlayer()}>
                 <img src={CDIcon} alt="wallet" />
               </div>
+                : null
+              }
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
               <div className="wallet">
                 <Link to="/wallet"><img src={Wallet} alt="wallet" /></Link>
@@ -430,7 +432,8 @@ export default connect(state => {
     showWalletSidebar: state.global.showWallet,
     searchResult: state.searchRes.searchResult,
     searchLoading: state.searchRes.loading,
-    wallet: state.global.wallet
+    wallet: state.global.wallet,
+    currentPlaylists: state.playlists.current_playlists
   }
 }, dispatch => {
   return {

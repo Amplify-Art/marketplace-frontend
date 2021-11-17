@@ -112,6 +112,9 @@ function Player(props) {
   const handleCloseModal = (bool) => {
     if (bool) {
       props.updateCurrentPlaylist(currentPlaylists.filter((f, i) => i !== songDeletingIndex))
+      if (songDeletingIndex === songIndex) {
+        audioElement.pause();
+      }
     }
     setSongDeletingIndex(null)
   }
