@@ -105,7 +105,8 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     updateCurrentPlaylist(albumInfo.songs)
     const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
-    props.togglePlayer();
+    if (!props.showPlayer)
+      props.togglePlayer();
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
@@ -223,7 +224,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   )
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+  return {
+    showPlayer: state.global.showPlayer
+  }
+}, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
     togglePlayer: () => dispatch(togglePlayerAction())
