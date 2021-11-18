@@ -103,7 +103,7 @@ function Header(props) {
       return
     } else
       wallet.requestSignIn(
-        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // at this time, , we dont have account, passing test
+        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "amplifybeta.testnet",     // at this time, , we dont have account, passing test
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
