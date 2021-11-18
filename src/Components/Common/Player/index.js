@@ -36,6 +36,7 @@ function Player(props) {
   const [songIndex, setSongIndex] = useState(0);
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
   const [isShow, setIsShow] = useState(false);
+  const [isPrevClicked, setIsPrevClicked] = useState(false);
   const [currentSongSrc, setSongSrc] = useState(`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`);
 
   // const coverData = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
@@ -61,12 +62,18 @@ function Player(props) {
 
 
   audioElement.onended = function () {
-    // togglePlay(true)
-    nextSong()
-    props.updateCurrentPlaylist([
-      ...currentPlaylists.filter((f, i) => i !== songIndex),
-      currentPlaylists.find((f, i) => i === songIndex)
-    ])
+    if (songIndex + 1 === currentPlaylists.length) {
+      setSongIndex(0);
+      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0]?.song_cid}`;
+      audioElement.currentTime = 0;
+      audioElement.play();
+    } else {
+      nextSong();
+      props.updateCurrentPlaylist([
+        ...currentPlaylists.filter((f, i) => i !== songIndex),
+        currentPlaylists.find((f, i) => i === songIndex)
+      ])
+    }
   }
 
 
@@ -88,15 +95,24 @@ function Player(props) {
   }
 
   const prevSong = () => {
-    if (songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
+    if (isPrevClicked && songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
       audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex - 1].song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
       setSongIndex(songIndex - 1);
+    } else {
+      audioElement.currentTime = 0;
+      setIsPrevClicked(true);
     }
   }
-
+  useEffect(() => {
+    if (isPrevClicked) {
+      setTimeout(() => {
+        setIsPrevClicked(false);
+      }, 600);
+    }
+  }, [isPrevClicked])
   // useEffect(() => {
   //   audioElement.src = currentSongSrc;
   // }, [0]);
