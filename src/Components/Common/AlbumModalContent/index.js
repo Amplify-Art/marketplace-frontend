@@ -10,6 +10,7 @@ import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistActi
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
@@ -104,6 +105,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     updateCurrentPlaylist(albumInfo.songs)
     const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
+    props.togglePlayer();
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
@@ -224,5 +226,6 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
 export default connect(null, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
+    togglePlayer: () => dispatch(togglePlayerAction())
   }
 })(withRouter(AlbumModalContent))
