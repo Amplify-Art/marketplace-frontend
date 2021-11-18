@@ -138,11 +138,11 @@ function MyProfile(props) {
 
       localStorage.setItem('selling_song', JSON.stringify(selling_song))
       await (props.wallet.account()).functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || 'nft.amplifybeta.testnet',
+        process.env.REACT_APP_NFT_CONTRACT || 'nft1.amplifybeta.testnet',
         'nft_approve',
         {
           token_id: songtokenid,
-          account_id: process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.amplifybeta.testnet',
+          account_id: process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market1.amplifybeta.testnet',
           price: parseNearAmount(`${nearPrice}`),
         },
         300000000000000,
