@@ -62,18 +62,12 @@ function Player(props) {
 
 
   audioElement.onended = function () {
-    if (songIndex + 1 === currentPlaylists.length) {
-      setSongIndex(0);
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0]?.song_cid}`;
-      audioElement.currentTime = 0;
-      audioElement.play();
-    } else {
-      nextSong();
-      props.updateCurrentPlaylist([
-        ...currentPlaylists.filter((f, i) => i !== songIndex),
-        currentPlaylists.find((f, i) => i === songIndex)
-      ])
-    }
+    // togglePlay(true)
+    nextSong()
+    props.updateCurrentPlaylist([
+      ...currentPlaylists.filter((f, i) => i !== songIndex),
+      currentPlaylists.find((f, i) => i === songIndex)
+    ])
   }
 
 
@@ -83,14 +77,19 @@ function Player(props) {
   }
 
   const nextSong = () => {
+    let index
     if ((songIndex + 1) !== currentPlaylists.length) { // Prevents error by skipping past the number of songs that are available
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex + 1]?.song_cid}`;
-      audioElement.currentTime = 0;
-      if (isPlaying) {
-        audioElement.play();
-        requestAnimationFrame(updateBar);
-      }
+      index = songIndex + 1;
       setSongIndex(songIndex + 1);
+    } else {
+      setSongIndex(0);
+      index = 0;
+    }
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[index]?.song_cid}`;
+    audioElement.currentTime = 0;
+    if (isPlaying) {
+      audioElement.play();
+      requestAnimationFrame(updateBar);
     }
   }
 
