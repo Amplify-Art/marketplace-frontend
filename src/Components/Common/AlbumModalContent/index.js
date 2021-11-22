@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
+import _ from 'lodash';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
@@ -102,9 +103,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
 
   const addToPlaylist = async () => {
-    updateCurrentPlaylist(albumInfo.songs)
-    const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
-    sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
+    let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
+    songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
+    updateCurrentPlaylist(songs)
+    sessionStorage.setItem('activePlaylist', JSON.stringify(songs))
     if (!props.showPlayer)
       props.togglePlayer();
   }
