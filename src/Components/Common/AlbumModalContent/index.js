@@ -102,7 +102,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
 
   const addToPlaylist = async () => {
-    updateCurrentPlaylist([...props.currentPlaylists, ...albumInfo.songs])
+    updateCurrentPlaylist(albumInfo.songs)
     const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
     sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
     if (!props.showPlayer)
