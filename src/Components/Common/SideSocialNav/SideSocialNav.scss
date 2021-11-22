@@ -2,7 +2,7 @@
   @media screen and (max-width: 600px) {
     display: none;
   }
-  .socialbar-color{
+  .socialbar-color {
     background-color: #4a4a4a;
   }
   ul {
@@ -17,9 +17,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: solid 2px rgba(227, 227, 227, .2);
+    border-bottom: solid 2px rgba(227, 227, 227, 0.2);
     height: 54px;
-    z-index: 9;
+    z-index: -9;
     li {
       list-style-type: none;
       margin-right: 100px;
@@ -34,7 +34,7 @@
         font-size: 12px;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: #FFFFFF;
+        color: #ffffff;
         text-decoration: none;
       }
     }
@@ -44,7 +44,7 @@
   @media screen and (min-width: 700px) {
     display: none;
   }
-  .socialbar-color{
+  .socialbar-color {
     background-color: #4a4a4a;
   }
   ul {
@@ -59,10 +59,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid 2px rgba(227, 227, 227, .2);
+    border-bottom: solid 2px rgba(227, 227, 227, 0.2);
     background-color: 4a4a4a;
     height: 40px;
-    z-index: 9;
+    z-index: -9;
     li {
       list-style-type: none;
       margin-right: 0px;
@@ -77,9 +77,12 @@
         font-size: 12px;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: #FFFFFF;
+        color: #ffffff;
         text-decoration: none;
       }
     }
   }
+}
+.overlay-color {
+  opacity: 0.4;
 }
