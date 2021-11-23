@@ -66,10 +66,6 @@ function Player(props) {
   audioElement.onended = function () {
     // togglePlay(true)
     nextSong()
-    props.updateCurrentPlaylist([
-      ...currentPlaylists.filter((f, i) => i !== playlistIndex),
-      currentPlaylists.find((f, i) => i === playlistIndex)
-    ])
   }
 
 
@@ -86,8 +82,13 @@ function Player(props) {
     } else {
       setSongIndex(0);
       index = 0;
-      if (playlistIndex + 1 !== currentPlaylists.length)
-        setPlaylistIndex(playlistIndex + 1);
+      if (playlistIndex + 1 !== currentPlaylists.length) {
+        props.updateCurrentPlaylist([
+          ...currentPlaylists.filter((f, i) => i !== playlistIndex),
+          currentPlaylists.find((f, i) => i === playlistIndex)
+        ])
+        // setPlaylistIndex(playlistIndex + 1);
+      }
       else
         setPlaylistIndex(0);
     }
@@ -159,7 +160,7 @@ function Player(props) {
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
               {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-              {!currentPlaylists[songIndex]?.album?.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid}`} alt="Cover" />}
+              {!currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
@@ -237,7 +238,7 @@ function Player(props) {
         {/* {
             <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
         } */}
-        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.album?.cover_cid ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`})` }} />
       </div>
     )
 

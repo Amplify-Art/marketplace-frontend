@@ -1,5 +1,6 @@
 
 import CloseIcon from '../../../assets/images/close-icon.svg';
+import CdImage from '../../../assets/images/cd-img.svg'
 
 export default function PayerQueue({ currentPlaylists, songIndex, setSongDeletingIndex, playlistIndex }) {
     return <div className="queue">
@@ -9,7 +10,7 @@ export default function PayerQueue({ currentPlaylists, songIndex, setSongDeletin
             {
                 currentPlaylists.map(cp =>
                     <div className="queue-item">
-                        <img src={`https://amplify-dev.mypinata.cloud/ipfs/${cp?.album?.cover_cid}`} />
+                        <img src={CdImage} />
                         <div className="title">
                             <span className="song-title">{cp.title}</span>
                             <span className="album-title">{cp?.songs?.length} {cp?.songs?.length > 1 ? 'songs' : 'song'}</span>
