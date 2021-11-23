@@ -34,6 +34,7 @@ function Player(props) {
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
+  const [playlistIndex, setPlaylistIndex] = useState(0);
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
   const [isShow, setIsShow] = useState(false);
   const [isPrevClicked, setIsPrevClicked] = useState(false);
@@ -54,9 +55,10 @@ function Player(props) {
 
   useEffect(() => {
     setSongIndex(0)
+    setPlaylistIndex(0)
     togglePlay(false)
     audioElement.currentTime = 0
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex].songs[songIndex].song_cid}`
     requestAnimationFrame(updateBar);
   }, [currentPlaylists.length])
 
@@ -65,8 +67,8 @@ function Player(props) {
     // togglePlay(true)
     nextSong()
     props.updateCurrentPlaylist([
-      ...currentPlaylists.filter((f, i) => i !== songIndex),
-      currentPlaylists.find((f, i) => i === songIndex)
+      ...currentPlaylists.filter((f, i) => i !== playlistIndex),
+      currentPlaylists.find((f, i) => i === playlistIndex)
     ])
   }
 
@@ -78,14 +80,18 @@ function Player(props) {
 
   const nextSong = () => {
     let index
-    if ((songIndex + 1) !== currentPlaylists.length) { // Prevents error by skipping past the number of songs that are available
+    if ((songIndex + 1) !== currentPlaylists[playlistIndex]?.songs?.length) { // Prevents error by skipping past the number of songs that are available
       index = songIndex + 1;
       setSongIndex(songIndex + 1);
     } else {
       setSongIndex(0);
       index = 0;
+      if (playlistIndex + 1 !== currentPlaylists.length)
+        setPlaylistIndex(playlistIndex + 1);
+      else
+        setPlaylistIndex(0);
     }
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[index]?.song_cid}`;
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`;
     audioElement.currentTime = 0;
     if (isPlaying) {
       audioElement.play();
@@ -95,7 +101,7 @@ function Player(props) {
 
   const prevSong = () => {
     if (isPrevClicked && songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex - 1].song_cid}`;
+      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs[songIndex - 1]?.song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
@@ -153,11 +159,11 @@ function Player(props) {
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
               {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-              {!currentPlaylists[songIndex]?.album?.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album?.cover_cid}`} alt="Cover" />}
+              {!currentPlaylists[songIndex]?.album?.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{currentPlaylists[songIndex]?.title}</h5>
+                <h5 className="album-title">{currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}</h5>
                 {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
@@ -192,7 +198,7 @@ function Player(props) {
               <img src={PrevSongIcon} alt="Previous Song" />
             </div>
           </div>
-          {props.showPlayer && <PayerQueue currentPlaylists={currentPlaylists} songIndex={songIndex} setSongDeletingIndex={setSongDeletingIndex} />}
+          {props.showPlayer && <PayerQueue currentPlaylists={currentPlaylists} songIndex={songIndex} setSongDeletingIndex={setSongDeletingIndex} playlistIndex={playlistIndex} />}
           {
             !props.showPlayer && <div className="album-info">
               <div className="cover">
@@ -211,7 +217,7 @@ function Player(props) {
           songDeletingIndex !== null &&
           <GeneralModal
             // topIcon={ConfettiImage}
-            headline="Are you sure to delete this song from queue?"
+            headline="Are you sure to delete this playlist from queue?"
             buttons={[
               {
                 type: 'solid go-home',

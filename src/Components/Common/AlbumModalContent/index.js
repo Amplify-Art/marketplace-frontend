@@ -103,10 +103,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
 
   const addToPlaylist = async () => {
-    let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
-    songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
-    updateCurrentPlaylist(songs)
-    sessionStorage.setItem('activePlaylist', JSON.stringify(songs))
+    console.log('albumInfo', albumInfo)
+    // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
+    // songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
+    updateCurrentPlaylist([...props.currentPlaylists, albumInfo])
+    sessionStorage.setItem('activePlaylist', JSON.stringify([...props.currentPlaylists, albumInfo]))
     if (!props.showPlayer)
       props.togglePlayer();
   }
