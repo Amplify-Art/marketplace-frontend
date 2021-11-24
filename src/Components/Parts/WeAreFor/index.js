@@ -13,9 +13,9 @@ function WeAreFor() {
           </div>
 
           <div className="right-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur molestiae numquam sint dolorum dolorem ad animi corporis modi incidunt maxime provident aspernatur eos deleniti ipsam quibusdam iusto, repellat libero eveniet.</p>
+            <p>Stop chasing streams! We empower you to build deep relationships with your fans, completely bypassing the traditional music industry. You maintain control of your music, pricing, and distribution while keeping 97% of royalties. Sound cool? Apply <a href="https://forms.gle/Qg6aSKbBuK9AUT5E7">here.</a></p>
             <div className="img circle">
-              <img src={Em} alt="Eminem" />
+              <img src={Em} alt="Aj" />
             </div>
           </div>
         </div>

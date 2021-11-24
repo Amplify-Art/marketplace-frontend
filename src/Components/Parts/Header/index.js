@@ -81,7 +81,7 @@ function Header(props) {
   useEffect(async () => {
     if (wallet && !isWalletSigned) {
       wallet.requestSignIn(
-        // user.near_account_id,     // contract requesting access 
+        // user.near_account_id,     // contract requesting access
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -264,9 +264,10 @@ function Header(props) {
         {
           !userToken ?
             <div className="nav">
-              <p>Digiverse</p>
-              <p>Edication Portal</p>
-              <p>Contact us</p>
+              <a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
+              <a target="_blank" href="https://education.amplify.art">Education Portal</a>
+              <a target="_blank" href="https://education.amplify.art">News</a>
+              <a href="mailto:contact@amplify.art">Contact Us</a>
             </div>
             :
             <div ref={wrapperRef} className="searchWrapper">

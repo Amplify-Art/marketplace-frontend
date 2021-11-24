@@ -10,7 +10,7 @@ function ThankYou() {
         </div>
         <div className="right">
           <div className="top">
-            <a href="#">Register Today</a>
+            <a href="#">APPLY HERE</a>
           </div>
           <img src={AlbumFive} />
         </div>
