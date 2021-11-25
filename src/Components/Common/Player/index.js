@@ -58,7 +58,7 @@ function Player(props) {
     setPlaylistIndex(0)
     togglePlay(false)
     audioElement.currentTime = 0
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex].songs[songIndex].song_cid}`
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`
     requestAnimationFrame(updateBar);
   }, [currentPlaylists.length])
 
