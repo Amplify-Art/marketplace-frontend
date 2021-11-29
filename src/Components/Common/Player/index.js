@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import './Player.scss';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
-
+import PayerQueue from './PlayerQueue';
 // Player Icons
 import NextSongIcon from '../../../assets/images/next.svg';
 import PrevSongIcon from '../../../assets/images/prev.svg';
@@ -11,6 +11,10 @@ import LeftArrowIcon from '../../../assets/images/left-arrow.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
 import CdImage from '../../../assets/images/cd-img.svg'
+import CDIcon from '../../../assets/images/cd-icon.svg';
+import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
+import GeneralModal from '../GeneralModal/index.js';
 
 // Cover import (This will be dynamic)
 import DefaultCover from '../../../assets/images/cd-img.svg';
@@ -27,11 +31,13 @@ function Player(props) {
 
   const { avatar, toggleWalletSidebar, currentPlaylists, showWallet } = props;
 
-  const [isExpanded, toggleExpanded] = useState(false);
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
+  const [playlistIndex, setPlaylistIndex] = useState(0);
+  const [songDeletingIndex, setSongDeletingIndex] = useState(null);
   const [isShow, setIsShow] = useState(false);
+  const [isPrevClicked, setIsPrevClicked] = useState(false);
   const [currentSongSrc, setSongSrc] = useState(`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`);
 
   // const coverData = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
@@ -49,15 +55,16 @@ function Player(props) {
 
   useEffect(() => {
     setSongIndex(0)
+    setPlaylistIndex(0)
     togglePlay(false)
     audioElement.currentTime = 0
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`
     requestAnimationFrame(updateBar);
-  }, [currentPlaylists])
+  }, [currentPlaylists.length])
 
 
   audioElement.onended = function () {
-    togglePlay(true)
+    // togglePlay(true)
     nextSong()
   }
 
@@ -68,73 +75,111 @@ function Player(props) {
   }
 
   const nextSong = () => {
-    if ((songIndex + 1) !== currentPlaylists.length) { // Prevents error by skipping past the number of songs that are available
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex + 1]?.song_cid}`;
-      if (isPlaying) {
-        audioElement.play();
-      }
+    let index
+    if ((songIndex + 1) !== currentPlaylists[playlistIndex]?.songs?.length) { // Prevents error by skipping past the number of songs that are available
+      index = songIndex + 1;
       setSongIndex(songIndex + 1);
+    } else {
+      setSongIndex(0);
+      index = 0;
+      if (playlistIndex + 1 !== currentPlaylists.length) {
+        props.updateCurrentPlaylist([
+          ...currentPlaylists.filter((f, i) => i !== playlistIndex),
+          currentPlaylists.find((f, i) => i === playlistIndex)
+        ])
+        // setPlaylistIndex(playlistIndex + 1);
+      }
+      else
+        setPlaylistIndex(0);
+    }
+    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`;
+    audioElement.currentTime = 0;
+    if (isPlaying) {
+      audioElement.play();
+      requestAnimationFrame(updateBar);
     }
   }
 
   const prevSong = () => {
-    if (songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex - 1].song_cid}`;
+    if (isPrevClicked && songIndex !== 0) { // Cant go prev. the min songs available.. Maybe we will loop later?
+      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs[songIndex - 1]?.song_cid}`;
       if (isPlaying) {
         audioElement.play();
       }
       setSongIndex(songIndex - 1);
+    } else {
+      audioElement.currentTime = 0;
+      setIsPrevClicked(true);
     }
   }
-
+  useEffect(() => {
+    if (isPrevClicked) {
+      setTimeout(() => {
+        setIsPrevClicked(false);
+      }, 600);
+    }
+  }, [isPrevClicked])
   // useEffect(() => {
   //   audioElement.src = currentSongSrc;
   // }, [0]);
-
+  useEffect(() => {
+  }, [audioElement.src])
   const onSongSeek = (e) => {
-    if (isExpanded) {
+    if (props.showPlayer) {
       audioElement.currentTime = (e.clientX - playBar.current.getBoundingClientRect().x) * audioElement.duration / playBar.current.getBoundingClientRect().width
     } else {
       audioElement.currentTime = (playBar.current.getBoundingClientRect().bottom - e.clientY) * audioElement.duration / playBar.current.getBoundingClientRect().height
     }
   }
+  const handleCloseModal = (bool) => {
+    if (bool) {
+      props.updateCurrentPlaylist(currentPlaylists.filter((f, i) => i !== songDeletingIndex))
+      if (songDeletingIndex === songIndex) {
+        audioElement.pause();
+      }
+    }
+    setSongDeletingIndex(null)
+  }
 
   return (
-    !isShow &&
+    props.showPlayer &&
     (
-      <div id="amplify-player" className={`amplify-player ${isExpanded && 'full'}`}>
+      <div id="amplify-player" className={`amplify-player ${props.showPlayer && 'full'}`}>
         <div className="over">
           <div className="top-icons">
             {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
+            <div className="cd" onClick={() => props.togglePlayer()}>
+              <img src={CDIcon} alt="wallet" />
+            </div>
             <div className="wallet"><Link to="/wallet"><img src={Wallet} alt="wallet" /></Link></div>
             <div className="user" >
               <img src={avatar} />
             </div>
           </div>
-          {isExpanded && <div className="album-info large">
+          {props.showPlayer && <div className="album-info large">
             <div className="cover">
               {/* If album is owned, show cover here, else use blank CD */}
               {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-              {!currentPlaylists[songIndex]?.coverArt ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`} alt="Cover" />}
+              {!currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid ? <img src={CdImage} alt="Cover" /> : <img src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid}`} alt="Cover" />}
             </div>
             <div className="details">
               <div className="rotate">
-                <h5 className="album-title">{currentPlaylists[songIndex]?.title}</h5>
+                <h5 className="album-title">{currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}</h5>
                 {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
               </div>
             </div>
           </div>}
 
-          <div className="player-pull-out-button" onClick={() => toggleExpanded(true)}>
+          <div className="player-pull-out-button" >
             <img src={LeftArrowIcon} />
           </div>
 
           <div className="progress-bar">
             <div className="bar" onClick={(e) => onSongSeek(e)} ref={playBar}>
-              {isExpanded ? (
-                <div className="completed" style={{ width: `${audioElement.currentTime / audioElement.duration * 100}%`, height: '100%' }} />
+              {props.showPlayer ? (
+                <div className="completed" style={{ width: `${audioElement.duration ? audioElement.currentTime / audioElement.duration * 100 : 0}%`, height: '100%' }} />
               ) : (
-                <div className="completed" style={{ height: `${audioElement.currentTime / audioElement.duration * 100}%`, width: '100%' }} />
+                <div className="completed" style={{ height: `${audioElement.duration ? audioElement.currentTime / audioElement.duration * 100 : 0}%`, width: '100%' }} />
               )}
             </div>
           </div>
@@ -154,26 +199,46 @@ function Player(props) {
               <img src={PrevSongIcon} alt="Previous Song" />
             </div>
           </div>
-
-          {isExpanded && <p className="mini-player-btn" onClick={() => toggleExpanded(false)}>Mini Player</p>}
-
-          {!isExpanded && <div className="album-info">
-            <div className="cover">
-              {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
-            </div>
-            <div className="details">
-              <div className="rotate">
-                <h5 className="album-title">{currentPlaylists[songIndex]?.title}</h5>
-                {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
+          {props.showPlayer && <PayerQueue currentPlaylists={currentPlaylists} songIndex={songIndex} setSongDeletingIndex={setSongDeletingIndex} playlistIndex={playlistIndex} />}
+          {
+            !props.showPlayer && <div className="album-info">
+              <div className="cover">
+                {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
+              </div>
+              <div className="details">
+                <div className="rotate">
+                  <h5 className="album-title">{currentPlaylists[songIndex]?.title}</h5>
+                  {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
+                </div>
               </div>
             </div>
-          </div>}
+          }
         </div>
+        {
+          songDeletingIndex !== null &&
+          <GeneralModal
+            // topIcon={ConfettiImage}
+            headline="Are you sure to delete this playlist from queue?"
+            buttons={[
+              {
+                type: 'solid go-home',
+                text: 'Yes',
+                onClick: () => handleCloseModal(true)
+              },
+              {
+                type: 'solid go-home',
+                text: 'Cancel',
+                onClick: () => handleCloseModal(false)
+              }
+            ]}
+            className="centered"
+          />
+        }
         {/* If album is owned, show cover here, else use blank CD */}
         {/* {
             <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
         } */}
-        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[songIndex]?.coverArt ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.coverArt}`})` }} />
+        <div className="background-blur" style={{ backgroundImage: `url(${!currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid ? CdImage : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`})` }} />
       </div>
     )
 
@@ -183,6 +248,12 @@ function Player(props) {
 export default connect(state => {
   return {
     showWallet: state.global.showWallet,
-    currentPlaylists: state.playlists.current_playlists
+    currentPlaylists: state.playlists.current_playlists,
+    showPlayer: state.global.showPlayer
+  }
+}, dispatch => {
+  return {
+    updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
+    togglePlayer: () => dispatch(togglePlayerAction())
   }
 })(withRouter(Player));

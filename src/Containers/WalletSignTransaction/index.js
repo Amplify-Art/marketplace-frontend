@@ -80,7 +80,7 @@ function Header(props) {
             const outcomes = await transactionManager.bundleCreateSignAndSendTransactions([
                 {
                     receiverId: user.near_account_id,
-                    actions: [account.functionCall("pixeltest2.testnet", "nft_mint", {
+                    actions: [account.functionCall("amplifybeta.testnet", "nft_mint", {
                         token_id: 'token_id23232',
                         metadata: {},
                         token_type: 'albumhash232423',
@@ -90,15 +90,15 @@ function Header(props) {
                     }, DEFAULT_FUNCTION_CALL_GAS, [])],
                 },
                 // {
-                //     receiverId: "pixeltest2.testnet",
+                //     receiverId: "amplifybeta.testnet",
                 //     actions: [account.functionCall("nft_mint", {}, DEFAULT_FUNCTION_CALL_GAS, [])],
                 // },
                 // {
-                //     receiverId: "pixeltest2.testnet",
+                //     receiverId: "amplifybeta.testnet",
                 //     actions: [account.functionCall("nft_mint", {}, DEFAULT_FUNCTION_CALL_GAS, [])],
                 // },
                 // {
-                //     receiverId: "pixeltest2.testnet",
+                //     receiverId: "amplifybeta.testnet",
                 //     actions: [account.functionCall("nft_mint", {}, DEFAULT_FUNCTION_CALL_GAS, [])],
                 // },
             ]).then(res => {

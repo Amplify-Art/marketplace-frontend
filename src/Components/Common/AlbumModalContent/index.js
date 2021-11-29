@@ -10,6 +10,8 @@ import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistActi
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
+import _ from 'lodash';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
@@ -101,9 +103,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
 
   const addToPlaylist = async () => {
-    updateCurrentPlaylist(albumInfo.songs)
-    const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
-    sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
+    console.log('albumInfo', albumInfo)
+    // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
+    // songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
+    updateCurrentPlaylist([...props.currentPlaylists, albumInfo])
+    sessionStorage.setItem('activePlaylist', JSON.stringify([...props.currentPlaylists, albumInfo]))
+    if (!props.showPlayer)
+      props.togglePlayer();
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
@@ -221,8 +227,14 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   )
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+  return {
+    showPlayer: state.global.showPlayer,
+    currentPlaylists: state.playlists.current_playlists
+  }
+}, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
+    togglePlayer: () => dispatch(togglePlayerAction())
   }
 })(withRouter(AlbumModalContent))

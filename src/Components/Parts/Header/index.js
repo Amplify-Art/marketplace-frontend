@@ -12,6 +12,7 @@ import Logo from '../../../assets/images/logo.svg';
 import SearchIcon from '../../../assets/images/search-icon.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
+import CDIcon from '../../../assets/images/cd-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import useDebounce from '../../Common/UseDebounce';
@@ -22,7 +23,8 @@ import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSel
 import './Header.scss';
 import q from 'querystring';
 import { store } from 'react-notifications-component';
-import Login from '../../../Containers/Login'
+import Login from '../../../Containers/Login';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
 
 const { keyStores, WalletConnection, utils, utils: { format: { parseNearAmount } } } = nearAPI;
 
@@ -101,7 +103,7 @@ function Header(props) {
       return
     } else
       wallet.requestSignIn(
-        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "pixeltest2.testnet",     // at this time, , we dont have account, passing test
+        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "amplifybeta.testnet",     // at this time, , we dont have account, passing test
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -342,6 +344,11 @@ function Header(props) {
         <div className="right">
           {userToken ? (
             <>
+              {props.currentPlaylists.length ? <div className="cd" onClick={() => props.togglePlayer()}>
+                <img src={CDIcon} alt="wallet" />
+              </div>
+                : null
+              }
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
               <div className="wallet">
                 <Link to="/wallet"><img src={Wallet} alt="wallet" /></Link>
@@ -425,7 +432,8 @@ export default connect(state => {
     showWalletSidebar: state.global.showWallet,
     searchResult: state.searchRes.searchResult,
     searchLoading: state.searchRes.loading,
-    wallet: state.global.wallet
+    wallet: state.global.wallet,
+    currentPlaylists: state.playlists.current_playlists
   }
 }, dispatch => {
   return {
@@ -438,6 +446,7 @@ export default connect(state => {
     setIsSongSelected: () => dispatch(setIsSongSelected()),
     setIsAlbumSelected: (payload) => dispatch(setIsAlbumSelected(payload)),
     setWallet: (payload) => dispatch(setWalletAction(payload)),
-    setCurrentNearPrice: () => dispatch(setCurrentNearPrice())
+    setCurrentNearPrice: () => dispatch(setCurrentNearPrice()),
+    togglePlayer: () => dispatch(togglePlayerAction())
   }
 })(withRouter(Header));

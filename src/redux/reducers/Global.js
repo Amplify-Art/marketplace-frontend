@@ -12,6 +12,7 @@ const initialState = {
   wallet: null,
   showMintSuccessModal: false,
   nearPrice: null,
+  showPlayer: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -91,6 +92,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         nearPrice: action.res.data.USD
+      }
+    case types.TOGGLE_PLAYER_REQUEST:
+      return {
+        ...state,
+        showPlayer: !state.showPlayer
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {

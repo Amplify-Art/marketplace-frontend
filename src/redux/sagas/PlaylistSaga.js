@@ -10,7 +10,7 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_PLAYLIST_REQUEST, addPlaylistSaga, context);
   yield takeLatest(types.UPDATE_PLAYLIST_REQUEST, updatePlaylistSaga, context);
   yield takeLatest(types.DELETE_PLAYLIST_REQUEST, deletePlaylistSaga);
-  yield takeLatest(types.UPDATE_CURRENT_PLAYLIST_REQUEST, updateCurrentPlaylistSaga);
+  // yield takeLatest(types.UPDATE_CURRENT_PLAYLIST_REQUEST, updateCurrentPlaylistSaga);
 }
 
 export function* fetchPlaylistsSaga({ payload }) {

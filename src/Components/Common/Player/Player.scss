@@ -35,18 +35,27 @@
     justify-content: space-between;
     height: 100%;
     align-items: center;
+    margin-top: 30px;
     .top-icons {
       display: flex;
       align-items: center;
       width: 100%;
       justify-content: flex-end;
+      margin-right: 52px;
       .bell {
         margin-right: 28px;
         cursor: pointer;
       }
-
+      .cd {
+        margin-right: 28px;
+        cursor: pointer;
+        img {
+          height: 30px;
+          width: 30px;
+        }
+      }
       .wallet {
-        margin-right: 68px;
+        margin-right: 38px;
         cursor: pointer;
       }
     }
@@ -153,6 +162,9 @@
     justify-content: center;
     padding-bottom: 20px;
     margin-top: 40px;
+    @media (max-height: 800px) {
+      margin-top: 20px;
+    }
     .bar {
       height: 430px;
       width: 13px;
@@ -194,8 +206,14 @@
 
     .album-info {
       margin-top: 48px;
+      @media (max-height: 800px) {
+        margin-top: 38px;
+      }
       .cover {
         margin-bottom: 29px;
+        @media (max-height: 800px) {
+          margin-bottom: 20px;
+        }
         img {
           transform: rotate(0deg);
         }
@@ -214,6 +232,9 @@
     .progress-bar {
       width: 100%;
       margin-bottom: 50px;
+      @media (max-height: 800px) {
+        margin-bottom: 0px;
+      }
       .bar {
         width: 100%;
         height: 13px;
@@ -229,6 +250,64 @@
       text-decoration: underline;
       cursor: pointer;
       color: #fff;
+    }
+    .queue {
+      width: 100%;
+      font-family: Space Grotesk;
+      font-style: normal;
+      font-weight: normal;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+      .count {
+        opacity: 0.8;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+      }
+      h4 {
+        font-size: 14px;
+        line-height: 18px;
+        text-transform: uppercase;
+        opacity: 0.5;
+        margin: 10px 0px 0px 0px;
+      }
+      .queue-items {
+        .queue-item {
+          margin-top: 15px;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          img {
+            height: 40px;
+            width: 40px;
+          }
+          .title {
+            display: flex;
+            flex-direction: column;
+            margin-left: 25px;
+            min-width: 242px;
+            .song-title {
+              font-size: 18px;
+              line-height: 23px;
+            }
+            .album-title {
+              font-size: 14px;
+              line-height: 18px;
+            }
+          }
+          .close {
+            height: 12px;
+            width: 12px;
+            cursor: pointer;
+          }
+        }
+        @media (max-height: 800px) {
+          overflow-y: scroll;
+          height: 200px;
+        }
+      }
     }
   }
 }

@@ -160,10 +160,10 @@ function SongList(props) {
       }
       localStorage.setItem('buying_song', JSON.stringify(buying_song))
       await (props.wallet.account()).functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.dev-1633963337441-72420501486968',
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market1.amplifybeta.testnet',
         'offer',
         {
-          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.dev-1633963337441-72420501486968',
+          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft1.amplifybeta.testnet',
           receiver_id: user.near_account_id,
           song_token_id: buyingSong.token
         },
