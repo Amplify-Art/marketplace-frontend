@@ -96,9 +96,14 @@ function Wallet(props) {
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
     if (!showMoonPay) {
-      const res = await getSignedKey({});
+      const res = await getSignedKey({
+        type: moonpayType === 'withdraw' ? 'sell' : 'buy',
+        amount: parseFloat(amontToConvert),
+        near_account_id: user.near_account_id,
+        email: user.email
+      });
       if (res.success) {
-        setMoonPaySignature(res.data.signature)
+        setMoonPaySignature(res.data.url)
       }
       props.hideLoadingOverlay();
     } else {
@@ -169,7 +174,7 @@ function Wallet(props) {
         bodyChildren={<MoonPay
           amontToConvert={amontToConvert}
           type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
-          signature={moonPaySignature}
+          urlWithSignature={moonPaySignature}
         />}
       />
       }

@@ -401,7 +401,7 @@ function Header(props) {
                   {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
                 </div>
               </div>
-              <a href={`https://buy-staging.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">Buy More NEAR</a>
+              <a href={`https://buy${process.env.REACT_APP_CONTEXT === 'production' ? '' : '-staging'}.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">Buy More NEAR</a>
             </div>
             }
             {user && !user.near_connected &&
