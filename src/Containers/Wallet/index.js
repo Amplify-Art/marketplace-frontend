@@ -92,12 +92,13 @@ function Wallet(props) {
       setAmontToConvertError(true)
       return
     }
+    setMoonPaySignature(null);
     props.displayLoadingOverlay();
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
     if (!showMoonPay) {
       const res = await getSignedKey({
-        type: moonpayType === 'withdraw' ? 'sell' : 'buy',
+        type: type === 'withdraw' ? 'sell' : 'buy',
         amount: parseFloat(amontToConvert),
         near_account_id: user.near_account_id,
         email: user.email
