@@ -6,7 +6,7 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
-import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
+import { updateCurrentPlaylistAction, showDeletePlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -113,7 +113,12 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
-  const zeroPad = (num, places) => String(num).padStart(places, '0')
+  const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+  const handleDelete = () => {
+    props.setDeletingId(albumInfo.id)
+    props.showDeletePlaylist()
+  }
 
   return (
     <>
@@ -124,6 +129,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               {albumInfo && albumInfo.cover_cid ? (
                 <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
               ) : <img src={albumInfo.coverArt} alt='' />}
+              <i class="far fa-trash-alt"></i>
             </div> : null}
             <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
               <div className="title">{albumInfo && albumInfo.title}</div>
@@ -134,6 +140,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
                 </> : null
               }
             </div>
+            {isPlayList &&
+              <div className="trash" onClick={handleDelete} >
+                <i class="far fa-trash-alt"></i>
+              </div>
+            }
           </div>
           <div className="album-bottom" id="modalScrolling">
             {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
@@ -222,6 +233,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               </div>
             )
         }
+
       </div>
     </>
   )
@@ -235,6 +247,8 @@ export default connect(state => {
 }, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
-    togglePlayer: () => dispatch(togglePlayerAction())
+    togglePlayer: () => dispatch(togglePlayerAction()),
+    showDeletePlaylist: () => dispatch(showDeletePlaylistAction())
+
   }
 })(withRouter(AlbumModalContent))

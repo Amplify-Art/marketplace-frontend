@@ -8,7 +8,7 @@ import GeneralModal from '../../Components/Common/GeneralModal/index';
 import CreatePlayList from '../../Components/Parts/CreatePlayList';
 import SongList from '../../Components/Parts/SongList/index';
 
-import { fetchPlaylistsAction } from '../../redux/actions/PlaylistAction'
+import { fetchPlaylistsAction, deletePlaylistAction, hideDeletePlaylistAction } from '../../redux/actions/PlaylistAction'
 import { fetchFollowersAction } from '../../redux/actions/FollowerAction';
 
 import './UserDashboard.scss';
@@ -28,6 +28,9 @@ import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function UserDashboard(props) {
   const [showPlayListModal, togglePlayListModal] = useState(false);
+  const [showPlaylistDeleteModal, setShowPlaylistDeleteModal] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+
   const token = jwt.decode(localStorage.getItem('amplify_app_token'))
   useEffect(() => {
     props.fetchPlaylists({
@@ -113,7 +116,7 @@ function UserDashboard(props) {
       </div>
     </div>
   );
-
+  console.log(deletingId);
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
@@ -133,7 +136,7 @@ function UserDashboard(props) {
         {props.playlists && props.playlists.length > 0 ? (
           <div className="album-block">
             {props.playlists.map((album, index) => (
-              <SingleAlbum key={index} albumInfo={{ ...album, hideSticker: true }} isMint={false} isPlayList />
+              <SingleAlbum key={index} albumInfo={{ ...album, hideSticker: true }} isMint={false} isPlayList setDeletingId={setDeletingId} />
             ))}
           </div>
         ) : (
@@ -157,6 +160,26 @@ function UserDashboard(props) {
         contentClassName="playlist-modal"
       />
       }
+      {
+        props.show_delete_modal &&
+        <GeneralModal
+          // topIcon={ConfettiImage}
+          headline="Are you sure to delete this playlist?"
+          buttons={[
+            {
+              type: 'solid go-home',
+              text: 'Yes',
+              onClick: () => props.deletePlaylist({ id: deletingId })
+            },
+            {
+              type: 'solid go-home',
+              text: 'Cancel',
+              onClick: () => props.hideDeletePlaylist()
+            }
+          ]}
+          className="centered"
+        />
+      }
     </div>
   )
 };
@@ -166,11 +189,14 @@ export default connect(state => {
     playlists: state.playlists.playlists,
     totalPlaylists: state.playlists.total,
     myFollowings: state.followers.followers,
+    show_delete_modal: state.playlists.show_delete_modal
   }
 },
   dispatch => {
     return {
       fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
-      fetchFollowers: (data) => dispatch(fetchFollowersAction(data))
+      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
+      deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
+      hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
     }
   })(withRouter(UserDashboard));

@@ -61,6 +61,12 @@
 			}
 			overflow: hidden;
 		}
+		.trash {
+			text-align: right;
+			font-size: 30px;
+			margin: 5px 30px 0px 0px;
+			cursor: pointer;
+		}
 		.album-right {
 			padding-left: 20px;
 			@media screen and (max-width: 600px) {
