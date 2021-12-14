@@ -147,13 +147,18 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             }
           </div>
           <div className="album-bottom" id="modalScrolling">
+            <div className="playlist-header">
+              <span>SONG TITLE</span>
+              <span>LENGTH</span>
+            </div>
             {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
+          {(isPlayList || (url && url.pathname === '/albums')) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
           </div>
+          }
           {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
         </div>
           : <div className="left-wrapper">
