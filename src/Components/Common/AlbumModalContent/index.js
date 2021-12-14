@@ -151,9 +151,9 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
+          <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
-          </div> : null}
+          </div>
           {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
         </div>
           : <div className="left-wrapper">
