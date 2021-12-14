@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import SongLength from '../SongLength/index';
 import playIcon from '../../../assets/images/play_icon.svg';
 import pauseIcon from '../../../assets/images/pause_icon.svg';
@@ -49,7 +50,8 @@ function AlbumSingleSong(props) {
     e.stopPropagation();
     onSingleSongClick(song);
   }
-
+  let url = props.history.location
+  console.log(url, 'url')
   return (
     <div className="inner-content-album-modal" key={`al${index}`} onClick={() => toggle(song.song_cid)}>
       <div className="modal-album-title">
@@ -68,12 +70,21 @@ function AlbumSingleSong(props) {
           )}
         </div>
         <div className="fn-white pointer">{song.title}</div>
-        <div className="duration">{`${Math.floor(song.duration / 60)}:${Math.ceil((song.duration / 60 - Math.floor(song.duration / 60)) * 60)}`}</div>
-        {(((song.transfers || []).find(f => f.copy_number === (token && token.copy_number)) || {}).is_for_sale) ? <button className="sell">Listed</button> : <button className="sell" onClick={(e) => handleClick(e, song)}>Sell</button>}
+        <div className="duration"
+          style={{
+            width: url.pathname === '/my-profile' ? '55%' : '100%'
+          }}>{`${Math.floor(song.duration / 60)}:${Math.ceil((song.duration / 60 - Math.floor(song.duration / 60)) * 60)}`}</div>
+        {url.pathname === '/my-profile' &&
+          <>
+            {
+              (((song.transfers || []).find(f => f.copy_number === (token && token.copy_number)) || {}).is_for_sale) ? <button className="sell">Listed</button> : <button className="sell" onClick={(e) => handleClick(e, song)}>Sell</button>
+            }
+          </>
+        }
       </div>
       {/* <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div> */}
-    </div>
+    </div >
   )
 }
 
-export default AlbumSingleSong
+export default withRouter(AlbumSingleSong);

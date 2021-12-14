@@ -147,7 +147,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             }
           </div>
           <div className="album-bottom" id="modalScrolling">
-            <div className="playlist-header">
+            <div className="playlist-header"
+              style={{
+                width: url.pathname !== '/my-profile' ? '100%' : '55%'
+              }}>
               <span>SONG TITLE</span>
               <span>LENGTH</span>
             </div>
