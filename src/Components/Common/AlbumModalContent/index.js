@@ -158,7 +158,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          {(isPlayList || (url && url.pathname === '/albums')) && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
+          {isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
           </div>
           }
@@ -186,7 +186,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div> :
             <div className='bg-album-img' />
         }
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <div>
+          <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+          {!props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>}
+        </div> : null}
       </div>
       <div className="mobileAlbumContent">
         <div className="cdCoverMobile">
@@ -198,7 +201,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
           </div>
         </div>
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {
+          !isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <div>
+            <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+            {!props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>}
+          </div>
+            : null
+        }
         {
           !viewDetails
             ? (
