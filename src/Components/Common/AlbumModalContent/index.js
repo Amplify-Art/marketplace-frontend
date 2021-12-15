@@ -158,7 +158,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          {(isPlayList || (url && url.pathname === '/albums')) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
+          {(isPlayList || (url && url.pathname === '/albums')) && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
           </div>
           }
