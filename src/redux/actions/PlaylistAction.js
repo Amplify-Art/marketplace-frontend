@@ -44,3 +44,11 @@ export const showDeletePlaylistAction = () => ({
 export const hideDeletePlaylistAction = () => ({
   type: types.HIDE_PLAYLIST_DELETE_MODAL,
 });
+
+export const showPlaylistModalAction = () => ({
+  type: types.SHOW_PLAYLIST_MODAL,
+});
+
+export const hidePlaylistModalAction = () => ({
+  type: types.HIDE_PLAYLIST_MODAL,
+});

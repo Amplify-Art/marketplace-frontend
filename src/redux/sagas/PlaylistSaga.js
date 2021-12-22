@@ -104,6 +104,7 @@ export function* deletePlaylistSaga({ payload }) {
     yield all([
       put({ type: types.DELETE_PLAYLIST_SUCCESS, payload }),
       put({ type: types.HIDE_PLAYLIST_DELETE_MODAL }),
+      put({ type: types.HIDE_PLAYLIST_MODAL }),
       put({
         type: SET_NOTIFICATION,
         payload: {

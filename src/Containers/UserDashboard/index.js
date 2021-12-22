@@ -8,7 +8,7 @@ import GeneralModal from '../../Components/Common/GeneralModal/index';
 import CreatePlayList from '../../Components/Parts/CreatePlayList';
 import SongList from '../../Components/Parts/SongList/index';
 
-import { fetchPlaylistsAction, deletePlaylistAction, hideDeletePlaylistAction } from '../../redux/actions/PlaylistAction'
+import { fetchPlaylistsAction, deletePlaylistAction, hideDeletePlaylistAction, showPlaylistModalAction, hidePlaylistModalAction } from '../../redux/actions/PlaylistAction'
 import { fetchFollowersAction } from '../../redux/actions/FollowerAction';
 
 import './UserDashboard.scss';
@@ -27,7 +27,6 @@ import AvatarFour from '../../assets/images/avatar4.png';
 import UserAvatar from '../../Components/Common/UserAvatar/index';
 
 function UserDashboard(props) {
-  const [showPlayListModal, togglePlayListModal] = useState(false);
   const [showPlaylistDeleteModal, setShowPlaylistDeleteModal] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
 
@@ -47,76 +46,24 @@ function UserDashboard(props) {
       }
     })
   }, []);
-  const fakeAlbums = [
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      own: 4,
-      coverArt: CoverOne
-    },
-    {
-      title: "The Greatest",
-      artist: "Russ",
-      totalAvailable: 50,
-      editionNumber: 2,
-      own: 4,
-      coverArt: CoverTwo
-    },
-    {
-      title: "Another One",
-      artist: "Anil",
-      forSale: false,
-      own: 4,
-      coverArt: CoverThree
-    },
-    {
-      title: "A Cool Album",
-      artist: "Jonathon",
-      totalAvailable: 100,
-      editionNumber: 75,
-      own: 4,
-      coverArt: CoverFour
-    },
-  ];
-
-  const fakeAvatar = [
-    { user_img: Avatar, name: "Imagine Dragons" },
-    { user_img: AvatarTwo, name: "Kid Cudi" },
-    { user_img: AvatarThree, name: "Eminem" },
-    { user_img: AvatarFour, name: "John Mayer" },
-  ]
-
-  const playlistAlbum = [
-    {
-      title: "You + Me",
-      coverArt: CDPlayer
-    },
-    {
-      title: "The Best Playlist",
-      coverArt: CDPlayer
-    },
-    {
-      title: "Oh The Larceny",
-      coverArt: CDPlayer
-    },
-    {
-      title: "Recovery",
-      coverArt: CDPlayer
-    },
-  ];
 
   const renderHeader = (title, isCreateButton = false) => (
     <div className="album-header">
       <span className="header-title">{title}</span>
       <div>
-        {isCreateButton && <button className="btn-wrap" onClick={() => togglePlayListModal(!showPlayListModal)}>Create New</button>}
+        {isCreateButton && <button className="btn-wrap" onClick={() => togglePlayListModal()}>Create New</button>}
         {/* <button className="btn-wrap">View All</button> */}
       </div>
     </div>
   );
-  console.log(deletingId);
+
+  const togglePlayListModal = () => {
+    if (props.show_modal) {
+      props.hidePlaylistModal();
+    } else {
+      props.showPlaylistModal();
+    }
+  }
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
@@ -154,8 +101,8 @@ function UserDashboard(props) {
           ))}
         </div>
       </div>
-      {showPlayListModal && <GeneralModal
-        headline={<><span>Create New Playlist</span><span style={{ float: 'right', color: '#bcbcbc', cursor: 'pointer' }} onClick={() => togglePlayListModal(!showPlayListModal)}> ⤫</span></>}
+      {props.show_modal && <GeneralModal
+        headline={<><span>Create New Playlist</span><span style={{ float: 'right', color: '#bcbcbc', cursor: 'pointer' }} onClick={() => togglePlayListModal()}> ⤫</span></>}
         bodyChildren={<CreatePlayList showCaseData={{}} togglePlayListModal={togglePlayListModal} />}
         contentClassName="playlist-modal"
       />
@@ -189,7 +136,8 @@ export default connect(state => {
     playlists: state.playlists.playlists,
     totalPlaylists: state.playlists.total,
     myFollowings: state.followers.followers,
-    show_delete_modal: state.playlists.show_delete_modal
+    show_delete_modal: state.playlists.show_delete_modal,
+    show_modal: state.playlists.show_modal
   }
 },
   dispatch => {
@@ -198,5 +146,7 @@ export default connect(state => {
       fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
       deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
       hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
+      showPlaylistModal: () => dispatch(showPlaylistModalAction()),
+      hidePlaylistModal: () => dispatch(hidePlaylistModalAction()),
     }
   })(withRouter(UserDashboard));

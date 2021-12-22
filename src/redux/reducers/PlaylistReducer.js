@@ -10,6 +10,7 @@ const initialState = {
   error: '',
   current_playlists: sessionStorage.getItem('activePlaylist') ? JSON.parse(sessionStorage.getItem('activePlaylist')) : [],
   show_delete_modal: false,
+  show_modal: false,
 };
 
 export default function (state = initialState, action) {
@@ -148,6 +149,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         show_delete_modal: false
+      }
+    case types.SHOW_PLAYLIST_MODAL:
+      return {
+        ...state,
+        show_modal: true
+      }
+    case types.HIDE_PLAYLIST_MODAL:
+      return {
+        ...state,
+        show_modal: false
       }
     default:
       return state;
