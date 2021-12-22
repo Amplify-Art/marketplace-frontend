@@ -67,16 +67,16 @@ function UserDashboard(props) {
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
-        {renderHeader("Recently Played")}
+        {/* {renderHeader("Recently Played")} */}
         <div className="album-block">
           {/* {fakeAlbums && fakeAlbums.length > 0 && fakeAlbums.map((album, index) => (
             <SingleAlbum key={index} albumInfo={album} isMint={false} />
           ))} */}
         </div>
 
-        <div className="no-records">
+        {/* <div className="no-records">
           <h5>No recently played songs</h5>
-        </div>
+        </div> */}
 
         {renderHeader(`Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`, true)}
 
