@@ -25,7 +25,8 @@ import ShareIcon from '../../assets/images/share-icon.svg';
 import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 import { sellSongAction, showSellModalAction, hideSellModalAction, hideSellSongConfirmation } from '../../redux/actions/SongAction';
-import { sellSongNFTAction } from '../../redux/actions/NFTAction'
+import { sellSongNFTAction } from '../../redux/actions/NFTAction';
+import { getUsers } from '../../Api/User'
 
 const { utils: { format: { parseNearAmount } }, keyStores } = nearAPI;
 
@@ -172,7 +173,7 @@ function MyProfile(props) {
     // document.execCommand("copy");
 
     const tempInput = document.createElement("input");
-    tempInput.value = `https://amplifyart.netlify.app/user/${userID}`;
+    tempInput.value = `https://amplifyart.netlify.app/user/${userName}`;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
@@ -209,7 +210,7 @@ function MyProfile(props) {
             <TwitterShareButton
               className="popup-div"
               title="Check out my Amplify.art profile!"
-              url={`https://amplfy.art/user/${userID}`}
+              url={`https://amplfy.art/user/${userName}`}
               via="amplifyart"
             ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ width: '32px' }} /><span>Tweet</span></TwitterShareButton>
           </div>}
@@ -221,26 +222,38 @@ function MyProfile(props) {
   }
 
   useEffect(() => {
+    findUser();
+  }, []);
+
+  const findUser = async () => {
     if (isPublicProfile) {
-      const userId = props.match.params.id;
-      props.fetchUser({
-        id: userId
-      });
-
-      props.fetchTokenTransfers({
+      const nearId = props.match.params.id;
+      const res = await getUsers({
         params: {
-          'filter[type]': 'album_bundle',
-          related: 'album.songs',
-          orderBy: '-id',
-          'filter[transfer_to]': userId
+          'filter[near_account_id]': nearId
         }
-      });
+      })
+      if (res.data.success && res.data.results.length) {
+        let { id, near_account_id } = res.data.results[0]
+        props.fetchUser({
+          id: id
+        });
+        props.fetchTokenTransfers({
+          params: {
+            'filter[type]': 'album_bundle',
+            related: 'album.songs',
+            orderBy: '-id',
+            'filter[transfer_to]': id
+          }
+        });
 
-      setID(parseInt(userId));
+        setID(parseInt(id));
+        setUserName(near_account_id);
+      }
     } else if (token) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
-      setUserName(decodedToken.username);
+      setUserName(decodedToken.near_account_id);
       setID(decodedToken.id);
 
       props.fetchTokenTransfers({
@@ -252,13 +265,13 @@ function MyProfile(props) {
         }
       });
     }
-  }, []);
+  }
 
   useEffect(() => {
     if (isPublicProfile) {
       setBannerImage(props.user.banner);
       setProfileImage(props.user.avatar);
-      setUserName(props.user.name);
+      setUserName(props.user.near_account_id);
       props.fetchFollowers({
         params: {
           'filter[follower_id]]': decodedToken.id,
