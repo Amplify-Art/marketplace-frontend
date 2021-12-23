@@ -147,6 +147,7 @@ function MainSideNav(props) {
           <li className="nav-header">Account</li>
           <li><NavLink to="/my-profile" onClick={handleOnClick} activeClassName="current">Profile</NavLink></li>
           <li><NavLink to="/wallet" onClick={handleOnClick} activeClassName="current">Wallet</NavLink></li>
+          <li><NavLink to="/settings" onClick={handleOnClick} activeClassName="current">Settings</NavLink></li>
           <li><NavLink to="/" onClick={(e) => onLogout(e)}>Logout</NavLink></li>
           <li className="nav-header">Artist</li>
           {user && user.type === 'artist' &&

@@ -25,6 +25,7 @@ import Songs from './Containers/Songs';
 import Wallet from './Containers/Wallet';
 import TransactionDetails from './Containers/TransactionDetails';
 import WalletSignTransaction from './Containers/WalletSignTransaction';
+import Settings from './Containers/Settings';
 
 // Auth Wrapper
 import Auth from './Containers/Auth';
@@ -131,6 +132,7 @@ function App(props) {
           <Route path="/search-result" exact render={Auth(() => (<SearchResult playerActive={props && props.currentPlaylists.length > 0} />))} />
           <Route path="/transaction-list" exact component={Auth(TransactionDetails)} />
           <Route path="/transaction-sign" exact component={Auth(WalletSignTransaction)} />
+          <Route path="/settings" exact component={Auth(Settings)} />
 
           <Route component={PageNotFound} />
         </Switch>
