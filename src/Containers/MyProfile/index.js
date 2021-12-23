@@ -26,7 +26,9 @@ import copyLink from '../../assets/images/highblack copy 1.svg'
 import defaultProfile from '../../assets/images/default-profile.jpg'
 import { sellSongAction, showSellModalAction, hideSellModalAction, hideSellSongConfirmation } from '../../redux/actions/SongAction';
 import { sellSongNFTAction } from '../../redux/actions/NFTAction';
-import { getUsers } from '../../Api/User'
+import { fetchPlaylistsAction, deletePlaylistAction, hideDeletePlaylistAction, showPlaylistModalAction, hidePlaylistModalAction } from '../../redux/actions/PlaylistAction'
+import { getUsers } from '../../Api/User';
+import CreatePlayList from '../../Components/Parts/CreatePlayList';
 
 const { utils: { format: { parseNearAmount } }, keyStores } = nearAPI;
 
@@ -41,11 +43,29 @@ function MyProfile(props) {
   const [openSharePopup, setSharePopup] = useState(false);
   const [selectedAlbumToken, setSelectedAlbumToken] = useState(null);
   const [isPublicProfile] = useState(props && props.location && props.location.pathname && props.location.pathname.includes('user'));
+  const [deletingId, setDeletingId] = useState(null);
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
+
+  useEffect(() => {
+    props.fetchPlaylists({
+      params: {
+        related: 'songs.[album, transfers]',
+        orderBy: '-id',
+        'filter[user_id]': decodedToken.id
+      }
+    });
+    props.fetchFollowers({
+      params: {
+        'filter[follower_id]': decodedToken.id,
+        'related': 'artist'
+      }
+    })
+  }, []);
+
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum key={index} albumInfo={nft} onSingleSongClick={(song) => onSingleSongClick(song, index)} index={index} />
+      <SingleAlbum key={index} albumInfo={nft} onSingleSongClick={(song) => onSingleSongClick(song, index)} index={index} zifi="sdfsf" />
     );
   }
 
@@ -292,9 +312,40 @@ function MyProfile(props) {
     props.history.push('/')
     window.location.reload()
   }
+  const renderHeader = (title, isCreateButton = false) => (
+    <div className="album-header">
+      <span className="header-title">{title}</span>
+      <div>
+        {isCreateButton && <button className="btn-wrap" onClick={() => togglePlayListModal()}>Create New</button>}
+        {/* <button className="btn-wrap">View All</button> */}
+      </div>
+    </div>
+  );
+
+  const togglePlayListModal = () => {
+    if (props.show_modal) {
+      props.hidePlaylistModal();
+    } else {
+      props.showPlaylistModal();
+    }
+  }
+
   return (
     <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
+      {renderHeader(`Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`, true)}
+
+      {props.playlists && props.playlists.length > 0 ? (
+        <div className="album-block">
+          {props.playlists.map((album, index) => (
+            <SingleAlbum key={index} albumInfo={{ ...album, hideSticker: true }} isMint={false} isPlayList setDeletingId={setDeletingId} onSingleSongClick={(song) => onSingleSongClick(song, index)} />
+          ))}
+        </div>
+      ) : (
+        <div className="no-records">
+          <h5>No playlists found</h5>
+        </div>
+      )}
       {props.token_transfers.length ?
         <div className="recently-purchased">
           <div className="top">
@@ -339,6 +390,32 @@ function MyProfile(props) {
         ]}
         className="centered"
       />}
+      {props.show_modal && <GeneralModal
+        headline={<><span>Create New Playlist</span><span style={{ float: 'right', color: '#bcbcbc', cursor: 'pointer' }} onClick={() => togglePlayListModal()}> ⤫</span></>}
+        bodyChildren={<CreatePlayList showCaseData={{}} togglePlayListModal={togglePlayListModal} />}
+        contentClassName="playlist-modal"
+      />
+      }
+      {
+        props.show_delete_modal &&
+        <GeneralModal
+          // topIcon={ConfettiImage}
+          headline="Are you sure to delete this playlist?"
+          buttons={[
+            {
+              type: 'solid go-home',
+              text: 'Yes',
+              onClick: () => props.deletePlaylist({ id: deletingId })
+            },
+            {
+              type: 'solid go-home',
+              text: 'Cancel',
+              onClick: () => props.hideDeletePlaylist()
+            }
+          ]}
+          className="centered"
+        />
+      }
     </div>
   );
 }
@@ -356,6 +433,10 @@ export default connect(state => {
     wallet: state.global.wallet,
     nearPrice: state.global.nearPrice,
     showSellConfirmation: state.songs.showSellConfirmation,
+    playlists: state.playlists.playlists,
+    totalPlaylists: state.playlists.total,
+    show_delete_modal: state.playlists.show_delete_modal,
+    show_modal: state.playlists.show_modal
   }
 },
   dispatch => {
@@ -369,6 +450,12 @@ export default connect(state => {
       showSellModal: () => dispatch(showSellModalAction()),
       hideSellModal: () => dispatch(hideSellModalAction()),
       hideSellConfirmation: () => dispatch(hideSellSongConfirmation()),
-      sellSongNFT: (data) => dispatch(sellSongNFTAction(data))
+      sellSongNFT: (data) => dispatch(sellSongNFTAction(data)),
+      showPlaylistModal: () => dispatch(showPlaylistModalAction()),
+      hidePlaylistModal: () => dispatch(hidePlaylistModalAction()),
+      fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
+      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
+      deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
+      hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
     }
   })(withRouter(MyProfile));
