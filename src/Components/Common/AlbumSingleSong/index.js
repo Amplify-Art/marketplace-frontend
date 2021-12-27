@@ -51,7 +51,6 @@ function AlbumSingleSong(props) {
     onSingleSongClick(song);
   }
   let url = props.history.location
-  console.log(url, 'url')
   return (
     <div className="inner-content-album-modal" key={`al${index}`} onClick={() => toggle(song.song_cid)}>
       <div className="modal-album-title">

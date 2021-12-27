@@ -17,7 +17,7 @@ import _ from 'lodash';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
+function AlbumModalContent({ albumInfo, isPlayList, isMerged, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -138,6 +138,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
                   <div className="artist-title">{albumInfo && albumInfo?.user?.name || 'No Artist'}</div>
                   <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
                 </> : null
+              }
+              {
+                isMerged && <>
+                  <div className="" onClick={() => setViewDetails(true)}>Mints Owned : {albumInfo.mints_owned.map(m => `#${m}`).join(', ')}</div>
+                </>
               }
             </div>
             {isPlayList &&

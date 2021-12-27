@@ -1,0 +1,115 @@
+.single-album {
+  position: relative;
+  font-family: "Space Grotesk";
+  .album-own {
+    color: white;
+  }
+  .cd-case {
+    background: url("../../../assets/images/case-transparent.png");
+    width: 100%;
+    height: 281px;
+    // text-align: right;
+    position: relative;
+    background-size: cover;
+    padding: 3px 5px 5px 26px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    .art-cover {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    @media screen and (max-width: 600px) {
+      height: auto;
+    }
+    img {
+      width: 100%;
+    }
+    .mint-sticker {
+      &.available {
+        background-image: url("../../../assets/images/mint-sticker.png");
+        span {
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: bold;
+          text-align: center;
+          font-family: Gotham;
+        }
+      }
+      &.sold {
+        background-image: url("../../../assets/images/sold-out.png");
+        background-size: 59px 59px;
+        span {
+          display: none;
+        }
+      }
+      height: 59px;
+      width: 59px;
+      position: absolute;
+      background-size: cover;
+      bottom: 5px;
+      right: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 3px;
+    margin-top: 15px;
+  }
+
+  h4 {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 0px;
+  }
+}
+.modal-album {
+  position: absolute;
+  .modal {
+    .holder {
+      background-image: url("../../../assets/images/case_v1.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 10px 15px;
+      background-color: #1d1d1d;
+      border-radius: 0;
+      width: 900px;
+      @media screen and (max-width: 600px) {
+        width: 350px;
+      }
+    }
+  }
+}
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block;
+}
+
+.the-title {
+  &.playlist-title {
+    text-align: center;
+    position: absolute;
+    bottom: 51px;
+    width: 100%;
+    padding-left: 23px;
+    padding-right: 5px;
+    box-sizing: border-box;
+    h3 {
+      font-family: "Permanent Marker", cursive;
+      width: 150px;
+      display: inline-block;
+      color: #000;
+    }
+  }
+}

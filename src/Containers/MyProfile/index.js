@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as nearAPI from 'near-api-js';
 import { store } from 'react-notifications-component';
 import q from 'querystring';
+import _ from 'lodash';
 import {
   TwitterShareButton
 } from "react-share";
@@ -18,6 +19,7 @@ import { fetchUserAction } from '../../redux/actions/UserAction';
 import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
+import SingleMergedAlbum from '../../Components/Common/SingleMargedAlbum/index';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import PurchasedSongs from '../../Components/Parts/PurchasedSongs';
 import TwitterIcon from '../../assets/images/twitter-icon.svg';
@@ -65,7 +67,7 @@ function MyProfile(props) {
 
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum key={index} albumInfo={nft} onSingleSongClick={(song) => onSingleSongClick(song, index)} index={index} zifi="sdfsf" />
+      <SingleMergedAlbum key={index} albumInfo={nft} onSingleSongClick={(song) => onSingleSongClick(song, index)} index={index} />
     );
   }
 
@@ -261,7 +263,7 @@ function MyProfile(props) {
         });
         props.fetchTokenTransfers({
           params: {
-            'filter[type]': 'album_bundle',
+            'filter[type]': 'album_bundle, song',
             related: 'album.songs',
             orderBy: '-id',
             'filter[transfer_to]': id
@@ -330,7 +332,7 @@ function MyProfile(props) {
       props.showPlaylistModal();
     }
   }
-
+  console.log(Object.entries(_.groupBy(props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type !== null), 'token')))
   return (
     <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={true} isPublicProfile={isPublicProfile} userId={props.match.params.id} />
@@ -355,8 +357,8 @@ function MyProfile(props) {
           </div>
 
           <div className="albums" className="album-grid">
-            {props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type !== null).map((token, index) => (
-              generateAlbumItem({ token, copy_number: token.copy_number, hideSticker: false }, index)
+            {Object.entries(_.groupBy(props && props.token_transfers && props.token_transfers.length > 0 && props.token_transfers.filter(f => f.type !== null), 'token')).map((token, index) => (
+              generateAlbumItem({ token: token[1][0], copy_number: token[1][0].copy_number, hideSticker: false, mints_owned: token[1].filter(f => f.is_owner && f.transfer_to === decodedToken.id).map(m => m.copy_number) }, index)
             ))}
           </div>
         </div>
