@@ -235,6 +235,7 @@ function MyProfile(props) {
             ><img src={TwitterIcon} alt="Twitter" className="popup-img" style={{ width: '32px' }} /><span>Tweet</span></TwitterShareButton>
           </div>}
           <button className="set_name" onClick={() => setSharePopup(!openSharePopup)} ><img src={ShareIcon} alt="Twitter" /> Share</button>
+          <button className="edit-profile" onClick={() => props.history.push('/settings')} > Edit Profile</button>
         </div>
 
       </>
