@@ -141,7 +141,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isMerged, isOpen, updateCurr
               }
               {
                 isMerged && <>
-                  <div className="" onClick={() => setViewDetails(true)}>Mints Owned : {albumInfo.mints_owned.map(m => `#${m}`).join(', ')}</div>
+                  <div className="" >Mints Owned : {albumInfo.mints_owned.map(m => `#${m}`).join(', ')}</div>
                 </>
               }
             </div>

@@ -76,7 +76,7 @@ function MyProfile(props) {
     props.showSellModal()
     setSellingSong(song)
     setSelectedAlbumToken(props.token_transfers[index])
-    setSellingCopy(song.transfers.find(f => f.copy_number === props.token_transfers[index].copy_number))
+    // setSellingCopy(song.transfers.find(f => f.copy_number === props.token_transfers[index].copy_number))
   }
 
   const onSell = (token) => {
@@ -305,9 +305,17 @@ function MyProfile(props) {
   }, [props.user]);
 
   const closeModals = () => {
-    setSellingCopy(null)
-    setSellingSong(null)
-    props.hideSellModal()
+    console.log(props.displaySellModal, 'props.displaySellModal')
+    if (props.displaySellModal && sellingCopy) {
+      setSellingCopy(null)
+    } else {
+      setSellingSong(null)
+      props.hideSellModal()
+    }
+
+    // setSellingCopy(null)
+    // setSellingSong(null)
+    // props.hideSellModal()
   }
 
   const onClose = () => {
