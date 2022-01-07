@@ -264,10 +264,10 @@ function Header(props) {
         {
           !userToken ?
             <div className="nav">
-              <a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
+              {/*<a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
               <a target="_blank" href="https://education.amplify.art">Education Portal</a>
               <a target="_blank" href="https://education.amplify.art">News</a>
-              <a href="mailto:contact@amplify.art">Contact Us</a>
+              <a href="mailto:contact@amplify.art">Contact Us</a>*/}
             </div>
             :
             <div ref={wrapperRef} className="searchWrapper">

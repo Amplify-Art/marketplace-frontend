@@ -1,94 +1,93 @@
 import './TheTeam.scss';
-import Em from '../../../assets/images/em.jpeg';
 
 function TheTeam() {
   const theTeam = [
     {
-      handle: 'Donflaquito_',
+      handle: 'donflaquito.near',
       support_cards: 310,
-      image: 'https://pbs.twimg.com/profile_images/1435794075605606400/ZhjK_Ihh_400x400.jpg',
-      profile_link: 'https://twitter.com/Donflaquito_'
+      image: '',
+      profile_link: 'https://amplify.art/user/donflaquito'
     },
     {
-      handle: 'AmplifyArt',
+      handle: 'amplifyart.near',
       support_cards: 215,
-      image: 'https://pbs.twimg.com/profile_images/1434934893318918145/9aGgDqA5_400x400.jpg',
-      profile_link: 'https://twitter.com/AmplifyArt'
+      image: '',
+      profile_link: 'https://amplify.art/user/amplifyart'
     },
     {
-      handle: 'Russfranky',
+      handle: 'russ.near',
       support_cards: 50,
-      image: 'https://pbs.twimg.com/profile_images/1445860539113033728/vlGQpVuz_400x400.jpg',
-      profile_link: 'https://twitter.com/Russfranky'
+      image: '',
+      profile_link: 'https://amplify.art/user/russ'
     },
     {
-      handle: 'TLin1990',
+      handle: 'txlin.near',
       support_cards: 50,
-      image: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png',
-      profile_link: 'https://twitter.com/TLin1990'
+      image: '',
+      profile_link: 'https://amplify.art/user/txlin'
     },
     {
-      handle: 'Reblock_Digital',
+      handle: 'bdee.near',
       support_cards: 25,
-      image: 'https://pbs.twimg.com/profile_images/1352359723627130881/s4JeLdWk_400x400.jpg',
-      profile_link: 'https://twitter.com/Reblock_Digital'
+      image: '',
+      profile_link: 'https://amplify.art/user/bdee'
     },
     {
-      handle: 'adamamcbride',
+      handle: 'adammcbride.near',
       support_cards: 20,
-      image: 'https://pbs.twimg.com/profile_images/1444671362904248326/aH7B1clE_400x400.jpg',
-      profile_link: 'https://twitter.com/adamamcbride'
+      image: '',
+      profile_link: 'https://amplify.art/user/adammcbride'
     },
     {
-      handle: 'Coco__Bear',
+      handle: 'cocobear.near',
       support_cards: 17,
-      image: 'https://pbs.twimg.com/profile_images/1427229055586291718/_s0WPqGK_400x400.jpg',
-      profile_link: 'https://twitter.com/Coco__Bear'
+      image: '',
+      profile_link: 'https://amplify.art/user/cocobear'
     },
     {
-      handle: 'iamjchase',
+      handle: 'itsaj.near',
       support_cards: 15,
-      image: 'https://pbs.twimg.com/profile_images/1311641398840627200/yR42Ugw8_400x400.jpg',
-      profile_link: 'https://twitter.com/iamjchase'
+      image: '',
+      profile_link: 'https://amplify.art/user/itsaj'
     },
     {
-      handle: 'vzcek',
+      handle: 'vzcek.near',
       support_cards: 10,
-      image: 'https://pbs.twimg.com/profile_images/1442530769805717507/FEp_01tv_400x400.jpg',
-      profile_link: 'https://twitter.com/vzcek'
+      image: '',
+      profile_link: 'https://amplify.art/user/vzcek'
     },
     {
-      handle: 'arc4g',
+      handle: 'rainfall.near',
       support_cards: 15,
-      image: 'https://pbs.twimg.com/profile_images/1195946508006412293/ZKddKyho_400x400.jpg',
-      profile_link: 'https://twitter.com/arc4g'
+      image: '',
+      profile_link: 'https://amplify.art/user/rainfall'
     },
     {
-      handle: 'chasel3000',
+      handle: 'chasel3000.near',
       support_cards: 15,
-      image: 'https://pbs.twimg.com/profile_images/1417554823495442436/kN5pey33_400x400.jpg',
-      profile_link: 'https://twitter.com/chasel3000'
+      image: '',
+      profile_link: 'https://amplify.art/user/chasel3000'
     },
     {
-      handle: 'surf_defi',
+      handle: 'surf_finance.near',
       support_cards: 10,
-      image: 'https://pbs.twimg.com/profile_images/1357348242225156096/AUcBUHxq_400x400.jpg',
-      profile_link: 'https://twitter.com/surf_defi'
+      image: '',
+      profile_link: 'https://amplify.art/user/surf_finance'
     }
   ];
   return (
     <div id="the-team">
       <div className="container">
         <div className="line" />
-        <h2>The Team & Supporters</h2>
+        <h2>Supporter Card Holders</h2>
         <div className="team-list">
           {theTeam.map(member => (
             <a href={member.profile_link}>
             <div className="team-member">
               <div className="image circle">
-                <img src={member.image} alt="Eminem" />
+                <img src={member.image} alt="UserName" />
               </div>
-              <p>@{member.handle}</p>
+              <p>{member.handle}</p>
               <p className="support-card-count">{member.support_cards} Support Cards</p>
             </div>
             </a>

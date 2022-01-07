@@ -11,7 +11,7 @@ const Login = ({ history }) => {
     }
   }, [])
   return <div className="login">
-    <a href={`${API_ENDPOINT_URL}/auth/twitter`}><Twitter /><span>Login with Twitter</span></a>
+    <a href={`${API_ENDPOINT_URL}/auth/twitter`}><Twitter /><span>Login with Near</span></a>
   </div >
 }
 export default withRouter(Login)
