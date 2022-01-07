@@ -90,11 +90,7 @@ function Header(props) {
     let token = localStorage.getItem('amplify_app_token')
     if (wallet && !wallet.isSignedIn() && token && user.near_account_type === 'connected') {
       wallet.requestSignIn(
-<<<<<<< HEAD
-        // user.near_account_id,     // contract requesting access
-=======
         user.near_account_id,     // contract requesting access 
->>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -316,21 +312,12 @@ function Header(props) {
         </div>
         {
           !userToken ?
-<<<<<<< HEAD
-            <div className="nav">
-              {/*<a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
-              <a target="_blank" href="https://education.amplify.art">Education Portal</a>
-              <a target="_blank" href="https://education.amplify.art">News</a>
-              <a href="mailto:contact@amplify.art">Contact Us</a>*/}
-            </div>
-=======
             // <div className="nav">
             //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
             //   <a>Education Portal</a>
             //   <a>Contact us</a>
             // </div>
             <></>
->>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
             :
             <div ref={wrapperRef} className="searchWrapper">
               <div className="search">
