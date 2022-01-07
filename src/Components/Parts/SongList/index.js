@@ -11,7 +11,14 @@ import './SongList.scss';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
+import * as nearAPI from 'near-api-js';
+import { store } from 'react-notifications-component';
+import q from 'querystring';
 import { buySongAction, showBuyModalAction, hideBuyModalAction } from '../../../redux/actions/SongAction'
+import { buySongNFTAction } from '../../../redux/actions/NFTAction'
+
+const { utils: { format: { parseNearAmount } } } = nearAPI;
 
 const songHeader = () => (
   <div className="songlist-header flex">
@@ -26,7 +33,10 @@ const songHeader = () => (
       {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="mobile-header-title">
-      Song Title &nbsp; | &nbsp; Artist &nbsp; | &nbsp; Mint Owned
+      <div>Song Market</div>
+      <div className="mobile-header-title-right">
+      <i className="far fa-sort-alt" /><span className="sort">SORT</span>
+      </div>
     </div>
     <div className="header-title">For sale
       {/* <img src={sortIcon} alt="" /> */}
@@ -41,7 +51,7 @@ function SongList(props) {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
-
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
   const expandSongList = (index) => {
     if (songList[index].transfers.length) {
       if (index === songListExpanded) {
@@ -51,6 +61,36 @@ function SongList(props) {
       }
     }
   }
+
+  // check for any transactions
+  useEffect(() => {
+    let buyingSong = JSON.parse(localStorage.getItem('buying_song'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      localStorage.removeItem('buying_song')
+      props.history.push('/marketplace')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      buyingSong.hash = txtId
+      console.log(buyingSong)
+      props.buySongNFT(buyingSong)
+      localStorage.removeItem('buying_song')
+      props.history.push('/marketplace')
+    }
+  }, [])
 
   const handleAudio = (songId) => {
     if (!playing) {
@@ -109,16 +149,46 @@ function SongList(props) {
       }
     }
   }, [props.history.location])
-  const onBuy = () => {
-    props.buySong({
-      id: buyingSong.id,
-      price: buyingSong.bidding_price
-    })
+  const onBuy = async () => {
+    console.log(buyingSong, parseNearAmount(`${buyingSong.yocto_near_price}`), 'buying_song')
+    if (user.near_account_type === 'connected') {
+
+      let buying_song = {
+        id: buyingSong.id,
+        price: buyingSong.bidding_price,
+        yocto_near_price: buyingSong.yocto_near_price
+      }
+      localStorage.setItem('buying_song', JSON.stringify(buying_song))
+      await (props.wallet.account()).functionCall(
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market1.amplifybeta.testnet',
+        'offer',
+        {
+          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft1.amplifybeta.testnet',
+          receiver_id: user.near_account_id,
+          song_token_id: buyingSong.token
+        },
+        300000000000000,
+        buyingSong.yocto_near_price,
+      )
+    } else {
+      props.buySong({
+        id: buyingSong.id,
+        price: buyingSong.bidding_price
+      })
+    }
   }
   const onModalChange = (song) => {
     props.showBuyModal()
     setBuyingSong(song)
   }
+
+  const textEllipsis = (txt) => {
+    if (txt.length > 9) {
+      return txt.substr(0, 9) + '...';
+    }
+    return txt;
+  };
+
   return (
     <div className="song-list">
       {songHeader()}
@@ -133,14 +203,17 @@ function SongList(props) {
                 </div>
                 <label className="song-title" onClick={() => expandSongList(index)}>
                   <div>{songData.title} <span>{(songData.mints_owned || []).map(i => `#${i}`).join(' ,')}</span></div>
-                  <p className="song-title-mobile">{songData.artist && songData.artist.name}</p>
+                  <p className="song-title-mobile">
+                    {textEllipsis((songData.artist && songData.artist.name) || '')} / {textEllipsis((songData.album && songData.album.title) || '')}</p>
+                  <div className="song-mint-mobile" onClick={() => expandSongList(index)}>{songData.mint || "#4"}</div>
+                  <div style={{ border: 0}} />
                 </label>
               </div>
 
               <div className="song-album" onClick={() => expandSongList(index)}>{songData.album && songData.album.title}</div>
               <div className="song-artist" onClick={() => expandSongList(index)}>{songData.artist && songData.artist.name}</div>
-              <div className="song-mint-mobile" onClick={() => expandSongList(index)}>{songData.mint || "#4"}</div>
-              <div onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
+              <div className="song-available-mobile" onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty}</div>
+              <div className="song-available" onClick={() => expandSongList(index)}>{songData.transfers.length} / {songData.qty} {' '} Available</div>
             </div>
             <div className={`song-copies ${songListExpanded === index && 'expanded'}`} style={{ backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid})` }}>
               <div className="copy">
@@ -157,8 +230,19 @@ function SongList(props) {
                     songData.transfers.map(transfer => <div className="singleSong flex">
                       <div className="mint">#{transfer && transfer.copy_number}</div>
                       <div className="date-listed-by"> {moment(transfer && transfer.created_at).format('MM/DD/YYYY')} by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
-                      <div className="asking-price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
-                      <div className="action"><button onClick={() => onModalChange(transfer)}>Buy Now</button></div>
+                      <div className="date-listed-by-mobile">
+                        <div style={{ width: '100%' }}>{moment(transfer && transfer.created_at).format('MM/DD/YYYY')}</div>
+                        <div style={{ width: '100%' }}>by @{transfer && transfer.transferTo && transfer.transferTo.name}</div>
+                      </div>
+                      <div className="songPrice">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}</div>
+                      <div className="action"><button onClick={() => onModalChange({ ...transfer, token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}` })}>Buy Now</button></div>
+                      <div className="mobileAction">
+                        <button
+                          onClick={() => onModalChange(transfer)}
+                        >
+                          Buy Now {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transfer && transfer.bidding_price / 100)}
+                        </button>
+                      </div>
                     </div>)
                   }
                 </div>
@@ -195,12 +279,15 @@ function SongList(props) {
 }
 export default connect(state => {
   return {
-    displayBuyModal: state.songs.showBuyModal
+    displayBuyModal: state.songs.showBuyModal,
+    nearPrice: state.global.nearPrice,
+    wallet: state.global.wallet
   }
 }, dispatch => {
   return {
     buySong: (data) => dispatch(buySongAction(data)),
     showBuyModal: () => dispatch(showBuyModalAction()),
-    hideBuyModal: () => dispatch(hideBuyModalAction())
+    hideBuyModal: () => dispatch(hideBuyModalAction()),
+    buySongNFT: (data) => dispatch(buySongNFTAction(data))
   }
 })(withRouter(SongList));

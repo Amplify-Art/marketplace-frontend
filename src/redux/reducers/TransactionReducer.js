@@ -1,6 +1,7 @@
 import { filter } from 'lodash';
 import * as types from '../../Constants/actions/Transaction';
 import { SEND_NEAR_SUCCESS, SEND_NEAR_FAILURE, SEND_NEAR_REQUEST } from '../../Constants/actions/Global';
+import { UPDATE_SEND_MONEY_SUCCESS } from '../../Constants/actions/NFT';
 
 /* eslint-disable no-case-declarations */
 
@@ -13,6 +14,7 @@ const initialState = {
   sendingNear: false,
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.FETCH_TRANSACTIONS_SUCCESS:
@@ -72,16 +74,19 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case SEND_NEAR_FAILURE:
-      console.log([action.res.data, ...state.transactions], 'SHU')
       return {
         ...state,
         sendingNear: false
       }
     case SEND_NEAR_SUCCESS:
-      console.log([action.res.data, ...state.transactions], 'SHU')
       return {
         ...state,
         // sendingNear: false,
+        transactions: [action.res.data, ...state.transactions]
+      }
+    case UPDATE_SEND_MONEY_SUCCESS:
+      return {
+        ...state,
         transactions: [action.res.data, ...state.transactions]
       }
     case SEND_NEAR_REQUEST:

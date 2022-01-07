@@ -12,24 +12,26 @@ import Logo from '../../../assets/images/logo.svg';
 import SearchIcon from '../../../assets/images/search-icon.svg';
 import BellIcon from '../../../assets/images/bell-icon.svg';
 import Wallet from '../../../assets/images/wallet-icon.svg';
+import CDIcon from '../../../assets/images/cd-icon.svg';
 import Harrison from '../../../assets/images/harrison.jpeg';
 import Button from '../../Common/Button/index';
 import useDebounce from '../../Common/UseDebounce';
 import SearchResultCard from '../SearchResultCard';
-import { displayLoadingOverlayAction, toggleMobileMenuAction } from '../../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, toggleMobileMenuAction, setWalletAction, sendNotificationAction, setCurrentNearPrice } from '../../../redux/actions/GlobalAction';
 import { setNearBalanceAction } from '../../../redux/actions/UserAction';
 import { fetchSearchResult, setIsSongSelected, storeSelectedAlbum, setIsAlbumSelected } from '../../../redux/actions/SearchResAction';
 import './Header.scss';
 import q from 'querystring';
 import { store } from 'react-notifications-component';
-import Login from '../../../Containers/Login'
+import Login from '../../../Containers/Login';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
 
-const { keyStores, WalletConnection, utils } = nearAPI;
+const { keyStores, WalletConnection, utils, utils: { format: { parseNearAmount } } } = nearAPI;
 
 function Header(props) {
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
-  const [wallet, setWallet] = useState(null);
+  const [wallet, setWalletState] = useState(null);
   const [isWalletSigned, setIsWalletSigned] = useState(user && user.near_connected);
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
@@ -45,6 +47,7 @@ function Header(props) {
     if (isWalletSigned) {
       getAccountDetails()
     }
+    props.setCurrentNearPrice();
   }, [props.history.location.pathname])
 
   // useEffect(() => {
@@ -65,7 +68,7 @@ function Header(props) {
   const { path, showWalletSidebar, toggleWalletSidebar, toggleMobileMenu, searchLoading, searchResult } = props;
 
   useEffect(async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -76,12 +79,22 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near);
-    setWallet(wallet)
+    console.log(wallet)
+    setWalletState(wallet)
+    props.setWallet(wallet);
+    return () => {
+      setWalletState(null);
+    }
   }, [])
   useEffect(async () => {
-    if (wallet && !isWalletSigned) {
+    let token = localStorage.getItem('amplify_app_token')
+    if (wallet && !wallet.isSignedIn() && token && user.near_account_type === 'connected') {
       wallet.requestSignIn(
+<<<<<<< HEAD
         // user.near_account_id,     // contract requesting access
+=======
+        user.near_account_id,     // contract requesting access 
+>>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -94,7 +107,7 @@ function Header(props) {
       return
     } else
       wallet.requestSignIn(
-        "test",     // at this time, , we dont have account, passing test
+        process.env.REACT_APP_CONTEXT === 'production' ? "amplifyapp.near" : "amplifybeta.testnet",     // at this time, , we dont have account, passing test
         "Example App",                  // optional
         `${window.location.origin}/near/success`,  // optional
         `${window.location.origin}/near/failure`   // optional
@@ -102,7 +115,7 @@ function Header(props) {
   }
 
   const getAccountDetails = async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -126,7 +139,7 @@ function Header(props) {
   const onCreate = async () => {
     props.displayLoadingOverlay();
     const create = await createWallet()
-    if (create.data.success) {
+    if (create.data && create.data.success) {
       localStorage.setItem('amplify_app_token', create.data.token)
       store.addNotification({
         title: "Success",
@@ -233,6 +246,17 @@ function Header(props) {
     }
   };
 
+  const handleCloseWalletSidebar = () => {
+    if (isWalletSigned) {
+      toggleWalletSidebar(!showWalletSidebar);
+    } else {
+      props.sendNotificationAction({
+        success: false,
+        message: 'Please create wallet',
+      })
+    }
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -250,6 +274,35 @@ function Header(props) {
     }
   }, [showWalletSidebar])
 
+  const callMint = async () => {
+    console.log(wallet)
+    try {
+      let result = await (props.wallet.account()).functionCall(
+        'nft.dev-1631962167293-57148505657038',
+        'add_token_types',
+        {
+          album_hash: "f8d7bd28b526864cf358256ca7b041c614",
+          cover_songslist: ['f8d7bd28b526864cf358256ca7', '35e3de8bf884a57cb24a3c4ab188da2a', '281b3d4d3b4ca68c987bf897a83a66a0'],
+          number_of_album_copies: 10,
+          price: parseNearAmount('1'),
+        },
+        200000000000000,
+        parseNearAmount('1'),
+      )
+      console.log('result')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const hasData = () => {
+    if (searchResult.results) {
+      if (!searchResult.results.some(d => d.data.length)) {
+        return true;
+      }
+    }
+    return false;
+  }
   return (
     <>
       <header>
@@ -263,12 +316,21 @@ function Header(props) {
         </div>
         {
           !userToken ?
+<<<<<<< HEAD
             <div className="nav">
               {/*<a target="_blank" href="https://digiverse.amplify.art">Our Digiverse</a>
               <a target="_blank" href="https://education.amplify.art">Education Portal</a>
               <a target="_blank" href="https://education.amplify.art">News</a>
               <a href="mailto:contact@amplify.art">Contact Us</a>*/}
             </div>
+=======
+            // <div className="nav">
+            //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
+            //   <a>Education Portal</a>
+            //   <a>Contact us</a>
+            // </div>
+            <></>
+>>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
             :
             <div ref={wrapperRef} className="searchWrapper">
               <div className="search">
@@ -277,7 +339,7 @@ function Header(props) {
               </div>
               {
                 (search.trim() !== '' && showSearchResult) &&
-                <div className="scrollSearchResult">
+                <div className={`scrollSearchResult ${hasData() && !searchLoading ? "p-0" : ""}`}>
                   {
                     searchLoading
                       ? 'Loading...' // TODO: can add any animation
@@ -295,6 +357,11 @@ function Header(props) {
         <div className="right">
           {userToken ? (
             <>
+              {props.currentPlaylists.length ? <div className="cd" onClick={() => props.togglePlayer()}>
+                <img src={CDIcon} alt="wallet" />
+              </div>
+                : null
+              }
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
               <div className="wallet">
                 <Link to="/wallet"><img src={Wallet} alt="wallet" /></Link>
@@ -302,7 +369,7 @@ function Header(props) {
               <div className="mobile-menu" onClick={toggleMobileMenu}>
                 <img src={MenuIconNew} />
               </div>
-              <div className="user">
+              <div className="user" onClick={() => props.history.push('/my-profile')}>
                 <img src={userDetails.avatar} />
               </div>
             </>
@@ -315,7 +382,7 @@ function Header(props) {
       {setBreadCrumbs() &&
         <div className="breadcrumbs left-nav-pad">
           <div className="container">
-            Home / <span className="current">{path && setBreadCrumbs()}</span>
+            <span className="home" onClick={() => props.history.push('/')}>Home </span>/ <span className="current">{path && setBreadCrumbs()}</span>
           </div>
         </div>
       }
@@ -347,16 +414,16 @@ function Header(props) {
                   {Number(utils.format.formatNearAmount(balance.available)).toFixed(5)}
                 </div>
               </div>
-              <a href={`https://buy-staging.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">Buy More NEAR</a>
+              <a href={`https://buy${process.env.REACT_APP_CONTEXT === 'production' ? '' : '-staging'}.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(user.email)}&walletAddress=${user.near_account_id}`} target="_blank" rel="noopener noreferrer">Buy More NEAR</a>
             </div>
             }
             {user && !user.near_connected &&
               < div className="buttons">
-                {/* <Button
+                <Button
                   text="Connect to Near Wallet"
                   onClick={() => onConnect()}
-                /> */}
-
+                />
+                <span>OR</span>
                 <Button
                   text="Create New Wallet"
                   onClick={() => onCreate()}
@@ -365,9 +432,10 @@ function Header(props) {
             }
           </div>
 
-          <div className="sidebar-close-cover" onClick={() => toggleWalletSidebar(!showWalletSidebar)} />
+          <div className="sidebar-close-cover" onClick={handleCloseWalletSidebar} />
         </>
-      )}
+      )
+      }
     </>
   );
 }
@@ -377,15 +445,21 @@ export default connect(state => {
     showWalletSidebar: state.global.showWallet,
     searchResult: state.searchRes.searchResult,
     searchLoading: state.searchRes.loading,
+    wallet: state.global.wallet,
+    currentPlaylists: state.playlists.current_playlists
   }
 }, dispatch => {
   return {
     displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
     toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
+    sendNotificationAction: (payload) => dispatch(sendNotificationAction(payload)),
     searchRes: (payload) => dispatch(fetchSearchResult(payload)),
     setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
     setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
     setIsSongSelected: () => dispatch(setIsSongSelected()),
     setIsAlbumSelected: (payload) => dispatch(setIsAlbumSelected(payload)),
+    setWallet: (payload) => dispatch(setWalletAction(payload)),
+    setCurrentNearPrice: () => dispatch(setCurrentNearPrice()),
+    togglePlayer: () => dispatch(togglePlayerAction())
   }
 })(withRouter(Header));

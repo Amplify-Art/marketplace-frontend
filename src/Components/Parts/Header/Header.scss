@@ -30,9 +30,13 @@ header {
     width: 40%;
     justify-content: space-evenly;
     a {
+<<<<<<< HEAD
       text-decoration: none;
+=======
+>>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
       font-size: 20px;
       color: white;
+      text-decoration: none;
     }
   }
   @media screen and (max-width: 600px) {
@@ -75,7 +79,7 @@ header {
         width: 25px;
       }
       input {
-        border: 2px solid #e3e3e3;
+        border: 1px solid #e3e3e3;
         background: transparent;
         border-radius: 30px;
         padding: 16px 20px 16px 76px;
@@ -83,6 +87,7 @@ header {
         box-sizing: border-box;
         font-size: 16px;
         color: #fff;
+        opacity: 0.4;
       }
     }
     .scrollSearchResult {
@@ -99,6 +104,9 @@ header {
       background: #fff;
       box-sizing: border-box;
       @include overflowScrollBar();
+      &.p-0 {
+        padding: 0;
+      }
     }
   }
 
@@ -151,6 +159,9 @@ header {
   margin-top: 39px;
   font-weight: 500;
   font-family: $space;
+  .home {
+    cursor: pointer;
+  }
   .current {
     font-weight: 100;
   }
@@ -159,6 +170,7 @@ header {
 .user {
   width: 57px;
   height: 57px;
+  cursor: pointer;
   @media screen and (max-width: 600px) {
     width: 50px;
     height: 50px;
@@ -219,6 +231,7 @@ header {
 .buttons {
   display: flex;
   flex-direction: column;
+  text-align: center;
   button {
     margin: 10px;
   }
@@ -226,5 +239,14 @@ header {
 .details {
   a {
     color: white;
+  }
+}
+
+.cd {
+  margin-right: 28px;
+  cursor: pointer;
+  img {
+    height: 30px;
+    width: 30px;
   }
 }

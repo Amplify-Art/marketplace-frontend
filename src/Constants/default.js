@@ -9,7 +9,13 @@ if (window.location.origin == "https://amplifyart.netlify.app") {
 } else if (window.location.origin == "https://amplify.art") {
     API_ENDPOINT_URL = "https://api.amplify.art";
 } else {
+<<<<<<< HEAD
     // API_ENDPOINT_URL = 'http://localhost:8000'
     API_ENDPOINT_URL = 'https://amplify-api.herokuapp.com';
+=======
+    API_ENDPOINT_URL = 'http://localhost:8000'
+    API_ENDPOINT_URL = 'https://amplify-api.herokuapp.com';
+    // API_ENDPOINT_URL = "https://api.amplify.art";
+>>>>>>> 50304867e158f6e08b82e02a08b43782c468fe3f
 }
 export { API_ENDPOINT_URL };

@@ -1,5 +1,9 @@
 .single-album {
   position: relative;
+  font-family: "Space Grotesk";
+  .album-own {
+    color: white;
+  }
   .cd-case {
     background: url("../../../assets/images/case-transparent.png");
     width: 100%;
@@ -33,6 +37,7 @@
           text-transform: uppercase;
           font-weight: bold;
           text-align: center;
+          font-family: Gotham;
         }
       }
       &.sold {
@@ -71,8 +76,11 @@
   position: absolute;
   .modal {
     .holder {
+      background-image: url("../../../assets/images/case_v1.png");
+      background-repeat: no-repeat;
+      background-size: cover;
       padding: 10px 15px;
-      background: #d3d3d3;
+      background-color: #1d1d1d;
       border-radius: 0;
       width: 900px;
       @media screen and (max-width: 600px) {

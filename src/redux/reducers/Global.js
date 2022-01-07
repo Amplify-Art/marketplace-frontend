@@ -9,8 +9,13 @@ const initialState = {
   showPurchaseModal: false,
   showWallet: false,
   showSendModal: false,
+  wallet: null,
+  showMintSuccessModal: false,
+  nearPrice: null,
+  showPlayer: false,
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.SET_OVERLAY_LOADER:
@@ -68,6 +73,31 @@ export default function (state = initialState, action) {
         ...state,
         showWallet: false
       }
+    case types.SHOW_MINT_SUCCESS_MODAL:
+      return {
+        ...state,
+        showMintSuccessModal: true
+      }
+    case types.HIDE_MINT_SUCCESS_MODAL:
+      return {
+        ...state,
+        showMintSuccessModal: false
+      }
+    case types.SET_WALLET:
+      return {
+        ...state,
+        wallet: action.payload
+      }
+    case types.CURRENT_NEAR_PRICE_SUCCESS:
+      return {
+        ...state,
+        nearPrice: action.res.data.USD
+      }
+    case types.TOGGLE_PLAYER_REQUEST:
+      return {
+        ...state,
+        showPlayer: !state.showPlayer
+      }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {
         store.addNotification({
@@ -85,7 +115,7 @@ export default function (state = initialState, action) {
         });
       } else {
         store.addNotification({
-          title: "Error",
+          title: action.payload.title || "Error",
           message: action.payload.message,
           type: "danger",
           insert: "top",

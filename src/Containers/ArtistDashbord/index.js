@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cropper from "react-cropper";
 import axios from 'axios';
+import { store } from 'react-notifications-component';
+import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
@@ -25,7 +27,8 @@ import { getAccessToken } from '../../Api/index';
 import { updateUserAction } from '../../redux/actions/UserAction';
 import { addNominationVoteAction } from '../../redux/actions/NominationVoteAction';
 import { fetchNominationsAction } from '../../redux/actions/NominationAction';
-import { displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { displayLoadingOverlayAction, hideLoadingOverlayAction, hideMintSuccessModalAction } from '../../redux/actions/GlobalAction';
+import { mintNFTAction } from '../../redux/actions/NFTAction';
 
 import './ArtistDashboard.scss';
 
@@ -58,6 +61,35 @@ function ArtistDashboard(props) {
     avatar: profileImage,
     name: userName
   });
+
+  // check for mint transactions from URL
+
+  useEffect(() => {
+    let mintInfo = JSON.parse(localStorage.getItem('minting_info'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+
+      props.history.push('/artist-dashboard')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      mintInfo.txn_hash = txtId
+      props.mintNFT(mintInfo)
+    }
+    localStorage.removeItem('minting_info')
+  }, [])
 
   useEffect(() => {
     if (token) {
@@ -236,7 +268,7 @@ function ArtistDashboard(props) {
               </div>
             </div>
           </div> */}
-          <div className="bal-wrapper">
+          {/* <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
               <div className="price">0</div>
@@ -265,8 +297,8 @@ function ArtistDashboard(props) {
                 ))}
               </div>
             </div>
-          </div>
-          <div className="song-title">Song Stats</div>
+          </div> */}
+          {/* <div className="song-title">Song Stats</div>
           <div className="song-wrapper flex f-jc-space-between">
             <div className="w-50 song-inner-content">
               <div className="song-head d-h-between">
@@ -282,7 +314,7 @@ function ArtistDashboard(props) {
               </div>
               {renderSongList()}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {
@@ -303,14 +335,17 @@ function ArtistDashboard(props) {
         />
       }
       {
-        showCongratsModal && <GeneralModal
+        props.showMintSuccessModal && <GeneralModal
           topIcon={ConfettiImage}
           headline="Congrats, Your album is set to release!"
           buttons={[
             {
               type: 'solid go-home',
               text: 'Go Home',
-              onClick: () => props.history.push('/')
+              onClick: () => {
+                props.hideMintSuccessModal();
+                props.history.push('/')
+              }
             }
           ]}
           className="centered"
@@ -325,7 +360,8 @@ function ArtistDashboard(props) {
 export default connect(state => {
   return {
     loadingOverlay: state.global.loading_overlay,
-    nominations: state.nominations && state.nominations.nominations
+    nominations: state.nominations && state.nominations.nominations,
+    showMintSuccessModal: state.global.showMintSuccessModal
   }
 },
   dispatch => {
@@ -334,6 +370,8 @@ export default connect(state => {
       hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
       updateUser: (data) => dispatch(updateUserAction(data)),
       addNominationVote: (data) => dispatch(addNominationVoteAction(data)),
-      fetchNominations: (data) => dispatch(fetchNominationsAction(data))
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
+      mintNFT: (data) => dispatch(mintNFTAction(data)),
+      hideMintSuccessModal: () => dispatch(hideMintSuccessModalAction())
     }
   })(withRouter(ArtistDashboard));

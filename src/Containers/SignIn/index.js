@@ -18,7 +18,7 @@ function SignIn(props) {
   const [isWalletSigned, setIsWalletSigned] = useState(user.near_connected)
   const [balance, setBalance] = useState(null)
   useEffect(async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -53,7 +53,7 @@ function SignIn(props) {
   }
 
   const getAccountDetails = async () => {
-    let net = process.env.NODE_ENV === 'production' ? 'mainnet' : 'testnet'
+    let net = process.env.REACT_APP_CONTEXT === 'production' ? 'mainnet' : 'testnet'
     const config = {
       networkId: net,
       keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -90,10 +90,10 @@ function SignIn(props) {
       <h1>Welcome</h1>
       {user && !user.near_connected &&
         < div className="buttons">
-          {/* <Button
+          <Button
             text="Connect to Near Wallet"
             onClick={() => onConnect()}
-          /> */}
+          />
 
           <Button
             text="Create New Wallet"

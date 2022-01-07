@@ -3,7 +3,7 @@
 #general-modal {
   .white-small {
     .holder {
-      background: #FFFFFF;
+      background: #ffffff;
       border-radius: 12px;
       padding: 30px;
       position: relative;
@@ -39,7 +39,7 @@
       border-radius: 100px;
       font-family: $lato;
       font-size: 16px;
-      color: #FFFFFF;
+      color: #ffffff;
       margin-right: 10px;
       margin-bottom: 0px;
       &.go-home {
@@ -54,7 +54,6 @@
       }
       &.buy-button {
         position: absolute;
-        bottom: -60px;
         left: 50%;
         margin-left: -120px;
         background: #fff;
@@ -65,6 +64,12 @@
         border: 0px;
         cursor: pointer;
         width: 240px;
+        &.btn1 {
+          bottom: -60px;
+        }
+        &.btn2 {
+          bottom: -120px;
+        }
       }
     }
   }
@@ -96,7 +101,7 @@
         padding: 10px 20px;
         border: solid 2px #000;
       }
-      
+
       .buy-cancel {
         padding: 10px 20px;
         border: solid 2px #000;

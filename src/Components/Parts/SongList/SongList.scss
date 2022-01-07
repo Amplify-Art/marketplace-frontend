@@ -33,19 +33,33 @@
       @media screen and (min-width: 700px) {
         display: none;
       }
-      font-size: 13px;
-      line-height: 17px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      line-height: 25.52px;
       letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-weight: 400;
       width: 100%;
       align-items: center;
-      color: #ffffff6e;
+      color: #FFFFFF;
       &:first-of-type {
         width: 40%;
       }
       &:last-child {
         width: unset;
         margin-left: auto;
+      }
+      .mobile-header-title-right {
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: end;
+        align-items: center;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 100;
+        .sort {
+          padding-left: 5px;
+        }
       }
     }
   }
@@ -123,6 +137,22 @@
         display: none;
       }
       opacity: 0.6;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 17px;
+    }
+    .song-available {
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+    .song-available-mobile {
+      @media screen and (min-width: 700px) {
+        display: none;
+      }
+      border: 1px solid;
+      text-align: center;
+      border-radius: 4px;
     }
   }
 }
@@ -139,16 +169,47 @@
 
   .mint {
     width: 90px;
+    @media screen and (max-width: 600px) {
+      width: 20px;
+      font-size: 14px;
+    }
   }
 
   .date-listed-by {
+    @media screen and (max-width: 600px) {
+      display: none !important;
+    }
     width: 300px;
     margin-left: 183px;
+  }
+
+  .date-listed-by-mobile {
+    @media screen and (min-width: 700px) {
+      display: none !important;
+    }
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 45px;
+    width: 185px;
+    font-weight: 200;
+  }
+
+  .songPrice {
+    @media screen and (max-width: 600px) {
+      display: none !important;
+    }
+    width: 108px;
+    margin-left: 156px;
   }
 
   .asking-price {
     width: 108px;
     margin-left: 156px;
+    @media screen and (max-width: 600px) {
+      display: none;
+      margin-left: 40px;
+    }
   }
 
   .action {
@@ -160,6 +221,9 @@
     backdrop-filter: saturate(180%) blur(10px);
     height: 100%;
     overflow-y: scroll;
+    @media screen and (max-width: 600px) {
+      padding: 5px;
+    }
     padding: 30px;
     box-sizing: border-box;
     .headers {
@@ -196,6 +260,9 @@
         }
 
         .action {
+          @media screen and (max-width: 600px) {
+            display: none;
+          }
           width: 150px;
           button {
             background: #FA7C05;
@@ -213,6 +280,29 @@
             padding-top: 10px;
             padding-bottom: 10px;
             border: 0px;
+          }
+        }
+        .mobileAction {
+          @media screen and (min-width: 700px) {
+            display: none;
+          }
+          button {
+            background: white;
+            border-radius: 30px;
+            font-family: $space;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 18px;
+            text-align: center;
+            text-transform: capitalize;
+            color: black;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border: 0px;
+            width: 130px;
           }
         }
       }

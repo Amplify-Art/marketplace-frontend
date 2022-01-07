@@ -3,17 +3,21 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CurrencyInput from 'react-currency-input-field';
 import axios from 'axios';
+import { store } from 'react-notifications-component';
+import q from 'querystring';
 import './Wallet.scss';
 import Auth from '../../Containers/Auth';
 import Button from '../../Components/Common/Button';
 import TransactionList from '../../Components/Parts/TransactionList';
 import { fetchTransactionsAction } from '../../redux/actions/TransactionAction';
-import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { showSendModalAction, hideSendModalAction, displayLoadingOverlayAction, hideLoadingOverlayAction } from '../../redux/actions/GlobalAction';
+import { sendMoneyAction } from '../../redux/actions/NFTAction';
 import GeneralModal from '../../Components/Common/GeneralModal/index';
 import MoonPay from './MoonPay';
 import TransactionModal from './Parts/TransactionModal';
 import SendModal from './Parts/SendModal';
 import { getSignedKey } from '../../Api/Moonpay'
+import jwt from 'jsonwebtoken';
 
 function Wallet(props) {
   const [near, setNear] = useState(null);
@@ -23,6 +27,38 @@ function Wallet(props) {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [moonpayType, setMoonpayType] = useState(null);
   const [moonPaySignature, setMoonPaySignature] = useState(null);
+  const [amontToConvertError, setAmontToConvertError] = useState(false);
+
+  const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+
+  // check for any transactions
+  useEffect(() => {
+    let sendInfo = JSON.parse(localStorage.getItem('send_info'))
+    if (props.history.location.search.includes('errorCode')) {
+      let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
+      store.addNotification({
+        title: "Error",
+        message: message,
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      localStorage.removeItem('send_info')
+      props.history.push('/wallet')
+    } else if (props.history.location.search.includes('transactionHashes')) {
+      let txtId = decodeURIComponent(q.parse(props.history.location.search)['?transactionHashes'])
+      sendInfo.hash = txtId
+      props.sendMoney(sendInfo)
+      localStorage.removeItem('send_info')
+      props.history.push('/wallet')
+    }
+  }, [])
 
   const setShowSendModal = (bool) => {
     if (bool) {
@@ -37,7 +73,9 @@ function Wallet(props) {
     })
   }, [])
   const onAmountChange = (value) => {
-    console.log(value, 'EE')
+    if (amontToConvertError) {
+      setAmontToConvertError(false);
+    }
     setAmontToConvert(value)
   }
   const getNearPrice = () => {
@@ -50,13 +88,25 @@ function Wallet(props) {
   }, [])
 
   const onWithDrawAmount = async (type) => {
+    if (!amontToConvert) {
+      setAmontToConvertError(true)
+      return
+    }
+    setMoonPaySignature(null);
+    props.displayLoadingOverlay();
     setShowMoonPay(!showMoonPay)
     setMoonpayType(type)
     if (!showMoonPay) {
-      const res = await getSignedKey({});
+      const res = await getSignedKey({
+        type: type === 'withdraw' ? 'sell' : 'buy',
+        amount: parseFloat(amontToConvert),
+        near_account_id: user.near_account_id,
+        email: user.email
+      });
       if (res.success) {
-        setMoonPaySignature(res.data.signature)
+        setMoonPaySignature(res.data.url)
       }
+      props.hideLoadingOverlay();
     } else {
       setMoonPaySignature(null)
     }
@@ -70,7 +120,8 @@ function Wallet(props) {
     <div className={`container wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
       <div className="white-box">
         <div className="left">
-          <h4>Total Balance</h4>
+          <h4 className="balance">Total Balance </h4>
+          {user.near_account_id && <h3>{user.near_account_id}</h3>}
           <div className="near-amount">
             <span>{props.user.near_balance && (props.user.near_balance / 10 ** 24).toFixed(2)}</span>
             <span className="near-label">NEAR</span>
@@ -79,7 +130,7 @@ function Wallet(props) {
           <div className="usd">{props.user.near_balance && `$${(props.user.near_balance * near / (10 ** 24)).toFixed(3)}`}</div>
 
           <div className="buttons">
-            <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />
+            {user.near_account_type && <Button text="Send" className="btn black-outline" onClick={() => setShowSendModal(true)} />}
             <Button text="Withdraw" className="btn black-outline" onClick={() => onWithDrawAmount('withdraw')} />
           </div>
         </div>
@@ -96,7 +147,8 @@ function Wallet(props) {
             onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             value={amontToConvert}
           />
-          <span className="conversion-to-near">{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>
+          {amontToConvertError && <span className="conversion-to-near">Please enter valid USD amount.</span>}
+          {!amontToConvertError && <span className={`conversion-to-near`}>{(near && amontToConvert) ? (amontToConvert / near).toFixed(3) : 0.00} Near</span>}
           <Button text="Add Funds to Balance" className="btn solid-black" onClick={() => onWithDrawAmount('add_funds')} />
         </div>
       </div>
@@ -104,9 +156,11 @@ function Wallet(props) {
       <div className="transactionListWrapper">
         <div className="transactionList">
           <div className="heading">Recent Transactions</div>
-          <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
-            View full list
-          </Link>
+          {props.total > 0 &&
+            <Link className="viewFullLink" to={{ pathname: '/transaction-list' }}>
+              View full list
+            </Link>
+          }
         </div>
         <TransactionList
           transactionList={props.transactionList}
@@ -114,14 +168,14 @@ function Wallet(props) {
           onClickItem={onClickItem}
         />
       </div>
-      {showMoonPay && <GeneralModal
+      {showMoonPay && moonPaySignature && <GeneralModal
         headline={moonpayType === 'withdraw' ? `Withdraw` : 'Purchase'}
         contentClassName="moonpay centered "
         closeModal={() => setShowMoonPay(!showMoonPay)}
         bodyChildren={<MoonPay
           amontToConvert={amontToConvert}
           type={moonpayType === 'withdraw' ? 'sell' : 'buy'}
-          signature={moonPaySignature}
+          urlWithSignature={moonPaySignature}
         />}
       />
       }
@@ -162,13 +216,16 @@ export default connect(state => {
   return {
     transactionList: state.transactions.transactions,
     user: state.users.user,
-    displaySendModal: state.global.showSendModal
+    displaySendModal: state.global.showSendModal,
+    total: state.transactions.total
   }
 }, dispatch => {
   return {
     fetchTransactions: data => dispatch(fetchTransactionsAction(data)),
     showSendModal: () => dispatch(showSendModalAction()),
     hideSendModal: data => dispatch(hideSendModalAction(data)),
-    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data))
+    displayLoadingOverlay: data => dispatch(displayLoadingOverlayAction(data)),
+    hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
+    sendMoney: data => dispatch(sendMoneyAction(data))
   }
 })(Auth(withRouter(Wallet)));

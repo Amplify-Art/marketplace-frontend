@@ -6,21 +6,24 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
-import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
+import { updateCurrentPlaylistAction, showDeletePlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
+import _ from 'lodash';
 
 // songmodal
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token }) {
+function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
+  let url = props.history.location
 
   const handleSongModal = () => {
     setSongModal(true);
@@ -55,6 +58,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
     playing ? audio.play() : audio.pause();
   }, [audio, playing, currentIndex]);
 
+  const stopSong = () => {
+    audio.pause()
+    audio.currentTime = 0;
+    setAudioSong(new Audio(''))
+    setCurrentIndex(-1)
+    setPlaying(false)
+  }
   useEffect(() => {
     audio.addEventListener("ended", () => {
       setAudioSong(new Audio(''))
@@ -62,6 +72,10 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
       setPlaying(false)
     });
     audio.addEventListener("timeupdate", e => {
+      console.log(props.history.location.pathname, "RWWJJ")
+      if (audio.currentTime > 15) {
+        stopSong()
+      }
       const progressElement = document.getElementById(currentIndex)
       if (progressElement) {
         let normalizedRadius = 9;
@@ -89,13 +103,22 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
 
   const addToPlaylist = async () => {
-    updateCurrentPlaylist(albumInfo.songs)
-    const songsWithCoverArt = await albumInfo.songs.map(song => ({ ...song, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }))
-    sessionStorage.setItem('activePlaylist', JSON.stringify(songsWithCoverArt))
+    console.log('albumInfo', albumInfo)
+    // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
+    // songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
+    updateCurrentPlaylist([...props.currentPlaylists, albumInfo])
+    sessionStorage.setItem('activePlaylist', JSON.stringify([...props.currentPlaylists, albumInfo]))
+    if (!props.showPlayer)
+      props.togglePlayer();
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
-  const zeroPad = (num, places) => String(num).padStart(places, '0')
+  const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+  const handleDelete = () => {
+    props.setDeletingId(albumInfo.id)
+    props.showDeletePlaylist()
+  }
 
   return (
     <>
@@ -106,6 +129,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               {albumInfo && albumInfo.cover_cid ? (
                 <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
               ) : <img src={albumInfo.coverArt} alt='' />}
+              <i class="far fa-trash-alt"></i>
             </div> : null}
             <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
               <div className="title">{albumInfo && albumInfo.title}</div>
@@ -116,15 +140,28 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
                 </> : null
               }
             </div>
+            {isPlayList &&
+              <div className="trash" onClick={handleDelete} >
+                <i class="far fa-trash-alt"></i>
+              </div>
+            }
           </div>
           <div className="album-bottom" id="modalScrolling">
+            <div className="playlist-header"
+              style={{
+                width: url.pathname !== '/my-profile' ? '100%' : '55%'
+              }}>
+              <span>SONG TITLE</span>
+              <span>LENGTH</span>
+            </div>
             {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
+          {isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
-          </div> : null}
+          </div>
+          }
           {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
         </div>
           : <div className="left-wrapper">
@@ -145,11 +182,15 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
         }
         {
           isPlayList ? <div className='cd-case'>
-            <img src={CdImage} alt='Cd-image' />
+            {/* <img src={CdImage} alt='Cd-image' /> */}
           </div> :
             <div className='bg-album-img' />
         }
-      {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') &&
+          <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+        }
+        {!isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>}
+
       </div>
       <div className="mobileAlbumContent">
         <div className="cdCoverMobile">
@@ -161,56 +202,71 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
           </div>
         </div>
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {
+          !isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') &&
+          <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+        }
+        {
+          !isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>
+        }
         {
           !viewDetails
-          ? (
-            <>
-              <div className="mobileAlbumDetailWrapper">
-                <div className="albumImgHolder">
-                  {
-                  albumInfo && albumInfo.cover_cid
-                    ? <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
-                    : <img src={albumInfo.coverArt} alt='' />}
+            ? (
+              <>
+                <div className="mobileAlbumDetailWrapper">
+                  <div className="albumImgHolder">
+                    {
+                      albumInfo && albumInfo.cover_cid
+                        ? <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
+                        : <img src={albumInfo.coverArt} alt='' />}
+                  </div>
+                  <div className="albumDetail">
+                    <div className="albumTitle">{albumInfo && albumInfo.title}</div>
+                    <div className="albumArtistTitle">{albumInfo?.user?.name || 'No Artist'}</div>
+                    <div className="albumViewDetail" onClick={() => setViewDetails(true)}>View Details</div>
+                  </div>
                 </div>
-                <div className="albumDetail">
-                  <div className="albumTitle">{albumInfo && albumInfo.title}</div>
-                  <div className="albumArtistTitle">{albumInfo?.user?.name || 'No Artist'}</div>
-                  <div className="albumViewDetail"onClick={() => setViewDetails(true)}>View Details</div>
+                <div className="albumSongsWrapper">
+                  {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
+                    <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
+                  ))}
+                </div>
+              </>
+            )
+            : (
+              <div className="albumViewDetailWrapper">
+                <div className="albumViewDetailTop">
+                  <div className="backImg"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
+                  <div className="albumDetailBanner">
+                    Album Details
+                  </div>
+                </div>
+                <div className="albumDetailContent">
+                  <p className="subContent">{albumInfo.description}</p>
+                </div>
+                <div className="albumMemoryCard">
+                  <div className="mintText">Mint</div>
+                  <div className="mintNumber">{zeroPad(albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1), 3)}</div>
                 </div>
               </div>
-              <div className="albumSongsWrapper">
-                {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
-                  <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
-                ))}
-              </div>
-            </>
-          )
-          : (
-            <div className="albumViewDetailWrapper">
-              <div className="albumViewDetailTop">
-                <div className="backImg"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
-                <div className="albumDetailBanner">
-                  Album Details
-                </div>
-              </div>
-              <div className="albumDetailContent">
-                <p className="subContent">{albumInfo.description}</p>
-              </div>
-              <div className="albumMemoryCard">
-                <div className="mintText">Mint</div>
-                <div className="mintNumber">{zeroPad(albumInfo.copy_number || (albumInfo.available_qty === 0 ? albumInfo.available_qty : (albumInfo.qty - albumInfo.available_qty) + 1), 3)}</div>
-              </div>
-            </div>
-          )
+            )
         }
+
       </div>
     </>
   )
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+  return {
+    showPlayer: state.global.showPlayer,
+    currentPlaylists: state.playlists.current_playlists
+  }
+}, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
+    togglePlayer: () => dispatch(togglePlayerAction()),
+    showDeletePlaylist: () => dispatch(showDeletePlaylistAction())
+
   }
 })(withRouter(AlbumModalContent))

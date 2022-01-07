@@ -75,8 +75,8 @@ function AddShowCase({ showCaseData, songs, fetchNFTs, nfts, selectedSongs, addS
         ))
           : songs.length ?
             <></>
-            : !isFetchingNFts ?
-              <span>No NFts yet!</span>
+            : isFetchingNFts ?
+              <span className="error">No NFTs yet!</span>
               :
               <div className="loading-skeleton">
                 {[1, 2, 3, 4, 5].map(() => <Skeleton width={`100%`} height={60} />)}

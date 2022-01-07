@@ -13,6 +13,7 @@ import useDebounce from '../UseDebounce';
 import SearchResultCard from '../../Parts/SearchResultCard';
 import SearchIcon from '../../../assets/images/search-icon.svg';
 import SideSocialNav from '../SideSocialNav';
+import GeneralModal from '../GeneralModal/index.js';
 
 function MainSideNav(props) {
   const [showNominateModal, setShowNominateModal] = useState(false);
@@ -20,13 +21,14 @@ function MainSideNav(props) {
   const [showSearchResult, setShowSearchResult] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { toggleWalletSidebar, showMobileMenu } = props;
   const user = jwt.decode(localStorage.getItem('amplify_app_token'));
 
-  const onLogout = () => {
-    localStorage.removeItem('amplify_app_token')
-    sessionStorage.removeItem('activePlaylist')
-    props.clearCurrentPlayList()
+  const onLogout = (e) => {
+    e.preventDefault();
+    console.log('CIM')
+    setShowLogoutModal(true)
     // history.push("/")
   };
 
@@ -91,6 +93,18 @@ function MainSideNav(props) {
     }
   }, [debouncedSearchTerm]);
 
+  const handleCloseModal = (bool) => {
+    if (bool) {
+      localStorage.removeItem('amplify_app_token')
+      sessionStorage.removeItem('activePlaylist')
+      props.clearCurrentPlayList()
+      props.history.push('/')
+    }
+    setShowLogoutModal(false)
+    // setSongModal(false);
+    // setViewDetails(false);
+  }
+
   return (
     <>
       <div id="main-side-nav" className={`${showMobileMenu && 'mobile-open'}`}>
@@ -127,13 +141,13 @@ function MainSideNav(props) {
 
           <li className="nav-header">Store</li>
           {/* <li><NavLink to="#">Coming Soon</NavLink></li> */}
-          <li><NavLink to="/albums" onClick={handleOnClick} activeClassName="current">Albums</NavLink></li>
-          <li><NavLink to="/marketplace" onClick={handleOnClick} activeClassName="current">Songs</NavLink></li>
+          <li><NavLink to="/albums" onClick={handleOnClick} activeClassName="current">Full Albums</NavLink></li>
+          <li><NavLink to="/marketplace" onClick={handleOnClick} activeClassName="current">Single Songs</NavLink></li>
 
-          <li className="nav-header">Profile</li>
+          <li className="nav-header">Account</li>
           <li><NavLink to="/my-profile" onClick={handleOnClick} activeClassName="current">Profile</NavLink></li>
           <li><NavLink to="/wallet" onClick={handleOnClick} activeClassName="current">Wallet</NavLink></li>
-          <li><NavLink to="/" onClick={() => onLogout()}>Logout</NavLink></li>
+          <li><NavLink to="/" onClick={(e) => onLogout(e)}>Logout</NavLink></li>
           <li className="nav-header">Artist</li>
           {user && user.type === 'artist' &&
             <li><NavLink to="/artist-dashboard" onClick={handleOnClick}>Dashboard</NavLink></li>
@@ -152,6 +166,26 @@ function MainSideNav(props) {
         <Nominate
           showNominateModal={showNominateModal}
           setShowNominateModal={setShowNominateModal}
+        />
+      }
+      {
+        showLogoutModal &&
+        <GeneralModal
+          // topIcon={ConfettiImage}
+          headline="Are you sure you want to logout?"
+          buttons={[
+            {
+              type: 'solid go-home',
+              text: 'Yes',
+              onClick: () => handleCloseModal(true)
+            },
+            {
+              type: 'solid go-home',
+              text: 'Cancel',
+              onClick: () => handleCloseModal(false)
+            }
+          ]}
+          className="centered"
         />
       }
     </>

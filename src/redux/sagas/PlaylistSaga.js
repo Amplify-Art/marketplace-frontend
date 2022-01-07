@@ -1,7 +1,7 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 import { addPlaylist, deletePlaylist, getPlaylistById, getPlaylists, updatePlaylist } from '../../Api/Playlist';
 import * as types from '../../Constants/actions/Playlist';
-import { SET_NOTIFICATION } from '../../Constants/actions/Global';
+import { SET_NOTIFICATION, SET_OVERLAY_LOADER, UNSET_OVERLAY_LOADER } from '../../Constants/actions/Global';
 
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
@@ -10,7 +10,7 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_PLAYLIST_REQUEST, addPlaylistSaga, context);
   yield takeLatest(types.UPDATE_PLAYLIST_REQUEST, updatePlaylistSaga, context);
   yield takeLatest(types.DELETE_PLAYLIST_REQUEST, deletePlaylistSaga);
-  yield takeLatest(types.UPDATE_CURRENT_PLAYLIST_REQUEST, updateCurrentPlaylistSaga);
+  // yield takeLatest(types.UPDATE_CURRENT_PLAYLIST_REQUEST, updateCurrentPlaylistSaga);
 }
 
 export function* fetchPlaylistsSaga({ payload }) {
@@ -39,7 +39,6 @@ export function* addPlaylistSaga({ history }, { payload }) {
   try {
     const res = yield call(addPlaylist, payload);
     yield all([
-      put({ type: types.ADD_PLAYLIST_SUCCESS, res }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -47,6 +46,7 @@ export function* addPlaylistSaga({ history }, { payload }) {
           message: res.success ? 'Playlist added' : res.message || 'Playlist not added',
         },
       }),
+      put({ type: types.ADD_PLAYLIST_SUCCESS, res }),
     ]);
     // if (res && res.success && res.data && res.data.id && history) {
     //   history.push('/playlists');
@@ -97,9 +97,14 @@ export function* updatePlaylistSaga({ history }, { payload }) {
 
 export function* deletePlaylistSaga({ payload }) {
   try {
+    yield all([
+      put({ type: SET_OVERLAY_LOADER }),
+    ]);
     const res = yield call(deletePlaylist, payload);
     yield all([
       put({ type: types.DELETE_PLAYLIST_SUCCESS, payload }),
+      put({ type: types.HIDE_PLAYLIST_DELETE_MODAL }),
+      put({ type: types.HIDE_PLAYLIST_MODAL }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -108,8 +113,12 @@ export function* deletePlaylistSaga({ payload }) {
         },
       }),
     ]);
+    yield all([
+      put({ type: UNSET_OVERLAY_LOADER }),
+    ]);
   } catch (error) {
     yield all([
+      put({ type: UNSET_OVERLAY_LOADER }),
       put({ type: types.DELETE_PLAYLIST_FAILED, error }),
       put({
         type: SET_NOTIFICATION,

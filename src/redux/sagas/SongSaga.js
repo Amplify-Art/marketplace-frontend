@@ -150,8 +150,11 @@ export function* sellSongSaga({ history }, { payload }) {
       put({ type: UNSET_OVERLAY_LOADER }),
     ]);
     if (res.success) {
-      yield all([put({ type: types.HIDE_SELL_MODAL })])
-      window.location.reload()
+      yield all([
+        put({ type: types.HIDE_SELL_MODAL }),
+        put({ type: types.SELL_SONG_CONFIRMATION})
+      ])
+      // window.location.reload()
     }
   } catch (error) {
     console.log(error)

@@ -5,7 +5,7 @@ import { API_ENDPOINT_URL } from '../Constants/default.js';
 export const getSignedKey = (payload = {}) => {
   const url = makeUrl(`${API_ENDPOINT_URL}/moonpay/sign`, { ...(payload.params || {}) });
 
-  return axios.get(url, {
+  return axios.post(url, payload, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
     },

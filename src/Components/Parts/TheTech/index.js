@@ -13,9 +13,9 @@ function TheTech() {
             <h3>Distributed ownership.</h3>
           </div>
 
-          <div className="right">
+          {/* <div className="right">
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis nulla quidem optio vero ducimus impedit illo, aliquam consectetur, necessitatibus blanditiis aliquid laborum labore rerum aut libero dolorum eos debitis quisquam.</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

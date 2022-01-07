@@ -30,16 +30,16 @@ function Home() {
     <>      
       <Banner homeContent={homeContent} />
       <Partners partners={homeContent && homeContent.Partners} />
-      <LatestReleases />
-      <WeAreFor />
-      <WhatPeopleAreSaying />
-      <HowItWorks />
-      <SupportArtists />
-      <TheTech />
-      <TheTeam />
-      <ArtistRegistry />
-      <HowItWorks hideTitle={true} />
-      <ThankYou content={homeContent && homeContent.thank_you_text} />
+      {/* <LatestReleases /> */}
+      {/* <WeAreFor /> */}
+      {/* <WhatPeopleAreSaying /> */}
+      {/* <HowItWorks /> */}
+      {/* <SupportArtists /> */}
+      {/* <TheTech /> */}
+      {/* <TheTeam /> */}
+      {/* <ArtistRegistry /> */}
+      {/* <HowItWorks hideTitle={true} /> */}
+      {/* <ThankYou content={homeContent && homeContent.thank_you_text} /> */}
     </>
   );
 }
