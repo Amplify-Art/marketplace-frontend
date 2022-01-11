@@ -159,17 +159,7 @@ function UserDashboard(props) {
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
-        {renderHeader("Recently Released", false)}
-        <div className="container">
-          <div className="album-grid">
-            {props?.albums &&
-              props.albums?.length > 0 &&
-              props.albums.map((album, index) => (
-                <SingleAlbum key={index} albumInfo={album} onBuy={onBuy} />
-              ))}
-          </div>
-        </div>
-        Î{renderHeader("Followed Artists", false)}
+        {renderHeader("Followed Artists", false)}
         <div className="album-block">
           {props.myFollowings.map((following, index) => (
             <UserAvatar
@@ -182,6 +172,16 @@ function UserDashboard(props) {
               name={following.artist.name}
             />
           ))}
+        </div>
+        {renderHeader("Recently Released", false)}
+        <div className="container">
+          <div className="album-grid">
+            {props?.albums &&
+              props.albums?.length > 0 &&
+              props.albums.map((album, index) => (
+                <SingleAlbum key={index} albumInfo={album} onBuy={onBuy} />
+              ))}
+          </div>
         </div>
       </div>
     </div>
