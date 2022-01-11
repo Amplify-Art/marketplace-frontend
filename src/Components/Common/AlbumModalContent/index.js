@@ -6,7 +6,7 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png'
 import CdImage from '../../../assets/images/cd-img.svg'
 import './AlbumModalContent.scss'
 import { usePalette } from 'react-palette';
-import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction'
+import { updateCurrentPlaylistAction, showDeletePlaylistAction } from '../../../redux/actions/PlaylistAction'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -17,7 +17,7 @@ import _ from 'lodash';
 import SongModalContent from '../SongModalcontent';
 
 
-function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
+function AlbumModalContent({ albumInfo, isPlayList, isMerged, isOpen, updateCurrentPlaylist, onBuy, setViewDetails, viewDetails, onSingleSongClick, token, ...props }) {
   const [songModal, setSongModal] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
@@ -113,7 +113,12 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
   }
   const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
-  const zeroPad = (num, places) => String(num).padStart(places, '0')
+  const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+  const handleDelete = () => {
+    props.setDeletingId(albumInfo.id)
+    props.showDeletePlaylist()
+  }
 
   return (
     <>
@@ -124,6 +129,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               {albumInfo && albumInfo.cover_cid ? (
                 <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`} alt='' />
               ) : <img src={albumInfo.coverArt} alt='' />}
+              <i class="far fa-trash-alt"></i>
             </div> : null}
             <div className="album-right" style={isPlayList ? { paddingLeft: '0px' } : {}}>
               <div className="title">{albumInfo && albumInfo.title}</div>
@@ -133,16 +139,34 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
                   <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
                 </> : null
               }
+              {
+                isMerged && <>
+                  <div className="" >Mints Owned : {albumInfo.mints_owned.map(m => `#${m}`).join(', ')}</div>
+                </>
+              }
             </div>
+            {isPlayList &&
+              <div className="trash" onClick={handleDelete} >
+                <i class="far fa-trash-alt"></i>
+              </div>
+            }
           </div>
           <div className="album-bottom" id="modalScrolling">
+            <div className="playlist-header"
+              style={{
+                width: url.pathname !== '/my-profile' ? '100%' : '55%'
+              }}>
+              <span>SONG TITLE</span>
+              <span>LENGTH</span>
+            </div>
             {albumInfo && albumInfo.songs && albumInfo.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
               <AlbumSingleSong song={song} index={index} key={`${index}singlesong`} audio={audio} currentIndex={currentIndex} playing={playing} isOpen={isOpen} toggle={(data) => toggle(data)} onSingleSongClick={onSingleSongClick} token={token} />
             ))}
           </div>
-          {isPlayList ? <div className="btn-wrabtn-wrapp input-holder active-playlist">
+          {isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <div className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? 'btn-margin' : ''}`}>
             <input type="submit" value="Play This Playlist" className="active-playlist-btn" onClick={addToPlaylist} />
-          </div> : null}
+          </div>
+          }
           {songModal && <div className="modal-album"><GeneralModal isCloseButton="true" bodyChildren={<SongModalContent albumInfo={albumInfo} />} closeModal={handleCloseModal} /></div>}
         </div>
           : <div className="left-wrapper">
@@ -167,7 +191,11 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
           </div> :
             <div className='bg-album-img' />
         }
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') &&
+          <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+        }
+        {!isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>}
+
       </div>
       <div className="mobileAlbumContent">
         <div className="cdCoverMobile">
@@ -179,7 +207,13 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
             </div>
           </div>
         </div>
-        {!isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') ? <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button> : null}
+        {
+          !isPlayList && albumInfo.available_qty && albumInfo.user_id !== user.id && onBuy && (url && url.pathname !== '/my-profile') &&
+          <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn1">Buy This - ${(albumInfo.price / 100).toFixed(2)}</button>
+        }
+        {
+          !isPlayList && !props.currentPlaylists.map(i => i.id).includes(albumInfo.id) && <button onClick={() => onBuy(albumInfo)} type="button" className="buy-button btn2" onClick={addToPlaylist}> Add to Player Queue</button>
+        }
         {
           !viewDetails
             ? (
@@ -222,6 +256,7 @@ function AlbumModalContent({ albumInfo, isPlayList, isOpen, updateCurrentPlaylis
               </div>
             )
         }
+
       </div>
     </>
   )
@@ -235,6 +270,8 @@ export default connect(state => {
 }, dispatch => {
   return {
     updateCurrentPlaylist: (data) => dispatch(updateCurrentPlaylistAction(data)),
-    togglePlayer: () => dispatch(togglePlayerAction())
+    togglePlayer: () => dispatch(togglePlayerAction()),
+    showDeletePlaylist: () => dispatch(showDeletePlaylistAction())
+
   }
 })(withRouter(AlbumModalContent))

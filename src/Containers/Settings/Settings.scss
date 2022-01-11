@@ -1,7 +1,13 @@
-@import "../../../assets/SCSS/Vars.scss";
+@import "../../assets/SCSS/Vars.scss";
 
-#profile-header {
+#settings {
   // height: 344px;
+  .header-title {
+    color: white;
+    font-family: $space;
+    opacity: 0.6;
+    font-weight: 300;
+  }
   .container {
     margin-top: -45px;
     position: relative;
@@ -11,13 +17,11 @@
     }
   }
   .profile-cover {
-    margin-left: -220px;
-    margin-right: -60px;
     height: 344px;
     @media screen and (max-width: 600px) {
       height: 220px;
     }
-    max-width: unset;
+    max-width: 50vw;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,9 +32,9 @@
       @media screen and (max-width: 600px) {
         height: 220px;
       }
-      width: 700px;
-      background: rgb(15, 22, 29);
-      background: linear-gradient(90deg, rgba(15, 22, 29, 1) 19%, rgba(15, 22, 29, 0) 100%);
+      width: 400px;
+      // background: rgb(15, 22, 29);
+      // background: linear-gradient(90deg, rgba(15, 22, 29, 1) 19%, rgba(15, 22, 29, 0) 100%);
       position: absolute;
       top: 0px;
       left: 0px;
@@ -43,13 +47,26 @@
     }
   }
   .profile-head-details {
-    margin-top: -90px;
+    margin: 0;
+    .profile-buttons {
+      display: flex;
+      flex-direction: column;
+      margin-left: 30px;
+      button {
+        padding: 15px 25px 15px 25px;
+        margin: 10px;
+        border-radius: 20px;
+        font-size: 16px;
+        border: none;
+        font-weight: 600;
+      }
+    }
     @media screen and (max-width: 600px) {
       margin-top: -80px;
     }
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     .profile-wrap {
       display: flex;
       // position: absolute;
@@ -80,12 +97,6 @@
       font-size: 32px;
       line-height: 41px;
       color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .no_of_songs {
-        font-size: 20px;
-      }
       @media screen and (max-width: 600px) {
         display: none;
       }
@@ -152,22 +163,32 @@
 
   .details {
     &.mobile {
-      display: flex;
+      display: none;
     }
     @media screen and (max-width: 600px) {
       &.mobile {
         margin-left: 20px;
-        display: flex;
+        display: initial;
         font-family: $space;
         font-style: normal;
         font-weight: normal;
         font-size: 30px;
         line-height: 41px;
-        flex-direction: column;
         color: #ffffff;
-        .no_of_songs {
-          font-size: 18px;
-        }
+      }
+    }
+  }
+  .profile-banner {
+    margin-top: 40px;
+    .banner-buttons {
+      margin-top: 20px;
+      button {
+        padding: 15px 25px 15px 25px;
+        margin: 10px;
+        border-radius: 20px;
+        font-size: 16px;
+        border: none;
+        font-weight: 600;
       }
     }
   }

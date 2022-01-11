@@ -1,7 +1,7 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 import { addPlaylist, deletePlaylist, getPlaylistById, getPlaylists, updatePlaylist } from '../../Api/Playlist';
 import * as types from '../../Constants/actions/Playlist';
-import { SET_NOTIFICATION } from '../../Constants/actions/Global';
+import { SET_NOTIFICATION, SET_OVERLAY_LOADER, UNSET_OVERLAY_LOADER } from '../../Constants/actions/Global';
 
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
@@ -97,9 +97,14 @@ export function* updatePlaylistSaga({ history }, { payload }) {
 
 export function* deletePlaylistSaga({ payload }) {
   try {
+    yield all([
+      put({ type: SET_OVERLAY_LOADER }),
+    ]);
     const res = yield call(deletePlaylist, payload);
     yield all([
       put({ type: types.DELETE_PLAYLIST_SUCCESS, payload }),
+      put({ type: types.HIDE_PLAYLIST_DELETE_MODAL }),
+      put({ type: types.HIDE_PLAYLIST_MODAL }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -108,8 +113,12 @@ export function* deletePlaylistSaga({ payload }) {
         },
       }),
     ]);
+    yield all([
+      put({ type: UNSET_OVERLAY_LOADER }),
+    ]);
   } catch (error) {
     yield all([
+      put({ type: UNSET_OVERLAY_LOADER }),
       put({ type: types.DELETE_PLAYLIST_FAILED, error }),
       put({
         type: SET_NOTIFICATION,

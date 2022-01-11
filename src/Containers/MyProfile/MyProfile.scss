@@ -1,69 +1,156 @@
 @import "../../assets/SCSS/Vars.scss";
 #profile {
-	padding-top: 29px;
+  padding-top: 29px;
 
-	.recently-purchased {
-		// padding-right: 20px;
-		padding-top: 50px;
-		@media screen and (max-width: 600px) {
-			padding-top: 7px;
-			padding-left: 20px;
-			padding-right: 20px;
-		}
-		.top {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			margin-bottom: 30px;
-			h2 {
-				font-size: 20px;
-				color: #fff;
-				@media screen and (max-width: 600px) {
-					font-weight: 300;
-				}
-			}
+  .recently-purchased {
+    // padding-right: 20px;
+    padding-top: 50px;
+    @media screen and (max-width: 600px) {
+      padding-top: 7px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      h2 {
+        font-size: 20px;
+        color: #fff;
+        @media screen and (max-width: 600px) {
+          font-weight: 300;
+        }
+      }
 
-			.btn {
-				width: 145px;
-			}
-		}
-	}
-	.popup-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		.popUp {
-			background: #ffffff;
-			border: 1px solid #ffffff;
-			box-sizing: border-box;
-			border-radius: 10px;
-			padding: 12px 14px;
-			position: absolute;
-			top: -74px;
-			width: 130px;
-			font-size: 14px;
-			.popup-div {
-				display: flex;
-				text-decoration: none;
-				color: #000000;
-				font-family: $lato;
-				margin-top: 5px;
-				span {
-					margin-left: 5px;
-				}
-				.popup-img {
-					margin: 0px;
-					width: 32px;
-				}
-			}
-		}
-	}
+      .btn {
+        width: 145px;
+      }
+    }
+  }
+  .popup-container {
+    .edit-profile {
+      margin-left: 20px;
+    }
+    display: flex;
+    align-items: center;
+    .popUp {
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      box-sizing: border-box;
+      border-radius: 10px;
+      padding: 12px 14px;
+      position: absolute;
+      top: -74px;
+      width: 130px;
+      font-size: 14px;
+      .popup-div {
+        display: flex;
+        text-decoration: none;
+        color: #000000;
+        font-family: $lato;
+        margin-top: 5px;
+        span {
+          margin-left: 5px;
+        }
+        .popup-img {
+          margin: 0px;
+          width: 32px;
+        }
+      }
+    }
+  }
 }
 
 #profile-header .btn-wrap .set_name {
-	margin-right: 0px;
+  margin-right: 0px;
 }
 
 .copy-input-hidden {
-	width: 0px;
+  width: 0px;
+}
+
+.album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  .header-title {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 26px;
+    color: #ffffff;
+  }
+  .btn-wrap {
+    border: 1.5px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 100px;
+    padding: 10px 40px;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+
+    &:first-child {
+      margin-right: 27px;
+      @media screen and (max-width: 600px) {
+        margin-right: 15px;
+      }
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 600px) {
+      padding: 10px;
+    }
+  }
+}
+.album-block {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 35px;
+  row-gap: 53px;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .single-album {
+    font-family: "Space Grotesk", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: #ffffff;
+    .cd-case {
+      width: 100%;
+      // height: auto;
+    }
+    .album-title {
+      font-size: 18px;
+      line-height: 23px;
+      font-weight: normal;
+    }
+    .artist-name {
+      font-size: 14px;
+      line-height: 18px;
+      opacity: 0.8;
+      margin-bottom: 5px;
+      font-weight: normal;
+    }
+    .album-own {
+      font-size: 14px;
+      margin-top: 2px;
+      font-weight: normal;
+      color: white !important;
+    }
+  }
+  .profile-album-wrap {
+    display: flex;
+  }
+}
+
+.no-records {
+  h5 {
+    color: #fff;
+    font-size: 30px;
+    margin-top: 0px;
+  }
 }

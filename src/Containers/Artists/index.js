@@ -21,7 +21,7 @@ function Artists(props) {
         <h2 className="page-title">Artists</h2>
           <div className="artists-holder">
             {artists && artists.length && artists.map((artist, index) => (
-              <UserAvatar avatarImg={artist.avatar} key={index} name={artist.name} onClick={() => props.history.push(`/artist/${artist.id}`)} />
+              <UserAvatar avatarImg={artist.avatar} key={index} name={artist.name} onClick={() => props.history.push(`/artist/${artist.near_account_id}`)} />
             ))}
           </div>
       </div>

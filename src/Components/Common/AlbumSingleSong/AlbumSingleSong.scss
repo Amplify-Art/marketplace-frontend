@@ -10,13 +10,20 @@
   }
   .fn-white {
     color: black;
+    min-width: 60px;
   }
   .pr-10 {
     padding-right: 10px;
   }
 }
+.sell {
+  margin-left: 110px;
+  padding: 5px;
+  width: 100px;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
 .duration {
-  width: 100%;
+  width: 55%;
   text-align: right !important;
   font-size: 14px;
 }

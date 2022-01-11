@@ -1,5 +1,5 @@
-import { filter } from 'lodash';
-import * as types from '../../Constants/actions/User';
+import { filter } from "lodash";
+import * as types from "../../Constants/actions/User";
 
 /* eslint-disable no-case-declarations */
 
@@ -8,9 +8,11 @@ const initialState = {
   users: [],
   total: 0,
   loading: false,
-  error: '',
+  error: "",
+  near_user: {},
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.FETCH_USERS_SUCCESS:
@@ -18,7 +20,7 @@ export default function (state = initialState, action) {
         return {
           ...state,
           users: [],
-          error: '',
+          error: "",
           loading: false,
         };
       }
@@ -59,7 +61,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: [],
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.FETCH_USER_SUCCESS:
@@ -67,7 +69,7 @@ export default function (state = initialState, action) {
         return {
           ...state,
           user: {},
-          error: '',
+          error: "",
           loading: false,
         };
       }
@@ -81,7 +83,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: {},
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.ADD_USER_SUCCESS:
@@ -94,13 +96,13 @@ export default function (state = initialState, action) {
     case types.ADD_USER_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.UPDATE_USER_SUCCESS:
-      let users = filter(state.users, item => item.id !== action.res.data.id);
+      let users = filter(state.users, (item) => item.id !== action.res.data.id);
       if (action.res.data.token) {
-        localStorage.setItem('amplify_app_token', action.res.data.token)
+        localStorage.setItem("amplify_app_token", action.res.data.token);
       }
       return {
         ...state,
@@ -112,11 +114,11 @@ export default function (state = initialState, action) {
     case types.UPDATE_USER_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.DELETE_USER_SUCCESS:
-      users = filter(state.users, item => item.id !== action.payload.id);
+      users = filter(state.users, (item) => item.id !== action.payload.id);
 
       return {
         ...state,
@@ -127,8 +129,25 @@ export default function (state = initialState, action) {
     case types.DELETE_USER_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
+      };
+    case types.FETCH_USER_BY_NEAR_ID_SUCCESS:
+      return {
+        ...state,
+        near_user: action.res.data,
+        loading: false,
+      };
+    case types.FETCH_USER_BY_NEAR_ID_FAILED:
+      return {
+        ...state,
+        near_user: {},
+        loading: false,
+      };
+    case types.FETCH_USER_BY_NEAR_ID_REQUEST:
+      return {
+        ...state,
+        loading: true,
       };
     case types.SET_NEAR_BALANCE:
       return {

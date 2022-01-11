@@ -11,7 +11,7 @@ import PageNotFound from '../PageNotFound'
 import './ArtistProfile.scss';
 import ShareIcon from '../../assets/images/share-icon.svg';
 import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
-
+import { getUsers } from '../../Api/User';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
 
 function ArtistProfile(props) {
@@ -23,13 +23,23 @@ function ArtistProfile(props) {
   const [artistFound, setArtistFound] = useState(false)
 
   useEffect(() => {
-    console.log(props.match)
-    const userId = parseInt(props.match.params.slug);
-    console.log(userId)
-    if (userId) {
-      setID(userId)
-    }
+    findUser();
   }, [])
+
+  const findUser = async () => {
+    const nearId = props.match.params.slug;
+    const res = await getUsers({
+      params: {
+        'filter[near_account_id]': nearId
+      }
+    })
+    if (res.data.success && res.data.results.length) {
+      let { id, near_account_id } = res.data.results[0];
+      console.log(id)
+      setID(id);
+    }
+  }
+
   const generateAlbumItem = (album, index) => {
     return (
       <SingleAlbum key={index} albumInfo={album} />
@@ -52,25 +62,27 @@ function ArtistProfile(props) {
   }
 
   useEffect(() => {
-    const payload = {
-      id: props.match.params.slug,
-      params: {
-        type: 'artist'
-      }
-    };
+    if (userID) {
+      const payload = {
+        id: userID,
+        params: {
+          type: 'artist'
+        }
+      };
 
-    props.fetchArtist(payload);
-    props.fetchAlbums({
-      user_id: props.match.params.slug,
-      params: {
-        'filter[user_id]': parseInt(props.match.params.slug),
-        related: 'user,songs'
-      }
-    });
-  }, []);
+      props.fetchArtist(payload);
+      props.fetchAlbums({
+        user_id: userID,
+        params: {
+          'filter[user_id]': userID,
+          related: 'user,songs'
+        }
+      });
+    }
+  }, [userID]);
 
   useEffect(() => {
-    const filterAlbums = props.albums.filter(album => album.user_id == props.match.params.slug)
+    const filterAlbums = props.albums.filter(album => album.user_id == userID)
     setAlbums(filterAlbums)
   }, [props.albums]);
 

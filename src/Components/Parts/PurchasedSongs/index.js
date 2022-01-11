@@ -39,9 +39,10 @@ function PurchasedSongs(props) {
       {!sellingCopy &&
         <div className="purchase">
           {loading && <Skeleton width={250} height={214} className="case-box" />}
-            {renderPlayList()}
+          {renderPlayList()}
         </div>
       }
+
       {
         sellingCopy &&
         <>
