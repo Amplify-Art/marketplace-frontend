@@ -119,7 +119,12 @@ function ProfileHeader({
               <span>{ArtistData.name}</span>
               <span className="no_of_songs">
                 {nearUser && nearUser.owned_songs} Song
-                {nearUser && nearUser.owned_songs.length === 1 ? "" : "s"} Owned
+                {nearUser &&
+                nearUser.owned_songs &&
+                nearUser.owned_songs.length === 1
+                  ? ""
+                  : "s"}{" "}
+                Owned
               </span>
             </div>
           </div>
@@ -130,7 +135,10 @@ function ProfileHeader({
         <span>{ArtistData.name}</span>
         <span className="no_of_songs">
           {nearUser && nearUser.owned_songs} Song
-          {nearUser && nearUser.owned_songs.length === 1 ? "" : "s"} Owned
+          {nearUser && nearUser.owned_songs && nearUser.owned_songs.length === 1
+            ? ""
+            : "s"}{" "}
+          Owned
         </span>
       </div>
 
