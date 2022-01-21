@@ -19,6 +19,7 @@ import SearchResultCard from "../../Parts/SearchResultCard";
 import SearchIcon from "../../../assets/images/search-icon.svg";
 import SideSocialNav from "../SideSocialNav";
 import GeneralModal from "../GeneralModal/index.js";
+import { getNearKeys } from "../../../Constants/near";
 
 function MainSideNav(props) {
   const [showNominateModal, setShowNominateModal] = useState(false);
@@ -101,12 +102,17 @@ function MainSideNav(props) {
     }
   }, [debouncedSearchTerm]);
 
-  const handleCloseModal = (bool) => {
+  const handleCloseModal = async (bool) => {
     if (bool) {
-      localStorage.removeItem("amplify_app_token");
+      let nearKeys = await getNearKeys();
+      for (const key in nearKeys) {
+        localStorage.removeItem(nearKeys[key]);
+      }
       sessionStorage.removeItem("activePlaylist");
+      localStorage.removeItem("amplify_app_token");
       props.clearCurrentPlayList();
       props.history.push("/");
+      window.location.reload();
     }
     setShowLogoutModal(false);
     // setSongModal(false);
