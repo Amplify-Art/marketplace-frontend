@@ -149,7 +149,7 @@ function Header(props) {
       wallet.requestSignIn(
         process.env.REACT_APP_CONTEXT === "production"
           ? "amplifyapp.near"
-          : "amplifybeta.testnet", // at this time, , we dont have account, passing test
+          : "pay.amplifybeta.testnet", // at this time, , we dont have account, passing test
         "Example App", // optional
         `${window.location.origin}/near/success`, // optional
         `${window.location.origin}/near/failure` // optional
@@ -449,7 +449,7 @@ function Header(props) {
         </div>
       )}
 
-      {showWalletSidebar && (
+      {false && (
         <>
           <div className="wallet-info">
             <h4>Your Wallet:</h4>
