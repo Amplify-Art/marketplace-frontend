@@ -116,10 +116,6 @@ const SingleAlbumModal = ({ isOpen = false, albumData}) => {
             <div className="details-content">
               <p className="sub-content" style={{ marginTop: '8px' }}>{albumData.description}</p>
             </div>
-            <div className="memory-card">
-              <div className="mint-text">Mint</div>
-              <div className="mint-number">{zeroPad(albumData.copy_number || (albumData.available_qty === 0 ? albumData.available_qty : (albumData.qty - albumData.available_qty) + 1), 3)}</div>
-            </div>
           </div>
         }
         <div className='bg-album-img' />

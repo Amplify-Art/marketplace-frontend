@@ -286,18 +286,6 @@ function AlbumModalContent({
                 {albumInfo.description}
               </p>
             </div>
-            <div className="memory-card">
-              <div className="mint-text">Mint</div>
-              <div className="mint-number">
-                {zeroPad(
-                  albumInfo.copy_number ||
-                    (albumInfo.available_qty === 0
-                      ? albumInfo.available_qty
-                      : albumInfo.qty - albumInfo.available_qty + 1),
-                  3
-                )}
-              </div>
-            </div>
           </div>
         )}
         {isPlayList ? (
@@ -434,18 +422,6 @@ function AlbumModalContent({
             </div>
             <div className="albumDetailContent">
               <p className="subContent">{albumInfo.description}</p>
-            </div>
-            <div className="albumMemoryCard">
-              <div className="mintText">Mint</div>
-              <div className="mintNumber">
-                {zeroPad(
-                  albumInfo.copy_number ||
-                    (albumInfo.available_qty === 0
-                      ? albumInfo.available_qty
-                      : albumInfo.qty - albumInfo.available_qty + 1),
-                  3
-                )}
-              </div>
             </div>
           </div>
         )}
