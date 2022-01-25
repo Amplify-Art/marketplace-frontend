@@ -96,7 +96,7 @@ function App(props) {
       const decodedToken = jwt_decode(token);
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
-      setUserName(decodedToken.username);
+      setUserName(decodedToken.near_account_id);
       if (!decodedToken.near_connected) {
         toggleWalletSidebar(true);
       }

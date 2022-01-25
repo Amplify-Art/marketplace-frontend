@@ -37,7 +37,7 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props}) => {
 
   const onSelect = user => {
     setSelected(user)
-    setNominateName(user.username)
+    setNominateName(user.near_account_id)
   };
 
   const onSubmit = (e) => {
