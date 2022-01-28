@@ -207,7 +207,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
               name="address"
               className="send-modal-vew2-input"
               onChange={onUserSearch}
-              value={selectedUser ? `@ ${selectedUser.username}` : search}
+              value={selectedUser ? `@ ${selectedUser.near_account_id}` : search}
               placeholder={selectedAddress === 'userName' ? '@ Username' : 'Enter Recipient Address'}
               onClick={() => setShowDropdown(!showDropDown)}
             />
@@ -219,7 +219,7 @@ const SendModal = ({ onClose, user, near, fetchUsers, users, sendNear, displayLo
                     {
                       users
                         .map(u =>
-                          <div className="send-modal-result-card" onClick={() => onSelectUser(u)}>@{u.username}</div>
+                          <div className="send-modal-result-card" onClick={() => onSelectUser(u)}>@{u.near_account_id}</div>
                         )
                     }
                   </div>

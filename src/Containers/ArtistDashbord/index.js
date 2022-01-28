@@ -95,12 +95,12 @@ function ArtistDashboard(props) {
     if (token) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
-      setUserName(decodedToken.username);
+      setUserName(decodedToken.near_account_id);
       console.log(decodedToken, 'decodedToken')
       setArtistData({
         cover: decodedToken.banner,
         avatar: decodedToken.avatar,
-        name: decodedToken.username
+        name: decodedToken.near_account_id
       })
     }
     props.fetchNominations({

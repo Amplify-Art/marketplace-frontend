@@ -45,11 +45,11 @@ function TransactionModal({ transaction, onClose }) {
 
       <div className="transaction-modal-address-wrapper">
         <div className="transaction-modal-from">From</div>
-        <div className="transaction-modal-heading">@ {transaction.transferBy.username}</div>
+        <div className="transaction-modal-heading">@ {transaction.transferBy.near_account_id}</div>
       </div>
       <div className="transaction-modal-address-wrapper">
         <div className="transaction-modal-from">To</div>
-        <div className="transaction-modal-heading">@ {transaction.transferTo && transaction.transferTo.username}</div>
+        <div className="transaction-modal-heading">@ {transaction.transferTo && transaction.transferTo.near_account_id}</div>
       </div>
     </div>
   )

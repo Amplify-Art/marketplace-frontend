@@ -1,20 +1,21 @@
 import { fork } from "redux-saga/effects";
-import watchAlbumSaga from './AlbumSaga';
-import watchNFTSaga from './NFTSaga';
-import watchPlaylistSaga from './PlaylistSaga';
-import watchSongSaga from './SongSaga';
-import watchShowcaseSaga from './ShowcaseSaga';
-import watchArtistSaga from './ArtistSaga';
-import watchUserSaga from './UserSaga';
-import watchNominationSaga from './NominationSaga';
-import watchTokenTransferSaga from './TokenTransferSaga';
-import watchSearchSaga from './SearchResSaga';
-import watchFollowerSaga from './FollowerSaga';
-import watchMarketplaceSongSaga from './MarketplaceSongSaga';
-import watchNominationVoteSaga from './NominationVoteSaga';
-import watchTransactionSaga from './TransactionSaga';
-import watchNearSaga from './NearSaga';
-import watchGlobalSaga from './GlobalSaga';
+import watchAlbumSaga from "./AlbumSaga";
+import watchNFTSaga from "./NFTSaga";
+import watchPlaylistSaga from "./PlaylistSaga";
+import watchSongSaga from "./SongSaga";
+import watchShowcaseSaga from "./ShowcaseSaga";
+import watchArtistSaga from "./ArtistSaga";
+import watchUserSaga from "./UserSaga";
+import watchNominationSaga from "./NominationSaga";
+import watchTokenTransferSaga from "./TokenTransferSaga";
+import watchSearchSaga from "./SearchResSaga";
+import watchFollowerSaga from "./FollowerSaga";
+import watchMarketplaceSongSaga from "./MarketplaceSongSaga";
+import watchNominationVoteSaga from "./NominationVoteSaga";
+import watchTransactionSaga from "./TransactionSaga";
+import watchNearSaga from "./NearSaga";
+import watchGlobalSaga from "./GlobalSaga";
+import watchSupporterPayoutLog from "./SupporterPayoutLog";
 
 export default function* startForman(context = {}) {
   yield fork(watchAlbumSaga, context);
@@ -33,4 +34,5 @@ export default function* startForman(context = {}) {
   yield fork(watchTransactionSaga, context);
   yield fork(watchNearSaga, context);
   yield fork(watchGlobalSaga, context);
+  yield fork(watchSupporterPayoutLog, context);
 }
