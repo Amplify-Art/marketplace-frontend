@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import { withRouter } from 'react-router-dom';
-import NearLogo from '../../assets/images/SVG/near_icon.svg'
+import NearLogo from '../../assets/images/near_icon.svg'
 import './login.scss';
 
 const Login = ({ history, onConnect }) => {
