@@ -36,6 +36,7 @@ import q from "querystring";
 import { store } from "react-notifications-component";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
+import { API_ENDPOINT_URL } from "../../../Constants/default";
 
 const {
   keyStores,
@@ -44,6 +45,7 @@ const {
   utils: {
     format: { parseNearAmount },
   },
+  KeyPair,
 } = nearAPI;
 
 function Header(props) {
@@ -100,6 +102,7 @@ function Header(props) {
     searchResult,
   } = props;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     let net =
       process.env.REACT_APP_CONTEXT === "production" ? "mainnet" : "testnet";
@@ -110,9 +113,10 @@ function Header(props) {
       walletUrl: `https://wallet.${net}.near.org`,
       helperUrl: `https://helper.${net}.near.org`,
       explorerUrl: `https://explorer.${net}.near.org`,
+      appKeyPrefix: "amplify_art",
     };
     const near = await nearAPI.connect(config);
-    const wallet = new WalletConnection(near);
+    const wallet = new WalletConnection(near, "amplify_art");
     console.log(wallet);
     setWalletState(wallet);
     props.setWallet(wallet);
@@ -120,6 +124,7 @@ function Header(props) {
       setWalletState(null);
     };
   }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     let token = localStorage.getItem("amplify_app_token");
     if (
@@ -144,7 +149,7 @@ function Header(props) {
       wallet.requestSignIn(
         process.env.REACT_APP_CONTEXT === "production"
           ? "amplifyapp.near"
-          : "amplifybeta.testnet", // at this time, , we dont have account, passing test
+          : "pay.amplifybeta.testnet", // at this time, , we dont have account, passing test
         "Example App", // optional
         `${window.location.origin}/near/success`, // optional
         `${window.location.origin}/near/failure` // optional
@@ -165,7 +170,6 @@ function Header(props) {
     try {
       const near = await nearAPI.connect(config);
       const account = await near.account(user.near_account_id);
-
       let balances = await account.getAccountBalance();
       setBalance(balances);
       props.setNearBalance(balances.available);
@@ -211,8 +215,11 @@ function Header(props) {
   };
 
   useEffect(() => {
+    console.log("isWalletSigned", isWalletSigned);
     if (isWalletSigned) {
       getAccountDetails();
+    } else {
+      console.log("NOT Signed", isWalletSigned);
     }
   }, [isWalletSigned]);
 
@@ -426,7 +433,7 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Login />
+            <Login onConnect={onConnect} />
           )}
         </div>
       </header>
@@ -442,7 +449,7 @@ function Header(props) {
         </div>
       )}
 
-      {showWalletSidebar && (
+      {false && (
         <>
           <div className="wallet-info">
             <h4>Your Wallet:</h4>

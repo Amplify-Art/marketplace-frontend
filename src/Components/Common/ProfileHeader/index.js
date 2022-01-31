@@ -117,10 +117,17 @@ function ProfileHeader({
 
             <div className="details">
               <span>{ArtistData.name}</span>
-              <span className="no_of_songs">
-                {nearUser && nearUser.owned_songs} Song
-                {nearUser && nearUser.owned_songs.length === 1 ? "" : "s"} Owned
-              </span>
+              {!isPublicProfile && (
+                <span className="no_of_songs">
+                  {nearUser && nearUser.owned_songs} Song
+                  {nearUser &&
+                  nearUser.owned_songs &&
+                  nearUser.owned_songs.length === 1
+                    ? ""
+                    : "s"}{" "}
+                  Owned
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -128,10 +135,17 @@ function ProfileHeader({
       </div>
       <div className="details mobile">
         <span>{ArtistData.name}</span>
-        <span className="no_of_songs">
-          {nearUser && nearUser.owned_songs} Song
-          {nearUser && nearUser.owned_songs.length === 1 ? "" : "s"} Owned
-        </span>
+        {!isPublicProfile && (
+          <span className="no_of_songs">
+            {nearUser && nearUser.owned_songs} Song
+            {nearUser &&
+            nearUser.owned_songs &&
+            nearUser.owned_songs.length === 1
+              ? ""
+              : "s"}{" "}
+            Owned
+          </span>
+        )}
       </div>
 
       {showShowCaseModal && (
