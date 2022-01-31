@@ -24,10 +24,12 @@ const Success = ({ history }) => {
     );
   console.log(auth_key, account_id);
   useEffect(async () => {
+    let net =
+      process.env.REACT_APP_CONTEXT === "production" ? "mainnet" : "testnet";
     if (auth_key && account_id) {
       let pk =
         localStorage.getItem(
-          `near-api-js:keystore:${account_id}:testnet`
+          `near-api-js:keystore:${account_id}:${net}`
         );
       console.log(pk, 'PPPPPPPKKKKKK');
       generateToken();
@@ -49,8 +51,7 @@ const Success = ({ history }) => {
       };
       let parsed = q.parse(history.location.search);
       const near = await nearAPI.connect(config);
-      console.log(near.connection.signer.keyStore.localStorage[`near-api-js:keystore:${account_id}:testnet`], 'SIGNER')
-      let pk = near.connection.signer.keyStore.localStorage[`near-api-js:keystore:${account_id}:testnet`]
+      let pk = near.connection.signer.keyStore.localStorage[`near-api-js:keystore:${account_id}:${net}`]
       const keyPair = KeyPair.fromString(pk);
 
       const signedObj = keyPair.sign(Buffer.from(account_id));
