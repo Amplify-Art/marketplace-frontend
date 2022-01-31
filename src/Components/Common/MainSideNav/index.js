@@ -210,7 +210,7 @@ function MainSideNav(props) {
               Wallet
             </NavLink>
           </li>
-          {user.is_support_card_holder && (
+          {user && user.is_support_card_holder && (
             <li>
               <NavLink
                 to="/support-card"
