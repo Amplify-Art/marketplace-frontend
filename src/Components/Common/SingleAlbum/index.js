@@ -147,10 +147,10 @@ function SingleAlbum(props) {
 
       localStorage.setItem('album_bundle_info', JSON.stringify(album_bundle_info))
       await (props.wallet.account()).functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.aatest.testnet',
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || 'market.aa-1-test.testnet',
         'offer_album',
         {
-          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.aatest.testnet',
+          nft_contract_id: process.env.REACT_APP_NFT_CONTRACT || 'nft.aa-1-test.testnet',
           albumipfs_hash_copy: `${albumInfo.cover_cid}:${copy_no}`,
         },
         200000000000000,
