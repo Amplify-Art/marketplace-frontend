@@ -4,43 +4,43 @@
         width: 310px;
         height: 500px;
         overflow-y: scroll;
-      }
+    }
     .album-info {
         display: flex;
         align-items: center;
         @media screen and (max-width: 600px) {
-		display: block;
-		}
+            display: block;
+        }
         .sellSongImg {
             width: 120px;
-			height: 120px;
-			@media screen and (max-width: 600px) {
-				width: 165px;
-				height: 165px;
-			}
+            height: 120px;
+            @media screen and (max-width: 600px) {
+                width: 165px;
+                height: 165px;
+            }
         }
         .sellSongRight {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: "Space Grotesk", sans-serif;
             font-style: normal;
             font-weight: normal;
             padding-left: 20px;
-			@media screen and (max-width: 600px) {
-				padding-left: 0px;
-			}
+            @media screen and (max-width: 600px) {
+                padding-left: 0px;
+            }
             .title {
-				font-size: 20px;
-				line-height: 31px;
-				color: black !important;
-				margin-bottom: 4px;
-				margin-top: 8px;
-			}
-			.artist-title {
-				font-size: 16px;
-				line-height: 20px;
-				color: black !important;
-				opacity: 0.8;
-				margin-bottom: 12px;
-			}
+                font-size: 20px;
+                line-height: 31px;
+                color: black !important;
+                margin-bottom: 4px;
+                margin-top: 8px;
+            }
+            .artist-title {
+                font-size: 16px;
+                line-height: 20px;
+                color: black !important;
+                opacity: 0.8;
+                margin-bottom: 12px;
+            }
         }
     }
     .sellSongTittle {
@@ -53,20 +53,20 @@
         align-items: center;
         justify-content: space-between;
         @media screen and (max-width: 600px) {
-		display: block;
-		}
-    .currencyInput {
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 10px;
-        width: 254px;
-        border-color: #E3E3E3;
-        font-size: 16px;
-    }
-    .sellButton {
-        font-size: 16px;
-        padding: 10px 25px;
-    }
+            display: block;
+        }
+        .currencyInput {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            width: 254px;
+            border-color: #e3e3e3;
+            font-size: 16px;
+        }
+        .sellButton {
+            font-size: 16px;
+            padding: 10px 25px;
+        }
     }
     #create-playlist {
         .purchase {
@@ -75,6 +75,13 @@
             justify-content: space-between;
             margin-top: 10px;
             font-size: 16px;
+            flex-direction: column;
+            .song {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
             .sellButton {
                 width: 79px;
                 font-size: 16px;
