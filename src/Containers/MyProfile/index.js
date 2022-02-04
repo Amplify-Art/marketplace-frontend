@@ -45,7 +45,6 @@ import {
 import { fetchUserByNearIdAction } from "../../redux/actions/UserAction";
 import { getUsers } from "../../Api/User";
 import CreatePlayList from "../../Components/Parts/CreatePlayList";
-
 const {
   utils: {
     format: { parseNearAmount },
@@ -204,13 +203,13 @@ function MyProfile(props) {
 
       localStorage.setItem("selling_song", JSON.stringify(selling_song));
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || "nft1.amplifybeta.testnet",
+        process.env.REACT_APP_NFT_CONTRACT || "nft.aatest.testnet",
         "nft_approve",
         {
           token_id: songtokenid,
           account_id:
             process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-            "market1.amplifybeta.testnet",
+            "market.aatest.testnet",
           price: parseNearAmount(`${nearPrice}`),
         },
         300000000000000,
