@@ -297,7 +297,7 @@ function AlbumModalContent({
         )}
         {!isPlayList &&
           albumInfo.available_qty &&
-          albumInfo.user_id !== user.id &&
+          albumInfo.user_id !== (user && user.id) &&
           onBuy &&
           url &&
           url.pathname !== "/my-profile" && (
@@ -338,7 +338,7 @@ function AlbumModalContent({
         </div>
         {!isPlayList &&
           albumInfo.available_qty &&
-          albumInfo.user_id !== user.id &&
+          albumInfo.user_id !== (user && user.id) &&
           onBuy &&
           url &&
           url.pathname !== "/my-profile" && (
