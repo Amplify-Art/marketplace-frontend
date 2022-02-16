@@ -15,12 +15,23 @@
   .pr-10 {
     padding-right: 10px;
   }
+  i {
+    color: #ad0c0c82;
+  }
 }
 .sell {
   margin-left: 110px;
   padding: 5px;
   width: 100px;
   border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+.view {
+  width: 50%;
+  text-align: right;
+  color: white;
+  font-weight: 400;
+  opacity: 0.8;
+  cursor: pointer;
 }
 .duration {
   width: 55%;

@@ -36,6 +36,7 @@ function PurchasedSongs(props) {
   }, []);
   const fetchTokens = async () => {
     let tokens = await getTokens(props.wallet);
+    console.log(tokens, "tokens");
     console.log(
       tokens,
       "tokens",

@@ -199,8 +199,9 @@ function MyProfile(props) {
         price,
         yocto_near_price: parseNearAmount(`${nearPrice}`),
       };
-      let songtokenid = `${selectedAlbumToken.album.cover_cid}:${selectedAlbumToken.copy_number}:${sellingCopy.token}`;
 
+      let songtokenid = `${selectedAlbumToken.album.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
+      console.log(songtokenid);
       localStorage.setItem("selling_song", JSON.stringify(selling_song));
       await props.wallet.account().functionCall(
         process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
