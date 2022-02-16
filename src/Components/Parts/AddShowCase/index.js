@@ -10,7 +10,7 @@ import {
 import jwt from "jsonwebtoken";
 import "./AddShowCase.scss";
 import CDImg from "../../../assets/images/cd-img.svg";
-
+import { getTokens } from "../../../Utils/near";
 function AddShowCase({
   showCaseData,
   songs,
@@ -25,29 +25,32 @@ function AddShowCase({
   updateShowcase,
   setFetchShowCases,
   fetchShowCases,
+  wallet,
 }) {
   const [loading, setLoading] = useState(true);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   useEffect(() => {
-    fetchNFTs({
-      params: {
-        type: isPlayList ? "song" : "album",
-        showcase: true,
-      },
-    });
+    getNFTs();
   }, []);
 
+  const getNFTs = async () => {
+    let tokens = await getTokens(wallet);
+    console.log(tokens, "tokens");
+    let songtokens = tokens.map((t) => t.token_id.split(":")[2]);
+    console.log(songtokens);
+    fetchNFTs({
+      nft_tokens: songtokens,
+      type: "showcase",
+    });
+  };
   const onAddingShowcase = async (nft) => {
-    let wasFound = nft.currentOwner.showcases.find(
-      (f) => f.user_id === user.id && nft.id === f.album_id
-    );
-    if (wasFound) {
+    if (nft.action === "remove") {
       updateShowcase({
         album_id: null,
         user_id: null,
         is_deleted: true,
-        id: wasFound.id,
+        id: nft.existing_id,
       });
       setFetchShowCases(!fetchShowCases);
     } else {
@@ -128,12 +131,7 @@ function AddShowCase({
                   type="button"
                   onClick={() => onAddingShowcase(nft)}
                 >
-                  {nft.currentOwner &&
-                  nft.currentOwner.showcases?.find(
-                    (f) => f.user_id === user.id && nft.id === f.album_id
-                  )
-                    ? "Remove"
-                    : "Add"}
+                  {nft.action === "remove" ? "Remove" : "Add"}
                 </button>
               )}
             </div>
@@ -147,7 +145,9 @@ function AddShowCase({
             ))}
           </div>
         ) : !isFetchingNFts && songs.length === 0 ? (
-          <div className="no-songs">no songs available to add to playlist</div>
+          <div className="no-songs">
+            no songs available to add to {isPlayList ? "playlist" : "showcase"}
+          </div>
         ) : (
           <div className="loading-skeleton">
             {[1, 2, 3, 4, 5].map(() => (
@@ -166,6 +166,7 @@ export default connect(
       nfts: state.nfts.nfts,
       songs: [],
       isFetchingNFts: state.nfts.loading || state.songs.loading,
+      wallet: state.global.wallet,
     };
   },
   (dispatch) => {
