@@ -39,7 +39,6 @@ export function* fetchUserSaga({ payload }) {
 }
 
 export function* fetchUserByNearIdSaga({ payload }) {
-  console.log("TETSTT");
   try {
     const res = yield call(getUserByNearId, payload);
     yield all([put({ type: types.FETCH_USER_BY_NEAR_ID_SUCCESS, res })]);

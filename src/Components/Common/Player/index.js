@@ -15,6 +15,7 @@ import CDIcon from '../../../assets/images/cd-icon.svg';
 import { updateCurrentPlaylistAction } from '../../../redux/actions/PlaylistAction';
 import { togglePlayerAction } from '../../../redux/actions/GlobalAction';
 import GeneralModal from '../GeneralModal/index.js';
+import defaultProfile from '../../../assets/images/default-profile.jpg';
 
 // Cover import (This will be dynamic)
 import DefaultCover from '../../../assets/images/cd-img.svg';
@@ -153,7 +154,7 @@ function Player(props) {
             </div>
             <div className="wallet"><Link to="/wallet"><img src={Wallet} alt="wallet" /></Link></div>
             <div className="user" >
-              <img src={avatar} />
+              <img src={!avatar ? defaultProfile : avatar} />
             </div>
           </div>
           {props.showPlayer && <div className="album-info large">
