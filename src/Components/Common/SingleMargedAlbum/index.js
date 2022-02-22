@@ -243,6 +243,7 @@ function SingleMergedAlbum(props) {
             <SingleAlbumModal
               isOpen={props.isAlbumSelected}
               albumData={props.selectedAlbum}
+              from={'profile'}
             />}
           closeModal={handleCloseModal}
         />
@@ -259,7 +260,29 @@ function SingleMergedAlbum(props) {
         ]}
         className="centered"
       />}
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent isMerged setDeletingId={setDeletingId} albumInfo={albumInfo.hasOwnProperty('copy_number') ? { copy_number: albumInfo.copy_number, ...albumInfo.token.album, mints_owned: albumInfo.mints_owned } : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={handleBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}>
+        <GeneralModal
+          isCloseButton="true"
+          bodyChildren={
+            <AlbumModalContent
+              isMerged
+              setDeletingId={setDeletingId}
+              albumInfo={
+                albumInfo.hasOwnProperty('copy_number') ?
+                  { copy_number: albumInfo.copy_number, ...albumInfo.token.album, mints_owned: albumInfo.mints_owned } :
+                  albumInfo
+              }
+              isOpen={isOpen}
+              isPlayList={isPlayList}
+              onBuy={handleBuy}
+              viewDetails={viewDetails}
+              setViewDetails={setViewDetails}
+              onSingleSongClick={props.onSingleSongClick}
+              token={albumInfo.token}
+            />
+          }
+          closeModal={handleCloseModal} />
+      </div>
     </>
   );
 }

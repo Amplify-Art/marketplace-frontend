@@ -89,7 +89,6 @@ function AlbumModalContent({
       setPlaying(false);
     });
     audio.addEventListener("timeupdate", (e) => {
-      console.log(props.history.location.pathname, "RWWJJ");
       if (audio.currentTime > 15) {
         stopSong();
       }
@@ -120,7 +119,6 @@ function AlbumModalContent({
   };
 
   const addToPlaylist = async (type) => {
-    console.log("albumInfo", albumInfo);
     if (props.currentPlaylists.map((i) => i.id).includes(albumInfo.id)) {
       store.addNotification({
         title: "Error",
@@ -180,7 +178,7 @@ function AlbumModalContent({
                   ) : (
                     <img src={albumInfo.coverArt} alt="" />
                   )}
-                  <i class="far fa-trash-alt"></i>
+                  <i className="far fa-trash-alt"></i>
                 </div>
               ) : null}
               <div
@@ -212,7 +210,7 @@ function AlbumModalContent({
               </div>
               {isPlayList && (
                 <div className="trash" onClick={handleDelete}>
-                  <i class="far fa-trash-alt"></i>
+                  <i className="far fa-trash-alt"></i>
                 </div>
               )}
             </div>
@@ -309,7 +307,7 @@ function AlbumModalContent({
               Buy This - ${(albumInfo.price / 100).toFixed(2)}
             </button>
           )}
-        {!isPlayList && (
+        {!isPlayList && isMerged && (
           <button
             onClick={() => onBuy(albumInfo)}
             type="button"
@@ -350,7 +348,7 @@ function AlbumModalContent({
               Buy This - ${(albumInfo.price / 100).toFixed(2)}
             </button>
           )}
-        {!isPlayList && (
+        {!isPlayList && isMerged && (
           <button
             onClick={() => onBuy(albumInfo)}
             type="button"
