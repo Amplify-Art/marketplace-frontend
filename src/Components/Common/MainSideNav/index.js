@@ -111,7 +111,7 @@ function MainSideNav(props) {
       sessionStorage.removeItem("activePlaylist");
       localStorage.removeItem("amplify_app_token");
       props.clearCurrentPlayList();
-      // props.history.push("/");
+      props.history.push("/");
       window.location.reload();
     }
     setShowLogoutModal(false);
