@@ -151,11 +151,11 @@ function App(props) {
           <Route
             path="/albums"
             exact
-            render={() => (
+            render={Auth(() => (
               <Albums
                 playerActive={props && props.currentPlaylists.length > 0}
               />
-            )}
+            ))}
           />
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route
@@ -171,21 +171,21 @@ function App(props) {
           <Route
             path="/artist/:slug"
             exact
-            render={() => (
+            render={Auth(() => (
               <ArtistProfile
                 playerActive={props && props.currentPlaylists.length > 0}
               />
-            )}
+            ))}
           />
-          <Route path="/artists" exact component={Artists} />
+          <Route path="/artists" exact component={Auth(Artists)} />
           <Route
             path="/marketplace"
             exact
             component={Auth(SecondaryMarketplace)}
           />
-          <Route path="/artist-dashboard" exact component={ArtistDashboard} />
+          <Route path="/artist-dashboard" exact component={Auth(ArtistDashboard)} />
           <Route path="/support-card" exact component={Auth(SupportCard)} />
-          <Route path="/nominate" exact component={Nominate} />
+          <Route path="/nominate" exact component={Auth(Nominate)} />
           <Route path="/user-dashboard" exact component={Auth(UserDashboard)} />
           <Route
             path="/search-result"
