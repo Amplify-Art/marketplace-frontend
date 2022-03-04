@@ -1,10 +1,25 @@
-import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { addNFT, deleteNFT, getNFTById, getNFTs, updateNFT, mintNFT, buyAlbumBundleNFT, sellSongNFT, buySongNFT, } from '../../Api/NFT';
-import { sendMoney } from '../../Api/User';
-import * as types from '../../Constants/actions/NFT';
-import { SET_NOTIFICATION, SHOW_MINT_SUCCESS_MODAL, UNSET_OVERLAY_LOADER, SET_OVERLAY_LOADER } from '../../Constants/actions/Global';
-import { UPDATE_ALBUM_SUCCESS } from '../../Constants/actions/Album';
-
+import { put, call, takeLatest, all } from "redux-saga/effects";
+import {
+  addNFT,
+  deleteNFT,
+  getNFTById,
+  getNFTs,
+  updateNFT,
+  mintNFT,
+  buyAlbumBundleNFT,
+  sellSongNFT,
+  buySongNFT,
+} from "../../Api/NFT";
+import { sendMoney } from "../../Api/User";
+import * as types from "../../Constants/actions/NFT";
+import {
+  SET_NOTIFICATION,
+  SHOW_MINT_SUCCESS_MODAL,
+  UNSET_OVERLAY_LOADER,
+  SET_OVERLAY_LOADER,
+} from "../../Constants/actions/Global";
+import { UPDATE_ALBUM_SUCCESS } from "../../Constants/actions/Album";
+import { store } from "react-notifications-component";
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.FETCH_NFTS_REQUEST, fetchNFTsSaga);
@@ -12,7 +27,11 @@ export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.ADD_NFT_REQUEST, addNFTSaga, context);
   yield takeLatest(types.UPDATE_SEND_MONEY_REQUEST, sendMoneySaga, context);
   yield takeLatest(types.MINT_NFT_REQUEST, mintNFTSaga, context);
-  yield takeLatest(types.BUY_ALBUM_BUNDLE_NFT_REQUEST, buyAlbumBundleNFTSaga, context);
+  yield takeLatest(
+    types.BUY_ALBUM_BUNDLE_NFT_REQUEST,
+    buyAlbumBundleNFTSaga,
+    context
+  );
   yield takeLatest(types.SELL_SONG_NFT_REQUEST, sellSongNFTSaga, context);
   yield takeLatest(types.BUY_SONG_NFT_REQUEST, buySongNFTSaga, context);
   yield takeLatest(types.UPDATE_NFT_REQUEST, updateNFTSaga, context);
@@ -22,9 +41,7 @@ export default function* watchOptionsListener(context = {}) {
 export function* fetchNFTsSaga({ payload }) {
   try {
     const res = yield call(getNFTs, payload);
-    yield all([
-      put({ type: types.FETCH_NFTS_SUCCESS, res }),
-    ]);
+    yield all([put({ type: types.FETCH_NFTS_SUCCESS, res })]);
   } catch (error) {
     yield put({ type: types.FETCH_NFTS_FAILED, error });
   }
@@ -33,9 +50,7 @@ export function* fetchNFTsSaga({ payload }) {
 export function* fetchNFTSaga({ payload }) {
   try {
     const res = yield call(getNFTById, payload);
-    yield all([
-      put({ type: types.FETCH_NFT_SUCCESS, res }),
-    ]);
+    yield all([put({ type: types.FETCH_NFT_SUCCESS, res })]);
   } catch (error) {
     yield put({ type: types.FETCH_NFT_FAILED, error });
   }
@@ -50,12 +65,12 @@ export function* addNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'NFT added' : res.message || 'NFT not added',
+          message: res.success ? "NFT added" : res.message || "NFT not added",
         },
       }),
     ]);
     if (res && res.success && res.data && res.data.id && history) {
-      history.push('/nfts');
+      history.push("/nfts");
     }
   } catch (error) {
     yield all([
@@ -64,7 +79,7 @@ export function* addNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -80,7 +95,9 @@ export function* sendMoneySaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'NEAR sent successfully' : res.message || 'Payment not added',
+          message: res.success
+            ? "NEAR sent successfully"
+            : res.message || "Payment not added",
         },
       }),
     ]);
@@ -91,7 +108,7 @@ export function* sendMoneySaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -102,8 +119,8 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
   yield all([
     put({
       type: SET_OVERLAY_LOADER,
-    })
-  ])
+    }),
+  ]);
   try {
     const res = yield call(buyAlbumBundleNFT, payload);
     yield all([
@@ -112,7 +129,7 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: UNSET_OVERLAY_LOADER,
       }),
     ]);
-    window.location.reload()
+    window.location.reload();
   } catch (error) {
     yield all([
       put({
@@ -122,7 +139,7 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -133,8 +150,8 @@ export function* sellSongNFTSaga({ history }, { payload }) {
   yield all([
     put({
       type: SET_OVERLAY_LOADER,
-    })
-  ])
+    }),
+  ]);
   try {
     const res = yield call(sellSongNFT, payload);
     window.location.reload();
@@ -147,7 +164,7 @@ export function* sellSongNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -158,11 +175,28 @@ export function* buySongNFTSaga({ history }, { payload }) {
   yield all([
     put({
       type: SET_OVERLAY_LOADER,
-    })
-  ])
+    }),
+  ]);
   try {
     const res = yield call(buySongNFT, payload);
-    window.location.reload();
+    if (res.success) {
+      store.addNotification({
+        title: "Success",
+        message: "You have been successfully purchased the song",
+        type: "success",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+        },
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   } catch (error) {
     yield all([
       put({
@@ -172,7 +206,7 @@ export function* buySongNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -183,8 +217,8 @@ export function* mintNFTSaga({ history }, { payload }) {
   yield all([
     put({
       type: SET_OVERLAY_LOADER,
-    })
-  ])
+    }),
+  ]);
   try {
     const res = yield call(mintNFT, payload);
     yield all([
@@ -206,7 +240,7 @@ export function* mintNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -222,12 +256,14 @@ export function* updateNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'NFT updated' : res.message || 'NFT not updated',
+          message: res.success
+            ? "NFT updated"
+            : res.message || "NFT not updated",
         },
       }),
     ]);
     if (res && res.success && res.data && res.data.id && history) {
-      history.push('/nfts');
+      history.push("/nfts");
     }
   } catch (error) {
     yield all([
@@ -236,7 +272,7 @@ export function* updateNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
@@ -252,7 +288,9 @@ export function* deleteNFTSaga({ payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'NFT deleted' : res.message || 'NFT not deleted',
+          message: res.success
+            ? "NFT deleted"
+            : res.message || "NFT not deleted",
         },
       }),
     ]);
@@ -263,9 +301,9 @@ export function* deleteNFTSaga({ payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: false,
-          message: error && error.message ? error.message : 'Server error',
+          message: error && error.message ? error.message : "Server error",
         },
       }),
     ]);
   }
-};
+}
