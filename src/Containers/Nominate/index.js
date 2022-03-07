@@ -11,7 +11,7 @@ import ConfettiImage from '../../assets/images/confetti.png';
 import useDebounce from '../../Components/Common/UseDebounce';
 import jwt from 'jsonwebtoken'
 
-const Nominate = ({ showNominateModal, setShowNominateModal, ...props}) => {
+const Nominate = ({ showNominateModal, setShowNominateModal, ...props }) => {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState(null);
   const [nominateName, setNominateName] = useState('');
@@ -21,7 +21,8 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props}) => {
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
-        search: s && s.replace('@', '')
+        search: s && s.replace('@', ''),
+        type: "user"
       }
     })
   };
