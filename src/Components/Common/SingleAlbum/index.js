@@ -259,7 +259,29 @@ function SingleAlbum(props) {
         ]}
         className="centered"
       />}
-      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}><GeneralModal isCloseButton="true" bodyChildren={<AlbumModalContent setDeletingId={setDeletingId} albumInfo={albumInfo.hasOwnProperty('copy_number') ? { copy_number: albumInfo.copy_number, ...albumInfo.token.album } : albumInfo} isOpen={isOpen} isPlayList={isPlayList} onBuy={handleBuy} viewDetails={viewDetails} setViewDetails={setViewDetails} onSingleSongClick={props.onSingleSongClick} token={albumInfo.token} />} closeModal={handleCloseModal} /></div>
+      <div className={`modal-album ${!isOpen ? 'd-none' : 'd-block'}`}>
+        <GeneralModal 
+          isCloseButton="true" 
+          bodyChildren={
+            <AlbumModalContent 
+              setDeletingId={setDeletingId} 
+              albumInfo={
+                albumInfo.hasOwnProperty('copy_number') ? 
+                { copy_number: albumInfo.copy_number, ...albumInfo.token.album } : 
+                albumInfo
+              } 
+              isOpen={isOpen} 
+              isPlayList={isPlayList} 
+              onBuy={handleBuy} 
+              viewDetails={viewDetails} 
+              setViewDetails={setViewDetails} 
+              onSingleSongClick={props.onSingleSongClick} 
+              token={albumInfo.token} 
+            />
+          } 
+          closeModal={handleCloseModal} 
+        />
+      </div>
     </>
   );
 }

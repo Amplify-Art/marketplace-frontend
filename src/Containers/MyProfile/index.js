@@ -411,17 +411,17 @@ function MyProfile(props) {
       props.showPlaylistModal();
     }
   };
-  console.log(
-    Object.entries(
-      _.groupBy(
-        props &&
-          props.token_transfers &&
-          props.token_transfers.length > 0 &&
-          props.token_transfers.filter((f) => f.type !== null),
-        "token"
-      )
-    )
-  );
+  // console.log(
+  //   Object.entries(
+  //     _.groupBy(
+  //       props &&
+  //         props.token_transfers &&
+  //         props.token_transfers.length > 0 &&
+  //         props.token_transfers.filter((f) => f.type !== null),
+  //       "token"
+  //     )
+  //   )
+  // );
   return (
     <div
       id="profile"

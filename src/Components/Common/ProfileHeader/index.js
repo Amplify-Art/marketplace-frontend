@@ -26,7 +26,6 @@ function ProfileHeader({
 }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
-  const [isDefaultImage, setDefaultImage] = useState(null);
 
   const coverPhoto = () => {
     let coverPhoto;
@@ -58,9 +57,6 @@ function ProfileHeader({
     });
   }, []);
 
-  const onImageLoadError = (e) => {
-    setDefaultImage(defaultProfile);
-  };
   return (
     <div id="profile-header">
       <div
@@ -76,7 +72,7 @@ function ProfileHeader({
                 [...showcases, ...new Array(6 - showcases.length).fill(null)],
                 3
               ).map((row, i) => (
-                <div className="single-shelf">
+                <div className="single-shelf" key={i}>
                   <div className="albums-on-shelf">
                     {row.map((showCaseItem, j) =>
                       showCaseItem ? (
@@ -93,6 +89,7 @@ function ProfileHeader({
                           onClick={() =>
                             toggleShowCaseModal(!showShowCaseModal)
                           }
+                          key={`${i}${j}`}
                         >
                           {!isPublicProfile && <i className="fal fa-plus" />}
                         </div>
@@ -110,8 +107,7 @@ function ProfileHeader({
           <div className="profile-wrap">
             <div className="profile-image">
               <img
-                src={isDefaultImage ? isDefaultImage : ArtistData.avatar}
-                onError={onImageLoadError}
+                src={!ArtistData.avatar ? defaultProfile : ArtistData.avatar}
               />
             </div>
 
@@ -119,12 +115,13 @@ function ProfileHeader({
               <span>{ArtistData.name}</span>
               {!isPublicProfile && (
                 <span className="no_of_songs">
-                  {nearUser && nearUser.owned_songs} Song
-                  {nearUser &&
-                  nearUser.owned_songs &&
-                  nearUser.owned_songs.length === 1
-                    ? ""
-                    : "s"}{" "}
+                  {nearUser ? nearUser.owned_songs : 0} Song {" "}
+                  {(nearUser && nearUser.owned_songs) ?
+                      nearUser.owned_songs.length === 1
+                        ? nearUser.owned_songs.length
+                        : nearUser.owned_songs.length + "s"
+                      : 0
+                  }{" "}
                   Owned
                 </span>
               )}
@@ -137,12 +134,13 @@ function ProfileHeader({
         <span>{ArtistData.name}</span>
         {!isPublicProfile && (
           <span className="no_of_songs">
-            {nearUser && nearUser.owned_songs} Song
-            {nearUser &&
-            nearUser.owned_songs &&
-            nearUser.owned_songs.length === 1
-              ? ""
-              : "s"}{" "}
+            {nearUser ? nearUser.owned_songs : 0} Song {" "}
+            {(nearUser && nearUser.owned_songs) ?
+                nearUser.owned_songs.length === 1
+                  ? nearUser.owned_songs.length
+                  : nearUser.owned_songs.length + "s"
+                : 0
+            }{" "}
             Owned
           </span>
         )}
