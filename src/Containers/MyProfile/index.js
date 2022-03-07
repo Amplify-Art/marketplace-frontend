@@ -74,7 +74,7 @@ function MyProfile(props) {
   useEffect(() => {
     props.fetchPlaylists({
       params: {
-        related: "songs.[album, transfers]",
+        related: "songs.[album,transfers]",
         orderBy: "-id",
         "filter[user_id]": decodedToken.id,
       },
@@ -107,6 +107,11 @@ function MyProfile(props) {
   const onSingleSongClick = (song, index) => {
     console.log(song, props.token_transfers);
     props.showSellModal();
+    if (!song.transfers) {
+      song.transfers = props.token_transfers.filter(
+        (f) => f.token === song.song_cid
+      );
+    }
     setSellingSong(song);
     setSelectedAlbumToken(props.token_transfers[index]);
     // setSellingCopy(song.transfers.find(f => f.copy_number === props.token_transfers[index].copy_number))
@@ -330,7 +335,7 @@ function MyProfile(props) {
         });
         props.fetchTokenTransfers({
           params: {
-            "filter[type]": "album_bundle, song",
+            "filter[type]": "album_bundle,song",
             related: "album.songs",
             orderBy: "-id",
             "filter[transfer_to]": id,
@@ -348,7 +353,7 @@ function MyProfile(props) {
 
       props.fetchTokenTransfers({
         params: {
-          "filter[type]": "album_bundle, song",
+          "filter[type]": "album_bundle,song",
           related: "album.songs",
           orderBy: "-id",
           "filter[transfer_to]": decodedToken.id,
@@ -479,9 +484,10 @@ function MyProfile(props) {
             ).map((token, index) =>
               generateAlbumItem(
                 {
-                  token: token[1][0],
+                  token: { ...token[1][0], transfers: token[1] },
                   copy_number: token[1][0].copy_number,
                   hideSticker: false,
+                  // transfers: token[1],
                   mints_owned: token[1]
                     .filter(
                       (f) => f.is_owner && f.transfer_to === decodedToken.id

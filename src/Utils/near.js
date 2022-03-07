@@ -14,7 +14,7 @@ export const getTokens = async (wallet) => {
   let result = await contract.nft_tokens_for_owner({
     account_id: wallet.getAccountId(),
     from_index: "0",
-    limit: 10,
+    limit: 1000,
   });
   return result;
 };
