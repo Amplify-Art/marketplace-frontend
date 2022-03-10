@@ -149,14 +149,14 @@ function SupportCard(props) {
         sender: wallet.account(), // account object to initialize and sign transactions.
       }
     );
-    let res = await contract.get_payout_by_account({
-      account_id: user.near_account_id,
-    });
-    if (res) {
-      console.log("VALUE", formatNearAmount(res));
-      setWithdrawableAmount(formatNearAmount(res));
-    }
-    console.log(res, "res");
+    // let res = await contract.get_payout_by_account({
+    //   account_id: user.near_account_id,
+    // });
+    // if (res) {
+    //   console.log("VALUE", formatNearAmount(res));
+    //   setWithdrawableAmount(formatNearAmount(res));
+    // }
+    // console.log(res, "res");
   };
   const onWithDrawAmount = async () => {
     props.displayLoadingOverlay();
