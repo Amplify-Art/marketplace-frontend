@@ -1,27 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import axios from "axios";
 
-import './Settings.scss';
+import "./Settings.scss";
 
-import { fetchTokenTransfersAction } from '../../redux/actions/TokenTransferAction';
-import { fetchUserAction } from '../../redux/actions/UserAction';
-import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
-import GeneralModal from '../../Components/Common/GeneralModal/index';
-import { sellSongAction, showSellModalAction, hideSellModalAction, hideSellSongConfirmation } from '../../redux/actions/SongAction';
-import { sellSongNFTAction } from '../../redux/actions/NFTAction';
-import { fetchPlaylistsAction, deletePlaylistAction, hideDeletePlaylistAction, showPlaylistModalAction, hidePlaylistModalAction } from '../../redux/actions/PlaylistAction'
-import bannerDefault from '../../assets/images/banner_default.jpeg';
-import ImageUploadIcon from '../../assets/images/image-upload.svg';
-import { API_ENDPOINT_URL } from '../../Constants/default';
-import { getAccessToken } from '../../Api/index';
-import { updateUserAction } from '../../redux/actions/UserAction';
-import defaultProfile from '../../assets/images/default-profile.jpg'
+import { fetchTokenTransfersAction } from "../../redux/actions/TokenTransferAction";
+import { fetchUserAction } from "../../redux/actions/UserAction";
+import {
+  fetchFollowersAction,
+  updateFollowerAction,
+  addFollowerAction,
+} from "../../redux/actions/FollowerAction";
+import GeneralModal from "../../Components/Common/GeneralModal/index";
+import {
+  sellSongAction,
+  showSellModalAction,
+  hideSellModalAction,
+  hideSellSongConfirmation,
+} from "../../redux/actions/SongAction";
+import { sellSongNFTAction } from "../../redux/actions/NFTAction";
+import {
+  fetchPlaylistsAction,
+  deletePlaylistAction,
+  hideDeletePlaylistAction,
+  showPlaylistModalAction,
+  hidePlaylistModalAction,
+} from "../../redux/actions/PlaylistAction";
+import bannerDefault from "../../assets/images/banner_default.jpeg";
+import ImageUploadIcon from "../../assets/images/image-upload.svg";
+import { API_ENDPOINT_URL } from "../../Constants/default";
+import { getAccessToken } from "../../Api/index";
+import { updateUserAction } from "../../redux/actions/UserAction";
+import defaultProfile from "../../assets/images/default-profile.jpg";
+import ImageUploader from "./ImageUploader";
 
 function MyProfile(props) {
-
   const [isDefaultImage, setDefaultImage] = useState(null);
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [image, setImage] = useState(null);
@@ -30,8 +45,9 @@ function MyProfile(props) {
   const [modalType, setModalType] = useState(null);
 
   const [ArtistData, setArtistData] = useState(null);
+  const [cropData, setCropData] = useState("#");
 
-  const token = localStorage.getItem('amplify_app_token');
+  const token = localStorage.getItem("amplify_app_token");
   const decodedToken = jwt_decode(token);
 
   useEffect(() => {
@@ -39,83 +55,125 @@ function MyProfile(props) {
       setArtistData({
         cover: decodedToken.banner,
         avatar: decodedToken.avatar,
-      })
+      });
     }
-  }, [decodedToken])
-  
+  }, [decodedToken]);
+
   const onImageLoadError = (e) => {
-    setDefaultImage(defaultProfile)
-  }
-  const BannerUploaderForm = ({ }) => <div>
-    <label htmlFor="albumCover">
-      <div className="banner-upload">
-        <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className="banner" className={image ? '' : 'default'} />
-      </div>
-    </label>
-    <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onBannerChange} accept="image/*" />
-    {bannerUploadProgress ? <div className="album-uploader">
-      <span className="upload-progress" style={{ width: `${bannerUploadProgress}%` }}></span>
-      <span>{bannerUploadProgress}%</span>
-    </div> : null
-    }
-    {imageURL && <button onClick={onUpdateBanner} className="banner-update-button">Set {modalType === 'profile' ? 'Profile' : 'Banner'}</button>}
-  </div>
+    setDefaultImage(defaultProfile);
+  };
+  const BannerUploaderForm = ({}) => (
+    <div>
+      {/* <label htmlFor='albumCover'>
+        <div className='banner-upload'>
+          <img
+            src={image ? image : ImageUploadIcon}
+            alt='Banner Upload'
+            className='banner'
+            className={image ? '' : 'default'}
+          />
+        </div>
+      </label> */}
+      <ImageUploader
+        cropData={cropData}
+        setCropData={setCropData}
+        onBannerChange={onBannerChange}
+        modalType={modalType}
+      />
+      <input
+        type="file"
+        style={{ display: "none" }}
+        id="albumCover"
+        name="album-cover"
+        onChange={onBannerChange}
+        accept="image/*"
+      />
+      {bannerUploadProgress ? (
+        <div className="album-uploader">
+          <span
+            className="upload-progress"
+            style={{ width: `${bannerUploadProgress}%` }}
+          ></span>
+          <span>{bannerUploadProgress}%</span>
+        </div>
+      ) : null}
+      {/* {imageURL && (
+        <button onClick={onUpdateBanner} className='banner-update-button'>
+          Set {modalType === 'profile' ? 'Profile' : 'Banner'}
+        </button>
+      )} */}
+    </div>
+  );
 
-  const onUpdateBanner = () => {
-    try {
-      props.updateUser({
-        id: decodedToken.id,
-        [modalType === 'profile' ? 'avatar' : 'banner']: imageURL,
-      })
-      setShowBannerModal(false)
-    } catch (e) {
-      console.log(e)
+  const onUpdateBanner = (imgUUrl) => {
+    if (imgUUrl) {
+      try {
+        props.updateUser({
+          id: decodedToken.id,
+          [modalType === "profile" ? "avatar" : "banner"]: imgUUrl,
+        });
+        setShowBannerModal(false);
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
+  };
+
   const onBannerChange = async (e) => {
-    if (!e.target.files[0])
-      return
+    // if (!e.target.files[0]) return;
 
-    const files = e.target.files;
+    const files = e;
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result);
     };
-    reader.readAsDataURL(files[0]);
-    let uploadImage = await uploadFile(e.target.files[0])
-    setImageURL(`https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`)
+    reader.readAsDataURL(files);
+    let uploadImage = await uploadFile(e);
+    setImageURL(
+      `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
+    );
     setArtistData({
       ...ArtistData,
-      [modalType === 'profile' ? 'avatar' : 'cover']: `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
-    })
-  }
+      [modalType === "profile"
+        ? "avatar"
+        : "cover"]: `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`,
+    });
+    if (uploadImage)
+      onUpdateBanner(
+        `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
+      );
+  };
   const uploadFile = async (fileInfo) => {
     let file = fileInfo;
-    file.is_uploading = true
-    let bannerFormData = new FormData()
-    bannerFormData.append('file', file)
-    bannerFormData.append('name', file.name)
-    const uploadImage = await axios.post(`${API_ENDPOINT_URL}/uploads`, bannerFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer ' + getAccessToken()
-      },
-      onUploadProgress: (e) => onUploadProgress(e),
-    }).catch(error => {
-      console.error(error)
-    });
+    file.is_uploading = true;
+    let bannerFormData = new FormData();
+    bannerFormData.append("file", file);
+    bannerFormData.append("name", "pics");
+    const uploadImage = await axios
+      .post(`${API_ENDPOINT_URL}/uploads`, bannerFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + getAccessToken(),
+        },
+        onUploadProgress: (e) => onUploadProgress(e),
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     return uploadImage;
-  }
+  };
 
   const onUploadProgress = (progressEvent) => {
-    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    setBannerUploadProgress(percentCompleted)
-  }
+    var percentCompleted = Math.round(
+      (progressEvent.loaded * 100) / progressEvent.total
+    );
+    setBannerUploadProgress(percentCompleted);
+  };
 
   const handleModal = (type) => {
-    setModalType(type)
+    setModalType(type);
     setShowBannerModal(!showBannerModal);
-  }
+  };
 
   useEffect(() => {
     if (!showBannerModal) {
@@ -124,76 +182,90 @@ function MyProfile(props) {
       setBannerUploadProgress(0);
       setModalType(null);
     }
-  }, [showBannerModal])
-
+  }, [showBannerModal]);
 
   const handleRemove = (type) => {
     setArtistData({
       ...ArtistData,
-      [type === 'profile' ? 'avatar' : 'cover']: type === 'profile' ? defaultProfile : bannerDefault
-    })
+      [type === "profile" ? "avatar" : "cover"]:
+        type === "profile" ? defaultProfile : bannerDefault,
+    });
     props.updateUser({
       id: decodedToken.id,
-      [type === 'profile' ? 'avatar' : 'banner']: null,
-    })
-  }
+      [type === "profile" ? "avatar" : "banner"]: null,
+    });
+  };
   return (
-    <div id="settings" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
+    <div
+      id="settings"
+      className={`left-nav-pad ${
+        props.playerActive ? "right-player-pad" : "normal-right-pad"
+      }`}
+    >
       <div id="profile-header">
         <h2 className="header-title">Profile Image</h2>
         <div className="profile-head-details">
           <div className="profile-image">
-            <img src={isDefaultImage ? isDefaultImage : ArtistData?.avatar || defaultProfile} onError={onImageLoadError} />
+            <img
+              src={
+                isDefaultImage
+                  ? isDefaultImage
+                  : ArtistData?.avatar || defaultProfile
+              }
+              onError={onImageLoadError}
+            />
           </div>
           <div className="profile-buttons">
-            <button onClick={() => handleRemove('profile')}>Remove</button>
-            <button onClick={() => handleModal('profile')}>Upload</button>
+            <button onClick={() => handleRemove("profile")}>Remove</button>
+            <button onClick={() => handleModal("profile")}>Upload</button>
           </div>
         </div>
       </div>
       <div className="profile-banner">
         <h2 className="header-title">Banner Image</h2>
-        <div className={`profile-cover ${!ArtistData?.cover && 'default'}`} style={{ backgroundImage: `url(${ArtistData?.cover || bannerDefault})` }}>
-        </div>
+        <div
+          className={`profile-cover ${!ArtistData?.cover && "default"}`}
+          style={{
+            backgroundImage: `url(${ArtistData?.cover || bannerDefault})`,
+          }}
+        ></div>
         <div className="banner-buttons">
-          <button onClick={() => handleRemove('banner')}> Remove</button>
-          <button onClick={() => handleModal('banner')}>Upload</button>
+          <button onClick={() => handleRemove("banner")}> Remove</button>
+          <button onClick={() => handleModal("banner")}>Upload</button>
         </div>
       </div>
-      {
-        showBannerModal &&
+      {showBannerModal && (
         <GeneralModal
-          headline={`Upload ${modalType === 'profile' ? 'Profile' : 'Banner'}`}
+          headline={`Upload ${modalType === "profile" ? "Profile" : "Banner"}`}
           className="centered"
           closeModal={() => setShowBannerModal(!showBannerModal)}
           bodyChildren={<BannerUploaderForm />}
         />
-      }
-    </div >
-
+      )}
+    </div>
   );
 }
 
-
-export default connect(state => {
-  return {
-    nfts: state.nfts.nfts,
-    user: state.users.user,
-    total: state.nfts.total,
-    loading: state.nfts.loading,
-    token_transfers: state.token_transfers.token_transfers,
-    myFollowings: state.followers.followers,
-    displaySellModal: state.songs.showSellModal,
-    wallet: state.global.wallet,
-    nearPrice: state.global.nearPrice,
-    showSellConfirmation: state.songs.showSellConfirmation,
-    playlists: state.playlists.playlists,
-    totalPlaylists: state.playlists.total,
-    show_delete_modal: state.playlists.show_delete_modal,
-    show_modal: state.playlists.show_modal
-  }
-},
-  dispatch => {
+export default connect(
+  (state) => {
+    return {
+      nfts: state.nfts.nfts,
+      user: state.users.user,
+      total: state.nfts.total,
+      loading: state.nfts.loading,
+      token_transfers: state.token_transfers.token_transfers,
+      myFollowings: state.followers.followers,
+      displaySellModal: state.songs.showSellModal,
+      wallet: state.global.wallet,
+      nearPrice: state.global.nearPrice,
+      showSellConfirmation: state.songs.showSellConfirmation,
+      playlists: state.playlists.playlists,
+      totalPlaylists: state.playlists.total,
+      show_delete_modal: state.playlists.show_delete_modal,
+      show_modal: state.playlists.show_modal,
+    };
+  },
+  (dispatch) => {
     return {
       fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
       fetchUser: (data) => dispatch(fetchUserAction(data)),
@@ -212,5 +284,6 @@ export default connect(state => {
       deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
       hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
       updateUser: (data) => dispatch(updateUserAction(data)),
-    }
-  })(withRouter(MyProfile));
+    };
+  }
+)(withRouter(MyProfile));
