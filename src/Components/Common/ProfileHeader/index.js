@@ -106,8 +106,17 @@ function ProfileHeader({
         <div className="profile-head-details">
           <div className="profile-wrap">
             <div className="profile-image">
-              <img
+              {/* <img
                 src={!ArtistData.avatar ? defaultProfile : ArtistData.avatar}
+                alt='avatar'
+              /> */}
+              <div
+                className="profilePic"
+                style={{
+                  backgroundImage: `url(${
+                    !ArtistData.avatar ? defaultProfile : ArtistData.avatar
+                  })`,
+                }}
               />
             </div>
 
@@ -115,13 +124,12 @@ function ProfileHeader({
               <span>{ArtistData.name}</span>
               {!isPublicProfile && (
                 <span className="no_of_songs">
-                  {nearUser ? nearUser.owned_songs : 0} Song {" "}
-                  {(nearUser && nearUser.owned_songs) ?
-                      nearUser.owned_songs.length === 1
-                        ? nearUser.owned_songs.length
-                        : nearUser.owned_songs.length + "s"
-                      : 0
-                  }{" "}
+                  {nearUser ? nearUser.owned_songs : 0} Song{" "}
+                  {nearUser && nearUser.owned_songs
+                    ? nearUser.owned_songs.length === 1
+                      ? nearUser.owned_songs.length
+                      : nearUser.owned_songs.length + "s"
+                    : 0}{" "}
                   Owned
                 </span>
               )}
@@ -134,13 +142,12 @@ function ProfileHeader({
         <span>{ArtistData.name}</span>
         {!isPublicProfile && (
           <span className="no_of_songs">
-            {nearUser ? nearUser.owned_songs : 0} Song {" "}
-            {(nearUser && nearUser.owned_songs) ?
-                nearUser.owned_songs.length === 1
-                  ? nearUser.owned_songs.length
-                  : nearUser.owned_songs.length + "s"
-                : 0
-            }{" "}
+            {nearUser ? nearUser.owned_songs : 0} Song{" "}
+            {nearUser && nearUser.owned_songs
+              ? nearUser.owned_songs.length === 1
+                ? nearUser.owned_songs.length
+                : nearUser.owned_songs.length + "s"
+              : 0}{" "}
             Owned
           </span>
         )}

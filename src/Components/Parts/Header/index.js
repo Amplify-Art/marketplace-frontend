@@ -37,7 +37,7 @@ import { store } from "react-notifications-component";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
-import defaultProfile from '../../../assets/images/default-profile.jpg';
+import defaultProfile from "../../../assets/images/default-profile.jpg";
 
 const {
   keyStores,
@@ -430,7 +430,20 @@ function Header(props) {
                 className="user"
                 onClick={() => props.history.push("/my-profile")}
               >
-                <img src={!userDetails.avatar ? defaultProfile : userDetails.avatar} />
+                <div
+                  className="profilePic"
+                  style={{
+                    backgroundImage: `url(${
+                      !userDetails.avatar ? defaultProfile : userDetails.avatar
+                    })`,
+                  }}
+                />
+                {/* <img
+                  src={
+                    !userDetails.avatar ? defaultProfile : userDetails.avatar
+                  }
+                  alt='avatar'
+                /> */}
               </div>
             </>
           ) : (

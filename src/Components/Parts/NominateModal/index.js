@@ -51,8 +51,8 @@ const NominateModal = ({
                     {
                       suggestion
                         .filter(f => f.id !== currentUser.id)
-                        .map(u =>
-                          <div className="nominate-result-card" onClick={() => onSelect(u)}>@{u.near_account_id}</div>
+                        .map((u, idx) =>
+                          <div key={idx} className="nominate-result-card" onClick={() => onSelect(u)}>@{u.near_account_id}</div>
                         )
                     }
                   </div>
