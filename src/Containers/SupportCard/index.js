@@ -25,6 +25,11 @@ import {
   displayLoadingOverlayAction,
 } from "../../redux/actions/GlobalAction";
 import "./SupportCard.scss";
+import {
+  fetchNominationsAction,
+  addNominationAction,
+} from "../../redux/actions/NominationAction";
+import { fetchNominationVotesAction } from "../../redux/actions/NominationVoteAction";
 
 const {
   WalletConnection,
@@ -40,7 +45,19 @@ function SupportCard(props) {
 
   useEffect(() => {
     fetchSupportCards();
+    props.fetchNominations({
+      params: {
+        related: "votedFor,votes",
+      },
+    });
   }, []);
+  useEffect(() => {
+    props.fetchNominationVotes({
+      params: {
+        "filter[voter_id]": user.id,
+      },
+    });
+  }, [user && user.id]);
 
   const fetchSupportCards = async () => {
     let url =
@@ -118,7 +135,7 @@ function SupportCard(props) {
   const renderVoteList = () =>
     (props.nominations || []).map((nomination, index) => (
       <div className="song-content d-h-between voter-list">
-        <div>{nomination.votedFor && nomination.votedFor.name}</div>
+        <div>{nomination.votedFor && nomination.votedFor.near_account_id}</div>
         <div className="vote-actions">
           {<span>{(nomination.votes && nomination.votes.length) || 1}</span>}
           <img src={Vote} onClick={() => onVote(nomination)} />
@@ -126,8 +143,8 @@ function SupportCard(props) {
       </div>
     ));
   const onVote = (nomination) => {
-    props.addNominationVote({
-      nomination_id: nomination.id,
+    props.addNomination({
+      nominee: nomination.nominee,
     });
   };
 
@@ -226,7 +243,7 @@ function SupportCard(props) {
         </div>
         <div className="card-content">{renderCards()}</div>
         <div className="container1">
-          {/* <div className="col1">
+          <div className="col1">
             <img src={SupportCardCover} />
             <div className="owned-cards">
               <p>
@@ -236,8 +253,8 @@ function SupportCard(props) {
                 </a>
               </p>
             </div>
-          </div> */}
-          {/* <div className="song-wrapper flex f-jc-space-between col2">
+          </div>
+          <div className="song-wrapper flex f-jc-space-between col2">
             <div className="w-100 song-inner-content">
               <div className="song-head d-h-between">
                 <span className="song-head-title">Supporter Voting</span>
@@ -247,10 +264,14 @@ function SupportCard(props) {
                   <img src={DownArrowIcon} alt="" className="cal-img" />
                 </div>
               </div>
-              <p>You have 32 Votes left for this voting period.</p>
+              <p>
+                You have{" "}
+                {supporterCards.length - props.nominationvotes?.length} Votes
+                left for this voting period.
+              </p>
               {renderVoteList()}
             </div>
-          </div> */}
+          </div>
         </div>
         {/* <div className="song-title">Song Stats</div> */}
         {/* <div className="song-wrapper flex f-jc-space-between">
@@ -276,12 +297,19 @@ function SupportCard(props) {
 
 export default connect(
   (state) => {
-    return {};
+    return {
+      nominations: state.nominations.nominations,
+      nominationvotes: state.nomination_votes.nominationvotes,
+    };
   },
   (dispatch) => {
     return {
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
+      addNomination: (data) => dispatch(addNominationAction(data)),
+      fetchNominationVotes: (data) =>
+        dispatch(fetchNominationVotesAction(data)),
     };
   }
 )(withRouter(SupportCard));

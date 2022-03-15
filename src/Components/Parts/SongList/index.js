@@ -20,6 +20,7 @@ import {
   hideBuyModalAction,
 } from "../../../redux/actions/SongAction";
 import { buySongNFTAction } from "../../../redux/actions/NFTAction";
+import { updateTokenTransferAction } from "../../../redux/actions/TokenTransferAction";
 
 const {
   utils: {
@@ -63,6 +64,7 @@ function SongList(props) {
   const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
+
   const expandSongList = (id) => {
     console.log(q.parse(props.history.location.search), id);
     let i = q.parse(props.history.location.search)["?expanded"];
@@ -107,14 +109,22 @@ function SongList(props) {
       localStorage.removeItem("buying_song");
       props.history.push("/marketplace");
     } else if (props.history.location.search.includes("transactionHashes")) {
-      let txtId = decodeURIComponent(
-        q.parse(props.history.location.search)["?transactionHashes"]
-      );
-      buyingSong.hash = txtId;
-      console.log(buyingSong);
-      props.buySongNFT(buyingSong);
-      localStorage.removeItem("buying_song");
-      props.history.push("/marketplace");
+      if (localStorage.getItem("delist_song")) {
+        let delist_song = JSON.parse(localStorage.getItem("delist_song"));
+        props.updateTokenTransfer({
+          id: delist_song.id,
+          is_for_sale: false,
+        });
+        localStorage.removeItem("delist_song");
+        props.history.push("/marketplace");
+      } else {
+        let txtId = decodeURIComponent(
+          q.parse(props.history.location.search)["?transactionHashes"]
+        );
+        console.log(buyingSong);
+        props.buySongNFT(buyingSong);
+        props.history.push("/marketplace");
+      }
     }
   }, []);
 
@@ -184,24 +194,43 @@ function SongList(props) {
       "buying_song"
     );
     if (user.near_account_type === "connected") {
+      let isDelist = buyingSong.transfer_to === user.id;
       let buying_song = {
         id: buyingSong.id,
         price: buyingSong.bidding_price,
         yocto_near_price: buyingSong.yocto_near_price,
       };
-      localStorage.setItem("buying_song", JSON.stringify(buying_song));
-      await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
-        "offer",
-        {
-          nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-          receiver_id: user.near_account_id,
-          song_token_id: buyingSong.token,
-        },
-        300000000000000,
-        buyingSong.yocto_near_price
+      localStorage.setItem(
+        isDelist ? "delist_song" : "buying_song",
+        JSON.stringify(buying_song)
       );
+      if (isDelist) {
+        await props.wallet.account().functionCall(
+          process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
+            "market.aa-1-test.testnet",
+          "remove_song_sale",
+          {
+            nft_contract_id:
+              process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+            token_id: buyingSong.token,
+          },
+          300000000000000
+        );
+      } else {
+        await props.wallet.account().functionCall(
+          process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
+            "market.aa-1-test.testnet",
+          "offer",
+          {
+            nft_contract_id:
+              process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+            receiver_id: user.near_account_id,
+            song_token_id: buyingSong.token,
+          },
+          300000000000000,
+          buyingSong.yocto_near_price
+        );
+      }
     } else {
       props.buySong({
         id: buyingSong.id,
@@ -359,12 +388,16 @@ function SongList(props) {
                               })
                             }
                           >
-                            Buy Now
+                            {user.id === transfer.transfer_to
+                              ? "Delist Song"
+                              : "Buy Now"}
                           </button>
                         </div>
                         <div className="mobileAction">
                           <button onClick={() => onModalChange(transfer)}>
-                            Buy Now{" "}
+                            {user.id === transfer.transfer_to
+                              ? "Delist Song"
+                              : "Buy Now"}
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
@@ -380,8 +413,16 @@ function SongList(props) {
               {props.displayBuyModal && (
                 <div className="buy-modal">
                   <GeneralModal
-                    headline="Buy Album"
-                    bodyText="Please confirm your purchase"
+                    headline={
+                      buyingSong?.transfer_to === user.id
+                        ? "Delist Song"
+                        : "Buy Album"
+                    }
+                    bodyText={`Please confirm your ${
+                      buyingSong.transfer_to === user.id
+                        ? "delisting"
+                        : "purchase"
+                    }`}
                     // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
                     buttons={[
                       {
@@ -421,6 +462,7 @@ export default connect(
       showBuyModal: () => dispatch(showBuyModalAction()),
       hideBuyModal: () => dispatch(hideBuyModalAction()),
       buySongNFT: (data) => dispatch(buySongNFTAction(data)),
+      updateTokenTransfer: (data) => dispatch(updateTokenTransferAction(data)),
     };
   }
 )(withRouter(SongList));
