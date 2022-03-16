@@ -94,6 +94,7 @@ function MyProfile(props) {
   }, []);
 
   const generateAlbumItem = (nft, index) => {
+    console.log(nft, "nft");
     return (
       <SingleMergedAlbum
         key={index}
@@ -105,7 +106,7 @@ function MyProfile(props) {
   };
 
   const onSingleSongClick = (song, index) => {
-    console.log(song, props.token_transfers);
+    console.log(song, props.token_transfers, index);
     props.showSellModal();
     if (!song.transfers) {
       song.transfers = props.token_transfers.filter(
@@ -113,7 +114,9 @@ function MyProfile(props) {
       );
     }
     setSellingSong(song);
-    setSelectedAlbumToken(props.token_transfers[index]);
+    setSelectedAlbumToken(
+      props.token_transfers.filter((f) => f.type === "album_bundle")[index]
+    );
     // setSellingCopy(song.transfers.find(f => f.copy_number === props.token_transfers[index].copy_number))
   };
 
@@ -204,7 +207,7 @@ function MyProfile(props) {
         price,
         yocto_near_price: parseNearAmount(`${nearPrice}`),
       };
-
+      console.log(selectedAlbumToken, "selectedAlbumToken");
       let songtokenid = `${selectedAlbumToken.album.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
       console.log(songtokenid);
       localStorage.setItem("selling_song", JSON.stringify(selling_song));
@@ -481,22 +484,24 @@ function MyProfile(props) {
                   props.token_transfers.filter((f) => f.type !== null),
                 "token"
               )
-            ).map((token, index) =>
-              generateAlbumItem(
-                {
-                  token: { ...token[1][0], transfers: token[1] },
-                  copy_number: token[1][0].copy_number,
-                  hideSticker: false,
-                  // transfers: token[1],
-                  mints_owned: token[1]
-                    .filter(
-                      (f) => f.is_owner && f.transfer_to === decodedToken.id
-                    )
-                    .map((m) => m.copy_number),
-                },
-                index
-              )
-            )}
+            )
+              .filter((f) => f[1][0].type !== "song")
+              .map((token, index) =>
+                generateAlbumItem(
+                  {
+                    token: { ...token[1][0], transfers: token[1] },
+                    copy_number: token[1][0].copy_number,
+                    hideSticker: false,
+                    // transfers: token[1],
+                    mints_owned: token[1]
+                      .filter(
+                        (f) => f.is_owner && f.transfer_to === decodedToken.id
+                      )
+                      .map((m) => m.copy_number),
+                  },
+                  index
+                )
+              )}
           </div>
         </div>
       ) : !props.loading ? (
