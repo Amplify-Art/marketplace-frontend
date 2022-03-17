@@ -25,11 +25,11 @@ import {
   displayLoadingOverlayAction,
 } from "../../redux/actions/GlobalAction";
 import "./SupportCard.scss";
+import { fetchNominationsAction } from "../../redux/actions/NominationAction";
 import {
-  fetchNominationsAction,
-  addNominationAction,
-} from "../../redux/actions/NominationAction";
-import { fetchNominationVotesAction } from "../../redux/actions/NominationVoteAction";
+  fetchNominationVotesAction,
+  addNominationVoteAction,
+} from "../../redux/actions/NominationVoteAction";
 
 const {
   WalletConnection,
@@ -48,6 +48,7 @@ function SupportCard(props) {
     props.fetchNominations({
       params: {
         related: "votedFor,votes",
+        "filter[is_in_queue]": true,
       },
     });
   }, []);
@@ -55,6 +56,7 @@ function SupportCard(props) {
     props.fetchNominationVotes({
       params: {
         "filter[voter_id]": user.id,
+        "filterRelated[nomination.is_in_queue.=]": true,
       },
     });
   }, [user && user.id]);
@@ -137,14 +139,14 @@ function SupportCard(props) {
       <div className="song-content d-h-between voter-list">
         <div>{nomination.votedFor && nomination.votedFor.near_account_id}</div>
         <div className="vote-actions">
-          {<span>{(nomination.votes && nomination.votes.length) || 1}</span>}
+          {<span>{(nomination.votes && nomination.votes.length) || 0}</span>}
           <img src={Vote} onClick={() => onVote(nomination)} />
         </div>
       </div>
     ));
   const onVote = (nomination) => {
-    props.addNomination({
-      nominee: nomination.nominee,
+    props.addNominationVote({
+      nomination_id: nomination.id,
     });
   };
 
@@ -196,6 +198,7 @@ function SupportCard(props) {
       console.error(error);
     }
   };
+  console.log(props.nominationvotes);
   return (
     <div id="support-card" className="left-nav-pad right-player-pad">
       <div className="container">
@@ -265,9 +268,8 @@ function SupportCard(props) {
                 </div>
               </div>
               <p>
-                You have{" "}
-                {supporterCards.length - props.nominationvotes?.length} Votes
-                left for this voting period.
+                You have {supporterCards.length - props.nominationvotes?.length}{" "}
+                Votes left for this voting period.
               </p>
               {renderVoteList()}
             </div>
@@ -307,7 +309,7 @@ export default connect(
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       hideLoadingOverlay: () => dispatch(hideLoadingOverlayAction()),
       fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
-      addNomination: (data) => dispatch(addNominationAction(data)),
+      addNominationVote: (data) => dispatch(addNominationVoteAction(data)),
       fetchNominationVotes: (data) =>
         dispatch(fetchNominationVotesAction(data)),
     };

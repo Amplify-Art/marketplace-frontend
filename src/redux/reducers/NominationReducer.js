@@ -1,5 +1,5 @@
-import { filter } from 'lodash';
-import * as types from '../../Constants/actions/Nomination';
+import { filter } from "lodash";
+import * as types from "../../Constants/actions/Nomination";
 
 /* eslint-disable no-case-declarations */
 
@@ -8,19 +8,20 @@ const initialState = {
   nominations: [],
   total: 0,
   loading: false,
-  error: '',
+  error: "",
   showCongratsModal: false,
   showNominate: false,
 };
 
 export default function (state = initialState, action) {
+  let nominations = [];
   switch (action.type) {
     case types.FETCH_NOMINATIONS_SUCCESS:
       if (!action.res.success) {
         return {
           ...state,
           nominations: [],
-          error: '',
+          error: "",
           loading: false,
         };
       }
@@ -61,7 +62,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         nominations: [],
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.FETCH_NOMINATION_SUCCESS:
@@ -69,7 +70,7 @@ export default function (state = initialState, action) {
         return {
           ...state,
           nomination: {},
-          error: '',
+          error: "",
           loading: false,
         };
       }
@@ -83,7 +84,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         nomination: {},
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.ADD_NOMINATION_SUCCESS:
@@ -96,11 +97,14 @@ export default function (state = initialState, action) {
     case types.ADD_NOMINATION_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.UPDATE_NOMINATION_SUCCESS:
-      let nominations = filter(state.nominations, item => item.id !== action.res.data.id);
+      nominations = filter(
+        state.nominations,
+        (item) => item.id !== action.res.data.id
+      );
       return {
         ...state,
         nomination: action.res.data || {},
@@ -108,14 +112,33 @@ export default function (state = initialState, action) {
         status: action.res.success,
         loading: false,
       };
+    case types.ADD_NOMINATION_VOTE:
+      let index = state.nominations.findIndex(
+        (f) => f.id === action?.res?.data?.nomination_id
+      );
+      nominations = state.nominations;
+      if (action.res.data)
+        nominations.splice(index, 1, {
+          ...state.nominations[index],
+          votes: [...state.nominations[index]?.votes, action?.res?.data],
+        });
+      return {
+        ...state,
+        nominations: [...nominations] || [],
+        status: action.res.success,
+        loading: false,
+      };
     case types.UPDATE_NOMINATION_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.DELETE_NOMINATION_SUCCESS:
-      nominations = filter(state.nominations, item => item.id !== action.payload.id);
+      nominations = filter(
+        state.nominations,
+        (item) => item.id !== action.payload.id
+      );
 
       return {
         ...state,
@@ -126,7 +149,7 @@ export default function (state = initialState, action) {
     case types.DELETE_NOMINATION_FAILED:
       return {
         ...state,
-        error: 'Bad Request',
+        error: "Bad Request",
         loading: false,
       };
     case types.TOGGLE_NOMINATE_CONGRATS_MODAL:
