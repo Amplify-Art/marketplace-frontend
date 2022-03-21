@@ -261,11 +261,11 @@ function SupportCard(props) {
             <div className="w-100 song-inner-content">
               <div className="song-head d-h-between">
                 <span className="song-head-title">Supporter Voting</span>
-                <div className="support-cal">
+                {/* <div className="support-cal">
                   <img src={CalanderIcon} alt="" className="cal-img" />
                   <span className="cal-font">2021</span>
                   <img src={DownArrowIcon} alt="" className="cal-img" />
-                </div>
+                </div> */}
               </div>
               <p>
                 You have {supporterCards.length - props.nominationvotes?.length}{" "}
