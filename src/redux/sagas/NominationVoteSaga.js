@@ -55,7 +55,6 @@ export function* addNominationVoteSaga({ history }, { payload }) {
   try {
     const res = yield call(addNominationVote, payload);
     yield all([
-      put({ type: types.ADD_NOMINATIONVOTE_SUCCESS, res }),
       put({
         type: SET_NOTIFICATION,
         payload: {
@@ -64,11 +63,12 @@ export function* addNominationVoteSaga({ history }, { payload }) {
             ? "Voted Successfully"
             : res.message || "Nomination Vote not added",
         },
-      })
+      }),
     ]);
     console.log(res, "res");
     if (res.success) {
       yield all([
+        put({ type: types.ADD_NOMINATIONVOTE_SUCCESS, res }),
         put({
           type: ADD_NOMINATION_VOTE,
           res,

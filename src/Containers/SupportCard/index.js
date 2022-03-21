@@ -198,7 +198,7 @@ function SupportCard(props) {
       console.error(error);
     }
   };
-  console.log(props.nominationvotes);
+  console.log(supporterCards.length, props.nominationvotes?.length);
   return (
     <div id="support-card" className="left-nav-pad right-player-pad">
       <div className="container">
