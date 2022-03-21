@@ -25,8 +25,9 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props }) => {
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
-        search: s && s.replace("@", ""),
+        search: (s && s.replace("@", "")) || undefined,
         "filter[type]": "user",
+        is_filter_nominee: true,
       },
     });
   };
