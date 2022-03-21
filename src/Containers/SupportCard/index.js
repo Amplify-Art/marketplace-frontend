@@ -69,8 +69,8 @@ function SupportCard(props) {
 
     let storeId =
       process.env.REACT_APP_CONTEXT === "production"
-        ? "amplify.mintspace2.testnet"
-        : "amplify.mintspace2.testnet";
+        ? "amplifytest.mintspace2.testnet"
+        : "amplifytest.mintspace2.testnet";
     let res = await axios.post(`${url}`, {
       query: `query MyQuery {\n  token(where: {storeId: {_eq: "${storeId}"}, ownerId: {_eq: "${user.near_account_id}"}}) {\n    id\n    thingId\n  }\n}\n`,
       operationName: "MyQuery",
