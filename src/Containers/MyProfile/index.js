@@ -338,10 +338,10 @@ function MyProfile(props) {
         });
         props.fetchTokenTransfers({
           params: {
+            "filter[transfer_to]": parseInt(id),
             "filter[type]": "album_bundle,song",
             related: "album.songs",
             orderBy: "-id",
-            "filter[transfer_to]": id,
           },
         });
 
@@ -356,10 +356,10 @@ function MyProfile(props) {
 
       props.fetchTokenTransfers({
         params: {
+          "filter[transfer_to]": parseInt(decodedToken.id),
           "filter[type]": "album_bundle,song",
           related: "album.songs",
           orderBy: "-id",
-          "filter[transfer_to]": decodedToken.id,
         },
       });
     }
@@ -475,7 +475,7 @@ function MyProfile(props) {
             {/* <button className="btn outlined">View All</button> */}
           </div>
 
-          <div className="albums" className="album-grid">
+          <div className="albums album-grid">
             {Object.entries(
               _.groupBy(
                 props &&
