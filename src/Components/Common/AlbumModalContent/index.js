@@ -16,6 +16,7 @@ import jwt from "jsonwebtoken";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import _ from "lodash";
 import { store } from "react-notifications-component";
+import { getTokens } from "../../../Utils/near";
 
 // songmodal
 import SongModalContent from "../SongModalcontent";
@@ -38,6 +39,7 @@ function AlbumModalContent({
   const [audio, setAudioSong] = useState(new Audio(""));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
+  const [userTokens, setUserTokens] = useState([]);
   let url = props.history.location;
 
   const handleSongModal = () => {
@@ -72,6 +74,18 @@ function AlbumModalContent({
   }, [isOpen]);
 
   useEffect(() => {
+    fetchTokens();
+  }, []);
+
+  const fetchTokens = async () => {
+    let tokens = await getTokens(props.wallet);
+    console.log(tokens, "tokens");
+    if (tokens.length > 0) {
+      setUserTokens(tokens);
+    }
+  };
+
+  useEffect(() => {
     playing ? audio.play() : audio.pause();
   }, [audio, playing, currentIndex]);
 
@@ -89,7 +103,11 @@ function AlbumModalContent({
       setPlaying(false);
     });
     audio.addEventListener("timeupdate", (e) => {
-      if (audio.currentTime > 15) {
+      if (
+        audio.currentTime > 15 &&
+        // !userTokens.some((ut) => ut.token_id.includes(currentIndex)) &&
+        props.history.location.pathname !== "/my-profile"
+      ) {
         stopSong();
       }
       const progressElement = document.getElementById(currentIndex);
@@ -312,7 +330,7 @@ function AlbumModalContent({
             onClick={() => onBuy(albumInfo)}
             type="button"
             className="buy-button btn2"
-            onClick={() => addToPlaylist("album")}
+            // onClick={() => addToPlaylist("album")}
           >
             {" "}
             Add to Player Queue
@@ -433,6 +451,7 @@ export default connect(
     return {
       showPlayer: state.global.showPlayer,
       currentPlaylists: state.playlists.current_playlists,
+      wallet: state.global.wallet,
     };
   },
   (dispatch) => {
