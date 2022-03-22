@@ -30,6 +30,8 @@ import {
   setIsSongSelected,
   storeSelectedAlbum,
   setIsAlbumSelected,
+  showSearchResultAction,
+  hideSearchResultAction,
 } from "../../../redux/actions/SearchResAction";
 import "./Header.scss";
 import q from "querystring";
@@ -59,7 +61,6 @@ function Header(props) {
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
   const [search, setSearch] = useState("");
-  const [showSearchResult, setShowSearchResult] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
 
@@ -275,7 +276,7 @@ function Header(props) {
   const handleClickOutside = (event) => {
     const { current: wrap } = wrapperRef;
     if (wrap && !wrap.contains(event.target)) {
-      setShowSearchResult(false);
+      props.hideSearchResult();
     }
   };
 
@@ -283,16 +284,16 @@ function Header(props) {
     console.log(type, data);
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
-      setShowSearchResult(false);
+      props.hideSearchResult();
     } else if (type === "Album") {
       props.history.push(`/search-result?search=${search}`);
       props.setSelectedAlbum({ albumData: data });
       props.setIsAlbumSelected({ isAlbumSelected: true });
-      setShowSearchResult(false);
+      props.hideSearchResult();
     } else {
       props.history.push(`/search-result?search=${search}`);
       props.setIsSongSelected();
-      setShowSearchResult(false);
+      props.hideSearchResult();
     }
   };
 
@@ -382,13 +383,13 @@ function Header(props) {
               <input
                 type="text"
                 placeholder="Search for songs, artists..."
-                onClick={() => setShowSearchResult(!showSearchResult)}
+                onClick={() => props.showSearchResultFn()}
                 onChange={handleSearch}
                 onKeyDown={handleSubmit}
                 value={search}
               />
             </div>
-            {search.trim() !== "" && showSearchResult && (
+            {search.trim() !== "" && props.showSearchResult && (
               <div
                 className={`scrollSearchResult ${
                   hasData() && !searchLoading ? "p-0" : ""
@@ -545,6 +546,7 @@ export default connect(
       searchLoading: state.searchRes.loading,
       wallet: state.global.wallet,
       currentPlaylists: state.playlists.current_playlists,
+      showSearchResult: state.searchRes.showSearchResult,
     };
   },
   (dispatch) => {
@@ -561,6 +563,8 @@ export default connect(
       setWallet: (payload) => dispatch(setWalletAction(payload)),
       setCurrentNearPrice: () => dispatch(setCurrentNearPrice()),
       togglePlayer: () => dispatch(togglePlayerAction()),
+      showSearchResultFn: () => dispatch(showSearchResultAction()),
+      hideSearchResult: () => dispatch(hideSearchResultAction()),
     };
   }
 )(withRouter(Header));

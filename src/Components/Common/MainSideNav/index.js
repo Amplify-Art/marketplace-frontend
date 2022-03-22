@@ -12,6 +12,8 @@ import {
   setIsSongSelected,
   storeSelectedAlbum,
   setIsAlbumSelected,
+  showSearchResultAction,
+  hideSearchResultAction,
 } from "../../../redux/actions/SearchResAction";
 import Nominate from "../../../Containers/Nominate";
 import useDebounce from "../UseDebounce";
@@ -24,7 +26,6 @@ import { getNearKeys } from "../../../Constants/near";
 function MainSideNav(props) {
   const [showNominateModal, setShowNominateModal] = useState(false);
   const [search, setSearch] = useState("");
-  const [showSearchResult, setShowSearchResult] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -59,23 +60,23 @@ function MainSideNav(props) {
   const handleClickOutside = (event) => {
     const { current: wrap } = wrapperRef;
     if (wrap && !wrap.contains(event.target)) {
-      setShowSearchResult(false);
+      props.hideSearchResult();
     }
   };
 
   const handleSearchClicked = (type, data) => {
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
-      setShowSearchResult(false);
+      props.hideSearchResult();
     } else if (type === "Album") {
       props.history.push(`/search-result?search=${search}`);
       props.setSelectedAlbum({ albumData: data });
       props.setIsAlbumSelected({ isAlbumSelected: true });
-      setShowSearchResult(false);
+      props.hideSearchResult();
     } else {
       props.history.push(`/search-result?search=${search}`);
       props.setIsSongSelected();
-      setShowSearchResult(false);
+      props.hideSearchResult();
     }
     props.toggleMobileMenu();
   };
@@ -129,13 +130,13 @@ function MainSideNav(props) {
               <input
                 type="text"
                 placeholder="Search for songs, artists..."
-                onClick={() => setShowSearchResult(!showSearchResult)}
+                onClick={() => props.showSearchResultFn()}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSubmit}
                 value={search}
               />
             </div>
-            {search.trim() !== "" && showSearchResult && (
+            {search.trim() !== "" && props.showSearchResult && (
               <div className="mobileScrollSearchResult">
                 {props.searchLoading
                   ? "Loading..." // TODO: can add any animation
@@ -285,6 +286,7 @@ export default connect(
       showMobileMenu: state.global.mobileMenu,
       searchResult: state.searchRes.searchResult,
       searchLoading: state.searchRes.loading,
+      showSearchResult: state.searchRes.showSearchResult,
     };
   },
   (dispatch) => {
@@ -297,6 +299,8 @@ export default connect(
       setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
       setIsSongSelected: () => dispatch(setIsSongSelected()),
       setIsAlbumSelected: (payload) => dispatch(setIsAlbumSelected(payload)),
+      showSearchResultFn: () => dispatch(showSearchResultAction()),
+      hideSearchResult: () => dispatch(hideSearchResultAction()),
     };
   }
 )(withRouter(MainSideNav));
