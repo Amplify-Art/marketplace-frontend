@@ -364,9 +364,9 @@ function Header(props) {
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
         <div className="logo">
-          <Link to="/">
+          <a href="/">
             <img src={Logo} alt="Amplify.Art" />
-          </Link>
+          </a>
         </div>
         {!userToken ? (
           // <div className="nav">
