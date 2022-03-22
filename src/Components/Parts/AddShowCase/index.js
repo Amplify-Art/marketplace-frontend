@@ -74,7 +74,7 @@ function AddShowCase({
       setLoading(false);
     }
   };
-  console.log(data, "data");
+  console.log(songs, "data");
 
   return (
     <div id="addshowcase">
@@ -164,7 +164,6 @@ export default connect(
   (state) => {
     return {
       nfts: state.nfts.nfts,
-      songs: [],
       isFetchingNFts: state.nfts.loading || state.songs.loading,
       wallet: state.global.wallet,
     };
