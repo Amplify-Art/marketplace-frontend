@@ -123,9 +123,9 @@ function AlbumSingleSong(props) {
                   : "55%"
                 : "100%",
           }}
-        >{`${Math.floor(song.duration / 60)}:${Math.ceil(
-          (song.duration / 60 - Math.floor(song.duration / 60)) * 60
-        )}`}</div>
+        >{`${Math.floor(song.duration / 60)}:${String(
+          Math.ceil(song.duration / 60 - Math.floor(song.duration / 60)) * 60
+        ).padStart(2, "0")}`}</div>
         {url.pathname === "/my-profile" && (
           <>
             {viewOrSell ? (
