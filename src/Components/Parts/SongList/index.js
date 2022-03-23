@@ -358,7 +358,7 @@ function SongList(props) {
                           by @
                           {transfer &&
                             transfer.transferTo &&
-                            transfer.transferTo.name}
+                            transfer.transferTo.near_account_id}
                         </div>
                         <div className="date-listed-by-mobile">
                           <div style={{ width: "100%" }}>

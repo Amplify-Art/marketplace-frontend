@@ -327,10 +327,10 @@ function AlbumModalContent({
           )}
         {!isPlayList && isMerged && (
           <button
-            onClick={() => onBuy(albumInfo)}
+            // onClick={() => onBuy(albumInfo)}
             type="button"
             className="buy-button btn2"
-            // onClick={() => addToPlaylist("album")}
+            onClick={() => addToPlaylist("album")}
           >
             {" "}
             Add to Player Queue
@@ -368,7 +368,7 @@ function AlbumModalContent({
           )}
         {!isPlayList && isMerged && (
           <button
-            onClick={() => onBuy(albumInfo)}
+            // onClick={() => onBuy(albumInfo)}
             type="button"
             className="buy-button btn2"
             onClick={() => addToPlaylist("album")}

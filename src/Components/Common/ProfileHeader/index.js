@@ -56,7 +56,8 @@ function ProfileHeader({
       },
     });
   }, []);
-
+  let songsCount = nearUser && nearUser.owned_songs ? nearUser.owned_songs : 0;
+  
   return (
     <div id="profile-header">
       <div
@@ -124,13 +125,7 @@ function ProfileHeader({
               <span>{ArtistData.name}</span>
               {!isPublicProfile && (
                 <span className="no_of_songs">
-                  {nearUser ? nearUser.owned_songs : 0} Song{" "}
-                  {nearUser && nearUser.owned_songs
-                    ? nearUser.owned_songs.length === 1
-                      ? nearUser.owned_songs.length
-                      : nearUser.owned_songs.length + "s"
-                    : 0}{" "}
-                  Owned
+                  {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
                 </span>
               )}
             </div>
@@ -144,9 +139,9 @@ function ProfileHeader({
           <span className="no_of_songs">
             {nearUser ? nearUser.owned_songs : 0} Song{" "}
             {nearUser && nearUser.owned_songs
-              ? nearUser.owned_songs.length === 1
-                ? nearUser.owned_songs.length
-                : nearUser.owned_songs.length + "s"
+              ? nearUser.owned_songs === 1
+                ? nearUser.owned_songs
+                : nearUser.owned_songs + "s"
               : 0}{" "}
             Owned
           </span>
