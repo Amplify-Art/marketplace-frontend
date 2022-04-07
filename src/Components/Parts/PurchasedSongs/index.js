@@ -54,9 +54,10 @@ function PurchasedSongs(props) {
   const renderSongs = () => {
     console.log(props.transfers, ownedTokenCopies, "ownedTokens");
     return props.transfers
-      .filter((f) =>
-        // f.copy_number === selectedAlbumToken.copy_number && !f.bidding_price
-        ownedTokenCopies.includes(f.copy_number)
+      .filter(
+        (f) =>
+          // f.copy_number === selectedAlbumToken.copy_number && !f.bidding_price
+          ownedTokenCopies.includes(f.copy_number) && !f.bidding_price
       )
       .map((list, index) => (
         <div className="song">
