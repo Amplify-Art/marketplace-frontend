@@ -57,6 +57,7 @@ function AlbumSingleSong(props) {
     audio,
     onSingleSongClick,
     token,
+    isPlayList,
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
@@ -117,7 +118,7 @@ function AlbumSingleSong(props) {
           className="duration"
           style={{
             width:
-              url.pathname === "/my-profile"
+              url.pathname === "/my-profile" && !isPlayList
                 ? viewOrSell
                   ? "30%"
                   : "55%"
@@ -128,7 +129,7 @@ function AlbumSingleSong(props) {
         ).padStart(2, "0")}`}</div>
         {url.pathname === "/my-profile" && (
           <>
-            {viewOrSell ? (
+            {isPlayList ? null : viewOrSell ? (
               <span
                 className="view"
                 onClick={() =>

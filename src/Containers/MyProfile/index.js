@@ -115,7 +115,8 @@ function MyProfile(props) {
     }
     setSellingSong(song);
     setSelectedAlbumToken(
-      props.token_transfers.filter((f) => f.type === "album_bundle")[index]
+      props.token_transfers.find((f) => f?.song?.album_id === song.album_id)
+        .song.album
     );
     // setSellingCopy(song.transfers.find(f => f.copy_number === props.token_transfers[index].copy_number))
   };
@@ -208,7 +209,7 @@ function MyProfile(props) {
         yocto_near_price: parseNearAmount(`${nearPrice}`),
       };
       console.log(selectedAlbumToken, "selectedAlbumToken");
-      let songtokenid = `${selectedAlbumToken.album.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
+      let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
       console.log(songtokenid);
       localStorage.setItem("selling_song", JSON.stringify(selling_song));
       await props.wallet.account().functionCall(
@@ -339,7 +340,7 @@ function MyProfile(props) {
         props.fetchTokenTransfers({
           params: {
             "filter[transfer_to]": parseInt(id),
-            "filter[type]": "album_bundle,song",
+            "filter[type]": "song",
             related: "album.songs",
             orderBy: "-id",
           },
@@ -357,8 +358,8 @@ function MyProfile(props) {
       props.fetchTokenTransfers({
         params: {
           "filter[transfer_to]": parseInt(decodedToken.id),
-          "filter[type]": "album_bundle,song",
-          related: "album.songs",
+          "filter[type]": "song",
+          related: "album.songs,song.album.songs",
           orderBy: "-id",
         },
       });
@@ -419,17 +420,28 @@ function MyProfile(props) {
       props.showPlaylistModal();
     }
   };
-  // console.log(
-  //   Object.entries(
-  //     _.groupBy(
-  //       props &&
-  //         props.token_transfers &&
-  //         props.token_transfers.length > 0 &&
-  //         props.token_transfers.filter((f) => f.type !== null),
-  //       "token"
-  //     )
-  //   )
-  // );
+
+  let formattedAlbums = Object.entries(
+    _.groupBy(
+      props &&
+        props.token_transfers &&
+        props.token_transfers.length > 0 &&
+        props.token_transfers.filter((f) => f.type !== null),
+      (each) => each.song.album_id
+    )
+  );
+  console.log(formattedAlbums);
+  let aformattedAlbums = formattedAlbums.map((fa) => {
+    if (fa[1][0].type === "song") {
+      console.log(fa, "FA");
+      return {
+        ...fa[1][0],
+        album: fa[1][0]?.song?.album,
+        transfers: fa[1],
+      };
+    } else return fa;
+  });
+  console.log(aformattedAlbums);
   return (
     <div
       id="profile"
@@ -476,24 +488,16 @@ function MyProfile(props) {
           </div>
 
           <div className="albums album-grid">
-            {Object.entries(
-              _.groupBy(
-                props &&
-                  props.token_transfers &&
-                  props.token_transfers.length > 0 &&
-                  props.token_transfers.filter((f) => f.type !== null),
-                "token"
-              )
-            )
-              .filter((f) => f[1][0].type !== "song")
+            {aformattedAlbums
+              // .filter((f) => f[1][0].type !== "song") // Try now for only songs
               .map((token, index) =>
                 generateAlbumItem(
                   {
-                    token: { ...token[1][0], transfers: token[1] },
-                    copy_number: token[1][0].copy_number,
+                    token: { ...token },
+                    copy_number: token.copy_number,
                     hideSticker: false,
                     // transfers: token[1],
-                    mints_owned: token[1]
+                    mints_owned: token.transfers
                       .filter(
                         (f) => f.is_owner && f.transfer_to === decodedToken.id
                       )

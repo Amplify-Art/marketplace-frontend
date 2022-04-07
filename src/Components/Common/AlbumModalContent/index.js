@@ -236,7 +236,10 @@ function AlbumModalContent({
               <div
                 className="playlist-header"
                 style={{
-                  width: url.pathname !== "/my-profile" ? "100%" : "55%",
+                  width:
+                    url.pathname !== "/my-profile" || isPlayList
+                      ? "100%"
+                      : "55%",
                 }}
               >
                 <span>SONG TITLE</span>
@@ -258,6 +261,7 @@ function AlbumModalContent({
                       toggle={(data) => toggle(data)}
                       onSingleSongClick={onSingleSongClick}
                       token={token}
+                      isPlayList={isPlayList}
                     />
                   ))}
             </div>
@@ -420,6 +424,7 @@ function AlbumModalContent({
                       toggle={(data) => toggle(data)}
                       onSingleSongClick={onSingleSongClick}
                       token={token}
+                      isPlayList={isPlayList}
                     />
                   ))}
             </div>
