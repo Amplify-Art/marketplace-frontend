@@ -86,6 +86,7 @@ function AlbumSingleSong(props) {
         song.album_id === token.album.id
     ) || {}
   ).is_for_sale;
+
   return (
     <div
       className="inner-content-album-modal"

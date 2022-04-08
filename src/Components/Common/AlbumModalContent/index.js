@@ -173,6 +173,11 @@ function AlbumModalContent({
     props.showDeletePlaylist();
   };
 
+  console.log(albumInfo &&
+    albumInfo.songs &&
+    albumInfo.songs
+      ?.sort((a, b) => a.id - b.id), 'INFOOOOOO')
+
   return (
     <>
       <div id="albums-content">

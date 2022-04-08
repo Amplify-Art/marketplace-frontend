@@ -94,7 +94,6 @@ function MyProfile(props) {
   }, []);
 
   const generateAlbumItem = (nft, index) => {
-    console.log(nft, "nft");
     return (
       <SingleMergedAlbum
         key={index}
@@ -106,7 +105,6 @@ function MyProfile(props) {
   };
 
   const onSingleSongClick = (song, index) => {
-    console.log(song, props.token_transfers, index);
     props.showSellModal();
     if (!song.transfers) {
       song.transfers = props.token_transfers.filter(
@@ -208,9 +206,7 @@ function MyProfile(props) {
         price,
         yocto_near_price: parseNearAmount(`${nearPrice}`),
       };
-      console.log(selectedAlbumToken, "selectedAlbumToken");
       let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
-      console.log(songtokenid);
       localStorage.setItem("selling_song", JSON.stringify(selling_song));
       await props.wallet.account().functionCall(
         process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
@@ -359,7 +355,7 @@ function MyProfile(props) {
         params: {
           "filter[transfer_to]": parseInt(decodedToken.id),
           "filter[type]": "song",
-          related: "album.songs,song.album.songs",
+          related: "album.songs,song.album.songs.transfers",
           orderBy: "-id",
         },
       });
@@ -430,10 +426,8 @@ function MyProfile(props) {
       (each) => each.song.album_id
     )
   );
-  console.log(formattedAlbums);
   let aformattedAlbums = formattedAlbums.map((fa) => {
     if (fa[1][0].type === "song") {
-      console.log(fa, "FA");
       return {
         ...fa[1][0],
         album: fa[1][0]?.song?.album,
@@ -441,7 +435,6 @@ function MyProfile(props) {
       };
     } else return fa;
   });
-  console.log(aformattedAlbums);
   return (
     <div
       id="profile"
