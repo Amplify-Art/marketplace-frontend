@@ -122,7 +122,7 @@ function SongList(props) {
           q.parse(props.history.location.search)["?transactionHashes"]
         );
         console.log(buyingSong);
-        props.buySongNFT(buyingSong);
+        props.buySongNFT({ ...buyingSong, hash: txtId });
         props.history.push("/marketplace");
       }
     }
