@@ -66,20 +66,18 @@ function AddShowCase({
   if (isPlayList) {
     data = songs.filter((f) => !mappedSelectedIds.includes(f.id));
   } else {
-    data = nfts;
+    data = nfts || [];
   }
   const onLoadingImage = (i) => {
-    console.log(data.length, i);
     if (data.length - 1 === i) {
       setLoading(false);
     }
   };
-  console.log(songs, "data");
 
   return (
     <div id="addshowcase">
       <div class="scrollbar" id="style-4">
-        {data && data.length > 0 ? (
+        {data ? (
           data.map((nft, item) => (
             <div className="row">
               <div className="playlist-cover-holder">
