@@ -147,7 +147,10 @@ function Wallet(props) {
 
           <div className="usd">
             {props.user?.near_balance &&
-              `$${((props.user?.near_balance * near) / 10 ** 24).toFixed(3)}`}
+              new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format((props.user?.near_balance * near) / 10 ** 24)}
           </div>
 
           <div className="buttons">

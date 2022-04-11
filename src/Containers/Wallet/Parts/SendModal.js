@@ -310,7 +310,10 @@ const SendModal = ({
             </div>
           </div>
           <div className="send-modal-view3-dollar">
-            ${(enteredNearAmt * near).toFixed(2)}
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(enteredNearAmt * near)}
           </div>
           <div className="send-modal-view3-detail-wrapper">
             <div className="send-modal-view3-heading">To</div>
