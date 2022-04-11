@@ -333,7 +333,7 @@ const SendModal = ({
           <div className="send-modal-view3-total-wrapper">
             <div className="send-modal-view3-heading">Total</div>
             <div className="send-modal-view3-detail">
-              {parseFloat(networkFee) + parseFloat(enteredNearAmt)} NEAR
+              {parseFloat(enteredNearAmt)} NEAR
             </div>
           </div>
           <div>
