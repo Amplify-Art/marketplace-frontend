@@ -24,7 +24,10 @@ import {
   sendNotificationAction,
   setCurrentNearPrice,
 } from "../../../redux/actions/GlobalAction";
-import { setNearBalanceAction } from "../../../redux/actions/UserAction";
+import {
+  setNearBalanceAction,
+  fetchUserAction,
+} from "../../../redux/actions/UserAction";
 import {
   fetchSearchResult,
   setIsSongSelected,
@@ -255,12 +258,10 @@ function Header(props) {
     }
   };
   const userToken = localStorage.getItem("amplify_app_token");
-
-  let userDetails = {};
-
-  if (userToken) {
-    userDetails = jwt_decode(userToken);
-  }
+  useEffect(() => {
+    const { id } = jwt_decode(userToken);
+    props.fetchUser({ id });
+  }, []);
 
   const getNearPrice = () => {
     // https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD
@@ -435,7 +436,9 @@ function Header(props) {
                   className="profilePic"
                   style={{
                     backgroundImage: `url(${
-                      !userDetails.avatar ? defaultProfile : userDetails.avatar
+                      !props.userDetails.avatar
+                        ? defaultProfile
+                        : props.userDetails.avatar
                     })`,
                   }}
                 />
@@ -547,6 +550,7 @@ export default connect(
       wallet: state.global.wallet,
       currentPlaylists: state.playlists.current_playlists,
       showSearchResult: state.searchRes.showSearchResult,
+      userDetails: state.users.user,
     };
   },
   (dispatch) => {
@@ -565,6 +569,7 @@ export default connect(
       togglePlayer: () => dispatch(togglePlayerAction()),
       showSearchResultFn: () => dispatch(showSearchResultAction()),
       hideSearchResult: () => dispatch(hideSearchResultAction()),
+      fetchUser: (data) => dispatch(fetchUserAction(data)),
     };
   }
 )(withRouter(Header));
