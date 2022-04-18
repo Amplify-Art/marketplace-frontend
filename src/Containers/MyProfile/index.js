@@ -61,6 +61,7 @@ function MyProfile(props) {
   const [sellingCopy, setSellingCopy] = useState(null);
   const [openSharePopup, setSharePopup] = useState(false);
   const [selectedAlbumToken, setSelectedAlbumToken] = useState(null);
+  const [showAlbumModalIndex, setShowModalAlbumIndex] = useState(null);
   const [isPublicProfile] = useState(
     props &&
       props.location &&
@@ -93,6 +94,8 @@ function MyProfile(props) {
     });
   }, []);
 
+  useEffect(() => {});
+
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleMergedAlbum
@@ -100,6 +103,8 @@ function MyProfile(props) {
         albumInfo={nft}
         onSingleSongClick={(song) => onSingleSongClick(song, index)}
         index={index}
+        showAlbumModalIndex={showAlbumModalIndex}
+        setShowModalAlbumIndex={setShowModalAlbumIndex}
       />
     );
   };
@@ -153,6 +158,11 @@ function MyProfile(props) {
       props.sellSongNFT(sellingSong);
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
+    } else if (props.history.location.search.includes("showId")) {
+      let albumId = decodeURIComponent(
+        q.parse(props.history.location.search)["?showId"]
+      );
+      console.log(albumId);
     }
   }, []);
 
@@ -435,6 +445,21 @@ function MyProfile(props) {
       };
     } else return fa;
   });
+
+  useEffect(() => {
+    if (aformattedAlbums.length) {
+      let albumId = decodeURIComponent(
+        q.parse(props.history.location.search)["?showId"]
+      );
+      if (parseInt(albumId) > -1) {
+        let actualIndex = aformattedAlbums.findIndex(
+          (f) => f.album.id === parseInt(albumId)
+        );
+        setShowModalAlbumIndex(parseInt(actualIndex));
+      }
+    }
+  }, [aformattedAlbums.length]);
+  console.log(aformattedAlbums, "aformattedAlbums");
   return (
     <div
       id="profile"

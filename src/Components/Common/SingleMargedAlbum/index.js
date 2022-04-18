@@ -39,6 +39,9 @@ function SingleMergedAlbum(props) {
     hidePurchaseModal,
     showPurchaseModal,
     setDeletingId,
+    showAlbumModalIndex,
+    setShowModalAlbumIndex,
+    index,
   } = props;
   const [isOpen, SetModalOpen] = useState(false);
   const [height, setHeight] = useState("");
@@ -59,11 +62,11 @@ function SingleMergedAlbum(props) {
   };
 
   const handleModal = () => {
-    SetModalOpen(true);
+    setShowModalAlbumIndex(index);
   };
 
   const handleCloseModal = () => {
-    SetModalOpen(false);
+    setShowModalAlbumIndex(null);
     setViewDetails(false);
     dispatch(setIsAlbumSelected({ isAlbumSelected: false }));
     dispatch(storeSelectedAlbum({ albumData: {} }));
@@ -193,7 +196,7 @@ function SingleMergedAlbum(props) {
         token_id: albumInfo.id,
       });
     }
-    SetModalOpen(false);
+    setShowModalAlbumIndex(null);
   };
 
   useEffect(() => {
@@ -251,13 +254,15 @@ function SingleMergedAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-
+  console.log(
+    showAlbumModalIndex,
+    index,
+    showAlbumModalIndex,
+    "showAlbumModalIndex"
+  );
   return (
     <>
-      <div
-        className="single-album"
-        onClick={props.onClick ? props.onClick : handleModal}
-      >
+      <div className="single-album" onClick={() => handleModal(index)}>
         <div className="cd-case" style={{ height: `${height}px` }}>
           <div className="art-cover">
             <img src={albumCover} alt="cover image" />
@@ -330,7 +335,11 @@ function SingleMergedAlbum(props) {
           className="centered"
         />
       )}
-      <div className={`modal-album ${!isOpen ? "d-none" : "d-block"}`}>
+      <div
+        className={`modal-album ${
+          showAlbumModalIndex !== index ? "d-none" : "d-block"
+        }`}
+      >
         <GeneralModal
           isCloseButton="true"
           bodyChildren={
@@ -348,7 +357,7 @@ function SingleMergedAlbum(props) {
                     }
                   : albumInfo
               }
-              isOpen={isOpen}
+              isOpen={showAlbumModalIndex === index}
               isPlayList={isPlayList}
               onBuy={handleBuy}
               viewDetails={viewDetails}
