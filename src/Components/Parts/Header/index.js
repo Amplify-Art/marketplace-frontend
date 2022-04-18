@@ -259,8 +259,10 @@ function Header(props) {
   };
   const userToken = localStorage.getItem("amplify_app_token");
   useEffect(() => {
-    const { id } = jwt_decode(userToken);
-    props.fetchUser({ id });
+    if (userToken) {
+      const { id } = jwt_decode(userToken);
+      props.fetchUser({ id });
+    }
   }, []);
 
   const getNearPrice = () => {
