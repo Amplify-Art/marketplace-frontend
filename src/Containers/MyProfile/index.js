@@ -259,7 +259,19 @@ function MyProfile(props) {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-
+    store.addNotification({
+      title: "Success",
+      message: "Profile copied to clipboard",
+      type: "success",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true,
+      },
+    });
     setSharePopup(false);
   };
 
