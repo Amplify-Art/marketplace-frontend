@@ -209,7 +209,7 @@ function NewNFT(props) {
           "add_token_types",
           {
             album_hash: albumCover,
-            cover_songslist: uploadedIpfs,
+            cover_songslist: _.uniq(uploadedIpfs),
             number_of_album_copies: parseInt(data.numberOfAlbums),
             price: yocto_near_price,
             songs_metadatalist: minting_info.songs.map((song) => ({
