@@ -359,7 +359,7 @@ function MyProfile(props) {
           params: {
             "filter[transfer_to]": parseInt(id),
             "filter[type]": "song",
-            related: "album.songs",
+            related: "album.songs,song.album.songs.transfers",
             orderBy: "-id",
           },
         });
@@ -445,7 +445,7 @@ function MyProfile(props) {
         props.token_transfers &&
         props.token_transfers.length > 0 &&
         props.token_transfers.filter((f) => f.type !== null),
-      (each) => each.song.album_id
+      (each) => each?.song?.album_id
     )
   );
   let aformattedAlbums = formattedAlbums.map((fa) => {

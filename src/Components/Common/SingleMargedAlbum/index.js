@@ -279,10 +279,10 @@ function SingleMergedAlbum(props) {
                 {albumInfo.copy_number ||
                   (albumInfo.available_qty === 0
                     ? albumInfo.available_qty
-                    : albumInfo.qty - albumInfo.available_qty + 1)}
+                    : albumInfo?.qty - albumInfo.available_qty + 1)}
                 /
-                {albumInfo.qty ||
-                  (albumInfo.token && albumInfo.token.album.qty)}
+                {albumInfo?.qty ||
+                  (albumInfo.token && albumInfo?.token?.album?.qty)}
               </span>
             </div>
           )}
