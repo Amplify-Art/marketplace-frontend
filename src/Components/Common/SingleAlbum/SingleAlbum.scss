@@ -1,18 +1,13 @@
 .single-album1 {
     position: relative;
     font-family: "Space Grotesk";
+    width: 100%;
     .album-own {
         color: white;
     }
 
     .cd-case1 {
-        @media screen and (max-width: 600px) {
-            height: 124px;
-            width: 124px;
-        }
-        width: 262px;
-        height: 242px;
-        // text-align: right;
+        width: 100%;
         position: relative;
         background-size: cover;
         padding: 3px 5px 5px 0px;
@@ -32,56 +27,56 @@
             overflow: hidden;
         }
         .album-art {
-            height: 230px;
-            width: 230px;
+            top: 3%;
+            left: 14%;
+            width: 84%;
+            height: 95%;
             border-radius: 3px;
             background: rgba(0, 0, 0, 0);
             box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5), inset 0px 0px 16px 2px rgba(0, 0, 0, 0.1),
                 inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
             position: relative;
-            top: 3px;
-            left: 25px;
             z-index: -2;
             background-size: cover !important;
         }
         .sup {
-            height: 13px;
-            width: 25px;
+            height: 4.6%;
+            width: 14%;
             background: rgba(255, 255, 255, 0.15);
             box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.22), inset 0px 0px 1px 1px rgba(255, 255, 255, 0.17);
         }
         .pos-tl {
-            position: relative;
+            position: absolute;
             top: 0;
-            left: 20px;
+            left: 15%;
             border-radius: 0 0 5px 5px;
         }
         .pos-tr {
-            position: relative;
-            top: -12px;
-            left: 185px;
+            position: absolute;
+            top: 0;
+            left: 70%;
             border-radius: 0 0 5px 5px;
         }
         .pos-bl {
-            position: relative;
-            top: 190px;
-            left: 20px;
+            position: absolute;
+            bottom: 0;
+            left: 15%;
             border-radius: 5px 5px 0 0;
         }
         .pos-br {
-            position: relative;
-            top: 177px;
-            left: 185px;
+            position: absolute;
+            bottom: 0;
+            left: 70%;
             border-radius: 5px 5px 0 0;
         }
         .spine {
-            height: 120px;
-            width: 15px;
+            height: 50%;
+            width: 7%;
             background: -webkit-linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 100%);
             box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.23), inset 0px 0px 7px 0px rgba(0, 0, 0, 0.22),
                 inset 0px 0px 0px 1px rgba(255, 255, 255, 0.22);
-            position: relative;
-            top: -160px;
+            position: absolute;
+            top: 25%;
             left: 0px;
             border-radius: 0 50% 50% 0;
             z-index: -1;
@@ -92,7 +87,13 @@
         .mint-sticker {
             &.available {
                 background-image: url("../../../assets/images/mint-sticker.png");
+                background-size: 100% 100%;
+                background-position: center;
+                background-repeat: no-repeat;
                 span {
+                    @media screen and (max-width: 400px) {
+                        font-size: 8px;
+                    }
                     font-size: 11px;
                     text-transform: uppercase;
                     font-weight: bold;
@@ -102,17 +103,19 @@
             }
             &.sold {
                 background-image: url("../../../assets/images/sold-out.png");
-                background-size: 59px 59px;
+                background-size: 100% 100%;
+                background-position: center;
+                background-repeat: no-repeat;
                 span {
                     display: none;
                 }
             }
-            height: 59px;
-            width: 59px;
+            height: 30%;
+            width: 30%;
             position: absolute;
             background-size: cover;
-            bottom: 10px;
-            right: 10px;
+            bottom: 10%;
+            right: 10%;
             display: flex;
             align-items: center;
             justify-content: center;

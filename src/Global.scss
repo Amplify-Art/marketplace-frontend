@@ -220,9 +220,15 @@ textarea {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 10px;
+  }
+
+  @media screen and (max-width: 320px) {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 10px;
+    place-items: center;
   }
 }
 
