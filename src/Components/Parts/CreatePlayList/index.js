@@ -102,12 +102,12 @@ function CreatePlayList(props) {
           </div>
         </div>
         {!hasSelectedSongs && (
-          <span>Alteast one song should be added to playlist!</span>
+          <span>At least one song should be added to playlist!</span>
         )}
         <div className="btn-wrabtn-wrapp input-holder">
           <input
             type="submit"
-            value="Create PlayList"
+            value="Create Playlist"
             disabled={isSubmitting}
           />
         </div>
