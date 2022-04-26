@@ -138,8 +138,7 @@ function UserDashboard(props) {
         JSON.stringify(album_bundle_info)
       );
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market.aa-1-test.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
         "offer_album",
         {
           nft_contract_id:
@@ -160,28 +159,35 @@ function UserDashboard(props) {
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="container">
         {renderHeader("Followed Artists", false)}
-        <div className="album-block">
-          {props.myFollowings.map((following, index) => (
-            <UserAvatar
-              avatarImg={following.artist.avatar}
-              onClick={() =>
-                props.history.push(
-                  `/artist/${following.artist.near_account_id}`
-                )
-              }
-              name={following.artist.name}
-            />
-          ))}
-        </div>
+        {props.myFollowings.length ? (
+          <div className="album-block">
+            {props.myFollowings.map((following, index) => (
+              <UserAvatar
+                avatarImg={following.artist.avatar}
+                onClick={() =>
+                  props.history.push(
+                    `/artist/${following.artist.near_account_id}`
+                  )
+                }
+                name={following.artist.name}
+              />
+            ))}
+          </div>
+        ) : (
+          <h2 className="no-artists">No Followed Artist</h2>
+        )}
+
         {renderHeader("Recently Released", false)}
         <div className="container">
-          <div className="album-grid">
-            {props?.albums &&
-              props.albums?.length > 0 &&
-              props.albums.map((album, index) => (
+          {props?.albums && props.albums?.length ? (
+            <div className="album-grid">
+              {props.albums.map((album, index) => (
                 <SingleAlbum key={index} albumInfo={album} onBuy={onBuy} />
               ))}
-          </div>
+            </div>
+          ) : (
+            <h2 className="no-artists mt-3">No Recently Released Albums</h2>
+          )}
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@
       grid-template-columns: repeat(2, 1fr);
     }
     .single-album {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: "Space Grotesk", sans-serif;
       font-style: normal;
       font-weight: normal;
       color: #ffffff;
@@ -107,4 +107,9 @@
     font-size: 30px;
     margin-top: 0px;
   }
+}
+.no-artists {
+  color: #ffffff;
+  font-weight: 400;
+  width: 100%;
 }
