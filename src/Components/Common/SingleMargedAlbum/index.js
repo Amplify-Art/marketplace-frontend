@@ -262,11 +262,25 @@ function SingleMergedAlbum(props) {
   );
   return (
     <>
-      <div className="single-album" onClick={() => handleModal(index)}>
-        <div className="cd-case" style={{ height: `${height}px` }}>
-          <div className="art-cover">
-            <img src={albumCover} alt="cover image" />
+      <div className="single-album2" onClick={() => handleModal(index)}>
+        <div
+          className="cd-case2"
+          id="1169hh"
+          style={{ height: document.getElementById("1169hh")?.offsetWidth }}
+        >
+          <div
+            class="album-art"
+            style={{
+              background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
+              backgroundSize: "cover",
+            }}
+          >
+            <div class="sup pos-tl"></div>
+            <div class="sup pos-tr"></div>
+            <div class="sup pos-bl"></div>
+            <div class="sup pos-br"></div>
           </div>
+          <div class="spine"></div>
           {showSticker && (
             <div
               className={`mint-sticker ${
@@ -279,10 +293,10 @@ function SingleMergedAlbum(props) {
                 {albumInfo.copy_number ||
                   (albumInfo.available_qty === 0
                     ? albumInfo.available_qty
-                    : albumInfo?.qty - albumInfo.available_qty + 1)}
+                    : albumInfo.qty - albumInfo.available_qty + 1)}
                 /
-                {albumInfo?.qty ||
-                  (albumInfo.token && albumInfo?.token?.album?.qty)}
+                {albumInfo.qty ||
+                  (albumInfo.token && albumInfo.token.album.qty)}
               </span>
             </div>
           )}
