@@ -204,6 +204,8 @@ function NewNFT(props) {
           })),
         };
         localStorage.setItem("minting_info", JSON.stringify(minting_info));
+        let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
+
         await props.wallet.account().functionCall(
           process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
           "add_token_types",
@@ -217,8 +219,8 @@ function NewNFT(props) {
               media: `https://amplify-dev.mypinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
             })),
           },
-          200000000000000,
-          parseNearAmount("0.1")
+          300000000000000,
+          parseNearAmount(`${0.2 * gasMultiplies}`)
         );
       } else {
         const mintAlbum = await axios.post(
