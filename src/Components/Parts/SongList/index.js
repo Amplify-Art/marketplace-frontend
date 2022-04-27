@@ -58,7 +58,7 @@ const songHeader = () => (
 function SongList(props) {
   const { songList } = props;
   const [playing, setPlaying] = useState(false);
-  let audio = useRef();
+  const [audio, setAudioSong] = useState(new Audio(""));
   // const [audio, setAudioSong] = useState(new Audio(''));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [buyingSong, setBuyingSong] = useState(null);
@@ -128,58 +128,68 @@ function SongList(props) {
     }
   }, []);
 
-  const handleAudio = (songId) => {
-    if (!playing) {
-      audio.current = new Audio(
-        `https://amplify-dev.mypinata.cloud/ipfs/${songId}`
-      );
-      audio.current.currentTime = 0;
-      setCurrentIndex(songId);
-      setPlaying(true);
-    } else if (playing && currentIndex !== songId) {
-      audio.current.pause();
-      audio.current = new Audio(
-        `https://amplify-dev.mypinata.cloud/ipfs/${songId}`
-      );
-      audio.current.currentTime = 0;
-      setCurrentIndex(songId);
+  const handleAudio = (songid) => {
+    setAudioSong(
+      new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songid}`)
+    );
+    if (playing && currentIndex !== songid) {
+      audio.pause();
+      audio.currentTime = 0;
+      setCurrentIndex(songid);
       setPlaying(true);
     } else if (!playing && currentIndex === -1) {
-      setCurrentIndex(songId);
+      setCurrentIndex(songid);
       setPlaying(true);
     } else {
-      audio.current.pause();
-      audio.current.currentTime = 0;
-      audio.current = new Audio(``);
-      // setAudioSong(new Audio(''))
+      audio.pause();
+      audio.currentTime = 0;
+      setAudioSong(new Audio(""));
       setCurrentIndex(-1);
       setPlaying(false);
     }
   };
-  useEffect(() => {
-    if (audio.current) playing ? audio.current.play() : audio.current.pause();
-  }, [audio, playing, currentIndex]);
 
   useEffect(() => {
-    if (audio.current)
-      audio.current.addEventListener("ended", () => {
-        audio.current = new Audio(``);
-        // setAudioSong(new Audio(''))
+    playing ? audio.play() : audio.pause();
+  }, [audio, playing, currentIndex]);
+
+  const stopSong = () => {
+    audio.pause();
+    audio.currentTime = 0;
+    setAudioSong(new Audio(""));
+    setCurrentIndex(-1);
+    setPlaying(false);
+  };
+  useEffect(() => {
+    audio.addEventListener("ended", () => {
+      setAudioSong(new Audio(""));
+      setCurrentIndex(-1);
+      setPlaying(false);
+    });
+    audio.addEventListener("timeupdate", (e) => {
+      if (audio.currentTime > 15) {
+        stopSong();
+      }
+      const progressElement = document.getElementById(currentIndex);
+      if (progressElement) {
+        let normalizedRadius = 9;
+        let circumference = normalizedRadius * 2 * Math.PI;
+        let startPoint = (audio.currentTime / audio.duration) * circumference;
+        let endPoint =
+          circumference -
+          (audio.currentTime / audio.duration / 100) * circumference;
+        progressElement.style.strokeDasharray = `${startPoint},${endPoint}`;
+      }
+    });
+    return () => {
+      audio.removeEventListener("ended", () => {
+        setAudioSong(new Audio(""));
         setCurrentIndex(-1);
         setPlaying(false);
       });
-
-    return () => {
-      if (audio.current)
-        audio.current.removeEventListener("ended", () => {
-          audio.current = new Audio(``);
-          // setAudioSong(new Audio(''))
-          setCurrentIndex(-1);
-          setPlaying(false);
-        });
+      audio.removeEventListener("timeupdate", () => {});
     };
   }, [playing, audio]);
-
   useEffect(() => {
     return () => {
       if (audio.current) {
