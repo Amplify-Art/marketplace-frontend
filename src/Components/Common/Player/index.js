@@ -58,12 +58,20 @@ function Player(props) {
   useEffect(() => {
     setSongIndex(0);
     setPlaylistIndex(0);
-    togglePlay(false);
+    togglePlay(true);
     audioElement.currentTime = 0;
     audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`;
+    audioElement.play();
     requestAnimationFrame(updateBar);
   }, [currentPlaylists.length]);
 
+  useEffect(() => {
+    if (props.showPlayer && audioElement.src) {
+      audioElement.play();
+    } else {
+      audioElement.pause();
+    }
+  }, [props.showPlayer]);
   audioElement.onended = function () {
     // togglePlay(true)
     nextSong();
