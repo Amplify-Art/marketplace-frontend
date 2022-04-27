@@ -9,7 +9,7 @@ import { fetchAlbumsAction } from "../../redux/actions/AlbumAction";
 import "./Albums.scss";
 import { addTokenTransferAction } from "../../redux/actions/TokenTransferAction";
 import { buyAlbumBundleNFTAction } from "../../redux/actions/NFTAction";
-import SingleAlbum from "../../Components/Common/SingleAlbum/index";
+import SingleAlbum from "../../Components/Common/SingleAlbum/index.js";
 
 const {
   utils: {
