@@ -98,7 +98,7 @@ function MyProfile(props) {
   useEffect(() => { });
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleAlbum
+      <SingleMergedAlbum
         key={index}
         albumInfo={nft}
         onSingleSongClick={(song) => onSingleSongClick(song, index)}
