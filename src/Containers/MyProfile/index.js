@@ -45,6 +45,7 @@ import {
 import { fetchUserByNearIdAction } from "../../redux/actions/UserAction";
 import { getUsers } from "../../Api/User";
 import CreatePlayList from "../../Components/Parts/CreatePlayList";
+import '../../Global.scss'
 const {
   utils: {
     format: { parseNearAmount },
@@ -64,9 +65,9 @@ function MyProfile(props) {
   const [showAlbumModalIndex, setShowModalAlbumIndex] = useState(null);
   const [isPublicProfile] = useState(
     props &&
-      props.location &&
-      props.location.pathname &&
-      props.location.pathname.includes("user")
+    props.location &&
+    props.location.pathname &&
+    props.location.pathname.includes("user")
   );
   const [deletingId, setDeletingId] = useState(null);
   const token = localStorage.getItem("amplify_app_token");
@@ -94,11 +95,10 @@ function MyProfile(props) {
     });
   }, []);
 
-  useEffect(() => {});
-
+  useEffect(() => { });
   const generateAlbumItem = (nft, index) => {
     return (
-      <SingleMergedAlbum
+      <SingleAlbum
         key={index}
         albumInfo={nft}
         onSingleSongClick={(song) => onSingleSongClick(song, index)}
@@ -442,9 +442,9 @@ function MyProfile(props) {
   let formattedAlbums = Object.entries(
     _.groupBy(
       props &&
-        props.token_transfers &&
-        props.token_transfers.length > 0 &&
-        props.token_transfers.filter((f) => f.type !== null),
+      props.token_transfers &&
+      props.token_transfers.length > 0 &&
+      props.token_transfers.filter((f) => f.type !== null),
       (each) => each?.song?.album_id
     )
   );
@@ -475,9 +475,8 @@ function MyProfile(props) {
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${
-        props.playerActive ? "right-player-pad" : "normal-right-pad"
-      }`}
+      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
+        }`}
     >
       <ProfileHeader
         ArtistData={ArtistData}
@@ -493,17 +492,19 @@ function MyProfile(props) {
       )}
 
       {props.playlists && props.playlists.length > 0 ? (
-        <div className="album-block">
-          {props.playlists.map((album, index) => (
-            <SingleAlbum
-              key={index}
-              albumInfo={{ ...album, hideSticker: true }}
-              isMint={false}
-              isPlayList
-              setDeletingId={setDeletingId}
-              onSingleSongClick={(song) => onSingleSongClick(song, index)}
-            />
-          ))}
+        <div className="container">
+          <div className="album-grid">
+            {props.playlists.map((album, index) => (
+              <SingleAlbum
+                key={index}
+                albumInfo={{ ...album, hideSticker: true }}
+                isMint={false}
+                isPlayList
+                setDeletingId={setDeletingId}
+                onSingleSongClick={(song) => onSingleSongClick(song, index)}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <div className="no-records">
@@ -516,26 +517,27 @@ function MyProfile(props) {
             <h2>Recently Purchased</h2>
             {/* <button className="btn outlined">View All</button> */}
           </div>
-
-          <div className="albums album-grid">
-            {aformattedAlbums
-              // .filter((f) => f[1][0].type !== "song") // Try now for only songs
-              .map((token, index) =>
-                generateAlbumItem(
-                  {
-                    token: { ...token },
-                    copy_number: token.copy_number,
-                    hideSticker: false,
-                    // transfers: token[1],
-                    mints_owned: token.transfers
-                      .filter(
-                        (f) => f.is_owner && f.transfer_to === decodedToken.id
-                      )
-                      .map((m) => m.copy_number),
-                  },
-                  index
-                )
-              )}
+          <div className="container">
+            <div className="album-grid">
+              {aformattedAlbums
+                // .filter((f) => f[1][0].type !== "song") // Try now for only songs
+                .map((token, index) =>
+                  generateAlbumItem(
+                    {
+                      token: { ...token },
+                      copy_number: token.copy_number,
+                      hideSticker: false,
+                      // transfers: token[1],
+                      mints_owned: token.transfers
+                        .filter(
+                          (f) => f.is_owner && f.transfer_to === decodedToken.id
+                        )
+                        .map((m) => m.copy_number),
+                    },
+                    index
+                  )
+                )}
+            </div>
           </div>
         </div>
       ) : !props.loading ? (
