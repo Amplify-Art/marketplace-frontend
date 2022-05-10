@@ -9,10 +9,17 @@
   .profile-album,
   .user-avatar {
     cursor: pointer;
+    margin-left: 25px;
+    display: block;
+    text-align: center;
     .avatar {
       img {
         width: 100%;
       }
+    }
+    .avatar-name {
+      display: block;
+      text-align: center;
     }
   }
 }
