@@ -254,12 +254,7 @@ function SingleMergedAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-  console.log(
-    showAlbumModalIndex,
-    index,
-    showAlbumModalIndex,
-    "showAlbumModalIndex"
-  );
+  console.log(albumInfo.token.album.title, "albumInfo.token.album.title");
   return (
     <>
       <div className="single-album2" onClick={() => handleModal(index)}>
