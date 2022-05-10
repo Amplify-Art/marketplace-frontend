@@ -18,11 +18,12 @@
       width: 20%;
       align-items: center;
       color: #ffffff6e;
+      text-align: left;
       &:first-of-type {
         width: 40%;
       }
       &:last-child {
-        width: unset;
+        width: 137px;
         margin-left: auto;
       }
       img {
