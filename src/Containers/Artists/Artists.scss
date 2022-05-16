@@ -1,15 +1,28 @@
 .artists-holder {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  @media screen and (max-width: 600px) {
-    grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 45px;
+  @media screen and (max-width: 1850px) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 45px;
   }
-  grid-column-gap: 35px;
+  @media screen and (max-width: 1250px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 45px;
+  }
+  @media screen and (max-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 45px;
+  }
+  @media screen and (max-width: 290px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 45px;
+  }
   grid-row-gap: 53px;
   .profile-album,
   .user-avatar {
     cursor: pointer;
-    margin-left: 25px;
+    // margin-left: 25px;
     display: block;
     text-align: center;
     .avatar {
