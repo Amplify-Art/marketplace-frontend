@@ -4,14 +4,14 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    margin: 10px;
+    margin: auto;
     overflow: hidden;
     border: solid 3px rgba(255, 255, 255, 0.2);
     @media screen and (max-width: 600px) {
-      width: 100%;
-      height: auto;
+      width: 100px;
+      height: 100px;
       box-sizing: border-box;
-      margin: 0px;
+      margin: auto;
     }
 
     img {
@@ -24,6 +24,7 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 23px;
+    margin-top: 12px;
     color: #ffffff;
     align-items: center;
     display: flex;
