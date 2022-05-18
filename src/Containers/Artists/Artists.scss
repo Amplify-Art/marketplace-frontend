@@ -27,6 +27,7 @@
     text-align: center;
     .avatar {
       border: solid 3px rgba(255, 255, 255, 0.2);
+      margin-left: 0;
       img {
         width: 100%;
       }
@@ -34,6 +35,8 @@
     .avatar-name {
       display: block;
       text-align: center;
+      width: 180px;
+      // margin-left: 20px;
     }
   }
 }
