@@ -169,7 +169,7 @@ function UserDashboard(props) {
                     `/artist/${following.artist.near_account_id}`
                   )
                 }
-                name={following.artist.name}
+                name={following.artist.near_account_id}
               />
             ))}
           </div>

@@ -5,6 +5,7 @@
     height: 180px;
     border-radius: 50%;
     margin: auto;
+    margin-left: 0;
     overflow: hidden;
     border: solid 3px rgba(255, 255, 255, 0.2);
     @media screen and (max-width: 600px) {
@@ -19,7 +20,7 @@
     }
   }
   .avatar-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -28,7 +29,10 @@
     color: #ffffff;
     align-items: center;
     display: flex;
-    text-align: left;
+    text-align: center;
+    width: 180px;
+    justify-content: center;
+    margin-left: 2px;
     @media screen and (max-width: 600px) {
       font-size: 14px;
     }
