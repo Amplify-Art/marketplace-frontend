@@ -45,7 +45,7 @@ import {
 import { fetchUserByNearIdAction } from "../../redux/actions/UserAction";
 import { getUsers } from "../../Api/User";
 import CreatePlayList from "../../Components/Parts/CreatePlayList";
-import '../../Global.scss'
+import "../../Global.scss";
 const {
   utils: {
     format: { parseNearAmount },
@@ -65,13 +65,13 @@ function MyProfile(props) {
   const [showAlbumModalIndex, setShowModalAlbumIndex] = useState(null);
   const [isPublicProfile] = useState(
     props &&
-    props.location &&
-    props.location.pathname &&
-    props.location.pathname.includes("user")
+      props.location &&
+      props.location.pathname &&
+      props.location.pathname.includes("user")
   );
   const [deletingId, setDeletingId] = useState(null);
   const token = localStorage.getItem("amplify_app_token");
-  const decodedToken = jwt_decode(token);
+  const decodedToken = token ? jwt_decode(token) : {};
 
   useEffect(() => {
     props.fetchPlaylists({
@@ -95,7 +95,7 @@ function MyProfile(props) {
     });
   }, []);
 
-  useEffect(() => { });
+  useEffect(() => {});
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleMergedAlbum
@@ -352,6 +352,8 @@ function MyProfile(props) {
       });
       if (res.data.success && res.data.results.length) {
         let { id, near_account_id } = res.data.results[0];
+        console.log(id, near_account_id);
+
         props.fetchUser({
           id: id,
         });
@@ -442,9 +444,9 @@ function MyProfile(props) {
   let formattedAlbums = Object.entries(
     _.groupBy(
       props &&
-      props.token_transfers &&
-      props.token_transfers.length > 0 &&
-      props.token_transfers.filter((f) => f.type !== null),
+        props.token_transfers &&
+        props.token_transfers.length > 0 &&
+        props.token_transfers.filter((f) => f.type !== null),
       (each) => each?.song?.album_id
     )
   );
@@ -475,15 +477,16 @@ function MyProfile(props) {
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`left-nav-pad ${
+        props.playerActive ? "right-player-pad" : "normal-right-pad"
+      }`}
     >
       <ProfileHeader
         ArtistData={ArtistData}
         btnContent={renderBtnContent()}
         showShowcase={true}
         isPublicProfile={isPublicProfile}
-        userId={props.match.params.id}
+        userId={userID}
         nearUser={props.near_user}
       />
       {renderHeader(
