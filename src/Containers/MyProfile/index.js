@@ -87,8 +87,12 @@ function MyProfile(props) {
         related: "artist",
       },
     });
+    let near_account_id = props.location.pathname.split("/").slice(-1)[0];
+
+    console.log(near_account_id, "near_account_id");
+
     props.fetchUserNearById({
-      near_id: decodedToken.near_account_id,
+      near_id: near_account_id,
       params: {
         owned_songs: true,
       },
@@ -320,19 +324,23 @@ function MyProfile(props) {
               </TwitterShareButton>
             </div>
           )}
-          <button
-            className="set_name"
-            onClick={() => setSharePopup(!openSharePopup)}
-          >
-            <img src={ShareIcon} alt="Twitter" /> Share
-          </button>
-          <button
-            className="edit-profile"
-            onClick={() => props.history.push("/settings")}
-          >
-            {" "}
-            Edit Profile
-          </button>
+          {!isPublicProfile && (
+            <>
+              <button
+                className="set_name"
+                onClick={() => setSharePopup(!openSharePopup)}
+              >
+                <img src={ShareIcon} alt="Twitter" /> Share
+              </button>
+              <button
+                className="edit-profile"
+                onClick={() => props.history.push("/settings")}
+              >
+                {" "}
+                Edit Profile
+              </button>
+            </>
+          )}
         </div>
       </>
     );
@@ -365,7 +373,7 @@ function MyProfile(props) {
             orderBy: "-id",
           },
         });
-
+        console.log("ID", id);
         setID(parseInt(id));
         setUserName(near_account_id);
       }
@@ -489,63 +497,68 @@ function MyProfile(props) {
         userId={userID}
         nearUser={props.near_user}
       />
-      {renderHeader(
-        `Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`,
-        true
-      )}
+      {!isPublicProfile && (
+        <>
+          {renderHeader(
+            `Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`,
+            true
+          )}
 
-      {props.playlists && props.playlists.length > 0 ? (
-        <div className="container">
-          <div className="album-grid">
-            {props.playlists.map((album, index) => (
-              <SingleAlbum
-                key={index}
-                albumInfo={{ ...album, hideSticker: true }}
-                isMint={false}
-                isPlayList
-                setDeletingId={setDeletingId}
-                onSingleSongClick={(song) => onSingleSongClick(song, index)}
-              />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="no-records">
-          <h5>No playlists found</h5>
-        </div>
-      )}
-      {props.token_transfers.length ? (
-        <div className="recently-purchased">
-          <div className="top">
-            <h2>Recently Purchased</h2>
-            {/* <button className="btn outlined">View All</button> */}
-          </div>
-          <div className="container">
-            <div className="album-grid">
-              {aformattedAlbums
-                // .filter((f) => f[1][0].type !== "song") // Try now for only songs
-                .map((token, index) =>
-                  generateAlbumItem(
-                    {
-                      token: { ...token },
-                      copy_number: token.copy_number,
-                      hideSticker: false,
-                      // transfers: token[1],
-                      mints_owned: token.transfers
-                        .filter(
-                          (f) => f.is_owner && f.transfer_to === decodedToken.id
-                        )
-                        .map((m) => m.copy_number),
-                    },
-                    index
-                  )
-                )}
+          {props.playlists && props.playlists.length > 0 ? (
+            <div className="container">
+              <div className="album-grid">
+                {props.playlists.map((album, index) => (
+                  <SingleAlbum
+                    key={index}
+                    albumInfo={{ ...album, hideSticker: true }}
+                    isMint={false}
+                    isPlayList
+                    setDeletingId={setDeletingId}
+                    onSingleSongClick={(song) => onSingleSongClick(song, index)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      ) : !props.loading ? (
-        <h4 className="large-white center-text">No items to show</h4>
-      ) : null}
+          ) : (
+            <div className="no-records">
+              <h5>No playlists found</h5>
+            </div>
+          )}
+          {props.token_transfers.length ? (
+            <div className="recently-purchased">
+              <div className="top">
+                <h2>Recently Purchased</h2>
+                {/* <button className="btn outlined">View All</button> */}
+              </div>
+              <div className="container">
+                <div className="album-grid">
+                  {aformattedAlbums
+                    // .filter((f) => f[1][0].type !== "song") // Try now for only songs
+                    .map((token, index) =>
+                      generateAlbumItem(
+                        {
+                          token: { ...token },
+                          copy_number: token.copy_number,
+                          hideSticker: false,
+                          // transfers: token[1],
+                          mints_owned: token.transfers
+                            .filter(
+                              (f) =>
+                                f.is_owner && f.transfer_to === decodedToken.id
+                            )
+                            .map((m) => m.copy_number),
+                        },
+                        index
+                      )
+                    )}
+                </div>
+              </div>
+            </div>
+          ) : !props.loading ? (
+            <h4 className="large-white center-text">No items to show</h4>
+          ) : null}
+        </>
+      )}
       {props.displaySellModal && (
         <GeneralModal
           bodyChildren={

@@ -48,16 +48,17 @@ function ProfileHeader({
     } else {
       user = jwt.decode(localStorage.getItem("amplify_app_token")).id;
     }
+    if (user)
+      fetchShowcase({
+        params: {
+          related: "album",
+          "filter[user_id]": user,
+        },
+      });
+  }, [userId]);
 
-    fetchShowcase({
-      params: {
-        related: "album",
-        "filter[user_id]": user,
-      },
-    });
-  }, []);
   let songsCount = nearUser && nearUser.owned_songs ? nearUser.owned_songs : 0;
-  
+  console.log(songsCount, "songsCount");
   return (
     <div id="profile-header">
       <div
