@@ -167,7 +167,7 @@ function App(props) {
               />
             ))}
           />
-          <Route path="/user/:id" exact component={Auth(MyProfile)} />
+          <Route path="/user/:id" exact component={MyProfile} />
           <Route
             path="/artist/:slug"
             exact
@@ -183,7 +183,11 @@ function App(props) {
             exact
             component={Auth(SecondaryMarketplace)}
           />
-          <Route path="/artist-dashboard" exact component={Auth(ArtistDashboard)} />
+          <Route
+            path="/artist-dashboard"
+            exact
+            component={Auth(ArtistDashboard)}
+          />
           <Route path="/support-card" exact component={Auth(SupportCard)} />
           <Route path="/nominate" exact component={Auth(Nominate)} />
           <Route path="/user-dashboard" exact component={Auth(UserDashboard)} />

@@ -37,17 +37,7 @@
                 inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
             position: relative;
             z-index: -2;
-            //   background-size: cover !important;
-            // background-size: 300px 200px !important;
-            @media screen and (max-width: 425px) {
-                background-size: 120px 120px !important;
-            }
-            @media (min-width: 500px) and (max-width: 900px) {
-                background-size: 160px 160px !important;
-            }
-            @media only screen and (min-width: 1900px) {
-                background-size: 252px 252px !important;
-            }
+            background-size: 100% 100% !important;
         }
         .sup {
             height: 4.6%;
