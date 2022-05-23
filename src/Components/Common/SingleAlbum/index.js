@@ -305,11 +305,11 @@ function SingleAlbum(props) {
               <h3 className="album-title">{albumInfo.title}</h3>
             </div>
             <h4 className="artist-name">
-              {(albumInfo.user && albumInfo.user.name) ||
+              {(albumInfo.user && albumInfo.user.near_account_id) ||
                 (albumInfo.token &&
                   albumInfo.token.album &&
                   albumInfo.token.album.user &&
-                  albumInfo.token.album.user.name)}
+                  albumInfo.token.album.user.near_account_id)}
             </h4>
           </>
         )}

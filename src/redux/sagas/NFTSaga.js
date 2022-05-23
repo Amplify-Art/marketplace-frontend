@@ -123,13 +123,23 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
   ]);
   try {
     const res = yield call(buyAlbumBundleNFT, payload);
+    let album = res.data;
     yield all([
       put({ type: UPDATE_ALBUM_SUCCESS, res }),
       put({
         type: UNSET_OVERLAY_LOADER,
       }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: true,
+          message: `You have successfully purchased the ${album.title}#${
+            parseInt(album.qty) - album.available_qty + 1
+          } album!`,
+        },
+      }),
     ]);
-    window.location.reload();
+    // window.location.reload();
   } catch (error) {
     yield all([
       put({
@@ -154,7 +164,19 @@ export function* sellSongNFTSaga({ history }, { payload }) {
   ]);
   try {
     const res = yield call(sellSongNFT, payload);
-    window.location.reload();
+    yield all([
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: true,
+          message: `You have successfully posted the ${res.data.title} song for sell!`,
+        },
+      }),
+    ]);
+    // window.location.reload();
   } catch (error) {
     yield all([
       put({
@@ -182,7 +204,7 @@ export function* buySongNFTSaga({ history }, { payload }) {
     if (res.success) {
       store.addNotification({
         title: "Success",
-        message: "You have been successfully purchased the song",
+        message: `You have successfully purchased the song ${res.data.title}!`,
         type: "success",
         insert: "top",
         container: "top-left",

@@ -369,7 +369,7 @@ function MyProfile(props) {
           params: {
             "filter[transfer_to]": parseInt(id),
             "filter[type]": "song",
-            related: "album.songs,song.album.songs.transfers",
+            related: "album.[user,songs],song.album.[user,songs.transfers]",
             orderBy: "-id",
           },
         });
@@ -387,7 +387,7 @@ function MyProfile(props) {
         params: {
           "filter[transfer_to]": parseInt(decodedToken.id),
           "filter[type]": "song",
-          related: "album.songs,song.album.songs.transfers",
+          related: "album.[user,songs],song.album.[user,songs.transfers]",
           orderBy: "-id",
         },
       });
