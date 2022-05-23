@@ -254,7 +254,7 @@ function SingleMergedAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-
+  console.log("albumInfo", albumInfo);
   return (
     <>
       <div
@@ -305,14 +305,16 @@ function SingleMergedAlbum(props) {
         ) : (
           <>
             <div className={`the-title ${isPlayList && "playlist-title"}`}>
-              <h3 className="album-title">{albumInfo.token.album.title}</h3>
+              <h3 className="album-title">
+                {albumInfo.token.album.title + "23432"}
+              </h3>
             </div>
             <h4 className="artist-name">
-              {(albumInfo.user && albumInfo.user.name) ||
+              {(albumInfo.user && albumInfo.user.near_account_id) ||
                 (albumInfo.token &&
                   albumInfo.token.album &&
                   albumInfo.token.album.user &&
-                  albumInfo.token.album.user.name)}
+                  albumInfo.token.album.user.near_account_id)}
             </h4>
           </>
         )}
