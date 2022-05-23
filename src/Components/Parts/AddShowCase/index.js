@@ -73,11 +73,11 @@ function AddShowCase({
       setLoading(false);
     }
   };
-
+  console.log(data?.length !== 0, songs, isFetchingNFts);
   return (
     <div id="addshowcase">
       <div class="scrollbar" id="style-4">
-        {data ? (
+        {data?.length !== 0 ? (
           data.map((nft, item) => (
             <div className="row">
               <div className="playlist-cover-holder">
@@ -134,7 +134,7 @@ function AddShowCase({
               )}
             </div>
           ))
-        ) : songs.length ? (
+        ) : songs?.length ? (
           <></>
         ) : isFetchingNFts ? (
           <div className="loading-skeleton">
@@ -142,9 +142,9 @@ function AddShowCase({
               <Skeleton width={`100%`} height={60} />
             ))}
           </div>
-        ) : !isFetchingNFts && songs.length === 0 ? (
+        ) : !isFetchingNFts && (!songs || songs.length === 0) ? (
           <div className="no-songs">
-            no songs available to add to {isPlayList ? "playlist" : "showcase"}
+            You have not yet purchased any songs in albums to display
           </div>
         ) : (
           <div className="loading-skeleton">
