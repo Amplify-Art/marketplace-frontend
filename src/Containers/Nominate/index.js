@@ -8,6 +8,7 @@ import {
   addNominationAction,
   toggleNominateCongratsModal,
   toggleNominate,
+  fetchNominationsAction,
 } from "../../redux/actions/NominationAction";
 import NominateModal from "../../Components/Parts/NominateModal";
 import GeneralModal from "../../Components/Common/GeneralModal";
@@ -15,7 +16,12 @@ import ConfettiImage from "../../assets/images/confetti.png";
 import useDebounce from "../../Components/Common/UseDebounce";
 import jwt from "jsonwebtoken";
 
-const Nominate = ({ showNominateModal, setShowNominateModal, ...props }) => {
+const Nominate = ({
+  showNominateModal,
+  setShowNominateModal,
+  fetchNominations,
+  ...props
+}) => {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
   const [nominateName, setNominateName] = useState("");
@@ -68,6 +74,17 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props }) => {
     }
   }, [debouncedSearchTerm]);
 
+  useEffect(() => {
+    if (currentUser)
+      fetchNominations({
+        params: {
+          "filter[nominated_by]": currentUser.id,
+          is_in_queue: true,
+          related: "nominatedBy",
+        },
+      });
+  }, []);
+  console.log(props.nominations, "nominations");
   return (
     <>
       {showNominateModal && (
@@ -84,6 +101,8 @@ const Nominate = ({ showNominateModal, setShowNominateModal, ...props }) => {
               selected={selected}
               currentUser={currentUser}
               onSelect={onSelect}
+              nominations={props.nominations}
+              nominationloading={props.nominationloading}
             />
           }
         />
@@ -111,6 +130,8 @@ export default connect(
     return {
       users: state.users.users,
       showCongratsModal: state.nominations?.showCongratsModal,
+      nominations: state.nominations.nominations,
+      nominationloading: state.nominations.loading,
     };
   },
   (dispatch) => {
@@ -120,6 +141,7 @@ export default connect(
       toggleNominateCongratsModal: (data) =>
         dispatch(toggleNominateCongratsModal(data)),
       toggleNominate: (data) => dispatch(toggleNominate(data)),
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
     };
   }
 )(withRouter(Nominate));

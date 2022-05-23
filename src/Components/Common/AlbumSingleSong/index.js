@@ -17,6 +17,9 @@ class ProgressRing extends React.Component {
 
   render() {
     const { radius, stroke, progress, progressId } = this.props;
+    const strokeDashoffset =
+      this.circumference - (progress / 100) * this.circumference;
+    console.log(strokeDashoffset, "stroke");
 
     return (
       <svg height={radius * 2} width={radius * 2}>
@@ -33,11 +36,12 @@ class ProgressRing extends React.Component {
           stroke="white"
           fill="transparent"
           strokeWidth={stroke}
-          strokeDasharray={0 + " " + 0}
+          strokeDasharray={this.circumference + " " + this.circumference}
           r={this.normalizedRadius}
           cx={radius - 2.5}
           cy={radius}
           id={progressId}
+          style={{ strokeDashoffset }}
         />
       </svg>
     );
@@ -86,7 +90,10 @@ function AlbumSingleSong(props) {
         song.album_id === token.album.id
     ) || {}
   ).is_for_sale;
-
+  console.log(
+    audio.currentTime / parseInt(song.duration),
+    "audio.currentTime / audio.duration"
+  );
   return (
     <div
       className="inner-content-album-modal"
@@ -101,8 +108,8 @@ function AlbumSingleSong(props) {
                 radius={13}
                 stroke={2}
                 progress={
-                  audio.currentTime && audio.duration
-                    ? audio.currentTime / audio.duration
+                  audio.currentTime
+                    ? audio.currentTime / parseInt(song.duration)
                     : 0
                 }
                 progressId={song.song_cid}

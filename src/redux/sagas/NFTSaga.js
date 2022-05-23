@@ -164,7 +164,19 @@ export function* sellSongNFTSaga({ history }, { payload }) {
   ]);
   try {
     const res = yield call(sellSongNFT, payload);
-    window.location.reload();
+    yield all([
+      put({
+        type: UNSET_OVERLAY_LOADER,
+      }),
+      put({
+        type: SET_NOTIFICATION,
+        payload: {
+          success: true,
+          message: `You have successfully posted the ${res.data.title} song for sell!`,
+        },
+      }),
+    ]);
+    // window.location.reload();
   } catch (error) {
     yield all([
       put({

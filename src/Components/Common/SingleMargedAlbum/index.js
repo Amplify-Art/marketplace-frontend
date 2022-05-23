@@ -305,9 +305,7 @@ function SingleMergedAlbum(props) {
         ) : (
           <>
             <div className={`the-title ${isPlayList && "playlist-title"}`}>
-              <h3 className="album-title">
-                {albumInfo.token.album.title + "23432"}
-              </h3>
+              <h3 className="album-title">{albumInfo.token.album.title}</h3>
             </div>
             <h4 className="artist-name">
               {(albumInfo.user && albumInfo.user.near_account_id) ||
