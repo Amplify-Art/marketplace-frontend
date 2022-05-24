@@ -265,7 +265,7 @@ function SingleMergedAlbum(props) {
           className="cd-case1"
           id="1169haaah"
           style={{
-            height: document.getElementById("1169haaah")?.offsetWidth * 0.9,
+            height: document.getElementById("1169haaah")?.offsetWidth * 0.7,
           }}
         >
           <div

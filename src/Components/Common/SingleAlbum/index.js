@@ -262,7 +262,7 @@ function SingleAlbum(props) {
           className="cd-case1"
           id="1169hh"
           style={{
-            height: document.getElementById("1169hh")?.offsetWidth * 0.9,
+            height: document.getElementById("1169hh")?.offsetWidth * 0.86,
           }}
         >
           <div
