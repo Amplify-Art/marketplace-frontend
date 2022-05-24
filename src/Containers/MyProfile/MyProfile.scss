@@ -90,7 +90,12 @@
     background: transparent;
     color: #ffffff;
     cursor: pointer;
-
+    @media screen and (min-width: 1200px) {
+      border: 1.5px solid #ffffff;
+    }
+    @media screen and (min-width: 1201px) {
+      border: 2.5px solid #ffffff;
+    }
     &:first-child {
       margin-right: 27px;
       @media screen and (max-width: 600px) {
