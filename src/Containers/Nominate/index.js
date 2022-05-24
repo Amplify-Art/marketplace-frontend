@@ -84,7 +84,10 @@ const Nominate = ({
         },
       });
   }, []);
-  console.log(props.nominations, "nominations");
+
+  const handleCloseModal = () => {
+    setShowNominateModal(false);
+  };
   return (
     <>
       {showNominateModal && (
@@ -105,6 +108,8 @@ const Nominate = ({
               nominationloading={props.nominationloading}
             />
           }
+          isCloseButton="true"
+          closeModal={handleCloseModal}
         />
       )}
       {props.showCongratsModal && (
