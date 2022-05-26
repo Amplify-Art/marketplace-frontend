@@ -252,7 +252,10 @@ function SongList(props) {
     props.showBuyModal();
     setBuyingSong(song);
   };
-
+  const handleCloseModal = () => {
+    props.hideBuyModal();
+    setBuyingSong(null);
+  };
   const textEllipsis = (txt) => {
     if (txt.length > 9) {
       return txt.substr(0, 9) + "...";
@@ -295,7 +298,7 @@ function SongList(props) {
                     </div>
                     <p className="song-title-mobile">
                       {textEllipsis(
-                        (songData.artist && songData.artist.name) || ""
+                        (songData.artist && songData.artist.near_account_id) || ""
                       )}{" "}
                       /{" "}
                       {textEllipsis(
@@ -322,7 +325,7 @@ function SongList(props) {
                   className="song-artist"
                   onClick={() => expandSongList(songData.id)}
                 >
-                  {songData.artist && songData.artist.name}
+                  {songData.artist && songData.artist.near_account_id}
                 </div>
                 <div
                   className="song-available-mobile"
@@ -426,7 +429,7 @@ function SongList(props) {
                     headline={
                       buyingSong?.transfer_to === user.id
                         ? "Delist Song"
-                        : "Buy Album"
+                        : "Buy Song"
                     }
                     bodyText={`Please confirm your ${
                       buyingSong.transfer_to === user.id
@@ -449,6 +452,7 @@ function SongList(props) {
                       },
                     ]}
                     isCloseButton={true}
+                    closeModal={handleCloseModal}
                   />
                 </div>
               )}
