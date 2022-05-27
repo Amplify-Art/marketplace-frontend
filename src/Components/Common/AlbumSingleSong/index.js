@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import SongLength from "../SongLength/index";
 import playIcon from "../../../assets/images/play_icon.svg";
 import pauseIcon from "../../../assets/images/pause_icon.svg";
 import jwt from "jsonwebtoken";
@@ -16,9 +15,7 @@ class ProgressRing extends React.Component {
   }
 
   render() {
-    const { radius, stroke, progress, progressId } = this.props;
-    const strokeDashoffset =
-      this.circumference - (progress / 100) * this.circumference;
+    const { radius, stroke, progressId } = this.props;
     return (
       <svg height={radius * 2} width={radius * 2}>
         <image
