@@ -4,7 +4,7 @@
         width: 310px;
         height: 500px;
         overflow-y: scroll;
-      }
+    }
     #create-playlist {
         .playlist-wrapper {
             display: flex;
@@ -28,6 +28,11 @@
             align-items: center;
             .case-box {
                 margin-left: 30px;
+            }
+            .no-songs-added {
+                font-size: 18px;
+                text-align: center;
+                color: #999999;
             }
             .case-wrapper {
                 background-repeat: no-repeat;

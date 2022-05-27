@@ -23,16 +23,22 @@ function CreatePlayList(props) {
 
   const { showCaseData, addPlaylist, togglePlayListModal } = props;
   const renderPlayList = () => {
-    return selectedSongs.map((list, index) => (
-      <div>
-        {`${index + 1}. ${
-          list.title === "" ? list?.album && list.album.description : list.title
-        }`}{" "}
-        <button className="remove" onClick={() => removeSelectedSongs(index)}>
-          remove
-        </button>
-      </div>
-    ));
+    return selectedSongs.length ? (
+      selectedSongs.map((list, index) => (
+        <div>
+          {`${index + 1}. ${
+            list.title === ""
+              ? list?.album && list.album.description
+              : list.title
+          }`}{" "}
+          <button className="remove" onClick={() => removeSelectedSongs(index)}>
+            remove
+          </button>
+        </div>
+      ))
+    ) : (
+      <h4 className="no-songs-added">You have not added any songs yet!</h4>
+    );
   };
 
   const removeSelectedSongs = (i) => {
