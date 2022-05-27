@@ -377,6 +377,7 @@ function SingleMergedAlbum(props) {
               setViewDetails={setViewDetails}
               onSingleSongClick={props.onSingleSongClick}
               token={albumInfo.token}
+              tokens={props.tokens}
             />
           }
           closeModal={handleCloseModal}

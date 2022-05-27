@@ -45,6 +45,7 @@ import {
 import { fetchUserByNearIdAction } from "../../redux/actions/UserAction";
 import { getUsers } from "../../Api/User";
 import CreatePlayList from "../../Components/Parts/CreatePlayList";
+import { getTokens } from "../../Utils/near";
 import "../../Global.scss";
 const {
   utils: {
@@ -69,6 +70,8 @@ function MyProfile(props) {
       props.location.pathname &&
       props.location.pathname.includes("user")
   );
+  const [ownedTokenCopies, setOwnedTokenCopies] = useState([]);
+  const [tokens, setTokens] = useState([]);
   const [deletingId, setDeletingId] = useState(null);
   const token = localStorage.getItem("amplify_app_token");
   const decodedToken = token ? jwt_decode(token) : {};
@@ -109,6 +112,7 @@ function MyProfile(props) {
         index={index}
         showAlbumModalIndex={showAlbumModalIndex}
         setShowModalAlbumIndex={setShowModalAlbumIndex}
+        tokens={tokens}
       />
     );
   };
@@ -482,6 +486,24 @@ function MyProfile(props) {
     }
   }, [aformattedAlbums.length]);
   console.log(aformattedAlbums, "aformattedAlbums");
+  useEffect(() => {
+    fetchTokens();
+  }, []);
+  const fetchTokens = async () => {
+    let tokens = await getTokens(props.wallet);
+    console.log(tokens, "tokens");
+    setTokens(tokens);
+  };
+  useEffect(() => {
+    if (sellingSong) {
+      setOwnedTokenCopies(
+        tokens
+          .filter((t) => t.token_id.split(":")[2] === sellingSong.song_cid)
+          .map((t) => parseInt(t.token_id.split(":")[1]))
+      );
+    }
+  }, [sellingSong]);
+
   return (
     <div
       id="profile"
@@ -569,6 +591,9 @@ function MyProfile(props) {
               sellingSong={sellingSong}
               onListSong={onListSong}
               selectedAlbumToken={selectedAlbumToken}
+              user={decodedToken}
+              ownedTokenCopies={ownedTokenCopies}
+              tokens={tokens}
             />
           }
           contentClassName="sellSong-modal"

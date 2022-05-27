@@ -32,6 +32,7 @@ function AlbumModalContent({
   viewDetails,
   onSingleSongClick,
   token,
+  tokens,
   ...props
 }) {
   const [songModal, setSongModal] = useState(false);
@@ -173,10 +174,12 @@ function AlbumModalContent({
     props.showDeletePlaylist();
   };
 
-  console.log(albumInfo &&
-    albumInfo.songs &&
-    albumInfo.songs
-      ?.sort((a, b) => a.id - b.id), 'INFOOOOOO')
+  console.log(
+    albumInfo &&
+      albumInfo.songs &&
+      albumInfo.songs?.sort((a, b) => a.id - b.id),
+    "INFOOOOOO"
+  );
 
   return (
     <>
@@ -238,15 +241,7 @@ function AlbumModalContent({
               )}
             </div>
             <div className="album-bottom" id="modalScrolling">
-              <div
-                className="playlist-header"
-                style={{
-                  width:
-                    url.pathname !== "/my-profile" || isPlayList
-                      ? "100%"
-                      : "55%",
-                }}
-              >
+              <div className={`playlist-header ${isPlayList ? "playlist" : ""}`}>
                 <span>SONG TITLE</span>
                 <span>LENGTH</span>
               </div>
@@ -267,6 +262,7 @@ function AlbumModalContent({
                       onSingleSongClick={onSingleSongClick}
                       token={token}
                       isPlayList={isPlayList}
+                      tokens={tokens}
                     />
                   ))}
             </div>
@@ -430,6 +426,7 @@ function AlbumModalContent({
                       onSingleSongClick={onSingleSongClick}
                       token={token}
                       isPlayList={isPlayList}
+                      tokens={tokens}
                     />
                   ))}
             </div>

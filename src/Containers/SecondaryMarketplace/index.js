@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import "./SecondaryMarketplace.scss";
 import { fetchMarketplaceSongsAction } from "../../redux/actions/MarketplaceSongAction";
-import jwt from "jsonwebtoken";
+
 import SongList from "../../Components/Parts/SongList";
 
 function SecondaryMarketplace(props) {
@@ -11,16 +11,11 @@ function SecondaryMarketplace(props) {
   useEffect(() => {
     props.fetchMarketplaceSongs({});
   }, []);
-
-  let user = jwt.decode(localStorage.getItem("amplify_app_token"));
-
   return (
     <div id="secondary-marketplace" className="left-nav-pad right-player-pad">
       <div className="container">
         {props.songs && props.songs.length > 0 ? (
-          <SongList
-            songList={props.songs.filter((f) => f.user_id !== user?.id)}
-          />
+          <SongList songList={props.songs} />
         ) : (
           <div>
             <h4 className="large-white center-text">
