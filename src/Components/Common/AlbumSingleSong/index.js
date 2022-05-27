@@ -39,7 +39,6 @@ class ProgressRing extends React.Component {
           cx={radius - 2.5}
           cy={radius}
           id={progressId}
-          // style={{ strokeDashoffset }}
         />
       </svg>
     );
