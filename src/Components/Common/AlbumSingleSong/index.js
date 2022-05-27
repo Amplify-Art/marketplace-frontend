@@ -19,8 +19,6 @@ class ProgressRing extends React.Component {
     const { radius, stroke, progress, progressId } = this.props;
     const strokeDashoffset =
       this.circumference - (progress / 100) * this.circumference;
-    console.log(strokeDashoffset, "stroke");
-
     return (
       <svg height={radius * 2} width={radius * 2}>
         <image
@@ -62,27 +60,17 @@ function AlbumSingleSong(props) {
     onSingleSongClick,
     token,
     isPlayList,
+    tokens,
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
   );
 
   const handleClick = (e, song) => {
-    console.log(e);
     e.stopPropagation();
     onSingleSongClick(song);
   };
   let url = props.history.location;
-  console.log(
-    // song,
-    (song.transfers || []).find(
-      (f) =>
-        f.copy_number === (token && token.copy_number) &&
-        song.album_id === token.album.id
-    ) || {},
-    // token.album.title,
-    "SONG"
-  );
   let viewOrSell = (
     (song.transfers || []).find(
       (f) =>
@@ -90,17 +78,22 @@ function AlbumSingleSong(props) {
         song.album_id === token.album.id
     ) || {}
   ).is_for_sale;
-  console.log(
-    audio.currentTime / parseInt(song.duration),
-    "audio.currentTime / audio.duration"
+
+  let hasAnyOfCopies = (tokens || []).some((t) =>
+    t.token_id.includes(song.song_cid)
   );
+  console.log(hasAnyOfCopies, song.title);
   return (
     <div
       className="inner-content-album-modal"
       key={`al${index}`}
       onClick={() => toggle(song.song_cid)}
     >
-      <div className="modal-album-title">
+      <div
+        className={`modal-album-title ${
+          isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : ""
+        }`}
+      >
         <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
             <div onClick={() => toggle(song.song_cid)}>
@@ -124,14 +117,18 @@ function AlbumSingleSong(props) {
         <div className="fn-white pointer">{song.title}</div>
         <div
           className="duration"
-          style={{
-            width:
-              url.pathname === "/my-profile" && !isPlayList
-                ? viewOrSell
-                  ? "30%"
-                  : "55%"
-                : "100%",
-          }}
+          style={
+            {
+              // width:
+              //   url.pathname === "/my-profile" && !isPlayList
+              //     ? viewOrSell
+              //       ? "30%"
+              //       : !hasAnyOfCopies
+              //       ? "70%"
+              //       : "55%"
+              //     : "100%",
+            }
+          }
         >{`${Math.floor(song.duration / 60)}:${String(
           Math.ceil(song.duration / 60 - Math.floor(song.duration / 60)) * 60
         ).padStart(2, "0")}`}</div>
@@ -146,11 +143,11 @@ function AlbumSingleSong(props) {
               >
                 View on Market
               </span>
-            ) : (
+            ) : hasAnyOfCopies ? (
               <button className="sell" onClick={(e) => handleClick(e, song)}>
                 Sell
               </button>
-            )}
+            ) : null}
           </>
         )}
       </div>

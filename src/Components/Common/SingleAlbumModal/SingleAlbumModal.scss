@@ -169,13 +169,17 @@
 		display: flex;
 		justify-content: space-between;
 		.modal-album-title {
-			display: flex;
+			display: grid;
+			grid-template-columns: 0.3fr 0.7fr 1fr 0.5fr;
 		}
 		.fn-white {
 			color: black;
 		}
-		.pr-10 {
-			padding-right: 10px;
+		&.playlist {
+			grid-template-columns: 0.3fr 2.7fr 0.5fr;
+		}
+		&.can-sell {
+			grid-template-columns: 0.3fr 0.7fr 1fr 0.8fr !important;
 		}
 	}
 }

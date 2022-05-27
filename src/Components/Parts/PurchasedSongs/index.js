@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 import CurrencyInput from "react-currency-input-field";
 import { addPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { fetchSongsAction } from "../../../redux/actions/SongAction";
-import { getTokens } from "../../../Utils/near";
-
 import CDImg from "../../../assets/images/cd-img.svg";
 
 import "./PurchasedSongs.scss";
@@ -20,7 +18,6 @@ function PurchasedSongs(props) {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(null);
-  const [ownedTokenCopies, setOwnedTokenCopies] = useState([]);
 
   const {
     onSell,
@@ -31,33 +28,14 @@ function PurchasedSongs(props) {
     selectedAlbumToken,
   } = props;
 
-  useEffect(() => {
-    fetchTokens();
-  }, []);
-  const fetchTokens = async () => {
-    let tokens = await getTokens(props.wallet);
-    console.log(tokens, "tokens");
-    console.log(
-      tokens,
-      "tokens",
-      sellingSong.song_cid,
-      tokens
-        .filter((t) => t.token_id.split(":")[2] === sellingSong.song_cid)
-        .map((t) => parseInt(t.token_id.split(":")[1]))
-    );
-    setOwnedTokenCopies(
-      tokens
-        .filter((t) => t.token_id.split(":")[2] === sellingSong.song_cid)
-        .map((t) => parseInt(t.token_id.split(":")[1]))
-    );
-  };
   const renderSongs = () => {
-    console.log(props.transfers, ownedTokenCopies, "ownedTokens");
     return props.transfers
       .filter(
         (f) =>
-          // f.copy_number === selectedAlbumToken.copy_number && !f.bidding_price
-          ownedTokenCopies.includes(f.copy_number) && !f.bidding_price
+          props.ownedTokenCopies.includes(f.copy_number) &&
+          !f.is_for_sale &&
+          f.transfer_to === props.user.id &&
+          f.is_owner
       )
       .map((list, index) => (
         <div className="song">
