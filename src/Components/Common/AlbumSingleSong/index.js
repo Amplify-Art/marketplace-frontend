@@ -34,12 +34,12 @@ class ProgressRing extends React.Component {
           stroke="white"
           fill="transparent"
           strokeWidth={stroke}
-          strokeDasharray={this.circumference + " " + this.circumference}
+          strokeDasharray={0 + " " + 0}
           r={this.normalizedRadius}
           cx={radius - 2.5}
           cy={radius}
           id={progressId}
-          style={{ strokeDashoffset }}
+          // style={{ strokeDashoffset }}
         />
       </svg>
     );
