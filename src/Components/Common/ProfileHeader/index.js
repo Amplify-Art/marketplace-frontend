@@ -132,21 +132,21 @@ function ProfileHeader({
         </div>
         <div className="btn-wrap">{btnContent}</div>
       </div>
-      <div className="details mobile">
+      {/* <div className="details mobile">
         <span>{ArtistData.name}</span>
         {!isPublicProfile && (
           <span className="no_of_songs">
-            {/* {nearUser ? nearUser.owned_songs : 0} Song{" "}
+            {nearUser ? nearUser.owned_songs : 0} Song{" "}
             {nearUser && nearUser.owned_songs
               ? nearUser.owned_songs === 1
                 ? nearUser.owned_songs
                 : nearUser.owned_songs + "s"
               : 0}{" "}
-            Owned */}
+            Owned
             {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
           </span>
         )}
-      </div>
+      </div> */}
 
       {showShowCaseModal && (
         <GeneralModal
