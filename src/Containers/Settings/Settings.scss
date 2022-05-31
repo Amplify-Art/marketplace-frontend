@@ -204,11 +204,13 @@
 .shelves {
   position: absolute;
   bottom: 40px;
+  width: 400px;
   @media screen and (max-width: 600px) {
     bottom: 8px;
+    width: 320px;
+    right: 10px;
   }
   right: 30px;
-  width: 400px;
   .single-shelf {
     &:first-child {
       margin-bottom: 50px;
@@ -238,6 +240,10 @@
           display: flex;
           position: relative;
           bottom: -9px;
+          @media screen and (max-width: 600px) {
+            width: 70px;
+            height: 70px;
+          }
           img {
           }
         }
