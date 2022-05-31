@@ -9,6 +9,11 @@
     @media screen and (max-width: 600px) {
       margin-top: 0px;
     }
+    @media (min-width:600px) and (max-width: 1220px) {
+      flex-direction: column;
+      gap: 30px;
+      align-items: baseline;
+    }
   }
   .profile-cover {
     margin-left: -220px;
@@ -56,6 +61,8 @@
     justify-content: space-between;
     .profile-wrap {
       display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
       // position: absolute;
       // top: 412px;
     }
@@ -83,7 +90,7 @@
     }
 
     .details {
-      margin-left: 50px;
+      // margin-left: 25px;
       align-self: center;
       font-family: $space;
       font-style: normal;
@@ -119,6 +126,7 @@
     // top: 520px;
     // right: 14%;
     display: flex;
+    gap: 25px;
     cursor: pointer;
     @media screen and (max-width: 600px) {
       flex-direction: column;
