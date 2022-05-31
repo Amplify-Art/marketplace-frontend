@@ -78,7 +78,8 @@
 
 .album-header {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  gap: 25px;
   align-items: center;
   margin-bottom: 30px;
   margin-top: 50px;
