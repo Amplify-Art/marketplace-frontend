@@ -131,6 +131,43 @@ function ProfileHeader({
           </div>
         </div>
         <div className="btn-wrap">{btnContent}</div>
+        {
+          showShowcase && !showShowcase === false && (
+            <div className="shelvesMobile">
+              {showcases &&
+                _.chunk(
+                  [...showcases, ...new Array(6 - showcases.length).fill(null)],
+                  3
+                ).map((row, i) => (
+                  <div className="single-shelf" key={i}>
+                    <div className="albums-on-shelf">
+                      {row.map((showCaseItem, j) =>
+                        showCaseItem ? (
+                          <div className="single-album-on-shelf" key={`${i}${j}`}>
+                            <div className="single-shelf-album">
+                              <img
+                                src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className="single-album-on-shelf"
+                            onClick={() =>
+                              toggleShowCaseModal(!showShowCaseModal)
+                            }
+                            key={`${i}${j}`}
+                          >
+                            {!isPublicProfile && <i className="fal fa-plus" />}
+                          </div>
+                        )
+                      )}
+                    </div>
+                    <img src={Shelf} />
+                  </div>
+                ))}
+            </div>
+          )}
       </div>
       {/* <div className="details mobile">
         <span>{ArtistData.name}</span>

@@ -195,8 +195,9 @@
 .shelves {
   position: absolute;
   bottom: 40px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1220px) {
     bottom: 8px;
+    display: none;
   }
   right: 30px;
   width: 400px;
@@ -226,6 +227,50 @@
           overflow: hidden;
           width: 93px;
           height: 93px;
+          display: flex;
+          position: relative;
+          bottom: -9px;
+          img {
+          }
+        }
+      }
+    }
+  }
+}
+.shelvesMobile {
+  width: 100%;
+  max-width: 400px;
+  display: none;
+  @media screen and (max-width: 1220px) {
+    bottom: 8px;
+    display: block;
+  }
+  .single-shelf {
+    &:first-child {
+      margin-bottom: 50px;
+    }
+    .albums-on-shelf {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-right: 30px;
+      padding-left: 30px;
+      box-sizing: border-box;
+      .single-album-on-shelf {
+        width: 93px;
+        text-align: center;
+        i {
+          color: #fff;
+          font-size: 30px;
+          position: relative;
+          bottom: 20px;
+          cursor: pointer;
+        }
+
+        .single-shelf-album {
+          overflow: hidden;
+          width: 70px;
+          height: 70px;
           display: flex;
           position: relative;
           bottom: -9px;
