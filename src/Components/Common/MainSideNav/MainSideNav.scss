@@ -74,32 +74,30 @@
       @include overflowScrollBar()
     }
   }
-  ul {
-    margin: 0px;
-    padding-left: 27px;
-    li {
-      list-style-type: none;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.2);
-      margin-bottom: 8px;
-      &.nav-header {
-        margin-top: 20px;
-      }
+}
+ul {
+  margin: 0px;
+  padding-left: 27px;
+  padding-right: 27px;
+  li {
+    list-style-type: none;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 8px;
+    &.nav-header {
+      margin-top: 20px;
+    }
 
-      &:last-child {
-        margin-bottom: 0px;
-      }
-      a,
-      span {
-        text-decoration: none;
-        color: #fff;
-        font-weight: normal;
-        cursor: pointer;
-        &.current {
-          text-decoration: underline;
-        }
+    a,
+    span {
+      text-decoration: none;
+      color: #fff;
+      font-weight: normal;
+      cursor: pointer;
+      &.current {
+        text-decoration: underline;
       }
     }
   }

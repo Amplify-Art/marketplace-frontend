@@ -41,7 +41,7 @@
   }
 }
 #mobile-side-social-nav {
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 600px) {
     display: none;
   }
   .socialbar-color {
@@ -50,15 +50,16 @@
   ul {
     transform: none;
     transform-origin: bottom left;
-    position: fixed;
-    left: 0px;
-    margin: 0px;
-    width: 365px;
-    bottom: 0px;
-    padding: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 86%;
+    @media screen and (min-width: 600px) {
+      width: 100%;
+    }
     border-bottom: solid 2px rgba(227, 227, 227, 0.2);
     background-color: 4a4a4a;
     height: 40px;
