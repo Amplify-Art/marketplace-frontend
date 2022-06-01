@@ -19,8 +19,11 @@
     margin-left: -220px;
     margin-right: -60px;
     height: 344px;
+    width: 100vw;
     @media screen and (max-width: 600px) {
       height: 220px;
+      margin-left: -25px;
+      margin-right: -0px;
     }
     max-width: unset;
     position: relative;
