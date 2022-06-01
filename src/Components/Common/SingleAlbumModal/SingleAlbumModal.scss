@@ -185,6 +185,8 @@
 }
 
 .mobileAlbumContent {
+	margin-left: 15px;
+	margin-top: 10px;
 	@media screen and (min-width: 700px) {
 		display: none;
 	}
@@ -287,7 +289,7 @@
 			text-align: left !important;
 			.subContent {
 				margin-top: 10px !important;
-				text-align: left !important;
+				// text-align: left !important;
 			}
 		}
 		.albumMemoryCard {
