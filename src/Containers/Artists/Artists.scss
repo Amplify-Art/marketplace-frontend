@@ -12,11 +12,11 @@
   }
   @media screen and (max-width: 950px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 45px;
+    grid-column-gap: 0;
   }
   @media screen and (max-width: 290px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-column-gap: 45px;
+    grid-column-gap: 0;
   }
   grid-row-gap: 53px;
   .profile-album,
