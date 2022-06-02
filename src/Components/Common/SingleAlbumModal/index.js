@@ -6,7 +6,7 @@ import BackArrowIcon from '../../../assets/images/left-arrow.png';
 import './SingleAlbumModal.scss';
 
 
-const SingleAlbumModal = ({ isOpen = false, albumData}) => {
+const SingleAlbumModal = ({ isOpen = false, albumData }) => {
   const [viewDetails, setViewDetails] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
   const [playing, setPlaying] = useState(false);
@@ -75,19 +75,19 @@ const SingleAlbumModal = ({ isOpen = false, albumData}) => {
       <div id="albums-content">
         {!viewDetails
           ?
-            <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
-              <div className="album-top">
-                <div className="album-img">
-                  {albumData && albumData.cover_cid
-                    ?
-                      <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
-                    :
-                      <img src={albumData.coverArt} alt='' />}
-                </div>
+          <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
+            <div className="album-top">
+              <div className="album-img">
+                {albumData && albumData.cover_cid
+                  ?
+                  <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
+                  :
+                  <img src={albumData.coverArt} alt='' />}
+              </div>
               <div className="album-right">
                 <div className="title">{albumData && albumData.title}</div>
-                  <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
-                  <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
+                <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
+                <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
               </div>
             </div>
             <div className="album-bottom" id="modalScrolling">
@@ -105,7 +105,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData}) => {
               ))}
             </div>
           </div>
-        :
+          :
           <div className="left-wrapper">
             <div className="viewdetails-top">
               <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>

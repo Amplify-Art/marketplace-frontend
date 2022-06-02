@@ -161,15 +161,15 @@ function UserDashboard(props) {
         {renderHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
           <div className="album-block">
-            {props.myFollowings.map((following, index) => (
+            {props?.myFollowings?.map((following, index) => (
               <UserAvatar
-                avatarImg={following.artist.avatar}
+                avatarImg={following?.artist?.avatar}
                 onClick={() =>
                   props.history.push(
-                    `/artist/${following.artist.near_account_id}`
+                    `/artist/${following?.artist?.near_account_id}`
                   )
                 }
-                name={following.artist.near_account_id}
+                name={following?.artist?.near_account_id}
               />
             ))}
           </div>

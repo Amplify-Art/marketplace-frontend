@@ -86,9 +86,8 @@ function AlbumSingleSong(props) {
       onClick={() => toggle(song.song_cid)}
     >
       <div
-        className={`modal-album-title ${
-          isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : ""
-        }`}
+        className={`modal-album-title ${isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : ""
+          }`}
       >
         <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
@@ -105,7 +104,7 @@ function AlbumSingleSong(props) {
               />
             </div>
           ) : viewOrSell ? (
-            <i class="fa fa-solid fa-ban"></i>
+            <i className="fa fa-solid fa-ban"></i>
           ) : (
             <img src={playIcon} />
           )}

@@ -185,10 +185,16 @@
 }
 
 .mobileAlbumContent {
+	margin-left: 15px;
+	margin-top: 10px;
 	@media screen and (min-width: 700px) {
 		display: none;
 	}
 	.cdCoverMobile {
+		display: flex;
+		@media screen and (max-width: 600px) {
+			display: none;
+		}
 		height: 190.04px;
 		display: flex;
 		border-bottom: 5px solid #9c9890;
@@ -287,7 +293,7 @@
 			text-align: left !important;
 			.subContent {
 				margin-top: 10px !important;
-				text-align: left !important;
+				// text-align: left !important;
 			}
 		}
 		.albumMemoryCard {
