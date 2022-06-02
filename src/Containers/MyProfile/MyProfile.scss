@@ -7,8 +7,6 @@
     padding-top: 50px;
     @media screen and (max-width: 600px) {
       padding-top: 7px;
-      padding-left: 20px;
-      padding-right: 20px;
     }
     .top {
       display: flex;
@@ -17,10 +15,9 @@
       margin-bottom: 30px;
       h2 {
         font-size: 20px;
-        color: #fff;
-        @media screen and (max-width: 600px) {
-          font-weight: 300;
-        }
+        font-weight: 700;
+        line-height: 26px;
+        color: #ffffff;
       }
 
       .btn {
@@ -31,6 +28,8 @@
   .popup-container {
     .edit-profile {
       margin-left: 20px;
+      min-width: 125px;
+      margin-top: 0;
     }
     display: flex;
     align-items: center;
@@ -62,6 +61,10 @@
   }
 }
 
+.set_name{
+  min-width: 125px;
+}
+
 #profile-header .btn-wrap .set_name {
   margin-right: 0px;
 }
@@ -72,7 +75,10 @@
 
 .album-header {
   display: flex;
-  justify-content: space-between;
+  @media screen and (min-width: 600px) {
+    justify-content: space-between;
+  }
+  gap: 25px;
   align-items: center;
   margin-bottom: 30px;
   margin-top: 50px;

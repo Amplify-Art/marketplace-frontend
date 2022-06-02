@@ -66,9 +66,9 @@ function MyProfile(props) {
   const [showAlbumModalIndex, setShowModalAlbumIndex] = useState(null);
   const [isPublicProfile] = useState(
     props &&
-      props.location &&
-      props.location.pathname &&
-      props.location.pathname.includes("user")
+    props.location &&
+    props.location.pathname &&
+    props.location.pathname.includes("user")
   );
   const [ownedTokenCopies, setOwnedTokenCopies] = useState([]);
   const [tokens, setTokens] = useState([]);
@@ -102,7 +102,7 @@ function MyProfile(props) {
     });
   }, []);
 
-  useEffect(() => {});
+  useEffect(() => { });
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleMergedAlbum
@@ -334,7 +334,7 @@ function MyProfile(props) {
                 className="set_name"
                 onClick={() => setSharePopup(!openSharePopup)}
               >
-                <img src={ShareIcon} alt="Twitter" /> Share
+                <img style={{ marginLeft: "0" }} src={ShareIcon} alt="Twitter" /> Share
               </button>
               <button
                 className="edit-profile"
@@ -343,6 +343,7 @@ function MyProfile(props) {
                 {" "}
                 Edit Profile
               </button>
+              <button style={{ width: 0, height: 0, display: "none" }}></button>
             </>
           )}
         </div>
@@ -456,9 +457,9 @@ function MyProfile(props) {
   let formattedAlbums = Object.entries(
     _.groupBy(
       props &&
-        props.token_transfers &&
-        props.token_transfers.length > 0 &&
-        props.token_transfers.filter((f) => f.type !== null),
+      props.token_transfers &&
+      props.token_transfers.length > 0 &&
+      props.token_transfers.filter((f) => f.type !== null),
       (each) => each?.song?.album_id
     )
   );
@@ -507,9 +508,8 @@ function MyProfile(props) {
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${
-        props.playerActive ? "right-player-pad" : "normal-right-pad"
-      }`}
+      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
+        }`}
     >
       <ProfileHeader
         ArtistData={ArtistData}
