@@ -191,6 +191,10 @@
 		display: none;
 	}
 	.cdCoverMobile {
+		display: flex;
+		@media screen and (max-width: 600px) {
+			display: none;
+		}
 		height: 190.04px;
 		display: flex;
 		border-bottom: 5px solid #9c9890;

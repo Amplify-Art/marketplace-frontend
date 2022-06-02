@@ -76,7 +76,7 @@ function AddShowCase({
   console.log(data?.length !== 0, songs, isFetchingNFts);
   return (
     <div id="addshowcase">
-      <div class="scrollbar" id="style-4">
+      <div className="scrollbar" id="style-4">
         {data?.length !== 0 ? (
           data.map((nft, item) => (
             <div className="row">
@@ -85,11 +85,10 @@ function AddShowCase({
                   src={
                     isPlayList && !nft.is_album_cover_owner
                       ? CDImg
-                      : `https://amplify-dev.mypinata.cloud/ipfs/${
-                          isPlayList
-                            ? nft.album && nft.album.cover_cid
-                            : nft.cover_cid
-                        }`
+                      : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList
+                        ? nft.album && nft.album.cover_cid
+                        : nft.cover_cid
+                      }`
                   }
                   onLoad={() => onLoadingImage(item)}
                   className={`cover ${loading && "hidden"}`}
@@ -104,8 +103,8 @@ function AddShowCase({
                 <div className="row-desc">
                   {isPlayList
                     ? nft.album &&
-                      nft.album.description &&
-                      nft.album.description.substring(0, 50)
+                    nft.album.description &&
+                    nft.album.description.substring(0, 50)
                     : nft.description && nft.description.substring(0, 50)}
                   ...
                 </div>

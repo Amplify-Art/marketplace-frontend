@@ -274,17 +274,16 @@ function SingleMergedAlbum(props) {
               background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
             }}
           >
-            <div class="sup pos-tl"></div>
-            <div class="sup pos-tr"></div>
-            <div class="sup pos-bl"></div>
-            <div class="sup pos-br"></div>
+            <div className="sup pos-tl"></div>
+            <div className="sup pos-tr"></div>
+            <div className="sup pos-bl"></div>
+            <div className="sup pos-br"></div>
           </div>
-          <div class="spine"></div>
+          <div className="spine"></div>
           {showSticker && (
             <div
-              className={`mint-sticker ${
-                albumInfo.available_qty === 0 ? "sold" : "available"
-              }`}
+              className={`mint-sticker ${albumInfo.available_qty === 0 ? "sold" : "available"
+                }`}
             >
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
               <span>
@@ -318,9 +317,8 @@ function SingleMergedAlbum(props) {
         )}
       </div>
       <div
-        className={`modal-album ${
-          !props.isAlbumSelected ? "d-none" : "d-block"
-        }`}
+        className={`modal-album ${!props.isAlbumSelected ? "d-none" : "d-block"
+          }`}
       >
         <GeneralModal
           isCloseButton="true"
@@ -349,9 +347,8 @@ function SingleMergedAlbum(props) {
         />
       )}
       <div
-        className={`modal-album ${
-          showAlbumModalIndex !== index ? "d-none" : "d-block"
-        }`}
+        className={`modal-album ${showAlbumModalIndex !== index ? "d-none" : "d-block"
+          }`}
       >
         <GeneralModal
           isCloseButton="true"
@@ -362,12 +359,12 @@ function SingleMergedAlbum(props) {
               albumInfo={
                 albumInfo.hasOwnProperty("copy_number")
                   ? {
-                      copy_number: albumInfo.copy_number,
-                      ...albumInfo.token.album,
-                      transfers: albumInfo.token.transfers,
-                      mints_owned: albumInfo.mints_owned,
-                      // songs: albumInfo.songs,
-                    }
+                    copy_number: albumInfo.copy_number,
+                    ...albumInfo.token.album,
+                    transfers: albumInfo.token.transfers,
+                    mints_owned: albumInfo.mints_owned,
+                    // songs: albumInfo.songs,
+                  }
                   : albumInfo
               }
               isOpen={showAlbumModalIndex === index}
