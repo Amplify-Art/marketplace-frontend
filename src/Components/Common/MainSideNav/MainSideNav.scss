@@ -23,10 +23,11 @@
     padding-top: 105px;
     &.mobile-open {
       display: initial;
-      position: fixed;
+      position: absolute;
       top: 0px;
       left: 0px;
-      background: #0f161d;
+      background: #0f161d;    
+      padding-bottom: 50px;
       width: 100%;
       height: 100%;
       z-index: 9;
