@@ -334,7 +334,7 @@ function MyProfile(props) {
                 className="set_name"
                 onClick={() => setSharePopup(!openSharePopup)}
               >
-                <img style={{ marginLeft: "0" }} src={ShareIcon} alt="Twitter" /> Share
+                <img src={ShareIcon} alt="Twitter" /> Share
               </button>
               <button
                 className="edit-profile"
