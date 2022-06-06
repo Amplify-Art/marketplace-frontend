@@ -119,6 +119,7 @@ function ProfileHeader({
                 }}
               />
             </div>
+            <div className="btn-wrap mobileShow">{btnContent}</div>
 
             <div className="details">
               <span>{ArtistData.name}</span>
@@ -130,7 +131,7 @@ function ProfileHeader({
             </div>
           </div>
         </div>
-        <div className="btn-wrap">{btnContent}</div>
+        <div className="btn-wrap mobileHide">{btnContent}</div>
         {
           showShowcase && !showShowcase === false && (
             <div className="shelvesMobile">

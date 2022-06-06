@@ -29,8 +29,16 @@
   .popup-container {
     .edit-profile {
       margin-left: 20px;
-      min-width: 125px;
+      min-width: 95px;
       margin-top: 0;
+      @media screen and (max-width: 600px) {
+        font-size: 12px !important;
+        min-width: 90px;
+      }
+      @media screen and (max-width: 400px) {
+        font-size: 10px !important;
+        min-width: 80px;
+      }
     }
     display: flex;
     align-items: center;
@@ -63,7 +71,25 @@
 }
 
 .set_name{
-  min-width: 125px;
+  min-width: 95px;
+  @media screen and (max-width: 600px) {
+    font-size: 12px !important;
+    min-width: 90px;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 10px !important;
+    min-width: 80px;
+  }
+  img{
+    width: 17px;
+    margin-left: 0px !important;
+    @media screen and (max-width: 600px) {
+      width: 15px;
+    }
+    @media screen and (max-width: 400px) {
+      width: 13px;
+    }
+  }
 }
 
 #profile-header .btn-wrap .set_name {
