@@ -8,12 +8,6 @@
     // margin-left: 0;
     overflow: hidden;
     border: solid 3px rgba(255, 255, 255, 0.2);
-    @media screen and (max-width: 600px) {
-      width: 100px;
-      height: 100px;
-      box-sizing: border-box;
-      margin: auto;
-    }
 
     img {
       width: 100%;

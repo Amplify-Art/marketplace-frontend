@@ -63,21 +63,6 @@
     }
   }
   .album-block {
-    display: grid;
-    column-gap: 35px;
-    row-gap: 53px;
-    grid-template-columns: repeat(4, 1fr);
-    @media screen and (max-width: 600px) {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 0px;
-    }
-    @media screen and (max-width: 450px) {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 0px;
-    }
-    @media screen and (min-width: 1600px) {
-      grid-template-columns: repeat(5, 1fr);
-    }
     .single-album {
       font-family: "Space Grotesk", sans-serif;
       font-style: normal;
