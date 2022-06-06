@@ -206,7 +206,7 @@ function AlbumModalContent({
                 className="album-right"
                 style={isPlayList ? { paddingLeft: "0px" } : {}}
               >
-                <div className="title">{albumInfo && albumInfo.title}</div>
+                <div className="title">{albumInfo?.title.substring(0,29)}{albumInfo?.title?.length > 29 && '...'}</div>
                 {!isPlayList ? (
                   <>
                     <div className="artist-title">
@@ -304,11 +304,6 @@ function AlbumModalContent({
             </div>
           </div>
         )}
-        {isPlayList ? (
-          <div className="cd-case">
-            {/* <img src={CdImage} alt='Cd-image' /> */}
-          </div>
-        ) : null}
         {!isPlayList &&
           albumInfo.available_qty &&
           albumInfo.user_id !== (user && user.id) &&
