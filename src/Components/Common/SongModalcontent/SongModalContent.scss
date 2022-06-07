@@ -26,9 +26,12 @@
 	.album-top {
 		display: flex;
 		.album-img {
-			width: 120px;
-			height: 120px;
+			width: 130px;
+			height: 130px;
 			overflow: hidden;
+			img{
+				width: 100%;
+			}
 		}
 		.album-right {
 			padding-left: 20px;

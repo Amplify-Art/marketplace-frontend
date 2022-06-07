@@ -23,7 +23,7 @@
     padding-top: 105px;
     &.mobile-open {
       display: initial;
-      position: absolute;
+      position: fixed;
       top: 0px;
       left: 0px;
       background: #0f161d;    
@@ -81,6 +81,8 @@ ul {
   margin: 0px;
   padding-left: 27px;
   padding-right: 27px;
+  overflow: auto;
+  max-height: 63vh;
   li {
     list-style-type: none;
     font-style: normal;

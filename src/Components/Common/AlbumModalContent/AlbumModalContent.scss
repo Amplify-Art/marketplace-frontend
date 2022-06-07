@@ -6,7 +6,7 @@
 	font-weight: normal;
 	height: 388px;
 	.left-wrapper {
-		padding: 5px 10px;
+		padding: 10px;
 		width: 389px;
 		position: relative;
 		.active-playlist {
@@ -52,13 +52,16 @@
 		grid-column-gap: 20px;
 		grid-row-gap: 5px;
 		.album-img {
-			width: 120px;
-			height: 120px;
+			width: 130px;
+			height: 130px;
 			@media screen and (max-width: 600px) {
 				width: 165px;
 				height: 165px;
 			}
 			overflow: hidden;
+			img{
+				width: 100%;
+			}
 		}
 		.trash {
 			text-align: right;
