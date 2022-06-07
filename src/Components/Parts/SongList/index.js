@@ -187,7 +187,7 @@ function SongList(props) {
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => {});
+      audio.removeEventListener("timeupdate", () => { });
     };
   }, [playing, audio]);
   useEffect(() => {
@@ -217,7 +217,7 @@ function SongList(props) {
       if (isDelist) {
         await props.wallet.account().functionCall(
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-            "market.aa-1-test.testnet",
+          "market.aa-1-test.testnet",
           "remove_song_sale",
           {
             nft_contract_id:
@@ -229,7 +229,7 @@ function SongList(props) {
       } else {
         await props.wallet.account().functionCall(
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-            "market.aa-1-test.testnet",
+          "market.aa-1-test.testnet",
           "offer",
           {
             nft_contract_id:
@@ -341,13 +341,11 @@ function SongList(props) {
                 </div>
               </div>
               <div
-                className={`song-copies ${
-                  songListExpanded === songData.id && "expanded"
-                }`}
+                className={`song-copies ${songListExpanded === songData.id && "expanded"
+                  }`}
                 style={{
-                  backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${
-                    songData.album && songData.album.cover_cid
-                  })`,
+                  backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid
+                    })`,
                 }}
               >
                 <div className="copy">
@@ -356,7 +354,7 @@ function SongList(props) {
                     <div className="item date-listed-by">Date Listed/By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
-                  {}
+                  { }
                   <div className="info">
                     {songData.transfers.map((transfer) => (
                       <div className="singleSong flex">
@@ -403,14 +401,14 @@ function SongList(props) {
                           >
                             {user.id === transfer.transfer_to
                               ? "Delist Song"
-                              : "Buy Now"}
+                              : "Buy Now "}
                           </button>
                         </div>
                         <div className="mobileAction">
                           <button onClick={() => onModalChange(transfer)}>
                             {user.id === transfer.transfer_to
                               ? "Delist Song"
-                              : "Buy Now"}
+                              : "Buy Now "}
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
@@ -431,11 +429,10 @@ function SongList(props) {
                         ? "Delist Song"
                         : "Buy Song"
                     }
-                    bodyText={`Please confirm your ${
-                      buyingSong.transfer_to === user.id
+                    bodyText={`Please confirm your ${buyingSong.transfer_to === user.id
                         ? "delisting"
                         : "purchase"
-                    }`}
+                      }`}
                     // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
                     buttons={[
                       {
