@@ -13,7 +13,7 @@ function SecondaryMarketplace(props) {
   }, []);
   return (
     <div id="secondary-marketplace" className="left-nav-pad right-player-pad">
-      <div className="container">
+      <div className="containerOuter">
         {props.songs && props.songs.length > 0 ? (
           <SongList songList={props.songs} />
         ) : (
