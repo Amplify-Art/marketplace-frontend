@@ -167,8 +167,12 @@
         position: absolute;
         bottom: 51px;
         width: 95%;
-        padding-left: 23px;
-        padding-right: 5px;
+        @media screen and (max-width: 1400px) {
+            padding-left: 23px;
+            padding-right: 5px;
+        }
+        padding-left: 69px;
+        padding-right: 24px;
         box-sizing: border-box;
         h3 {
             font-family: "Permanent Marker", cursive;

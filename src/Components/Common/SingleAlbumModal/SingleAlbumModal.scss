@@ -1,8 +1,8 @@
 @import "../../../assets/SCSS/Vars.scss";
 #albums-content {
-	@media screen and (max-width: 600px) {
-		display: none;
-	}
+	// @media screen and (max-width: 600px) {
+	// 	display: none;
+	// }
 	display: flex;
 	font-family: $space;
 	font-style: normal;
@@ -41,11 +41,7 @@
 	}
 
 	.album-top {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		@media screen and (max-width: 600px) {
-			grid-template-columns: repeat(1, 1fr);
-		}
+		display: flex;
 		grid-column-gap: 20px;
 		grid-row-gap: 5px;
 		.album-img {
@@ -156,8 +152,8 @@
 		overflow-y: scroll;
 		height: 200px;
 		@media screen and (max-width: 600px) {
-			height: 100px;
-			margin-top: 0px;
+			height: 180px;
+			margin-top: 20px;
 		}
 		padding-right: 15px;
 		margin-top: 32px;
