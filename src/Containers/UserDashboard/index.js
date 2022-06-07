@@ -157,7 +157,7 @@ function UserDashboard(props) {
   };
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
-      <div className="container">
+      <div className="containerOuter">
         {renderHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
           <div className="user-block">
