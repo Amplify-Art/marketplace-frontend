@@ -128,7 +128,7 @@ function AlbumModalContent({
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => {});
+      audio.removeEventListener("timeupdate", () => { });
     };
   }, [playing, audio]);
 
@@ -183,9 +183,8 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${
-                isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
-              } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
+              background: `linear-gradient(123.48deg, ${isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
+                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
             }}
           >
             <div className="album-top">
@@ -206,7 +205,7 @@ function AlbumModalContent({
                 className="album-right"
                 style={isPlayList ? { paddingLeft: "0px" } : {}}
               >
-                <div className="title">{albumInfo?.title.substring(0,29)}{albumInfo?.title?.length > 29 && '...'}</div>
+                <div className="title">{albumInfo?.title.substring(0, 29)}{albumInfo?.title?.length > 29 && '...'}</div>
                 {!isPlayList ? (
                   <>
                     <div className="artist-title">
@@ -263,9 +262,8 @@ function AlbumModalContent({
             </div>
             {isPlayList && (
               <div
-                className={`btn-wrabtn-wrapp input-holder active-playlist ${
-                  !isPlayList ? "btn-margin" : ""
-                }`}
+                className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
+                  }`}
               >
                 <input
                   type="submit"
@@ -286,7 +284,10 @@ function AlbumModalContent({
             )}
           </div>
         ) : (
-          <div className="left-wrapper">
+          <div className="left-wrapper" style={{
+            background: `linear-gradient(123.48deg, ${isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
+              } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
+          }}>
             <div className="viewdetails-top">
               <div className="back-img">
                 <img
@@ -310,14 +311,14 @@ function AlbumModalContent({
           onBuy &&
           url &&
           url.pathname !== "/my-profile" ? (
-            <button
-              onClick={() => onBuy(albumInfo)}
-              type="button"
-              className="buy-button btn1"
-            >
-              Buy This - ${(albumInfo.price / 100).toFixed(2)}
-            </button>
-          ) : null}
+          <button
+            onClick={() => onBuy(albumInfo)}
+            type="button"
+            className="buy-button btn1"
+          >
+            Buy This - ${(albumInfo.price / 100).toFixed(2)}
+          </button>
+        ) : null}
         {!isPlayList && isMerged && (
           <button
             // onClick={() => onBuy(albumInfo)}
