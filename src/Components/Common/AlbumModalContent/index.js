@@ -174,12 +174,7 @@ function AlbumModalContent({
     props.showDeletePlaylist();
   };
 
-  console.log(
-    albumInfo &&
-      albumInfo.songs &&
-      albumInfo.songs?.sort((a, b) => a.id - b.id),
-    "INFOOOOOO"
-  );
+  console.log('DATA', albumInfo.cover_cid);
 
   return (
     <>
@@ -189,8 +184,8 @@ function AlbumModalContent({
             className="left-wrapper"
             style={{
               background: `linear-gradient(123.48deg, ${
-                isPlayList ? "#f18180" : data.vibrant
-              } 0%, ${isPlayList ? "#ec5051" : data.muted} 52.12%)`,
+                isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
+              } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
             }}
           >
             <div className="album-top">
@@ -211,7 +206,7 @@ function AlbumModalContent({
                 className="album-right"
                 style={isPlayList ? { paddingLeft: "0px" } : {}}
               >
-                <div className="title">{albumInfo && albumInfo.title}</div>
+                <div className="title">{albumInfo?.title.substring(0,29)}{albumInfo?.title?.length > 29 && '...'}</div>
                 {!isPlayList ? (
                   <>
                     <div className="artist-title">
@@ -309,19 +304,12 @@ function AlbumModalContent({
             </div>
           </div>
         )}
-        {isPlayList ? (
-          <div className="cd-case">
-            {/* <img src={CdImage} alt='Cd-image' /> */}
-          </div>
-        ) : (
-          <div className="bg-album-img" />
-        )}
         {!isPlayList &&
           albumInfo.available_qty &&
           albumInfo.user_id !== (user && user.id) &&
           onBuy &&
           url &&
-          url.pathname !== "/my-profile" && (
+          url.pathname !== "/my-profile" ? (
             <button
               onClick={() => onBuy(albumInfo)}
               type="button"
@@ -329,7 +317,7 @@ function AlbumModalContent({
             >
               Buy This - ${(albumInfo.price / 100).toFixed(2)}
             </button>
-          )}
+          ) : null}
         {!isPlayList && isMerged && (
           <button
             // onClick={() => onBuy(albumInfo)}
@@ -340,113 +328,6 @@ function AlbumModalContent({
             {" "}
             Add to Player Queue
           </button>
-        )}
-      </div>
-      <div className="mobileAlbumContent">
-        <div className="cdCoverMobile">
-          <div
-            className="cdLeftCover"
-            style={{
-              background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)`,
-            }}
-          />
-          <div className="cdMiddleBar" />
-          <div className="cdRightCover">
-            <div>
-              <img className="cdCover" src={CdImage} alt="cover" />
-            </div>
-          </div>
-        </div>
-        {!isPlayList &&
-          albumInfo.available_qty &&
-          albumInfo.user_id !== (user && user.id) &&
-          onBuy &&
-          url &&
-          url.pathname !== "/my-profile" && (
-            <button
-              onClick={() => onBuy(albumInfo)}
-              type="button"
-              className="buy-button btn1"
-            >
-              Buy This - ${(albumInfo.price / 100).toFixed(2)}
-            </button>
-          )}
-        {!isPlayList && isMerged && (
-          <button
-            // onClick={() => onBuy(albumInfo)}
-            type="button"
-            className="buy-button btn2"
-            onClick={() => addToPlaylist("album")}
-          >
-            {" "}
-            Add to Player Queue
-          </button>
-        )}
-        {!viewDetails ? (
-          <>
-            <div className="mobileAlbumDetailWrapper">
-              <div className="albumImgHolder">
-                {albumInfo && albumInfo.cover_cid ? (
-                  <img
-                    src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`}
-                    alt=""
-                  />
-                ) : (
-                  <img src={albumInfo.coverArt} alt="" />
-                )}
-              </div>
-              <div className="albumDetail">
-                <div className="albumTitle">{albumInfo && albumInfo.title}</div>
-                <div className="albumArtistTitle">
-                  {albumInfo?.user?.name || "No Artist"}
-                </div>
-                <div
-                  className="albumViewDetail"
-                  onClick={() => setViewDetails(true)}
-                >
-                  View Details
-                </div>
-              </div>
-            </div>
-            <div className="albumSongsWrapper">
-              {albumInfo &&
-                albumInfo.songs &&
-                albumInfo.songs
-                  ?.sort((a, b) => a.id - b.id)
-                  .map((song, index) => (
-                    <AlbumSingleSong
-                      song={song}
-                      index={index}
-                      key={`${index}singlesong`}
-                      audio={audio}
-                      currentIndex={currentIndex}
-                      playing={playing}
-                      isOpen={isOpen}
-                      toggle={(data) => toggle(data)}
-                      onSingleSongClick={onSingleSongClick}
-                      token={token}
-                      isPlayList={isPlayList}
-                      tokens={tokens}
-                    />
-                  ))}
-            </div>
-          </>
-        ) : (
-          <div className="albumViewDetailWrapper">
-            <div className="albumViewDetailTop">
-              <div className="backImg">
-                <img
-                  onClick={() => setViewDetails(false)}
-                  src={BackArrowIcon}
-                  alt="left arrow"
-                />
-              </div>
-              <div className="albumDetailBanner">Album Details</div>
-            </div>
-            <div className="albumDetailContent">
-              <p className="subContent">{albumInfo.description}</p>
-            </div>
-          </div>
         )}
       </div>
     </>

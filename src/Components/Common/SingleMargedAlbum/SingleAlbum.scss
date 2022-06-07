@@ -144,13 +144,13 @@
     position: absolute;
     .modal {
         .holder {
-            background-image: url("../../../assets/images/case_v1.png");
+            background-image: url("../../../assets/images/cdcase-new.png");
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: contain;
             padding: 10px 15px;
             background-color: #1d1d1d;
             border-radius: 0;
-            width: 900px;
+            width: 876px;
             @media screen and (max-width: 600px) {
                 width: 350px;
             }
@@ -170,14 +170,15 @@
         position: absolute;
         bottom: 51px;
         width: 95%;
-        padding-left: 23px;
-        padding-right: 5px;
+        padding-left: 69px;
+        padding-right: 24px;
         box-sizing: border-box;
         h3 {
             font-family: "Permanent Marker", cursive;
             width: 100%;
             display: inline-block;
             color: #000;
+            margin-bottom: 9px;
         }
     }
 }

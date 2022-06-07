@@ -160,7 +160,7 @@ function UserDashboard(props) {
       <div className="container">
         {renderHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
-          <div className="album-block">
+          <div className="user-block">
             {props?.myFollowings?.map((following, index) => (
               <UserAvatar
                 avatarImg={following?.artist?.avatar}

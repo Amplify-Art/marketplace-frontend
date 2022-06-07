@@ -285,3 +285,19 @@ textarea {
     padding: 0px;
   }
 }
+
+// TODO: Should move this to some kind of component later
+.user-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  .user-avatar {
+    @media screen and (max-width: 600px) {
+      width: calc(50% - 15px);
+      .avatar {
+        width: 40vw;
+        height: 40vw;
+      }
+    }
+  }
+}

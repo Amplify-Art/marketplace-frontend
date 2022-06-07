@@ -138,15 +138,18 @@
     position: absolute;
     .modal {
         .holder {
-            background-image: url("../../../assets/images/case_v1.png");
+            background-image: url("../../../assets/images/cdcase-new.png");
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: contain;
             padding: 10px 15px;
             background-color: #1d1d1d;
             border-radius: 0;
-            width: 900px;
-            @media screen and (max-width: 600px) {
-                width: 350px;
+            width: 876px;
+            @media screen and (max-width: 900px) {
+                background-image: none !important;
+                width: auto !important;
+                padding: 10px !important;
+                max-width: 100%;
             }
         }
     }
