@@ -252,7 +252,10 @@
 }
 
 #settings{
-  padding-left: 20px;
+  padding-left: 220px;
+  @media screen and (max-width: 600px) {
+    padding-left: 20px;
+  }
 }
 
 .uploadButton {
