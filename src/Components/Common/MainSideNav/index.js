@@ -120,6 +120,11 @@ function MainSideNav(props) {
     // setViewDetails(false);
   };
 
+  useEffect(() => {
+    if (showMobileMenu) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = 'auto'
+  }, [showMobileMenu])
+
   return (
     <>
       <div id="main-side-nav" className={`${showMobileMenu && "mobile-open"}`}>
@@ -141,14 +146,14 @@ function MainSideNav(props) {
                 {props.searchLoading
                   ? "Loading..." // TODO: can add any animation
                   : props.searchResult &&
-                    props.searchResult.results &&
-                    props.searchResult.results.length && (
-                      <SearchResultCard
-                        handleClick={(type, data) =>
-                          handleSearchClicked(type, data)
-                        }
-                      />
-                    )}
+                  props.searchResult.results &&
+                  props.searchResult.results.length && (
+                    <SearchResultCard
+                      handleClick={(type, data) =>
+                        handleSearchClicked(type, data)
+                      }
+                    />
+                  )}
               </div>
             )}
           </div>
