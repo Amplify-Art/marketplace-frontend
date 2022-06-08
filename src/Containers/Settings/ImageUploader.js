@@ -51,6 +51,13 @@ const ImageUploader = ({
           Choose Image
         </label>
         <br />
+        <button
+          style={{ float: "center" }}
+          className="banner-update-button"
+          onClick={getCropData}
+        >
+          Upload
+        </button>
         <br />
         <Cropper
           style={{ width: "100%" }}
@@ -73,13 +80,6 @@ const ImageUploader = ({
         />
         {/* <br /> */}
         {/* {cropper?.cropped ? ( */}
-        <button
-          style={{ float: "center" }}
-          className="banner-update-button"
-          onClick={getCropData}
-        >
-          Upload
-        </button>
         {/* ) : null} */}
       </div>
     </>
