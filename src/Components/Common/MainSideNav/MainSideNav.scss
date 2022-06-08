@@ -20,7 +20,7 @@
   z-index: 99;
   @media screen and (max-width: 600px) {
     display: none;
-    padding-top: 105px;
+    padding-top: 80px;
     &.mobile-open {
       display: initial;
       position: fixed;
@@ -43,7 +43,7 @@
       margin-left: auto;
       margin-right: auto;
       width: 86%;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       img {
         position: absolute;
         left: 21px;
