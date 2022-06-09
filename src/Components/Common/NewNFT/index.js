@@ -190,6 +190,10 @@ function NewNFT(props) {
         let yocto_near_price = parseNearAmount(
           `${data.albumPrice / props.nearPrice}`
         );
+        let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
+        let approximate_storage_deposit =
+          0.2 * gasMultiplies * (0.8 * songFiles.length);
+
         let minting_info = {
           cover: albumCover,
           title: data.albumName,
@@ -202,9 +206,9 @@ function NewNFT(props) {
             hash: uploadedIpfs[index],
             duration: fileDuration[file.name],
           })),
+          minting_cost: approximate_storage_deposit,
         };
         localStorage.setItem("minting_info", JSON.stringify(minting_info));
-        let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
 
         await props.wallet.account().functionCall(
           process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
@@ -220,7 +224,7 @@ function NewNFT(props) {
             })),
           },
           300000000000000,
-          parseNearAmount(`${0.2 * gasMultiplies * (0.8 * minting_info.songs.length)}`)
+          parseNearAmount(`${approximate_storage_deposit}`)
         );
       } else {
         const mintAlbum = await axios.post(
