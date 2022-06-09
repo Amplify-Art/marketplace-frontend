@@ -220,7 +220,7 @@ function NewNFT(props) {
             })),
           },
           300000000000000,
-          parseNearAmount(`${0.2 * gasMultiplies}`)
+          parseNearAmount(`${0.2 * gasMultiplies * (0.8 * minting_info.songs.length)}`)
         );
       } else {
         const mintAlbum = await axios.post(
