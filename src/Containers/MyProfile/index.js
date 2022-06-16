@@ -522,7 +522,7 @@ function MyProfile(props) {
       {!isPublicProfile && (
         <>
           {renderHeader(
-            `Playlists - ${props.totalPlaylists ? props.totalPlaylists : "0"}`,
+            `Playlists - ${props.playlists ? props.playlists.length : "0"}`,
             true
           )}
 
