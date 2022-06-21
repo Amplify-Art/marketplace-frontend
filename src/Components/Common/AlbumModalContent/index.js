@@ -236,8 +236,8 @@ function AlbumModalContent({
               )}
             </div>
             <div className="album-bottom" id="modalScrolling">
-              <div className={`playlist-header ${isPlayList ? "playlist" : ""}`} style={isSell ? { gridTemplateColumns: "1.29fr 1.1fr 1fr" } : {}}>
-                <span>SONG TITLE</span>
+              <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
+                <span style={{ gridColumn: "1/3" }}>SONG TITLE</span>
                 <span>LENGTH</span>
               </div>
               {albumInfo &&

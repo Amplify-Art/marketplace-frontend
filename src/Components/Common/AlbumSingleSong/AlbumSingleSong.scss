@@ -28,7 +28,7 @@
 .sell {
   // margin-left: 110px;
   padding: 5px;
-  width: 100px;
+  width: 100% !important;
   border: 2px solid rgba(255, 255, 255, 0.8) !important;
 }
 .view {
@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 .duration {
-  width: 55%;
-  text-align: right !important;
+  width: 100%;
+  text-align: left !important;
   font-size: 14px;
 }
