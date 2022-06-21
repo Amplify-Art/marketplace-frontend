@@ -172,10 +172,13 @@
 			font-size: 12px;
 			font-weight: 400;
 			display: grid;
-			grid-template-columns: 1fr 1.1fr;
+			// grid-template-columns: 1fr 1.2fr;
 			margin-bottom: 10px;
 			&.playlist {
-				grid-template-columns: 3fr 0.5fr;
+				grid-template-columns: 0.3fr 0.7fr 1fr 0.8fr !important;
+			}
+			&.can-sell {
+				grid-template-columns: 0.3fr 0.7fr 1fr 0.8fr !important;
 			}
 		}
 		@media screen and (max-width: 600px) {
