@@ -7,7 +7,7 @@ const initialState = {
   album: {},
   albums: [],
   total: 0,
-  loading: false,
+  loading: true,
   error: '',
 };
 

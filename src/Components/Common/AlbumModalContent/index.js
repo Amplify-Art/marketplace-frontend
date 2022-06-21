@@ -40,6 +40,7 @@ function AlbumModalContent({
   const [audio, setAudioSong] = useState(new Audio(""));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
+  const [isSell, setIsCell] = useState(false)
   const [userTokens, setUserTokens] = useState([]);
   let url = props.history.location;
 
@@ -235,7 +236,7 @@ function AlbumModalContent({
               )}
             </div>
             <div className="album-bottom" id="modalScrolling">
-              <div className={`playlist-header ${isPlayList ? "playlist" : ""}`}>
+              <div className={`playlist-header ${isPlayList ? "playlist" : ""}`} style={isSell ? { gridTemplateColumns: "1.29fr 1.1fr 1fr" } : {}}>
                 <span>SONG TITLE</span>
                 <span>LENGTH</span>
               </div>
@@ -257,6 +258,8 @@ function AlbumModalContent({
                       token={token}
                       isPlayList={isPlayList}
                       tokens={tokens}
+                      setIsCell={setIsCell}
+                      isSell={isSell}
                     />
                   ))}
             </div>

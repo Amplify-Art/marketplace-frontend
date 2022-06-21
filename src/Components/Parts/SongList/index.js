@@ -44,10 +44,10 @@ const songHeader = () => (
     </div>
     <div className="mobile-header-title">
       <div>Song Market</div>
-      <div className="mobile-header-title-right">
+      {/* <div className="mobile-header-title-right">
         <i className="far fa-sort-alt" />
         <span className="sort">SORT</span>
-      </div>
+      </div> */}
     </div>
     <div className="header-title">
       For sale
@@ -430,8 +430,8 @@ function SongList(props) {
                         : "Buy Song"
                     }
                     bodyText={`Please confirm your ${buyingSong.transfer_to === user.id
-                        ? "delisting"
-                        : "purchase"
+                      ? "delisting"
+                      : "purchase"
                       }`}
                     // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
                     buttons={[

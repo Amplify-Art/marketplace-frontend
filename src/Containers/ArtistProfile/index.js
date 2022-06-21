@@ -13,6 +13,7 @@ import ShareIcon from '../../assets/images/share-icon.svg';
 import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 import { getUsers } from '../../Api/User';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
+import Rolling from './Rolling.svg'
 
 function ArtistProfile(props) {
   const { artist } = props;
@@ -106,29 +107,38 @@ function ArtistProfile(props) {
     }
   }
   return (
-    artistFound ?
-      props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
-        <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} isPublicProfile/>
+    <> {props.albumLoading || props.artistLoading ? <div className='loading'>
+      <img src={Rolling} alt='rolling' />
+    </div> : <> {
+      artistFound ?
+        props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
+          <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} isPublicProfile />
 
-        <div className="recently-purchased">
-          <div className="top">
-            <h2>Recently Released</h2>
-            {/* {albums && albums.length > 20 && <button className="btn outlined">View All</button>} */}
-          </div>
+          <div className="recently-purchased">
+            <div className="top">
+              <h2>Recently Released</h2>
+              {/* {albums && albums.length > 20 && <button className="btn outlined">View All</button>} */}
+            </div>
 
-          <div className="albums" className={`${albums && albums.length > 0 && 'album-grid'}`}>
-            {
-              albums && albums.length > 0 ? albums?.map((album, index) => (
-                generateAlbumItem({ ...album, hideSticker: false }, index)
-              )) : (
-                <div className="no-results">
-                  <h4>This artist currently has no recent releases. Please check back again later.</h4>
-                </div>
-              )}
+            <div className="albums" className={`albums ${albums && albums.length > 0 && 'album-grid'}`}>
+              {
+                albums && albums.length > 0 ? albums?.map((album, index) => (
+                  generateAlbumItem({ ...album, hideSticker: false }, index)
+                )) : (
+                  <div className="no-results">
+                    <h4>This artist currently has no recent releases. Please check back again later.</h4>
+                  </div>
+                )}
+            </div>
           </div>
+        </div> : <div className="text-title">This Artist Could Not Be Found</div>
+        : <div className='loading'>
+          <img src={Rolling} alt='rolling' />
         </div>
-      </div> : <div className="text-title">This Artist Could Not Be Found</div>
-      : <></>
+    }
+    </>
+    }
+    </>
   );
 }
 
@@ -138,6 +148,8 @@ export default connect(state => {
     artist: state.artist.artist,
     myFollowings: state.followers.followers,
     token_transfers: state.token_transfers.token_transfers,
+    albumLoading: state.albums.loading,
+    artistLoading: state.artist.loading
   }
 },
   dispatch => {
