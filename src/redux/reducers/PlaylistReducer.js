@@ -8,7 +8,9 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
-  current_playlists: sessionStorage.getItem('activePlaylist') ? JSON.parse(sessionStorage.getItem('activePlaylist')) : []
+  current_playlists: sessionStorage.getItem('activePlaylist') ? JSON.parse(sessionStorage.getItem('activePlaylist')) : [],
+  show_delete_modal: false,
+  show_modal: false,
 };
 
 export default function (state = initialState, action) {
@@ -119,11 +121,11 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case types.DELETE_PLAYLIST_SUCCESS:
-      playlists = filter(state.playlists, item => item.id !== action.payload.id);
+      let newPlaylists = filter(state.playlists, item => item.id !== action.payload.id);
 
       return {
         ...state,
-        playlists: [...playlists],
+        playlists: [...newPlaylists],
         status: true,
         loading: false,
       };
@@ -137,6 +139,26 @@ export default function (state = initialState, action) {
       return {
         ...state,
         current_playlists: []
+      }
+    case types.SHOW_PLAYLIST_DELETE_MODAL:
+      return {
+        ...state,
+        show_delete_modal: true
+      }
+    case types.HIDE_PLAYLIST_DELETE_MODAL:
+      return {
+        ...state,
+        show_delete_modal: false
+      }
+    case types.SHOW_PLAYLIST_MODAL:
+      return {
+        ...state,
+        show_modal: true
+      }
+    case types.HIDE_PLAYLIST_MODAL:
+      return {
+        ...state,
+        show_modal: false
       }
     default:
       return state;

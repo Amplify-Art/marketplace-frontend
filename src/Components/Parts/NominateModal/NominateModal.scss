@@ -1,0 +1,124 @@
+@mixin overflowScrollBar {
+  &::-webkit-scrollbar {
+    width: 8;
+    height: 8;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: 'rgba(232, 232, 232, .35)';
+    border-radius: 4;
+  }
+  &::-webkit-scrollbar-thumb {
+    outline: 0;
+    background-color: '#D2E2EA';
+    border-radius: 4;
+  }
+}
+.nominate-modal-wrapper {
+  width: 400px;
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0em;
+  .nominate-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    .nominate-heading {
+      font-size: 24px;
+      line-height: 31px;
+      text-align: left;
+      color: #000000;
+    }
+    .nominate-close-button {
+      height: 26px;
+      width: 26px;
+      font-size: 28px;
+      background: white;
+      color: #CCCCCC;
+      cursor: pointer;
+      margin-top: -8px;
+    }
+  }
+  .nominate-subheading {
+    font-size: 20px;
+    line-height: 26px;
+    text-align: left;
+    color: #000000;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .nominate-content {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 22px;
+    text-align: left;
+    color: #7C7C7C;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .nominate-content-info {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    color: #7C7C7C;
+    width: 100%;
+    margin-bottom: 40px;
+    font-weight: 600;
+  }
+  .nominate-actions {
+    margin-top: 40px;
+    width: 100%;
+    .nominate-input-wrapper {
+      position: relative;
+      margin-bottom: 30px;
+      .nominate-input {
+        height: 48px;
+        width: 375px;
+        @media screen and (max-width: 600px) {
+          width: 313px;
+        }
+        border-radius: 8px;
+        border: 1px solid #999999;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 17px;
+        &::-webkit-input-placeholder {
+          font-size: 18px;
+          line-height: 3;
+          color: #7c7c7cb3;
+        }
+      }
+      .nominate-search-result {
+        padding: 20px;
+        width: 355px;
+        overflow: auto;
+        border-radius: 8px;
+        border: 1px solid #999999;
+        max-height: 120px;
+        position: absolute;
+        top: 58px;
+        z-index: 1;
+        background: #fff;
+        @include overflowScrollBar();
+        .nominate-result-card {
+          font-size: 18px;
+          font-weight: 500;
+          padding-bottom: 8px;
+          cursor: pointer;
+        }
+      }
+    }
+    .nominate-button {
+      height: 48px;
+      width: 100%;
+      border-radius: 100px;
+      background-color: #000000;
+      color: white;
+      line-height: 31px;
+      font-size: 18px;
+    }
+  }
+}

@@ -6,7 +6,7 @@ import * as types from '../../Constants/actions/Artist';
 
 const initialState = {
   artist: {},
-  loading: false,
+  loading: true,
   error: '',
 };
 

@@ -10,6 +10,11 @@ export const fetchUserAction = payload => ({
   payload,
 });
 
+export const fetchUserByNearIdAction = payload => ({
+  type: types.FETCH_USER_BY_NEAR_ID_REQUEST,
+  payload,
+});
+
 export const addUserAction = payload => ({
   type: types.ADD_USER_REQUEST,
   payload,

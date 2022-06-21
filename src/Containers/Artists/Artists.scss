@@ -1,17 +1,30 @@
 .artists-holder {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 35px;
-  column-gap: 35px;
-  grid-row-gap: 53px;
-  row-gap: 53px;
+  display: flex;
+  flex-wrap: wrap;
   .profile-album,
   .user-avatar {
     cursor: pointer;
+    // margin-left: 25px;
+    display: block;
+    text-align: center;
     .avatar {
+      border: solid 3px rgba(255, 255, 255, 0.2);
+      // margin-left: 0;
       img {
         width: 100%;
       }
+    }
+    .avatar-name {
+      display: block;
+      margin: auto;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      width: 180px;
+      @media screen and (max-width: 600px) {
+        width: 160px;
+      }
+      // margin-left: 20px;
     }
   }
 }

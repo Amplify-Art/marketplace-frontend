@@ -1,6 +1,5 @@
 @import "../../assets/SCSS/Vars.scss";
 #user-dashboard {
-  padding-top: 29px;
   padding-bottom: 100px;
   font-family: $space;
   font-style: normal;
@@ -27,10 +26,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-top: 50px;
+    // margin-left: 20px;
+    @media screen and (max-width: 600px) {
+      margin-top: 20px;
+    }
     .header-title {
-      font-size: 20px;
+      font-size: 24px;
+      font-weight: 300;
       line-height: 26px;
       color: #ffffff;
     }
@@ -42,7 +46,7 @@
       background: transparent;
       color: #ffffff;
       cursor: pointer;
-      
+
       &:first-child {
         margin-right: 27px;
         @media screen and (max-width: 600px) {
@@ -59,15 +63,8 @@
     }
   }
   .album-block {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 35px;
-    row-gap: 53px;
-    @media screen and (max-width: 600px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
     .single-album {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: "Space Grotesk", sans-serif;
       font-style: normal;
       font-weight: normal;
       color: #ffffff;
@@ -86,11 +83,13 @@
         opacity: 0.8;
         margin-bottom: 5px;
         font-weight: normal;
+        color: rgba(255, 255, 255, 0.2);
       }
       .album-own {
         font-size: 14px;
         margin-top: 2px;
         font-weight: normal;
+        color: white !important;
       }
     }
     .profile-album-wrap {
@@ -105,4 +104,10 @@
     font-size: 30px;
     margin-top: 0px;
   }
+}
+.no-artists {
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 400;
+  width: 100%;
+  font-size: 20px;
 }

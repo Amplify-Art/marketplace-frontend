@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SingleAlbum from '../../Components/Common/SingleAlbum';
 import UserAvatar from '../../Components/Common/UserAvatar';
 import SongList from '../../Components/Parts/SongList';
+import { setIsSongSelected } from '../../redux/actions/SearchResAction';
 
 import { filter } from 'lodash';
 import './SearchResult.scss';
@@ -13,6 +14,7 @@ function SearchResult(props) {
   const albumsData = filter(results, item => item.type === "albums")[0]?.data || [];
   const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
   const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
+  const songSectionRef = useRef(null);
 
   const albumDetailRender = (albumNo) => (
     albumsData.map((album, index) => albumNo === index && (
@@ -22,7 +24,17 @@ function SearchResult(props) {
         <div>{album.mints_owned.length ? `You Own: ${album.mints_owned.map(m => '#' + m).join(',')}` : ''}</div>
       </div >
     ))
-  )
+  );
+
+  useEffect(() => {
+    if (props?.isSongSelected) {
+      window.scrollTo({
+        top: songSectionRef.current.offsetTop,
+        behavior: 'smooth',
+      })
+      props.setIsSongSelected();
+    }
+  }, [props.isSongSelected]);
 
   return (
     <div className={`container search-result left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
@@ -38,25 +50,35 @@ function SearchResult(props) {
           <NoResult />
         }
       </div>
-      <div>
+      <div ref={songSectionRef}>
         <div className="songlist-title">song results</div>
         {songsData.length ? <SongList songList={songsData} /> : <NoResult />}
 
       </div>
       <div className="songlist-title">artist result</div>
-      <div className="artist-holder">
-        {artistsData.length > 0 ? artistsData.map((artist, index) => (
-          <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.id}`)} />
-        )) : (
-          <NoResult />
-        )}
-      </div>
+      {
+        artistsData.length
+        ? (
+            <div className="artist-holder">
+              {artistsData.length > 0 ? artistsData.map((artist, index) => (
+                <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.id}`)} />
+              )) : null}
+            </div>
+        )
+        : <NoResult />
+      }
+      
     </div>
   )
 }
 export default connect(state => {
   return {
     searchResult: state.searchRes.searchResult,
+    isSongSelected: state.searchRes.isSongSelected,
+  }
+}, dispatch => {
+  return {
+    setIsSongSelected: () => dispatch(setIsSongSelected()),
   }
 })(withRouter(SearchResult));
 

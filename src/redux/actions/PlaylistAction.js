@@ -36,3 +36,19 @@ export const clearCurrentPlayList = payload => ({
   type: types.CLEAR_CURRENTPLAYLIST_REQUEST,
   payload
 })
+
+export const showDeletePlaylistAction = () => ({
+  type: types.SHOW_PLAYLIST_DELETE_MODAL,
+});
+
+export const hideDeletePlaylistAction = () => ({
+  type: types.HIDE_PLAYLIST_DELETE_MODAL,
+});
+
+export const showPlaylistModalAction = () => ({
+  type: types.SHOW_PLAYLIST_MODAL,
+});
+
+export const hidePlaylistModalAction = () => ({
+  type: types.HIDE_PLAYLIST_MODAL,
+});

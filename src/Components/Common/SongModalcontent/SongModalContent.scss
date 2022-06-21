@@ -5,24 +5,33 @@
 	font-family: $space;
 	font-style: normal;
 	font-weight: normal;
+	height: 388px;
 	// height: 370px;
 	.left-sec-wrapper {
 		background: #242424;
 		padding: 5px 10px;
-		width: 50%;
 		color: #fff;
+		width: 389px;
 	}
 	.bg-song-img {
-		background: url('../../../assets/images/cdblack.png');
-		width: 50%;
+		background: url("../../../assets/images/cdblack.png");
+		// width: 50%;
 		background-size: cover;
+		background-repeat: round;
+		width: 410px;
+		height: 410px;
+		margin-left: 76px;
+		margin-top: 7px;
 	}
 	.album-top {
 		display: flex;
 		.album-img {
-			width: 120px;
-			height: 120px;
-      overflow: hidden;
+			width: 130px;
+			height: 130px;
+			overflow: hidden;
+			img{
+				width: 100%;
+			}
 		}
 		.album-right {
 			padding-left: 20px;
@@ -71,9 +80,9 @@
 		}
 	}
 	.details-content {
-    height: 250px;
-    overflow-y: auto;
-    overflow-x: hidden;
+		height: 250px;
+		overflow-y: auto;
+		overflow-x: hidden;
 		.sub-content {
 			font-family: $space;
 			font-style: normal;
@@ -114,47 +123,47 @@
 	}
 	.album-bottom {
 		// padding-top: 32px;
-		.album_song{
+		.album_song {
 			width: 100%;
 			text-align: left;
-			tr{
-				.first-td{
+			tr {
+				.first-td {
 					width: 50%;
 				}
-				.second-td{
+				.second-td {
 					width: 25%;
 				}
-				.third-td{
+				.third-td {
 					width: 25%;
 				}
-				.pointer{
+				.pointer {
 					cursor: pointer;
 				}
-				td{
-					.album_wrap{
+				td {
+					.album_wrap {
 						overflow: hidden;
 						word-break: break-all;
 						text-overflow: clip;
 						font-size: 14px;
 						height: 40px;
 						display: flex;
-    					align-items: center;
-						img{
+						align-items: center;
+						img {
 							margin-right: 5px;
 						}
 					}
 				}
 			}
 		}
-		.album_Title{
+		.album_Title {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			p{
+			p {
 				font-family: $space;
 				font-size: 13px;
 				letter-spacing: 2px;
-				color: #FFFFFF;
+				color: #ffffff;
 				opacity: 50%;
 				text-transform: uppercase;
 			}
@@ -163,23 +172,27 @@
 	.inner-content-album-modal {
 		display: flex;
 		justify-content: space-between;
-    align-items: center;
+		align-items: center;
 		.modal-album-title {
-      align-items: center;
-			display: flex;
-      .play-pause-btn {
-        display: flex;
-        align-items: center;
-        height: 36px;
-        width: 25px;
-        > div {
-          display: flex;
-          align-items: center;
-        }
-      }
-		}
-		.pr-10 {
-			padding-right: 10px;
+			display: grid;
+			grid-template-columns: 0.3fr 0.7fr 1fr 0.5fr;
+			align-items: center;
+			&.playlist {
+				grid-template-columns: 0.3fr 2.7fr 0.5fr !important;
+			}
+			.play-pause-btn {
+				display: flex !important;
+				align-items: center;
+
+				img {
+					height: 36px !important;
+					width: 25px !important;
+				}
+				> div {
+					display: flex;
+					align-items: center;
+				}
+			}
 		}
 	}
 }

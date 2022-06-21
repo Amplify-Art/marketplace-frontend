@@ -9,6 +9,8 @@ const initialState = {
   total: 0,
   loading: false,
   error: '',
+  transaction: {},
+  wallet: null
 };
 
 export default function (state = initialState, action) {

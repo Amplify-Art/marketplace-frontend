@@ -30,6 +30,11 @@ export const sellSongAction = payload => ({
   payload,
 });
 
+export const hideSellSongConfirmation = payload => ({
+  type: types.SELL_SONG_CONFIRMATION,
+  payload,
+});
+
 export const deleteSongAction = payload => ({
   type: types.DELETE_SONG_REQUEST,
   payload,

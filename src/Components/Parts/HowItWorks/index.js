@@ -16,7 +16,7 @@ function HowItWorks(props) {
 
             <div className="content">
               <span className="count">Step 01</span>
-              <h3>Artists uoload origional music</h3>
+              <h3>Artists upload original music</h3>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt soluta eveniet, quaerat adipisci perspiciatis mollitia error minima laborum dicta numquam consequatur rem id voluptatibus est, perferendis, voluptate temporibus impedit quae?</p>
             </div>
           </div>

@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "near-api-js": "^0.41.0",
+    "near-transaction-manager": "^0.1.1",
     "react": "^17.0.2",
     "react-cropper": "^2.1.8",
     "react-currency-input-field": "^3.4.1",

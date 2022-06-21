@@ -2,6 +2,9 @@
 
 body {
   font-family: $lato;
+  @media screen and (max-width: 600px) {
+    font-family: 'Space Grotesk';
+  }
   padding: 0px;
   margin: 0px;
   background: #0f161d;
@@ -26,6 +29,31 @@ button {
   cursor: pointer;
 }
 
+.containerOuter {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  margin-top: 40px !important;
+  @media screen and (max-width: 1660px) {
+    // padding-left: 30px;
+    // padding-right: 30px
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    padding: 20px;
+  }
+  &.small {
+    width: 1480px;
+    @media screen and (max-width: 1660px) {
+      width: 1600px;
+    }
+  }
+}
+
 .container {
   width: 100%;
   max-width: 100%;
@@ -33,14 +61,14 @@ button {
   margin-right: auto;
   box-sizing: border-box;
   @media screen and (max-width: 1660px) {
-    padding-left: 30px;
-    // padding-right: 30px;
+    // padding-left: 30px;
+    // padding-right: 30px
     box-sizing: border-box;
   }
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    padding-right: 30px;
+    padding: 20px;
   }
   &.small {
     width: 1480px;
@@ -167,7 +195,7 @@ textarea {
     z-index: 998;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0, .6);
+    background: rgba(0,0,0, .8);
   }
 
   .holder {
@@ -177,6 +205,11 @@ textarea {
     position: relative;
     z-index: 999;
     width: 400px;
+    overflow: auto;
+    max-height: 70vh;
+    @media screen and (max-width: 600px) {
+      width: 335px;
+    }
   }
 }
 
@@ -214,9 +247,15 @@ textarea {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 10px;
+  }
+
+  @media screen and (max-width: 320px) {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 10px;
+    place-items: center;
   }
 }
 
@@ -253,6 +292,10 @@ textarea {
   margin-top: 40px;
   margin-bottom: 30px;
   font-size: 30px;
+  @media screen and (max-width: 600px) {
+    margin-top: 10px;
+    font-size: 25px;
+  }
 }
 
 .d-h-between {
@@ -265,4 +308,23 @@ textarea {
   color: #fff;
   font-size: 30px;
   padding: 30px 300px;
+  @media screen and (max-width: 600px) {
+    padding: 0px;
+  }
+}
+
+// TODO: Should move this to some kind of component later
+.user-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  .user-avatar {
+    @media screen and (max-width: 600px) {
+      width: calc(50% - 15px);
+      .avatar {
+        width: 40vw;
+        height: 40vw;
+      }
+    }
+  }
 }

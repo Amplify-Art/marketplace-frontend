@@ -1,0 +1,46 @@
+.inner-content-album-modal {
+  display: flex;
+  justify-content: space-between;
+  .modal-album-title {
+    display: grid;
+    width: 100%;
+    .pointer {
+      white-space: nowrap;
+    }
+    &.playlist {
+      grid-template-columns: 0.3fr 2.7fr 0.5fr;
+    }
+    &.can-sell {
+      margin-bottom: 10px;
+      grid-template-columns: 0.3fr 0.7fr 1fr 0.8fr !important;
+    }
+  }
+  .fn-white {
+    color: black;
+    min-width: 60px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  i {
+    color: #ad0c0c82;
+  }
+}
+.sell {
+  // margin-left: 110px;
+  padding: 5px;
+  width: 100px;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+.view {
+  width: 50%;
+  text-align: right;
+  color: white;
+  font-weight: 400;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.duration {
+  width: 55%;
+  text-align: right !important;
+  font-size: 14px;
+}

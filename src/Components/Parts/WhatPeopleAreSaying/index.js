@@ -8,23 +8,28 @@ function WhatPeopleAreSaying() {
   const tweets = [
     {
       handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non"
+      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
+      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
     },
     {
       handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non"
+      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
+      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
     },
     {
       handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non"
+      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
+      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
     },
     {
       handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non"
+      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
+      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
     },
     {
       handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non"
+      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
+      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
     }
   ];
 
@@ -75,7 +80,7 @@ function WhatPeopleAreSaying() {
           {tweets.map((tweet) => (
             <div className="single-tweet">
               <h5>@{tweet.handle}</h5>
-              <div className="tweet-image circle"><img src={Em} alt="Eminem" /></div>
+              <div className="tweet-image circle"><img src={tweet.image} alt="Eminem" /></div>
               <div className="tweet-content">
                 <div className="quote"><img src={QuoteIcon} alt="Quote" /></div>
                 <p>{tweet.tweet}</p>

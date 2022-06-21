@@ -1,6 +1,8 @@
 @import '../../../assets/SCSS/Vars.scss';
 
 #what-people-are-saying {
+    padding-left: 56px;
+    padding-right: 56px;
     width: 100%;
     box-sizing: border-box;
     float: left;
@@ -54,6 +56,7 @@
                 margin-left: auto;
                 img {
                     height: 100%;
+                    max-width: unset;
                 }
             }
 

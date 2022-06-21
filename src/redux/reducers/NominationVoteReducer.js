@@ -87,7 +87,7 @@ export default function (state = initialState, action) {
     case types.ADD_NOMINATIONVOTE_SUCCESS:
       return {
         ...state,
-        // nominationvotes: [...state.nominationvotes, action.res.data],
+        nominationvotes: [...state.nominationvotes, action.res.data],
         status: action.res.success,
         loading: false,
       };

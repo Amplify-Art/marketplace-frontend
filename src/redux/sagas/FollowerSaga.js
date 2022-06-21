@@ -69,7 +69,8 @@ export function* updateFollowerSaga({ history }, { payload }) {
       put({
         type: SET_NOTIFICATION,
         payload: {
-          success: res.success,
+          success: false,
+          title: 'Alert',
           message: res.success ? 'Follower updated' : res.message || 'Follower not updated',
         },
       }),

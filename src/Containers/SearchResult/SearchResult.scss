@@ -1,6 +1,10 @@
 @import "../../assets/SCSS/Vars.scss";
 .search-result {
   padding-bottom: 100px;
+  @media screen and (max-width: 600px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   // .cd-case {
   //     padding: 3px 4px 5px 20px;
   //     margin: 20px 20px 20px 0px;
@@ -59,5 +63,12 @@
     column-gap: 35px;
     grid-row-gap: 53px;
     row-gap: 53px;
+    @media screen and (max-width: 600px) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 20px;
+      column-gap: 20px;
+      grid-row-gap: 20px;
+      row-gap: 30px;
+    }
   }
 }

@@ -1,99 +1,152 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import './Nominate.scss'
-import moment from 'moment'
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { fetchUsersAction } from '../../redux/actions/UserAction'
-import { addNominationAction } from '../../redux/actions/NominationAction'
-import _ from 'lodash';
-import jwt from 'jsonwebtoken'
+import React, { useState, useEffect } from "react";
+import "./Nominate.scss";
+import moment from "moment";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { fetchUsersAction } from "../../redux/actions/UserAction";
+import {
+  addNominationAction,
+  toggleNominateCongratsModal,
+  toggleNominate,
+  fetchNominationsAction,
+} from "../../redux/actions/NominationAction";
+import NominateModal from "../../Components/Parts/NominateModal";
+import GeneralModal from "../../Components/Common/GeneralModal";
+import ConfettiImage from "../../assets/images/confetti.png";
+import useDebounce from "../../Components/Common/UseDebounce";
+import jwt from "jsonwebtoken";
 
-function useDebounce(callback, delay) {
-  const debouncedFn = useCallback(
-    _.debounce((...args) => callback(...args), delay),
-    [delay] // will recreate if delay changes
-  );
-  return debouncedFn;
-}
-
-const Nominate = (props) => {
-  let [search, setSearch] = useState('')
-  let [selected, setSelected] = useState(null)
-  let [nominateName, setNominateName] = useState('')
-  let currentUser = jwt.decode(localStorage.getItem('amplify_app_token'));
+const Nominate = ({
+  showNominateModal,
+  setShowNominateModal,
+  fetchNominations,
+  ...props
+}) => {
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [nominateName, setNominateName] = useState("");
+  const debouncedSearchTerm = useDebounce(search, 500);
+  let currentUser = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   const getUsers = (s) => {
     props.fetchUsers({
       params: {
-        search: s && s.replace('@', '')
-      }
-    })
-  }
-  const debouncedSave = useDebounce((nextValue) => getUsers(nextValue), 500);
+        search: (s && s.replace("@", "")) || undefined,
+        "filter[type]": "user",
+        is_filter_nominee: true,
+      },
+    });
+  };
+
   const onSearch = (e) => {
     const { value: nextValue } = e.target;
-    if (nominateName === '') {
-      setSelected(null)
+    if (nominateName === "") {
+      setSelected(null);
     }
-    setNominateName(nextValue)
-    setSearch(nextValue)
-    debouncedSave(nextValue);
-  }
-  const onSelect = user => {
-    setSelected(user)
-    setNominateName(user.username)
-  }
+    setNominateName(nextValue);
+    setSearch(nextValue);
+  };
+
+  const onSelect = (user) => {
+    setSelected(user);
+    setNominateName(user.near_account_id);
+  };
+
   const onSubmit = (e) => {
-    e.preventDefault()
-    if (!selected) return
+    e.preventDefault();
+    if (!selected) return;
     props.addNomination({
-      nominee: selected.id
+      nominee: selected.id,
     });
-    setNominateName('')
-  }
+    setNominateName("");
+    setShowNominateModal(false);
+  };
+
+  const handleGoHome = () => {
+    props.history.push("/");
+    props.toggleNominateCongratsModal(false);
+    props.toggleNominate(false);
+  };
+
+  useEffect(() => {
+    if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {
+      getUsers(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    if (currentUser)
+      fetchNominations({
+        params: {
+          "filter[nominated_by]": currentUser.id,
+          is_in_queue: true,
+          related: "nominatedBy",
+        },
+      });
+  }, []);
+
+  const handleCloseModal = () => {
+    setShowNominateModal(false);
+  };
   return (
-    <div id="nominate-container">
-      <div className='container'>
-        <div className='nominate-banner'>Nomination</div>
+    <>
+      {showNominateModal && (
+        <GeneralModal
+          bodyChildren={
+            <NominateModal
+              daysLeft={moment().daysInMonth() - moment().date()}
+              onChange={onSearch}
+              onClick={onSubmit}
+              onClose={() => setShowNominateModal(false)}
+              inputValue={nominateName}
+              suggestion={props.users}
+              search={search}
+              selected={selected}
+              currentUser={currentUser}
+              onSelect={onSelect}
+              nominations={props.nominations}
+              nominationloading={props.nominationloading}
+            />
+          }
+          isCloseButton="true"
+          closeModal={handleCloseModal}
+        />
+      )}
+      {props.showCongratsModal && (
+        <GeneralModal
+          topIcon={ConfettiImage}
+          headline="Thank You For Your Nomination"
+          buttons={[
+            {
+              type: "solid go-home",
+              text: "Go Home",
+              onClick: () => handleGoHome(),
+            },
+          ]}
+          className="centered"
+        />
+      )}
+    </>
+  );
+};
 
-
-        <div className="nominet_border1">
-          <div className="nominet_border2">
-          </div>
-        </div>
-        <div className='nominate_wrapp'>
-          <div className='content'>
-            <h1 className='heading'>{moment().daysInMonth() - moment().date()} Days Left Until Next Nomination</h1>
-            <div className="nominate">
-              <div>Nominate yourself for this month's voting period.</div>
-              <div>Enter early in the month for next exposure.</div>
-            </div>
-            <div className="submission">1 Submission per month per user</div>
-            <div className="search">
-              <input type="text" placeholder="@ Nominate New Artists" onChange={onSearch} value={nominateName} />
-              <button className="btn" onClick={onSubmit}>Submit Artist</button>
-            </div>
-            {search && !selected &&
-              <div className="user-list" >
-                <div className="user-inner" id="modalScrolling">
-                  {props.users.filter(f => f.id !== currentUser.id).map(u => <span onClick={() => onSelect(u)}>@{u.username}</span>)}
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default connect(state => {
-  return {
-    users: state.users.users
+export default connect(
+  (state) => {
+    return {
+      users: state.users.users,
+      showCongratsModal: state.nominations?.showCongratsModal,
+      nominations: state.nominations.nominations,
+      nominationloading: state.nominations.loading,
+    };
+  },
+  (dispatch) => {
+    return {
+      fetchUsers: (data) => dispatch(fetchUsersAction(data)),
+      addNomination: (data) => dispatch(addNominationAction(data)),
+      toggleNominateCongratsModal: (data) =>
+        dispatch(toggleNominateCongratsModal(data)),
+      toggleNominate: (data) => dispatch(toggleNominate(data)),
+      fetchNominations: (data) => dispatch(fetchNominationsAction(data)),
+    };
   }
-}, dispatch => {
-  return {
-    fetchUsers: (data) => dispatch(fetchUsersAction(data)),
-    addNomination: (data) => dispatch(addNominationAction(data)),
-  }
-})(Nominate)
+)(withRouter(Nominate));

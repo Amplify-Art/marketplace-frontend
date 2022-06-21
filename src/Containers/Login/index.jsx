@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import Twitter from './twitter.jsx';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import { withRouter } from 'react-router-dom';
+import NearLogo from '../../assets/images/near_icon.svg'
 import './login.scss';
 
-const Login = ({ history }) => {
+const Login = ({ history, onConnect }) => {
   useEffect(() => {
     if (localStorage.getItem('amplify_app_token')) {
       history.push('/')
     }
   }, [])
   return <div className="login">
-    <a href={`${API_ENDPOINT_URL}/auth/twitter`}><Twitter /><span>Login with Twitter</span></a>
+    <p href="#" onClick={onConnect}><img src={NearLogo} /><span>Login with NEAR</span></p>
   </div >
 }
 export default withRouter(Login)
