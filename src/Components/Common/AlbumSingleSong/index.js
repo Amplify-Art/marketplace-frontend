@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import playIcon from "../../../assets/images/play_icon.svg";
 import pauseIcon from "../../../assets/images/pause_icon.svg";
@@ -57,6 +57,8 @@ function AlbumSingleSong(props) {
     token,
     isPlayList,
     tokens,
+    setIsCell,
+    isSell
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
@@ -78,6 +80,9 @@ function AlbumSingleSong(props) {
   let hasAnyOfCopies = (tokens || []).some((t) =>
     t.token_id.includes(song.song_cid)
   );
+  useEffect(() => {
+    if (!isSell) setIsCell(hasAnyOfCopies)
+  }, [hasAnyOfCopies])
   console.log(hasAnyOfCopies, song.title);
   return (
     <div
