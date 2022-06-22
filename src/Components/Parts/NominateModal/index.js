@@ -46,7 +46,7 @@ const NominateModal = ({
       {!nominationloading ? (
         nominations.length ? (
           <span>
-            You have already made your nominations for month :{" "}
+            You have already made your nominations for month:{" "}
             <b>{nominations[0]?.nominatedBy?.near_account_id}</b>
           </span>
         ) : (
