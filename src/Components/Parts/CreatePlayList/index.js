@@ -26,14 +26,17 @@ function CreatePlayList(props) {
     return selectedSongs.length ? (
       selectedSongs.map((list, index) => (
         <div>
-          {`${index + 1}. ${
-            list.title === ""
+          <span style={{ width: "55%" }}>
+            {`${index + 1}. ${list.title === ""
               ? list?.album && list.album.description
               : list.title
-          }`}{" "}
-          <button className="remove" onClick={() => removeSelectedSongs(index)}>
-            remove
-          </button>
+              }`}
+          </span>
+          <span>
+            <button className="remove" onClick={() => removeSelectedSongs(index)}>
+              remove
+            </button>
+          </span>
         </div>
       ))
     ) : (
