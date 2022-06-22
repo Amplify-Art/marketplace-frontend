@@ -144,6 +144,7 @@
     // top: 520px;
     // right: 14%;
     // display: flex;
+    margin-right: 4%;
     gap: 25px;
     cursor: pointer;
     @media screen and (max-width: 600px) {
@@ -162,7 +163,7 @@
       border-radius: 50px;
       border: 0px;
       font-family: $lato;
-      margin-right: 20px;
+      // margin-right: 20px;
       padding: 14px 22px;
       @media screen and (max-width: 600px) {
         width: 100%;
