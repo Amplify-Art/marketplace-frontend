@@ -5,10 +5,8 @@
   .recently-purchased {
     // padding-right: 20px;
     padding-top: 50px;
-    margin-left: 18px;
     @media screen and (max-width: 600px) {
       padding-top: 7px;
-			margin-left: 0px !important;
     }
     .top {
       display: flex;

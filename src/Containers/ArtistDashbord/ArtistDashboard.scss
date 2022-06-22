@@ -236,3 +236,14 @@
     margin-right: 5px;
   }
 }
+
+.headerBtn{
+  display: flex;
+  gap: 15px;
+  margin-right: 50px;
+  @media screen and (max-width: 600px) {
+    margin-right: 10px;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

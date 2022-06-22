@@ -130,12 +130,12 @@ function ArtistDashboard(props) {
   ];
   const renderBtnContent = () => {
     return (
-      <>
+      <div className='headerBtn'>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button>
         <button onClick={handleOpenModal}>Mint New Album</button>
-      </>
+      </div>
     )
   }
   const renderSongList = () => (
