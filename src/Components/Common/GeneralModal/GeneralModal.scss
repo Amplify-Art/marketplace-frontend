@@ -71,15 +71,16 @@
         color: #000;
         font-weight: bold;
         font-size: 16px;
-        padding: 14px 40px;
+        padding: 10px 0px;
         border: 0px;
-        cursor: pointer;
-        width: 240px;
+        cursor: pointer;    
+        white-space: nowrap;
+        width: 180px;
         &.btn1 {
-          bottom: 8px;
+          bottom: 18px;
         }
         &.btn2 {
-          bottom: 8px;
+          bottom: 18px;
         }
       }
     }
