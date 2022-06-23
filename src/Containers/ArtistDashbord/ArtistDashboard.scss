@@ -178,12 +178,15 @@
 }
 .banner-upload {
   margin-top: 20px;
+  cursor: pointer;
   .default {
     height: 200px;
   }
 }
 .banner-update-button {
-  margin-top: 10px;
+  cursor: pointer;
+  margin-top: 20px !important;
+  margin-left: 0px !important;
   padding: 10px;
   width: 140px;
 }
