@@ -179,6 +179,9 @@ function ArtistDashboard(props) {
 
 
   const onUpdateBanner = () => {
+    setImage(null)
+    setImageURL(null)
+    setBannerUploadProgress(null)
     try {
       props.updateUser({
         id: decodedToken.id,
