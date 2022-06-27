@@ -173,6 +173,7 @@ function AlbumModalContent({
   const handleDelete = () => {
     props.setDeletingId(albumInfo.id);
     props.showDeletePlaylist();
+    props.closeModal()
   };
 
   console.log('DATA', albumInfo.cover_cid);
