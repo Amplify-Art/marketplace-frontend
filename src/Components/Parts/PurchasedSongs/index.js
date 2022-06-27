@@ -89,6 +89,7 @@ function PurchasedSongs(props) {
               onChange={(e) => setPrice(e.target.value)}
               className="currencyInput"
               required
+              maxLength={9}
             />
             <button className="sellButton" type="submit">
               Submit

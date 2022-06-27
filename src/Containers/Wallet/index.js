@@ -179,6 +179,7 @@ function Wallet(props) {
             onValueChange={onAmountChange}
             onKeyDown={(e) => e.key === "e" && e.preventDefault()}
             value={amontToConvert}
+            maxLength={9}
           />
           {amontToConvertError && (
             <span className="conversion-to-near">

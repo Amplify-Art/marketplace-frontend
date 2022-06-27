@@ -543,6 +543,7 @@ function NewNFT(props) {
                       decimalScale={2}
                       decimalsLimit={2}
                       onValueChange={onChange}
+                      maxLength={9}
                       className={errors.albumPrice && "error"}
                     />
                   )}
