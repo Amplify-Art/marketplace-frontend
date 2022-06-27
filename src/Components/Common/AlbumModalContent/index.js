@@ -344,8 +344,7 @@ function AlbumModalContent({
             className="buy-button btn2"
             onClick={() => addToPlaylist("album")}
           >
-            {" "}
-            Add to Player Queue
+            Play This Album
           </button>
         )}
       </div>
