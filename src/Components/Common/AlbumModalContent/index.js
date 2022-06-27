@@ -129,7 +129,7 @@ function AlbumModalContent({
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => {});
+      audio.removeEventListener("timeupdate", () => { });
     };
   }, [playing, audio]);
 
@@ -183,15 +183,13 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${
-                isPlayList
+              background: `linear-gradient(123.48deg, ${isPlayList
                   ? "#f18180"
                   : data?.vibrant
-                  ? data.vibrant
-                  : "#f18180"
-              } 0%, ${
-                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
-              } 52.12%)`,
+                    ? data.vibrant
+                    : "#f18180"
+                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+                } 52.12%)`,
             }}
           >
             <div className="album-top">
@@ -301,15 +299,13 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${
-                isPlayList
+              background: `linear-gradient(123.48deg, ${isPlayList
                   ? "#f18180"
                   : data?.vibrant
-                  ? data.vibrant
-                  : "#f18180"
-              } 0%, ${
-                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
-              } 52.12%)`,
+                    ? data.vibrant
+                    : "#f18180"
+                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+                } 52.12%)`,
             }}
           >
             <div className="viewdetails-top">
