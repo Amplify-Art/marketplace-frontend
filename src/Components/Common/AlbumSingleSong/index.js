@@ -58,7 +58,7 @@ function AlbumSingleSong(props) {
     isPlayList,
     tokens,
     setIsCell,
-    isSell
+    isSell,
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
@@ -77,13 +77,21 @@ function AlbumSingleSong(props) {
     ) || {}
   ).is_for_sale;
 
-  let hasAnyOfCopies = (tokens || []).some((t) =>
-    t.token_id.includes(song.song_cid)
-  );
+  // console.log(tokens, "tokens", song);
+  let hasAnyOfCopies = (tokens || []).some((t) => {
+    let [album, copy, songToken] = t.token_id.split(":");
+    let txn = song.transfers?.find(
+      (f) =>
+        f.token === songToken &&
+        parseInt(f.copy_number) === parseInt(copy) &&
+        parseInt(user?.id) === parseInt(f.transfer_to) &&
+        f.is_owner
+    );
+    return t.token_id.includes(song.song_cid) && txn?.is_for_sale === false;
+  });
   useEffect(() => {
-    if (!isSell) setIsCell(hasAnyOfCopies)
-  }, [hasAnyOfCopies])
-  console.log(hasAnyOfCopies, song.title);
+    if (!isSell) setIsCell(hasAnyOfCopies);
+  }, [hasAnyOfCopies]);
   return (
     <div
       className="inner-content-album-modal"
@@ -91,8 +99,9 @@ function AlbumSingleSong(props) {
       onClick={() => toggle(song.song_cid)}
     >
       <div
-        className={`modal-album-title ${isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : "can-sell"
-          }`}
+        className={`modal-album-title ${
+          isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : "can-sell"
+        }`}
       >
         <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (

@@ -29,6 +29,7 @@ function PurchasedSongs(props) {
   } = props;
 
   const renderSongs = () => {
+    console.log(props.transfers, props.ownedTokenCopies, "props.transfers");
     return props.transfers
       .filter(
         (f) =>
@@ -39,7 +40,7 @@ function PurchasedSongs(props) {
       )
       .map((list, index) => (
         <div className="song">
-          <div>Mint #123{list.copy_number}</div>{" "}
+          <div>Mint #{list.copy_number}</div>{" "}
           <div>
             <button className="sellButton" onClick={() => onSell(list)}>
               Sell
