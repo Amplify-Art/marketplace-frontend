@@ -53,7 +53,7 @@ function PurchasedSongs(props) {
     <div id="create-playlist">
       <div className="album-info">
         <div className="sellSongImg">
-          <img src={CDImg} />
+          <img src={selectedAlbumToken.cover_cid ? `https://amplify-dev.mypinata.cloud/ipfs/${selectedAlbumToken?.cover_cid}` : CDImg} alt="" />
         </div>
         <div className="sellSongRight">
           <div className="title">
