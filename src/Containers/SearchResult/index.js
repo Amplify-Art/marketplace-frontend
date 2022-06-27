@@ -61,7 +61,7 @@ function SearchResult(props) {
         ? (
             <div className="artist-holder">
               {artistsData.length > 0 ? artistsData.map((artist, index) => (
-                <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.id}`)} />
+                <UserAvatar avatarImg={artist.avatar} name={artist.name} key={`${index}art`} onClick={() => props.history.push(`/artist/${artist.near_account_id}`)} />
               )) : null}
             </div>
         )
