@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AlbumSingleSong from "../AlbumSingleSong/index";
+import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
 import playIcon from "../../../assets/images/play_icon.svg";
 import GeneralModal from "../GeneralModal/index.js";
 import BackArrowIcon from "../../../assets/images/left-arrow.png";
@@ -236,32 +236,46 @@ function AlbumModalContent({
               )}
             </div>
             <div className="album-bottom" id="modalScrolling">
-              <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
+              {/* <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
                 <span style={{ gridColumn: "1/3" }}>SONG TITLE</span>
                 <span>LENGTH</span>
-              </div>
-              {albumInfo &&
-                albumInfo.songs &&
-                albumInfo.songs
-                  ?.sort((a, b) => a.id - b.id)
-                  .map((song, index) => (
-                    <AlbumSingleSong
-                      song={song}
-                      index={index}
-                      key={`${index}singlesong`}
-                      audio={audio}
-                      currentIndex={currentIndex}
-                      playing={playing}
-                      isOpen={isOpen}
-                      toggle={(data) => toggle(data)}
-                      onSingleSongClick={onSingleSongClick}
-                      token={token}
-                      isPlayList={isPlayList}
-                      tokens={tokens}
-                      setIsCell={setIsCell}
-                      isSell={isSell}
-                    />
-                  ))}
+              </div> */}
+
+              <table
+                // className={`modal-album-title ${isPlayList ? "playlist" : !hasAnyOfCopies ? "can-sell" : "can-sell"
+                //   }`}
+                style={{ width: "100%" }}
+              >
+                <tr className="table-header">
+                  <th>SONG TITLE</th>
+                  <th>LENGTH</th>
+                  <th></th>
+                </tr>
+                {albumInfo &&
+                  albumInfo.songs &&
+                  albumInfo.songs
+                    ?.sort((a, b) => a.id - b.id)
+                    .map((song, index) => (
+                      <tr style={{ verticalAlign: "baseline" }}>
+                        <AlbumSingleSong
+                          song={song}
+                          index={index}
+                          key={`${index}singlesong`}
+                          audio={audio}
+                          currentIndex={currentIndex}
+                          playing={playing}
+                          isOpen={isOpen}
+                          toggle={(data) => toggle(data)}
+                          onSingleSongClick={onSingleSongClick}
+                          token={token}
+                          isPlayList={isPlayList}
+                          tokens={tokens}
+                          setIsCell={setIsCell}
+                          isSell={isSell}
+                        />
+                      </tr>
+                    ))}
+              </table>
             </div>
             {isPlayList && (
               <div
