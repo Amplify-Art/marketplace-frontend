@@ -40,7 +40,7 @@ function AlbumModalContent({
   const [audio, setAudioSong] = useState(new Audio(""));
   const [currentIndex, setCurrentIndex] = useState(-1);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
-  const [isSell, setIsCell] = useState(false)
+  const [isSell, setIsCell] = useState(false);
   const [userTokens, setUserTokens] = useState([]);
   let url = props.history.location;
 
@@ -107,8 +107,8 @@ function AlbumModalContent({
     audio.addEventListener("timeupdate", (e) => {
       if (
         audio.currentTime > 15 &&
-        // !userTokens.some((ut) => ut.token_id.includes(currentIndex)) &&
-        props.history.location.pathname !== "/my-profile"
+        (!userTokens.some((ut) => ut.token_id.includes(currentIndex)) ||
+          props.history.location.pathname !== "/my-profile")
       ) {
         stopSong();
       }
@@ -129,7 +129,7 @@ function AlbumModalContent({
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => { });
+      audio.removeEventListener("timeupdate", () => {});
     };
   }, [playing, audio]);
 
@@ -175,7 +175,7 @@ function AlbumModalContent({
     props.showDeletePlaylist();
   };
 
-  console.log('DATA', albumInfo.cover_cid);
+  console.log("DATA", albumInfo.cover_cid);
 
   return (
     <>
@@ -184,8 +184,15 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
-                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
+              background: `linear-gradient(123.48deg, ${
+                isPlayList
+                  ? "#f18180"
+                  : data?.vibrant
+                  ? data.vibrant
+                  : "#f18180"
+              } 0%, ${
+                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+              } 52.12%)`,
             }}
           >
             <div className="album-top">
@@ -206,11 +213,15 @@ function AlbumModalContent({
                 className="album-right"
                 style={isPlayList ? { paddingLeft: "0px" } : {}}
               >
-                <div className="title">{albumInfo?.title.substring(0, 29)}{albumInfo?.title?.length > 29 && '...'}</div>
+                <div className="title">
+                  {albumInfo?.title.substring(0, 29)}
+                  {albumInfo?.title?.length > 29 && "..."}
+                </div>
                 {!isPlayList ? (
                   <>
                     <div className="artist-title">
-                      {(albumInfo && albumInfo?.user?.near_account_id) || "No Artist"}
+                      {(albumInfo && albumInfo?.user?.near_account_id) ||
+                        "No Artist"}
                     </div>
                     <div
                       className="view-detail"
@@ -236,7 +247,11 @@ function AlbumModalContent({
               )}
             </div>
             <div className="album-bottom" id="modalScrolling">
-              <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
+              <div
+                className={`playlist-header ${
+                  isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"
+                }`}
+              >
                 <span style={{ gridColumn: "1/3" }}>SONG TITLE</span>
                 <span>LENGTH</span>
               </div>
@@ -265,8 +280,9 @@ function AlbumModalContent({
             </div>
             {isPlayList && (
               <div
-                className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
-                  }`}
+                className={`btn-wrabtn-wrapp input-holder active-playlist ${
+                  !isPlayList ? "btn-margin" : ""
+                }`}
               >
                 <input
                   type="submit"
@@ -287,10 +303,20 @@ function AlbumModalContent({
             )}
           </div>
         ) : (
-          <div className="left-wrapper" style={{
-            background: `linear-gradient(123.48deg, ${isPlayList ? "#f18180" : data?.vibrant ? data.vibrant : '#f18180'
-              } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : '#ec5051'} 52.12%)`,
-          }}>
+          <div
+            className="left-wrapper"
+            style={{
+              background: `linear-gradient(123.48deg, ${
+                isPlayList
+                  ? "#f18180"
+                  : data?.vibrant
+                  ? data.vibrant
+                  : "#f18180"
+              } 0%, ${
+                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+              } 52.12%)`,
+            }}
+          >
             <div className="viewdetails-top">
               <div className="back-img">
                 <img
@@ -309,11 +335,11 @@ function AlbumModalContent({
           </div>
         )}
         {!isPlayList &&
-          albumInfo.available_qty &&
-          albumInfo.user_id !== (user && user.id) &&
-          onBuy &&
-          url &&
-          url.pathname !== "/my-profile" ? (
+        albumInfo.available_qty &&
+        albumInfo.user_id !== (user && user.id) &&
+        onBuy &&
+        url &&
+        url.pathname !== "/my-profile" ? (
           <button
             onClick={() => onBuy(albumInfo)}
             type="button"

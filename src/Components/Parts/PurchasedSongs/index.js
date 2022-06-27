@@ -39,7 +39,7 @@ function PurchasedSongs(props) {
       )
       .map((list, index) => (
         <div className="song">
-          <div>Mint #{list.copy_number}</div>{" "}
+          <div>Mint #123{list.copy_number}</div>{" "}
           <div>
             <button className="sellButton" onClick={() => onSell(list)}>
               Sell
