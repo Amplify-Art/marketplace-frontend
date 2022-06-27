@@ -176,8 +176,6 @@ function AlbumModalContent({
     props.closeModal()
   };
 
-  console.log("DATA", albumInfo.cover_cid);
-
   return (
     <>
       <div id="albums-content">

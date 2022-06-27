@@ -83,7 +83,6 @@ function AlbumSingleSong(props) {
   useEffect(() => {
     if (!isSell) setIsCell(hasAnyOfCopies)
   }, [hasAnyOfCopies])
-  console.log(hasAnyOfCopies, song.title);
   return (
     <
       // tr

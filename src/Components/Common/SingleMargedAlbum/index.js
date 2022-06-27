@@ -254,7 +254,6 @@ function SingleMergedAlbum(props) {
       setShowSticker(true);
     }
   }, [albumInfo]);
-  console.log("albumInfo", albumInfo);
   return (
     <>
       <div

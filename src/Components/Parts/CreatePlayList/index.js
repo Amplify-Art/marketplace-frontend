@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import AddShowCase from "../AddShowCase";
 import { addPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { fetchSongsAction } from "../../../redux/actions/SongAction";
-
+import { getTokens } from "../../../Utils/near";
 import CDImg from "../../../assets/images/cd-img.svg";
 
 import "./CreatePlayList.scss";
@@ -20,6 +20,7 @@ function CreatePlayList(props) {
   const [loading, setLoading] = useState(false);
   const [hasSelectedSongs, setHasSelectedSongs] = useState(true);
   const [selectedSongs, setSelectedSongs] = useState([]);
+  const [songTokens, setSongTokens] = useState([]);
 
   const { showCaseData, addPlaylist, togglePlayListModal } = props;
   const renderPlayList = () => {
@@ -27,13 +28,17 @@ function CreatePlayList(props) {
       selectedSongs.map((list, index) => (
         <div>
           <span style={{ width: "55%" }}>
-            {`${index + 1}. ${list.title === ""
-              ? list?.album && list.album.description
-              : list.title
-              }`}
+            {`${index + 1}. ${
+              list.title === ""
+                ? list?.album && list.album.description
+                : list.title
+            }`}
           </span>
           <span>
-            <button className="remove" onClick={() => removeSelectedSongs(index)}>
+            <button
+              className="remove"
+              onClick={() => removeSelectedSongs(index)}
+            >
               remove
             </button>
           </span>
@@ -70,10 +75,23 @@ function CreatePlayList(props) {
     props.fetchSongs({
       params: {
         related: "album",
+        perPage: 1000,
       },
     });
   }, []);
-  console.log(props.songs, "selectedSongs");
+
+  useEffect(() => {
+    getNFTs();
+  }, []);
+
+  const getNFTs = async () => {
+    let tokens = await getTokens(props.wallet);
+    let songtokens = tokens.map((t) => t.token_id.split(":")[2]);
+    setSongTokens(songtokens);
+  };
+  let userOwnedSongs = props.songs.filter((f) =>
+    songTokens.includes(f.song_cid)
+  );
   return (
     <div id="create-playlist">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -96,7 +114,7 @@ function CreatePlayList(props) {
               isPlayList
               addToPlaylist={addToPlaylist}
               {...{ selectedSongs }}
-              songs={props.songs}
+              songs={userOwnedSongs}
             />
           </div>
           <div className="playlist-CD">
@@ -130,6 +148,7 @@ export default connect(
     return {
       nfts: state.nfts.nfts,
       songs: state.songs.songs,
+      wallet: state.global.wallet,
     };
   },
   (dispatch) => {
