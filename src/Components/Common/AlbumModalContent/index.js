@@ -278,19 +278,6 @@ function AlbumModalContent({
                     ))}
               </table>
             </div>
-            {isPlayList && (
-              <div
-                className={`btn-wrabtn-wrapp input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
-                  }`}
-              >
-                <input
-                  type="submit"
-                  value="Play This Playlist"
-                  className="active-playlist-btn"
-                  onClick={() => addToPlaylist("playlist")}
-                />
-              </div>
-            )}
             {songModal && (
               <div className="modal-album">
                 <GeneralModal
@@ -323,31 +310,45 @@ function AlbumModalContent({
             </div>
           </div>
         )}
-        {!isPlayList &&
-          albumInfo.available_qty &&
-          albumInfo.user_id !== (user && user.id) &&
-          onBuy &&
-          url &&
-          url.pathname !== "/my-profile" ? (
-          <button
-            onClick={() => onBuy(albumInfo)}
-            type="button"
-            className="buy-button btn1"
-          >
-            Buy This - ${(albumInfo.price / 100).toFixed(2)}
-          </button>
-        ) : null}
-        {!isPlayList && isMerged && (
-          <button
-            // onClick={() => onBuy(albumInfo)}
-            type="button"
-            className="buy-button btn2"
-            onClick={() => addToPlaylist("album")}
-          >
-            Play This Album
-          </button>
-        )}
       </div>
+      {!isPlayList &&
+        albumInfo.available_qty &&
+        albumInfo.user_id !== (user && user.id) &&
+        onBuy &&
+        url &&
+        url.pathname !== "/my-profile" ? (
+        <button
+          onClick={() => onBuy(albumInfo)}
+          type="button"
+          className="buy-button bottomButtonSection btn1"
+        >
+          Buy This - ${(albumInfo.price / 100).toFixed(2)}
+        </button>
+      ) : null}
+      {!isPlayList && isMerged && (
+        <button
+          // onClick={() => onBuy(albumInfo)}
+          type="button"
+          className="buy-button bottomButtonSection btn2"
+          onClick={() => addToPlaylist("album")}
+        >
+          Play This Album
+        </button>
+      )}
+      {isPlayList && (
+        <div
+          className={`btn-wrabtn-wrapp bottomButtonSection input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
+            }`}
+        >
+          <input
+            type="submit"
+            value="Play This Playlist"
+            className="active-playlist-btn"
+            onClick={() => addToPlaylist("playlist")}
+          />
+        </div>
+      )}
+
     </>
   );
 }
