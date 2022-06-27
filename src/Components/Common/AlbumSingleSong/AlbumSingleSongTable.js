@@ -134,7 +134,7 @@ function AlbumSingleSong(props) {
         ).padStart(2, "0")}`}
         </div>
       </td>
-      <td>
+      <td style={{ textAlign: "center" }}>
         {url.pathname === "/my-profile" && (
           <>
             {isPlayList ? null : viewOrSell ? (
