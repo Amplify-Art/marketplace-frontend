@@ -166,7 +166,7 @@
 	.album-bottom {
 		// padding-top: 32px;
 		overflow-y: scroll;
-		height: 200px;
+		// height: 200px;
 		.playlist-header {
 			opacity: 0.5;
 			font-size: 12px;
@@ -227,4 +227,22 @@
 
 #modalScrolling::-webkit-scrollbar-thumb {
 	background-color: #000000;
+}
+
+.td1{
+	display: flex;
+	gap: 8px;
+}
+
+.table-header{
+	opacity: 0.5;
+	font-size: 12px;
+	font-weight: 400;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.bottomButtonSection{
+	position: absolute !important;
+	bottom: -50px !important;
 }

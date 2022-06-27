@@ -45,7 +45,7 @@ function UserAvatar(props) {
   return (
     <div className="user-avatar" onClick={onClick}>
       <div className="avatar">
-        <Image src={avatarImg} alt="" fallbackImage={greyFace} />
+        <Image src={avatarImg ? avatarImg : defaultProfile} alt="" fallbackImage={defaultProfile} />
       </div>
       <span className="avatar-name">{name}</span>
     </div>

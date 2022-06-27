@@ -301,7 +301,7 @@ function SingleAlbum(props) {
         ) : (
           <>
             <div className={`the-title ${isPlayList && "playlist-title"}`}>
-              <h3 className="album-title">{albumInfo.title.substring(0,29)}{albumInfo.title.length > 29 && '...'}</h3>
+              <h3 className="album-title">{albumInfo.title.substring(0, 29)}{albumInfo.title.length > 29 && '...'}</h3>
             </div>
             <h4 className="artist-name">
               {(albumInfo.user && albumInfo.user.near_account_id) ||
@@ -363,6 +363,7 @@ function SingleAlbum(props) {
               setViewDetails={setViewDetails}
               onSingleSongClick={props.onSingleSongClick}
               token={albumInfo.token}
+              closeModal={handleCloseModal}
             />
           }
           closeModal={handleCloseModal}
