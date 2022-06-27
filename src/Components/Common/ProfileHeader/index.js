@@ -12,7 +12,7 @@ import bannerDefault from "../../../assets/images/banner_default.jpeg";
 import "./ProfileHeader.scss";
 import Shelf from "../../../assets/images/shelf.png";
 
-import { fetchShowcasesAction } from "../../../redux/actions/ShowcaseAction";
+import { fetchShowcasesAction, updateShowcaseAction } from "../../../redux/actions/ShowcaseAction";
 
 function ProfileHeader({
   ArtistData,
@@ -23,6 +23,7 @@ function ProfileHeader({
   isPublicProfile,
   userId,
   nearUser,
+  updateShowcase
 }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
   const [fetchShowCases, setFetchShowCases] = useState(false);
@@ -40,6 +41,15 @@ function ProfileHeader({
 
     return coverPhoto;
   };
+
+  const deleteShowcase = (id) => {
+    updateShowcase({
+      album_id: null,
+      user_id: null,
+      is_deleted: true,
+      id: id,
+    });
+  }
 
   useEffect(() => {
     let user;
@@ -79,6 +89,10 @@ function ProfileHeader({
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
+                            {
+                              console.log("haha", showCaseItem)
+                            }
+                            <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="far fa-times-circle"></i></div>
                             <img
                               src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                             />
@@ -146,6 +160,7 @@ function ProfileHeader({
                         showCaseItem ? (
                           <div className="single-album-on-shelf" key={`${i}${j}`}>
                             <div className="single-shelf-album">
+                              <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="far fa-times-circle"></i></div>
                               <img
                                 src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               />
@@ -186,22 +201,24 @@ function ProfileHeader({
         )}
       </div> */}
 
-      {showShowCaseModal && (
-        <GeneralModal
-          headline="Add to Showcase"
-          bodyChildren={
-            <AddShowCase
-              showCaseData={showCaseData}
-              toggleShowCaseModal={toggleShowCaseModal}
-              setFetchShowCases={setFetchShowCases}
-              fetchShowCases={fetchShowCases}
-            />
-          }
-          closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
-          isCloseButton={true}
-        />
-      )}
-    </div>
+      {
+        showShowCaseModal && (
+          <GeneralModal
+            headline="Add to Showcase"
+            bodyChildren={
+              <AddShowCase
+                showCaseData={showCaseData}
+                toggleShowCaseModal={toggleShowCaseModal}
+                setFetchShowCases={setFetchShowCases}
+                fetchShowCases={fetchShowCases}
+              />
+            }
+            closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
+            isCloseButton={true}
+          />
+        )
+      }
+    </div >
   );
 }
 
@@ -214,6 +231,7 @@ export default connect(
   (dispatch) => {
     return {
       fetchShowcase: (params) => dispatch(fetchShowcasesAction(params)),
+      updateShowcase: (data) => dispatch(updateShowcaseAction(data)),
     };
   }
 )(withRouter(ProfileHeader));
