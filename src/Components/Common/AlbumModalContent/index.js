@@ -210,7 +210,7 @@ function AlbumModalContent({
                 {!isPlayList ? (
                   <>
                     <div className="artist-title">
-                      {(albumInfo && albumInfo?.user?.name) || "No Artist"}
+                      {(albumInfo && albumInfo?.user?.near_account_id) || "No Artist"}
                     </div>
                     <div
                       className="view-detail"

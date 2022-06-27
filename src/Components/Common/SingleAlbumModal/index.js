@@ -86,7 +86,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
               </div>
               <div className="album-right">
                 <div className="title">{albumData && albumData.title}</div>
-                <div className="artist-title">{albumData?.user?.name || 'No Artist'}</div>
+                <div className="artist-title">{albumData?.user?.near_account_id || 'No Artist'}</div>
                 <div className="view-detail" onClick={() => setViewDetails(true)}>View Details</div>
               </div>
             </div>

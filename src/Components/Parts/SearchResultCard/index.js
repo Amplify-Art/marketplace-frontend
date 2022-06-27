@@ -97,7 +97,7 @@ function SearchResultCard(props) {
             <ResultCard
               cover={findAlbumCover(album)}
               contentHeading={album.title}
-              contentDetail={album.user?.name}
+              contentDetail={album.user?.near_account_id}
               contentTypeHeading="Album"
               contentTypeDetail={
                 album.mints_owned?.length
