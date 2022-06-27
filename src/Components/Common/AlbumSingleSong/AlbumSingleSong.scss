@@ -26,14 +26,14 @@
   }
 }
 .sell {
-  // margin-left: 110px;
+  margin-left: 0 !important; 
   padding: 5px;
   width: 100% !important;
   border: 2px solid rgba(255, 255, 255, 0.8) !important;
 }
 .view {
-  width: 50%;
-  text-align: right;
+  width: 100%;
+  text-align: center;
   color: white;
   font-weight: 400;
   opacity: 0.8;
