@@ -90,7 +90,7 @@ function AlbumSingleSong(props) {
       // key={`al${index}`}
       // onClick={() => toggle(song.song_cid)}
       >
-      <td className="td1">
+      <td className="td1" onClick={() => toggle(song.song_cid)}>
         <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
             <div onClick={() => toggle(song.song_cid)}>
