@@ -62,7 +62,7 @@
       }
       &.buy-button {
         position: absolute;
-        left: 25%;
+        left: 27%;
         @media screen and (max-width: 900px) {
           left: 50%;
         }
@@ -75,7 +75,7 @@
         border: 0px;
         cursor: pointer;    
         white-space: nowrap;
-        width: 180px;
+        width: 200px;
         &.btn1 {
           bottom: 18px;
         }
