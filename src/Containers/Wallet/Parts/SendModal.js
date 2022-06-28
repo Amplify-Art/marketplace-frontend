@@ -83,30 +83,20 @@ const SendModal = ({
   };
 
   const onSubmit = () => {
-    if (currentUser.near_account_type === "connected") {
-      let send_info = {
-        near_price: parseNearAmount(enteredNearAmt),
-        receiver_id:
-          selectedAddress === "walletAddress" ? undefined : selectedUser.id,
-        wallet: selectedAddress === "walletAddress" ? search : undefined,
-        is_wallet: selectedAddress === "walletAddress",
-      };
-      localStorage.setItem("send_info", JSON.stringify(send_info));
-      wallet.account().sendMoney(
-        selectedAddress === "walletAddress"
-          ? search
-          : selectedUser.near_account_id, // receiver account
-        parseNearAmount(enteredNearAmt) // amount in yoctoNEAR
-      );
-    } else {
-      sendNear({
-        is_wallet: selectedAddress === "walletAddress",
-        near_price: parseFloat(enteredNearAmt),
-        receiver_id:
-          selectedAddress === "walletAddress" ? undefined : selectedUser.id,
-        wallet: selectedAddress === "walletAddress" ? search : undefined,
-      });
-    }
+    let send_info = {
+      near_price: parseNearAmount(enteredNearAmt),
+      receiver_id:
+        selectedAddress === "walletAddress" ? undefined : selectedUser.id,
+      wallet: selectedAddress === "walletAddress" ? search : undefined,
+      is_wallet: selectedAddress === "walletAddress",
+    };
+    localStorage.setItem("send_info", JSON.stringify(send_info));
+    wallet.account().sendMoney(
+      selectedAddress === "walletAddress"
+        ? search
+        : selectedUser.near_account_id, // receiver account
+      parseNearAmount(enteredNearAmt) // amount in yoctoNEAR
+    );
     displayLoadingOverlay();
     setView1ErrorMessage("");
     setView2ErrorMessage("");

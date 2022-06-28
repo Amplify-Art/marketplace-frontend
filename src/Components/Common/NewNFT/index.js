@@ -186,84 +186,45 @@ function NewNFT(props) {
 
     props.displayLoadingOverlay();
     try {
-      if (user.near_account_type === "connected") {
-        let yocto_near_price = parseNearAmount(
-          `${data.albumPrice / props.nearPrice}`
-        );
-        let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
-        let approximate_storage_deposit =
-          0.2 * gasMultiplies * (0.8 * songFiles.length);
+      let yocto_near_price = parseNearAmount(
+        `${data.albumPrice / props.nearPrice}`
+      );
+      let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
+      let approximate_storage_deposit =
+        0.2 * gasMultiplies * (0.8 * songFiles.length);
 
-        let minting_info = {
-          cover: albumCover,
-          title: data.albumName,
-          description: data.albumDescription,
-          price: Math.round(data.albumPrice * 100),
-          qty: data.numberOfAlbums,
-          yocto_near_price,
-          songs: songFiles.map((file, index) => ({
-            title: file.title,
-            hash: uploadedIpfs[index],
-            duration: fileDuration[file.name],
+      let minting_info = {
+        cover: albumCover,
+        title: data.albumName,
+        description: data.albumDescription,
+        price: Math.round(data.albumPrice * 100),
+        qty: data.numberOfAlbums,
+        yocto_near_price,
+        songs: songFiles.map((file, index) => ({
+          title: file.title,
+          hash: uploadedIpfs[index],
+          duration: fileDuration[file.name],
+        })),
+        minting_cost: approximate_storage_deposit,
+      };
+      localStorage.setItem("minting_info", JSON.stringify(minting_info));
+
+      await props.wallet.account().functionCall(
+        process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+        "add_token_types",
+        {
+          album_hash: albumCover,
+          cover_songslist: _.uniq(uploadedIpfs),
+          number_of_album_copies: parseInt(data.numberOfAlbums),
+          price: yocto_near_price,
+          songs_metadatalist: minting_info.songs.map((song) => ({
+            title: song.title,
+            media: `https://amplify-dev.mypinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
           })),
-          minting_cost: approximate_storage_deposit,
-        };
-        localStorage.setItem("minting_info", JSON.stringify(minting_info));
-
-        await props.wallet.account().functionCall(
-          process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-          "add_token_types",
-          {
-            album_hash: albumCover,
-            cover_songslist: _.uniq(uploadedIpfs),
-            number_of_album_copies: parseInt(data.numberOfAlbums),
-            price: yocto_near_price,
-            songs_metadatalist: minting_info.songs.map((song) => ({
-              title: song.title,
-              media: `https://amplify-dev.mypinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
-            })),
-          },
-          300000000000000,
-          parseNearAmount(`${approximate_storage_deposit}`)
-        );
-      } else {
-        const mintAlbum = await axios.post(
-          `${API_ENDPOINT_URL}/uploads/album`,
-          albumBody,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + getAccessToken(),
-            },
-          }
-        );
-        if (mintAlbum.data.success) {
-          let songBody = {};
-          songBody.metadata = songFiles.map((file, index) => ({
-            title: file.title,
-            hash: uploadedIpfs[index],
-            duration: fileDuration[file.name],
-          }));
-
-          songBody.qty = data.numberOfAlbums;
-          songBody.album_id = mintAlbum.data.album_id;
-          const mintSong = await axios.post(
-            `${API_ENDPOINT_URL}/uploads/song`,
-            songBody,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken(),
-              },
-            }
-          );
-          if (mintSong.data.success) {
-            props.toggleCongratsModal(true);
-            props.hideLoadingOverlay();
-            props.closeNewNftModal();
-          }
-        }
-      }
+        },
+        300000000000000,
+        parseNearAmount(`${approximate_storage_deposit}`)
+      );
     } catch (e) {
       props.hideLoadingOverlay();
       if (store.add !== null) {

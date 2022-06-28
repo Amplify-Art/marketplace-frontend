@@ -216,39 +216,30 @@ function MyProfile(props) {
   };
   const onListSong = async (e, songPrice) => {
     e.preventDefault();
-    if (decodedToken.near_account_type === "connected") {
-      let price =
-        songPrice &&
-        parseFloat(songPrice.replace(/^\D+/g, "").replaceAll(",", "")) * 100;
-      let nearPrice = price / (props.nearPrice * 100);
-      let selling_song = {
-        id: sellingCopy.id,
-        price,
-        yocto_near_price: parseNearAmount(`${nearPrice}`),
-      };
-      let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
-      localStorage.setItem("selling_song", JSON.stringify(selling_song));
-      await props.wallet.account().functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-        "nft_approve",
-        {
-          token_id: songtokenid,
-          account_id:
-            process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-            "market.aa-1-test.testnet",
-          price: parseNearAmount(`${nearPrice}`),
-        },
-        300000000000000,
-        parseNearAmount("0.01")
-      );
-    } else {
-      props.sellSong({
-        id: sellingCopy.id,
-        price:
-          songPrice &&
-          parseFloat(songPrice.replace(/^\D+/g, "").replaceAll(",", "")) * 100,
-      });
-    }
+    let price =
+      songPrice &&
+      parseFloat(songPrice.replace(/^\D+/g, "").replaceAll(",", "")) * 100;
+    let nearPrice = price / (props.nearPrice * 100);
+    let selling_song = {
+      id: sellingCopy.id,
+      price,
+      yocto_near_price: parseNearAmount(`${nearPrice}`),
+    };
+    let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
+    localStorage.setItem("selling_song", JSON.stringify(selling_song));
+    await props.wallet.account().functionCall(
+      process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+      "nft_approve",
+      {
+        token_id: songtokenid,
+        account_id:
+          process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
+          "market.aa-1-test.testnet",
+        price: parseNearAmount(`${nearPrice}`),
+      },
+      300000000000000,
+      parseNearAmount("0.01")
+    );
   };
   const ArtistData = {
     cover: bannerImage,

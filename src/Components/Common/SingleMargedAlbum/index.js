@@ -167,35 +167,28 @@ function SingleMergedAlbum(props) {
   };
 
   const handleBuy = async (albumInfo) => {
-    if (user.near_account_type === "connected") {
-      props.displayLoadingOverlay();
-      let album_bundle_info = {
-        token_id: albumInfo.id,
-        copy_number: parseInt(albumInfo.qty) - albumInfo.available_qty + 1,
-      };
-      let copy_no = albumInfo.qty - albumInfo.available_qty + 1;
+    props.displayLoadingOverlay();
+    let album_bundle_info = {
+      token_id: albumInfo.id,
+      copy_number: parseInt(albumInfo.qty) - albumInfo.available_qty + 1,
+    };
+    let copy_no = albumInfo.qty - albumInfo.available_qty + 1;
 
-      localStorage.setItem(
-        "album_bundle_info",
-        JSON.stringify(album_bundle_info)
-      );
-      await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
-        "offer_album",
-        {
-          nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-          albumipfs_hash_copy: `${albumInfo.cover_cid}:${copy_no}`,
-        },
-        200000000000000,
-        albumInfo.yocto_near_price
-      );
-    } else {
-      props.addTokenTransfer({
-        type: "album",
-        token_id: albumInfo.id,
-      });
-    }
+    localStorage.setItem(
+      "album_bundle_info",
+      JSON.stringify(album_bundle_info)
+    );
+    await props.wallet.account().functionCall(
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+      "offer_album",
+      {
+        nft_contract_id:
+          process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+        albumipfs_hash_copy: `${albumInfo.cover_cid}:${copy_no}`,
+      },
+      200000000000000,
+      albumInfo.yocto_near_price
+    );
     setShowModalAlbumIndex(null);
   };
 
@@ -281,8 +274,9 @@ function SingleMergedAlbum(props) {
           <div className="spine"></div>
           {showSticker && (
             <div
-              className={`mint-sticker ${albumInfo.available_qty === 0 ? "sold" : "available"
-                }`}
+              className={`mint-sticker ${
+                albumInfo.available_qty === 0 ? "sold" : "available"
+              }`}
             >
               {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
               <span>
@@ -316,8 +310,9 @@ function SingleMergedAlbum(props) {
         )}
       </div>
       <div
-        className={`modal-album ${!props.isAlbumSelected ? "d-none" : "d-block"
-          }`}
+        className={`modal-album ${
+          !props.isAlbumSelected ? "d-none" : "d-block"
+        }`}
       >
         <GeneralModal
           isCloseButton="true"
@@ -346,8 +341,9 @@ function SingleMergedAlbum(props) {
         />
       )}
       <div
-        className={`modal-album ${showAlbumModalIndex !== index ? "d-none" : "d-block"
-          }`}
+        className={`modal-album ${
+          showAlbumModalIndex !== index ? "d-none" : "d-block"
+        }`}
       >
         <GeneralModal
           isCloseButton="true"
@@ -358,12 +354,12 @@ function SingleMergedAlbum(props) {
               albumInfo={
                 albumInfo.hasOwnProperty("copy_number")
                   ? {
-                    copy_number: albumInfo.copy_number,
-                    ...albumInfo.token.album,
-                    transfers: albumInfo.token.transfers,
-                    mints_owned: albumInfo.mints_owned,
-                    // songs: albumInfo.songs,
-                  }
+                      copy_number: albumInfo.copy_number,
+                      ...albumInfo.token.album,
+                      transfers: albumInfo.token.transfers,
+                      mints_owned: albumInfo.mints_owned,
+                      // songs: albumInfo.songs,
+                    }
                   : albumInfo
               }
               isOpen={showAlbumModalIndex === index}

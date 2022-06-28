@@ -187,7 +187,7 @@ function SongList(props) {
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => { });
+      audio.removeEventListener("timeupdate", () => {});
     };
   }, [playing, audio]);
   useEffect(() => {
@@ -203,49 +203,40 @@ function SongList(props) {
       parseNearAmount(`${buyingSong.yocto_near_price}`),
       "buying_song"
     );
-    if (user.near_account_type === "connected") {
-      let isDelist = buyingSong.transfer_to === user.id;
-      let buying_song = {
-        id: buyingSong.id,
-        price: buyingSong.bidding_price,
-        yocto_near_price: buyingSong.yocto_near_price,
-      };
-      localStorage.setItem(
-        isDelist ? "delist_song" : "buying_song",
-        JSON.stringify(buying_song)
+    let isDelist = buyingSong.transfer_to === user.id;
+    let buying_song = {
+      id: buyingSong.id,
+      price: buyingSong.bidding_price,
+      yocto_near_price: buyingSong.yocto_near_price,
+    };
+    localStorage.setItem(
+      isDelist ? "delist_song" : "buying_song",
+      JSON.stringify(buying_song)
+    );
+    if (isDelist) {
+      await props.wallet.account().functionCall(
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+        "remove_song_sale",
+        {
+          nft_contract_id:
+            process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+          token_id: buyingSong.token,
+        },
+        300000000000000
       );
-      if (isDelist) {
-        await props.wallet.account().functionCall(
-          process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market.aa-1-test.testnet",
-          "remove_song_sale",
-          {
-            nft_contract_id:
-              process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-            token_id: buyingSong.token,
-          },
-          300000000000000
-        );
-      } else {
-        await props.wallet.account().functionCall(
-          process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market.aa-1-test.testnet",
-          "offer",
-          {
-            nft_contract_id:
-              process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
-            receiver_id: user.near_account_id,
-            song_token_id: buyingSong.token,
-          },
-          300000000000000,
-          buyingSong.yocto_near_price
-        );
-      }
     } else {
-      props.buySong({
-        id: buyingSong.id,
-        price: buyingSong.bidding_price,
-      });
+      await props.wallet.account().functionCall(
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+        "offer",
+        {
+          nft_contract_id:
+            process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+          receiver_id: user.near_account_id,
+          song_token_id: buyingSong.token,
+        },
+        300000000000000,
+        buyingSong.yocto_near_price
+      );
     }
   };
   const onModalChange = (song) => {
@@ -298,7 +289,8 @@ function SongList(props) {
                     </div>
                     <p className="song-title-mobile">
                       {textEllipsis(
-                        (songData.artist && songData.artist.near_account_id) || ""
+                        (songData.artist && songData.artist.near_account_id) ||
+                          ""
                       )}{" "}
                       /{" "}
                       {textEllipsis(
@@ -341,11 +333,13 @@ function SongList(props) {
                 </div>
               </div>
               <div
-                className={`song-copies ${songListExpanded === songData.id && "expanded"
-                  }`}
+                className={`song-copies ${
+                  songListExpanded === songData.id && "expanded"
+                }`}
                 style={{
-                  backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${songData.album && songData.album.cover_cid
-                    })`,
+                  backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${
+                    songData.album && songData.album.cover_cid
+                  })`,
                 }}
               >
                 <div className="copy">
@@ -354,7 +348,7 @@ function SongList(props) {
                     <div className="item date-listed-by">Date Listed/By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
-                  { }
+                  {}
                   <div className="info">
                     {songData.transfers.map((transfer) => (
                       <div className="singleSong flex">
@@ -429,10 +423,11 @@ function SongList(props) {
                         ? "Delist Song"
                         : "Buy Song"
                     }
-                    bodyText={`Please confirm your ${buyingSong.transfer_to === user.id
-                      ? "delisting"
-                      : "purchase"
-                      }`}
+                    bodyText={`Please confirm your ${
+                      buyingSong.transfer_to === user.id
+                        ? "delisting"
+                        : "purchase"
+                    }`}
                     // closeModal={() => toggleShowCaseModal(!showShowCaseModal)}
                     buttons={[
                       {
