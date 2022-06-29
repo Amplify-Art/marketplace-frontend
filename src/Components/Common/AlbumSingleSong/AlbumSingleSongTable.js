@@ -90,8 +90,8 @@ function AlbumSingleSong(props) {
       // key={`al${index}`}
       // onClick={() => toggle(song.song_cid)}
       >
-      <td className="td1" onClick={() => toggle(song.song_cid)}>
-        <div className="pr-10 pointer play-pause-btn">
+      <td className="td1" style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} onClick={() => { if (!viewOrSell) toggle(song.song_cid) }}>
+        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
             <div onClick={() => toggle(song.song_cid)}>
               <ProgressRing
@@ -111,7 +111,7 @@ function AlbumSingleSong(props) {
             <img src={playIcon} />
           )}
         </div>
-        <div className="fn-white pointer">{song.title}</div>
+        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="fn-white pointer">{song.title}</div>
       </td>
       <td>
         <div
