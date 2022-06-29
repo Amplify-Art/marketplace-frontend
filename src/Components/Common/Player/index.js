@@ -190,12 +190,18 @@ function Player(props) {
               <div className="cover">
                 {/* If album is owned, show cover here, else use blank CD */}
                 {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-                {!currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
-                  ?.cover_cid ? (
+                {!(
+                  currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album ||
+                  currentPlaylists[playlistIndex]?.cover_cid
+                ) ? (
                   <img src={CdImage} alt="Cover" />
                 ) : (
                   <img
-                    src={`https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid}`}
+                    src={`https://amplify-dev.mypinata.cloud/ipfs/${
+                      currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
+                        ?.cover_cid ||
+                      currentPlaylists[playlistIndex]?.cover_cid
+                    }`}
                     alt="Cover"
                   />
                 )}
