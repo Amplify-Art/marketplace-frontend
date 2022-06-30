@@ -66,9 +66,9 @@ function MyProfile(props) {
   const [showAlbumModalIndex, setShowModalAlbumIndex] = useState(null);
   const [isPublicProfile] = useState(
     props &&
-      props.location &&
-      props.location.pathname &&
-      props.location.pathname.includes("user")
+    props.location &&
+    props.location.pathname &&
+    props.location.pathname.includes("user")
   );
   const [ownedTokenCopies, setOwnedTokenCopies] = useState([]);
   const [tokens, setTokens] = useState([]);
@@ -102,7 +102,7 @@ function MyProfile(props) {
     });
   }, []);
 
-  useEffect(() => {});
+  useEffect(() => { });
   const generateAlbumItem = (nft, index) => {
     return (
       <SingleMergedAlbum
@@ -172,7 +172,7 @@ function MyProfile(props) {
       );
       console.log(albumId);
     }
-  }, []);
+  }, [props.history.location.search]);
 
   const checkTxnStatus = async (sellingSong) => {
     let net =
@@ -461,9 +461,9 @@ function MyProfile(props) {
   let formattedAlbums = Object.entries(
     _.groupBy(
       props &&
-        props.token_transfers &&
-        props.token_transfers.length > 0 &&
-        props.token_transfers.filter((f) => f.type !== null),
+      props.token_transfers &&
+      props.token_transfers.length > 0 &&
+      props.token_transfers.filter((f) => f.type !== null),
       (each) => each?.song?.album_id
     )
   );
@@ -489,7 +489,7 @@ function MyProfile(props) {
         setShowModalAlbumIndex(parseInt(actualIndex));
       }
     }
-  }, [aformattedAlbums.length]);
+  }, [aformattedAlbums.length, props.history.location.search]);
   console.log(aformattedAlbums, "aformattedAlbums");
   useEffect(() => {
     fetchTokens();
@@ -512,9 +512,8 @@ function MyProfile(props) {
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${
-        props.playerActive ? "right-player-pad" : "normal-right-pad"
-      }`}
+      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
+        }`}
     >
       <ProfileHeader
         ArtistData={ArtistData}
