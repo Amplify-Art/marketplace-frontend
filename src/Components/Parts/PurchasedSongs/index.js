@@ -29,14 +29,14 @@ function PurchasedSongs(props) {
   } = props;
 
   const renderSongs = () => {
-    console.log(props.transfers, props.ownedTokenCopies, "props.transfers");
+    // console.log(props.transfers, props.ownedTokenCopies, "props.transfers");
     return props.transfers
       .filter(
-        (f) =>
-          props.ownedTokenCopies.includes(f.copy_number) &&
-          !f.is_for_sale &&
-          f.transfer_to === props.user.id &&
-          f.is_owner
+        (f) => props.ownedTokenCopies.includes(f.copy_number) 
+        && !f.is_for_sale
+        &&
+        // f.transfer_to === props.user.id &&
+        f.is_owner
       )
       .map((list, index) => (
         <div className="song">
@@ -54,7 +54,14 @@ function PurchasedSongs(props) {
     <div id="create-playlist">
       <div className="album-info">
         <div className="sellSongImg">
-          <img src={selectedAlbumToken.cover_cid ? `https://amplify-dev.mypinata.cloud/ipfs/${selectedAlbumToken?.cover_cid}` : CDImg} alt="" />
+          <img
+            src={
+              selectedAlbumToken.cover_cid
+                ? `https://amplify-dev.mypinata.cloud/ipfs/${selectedAlbumToken?.cover_cid}`
+                : CDImg
+            }
+            alt=""
+          />
         </div>
         <div className="sellSongRight">
           <div className="title">

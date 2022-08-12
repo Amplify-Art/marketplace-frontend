@@ -58,7 +58,7 @@ function AlbumSingleSong(props) {
     isPlayList,
     tokens,
     setIsCell,
-    isSell
+    isSell,
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
@@ -77,19 +77,34 @@ function AlbumSingleSong(props) {
     ) || {}
   ).is_for_sale;
 
-  let hasAnyOfCopies = (tokens || []).some((t) =>
-    t.token_id.includes(song.song_cid)
+  // check whether the token from contract matches with song transfers
+  let hasAnyOfCopies = (tokens || []).some(
+    (t) =>
+      // t.token_id.includes(song.song_cid) &&
+      song.transfers
+        .filter((f) => f.token === song.song_cid)
+        .some((s) => {
+          return (
+            `${token.album.cover_cid}:${s.copy_number}:${s.token}` ===
+              t.token_id &&
+            // s.copy_number === (token && token.copy_number) &&
+            song.album_id === token.album.id &&
+            s.is_owner &&
+            !s.is_for_sale
+          );
+        })
   );
   useEffect(() => {
-    if (!isSell) setIsCell(hasAnyOfCopies)
-  }, [hasAnyOfCopies])
+    if (!isSell) setIsCell(hasAnyOfCopies);
+  }, [hasAnyOfCopies]);
+
   return (
     <
       // tr
       // className="inner-content-album-modal"
       // key={`al${index}`}
       // onClick={() => toggle(song.song_cid)}
-      >
+    >
       <td className="td1">
         <div className="pr-10 pointer play-pause-btn">
           {playing && currentIndex === song.song_cid ? (
@@ -128,9 +143,10 @@ function AlbumSingleSong(props) {
               //     : "100%",
             }
           }
-        >{`${Math.floor(song.duration / 60)}:${String(
-          Math.ceil(song.duration / 60 - Math.floor(song.duration / 60)) * 60
-        ).padStart(2, "0")}`}
+        >
+          {`${Math.floor(song.duration / 60)}:${String(
+            Math.ceil(song.duration / 60 - Math.floor(song.duration / 60)) * 60
+          ).padStart(2, "0")}`}
         </div>
       </td>
       <td style={{ textAlign: "center" }}>
