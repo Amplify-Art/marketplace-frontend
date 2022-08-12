@@ -241,7 +241,6 @@
           bottom: 20px;
           cursor: pointer;
         }
-
         .single-shelf-album {
           overflow: hidden;
           width: 93px;
@@ -249,6 +248,21 @@
           display: flex;
           position: relative;
           bottom: -9px;
+          .deleteShowcase{
+            position: absolute;
+            top: 21px;
+            right: 2px;
+            display: none;
+            i{
+              font-size:20px;
+              color: #5a5c5e;
+            }
+          }
+          &:hover{
+            .deleteShowcase{
+              display: block;
+            }
+          }
           img {
           }
         }
@@ -294,6 +308,15 @@
           display: flex;
           position: relative;
           bottom: -9px;
+          .deleteShowcase{
+            position: absolute;
+            top: 21px;
+            right: 2px;
+            i{
+              font-size:20px;
+              color: #5a5c5e;
+            }
+          }
           img {
           }
         }

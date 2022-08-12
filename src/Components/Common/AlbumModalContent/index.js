@@ -129,7 +129,7 @@ function AlbumModalContent({
         setCurrentIndex(-1);
         setPlaying(false);
       });
-      audio.removeEventListener("timeupdate", () => {});
+      audio.removeEventListener("timeupdate", () => { });
     };
   }, [playing, audio]);
 
@@ -183,15 +183,13 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${
-                isPlayList
-                  ? "#f18180"
-                  : data?.vibrant
+              background: `linear-gradient(123.48deg, ${isPlayList
+                ? "#f18180"
+                : data?.vibrant
                   ? data.vibrant
                   : "#f18180"
-              } 0%, ${
-                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
-              } 52.12%)`,
+                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+                } 52.12%)`,
             }}
           >
             <div className="album-top">
@@ -301,15 +299,13 @@ function AlbumModalContent({
           <div
             className="left-wrapper"
             style={{
-              background: `linear-gradient(123.48deg, ${
-                isPlayList
-                  ? "#f18180"
-                  : data?.vibrant
+              background: `linear-gradient(123.48deg, ${isPlayList
+                ? "#f18180"
+                : data?.vibrant
                   ? data.vibrant
                   : "#f18180"
-              } 0%, ${
-                isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
-              } 52.12%)`,
+                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+                } 52.12%)`,
             }}
           >
             <div className="viewdetails-top">
@@ -341,7 +337,7 @@ function AlbumModalContent({
           type="button"
           className="buy-button bottomButtonSection btn1"
         >
-          Buy This - ${(albumInfo.price / 100).toFixed(2)}
+          Buy This - {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
         </button>
       ) : null}
       {!isPlayList && isMerged && (
@@ -355,17 +351,24 @@ function AlbumModalContent({
         </button>
       )}
       {isPlayList && (
-        <div
-          className={`btn-wrabtn-wrapp bottomButtonSection input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
-            }`}
+        // <div
+        // className={`btn-wrabtn-wrapp bottomButtonSection input-holder active-playlist ${!isPlayList ? "btn-margin" : ""
+        //   }`}
+        // >
+        // <input
+        //   type="submit"
+        //   value="Play This Playlist"
+        //   className="active-playlist-btn"
+        //   onClick={() => addToPlaylist("playlist")}
+        // />
+        <button
+          type="submit"
+          className={`buy-button bottomButtonSection btn2 black_button`}
+          onClick={() => addToPlaylist("playlist")}
         >
-          <input
-            type="submit"
-            value="Play This Playlist"
-            className="active-playlist-btn"
-            onClick={() => addToPlaylist("playlist")}
-          />
-        </div>
+          Play This Playlist
+        </button>
+        // </div>
       )}
 
     </>

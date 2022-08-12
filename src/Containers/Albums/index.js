@@ -29,6 +29,7 @@ function Albums(props) {
   }, []);
 
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
+  const [albumInfo, setAlbumInfo] = useState(localStorage.getItem("album_bundle_info"))
 
   // check for mint transactions from URL
   useEffect(() => {
@@ -59,7 +60,7 @@ function Albums(props) {
       albumBundleInfo.hash = txtId;
       checkTxnStatus(albumBundleInfo);
     }
-  }, []);
+  }, [albumInfo]);
 
   const checkTxnStatus = async (albumBundleInfo) => {
     let net =
@@ -129,9 +130,8 @@ function Albums(props) {
   return (
     <div
       id="albums"
-      className={`left-nav-pad ${
-        props.playerActive ? "right-player-pad" : "normal-right-pad"
-      }`}
+      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
+        }`}
     >
       <div className="container">
         <div className="album-grid">

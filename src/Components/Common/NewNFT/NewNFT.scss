@@ -12,6 +12,7 @@
 		}
 	}
 	.holder {
+		overflow-x: scroll;
 		.error {
 			color: $red;
 		}
