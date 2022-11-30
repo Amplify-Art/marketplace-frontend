@@ -134,11 +134,11 @@ function ProfileHeader({
 
             <div className="details">
               <span>{ArtistData.name}</span>
-              {!isPublicProfile && (
+              {/* {!isPublicProfile && (
                 <span className="no_of_songs">
                   {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
                 </span>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -160,6 +160,7 @@ function ProfileHeader({
                               <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
                               <img
                                 src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
+                                alt="Album"
                               />
                             </div>
                           </div>
@@ -176,27 +177,12 @@ function ProfileHeader({
                         )
                       )}
                     </div>
-                    <img src={Shelf} />
+                    <img src={Shelf} alt="shelf" />
                   </div>
                 ))}
             </div>
           )}
       </div>
-      {/* <div className="details mobile">
-        <span>{ArtistData.name}</span>
-        {!isPublicProfile && (
-          <span className="no_of_songs">
-            {nearUser ? nearUser.owned_songs : 0} Song{" "}
-            {nearUser && nearUser.owned_songs
-              ? nearUser.owned_songs === 1
-                ? nearUser.owned_songs
-                : nearUser.owned_songs + "s"
-              : 0}{" "}
-            Owned
-            {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
-          </span>
-        )}
-      </div> */}
 
       {
         showShowCaseModal && (
