@@ -17,7 +17,7 @@ class ProgressRing extends React.Component {
   render() {
     const { radius, stroke, progressId } = this.props;
     return (
-      <svg height={radius * 2} width={radius * 2}>
+      <svg height={20} width={20}>
         <image
           id="mybutton"
           x={radius - 9}
@@ -106,31 +106,22 @@ function AlbumSingleSong(props) {
       // onClick={() => toggle(song.song_cid)}
       >
       <td className="td1" style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} onClick={() => { if (!viewOrSell) toggle(song.song_cid) }}>
-        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="pr-10 pointer play-pause-btn">
+        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="pr-10 pointer play-pause-btn flex f-align-center">
           {playing && currentIndex === song.song_cid ? (
-            <div onClick={() => toggle(song.song_cid)}>
-              <ProgressRing
-                radius={13}
-                stroke={2}
-                progress={
-                  audio.currentTime
-                    ? audio.currentTime / parseInt(song.duration)
-                    : 0
-                }
-                progressId={song.song_cid}
-              />
-            </div>
+              <div className="solid-pause">
+                <i className="fa fa-solid fa-pause" onClick={() => toggle(song.song_cid)} />
+              </div>
           ) : viewOrSell ? (
-            <i className="fa fa-solid fa-ban"></i>
+            <i className="fa fa-solid fa-ban" />
           ) : (
-            <img src={playIcon} />
+            <img src={playIcon} alt="play" />
           )}
         </div>
-        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="fn-white pointer">{song.title}</div>
+        <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="fn-white pointer flex f-align-center">{song.title}</div>
       </td>
       <td>
         <div
-          className="duration"
+          className="duration flex f-align-center"
           style={
             {
               // width:

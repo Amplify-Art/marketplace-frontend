@@ -264,7 +264,7 @@ function AlbumModalContent({
                   albumInfo.songs
                     ?.sort((a, b) => a.id - b.id)
                     .map((song, index) => (
-                      <tr style={{ verticalAlign: "baseline" }}>
+                      <tr style={{ verticalAlign: "middle" }}>
                         <AlbumSingleSong
                           song={song}
                           index={index}

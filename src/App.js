@@ -50,8 +50,7 @@ import Player from "./Components/Common/Player/index";
 // Global Loader
 import GloablLoader from "./Components/Common/Loading/index";
 
-import ReactNotification from "react-notifications-component";
-import { store } from "react-notifications-component";
+import { ReactNotifications, Store } from 'react-notifications-component'
 import {
   showWalletAction,
   hideWalletAction,
@@ -113,7 +112,7 @@ function App(props) {
   return (
     <>
       <GloablLoader>
-        <ReactNotification />
+        <ReactNotifications />
         <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
         {showLeftSidebar && (
