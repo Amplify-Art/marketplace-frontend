@@ -27,7 +27,7 @@ function Artists(props) {
               <UserAvatar
                 avatarImg={artist.avatar || defaultProfile}
                 key={index}
-                name={artist.near_account_id}
+                name={artist.name || artist.near_account_id}
                 onClick={() =>
                   props.history.push(`/artist/${artist.near_account_id}`)
                 }

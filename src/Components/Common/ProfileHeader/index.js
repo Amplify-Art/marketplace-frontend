@@ -134,7 +134,7 @@ function ProfileHeader({
             <div className="btn-wrap mobileShow">{btnContent}</div>
 
             <div className="details">
-              <span>{ArtistData.name}</span>
+              <span>{ArtistData.name || ArtistData.near_account_id}</span>
               {/* {!isPublicProfile && (
                 <span className="no_of_songs">
                   {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned

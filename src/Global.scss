@@ -320,6 +320,7 @@ textarea {
 .user-block {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 30px;
   .user-avatar {
     @media screen and (max-width: 600px) {

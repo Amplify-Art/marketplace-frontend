@@ -117,10 +117,9 @@ function ArtistProfile(props) {
           <div className="recently-purchased">
             <div className="top">
               <h2>Recently Released</h2>
-              {/* {albums && albums.length > 20 && <button className="btn outlined">View All</button>} */}
             </div>
 
-            <div className="albums" className={`albums ${albums && albums.length > 0 && 'album-grid'}`}>
+            <div className={`albums ${albums && albums.length > 0 && 'album-grid'}`}>
               {
                 albums && albums.length > 0 ? albums?.map((album, index) => (
                   generateAlbumItem({ ...album, hideSticker: false }, index)
