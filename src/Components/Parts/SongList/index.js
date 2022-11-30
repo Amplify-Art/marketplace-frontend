@@ -1,10 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import PaymentForm from "./Parts/paymentForm";
-import sortIcon from "../../../assets/images/Sort.svg";
-import playProgress from "../../../assets/images/play_progress.svg";
+import React, { useEffect, useState } from "react";
 import pauseIcon from "../../../assets/images/pause_icon.svg";
 import playBtn from "../../../assets/images/play_btn.svg";
-import SongLength from "../../Common/SongLength/index";
 import GeneralModal from "../../Common/GeneralModal/index";
 import "./SongList.scss";
 import moment from "moment";
@@ -32,26 +28,18 @@ const songHeader = () => (
   <div className="songlist-header flex">
     <div className="header-title">
       Song Title | Mints owned
-      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="header-title">
       album
-      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="header-title">
       Artist
-      {/* <img src={sortIcon} alt="" /> */}
     </div>
     <div className="mobile-header-title">
       <div>Song Market</div>
-      {/* <div className="mobile-header-title-right">
-        <i className="far fa-sort-alt" />
-        <span className="sort">SORT</span>
-      </div> */}
     </div>
     <div className="header-title">
       For sale
-      {/* <img src={sortIcon} alt="" /> */}
     </div>
   </div>
 );
@@ -66,7 +54,6 @@ function SongList(props) {
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   const expandSongList = (id) => {
-    console.log(q.parse(props.history.location.search), id);
     let i = q.parse(props.history.location.search)["?expanded"];
     if (i) {
       props.history.push("/marketplace");
@@ -81,11 +68,11 @@ function SongList(props) {
   };
   useEffect(() => {
     let i = q.parse(props.history.location.search)["?expanded"];
-    console.log(i, "IIII");
     if (i) {
       toggleSongListExpansion(parseInt(i));
     }
   }, []);
+
   // check for any transactions
   useEffect(() => {
     let buyingSong = JSON.parse(localStorage.getItem("buying_song"));
@@ -121,7 +108,7 @@ function SongList(props) {
         let txtId = decodeURIComponent(
           q.parse(props.history.location.search)["?transactionHashes"]
         );
-        console.log(buyingSong);
+
         props.buySongNFT({ ...buyingSong, hash: txtId });
         props.history.push("/marketplace");
       }
@@ -198,11 +185,6 @@ function SongList(props) {
     };
   }, [props.history.location]);
   const onBuy = async () => {
-    console.log(
-      buyingSong,
-      parseNearAmount(`${buyingSong.yocto_near_price}`),
-      "buying_song"
-    );
     let isDelist = buyingSong.transfer_to === user.id;
     let buying_song = {
       id: buyingSong.id,

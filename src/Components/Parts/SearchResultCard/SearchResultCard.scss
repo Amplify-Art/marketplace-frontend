@@ -9,14 +9,9 @@
     margin-bottom: 0px;
   }
   .imageHolder {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    @media screen and (max-width: 600px) {
-			width: 50px;
-      height: 50px;
-      border-radius: 8px;
-		}
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 5px 5px #f3f3f387;
     flex: none;
@@ -30,10 +25,7 @@
     width: 100%;
     margin-left: 20px;
     .content-heading {
-      font-size: 20px;
-      @media screen and (max-width: 600px) {
-        font-size: 16px;
-      }
+      font-size: 15px;
       font-weight: bold;
     }
     .content-details {
@@ -44,7 +36,7 @@
     text-align: end;
     opacity: 0.7;
     .contentType-heading {
-      font-size: 18px;
+      font-size: 14px;
       @media screen and (max-width: 600px) {
         font-size: 14px;
       }
@@ -52,7 +44,7 @@
       color: #999;
     }
     .contentType-detail {
-      font-size: 16px;
+      font-size: 11px;
       @media screen and (max-width: 600px) {
         font-size: 11px;
       }

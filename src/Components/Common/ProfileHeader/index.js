@@ -92,6 +92,7 @@ function ProfileHeader({
                             <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
                             <img
                               src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
+                              alt="album"
                             />
                           </div>
                         </div>
@@ -108,7 +109,7 @@ function ProfileHeader({
                       )
                     )}
                   </div>
-                  <img src={Shelf} />
+                  <img src={Shelf} alt="shelf" />
                 </div>
               ))}
           </div>

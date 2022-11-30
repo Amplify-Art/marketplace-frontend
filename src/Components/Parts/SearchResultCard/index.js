@@ -69,7 +69,7 @@ function SearchResultCard(props) {
         </div>
         <div className="contentType">
           <div className="contentType-heading">{contentTypeHeading}</div>
-          <div className="contentType-detail">{contentTypeDetail}</div>
+          {/* <div className="contentType-detail">{contentTypeDetail}</div> */}
         </div>
       </div>
     );
