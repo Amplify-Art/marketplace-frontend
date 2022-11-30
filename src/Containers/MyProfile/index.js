@@ -481,15 +481,16 @@ function MyProfile(props) {
       }
     }
   }, [aformattedAlbums.length, props.history.location.search]);
-  console.log(aformattedAlbums, "aformattedAlbums");
+
   useEffect(() => {
     fetchTokens();
   }, []);
+
   const fetchTokens = async () => {
     let tokens = await getTokens(props.wallet);
-    console.log(tokens, "tokens");
     setTokens(tokens);
   };
+
   useEffect(() => {
     if (sellingSong) {
       setOwnedTokenCopies(
@@ -550,6 +551,7 @@ function MyProfile(props) {
               <div className="container">
                 <div className="album-grid">
                   {aformattedAlbums
+                    .reverse()
                     // .filter((f) => f[1][0].type !== "song") // Try now for only songs
                     .map((token, index) =>
                       generateAlbumItem(
