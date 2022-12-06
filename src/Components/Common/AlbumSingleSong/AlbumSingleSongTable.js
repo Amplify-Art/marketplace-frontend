@@ -160,7 +160,7 @@ function AlbumSingleSong(props) {
           </>
         )}
       </td>
-      {/* <div className="fn-white"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${song.song_cid}`} /></div> */}
+      {/* <div className="fn-white"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${song.song_cid}`} /></div> */}
     </>
   );
 }

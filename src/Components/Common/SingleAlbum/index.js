@@ -213,7 +213,7 @@ function SingleAlbum(props) {
     };
   }, []);
 
-  // checkImage(`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`);
+  // checkImage(`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`);
 
   useEffect(() => {
     // if this is rendered for playlist, we dont have cover for playlist, show CD cover
@@ -222,7 +222,7 @@ function SingleAlbum(props) {
       setAlbumCover(cdCover);
     } else if (albumInfo.cover_cid) {
       setAlbumCover(
-        `https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`
+        `https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`
       );
     } else if (
       albumInfo &&
@@ -231,7 +231,7 @@ function SingleAlbum(props) {
       albumInfo.token.album.cover_cid
     ) {
       setAlbumCover(
-        `https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.token.album.cover_cid}`
+        `https://gateway.pinata.cloud/ipfs/${albumInfo.token.album.cover_cid}`
       );
     } else {
       setAlbumCover(cdCover);

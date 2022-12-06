@@ -61,6 +61,211 @@ function SupportCard(props) {
     });
   }, [user && user.id]);
 
+  const deletePins = () => {
+    const pins = [
+      {
+          "id": "42c6a233-8841-48c2-94a2-1ed24b17ec8a",
+          "ipfs_pin_hash": "QmWmrGqp8pHfxCJogAZgQiPUQnQFAv7yV9d5p1EKzm1sRx",
+          "size": 710886,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-30T19:04:08.900Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "pics",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "744ffcb1-fa8b-4be3-9d96-36ef4fca5d66",
+          "ipfs_pin_hash": "QmXrmb2L29X6VAsnW1ErWkV7Lcuz5qUck2KxpWnEQwunPv",
+          "size": 51730,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-30T19:03:51.886Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "pics",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "14f801fa-f6f0-438f-802a-4959c90c4f3c",
+          "ipfs_pin_hash": "QmUTMBGHzKgV1YHrsN4Ez8gwLTpPjBbVDbLFip73Wx9wB1",
+          "size": 47569,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-30T19:03:29.570Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "pics",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "ad48e8ee-3aac-4b84-a885-2c1b3db2212b",
+          "ipfs_pin_hash": "QmaFnQJLaPfV1AnaUvbdWtfZQw2VfTSrEaYUCJpdr38sGG",
+          "size": 446469,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:48:19.070Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "pics",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "0df7505f-7d47-4c2a-9287-b847bc5ff5d4",
+          "ipfs_pin_hash": "Qmb4VWWxQL98YEsS25gpUNr5ZsrGYHy9z7rPzuhLbx7SM3",
+          "size": 3175723,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:47:30.310Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "pics",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "47e6789c-8a9f-4c60-8dd0-15e2ee5128de",
+          "ipfs_pin_hash": "QmeEFg72PHi5K23F5L3PNwrcWQVwiK3VSgKtpuKeyhkD6L",
+          "size": 252,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:42:00.301Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "Middle Child- Info",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "0f09aef9-2989-4419-97c7-f476cbf0dcbe",
+          "ipfs_pin_hash": "QmV6MfUrmnZ6QkZnYGsqG2KHT4kmEUsxFjuuohJCYUcZd6",
+          "size": 253,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:42:00.272Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "No Role Model- Info",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "284123a5-38a9-4f7a-bd42-30524d707c54",
+          "ipfs_pin_hash": "Qmc5gSiXpujs53RFpHyVRYLmrCBEavry572HvtRteEXXRY",
+          "size": 8548320,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:41:17.337Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "middle-child.mp3",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "69062600-d9a7-4f76-8d51-92475606408f",
+          "ipfs_pin_hash": "QmZ5CndHWDCDbJJcijDWx2YWBuKx9K5LJVHt3R5xdxCn8G",
+          "size": 11866892,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:41:14.051Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "no-role.mp3",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      },
+      {
+          "id": "0feeff77-57d4-4bec-b95d-534b7e097fe1",
+          "ipfs_pin_hash": "QmRGWDcPehLUCpjJNxYHFwvUmuPSNCisngYkCiZsZWFQHv",
+          "size": 407274,
+          "user_id": "d241ffcc-4a92-4e57-99da-b8d099e57a41",
+          "date_pinned": "2022-11-28T17:40:55.332Z",
+          "date_unpinned": null,
+          "metadata": {
+              "name": "undefined",
+              "keyvalues": {}
+          },
+          "regions": [
+              {
+                  "regionId": "NYC1",
+                  "currentReplicationCount": 1,
+                  "desiredReplicationCount": 1
+              }
+          ]
+      }
+    ];
+
+    // eslint-disable-next-line array-callback-return
+    pins.map(pin => {
+      setTimeout(
+        axios.delete(`https://api.pinata.cloud/pinning/unpin/${pin.ipfs_pin_hash}`, {
+          headers: {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJkMjQxZmZjYy00YTkyLTRlNTctOTlkYS1iOGQwOTllNTdhNDEiLCJlbWFpbCI6ImpvbmF0aG9uQHBpeGVsOC5pbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkOGZkNTgwMmUyZjc4Y2YyYTNlYSIsInNjb3BlZEtleVNlY3JldCI6IjM5MGIwOGNkNzE4ODYzN2FmNGViMTlkNjNmNTU3ZDU1ZTI2MDIzNzE1NTZmZWYyY2Q5NWIxOTc3MzA2MDk4YzgiLCJpYXQiOjE2NzAyNzA2OTZ9.my4oSimEoZKC0YsW5hdCByVN_ay15MKZDYFodi8cHvQ"
+          }
+        }), 1000)
+    })
+  }
+
   const fetchSupportCards = async () => {
     let url =
       process.env.REACT_APP_CONTEXT === "production"
@@ -205,6 +410,7 @@ function SupportCard(props) {
         <div className="bal-wrapper">
           <div className="left-wrap">
             <div className="bal-title">Pending Award Balance</div>
+            <button onClick={() => deletePins()}>Delete Pins</button>
             <div className="price">{withdrawableAmount.substring(0, 5)}</div>
             <div className="near">NEAR</div>
             <button className="withdraw-btn" onClick={onWithDrawAmount}>

@@ -11,11 +11,11 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
   const [audio, setAudioSong] = useState(new Audio(''));
   const [playing, setPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const { data } = usePalette(`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`);
+  const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumData.cover_cid}`);
   const zeroPad = (num, places) => String(num).padStart(places, '0');
 
   const toggle = (songid) => {
-    setAudioSong(new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songid}`))
+    setAudioSong(new Audio(`https://gateway.pinata.cloud/ipfs/${songid}`))
     if (playing && currentIndex !== songid) {
       audio.pause()
       audio.currentTime = 0;
@@ -80,7 +80,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
               <div className="album-img">
                 {albumData && albumData.cover_cid
                   ?
-                  <img src={`https://amplify-dev.mypinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
+                  <img src={`https://gateway.pinata.cloud/ipfs/${albumData.cover_cid}`} alt='' />
                   :
                   <img src={albumData.coverArt} alt='' />}
               </div>

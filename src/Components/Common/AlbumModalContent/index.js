@@ -49,7 +49,7 @@ function AlbumModalContent({
   };
   const toggle = (songid) => {
     setAudioSong(
-      new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songid}`)
+      new Audio(`https://gateway.pinata.cloud/ipfs/${songid}`)
     );
     if (playing && currentIndex !== songid) {
       audio.pause();
@@ -165,7 +165,7 @@ function AlbumModalContent({
     if (!props.showPlayer) props.togglePlayer();
   };
   const { data } = usePalette(
-    `https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`
+    `https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`
   );
 
   const zeroPad = (num, places) => String(num).padStart(places, "0");
@@ -197,7 +197,7 @@ function AlbumModalContent({
                 <div className="album-img">
                   {albumInfo && albumInfo.cover_cid ? (
                     <img
-                      src={`https://amplify-dev.mypinata.cloud/ipfs/${albumInfo.cover_cid}`}
+                      src={`https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`}
                       alt=""
                     />
                   ) : (

@@ -57,7 +57,7 @@ function PurchasedSongs(props) {
           <img
             src={
               selectedAlbumToken.cover_cid
-                ? `https://amplify-dev.mypinata.cloud/ipfs/${selectedAlbumToken?.cover_cid}`
+                ? `https://gateway.pinata.cloud/ipfs/${selectedAlbumToken?.cover_cid}`
                 : CDImg
             }
             alt=""

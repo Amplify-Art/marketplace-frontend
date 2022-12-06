@@ -38,7 +38,7 @@ function TransactionModal({ transaction, onClose }) {
           <div className="imageHolder">
             <Image
               className="image"
-              src={`https://amplify-dev.mypinata.cloud/ipfs/${transaction.cover}`}
+              src={`https://gateway.pinata.cloud/ipfs/${transaction.cover}`}
               alt=""
               fallbackImage={greyFace}
             />

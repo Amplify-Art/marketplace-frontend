@@ -130,17 +130,17 @@ function MyProfile(props) {
     reader.readAsDataURL(files);
     let uploadImage = await uploadFile(e);
     setImageURL(
-      `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
+      `https://gateway.pinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
     );
     setArtistData({
       ...ArtistData,
       [modalType === "profile"
         ? "avatar"
-        : "cover"]: `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`,
+        : "cover"]: `https://gateway.pinata.cloud/ipfs/${uploadImage.data.IpfsHash}`,
     });
     if (uploadImage)
       onUpdateBanner(
-        `https://amplify-dev.mypinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
+        `https://gateway.pinata.cloud/ipfs/${uploadImage.data.IpfsHash}`
       );
   };
   const uploadFile = async (fileInfo) => {

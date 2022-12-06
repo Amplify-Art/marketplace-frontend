@@ -117,7 +117,7 @@ function SongList(props) {
 
   const handleAudio = (songid) => {
     setAudioSong(
-      new Audio(`https://amplify-dev.mypinata.cloud/ipfs/${songid}`)
+      new Audio(`https://gateway.pinata.cloud/ipfs/${songid}`)
     );
     if (playing && currentIndex !== songid) {
       audio.pause();
@@ -255,7 +255,7 @@ function SongList(props) {
                       alt=""
                       onClick={(id) => handleAudio(songData.song_cid)}
                     />
-                    {/* <div className="audio-time"><SongLength i={index} song={`https://amplify-dev.mypinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
+                    {/* <div className="audio-time"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                   </div>
                   <label
                     className="song-title"
@@ -319,7 +319,7 @@ function SongList(props) {
                   songListExpanded === songData.id && "expanded"
                 }`}
                 style={{
-                  backgroundImage: `url(https://amplify-dev.mypinata.cloud/ipfs/${
+                  backgroundImage: `url(https://gateway.pinata.cloud/ipfs/${
                     songData.album && songData.album.cover_cid
                   })`,
                 }}

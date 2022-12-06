@@ -23,20 +23,20 @@ function SearchResultCard(props) {
 
   const findAlbumCover = (album) => {
     if (album.cover_cid)
-      return `https://amplify-dev.mypinata.cloud/ipfs/${album.cover_cid}`;
+      return `https://gateway.pinata.cloud/ipfs/${album.cover_cid}`;
     else if (
       album &&
       album.token &&
       album.token.album &&
       album.token.album.cover_cid
     )
-      return `https://amplify-dev.mypinata.cloud/ipfs/${album.token.album.cover_cid}`;
+      return `https://gateway.pinata.cloud/ipfs/${album.token.album.cover_cid}`;
     else return cdCover;
   };
 
   const findSongCover = (song) => {
     if (song.album && song.album.cover_cid)
-      return `https://amplify-dev.mypinata.cloud/ipfs/${
+      return `https://gateway.pinata.cloud/ipfs/${
         song.album && song.album.cover_cid
       }`;
     else return cdCover;

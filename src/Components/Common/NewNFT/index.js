@@ -219,7 +219,7 @@ function NewNFT(props) {
           price: yocto_near_price,
           songs_metadatalist: minting_info.songs.map((song) => ({
             title: song.title,
-            media: `https://amplify-dev.mypinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
+            media: `https://gateway.pinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
           })),
         },
         300000000000000,

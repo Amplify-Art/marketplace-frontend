@@ -203,10 +203,10 @@ function ArtistDashboard(props) {
     };
     reader.readAsDataURL(files[0]);
     let uploadBanner = await uploadFile(e.target.files[0])
-    setImageURL(`https://amplify-dev.mypinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`)
+    setImageURL(`https://gateway.pinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`)
     setArtistData({
       ...ArtistData,
-      cover: `https://amplify-dev.mypinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`
+      cover: `https://gateway.pinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`
     })
   }
   const uploadFile = async (fileInfo) => {

@@ -39,10 +39,10 @@ function Player(props) {
   const [isShow, setIsShow] = useState(false);
   const [isPrevClicked, setIsPrevClicked] = useState(false);
   const [currentSongSrc, setSongSrc] = useState(
-    `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
+    `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
   );
 
-  // const coverData = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
+  // const coverData = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
 
   const playBar = useRef(null);
   const playButtonFunction = () => {
@@ -60,7 +60,7 @@ function Player(props) {
     setPlaylistIndex(0);
     togglePlay(true);
     audioElement.currentTime = 0;
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`;
+    audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`;
     audioElement.play();
     requestAnimationFrame(updateBar);
   }, [currentPlaylists.length]);
@@ -99,7 +99,7 @@ function Player(props) {
         // setPlaylistIndex(playlistIndex + 1);
       } else setPlaylistIndex(0);
     }
-    audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`;
+    audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`;
     audioElement.currentTime = 0;
     if (isPlaying) {
       audioElement.play();
@@ -110,7 +110,7 @@ function Player(props) {
   const prevSong = () => {
     if (isPrevClicked && songIndex !== 0) {
       // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://amplify-dev.mypinata.cloud/ipfs/${
+      audioElement.src = `https://gateway.pinata.cloud/ipfs/${
         currentPlaylists[playlistIndex]?.songs[songIndex - 1]?.song_cid
       }`;
       if (isPlaying) {
@@ -189,7 +189,7 @@ function Player(props) {
             <div className="album-info large">
               <div className="cover">
                 {/* If album is owned, show cover here, else use blank CD */}
-                {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
+                {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
                 {!(
                   currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album ||
                   currentPlaylists[playlistIndex]?.cover_cid
@@ -197,7 +197,7 @@ function Player(props) {
                   <img src={CdImage} alt="Cover" />
                 ) : (
                   <img
-                    src={`https://amplify-dev.mypinata.cloud/ipfs/${
+                    src={`https://gateway.pinata.cloud/ipfs/${
                       currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
                         ?.cover_cid ||
                       currentPlaylists[playlistIndex]?.cover_cid
@@ -333,7 +333,7 @@ function Player(props) {
         )}
         {/* If album is owned, show cover here, else use blank CD */}
         {/* {
-            <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
+            <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} /> 
         } */}
         <div
           className="background-blur"
@@ -342,7 +342,7 @@ function Player(props) {
               !currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
                 ?.cover_cid
                 ? CdImage
-                : `https://amplify-dev.mypinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`
+                : `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`
             })`,
           }}
         />

@@ -91,7 +91,7 @@ function ProfileHeader({
                           <div className="single-shelf-album">
                             <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
                             <img
-                              src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
+                              src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"
                             />
                           </div>
@@ -160,7 +160,7 @@ function ProfileHeader({
                             <div className="single-shelf-album">
                               <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
                               <img
-                                src={`https://amplify-dev.mypinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
+                                src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                                 alt="Album"
                               />
                             </div>

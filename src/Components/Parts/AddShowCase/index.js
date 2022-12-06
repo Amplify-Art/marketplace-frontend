@@ -85,7 +85,7 @@ function AddShowCase({
                   src={
                     isPlayList && !nft.is_album_cover_owner
                       ? CDImg
-                      : `https://amplify-dev.mypinata.cloud/ipfs/${isPlayList
+                      : `https://gateway.pinata.cloud/ipfs/${isPlayList
                         ? nft.album && nft.album.cover_cid
                         : nft.cover_cid
                       }`
