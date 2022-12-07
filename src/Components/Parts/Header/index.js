@@ -385,7 +385,7 @@ function Header(props) {
               <img src={SearchIcon} alt="Search" />
               <input
                 type="text"
-                placeholder="Search for songs, artists..."
+                placeholder="Search for artists, albums or songs"
                 onClick={() => props.showSearchResultFn()}
                 onChange={handleSearch}
                 onKeyDown={handleSubmit}

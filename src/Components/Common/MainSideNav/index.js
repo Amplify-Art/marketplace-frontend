@@ -134,7 +134,7 @@ function MainSideNav(props) {
               <img src={SearchIcon} alt="Search" />
               <input
                 type="text"
-                placeholder="Search for songs, artists..."
+                placeholder="Search for artists, albums or songs"
                 onClick={() => props.showSearchResultFn()}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSubmit}
