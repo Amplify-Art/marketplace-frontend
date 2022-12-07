@@ -15,7 +15,7 @@
 #main-side-nav {
   padding-top: 133px;
   position: fixed;
-  top: 31px;
+  // top: 31px;
   left: 56px;
   z-index: 99;
   @media screen and (max-width: 600px) {
@@ -26,7 +26,7 @@
       position: fixed;
       top: 0px;
       left: 0px;
-      background: #0f161d;    
+      background: #0f161d;
       padding-bottom: 50px;
       width: 100%;
       height: 100%;
@@ -88,17 +88,21 @@ ul {
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.2);
     margin-bottom: 8px;
     &.nav-header {
-      margin-top: 20px;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-transform: uppercase;
     }
 
     a,
     span {
       text-decoration: none;
       color: #fff;
-      font-weight: normal;
+      font-weight: 300;
       cursor: pointer;
       &.current {
         text-decoration: underline;
