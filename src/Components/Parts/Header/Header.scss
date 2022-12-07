@@ -137,9 +137,9 @@ header {
     }
 
     .wallet {
-      cursor: pointer;
-      margin-right: 38px;
-      width: 27px;
+      margin-right: 30px;
+      width: 24px;
+      height: 24px;
       flex: none;
       @media screen and (max-width: 492px) {
         display: none;
