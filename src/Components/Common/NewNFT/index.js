@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import ReactNotification from "react-notifications-component";
+import { ReactNotifications, Store } from 'react-notifications-component'
 import { store } from "react-notifications-component";
 import {
   SortableContainer,
@@ -452,7 +452,7 @@ function NewNFT(props) {
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
-      <ReactNotification />
+      <ReactNotifications />
       <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>
