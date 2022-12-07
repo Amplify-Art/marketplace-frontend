@@ -167,8 +167,8 @@ header {
 }
 
 .user {
-  width: 57px;
-  height: 57px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   @media screen and (max-width: 600px) {
     width: 50px;
@@ -178,8 +178,8 @@ header {
   overflow: hidden;
   flex: none;
   .profilePic {
-    width: 57px;
-    height: 57px;
+    width: 50px;
+    height: 50px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
