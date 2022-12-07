@@ -1,14 +1,14 @@
 @import "./assets/SCSS/Vars.scss";
 
 body {
-  font-family: $lato;
+  font-family: 'Space Grotesk';
   @media screen and (max-width: 600px) {
     font-family: 'Space Grotesk';
   }
   padding: 0px;
   margin: 0px;
-  background: #0f161d;
-  // background: linear-gradient(166deg, rgba(16,25,32,1) 0%, rgba(45,63,71,1) 100%);
+  // background: #0f161d;
+  background: linear-gradient(180deg, #0C0E16 0%, #2D404B 87.67%);
   min-height: 100vh;
   box-sizing: border-box;
   padding-left: 53px;
