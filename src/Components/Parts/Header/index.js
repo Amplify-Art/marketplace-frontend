@@ -458,7 +458,7 @@ function Header(props) {
         </div>
       </header>
 
-      {setBreadCrumbs() && (
+      {/* {setBreadCrumbs() && (
         <div className="breadcrumbs left-nav-pad">
           <div className="container">
             <span className="home" onClick={() => props.history.push("/")}>
@@ -467,7 +467,7 @@ function Header(props) {
             / <span className="current">{path && setBreadCrumbs()}</span>
           </div>
         </div>
-      )}
+      )}*/}
 
       {false && (
         <>

@@ -293,12 +293,15 @@ textarea {
 
 .page-title {
   color: #fff;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  font-size: 30px;
+  margin-bottom: 40px;
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 26px;
   @media screen and (max-width: 600px) {
     margin-top: 10px;
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
