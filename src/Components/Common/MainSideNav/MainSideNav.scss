@@ -18,6 +18,9 @@
   top: 213px;
   left: 56px;
   z-index: 99;
+  @media screen and (max-width: 800px) {
+   left: 7px;
+  }
   @media screen and (max-width: 600px) {
     display: none;
     padding-top: 80px;
