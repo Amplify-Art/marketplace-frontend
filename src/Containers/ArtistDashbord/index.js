@@ -340,7 +340,7 @@ function ArtistDashboard(props) {
       {
         props.showMintSuccessModal && <GeneralModal
           topIcon={ConfettiImage}
-          headline="Congrats, Your album is set to release!"
+          headline="Congrats, your album has been listed!"
           buttons={[
             {
               type: 'solid go-home',

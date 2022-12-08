@@ -163,7 +163,7 @@ function MainSideNav(props) {
             <a href="/">Home</a>
           </li>
 
-          <li className="nav-header">Discover</li>
+          <li className="nav-header discover-icon">Discover</li>
           {/* <li><a href="#">New Releases</a></li> */}
           {/* <li><a href="#">Top Charts</a></li> */}
           <li>

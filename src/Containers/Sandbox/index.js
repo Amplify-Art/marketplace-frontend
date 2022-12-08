@@ -83,7 +83,7 @@ function SandBox(props) {
 
       {showCongratsModal && <GeneralModal
         topIcon={ConfettiImage}
-        headline="Congrats, Your album is set to release!"
+        headline="Congrats, Your album has been listed!"
         buttons={[
           {
             type: 'outlined',
