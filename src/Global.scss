@@ -1,5 +1,4 @@
 @import "./assets/SCSS/Vars.scss";
-
 body {
   font-family: 'Space Grotesk';
   @media screen and (max-width: 600px) {
@@ -9,7 +8,10 @@ body {
   margin: 0px;
   // background: #0f161d;
   background: linear-gradient(180deg, #0C0E16 0%, #2D404B 87.67%);
-  min-height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
   box-sizing: border-box;
   padding-left: 53px;
   @media screen and (max-width: 600px) {
