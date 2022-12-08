@@ -224,7 +224,8 @@ textarea {
 }
 
 .right-player-pad {
-  padding-right: 150px;
+  // padding-right: 150px;
+  padding-right: 30px;
   @media screen and (max-width: 600px) {
     padding-right: 0px;
   }
