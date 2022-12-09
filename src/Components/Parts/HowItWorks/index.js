@@ -34,7 +34,7 @@ function HowItWorks(props) {
           <div className="content">
             <span className="count">Step 03</span>
             <h3>Artist Onboarding</h3>
-            <p>To avoid centralized gatekeeping, we've given our early backers <a>(Support Card NFT Holders)</a> exclusive access to the artist on-boarding process. These Support Card NFTs have embedded utility - giving holders the ability to vote once per month on Artists in the registry pool. At the end of the month, the top two users with the most votes gain access to the “THIS IS THREE tal Album NFTs.
+            <p>To avoid centralized gatekeeping, we've given our early backers <a>(Support Card NFT Holders)</a> exclusive access to the artist on-boarding process. These Support Card NFTs have embedded utility - giving holders the ability to vote once per month on Artists in the registry pool. At the end of the month, the top two users with the most votes gain access to the “THIStal Album NFTs.
     
             *To be included in the monthly Registry Pool, please connect your Near wallet and look for “Nominate” link in the menu.</p>
           </div>
