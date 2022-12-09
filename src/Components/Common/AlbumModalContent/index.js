@@ -337,7 +337,7 @@ function AlbumModalContent({
           type="button"
           className="buy-button bottomButtonSection btn1"
         >
-          Buy This - {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
+          Buy Album for {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
         </button>
       ) : null}
       {!isPlayList && isMerged && (
