@@ -1,4 +1,8 @@
 @import "./assets/SCSS/Vars.scss";
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Space Grotesk';
   @media screen and (max-width: 600px) {

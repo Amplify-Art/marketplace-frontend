@@ -38,7 +38,6 @@ function Home() {
       <TheTech />
       <TheTeam />
       <ArtistRegistry />
-      <HowItWorks hideTitle={true} />
       <ThankYou content={homeContent && homeContent.thank_you_text} />
     </>
   );

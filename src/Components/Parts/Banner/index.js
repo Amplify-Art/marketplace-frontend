@@ -8,13 +8,13 @@ function Banner(props) {
       <div id="banner">
           <div className="lg-text">
             <div className="top">
-              <h1>Test Banner Content</h1>
+              <h1>A Music</h1>
               <div className="sub-text">
                 <div className="line" />
-                <p>sub content test</p>
+                <p>Own music for the first time by purchasing exclusive  NFTs  from your favorite artists.</p>
               </div>
             </div>
-            <h1 className="red">some cool red text</h1>
+            <h1 className="red">Marketplace</h1>
           </div>
 
           <div className="triangle-image"><img src={Triangle} /></div>
