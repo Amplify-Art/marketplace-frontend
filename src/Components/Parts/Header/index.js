@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as nearAPI from "near-api-js";
@@ -41,7 +42,6 @@ import {
 } from "../../../redux/actions/SearchResAction";
 import "./Header.scss";
 import q from "querystring";
-import { store } from "react-notifications-component";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
@@ -191,34 +191,28 @@ function Header(props) {
     const create = await createWallet();
     if (create.data && create.data.success) {
       localStorage.setItem("amplify_app_token", create.data.token);
-      store.addNotification({
-        title: "Success",
-        message: "NEAR wallet has been created",
-        type: "success",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.success("Your NEAR wallet has been created.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
       window.location.reload();
     } else {
-      store.addNotification({
-        title: "Error",
-        message: "Error while creating NEAR wallet",
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error("Error while creating your NEAR wallet.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
     }
   };
 

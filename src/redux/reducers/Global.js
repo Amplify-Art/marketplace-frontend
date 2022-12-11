@@ -1,5 +1,5 @@
+import { toast } from 'react-toastify';
 import * as types from '../../Constants/actions/Global';
-import { store } from 'react-notifications-component'
 /* eslint-disable no-case-declarations */
 
 const initialState = {
@@ -100,33 +100,27 @@ export default function (state = initialState, action) {
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {
-        store.addNotification({
-          title: "Success",
-          message: action.payload.message,
-          type: "success",
-          insert: "top",
-          container: "top-left",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 5000,
-            onScreen: true
-          }
-        });
+        toast.success(action.payload.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }); 
       } else {
-        store.addNotification({
-          title: action.payload.title || "Error",
-          message: action.payload.message,
-          type: "danger",
-          insert: "top",
-          container: "top-left",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 5000,
-            onScreen: true
-          }
-        });
+        toast.error(action.payload.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }); 
       }
       return state;
     default:

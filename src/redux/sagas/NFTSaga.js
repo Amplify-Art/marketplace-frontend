@@ -1,4 +1,5 @@
 import { put, call, takeLatest, all } from "redux-saga/effects";
+import { toast } from "react-toastify";
 import {
   addNFT,
   deleteNFT,
@@ -19,7 +20,6 @@ import {
   SET_OVERLAY_LOADER,
 } from "../../Constants/actions/Global";
 import { UPDATE_ALBUM_SUCCESS } from "../../Constants/actions/Album";
-import { store } from "react-notifications-component";
 /* eslint-disable no-use-before-define */
 export default function* watchOptionsListener(context = {}) {
   yield takeLatest(types.FETCH_NFTS_REQUEST, fetchNFTsSaga);
@@ -202,19 +202,16 @@ export function* buySongNFTSaga({ history }, { payload }) {
   try {
     const res = yield call(buySongNFT, payload);
     if (res.success) {
-      store.addNotification({
-        title: "Success",
-        message: `You have successfully purchased the song ${res.data.title}!`,
-        type: "success",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error(`You have successfully purchased the song ${res.data.title}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
       setTimeout(() => {
         window.location.reload();
       }, 2000);

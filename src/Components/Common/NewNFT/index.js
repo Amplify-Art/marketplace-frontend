@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { toast } from "react-toastify";
 import { useForm, Controller } from "react-hook-form";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { ReactNotifications, Store } from 'react-notifications-component'
-import { store } from "react-notifications-component";
 import {
   SortableContainer,
   SortableElement,
@@ -86,19 +85,16 @@ function NewNFT(props) {
           onUploadProgress(e, file, type, uploadingFiles, songFiles),
       })
       .catch((error) => {
-        store.addNotification({
-          title: "Error",
-          message: error.response.data.message,
-          type: "danger",
-          insert: "top",
-          container: "top-left",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 5000,
-            onScreen: true,
-          },
-        });
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }); 
       });
     if (mintSong && type === "song") {
       setCurrentUploadingFile(
@@ -227,21 +223,16 @@ function NewNFT(props) {
       );
     } catch (e) {
       props.hideLoadingOverlay();
-      if (store.add !== null) {
-        store.addNotification({
-          title: "Error",
-          message: "Something went wrong, please try again later.",
-          type: "danger",
-          insert: "top",
-          container: "top-left",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 5000,
-            onScreen: true,
-          },
-        });
-      }
+      toast.error("Something has went wrong. Please try again later.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
     }
   };
 
@@ -452,7 +443,6 @@ function NewNFT(props) {
   return (
     // TODO: move this whole component to the parts folder
     <div id="new-nft-modal" className="modal">
-      <ReactNotifications />
       <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
         <h3>Mint New Album</h3>

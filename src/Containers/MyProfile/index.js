@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as nearAPI from "near-api-js";
-import { store } from "react-notifications-component";
 import q from "querystring";
 import _ from "lodash";
 import { TwitterShareButton } from "react-share";
@@ -142,19 +142,16 @@ function MyProfile(props) {
       let message = decodeURIComponent(
         q.parse(props.history.location.search).errorMessage
       );
-      store.addNotification({
-        title: "Error",
-        message: message,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -195,19 +192,16 @@ function MyProfile(props) {
         (f) => f.outcome.status.Failure
       ).outcome.status.Failure.ActionError.kind.FunctionCallError
         .ExecutionError;
-      store.addNotification({
-        title: "Error",
-        message: error,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+        toast.error(error, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }); 
     } else {
       props.sellSongNFT(sellingSong);
     }
@@ -262,19 +256,16 @@ function MyProfile(props) {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    store.addNotification({
-      title: "Success",
-      message: "Profile copied to clipboard",
-      type: "success",
-      insert: "top",
-      container: "top-left",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true,
-      },
-    });
+    toast.success("Copied to clipboard.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    }); 
     setSharePopup(false);
   };
 

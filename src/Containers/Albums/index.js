@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import * as nearAPI from "near-api-js";
-import { store } from "react-notifications-component";
 import q from "querystring";
 import { fetchAlbumsAction } from "../../redux/actions/AlbumAction";
 import "./Albums.scss";
@@ -38,19 +38,16 @@ function Albums(props) {
       let message = decodeURIComponent(
         q.parse(props.history.location.search).errorMessage
       );
-      store.addNotification({
-        title: "Error",
-        message: message,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -83,19 +80,16 @@ function Albums(props) {
         (f) => f.outcome.status.Failure
       ).outcome.status.Failure.ActionError.kind.FunctionCallError
         .ExecutionError;
-      store.addNotification({
-        title: "Error",
-        message: error,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+        toast.error(error, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }); 
       props.history.push("/albums");
     } else {
       props.history.push(`/my-profile?showId=${albumBundleInfo.token_id}`);

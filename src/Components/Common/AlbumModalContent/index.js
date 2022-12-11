@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
 import playIcon from "../../../assets/images/play_icon.svg";
 import GeneralModal from "../GeneralModal/index.js";
@@ -15,7 +16,6 @@ import { withRouter } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import _ from "lodash";
-import { store } from "react-notifications-component";
 import { getTokens } from "../../../Utils/near";
 
 // songmodal
@@ -140,19 +140,16 @@ function AlbumModalContent({
 
   const addToPlaylist = async (type) => {
     if (props.currentPlaylists.map((i) => i.id).includes(albumInfo.id)) {
-      store.addNotification({
-        title: "Error",
-        message: `this ${type} is already in the queue`,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error(`this ${type} is already in the queue`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });      
       return;
     }
     // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));

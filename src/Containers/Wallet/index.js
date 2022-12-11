@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import CurrencyInput from "react-currency-input-field";
 import axios from "axios";
-import { store } from "react-notifications-component";
 import q from "querystring";
 import "./Wallet.scss";
 import Auth from "../../Containers/Auth";
@@ -43,18 +43,15 @@ function Wallet(props) {
       let message = decodeURIComponent(
         q.parse(props.history.location.search).errorMessage
       );
-      store.addNotification({
-        title: "Error",
-        message: message,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
       localStorage.removeItem("send_info");
       props.history.push("/wallet");

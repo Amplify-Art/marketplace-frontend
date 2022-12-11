@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import pauseIcon from "../../../assets/images/pause_icon.svg";
 import playBtn from "../../../assets/images/play_btn.svg";
 import GeneralModal from "../../Common/GeneralModal/index";
@@ -8,7 +9,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import * as nearAPI from "near-api-js";
-import { store } from "react-notifications-component";
 import q from "querystring";
 import {
   buySongAction,
@@ -80,19 +80,16 @@ function SongList(props) {
       let message = decodeURIComponent(
         q.parse(props.history.location.search).errorMessage
       );
-      store.addNotification({
-        title: "Error",
-        message: message,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
       localStorage.removeItem("buying_song");
       props.history.push("/marketplace");
     } else if (props.history.location.search.includes("transactionHashes")) {
