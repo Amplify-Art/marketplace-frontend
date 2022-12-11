@@ -79,10 +79,12 @@ header {
   }
   .searchWrapper {
     position: relative;
+    flex: 1;
     .search {
       position: relative;
       margin-left: 30px;
-      width: 100%;
+      // width: 100%;
+      max-width: 500px;
       margin-right: 30px;
       @media screen and (max-width: 600px) {
         display: none;
@@ -275,10 +277,9 @@ header {
 }
 
 .cd {
-  margin-right: 28px;
+  margin-right: 24px;
+  height: 24px;
+  width: 24px;
+  flex: none;
   cursor: pointer;
-  img {
-    height: 30px;
-    width: 30px;
-  }
 }
