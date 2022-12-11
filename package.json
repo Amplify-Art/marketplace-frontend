@@ -2,6 +2,9 @@
   "name": "amplifylander",
   "version": "0.1.0",
   "private": true,
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "dependencies": {
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.16.0",
