@@ -5,14 +5,10 @@ import {
   getSupporterPayoutLogById,
   getSupporterPayoutLogs,
   updateSupporterPayoutLog,
-  buySupporterPayoutLog,
-  sellSupporterPayoutLog,
 } from "../../Api/SupporterPayoutLog";
 import * as types from "../../Constants/actions/SupporterPayoutLog";
 import {
   SET_NOTIFICATION,
-  SET_OVERLAY_LOADER,
-  UNSET_OVERLAY_LOADER,
 } from "../../Constants/actions/Global";
 
 /* eslint-disable no-use-before-define */
