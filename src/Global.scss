@@ -3,6 +3,8 @@ html{
   scroll-behavior: smooth;
 }
 
+// note: add max width with margin auto in the body below
+
 body {
   font-family: 'Space Grotesk';
   @media screen and (max-width: 600px) {
