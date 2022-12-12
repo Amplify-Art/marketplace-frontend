@@ -68,7 +68,6 @@ function ProfileHeader({
   }, [userId]);
 
   let songsCount = nearUser && nearUser.owned_songs ? nearUser.owned_songs : 0;
-  console.log(songsCount, "songsCount");
   return (
     <div id="profile-header">
       <div
@@ -82,14 +81,16 @@ function ProfileHeader({
               _.chunk(
                 [...showcases, ...new Array(6 - showcases.length).fill(null)],
                 3
-              ).map((row, i) => (
+              ).map((row, i) => {
+                console.log(row, "row")
+                return (
                 <div className="single-shelf" key={i}>
                   <div className="albums-on-shelf">
                     {row.map((showCaseItem, j) =>
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            {jwt.decode(localStorage.getItem("amplify_app_token")) === row.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>}
+                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-regular fa-circle-trash" /></div>}
                             <img
                               src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"
@@ -111,7 +112,7 @@ function ProfileHeader({
                   </div>
                   <img src={Shelf} alt="shelf" />
                 </div>
-              ))}
+              )})}
           </div>
         )}
       </div>
