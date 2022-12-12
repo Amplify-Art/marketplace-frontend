@@ -315,7 +315,7 @@ function Player(props) {
         {songDeletingIndex !== null && (
           <GeneralModal
             // topIcon={ConfettiImage}
-            headline="Are you sure to delete this playlist from queue?"
+            headline="Remove playlist from queue?"
             buttons={[
               {
                 type: "solid go-home",
