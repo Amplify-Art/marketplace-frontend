@@ -200,7 +200,7 @@ function Header(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       window.location.reload();
     } else {
       toast.error("Error while creating your NEAR wallet.", {
@@ -212,7 +212,7 @@ function Header(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
     }
   };
 
@@ -364,6 +364,9 @@ function Header(props) {
         {/* <div className="menu">
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
+        <div className="mobile-menu" onClick={toggleMobileMenu}>
+          <img src={MenuIcon} />
+        </div>
         <div className="logo">
           <a href="/">
             <img src={Logo} alt="Amplify.Art" />
@@ -371,8 +374,8 @@ function Header(props) {
         </div>
         {!userToken ? (
           // <div className="nav">
-          //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
-          //   <a>Education Portal</a>
+          //   <a>Something</a>
+          //   <a>How it Works</a>
           //   <a>Contact us</a>
           // </div>
           <></>
@@ -423,9 +426,6 @@ function Header(props) {
                 <Link to="/wallet">
                   <img src={Wallet} alt="wallet" />
                 </Link>
-              </div>
-              <div className="mobile-menu" onClick={toggleMobileMenu}>
-                <img src={MenuIconNew} />
               </div>
               <div
                 className="user"

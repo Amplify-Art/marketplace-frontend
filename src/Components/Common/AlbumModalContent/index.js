@@ -140,7 +140,7 @@ function AlbumModalContent({
 
   const addToPlaylist = async (type) => {
     if (props.currentPlaylists.map((i) => i.id).includes(albumInfo.id)) {
-      toast.error(`this ${type} is already in the queue`, {
+      toast.error(`This ${type} is already in the queue`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -149,7 +149,7 @@ function AlbumModalContent({
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });      
+      });
       return;
     }
     // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));

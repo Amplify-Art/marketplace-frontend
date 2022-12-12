@@ -13,7 +13,6 @@
   }
 }
 #main-side-nav {
-  // padding-top: 133px;
   transition: all .25s;
   position: fixed;
   top: 145px;
@@ -44,33 +43,45 @@
     position: relative;
     .mobileSearch {
       position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      width: 86%;
+      margin-left: 20px;
+      margin-right: 20px;
+      width: -webkit-fill-available;
       margin-bottom: 25px;
       img {
         position: absolute;
-        left: 21px;
-        top: 11px;
-        width: 18px;
+        left: 20px;
+        top: 8px;
+        width: 24px;
+        height: 24px;
       }
       input {
-        border: 2px solid #e3e3e3;
+        border: 1.5px solid #e3e3e3;
         background: transparent;
         border-radius: 30px;
-        padding: 10px 20px 9px 60px;
+        padding: 10px 20px 10px 56px;
         width: 100%;
         box-sizing: border-box;
+        height: 40px;
+        color: #FFFFFF;
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 500;
         font-size: 16px;
-        color: #fff;
+        line-height: 20px;
+        caret-color: #FA7C05;
+      }
+      input::placeholder {
+        font-weight: 300;
+        color: rgb(255 255 255 / 40%);
       }
     }
     .mobileScrollSearchResult {
       top: 47px;
-      max-height: 400px;
+      max-height: 274px;
       overflow: auto;
       margin-left: 20px;
-      width: 370px;
+      margin-right: 20px;
+      width: -webkit-fill-available;
       position: absolute;
       z-index: 1;
       border-radius: 10px;
