@@ -38,6 +38,7 @@ function Player(props) {
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
   const [isShow, setIsShow] = useState(false);
   const [isPrevClicked, setIsPrevClicked] = useState(false);
+  const [cdBackground, setCDBackground] = useState(CdImage);
   const [currentSongSrc, setSongSrc] = useState(
     `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
   );
@@ -64,6 +65,10 @@ function Player(props) {
     audioElement.play();
     requestAnimationFrame(updateBar);
   }, [currentPlaylists.length]);
+
+  useEffect(() => {
+    getPlayerBackground();
+  }, [currentPlaylists.length, songIndex, playlistIndex]);
 
   useEffect(() => {
     if (props.showPlayer && audioElement.src) {
@@ -122,6 +127,7 @@ function Player(props) {
       setIsPrevClicked(true);
     }
   };
+
   useEffect(() => {
     if (isPrevClicked) {
       setTimeout(() => {
@@ -174,10 +180,10 @@ function Player(props) {
       backgroundImage = CdImage;
     }
 
-    console.log('[backgroundImage]', backgroundImage)
+    console.log("TEST")
 
-    return backgroundImage
-  }
+    setCDBackground(backgroundImage);
+  };
 
   return (
     props.showPlayer && (
@@ -233,7 +239,7 @@ function Player(props) {
           )}
 
           <div className="player-pull-out-button">
-            <img src={LeftArrowIcon} />
+            <img src={LeftArrowIcon} alt="left" />
           </div>
 
           <div className="progress-bar">
@@ -352,7 +358,7 @@ function Player(props) {
         } */}
         <div
           className="background-blur"
-          style={{ backgroundImage: `url(${getPlayerBackground()})` }}
+          style={{ backgroundImage: `url(${cdBackground})` }}
         />
       </div>
     )
