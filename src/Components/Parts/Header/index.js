@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as nearAPI from "near-api-js";
@@ -12,6 +13,9 @@ import Logo from "../../../assets/images/logo.svg";
 import SearchIcon from "../../../assets/images/search-icon.svg";
 import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
+import DiscoverIcon from "../../../assets/images/discover-icon.svg";
+import AccountIcon from "../../../assets/images/account-icon.svg";
+import StoreIcon from "../../../assets/images/store-icon.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
 import Harrison from "../../../assets/images/harrison.jpeg";
 import Button from "../../Common/Button/index";
@@ -38,7 +42,6 @@ import {
 } from "../../../redux/actions/SearchResAction";
 import "./Header.scss";
 import q from "querystring";
-import { store } from "react-notifications-component";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
@@ -188,33 +191,27 @@ function Header(props) {
     const create = await createWallet();
     if (create.data && create.data.success) {
       localStorage.setItem("amplify_app_token", create.data.token);
-      store.addNotification({
-        title: "Success",
-        message: "NEAR wallet has been created",
-        type: "success",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
+      toast.success("Your NEAR wallet has been created.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
       window.location.reload();
     } else {
-      store.addNotification({
-        title: "Error",
-        message: "Error while creating NEAR wallet",
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
+      toast.error("Error while creating your NEAR wallet.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
     }
   };
@@ -367,6 +364,9 @@ function Header(props) {
         {/* <div className="menu">
           <img src={MenuIcon} alt="Menu Icon" />
         </div> */}
+        <div className="mobile-menu" onClick={toggleMobileMenu}>
+          <img src={MenuIcon} />
+        </div>
         <div className="logo">
           <a href="/">
             <img src={Logo} alt="Amplify.Art" />
@@ -374,8 +374,8 @@ function Header(props) {
         </div>
         {!userToken ? (
           // <div className="nav">
-          //   <a href="http://digiverse.amplify.art" target="__blank" >Digiverse</a>
-          //   <a>Education Portal</a>
+          //   <a>Something</a>
+          //   <a>How it Works</a>
           //   <a>Contact us</a>
           // </div>
           <></>
@@ -385,7 +385,7 @@ function Header(props) {
               <img src={SearchIcon} alt="Search" />
               <input
                 type="text"
-                placeholder="Search for songs, artists..."
+                placeholder="Search for artists, albums or songs"
                 onClick={() => props.showSearchResultFn()}
                 onChange={handleSearch}
                 onKeyDown={handleSubmit}
@@ -427,9 +427,6 @@ function Header(props) {
                   <img src={Wallet} alt="wallet" />
                 </Link>
               </div>
-              <div className="mobile-menu" onClick={toggleMobileMenu}>
-                <img src={MenuIconNew} />
-              </div>
               <div
                 className="user"
                 onClick={() => props.history.push("/my-profile")}
@@ -458,7 +455,7 @@ function Header(props) {
         </div>
       </header>
 
-      {setBreadCrumbs() && (
+      {/* {setBreadCrumbs() && (
         <div className="breadcrumbs left-nav-pad">
           <div className="container">
             <span className="home" onClick={() => props.history.push("/")}>
@@ -467,7 +464,7 @@ function Header(props) {
             / <span className="current">{path && setBreadCrumbs()}</span>
           </div>
         </div>
-      )}
+      )}*/}
 
       {false && (
         <>

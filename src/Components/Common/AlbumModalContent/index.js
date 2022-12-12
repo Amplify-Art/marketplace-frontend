@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
 import playIcon from "../../../assets/images/play_icon.svg";
 import GeneralModal from "../GeneralModal/index.js";
@@ -15,7 +16,6 @@ import { withRouter } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import _ from "lodash";
-import { store } from "react-notifications-component";
 import { getTokens } from "../../../Utils/near";
 
 // songmodal
@@ -140,18 +140,15 @@ function AlbumModalContent({
 
   const addToPlaylist = async (type) => {
     if (props.currentPlaylists.map((i) => i.id).includes(albumInfo.id)) {
-      store.addNotification({
-        title: "Error",
-        message: `this ${type} is already in the queue`,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
+      toast.error(`This ${type} is already in the queue`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
       return;
     }
@@ -337,7 +334,7 @@ function AlbumModalContent({
           type="button"
           className="buy-button bottomButtonSection btn1"
         >
-          Buy This - {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
+          Buy Album for {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
         </button>
       ) : null}
       {!isPlayList && isMerged && (

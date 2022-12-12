@@ -143,15 +143,6 @@ function Header(props) {
         return currentPage;
     }
 
-    const handleSearch = async (e) => {
-        setSearch(e.target.value)
-    }
-    const handleSubmit = (e) => {
-        if (e.target.value && (e.key === 'Enter' || e.keyCode === 13)) {
-            props.searchRes(e.target.value)
-            props.history.push(`/search-result?search=${search}`)
-        }
-    }
     const userToken = localStorage.getItem('amplify_app_token');
 
     let userDetails = {};

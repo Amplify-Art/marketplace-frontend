@@ -19,7 +19,7 @@ function Artists(props) {
   return (
     <div id="artists-page" className="left-nav-pad right-player-pad">
       <div className="containerOuter">
-        <h2 className="page-title">Artists</h2>
+        <h2 className="page-title">All Artists</h2>
         <div className="user-block">
           {artists &&
             artists.length &&

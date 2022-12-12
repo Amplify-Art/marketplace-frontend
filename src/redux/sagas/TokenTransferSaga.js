@@ -54,7 +54,6 @@ export function* addTokenTransferSaga({ history }, { payload }) {
   try {
     yield all([put({ type: SET_OVERLAY_LOADER })]);
     const res = yield call(addTokenTransfer, payload);
-    console.log(res, "RES");
     if (!res.success) {
       throw {
         message: res.message,

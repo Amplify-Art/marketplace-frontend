@@ -43,7 +43,7 @@ export function* addShowcaseSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'Showcase added' : res.message || 'Showcase not added',
+          message: res.success ? 'Album added to showcase' : res.message || 'Showcase not added',
         },
       }),
     ]);
@@ -73,7 +73,7 @@ export function* updateShowcaseSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'Showcase updated' : res.message || 'Showcase not updated',
+          message: res.success ? 'Album removed from showcase' : res.message || 'Showcase not updated',
         },
       }),
     ]);

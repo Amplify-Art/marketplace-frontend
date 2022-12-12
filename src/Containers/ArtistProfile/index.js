@@ -160,4 +160,3 @@ export default connect(state => {
       addFollower: (data) => dispatch(addFollowerAction(data)),
     }
   })(withRouter(ArtistProfile));
-

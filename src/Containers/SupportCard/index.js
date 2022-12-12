@@ -410,7 +410,6 @@ function SupportCard(props) {
         <div className="bal-wrapper">
           <div className="left-wrap">
             <div className="bal-title">Pending Award Balance</div>
-            <button onClick={() => deletePins()}>Delete Pins</button>
             <div className="price">{withdrawableAmount.substring(0, 5)}</div>
             <div className="near">NEAR</div>
             <button className="withdraw-btn" onClick={onWithDrawAmount}>

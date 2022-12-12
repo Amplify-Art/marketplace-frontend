@@ -1,5 +1,5 @@
 
-import CloseIcon from '../../../assets/images/close-icon.svg';
+import RemoveIcon from '../../../assets/images/remove-icon.svg';
 import CdImage from '../../../assets/images/cd-img.svg'
 
 export default function PayerQueue({ currentPlaylists, songIndex, setSongDeletingIndex, playlistIndex }) {
@@ -15,7 +15,7 @@ export default function PayerQueue({ currentPlaylists, songIndex, setSongDeletin
                             <span className="song-title">{cp.title}</span>
                             <span className="album-title">{cp?.songs?.length} {cp?.songs?.length > 1 ? 'songs' : 'song'}</span>
                         </div>
-                        <img src={CloseIcon} className="close" onClick={() => setSongDeletingIndex(playlistIndex)} />
+                        <img src={RemoveIcon} className="close" onClick={() => setSongDeletingIndex(playlistIndex)} />
                     </div>
                 )
             }

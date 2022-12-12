@@ -19,7 +19,7 @@ function SecondaryMarketplace(props) {
         ) : (
           <div>
             <h4 className="large-white center-text">
-              No songs are currently for sale
+              No songs are listed for sale
             </h4>
           </div>
         )}

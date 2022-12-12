@@ -1,20 +1,36 @@
 @import "./assets/SCSS/Vars.scss";
+html{
+  scroll-behavior: smooth;
+}
+
+// note: add max width with margin auto in the body below
 
 body {
-  font-family: $lato;
+  font-family: 'Space Grotesk';
   @media screen and (max-width: 600px) {
     font-family: 'Space Grotesk';
   }
   padding: 0px;
   margin: 0px;
-  background: #0f161d;
-  // background: linear-gradient(166deg, rgba(16,25,32,1) 0%, rgba(45,63,71,1) 100%);
-  min-height: 100vh;
+  // background: #0f161d;
+  background: linear-gradient(180deg, #0C0E16 0%, #2D404B 87.67%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
   box-sizing: border-box;
   padding-left: 53px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     padding-left: 0px;
   }
+}
+
+img {
+   user-select: none;
+   -moz-user-select: none;
+   -webkit-user-drag: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
 }
 
 .hidden {
@@ -27,6 +43,7 @@ body {
 
 button {
   cursor: pointer;
+  font-family: 'Lato';
 }
 
 .containerOuter {
@@ -35,7 +52,8 @@ button {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  margin-top: 40px !important;
+  // margin-top: 40px !important;
+  margin-top: 80px !important;
   @media screen and (max-width: 1660px) {
     // padding-left: 30px;
     // padding-right: 30px
@@ -139,6 +157,7 @@ h2 {
     color: $red;
     font-weight: 300;
     padding: 20px 40px;
+    background-color: transparent;
   }
 
   &.btn-black {
@@ -221,7 +240,8 @@ textarea {
 }
 
 .right-player-pad {
-  padding-right: 150px;
+  // padding-right: 150px;
+  padding-right: 30px;
   @media screen and (max-width: 600px) {
     padding-right: 0px;
   }
@@ -292,12 +312,15 @@ textarea {
 
 .page-title {
   color: #fff;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  font-size: 30px;
+  margin-bottom: 40px;
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 26px;
   @media screen and (max-width: 600px) {
     margin-top: 10px;
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
@@ -317,10 +340,10 @@ textarea {
 }
 
 // TODO: Should move this to some kind of component later
+// Russ smells like popcorn
 .user-block {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 30px;
   .user-avatar {
     @media screen and (max-width: 600px) {

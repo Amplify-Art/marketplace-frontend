@@ -31,23 +31,23 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    // &:after {
-    //   content: "";
-    //   height: 344px;
-    //   @media screen and (max-width: 600px) {
-    //     height: 220px;
-    //   }
-    //   width: 700px;
-    //   background: rgb(15, 22, 29);
-    //   background: linear-gradient(
-    //     90deg,
-    //     rgba(15, 22, 29, 1) 19%,
-    //     rgba(15, 22, 29, 0) 100%
-    //   );
-    //   position: absolute;
-    //   top: 0px;
-    //   left: 0px;
-    // }
+    &:after {
+    content: "";
+    height: 344px;
+    @media screen and (max-width: 600px) {
+         height: 220px;
+       }
+       width: 700px;
+       background: rgb(15, 22, 29);
+      background: linear-gradient(
+         90deg,
+        rgba(15, 22, 29, 1) 19%,
+        rgba(15, 22, 29, 0) 100%
+     );
+      position: absolute;
+      top: 0px;
+     left: 0px;
+     }
 
     &.default {
       background-size: contain;

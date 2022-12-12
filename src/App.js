@@ -9,7 +9,10 @@ import {
 } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
-import "react-notifications-component/dist/theme.css";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import * as playListAction from "./redux/actions/PlaylistAction";
 
 // Containers
@@ -50,7 +53,6 @@ import Player from "./Components/Common/Player/index";
 // Global Loader
 import GloablLoader from "./Components/Common/Loading/index";
 
-import { ReactNotifications, Store } from 'react-notifications-component'
 import {
   showWalletAction,
   hideWalletAction,
@@ -112,7 +114,18 @@ function App(props) {
   return (
     <>
       <GloablLoader>
-        <ReactNotifications />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
         {showLeftSidebar && (

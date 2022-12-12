@@ -17,29 +17,28 @@ import '../../Global.scss';
 function Home() {
   const [homeContent, setHomeContent] = useState({});
 
-  const fetchHomeContent = () => {
-    axios.get('https://cms.amplify.art/home-page').then(res => {
-      setHomeContent(res.data);
-    });
-  }
+  // const fetchHomeContent = () => {
+  //   axios.get('https://cms.amplify.art/home-page').then(res => {
+  //     setHomeContent(res.data);
+  //   });
+  // }
 
-  useEffect(() => {
-    fetchHomeContent();
-  }, [0])
+  // useEffect(() => {
+  //   fetchHomeContent();
+  // }, [0])
   return (
-    <>      
+    <>
       <Banner homeContent={homeContent} />
       <Partners partners={homeContent && homeContent.Partners} />
-      {/* <LatestReleases /> */}
-      {/* <WeAreFor /> */}
-      {/* <WhatPeopleAreSaying /> */}
-      {/* <HowItWorks /> */}
-      {/* <SupportArtists /> */}
-      {/* <TheTech /> */}
-      {/* <TheTeam /> */}
-      {/* <ArtistRegistry /> */}
-      {/* <HowItWorks hideTitle={true} /> */}
-      {/* <ThankYou content={homeContent && homeContent.thank_you_text} /> */}
+      <LatestReleases />
+      <WeAreFor />
+      <WhatPeopleAreSaying />
+      <HowItWorks />
+      <SupportArtists />
+      <TheTech />
+      <TheTeam />
+      <ArtistRegistry />
+      <ThankYou content={homeContent && homeContent.thank_you_text} />
     </>
   );
 }

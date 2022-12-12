@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cropper from "react-cropper";
 import axios from 'axios';
-import { store } from 'react-notifications-component';
 import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
@@ -68,19 +68,16 @@ function ArtistDashboard(props) {
     let mintInfo = JSON.parse(localStorage.getItem('minting_info'))
     if (props.history.location.search.includes('errorCode')) {
       let message = decodeURIComponent(q.parse(props.history.location.search).errorMessage)
-      store.addNotification({
-        title: "Error",
-        message: message,
-        type: "danger",
-        insert: "top",
-        container: "top-left",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true
-        }
-      });
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }); 
 
       props.history.push('/artist-dashboard')
     } else if (props.history.location.search.includes('transactionHashes')) {
@@ -133,7 +130,7 @@ function ArtistDashboard(props) {
       <div className='headerBtn'>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-        <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button>
+        {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
         <button onClick={handleOpenModal}>Mint New Album</button>
       </div>
     )
@@ -165,7 +162,7 @@ function ArtistDashboard(props) {
   const BannerUploaderForm = ({ }) => <div>
     <label htmlFor="albumCover">
       <div className="banner-upload">
-        <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className="banner" className={image ? '' : 'default'} />
+        <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className={image ? 'banner' : 'banner default'} />
       </div>
     </label>
     <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onBannerChange} accept="image/*" />
@@ -340,7 +337,7 @@ function ArtistDashboard(props) {
       {
         props.showMintSuccessModal && <GeneralModal
           topIcon={ConfettiImage}
-          headline="Congrats, Your album is set to release!"
+          headline="Congrats, your album has been listed!"
           buttons={[
             {
               type: 'solid go-home',

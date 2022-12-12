@@ -1,4 +1,6 @@
 import './Partners.scss';
+import NEAR from '../../../assets/images/near.png';
+import Reblock from '../../../assets/images/reblock.png';
 
 function Partners(props) {
   const { partners } = props;
@@ -8,9 +10,8 @@ function Partners(props) {
         <div className="line" />
         <h2>Our Awesome Partners</h2>
         <div className="partner-list">
-          {partners && partners.map((partner, index) => (
-            <div className="partner" key={index}><img src={`https://cms.amplify.art${partner.url}`} alt={partner && partner.alternativeText ? partner.alternativeText : partner.name} /></div>
-          ))}
+          <div className="partner"><img src={NEAR} alt="near" /></div>
+          <div className="partner"><img src={Reblock} alt="reblock" /></div>
         </div>
       </div>
     </div>
