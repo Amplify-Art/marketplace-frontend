@@ -55,11 +55,11 @@ function SearchResultCard(props) {
         className="cardWrapper"
         onClick={() => props.handleClick(contentTypeHeading, rowData)}
       >
-        <div className="imageHolder">
+        <div className={contentTypeHeading === 'Song' ? 'imageHolder no-shadow' : 'imageHolder'}>
           <Image
             className="image"
-            src={cover}
-            alt=""
+            src={contentTypeHeading === 'Song' ? cdCover : cover}
+            alt="result"
             fallbackImage={greyFace}
           />
         </div>
