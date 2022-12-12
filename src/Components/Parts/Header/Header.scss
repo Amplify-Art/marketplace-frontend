@@ -122,7 +122,8 @@ header {
       max-height: 400px;
       overflow: auto;
       margin-left: 30px;
-      width: 718px;
+      max-width: 500px;
+      width: 100%;
       margin-right: 30px;
       position: absolute;
       z-index: 1;
