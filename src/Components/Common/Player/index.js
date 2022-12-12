@@ -129,9 +129,8 @@ function Player(props) {
       }, 600);
     }
   }, [isPrevClicked]);
-  // useEffect(() => {
-  //   audioElement.src = currentSongSrc;
-  // }, [0]);
+  
+  
   useEffect(() => {}, [audioElement.src]);
   const onSongSeek = (e) => {
     if (props.showPlayer) {
@@ -164,6 +163,22 @@ function Player(props) {
     setSongDeletingIndex(null);
   };
 
+  const getPlayerBackground = () => {
+    let backgroundImage;
+    
+    if (currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid) {
+      backgroundImage = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`;
+    } else if (currentPlaylists[playlistIndex]?.cover_cid) {
+      backgroundImage = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.cover_cid}`;
+    } else {
+      backgroundImage = CdImage;
+    }
+
+    console.log('[backgroundImage]', backgroundImage)
+
+    return backgroundImage
+  }
+
   return (
     props.showPlayer && (
       <div
@@ -182,7 +197,7 @@ function Player(props) {
               </Link>
             </div>
             <div className="user">
-              <img src={!avatar ? defaultProfile : avatar} />
+              <img src={!avatar ? defaultProfile : avatar} alt="User" />
             </div>
           </div>
           {props.showPlayer && (
@@ -337,14 +352,7 @@ function Player(props) {
         } */}
         <div
           className="background-blur"
-          style={{
-            backgroundImage: `url(${
-              !currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
-                ?.cover_cid
-                ? CdImage
-                : `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`
-            })`,
-          }}
+          style={{ backgroundImage: `url(${getPlayerBackground()})` }}
         />
       </div>
     )
