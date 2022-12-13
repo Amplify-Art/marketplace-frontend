@@ -151,7 +151,7 @@ function MyProfile(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -201,7 +201,7 @@ function MyProfile(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.sellSongNFT(sellingSong);
     }
@@ -265,7 +265,7 @@ function MyProfile(props) {
       draggable: true,
       progress: undefined,
       theme: "dark",
-    }); 
+    });
     setSharePopup(false);
   };
 
@@ -536,7 +536,7 @@ function MyProfile(props) {
           {props.token_transfers.length ? (
             <div className="recently-purchased">
               <div className="top">
-                <h2>Recently Purchased</h2>
+                <h2>Albums Owned</h2>
                 {/* <button className="btn outlined">View All</button> */}
               </div>
               <div className="container">

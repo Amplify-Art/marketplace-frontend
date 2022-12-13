@@ -258,7 +258,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 30px;
-  row-gap: 53px;
+  row-gap: 50px;
   @media screen and (max-width: 600px) {
     margin-left: 0px !important;
   }
