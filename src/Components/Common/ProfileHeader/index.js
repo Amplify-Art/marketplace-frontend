@@ -90,7 +90,7 @@ function ProfileHeader({
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-regular fa-circle-trash" /></div>}
+                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-sharp fa-solid fa-trash-can" /></div>}
                             <img
                               src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"
@@ -105,7 +105,7 @@ function ProfileHeader({
                           }
                           key={`${i}${j}`}
                         >
-                          {!isPublicProfile && <i className="fal fa-plus" />}
+                          {!isPublicProfile && <i className="fa-sharp fa-solid fa-plus" />}
                         </div>
                       )
                     )}
@@ -159,7 +159,7 @@ function ProfileHeader({
                         showCaseItem ? (
                           <div className="single-album-on-shelf" key={`${i}${j}`}>
                             <div className="single-shelf-album">
-                              <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
+                              <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fa-sharp fa-solid fa-trash-can"></i></div>
                               <img
                                 src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                                 alt="Album"
@@ -174,7 +174,7 @@ function ProfileHeader({
                             }
                             key={`${i}${j}`}
                           >
-                            {!isPublicProfile && <i className="fal fa-plus" />}
+                            {!isPublicProfile && <i className="fa-sharp fa-solid fa-plus" />}
                           </div>
                         )
                       )}

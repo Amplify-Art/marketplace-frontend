@@ -32,8 +32,13 @@ function UserDashboard(props) {
     });
   }, []);
 
-  const renderHeader = (title) => (
-    <div className="album-header">
+  const renderFollowHeader = (title) => (
+    <div className="followed-header">
+      <span className="header-title">{title}</span>
+    </div>
+  );
+  const renderReleaseHeader = (title) => (
+    <div className="release-header">
       <span className="header-title">{title}</span>
     </div>
   );
@@ -69,7 +74,7 @@ function UserDashboard(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -111,7 +116,7 @@ function UserDashboard(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -144,7 +149,7 @@ function UserDashboard(props) {
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
       <div className="containerOuter">
-        {renderHeader("Followed Artists", false)}
+        {renderFollowHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
           <div className="user-block">
             {props?.myFollowings?.map((following, index) => (
@@ -163,7 +168,7 @@ function UserDashboard(props) {
           <h2 className="no-artists">No Followed Artist</h2>
         )}
 
-        {renderHeader("Recently Released", false)}
+        {renderReleaseHeader("Recently Released", false)}
         <div className="container">
           {props?.albums && props.albums?.length ? (
             <div className="album-grid">

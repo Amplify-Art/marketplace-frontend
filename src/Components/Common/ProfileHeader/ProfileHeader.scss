@@ -48,6 +48,23 @@
       top: 0px;
      left: 0px;
      }
+     &:after {
+     content: "";
+     height: 344px;
+     @media screen and (max-width: 600px) {
+          height: 220px;
+        }
+        width: 700px;
+        background: rgb(15, 22, 29);
+       background: linear-gradient(
+          90deg,
+         rgba(15, 22, 29, 1) 19%,
+         rgba(15, 22, 29, 0) 100%
+      );
+       position: absolute;
+       top: 0px;
+      left: 0px;
+      }
 
     &.default {
       background-size: contain;
@@ -239,9 +256,10 @@
         text-align: center;
         i {
           color: #fff;
-          font-size: 30px;
+          font-size: 34px;
           position: relative;
           bottom: 20px;
+          line-height: 25px;
           cursor: pointer;
         }
         .single-shelf-album {
@@ -250,15 +268,17 @@
           height: 93px;
           display: flex;
           position: relative;
-          bottom: -9px;
+          bottom: -12px;
           .deleteShowcase{
             position: absolute;
-            top: 21px;
-            right: 2px;
+            top: 20px;
+            right: 0px;
             display: none;
             i{
               font-size:20px;
               color: #fff;
+              background-color: rgba(0, 0, 0, 0.65);
+              padding: 5px;
             }
           }
           &:hover{
