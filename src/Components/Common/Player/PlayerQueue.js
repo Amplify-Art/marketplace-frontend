@@ -7,7 +7,6 @@ export default function PayerQueue({
   setSongDeletingIndex,
   playlistIndex,
 }) {
-  console.log('[playlistIndex]', playlistIndex)
   return (
     <div className="queue">
       <span className="count">
@@ -17,22 +16,23 @@ export default function PayerQueue({
       <div className="queue-items">
         {currentPlaylists.map((cp, i) => {
           return (
-          <div className="queue-item">
-            <img src={CdImage} alt="Album" />
-            <div className="title">
-              <span className="song-title">{cp.title}</span>
-              <span className="album-title">
-                {cp?.songs?.length} {cp?.songs?.length > 1 ? "songs" : "song"}
-              </span>
+            <div className="queue-item" key={i}>
+              <img src={CdImage} alt="Album" />
+              <div className="title">
+                <span className="song-title">{cp.title}</span>
+                <span className="album-title">
+                  {cp?.songs?.length} {cp?.songs?.length > 1 ? "songs" : "song"}
+                </span>
+              </div>
+              <img
+                src={RemoveIcon}
+                className="close"
+                onClick={() => setSongDeletingIndex(i)}
+                alt="Remove"
+              />
             </div>
-            <img
-              src={RemoveIcon}
-              className="close"
-              onClick={() => setSongDeletingIndex(i)}
-              alt="Remove"
-            />
-          </div>
-        )})}
+          )
+        })}
       </div>
     </div>
   );

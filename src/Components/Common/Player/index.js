@@ -4,21 +4,18 @@ import "./Player.scss";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import PayerQueue from "./PlayerQueue";
+
 // Player Icons
 import NextSongIcon from "../../../assets/images/next.svg";
 import PrevSongIcon from "../../../assets/images/prev.svg";
 import LeftArrowIcon from "../../../assets/images/left-arrow.svg";
-import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
 import CdImage from "../../../assets/images/cd-img.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
+
 import { updateCurrentPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
-import GeneralModal from "../GeneralModal/index.js";
 import defaultProfile from "../../../assets/images/default-profile.jpg";
-
-// Cover import (This will be dynamic)
-import DefaultCover from "../../../assets/images/cd-img.svg";
 
 const audioElement = new Audio();
 
@@ -32,7 +29,7 @@ function Player(props) {
   const { avatar, toggleWalletSidebar, currentPlaylists, showWallet } = props;
 
   const [isPlaying, togglePlay] = useState(false);
-  const [songProgress, setSongProgress] = useState(0);
+  const [songProgress, setSongProgress] = useState(50);
   const [songIndex, setSongIndex] = useState(0);
   const [playlistIndex, setPlaylistIndex] = useState(0);
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
@@ -53,6 +50,7 @@ function Player(props) {
     } else {
       audioElement.play();
       requestAnimationFrame(updateBar);
+      // updateBar();
     }
   };
 
@@ -83,8 +81,16 @@ function Player(props) {
   };
 
   const updateBar = () => {
-    setSongProgress(audioElement.currentTime);
-    requestAnimationFrame(updateBar);
+    // `${
+    //   audioElement.duration
+    //     ? (audioElement.currentTime / audioElement.duration) *
+    //       100
+    //     : 0
+    // }%`
+    // setSongProgress(audioElement.currentTime);
+    // requestAnimationFrame(updateBar);
+
+    setSongProgress((audioElement.currentTime / audioElement.duration) * 100);
   };
 
   const nextSong = () => {
@@ -108,6 +114,7 @@ function Player(props) {
     audioElement.currentTime = 0;
     if (isPlaying) {
       audioElement.play();
+      // updateBar();
       requestAnimationFrame(updateBar);
     }
   };
@@ -137,7 +144,8 @@ function Player(props) {
   }, [isPrevClicked]);
   
   
-  useEffect(() => {}, [audioElement.src]);
+  // useEffect(() => {}, [audioElement.src]);
+  
   const onSongSeek = (e) => {
     if (props.showPlayer) {
       audioElement.currentTime =
@@ -151,23 +159,6 @@ function Player(props) {
         playBar.current.getBoundingClientRect().height;
     }
   };
-  const handleCloseModal = (bool) => {
-    if (bool) {
-      props.updateCurrentPlaylist(
-        currentPlaylists.filter((f, i) => i !== songDeletingIndex)
-      );
-      sessionStorage.setItem(
-        "activePlaylist",
-        JSON.stringify(
-          currentPlaylists.filter((f, i) => i !== songDeletingIndex)
-        )
-      );
-      if (songDeletingIndex === songIndex) {
-        audioElement.pause();
-      }
-    }
-    setSongDeletingIndex(null);
-  };
 
   const getPlayerBackground = () => {
     let backgroundImage;
@@ -180,10 +171,10 @@ function Player(props) {
       backgroundImage = CdImage;
     }
 
-    console.log("TEST")
-
     setCDBackground(backgroundImage);
   };
+
+  console.log('TESTING123')
 
   return (
     props.showPlayer && (
@@ -232,7 +223,6 @@ function Player(props) {
                   <h5 className="album-title">
                     {currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}
                   </h5>
-                  {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
                 </div>
               </div>
             </div>
@@ -248,12 +238,7 @@ function Player(props) {
                 <div
                   className="completed"
                   style={{
-                    width: `${
-                      audioElement.duration
-                        ? (audioElement.currentTime / audioElement.duration) *
-                          100
-                        : 0
-                    }%`,
+                    width: songProgress + "%",
                     height: "100%",
                   }}
                 />
@@ -319,23 +304,19 @@ function Player(props) {
           )}
           {!props.showPlayer && (
             <div className="album-info">
-              <div className="cover">
-                {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
-              </div>
+              <div className="cover" />
               <div className="details">
                 <div className="rotate">
                   <h5 className="album-title">
                     {currentPlaylists[songIndex]?.title}
                   </h5>
-                  {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
                 </div>
               </div>
             </div>
           )}
         </div>
-        {songDeletingIndex !== null && (
+        {/* {songDeletingIndex !== null && (
           <GeneralModal
-            // topIcon={ConfettiImage}
             headline="Remove playlist from queue?"
             buttons={[
               {
@@ -351,11 +332,7 @@ function Player(props) {
             ]}
             className="centered"
           />
-        )}
-        {/* If album is owned, show cover here, else use blank CD */}
-        {/* {
-            <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} />
-        } */}
+        )} */}
         <div
           className="background-blur"
           style={{ backgroundImage: `url(${cdBackground})` }}
