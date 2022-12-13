@@ -65,13 +65,15 @@
     flex-direction: column-reverse;
     align-items: center;
     .cover {
-      width: 60px;
-      height: 60px;
+      // width: 60px;
+      // height: 60px;
       overflow: hidden;
       img {
         transform: rotate(-90deg);
-        height: 310px;
-        width: 310px;
+        width: 30vh;
+        height: 30vh;
+        max-height: 310px;
+        max-width: 310px;
       }
     }
 

@@ -14,9 +14,11 @@ export default function PayerQueue({
       </span>
       <h4>Album Queue</h4>
       <div className="queue-items">
-        {currentPlaylists.map((cp) => (
+        {currentPlaylists.map((cp) => {
+          console.log('CP', cp.songs[songIndex])
+          return (
           <div className="queue-item">
-            <img src={`https://gateway.pinata.cloud/ipfs/${cp.cover_cid}`} alt="Album" />
+            <img src={CdImage} alt="Album" />
             <div className="title">
               <span className="song-title">{cp.title}</span>
               <span className="album-title">
@@ -30,7 +32,7 @@ export default function PayerQueue({
               alt="Remove"
             />
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );
