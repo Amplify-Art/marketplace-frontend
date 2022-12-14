@@ -79,7 +79,7 @@ function TheTeam() {
     <div id="the-team">
       <div className="container">
         <div className="line" />
-        <h2>The Team and Supporters</h2>
+        <h2>Our Team and Supporters</h2>
         <div className="team-list">
           {theTeam.map(member => (
             <a href={member.profile_link}>

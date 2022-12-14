@@ -508,31 +508,6 @@ function MyProfile(props) {
       />
       {!isPublicProfile && (
         <>
-          {renderHeader(
-            `Playlists - ${props.playlists ? props.playlists.length : "0"}`,
-            true
-          )}
-
-          {props.playlists && props.playlists.length > 0 ? (
-            <div className="container">
-              <div className="album-grid">
-                {props.playlists.map((album, index) => (
-                  <SingleAlbum
-                    key={index}
-                    albumInfo={{ ...album, hideSticker: true }}
-                    isMint={false}
-                    isPlayList
-                    setDeletingId={setDeletingId}
-                    onSingleSongClick={(song) => onSingleSongClick(song, index)}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="no-records">
-              <h5>No playlists found</h5>
-            </div>
-          )}
           {props.token_transfers.length ? (
             <div className="recently-purchased">
               <div className="top">
@@ -567,6 +542,31 @@ function MyProfile(props) {
           ) : !props.loading ? (
             <h4 className="large-white center-text">No items to show</h4>
           ) : null}
+          {renderHeader(
+            `Custom Playlists - ${props.playlists ? props.playlists.length : "0"}`,
+            true
+          )}
+
+          {props.playlists && props.playlists.length > 0 ? (
+            <div className="container">
+              <div className="album-grid">
+                {props.playlists.map((album, index) => (
+                  <SingleAlbum
+                    key={index}
+                    albumInfo={{ ...album, hideSticker: true }}
+                    isMint={false}
+                    isPlayList
+                    setDeletingId={setDeletingId}
+                    onSingleSongClick={(song) => onSingleSongClick(song, index)}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="no-records">
+              <h5>No playlists found</h5>
+            </div>
+          )}
         </>
       )}
       {props.displaySellModal && (
