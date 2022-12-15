@@ -12,7 +12,7 @@ export default function PayerQueue({
       <span className="count">
         Song {songIndex + 1}/{currentPlaylists[playlistIndex]?.songs?.length}
       </span>
-      <h4>Album Queue</h4>
+      <h4>Music Queue</h4>
       <div className="queue-items">
         {currentPlaylists.map((cp, i) => {
           return (

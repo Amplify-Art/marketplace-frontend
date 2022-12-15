@@ -45,6 +45,9 @@
       width: -webkit-fill-available;
       justify-content: flex-end;
       margin-right: 37px;
+      @media screen and (max-width: 650px) {
+        margin-right: 20px;
+      }
       .bell {
         margin-right: 24px;
         cursor: pointer;

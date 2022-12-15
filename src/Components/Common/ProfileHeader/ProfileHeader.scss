@@ -154,6 +154,7 @@
       }
       @media screen and (max-width: 650px) {
         font-size: 30px;
+        transform: none;
       }
       color: #ffffff;
       display: flex;
@@ -198,6 +199,12 @@
     @media screen and (max-width: 650px) {
       transform: translateY(-30px);
     }
+    .react-share__ShareButton{
+      min-height: inherit;
+      span {
+        display: block;
+      }
+    }
     button {
       background: #ffffff;
       color: black;
@@ -212,6 +219,11 @@
       padding: 15px 30px;
       line-height: 19px;
       min-width: 140px;
+      min-height: 49px;
+      @media screen and (max-width: 400px) {
+            min-width: unset;
+            padding: 15px 15px;
+      }
       @media screen and (max-width: 650px) {
         width: 100%;
       }
@@ -248,6 +260,8 @@
   position: absolute;
   bottom: 60px;
   z-index: 5;
+  transition: transform 0.1s ease-out 0s;
+  will-change: transform;
   @media screen and (max-width: 1280px) {
     bottom: 100px;
   }
@@ -262,6 +276,9 @@
     margin-right: auto;
   }
   width: 400px;
+  @media screen and (max-width: 450px) {
+    transform: scale(0.80);
+  }
   .single-shelf {
     &:first-child {
       margin-bottom: 50px;

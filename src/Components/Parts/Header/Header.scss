@@ -52,11 +52,21 @@ header {
       max-width: unset !important;
       overflow: hidden;
     }
+    @media screen and (max-width: 440px) {
+      width: 40px;
+      max-width: unset !important;
+      overflow: hidden;
+    }
   }
+
 
   .logo a img {
     @media (min-width:650px) and (max-width:800px) {
       max-width: fit-content;
+    }
+    @media screen and (max-width: 440px) {
+      max-width: fit-content;
+      height: 24px;
     }
   }
 

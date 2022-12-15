@@ -320,14 +320,14 @@ function MyProfile(props) {
                 className="set_name"
                 onClick={() => setSharePopup(!openSharePopup)}
               >
-                <img src={ShareIcon} alt="Twitter" /> Share
+                <img src={ShareIcon} alt="Twitter" /> <span>Share</span>
               </button>
               <button
                 className="edit-profile"
                 onClick={() => props.history.push("/settings")}
               >
                 {" "}
-                Edit Profile
+                <span>Edit Profile</span>
               </button>
               <button style={{ width: 0, height: 0, display: "none" }}></button>
             </>
