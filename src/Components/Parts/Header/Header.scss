@@ -61,11 +61,10 @@ header {
   }
 
   @media screen and (max-width: 650px) {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 16px;
+    padding: 16px 20px;
     position: fixed;
     top: 0;
+    background-color: #0f161d;
   }
   .mobile-menu {
     display: none;
@@ -165,7 +164,7 @@ header {
       height: 24px;
       flex: none;
       @media screen and (max-width: 492px) {
-        display: none;
+        // display: none;
       }
     }
 
