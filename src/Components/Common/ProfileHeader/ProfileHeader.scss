@@ -3,25 +3,33 @@
 #profile-header {
   // height: 344px;
   .container {
-    margin-top: -45px;
+    margin-top: -140px;
     position: relative;
     z-index: 8;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       margin-top: 0px;
     }
-    @media screen and (max-width: 1220px) {
-      flex-direction: column;
-      gap: 30px;
-      align-items: baseline;
+    @media screen and (max-width: 1280px) {
+      margin-top: -110px;
+    }
+    @media screen and (max-width: 950px) {
+      margin-top: -65px;
     }
   }
   .profile-cover {
     margin-left: -220px;
     margin-right: -60px;
-    height: 344px;
+    height: 340px;
     width: 100vw;
-    @media screen and (max-width: 600px) {
-      height: 220px;
+    @media screen and (max-width: 1280px) {
+      height: 400px;
+      width: 100vw;
+    }
+    // @media screen and (max-width: 950px) {
+    //   height: 440px;
+    // }
+    @media screen and (max-width: 650px) {
+      height: 440px;
       width: 100vw;
       margin-left: 0px;
       margin-right: 0px;
@@ -34,7 +42,7 @@
     &:after {
     content: "";
     height: 344px;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
          height: 220px;
        }
        width: 700px;
@@ -50,9 +58,14 @@
      }
      &:after {
      content: "";
-     height: 344px;
-     @media screen and (max-width: 600px) {
-          height: 220px;
+     @media screen and (max-width: 1280px) {
+          height: 400px;
+        }
+        // @media screen and (max-width: 950px) {
+        //   height: 440px;
+        // }
+        @media screen and (max-width: 650px) {
+          height: 440px;
         }
         width: 700px;
         background: rgb(15, 22, 29);
@@ -73,18 +86,24 @@
     }
   }
   .profile-head-details {
-    margin-top: -90px;
-    @media screen and (max-width: 600px) {
-      margin-top: -80px;
+    // margin-top: -90px;
+    @media screen and (max-width: 650px) {
+      // margin-top: -80px;
     }
     display: flex;
     align-items: center;
     justify-content: space-between;
     .profile-wrap {
       display: flex;
+      @media screen and (max-width: 950px) {
+            display: block;
+      }
       flex-wrap: wrap;
       gap: 50px;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1280px) {
+        gap: 30px;
+      }
+      @media screen and (max-width: 650px) {
         gap: 15px;
         justify-content: space-between;
       }
@@ -94,9 +113,17 @@
     .profile-image {
       width: 180px;
       height: 180px;
-      @media screen and (max-width: 600px) {
-        width: 80px;
-        height: 80px;
+      @media screen and (max-width: 1280px) {
+        width: 140px;
+        height: 140px;
+      }
+      @media screen and (max-width: 950px) {
+        width: 120px;
+        height: 120px;
+      }
+      @media screen and (max-width: 650px) {
+        width: 100px;
+        height: 100px;
       }
       border-radius: 50%;
       overflow: hidden;
@@ -104,9 +131,17 @@
       .profilePic {
         width: 180px;
         height: 180px;
-        @media screen and (max-width: 600px) {
-          width: 80px;
-          height: 80px;
+        @media screen and (max-width: 1280px) {
+          width: 140px;
+          height: 140px;
+        }
+        @media screen and (max-width: 950px) {
+          width: 120px;
+          height: 120px;
+        }
+        @media screen and (max-width: 650px) {
+          width: 100px;
+          height: 100px;
         }
         background-position: center center;
         background-repeat: no-repeat;
@@ -120,15 +155,19 @@
 
     .details {
       // margin-left: 25px;
-      align-self: center;
       font-family: $space;
       font-style: normal;
-      font-weight: normal;
       font-size: 32px;
       font-weight: 300;
-      margin-bottom: 20px;
-      @media screen and (max-width: 600px) {
-        font-size: 20px;
+      margin-top: 55px;
+      @media screen and (max-width: 1280px) {
+      margin-top: 30px;
+      }
+      @media screen and (max-width: 800px) {
+      transform: translateY(20px);
+      }
+      @media screen and (max-width: 650px) {
+        font-size: 30px;
       }
       color: #ffffff;
       display: flex;
@@ -137,11 +176,11 @@
       .no_of_songs {
         font-size: 20px;
         text-align: left;
-        @media screen and (max-width: 600px) {
-          font-size: 15px;
+        @media screen and (max-width: 650px) {
+          font-size: 17px;
         }
       }
-      // @media screen and (max-width: 600px) {
+      // @media screen and (max-width: 650px) {
       //   display: none;
       // }
       h3 {
@@ -164,11 +203,23 @@
     // display: flex;
     gap: 30px;
     cursor: pointer;
-    margin-bottom: 10px;
-    @media screen and (max-width: 600px) {
-      flex-direction: column;
-      width: 200px;
-      margin-top: auto;
+    align-self: flex-end;
+    margin-bottom: 22px;
+    @media screen and (max-width: 1280px) {
+      margin-bottom: 15px;
+    }
+    @media screen and (max-width: 1020px) {
+      margin-bottom: 0px;
+      transform: translateY(34px);
+    }
+    @media screen and (max-width: 950px) {
+      align-self: unset;
+      transform: translateY(-25.5px);
+    }
+    @media screen and (max-width: 650px) {
+      // flex-direction: column;
+      // width: 200px;
+      // margin-top: auto;
     }
     button {
       background: #ffffff;
@@ -184,22 +235,23 @@
       // margin-right: 20px;
       padding: 15px 30px;
       line-height: 19px;
-      @media screen and (max-width: 600px) {
+      min-width: 140px;
+      @media screen and (max-width: 650px) {
         width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        text-align: center;
-        justify-content: center;
+        // padding: 10px;
+        // font-size: 14px;
+        // text-align: center;
+        // justify-content: center;
       }
       &:last-child {
         margin-right: 0px;
-        @media screen and (max-width: 600px) {
-          margin-top: -15px;
+        @media screen and (max-width: 650px) {
+          // margin-top: -15px;
         }
       }
 
       &:first-child {
-        margin-left: auto;
+        // margin-left: auto;
       }
       img {
         // margin-left: 10px;
@@ -209,10 +261,10 @@
   }
 
   .details {
-    &.mobile {
-      display: none;
-    }
-    @media screen and (max-width: 600px) {
+    // &.mobile {
+    //   display: none;
+    // }
+    @media screen and (max-width: 650px) {
       &.mobile {
         margin-left: 20px;
         display: flex;
@@ -234,11 +286,20 @@
 .shelves {
   position: absolute;
   bottom: 60px;
-  @media screen and (max-width: 1220px) {
-    bottom: 8px;
-    display: none;
+  z-index: 5;
+  @media screen and (max-width: 1280px) {
+    bottom: 100px;
   }
-  right: 110px;
+  right: 85px;
+  @media screen and (max-width: 800px) {
+    right: 31px;
+  }
+  @media screen and (max-width: 650px) {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
   width: 400px;
   .single-shelf {
     &:first-child {
@@ -295,11 +356,26 @@
 }
 
 .shelvesMobile {
-  width: 100%;
-  max-width: 400px;
-  display: none;
-  @media screen and (max-width: 1220px) {
-    bottom: 8px;
+    width: 100%;
+    max-width: 400px;
+    display: none;
+    position: absolute;
+    top: 170px;
+    z-index: 2;
+    right: 37px;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+      max-width: 400px;
+      display: none;
+      position: absolute;
+      top: 80px;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  @media screen and (max-width: 1280px) {
     display: block;
   }
   .single-shelf {
@@ -318,16 +394,17 @@
         text-align: center;
         i {
           color: #fff;
-          font-size: 30px;
+          font-size: 34px;
           position: relative;
           bottom: 20px;
+          line-height: 25px;
           cursor: pointer;
         }
 
         .single-shelf-album {
           overflow: hidden;
-          width: 70px;
-          height: 70px;
+          width: 93px;
+          height: 93px;
           display: flex;
           position: relative;
           bottom: -9px;
@@ -348,16 +425,16 @@
   }
 }
 
-.mobileShow{
-  display: none !important;
-  @media screen and (max-width: 600px) {
-    display: flex !important;
-    margin-right: 10px;
-  }
-}
-.mobileHide{
-  display: flex !important;
-  @media screen and (max-width: 600px) {
-    display: none !important;
-  }
-}
+// .mobileShow{
+//   display: none !important;
+//   @media screen and (max-width: 650px) {
+//     display: flex !important;
+//     margin-right: 10px;
+//   }
+// }
+// .mobileHide{
+//   display: flex !important;
+//   @media screen and (max-width: 650px) {
+//     display: none !important;
+//   }
+// }

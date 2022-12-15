@@ -132,7 +132,6 @@ function ProfileHeader({
                 }}
               />
             </div>
-            <div className="btn-wrap mobileShow">{btnContent}</div>
 
             <div className="details">
               <span>{ArtistData.name || ArtistData.near_account_id}</span>
@@ -144,46 +143,7 @@ function ProfileHeader({
             </div>
           </div>
         </div>
-        <div className="btn-wrap mobileHide">{btnContent}</div>
-        {
-          showShowcase && !showShowcase === false && (
-            <div className="shelvesMobile">
-              {showcases &&
-                _.chunk(
-                  [...showcases, ...new Array(6 - showcases.length).fill(null)],
-                  3
-                ).map((row, i) => (
-                  <div className="single-shelf" key={i}>
-                    <div className="albums-on-shelf">
-                      {row.map((showCaseItem, j) =>
-                        showCaseItem ? (
-                          <div className="single-album-on-shelf" key={`${i}${j}`}>
-                            <div className="single-shelf-album">
-                              <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fa-sharp fa-solid fa-trash-can"></i></div>
-                              <img
-                                src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
-                                alt="Album"
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div
-                            className="single-album-on-shelf"
-                            onClick={() =>
-                              toggleShowCaseModal(!showShowCaseModal)
-                            }
-                            key={`${i}${j}`}
-                          >
-                            {!isPublicProfile && <i className="fa-sharp fa-solid fa-plus" />}
-                          </div>
-                        )
-                      )}
-                    </div>
-                    <img src={Shelf} alt="shelf" />
-                  </div>
-                ))}
-            </div>
-          )}
+        <div className="btn-wrap">{btnContent}</div>
       </div>
 
       {

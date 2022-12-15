@@ -7,7 +7,7 @@ html{
 
 body {
   font-family: 'Space Grotesk';
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     font-family: 'Space Grotesk';
   }
   padding: 0px;
@@ -60,14 +60,14 @@ button {
     box-sizing: border-box;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     width: 100%;
     padding: 20px;
   }
   &.small {
     width: 1480px;
     @media screen and (max-width: 1660px) {
-      width: 1600px;
+      width: 1650px;
     }
   }
 }
@@ -84,14 +84,14 @@ button {
     box-sizing: border-box;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     width: 100%;
     padding: 20px;
   }
   &.small {
     width: 1480px;
     @media screen and (max-width: 1660px) {
-      width: 1600px;
+      width: 1650px;
     }
   }
 }
@@ -165,7 +165,7 @@ h2 {
     text-decoration: none;
     font-size: 20px;
     color: #fff;
-    font-weight: 600;
+    font-weight: 650;
     padding: 10px 20px;
   }
 }
@@ -226,7 +226,7 @@ textarea {
     width: 400px;
     // overflow: auto;
     max-height: 70vh;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       width: 335px;
     }
   }
@@ -234,7 +234,7 @@ textarea {
 
 .left-nav-pad {
   padding-left: 220px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding-left: 0px;
   }
 }
@@ -242,14 +242,14 @@ textarea {
 .right-player-pad {
   // padding-right: 150px;
   padding-right: 30px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding-right: 0px;
   }
 }
 
 .normal-right-pad {
   padding-right: 60px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding-right: 0px;
   }
 }
@@ -259,7 +259,7 @@ textarea {
   grid-template-columns: repeat(5, 1fr);
   column-gap: 30px;
   row-gap: 50px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     margin-left: 0px !important;
   }
   @media screen and (max-width: 1830px) {
@@ -318,7 +318,7 @@ textarea {
   font-weight: 300;
   font-size: 20px;
   line-height: 26px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     margin-top: 10px;
     font-size: 20px;
   }
@@ -334,7 +334,7 @@ textarea {
   color: #fff;
   font-size: 30px;
   padding: 30px 300px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding: 0px;
   }
 }
@@ -350,7 +350,7 @@ textarea {
   padding-left: 5px;
     }
   .user-avatar {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       width: calc(50% - 15px);
       .avatar {
         width: 40vw;
