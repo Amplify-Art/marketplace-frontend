@@ -260,7 +260,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 30px;
-  row-gap: 50px;
+  row-gap: 30px;
   @media screen and (max-width: 650px) {
     margin-left: 0px !important;
   }
@@ -274,12 +274,12 @@ textarea {
 
   @media screen and (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 10px;
+    row-gap: 30px;
   }
 
   @media screen and (max-width: 320px) {
     grid-template-columns: repeat(1, 1fr);
-    row-gap: 10px;
+    row-gap: 30px;
     place-items: center;
   }
 }
