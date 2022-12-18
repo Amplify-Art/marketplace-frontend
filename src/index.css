@@ -1,9 +1,1 @@
-@font-face {
-    font-family: 'Steelfish';
-    src:url('./fonts/steelfish/Steelfish.ttf.woff') format('woff'),
-        url('./fonts/steelfish/Steelfish.ttf.svg#Steelfish') format('svg'),
-        url('./fonts/steelfish/Steelfish.ttf.eot'),
-        url('./fonts/steelfish/Steelfish.ttf.eot?#iefix') format('embedded-opentype');
-    font-weight: normal;
-    font-style: normal;
-}
+
