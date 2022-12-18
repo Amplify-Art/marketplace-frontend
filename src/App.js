@@ -15,6 +15,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import * as playListAction from "./redux/actions/PlaylistAction";
 
+// stylesheet
+import "./index.css";
+
+// not google fonts
+import "./fonts/steelfish/Steelfish.ttf.woff";
+import "./fonts/steelfish/Steelfish.ttf.svg";
+import "./fonts/steelfish/Steelfish.ttf.eot";
+import "./fonts/steelfish/Steelfish.ttf.eot";
+
 // Containers
 import Header from "./Components/Parts/Header/index";
 import Home from "./Containers/Home/index";
