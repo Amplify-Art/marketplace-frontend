@@ -107,7 +107,7 @@ function SingleAlbum(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -149,7 +149,7 @@ function SingleAlbum(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -258,12 +258,7 @@ function SingleAlbum(props) {
               background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
             }}
           >
-            <div className="sup pos-tl"></div>
-            <div className="sup pos-tr"></div>
-            <div className="sup pos-bl"></div>
-            <div className="sup pos-br"></div>
           </div>
-          <div className="spine"></div>
           {showSticker && (
             <div
               className={`mint-sticker ${
