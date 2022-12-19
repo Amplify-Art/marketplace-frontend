@@ -225,25 +225,8 @@ function MainSideNav(props) {
       </ul>      
     );
 
-    const loggedOutMenu = (
-      <ul>
-        <li className="nav-header discover-icon">Discover</li>
-        <li>
-          <a href="/">Im</a>
-        </li>
-        <li className="nav-header discover-icon">Discover</li>
-        <li>
-          <a href="/">Logged</a>
-        </li>
-        <li className="nav-header discover-icon">Discover</li>
-        <li>
-          <a href="/">Out</a>
-        </li>
-      </ul>      
-    );
-
     if (showLoggedInSidebar) return loggedInMenu;
-    else return loggedOutMenu;
+    else return;
   }
 
   return (

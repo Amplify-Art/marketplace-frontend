@@ -8,16 +8,10 @@ import jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
 import { createWallet } from "../../../Api/Near";
 import MenuIcon from "../../../assets/images/menu-icon.svg";
-import MenuIconNew from "../../../assets/images/menu-icon-new.svg";
 import Logo from "../../../assets/images/logo.svg";
 import SearchIcon from "../../../assets/images/search-icon.svg";
-import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
-import DiscoverIcon from "../../../assets/images/discover-icon.svg";
-import AccountIcon from "../../../assets/images/account-icon.svg";
-import StoreIcon from "../../../assets/images/store-icon.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
-import Harrison from "../../../assets/images/harrison.jpeg";
 import Button from "../../Common/Button/index";
 import useDebounce from "../../Common/UseDebounce";
 import SearchResultCard from "../SearchResultCard";
@@ -241,6 +235,9 @@ function Header(props) {
         break;
       case "/transaction-list":
         currentPage = "Transactions";
+        break;
+      default:
+        currentPage = "Home";
     }
     return currentPage;
   };
@@ -358,6 +355,7 @@ function Header(props) {
     }
     return false;
   };
+  console.log('[PROPS DEBUG]', props)
   return (
     <>
       <header>
@@ -369,43 +367,48 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {/* <div className="nav">
-          <a href="/">Something</a>
-          <a href="/">How it Works</a>
-          <a href="/">Contact us</a>
-        </div> */}
-          <div ref={wrapperRef} className="searchWrapper">
-            <div className="search">
-              <img src={SearchIcon} alt="Search" />
-              <input
-                type="text"
-                placeholder="Search for artists, albums or songs"
-                onClick={() => props.showSearchResultFn()}
-                onChange={handleSearch}
-                onKeyDown={handleSubmit}
-                value={search}
-              />
-            </div>
-            {search.trim() !== "" && props.showSearchResult && (
-              <div
-                className={`scrollSearchResult ${
-                  hasData() && !searchLoading ? "p-0" : ""
-                }`}
-              >
-                {searchLoading
-                  ? "Loading..." // TODO: can add any animation
-                  : searchResult &&
-                    searchResult.results &&
-                    searchResult.results.length && (
-                      <SearchResultCard
-                        handleClick={(type, data) =>
-                          handleSearchClicked(type, data)
-                        }
-                      />
-                    )}
-              </div>
-            )}
+        {
+          (props && props.showLoggedInSidebar === false) && /* Check if the user is on the home page */
+          (!props.showMobileMenu === true) && /* Check if the menu icon has been clicked */
+        ( /* If both conditions are true, show the mobile menu */
+          <div className="nav">
+            <a href="/">Something</a>
+            <a href="/">How it Works</a>
+            <a href="/">Contact us</a>
           </div>
+        )}
+        <div ref={wrapperRef} className="searchWrapper">
+          <div className="search">
+            <img src={SearchIcon} alt="Search" />
+            <input
+              type="text"
+              placeholder="Search for artists, albums or songs"
+              onClick={() => props.showSearchResultFn()}
+              onChange={handleSearch}
+              onKeyDown={handleSubmit}
+              value={search}
+            />
+          </div>
+          {search.trim() !== "" && props.showSearchResult && (
+            <div
+              className={`scrollSearchResult ${
+                hasData() && !searchLoading ? "p-0" : ""
+              }`}
+            >
+              {searchLoading
+                ? "Loading..." // TODO: can add any animation
+                : searchResult &&
+                  searchResult.results &&
+                  searchResult.results.length && (
+                    <SearchResultCard
+                      handleClick={(type, data) =>
+                        handleSearchClicked(type, data)
+                      }
+                    />
+                  )}
+            </div>
+          )}
+        </div>
         <div className="right">
           {userToken ? (
             <>
@@ -537,6 +540,7 @@ export default connect(
   (state) => {
     return {
       showWalletSidebar: state.global.showWallet,
+      showMobileMenu: state.global.mobileMenu,
       searchResult: state.searchRes.searchResult,
       searchLoading: state.searchRes.loading,
       wallet: state.global.wallet,
@@ -550,7 +554,7 @@ export default connect(
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       sendNotificationAction: (payload) =>
-        dispatch(sendNotificationAction(payload)),
+      dispatch(sendNotificationAction(payload)),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
       setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
       setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
