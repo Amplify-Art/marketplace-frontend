@@ -11,7 +11,7 @@ const Login = ({ history, onConnect }) => {
     }
   }, [])
   return <div className="login">
-    <p href="#" onClick={onConnect}><img src={NearLogo} /><span>Login with NEAR</span></p>
+    <p href="#" onClick={onConnect}><img src={NearLogo} /><span>Login</span></p>
   </div >
 }
 export default withRouter(Login)
