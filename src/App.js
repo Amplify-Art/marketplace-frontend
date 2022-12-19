@@ -130,14 +130,11 @@ function App(props) {
         />
         <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar ? (
-          <MainSideNav
-            toggleWalletSidebar={toggleWalletSidebar}
-            showMobileMenu={props.showMobileMenu}
-          />
-        ) : (
-          <h1>Show me instead!!!</h1>
-        )}
+        <MainSideNav
+          toggleWalletSidebar={toggleWalletSidebar}
+          showMobileMenu={props.showMobileMenu}
+          showLoggedInSidebar={showLeftSidebar}
+        />
         <Switch>
           <Route
             path="/"
