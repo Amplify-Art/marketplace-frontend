@@ -297,7 +297,7 @@ export default connect(
   (dispatch) => {
     return {
       clearCurrentPlayList: () =>
-        dispatch(playListAction.clearCurrentPlayList()),
+      dispatch(playListAction.clearCurrentPlayList()),
       toggleNominate: (data) => dispatch(toggleNominate(data)),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),

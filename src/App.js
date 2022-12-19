@@ -83,6 +83,8 @@ function App(props) {
 
   useEffect(() => {
     if (!path) return;
+    // If not one of these pages, then dont show the sidebat
+    // TODO: use this logic to render a sidebar for non logged in users
     if (!["/", "/auth/login"].includes(path)) {
       toggleLeftSidebar(true);
     } else {
@@ -128,11 +130,13 @@ function App(props) {
         />
         <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
         <SideSocialNav />
-        {showLeftSidebar && (
+        {showLeftSidebar ? (
           <MainSideNav
             toggleWalletSidebar={toggleWalletSidebar}
             showMobileMenu={props.showMobileMenu}
           />
+        ) : (
+          <h1>Show me instead!!!</h1>
         )}
         <Switch>
           <Route

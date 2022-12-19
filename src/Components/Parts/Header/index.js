@@ -361,25 +361,19 @@ function Header(props) {
   return (
     <>
       <header>
-        {/* <div className="menu">
-          <img src={MenuIcon} alt="Menu Icon" />
-        </div> */}
         <div className="mobile-menu" onClick={toggleMobileMenu}>
-          <img src={MenuIcon} />
+          <img src={MenuIcon} alt="menu" />
         </div>
         <div className="logo">
           <a href="/">
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {!userToken ? (
-          // <div className="nav">
-          //   <a>Something</a>
-          //   <a>How it Works</a>
-          //   <a>Contact us</a>
-          // </div>
-          <></>
-        ) : (
+        {/* <div className="nav">
+          <a href="/">Something</a>
+          <a href="/">How it Works</a>
+          <a href="/">Contact us</a>
+        </div> */}
           <div ref={wrapperRef} className="searchWrapper">
             <div className="search">
               <img src={SearchIcon} alt="Search" />
@@ -412,7 +406,6 @@ function Header(props) {
               </div>
             )}
           </div>
-        )}
         <div className="right">
           {userToken ? (
             <>
