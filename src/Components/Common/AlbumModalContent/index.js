@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import * as nearAPI from "near-api-js";
 import { toast } from "react-toastify";
+import axios from 'axios';
 import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
-import playIcon from "../../../assets/images/play_icon.svg";
 import GeneralModal from "../GeneralModal/index.js";
 import BackArrowIcon from "../../../assets/images/left-arrow.png";
-import CdImage from "../../../assets/images/cd-img.svg";
 import "./AlbumModalContent.scss";
 import { usePalette } from "react-palette";
 import {
@@ -17,6 +17,8 @@ import jwt from "jsonwebtoken";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import _ from "lodash";
 import { getTokens } from "../../../Utils/near";
+
+
 
 // songmodal
 import SongModalContent from "../SongModalcontent";
@@ -42,6 +44,7 @@ function AlbumModalContent({
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
   const [isSell, setIsCell] = useState(false);
   const [userTokens, setUserTokens] = useState([]);
+  const [nearPrice, setNearPrice] = useState(0);
   let url = props.history.location;
 
   const handleSongModal = () => {
@@ -77,6 +80,7 @@ function AlbumModalContent({
 
   useEffect(() => {
     fetchTokens();
+    getNearPrice();
   }, []);
 
   const fetchTokens = async () => {
@@ -152,8 +156,6 @@ function AlbumModalContent({
       });
       return;
     }
-    // let songs = albumInfo.songs.map(song => ({ ...song, playlist_id: albumInfo.id, coverArt: isPlayList ? null : albumInfo?.coverArt ? albumInfo?.coverArt : albumInfo?.cover_cid }));
-    // songs = _.uniqWith(songs, (a, b) => a.playlist_id === b.playlist_id && a.id === b.id)
     updateCurrentPlaylist([...props.currentPlaylists, albumInfo]);
     sessionStorage.setItem(
       "activePlaylist",
@@ -165,6 +167,12 @@ function AlbumModalContent({
     `https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`
   );
 
+  const getNearPrice = () => {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+        setNearPrice(res.data.USD);
+    });
+}
+
   const zeroPad = (num, places) => String(num).padStart(places, "0");
 
   const handleDelete = () => {
@@ -172,6 +180,8 @@ function AlbumModalContent({
     props.showDeletePlaylist();
     props.closeModal()
   };
+
+  const { utils } = nearAPI;
 
   return (
     <>
@@ -261,7 +271,7 @@ function AlbumModalContent({
                   albumInfo.songs
                     ?.sort((a, b) => a.id - b.id)
                     .map((song, index) => (
-                      <tr style={{ verticalAlign: "middle" }}>
+                      <tr style={{ verticalAlign: "middle" }} key={index}>
                         <AlbumSingleSong
                           song={song}
                           index={index}
@@ -334,7 +344,7 @@ function AlbumModalContent({
           type="button"
           className="buy-button bottomButtonSection btn1"
         >
-          Buy Album for {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((albumInfo.price / 100).toFixed(2))}
+          Buy Album for {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((Number(utils.format.formatNearAmount(albumInfo.yocto_near_price)).toFixed(5) * Number(nearPrice)).toFixed(2))}
         </button>
       ) : null}
       {!isPlayList && isMerged && (
