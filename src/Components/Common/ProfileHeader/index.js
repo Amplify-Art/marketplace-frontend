@@ -22,7 +22,7 @@ function ProfileHeader({
   showShowcase,
   isPublicProfile,
   userId,
-  nearUser,
+  tokenTransfers,
   updateShowcase
 }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
@@ -67,7 +67,8 @@ function ProfileHeader({
       });
   }, [userId]);
 
-  let songsCount = nearUser && nearUser.owned_songs ? nearUser.owned_songs : 0;
+  let songsCount = tokenTransfers && tokenTransfers.length ? tokenTransfers.length : 0;
+
   return (
     <div id="profile-header">
       <div

@@ -492,6 +492,8 @@ function MyProfile(props) {
     }
   }, [sellingSong]);
 
+  console.log('[[[props]]]', props)
+
   return (
     <div
       id="profile"
@@ -504,7 +506,7 @@ function MyProfile(props) {
         showShowcase={true}
         isPublicProfile={isPublicProfile}
         userId={userID}
-        nearUser={props.near_user}
+        tokenTransfers={props.token_transfers}
       />
       {!isPublicProfile && (
         <>
