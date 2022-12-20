@@ -367,16 +367,6 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {
-          (props && props.showLoggedInSidebar === false) && /* Check if the user is on the home page */
-          (!props.showMobileMenu === true) && /* Check if the menu icon has been clicked */
-        ( /* If both conditions are true, show the mobile menu */
-          <div className="nav">
-            <a href="/">Something</a>
-            <a href="/">How it Works</a>
-            <a href="/">Contact us</a>
-          </div>
-        )}
         <div ref={wrapperRef} className="searchWrapper">
           <div className="search">
             <img src={SearchIcon} alt="Search" />

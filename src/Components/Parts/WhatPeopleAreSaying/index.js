@@ -7,24 +7,24 @@ import QuoteIcon from '../../../assets/images/quote.svg';
 function WhatPeopleAreSaying() {
   const tweets = [
     {
-      handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
-      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
+      handle: "adamamcbride",
+      tweet: "Upending the music industry through NFTs 🔥🚀",
+      image: "https://pbs.twimg.com/profile_images/1557794495927812097/d32deKcy_400x400.png"
     },
     {
-      handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
-      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
+      handle: "hello_levesque",
+      tweet: "🔥 97%...... That's more like it! #BOOM",
+      image: "https://pbs.twimg.com/profile_images/1435313316667199490/nchdOw8-_400x400.jpg"
     },
     {
-      handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
-      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
+      handle: "Vanguard_Tweets",
+      tweet: "🎶 Amplify Art! A NFT music platform that will revolutionise the outdated music industry!",
+      image: "https://pbs.twimg.com/profile_images/1521601422466371584/yKKeaE90_400x400.jpg"
     },
     {
-      handle: "eminem",
-      tweet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti soluta consequuntur commodi dolor non",
-      image: "https://globalnews.ca/wp-content/uploads/2015/12/nwa.jpg"
+      handle: "Donflaquito_",
+      tweet: "Join the revolution #NFTmusic",
+      image: "https://pbs.twimg.com/profile_images/1476740998365548545/PsSJjVgS_400x400.jpg"
     },
     {
       handle: "eminem",

@@ -126,7 +126,7 @@ function MainSideNav(props) {
   const renderMenu = () => {
     // TODO: move this out into its own file... this file is a little too big ATM
     const showLoggedInSidebar = props.showLoggedInSidebar;
-  
+
     const loggedInMenu = (
       <ul>
         <li>
@@ -222,7 +222,7 @@ function MainSideNav(props) {
         <li className="">
           <span onClick={() => handleNominate()}>Nominate</span>
         </li>
-      </ul>      
+      </ul>
     );
 
     if (showLoggedInSidebar) return loggedInMenu;
@@ -264,7 +264,7 @@ function MainSideNav(props) {
         )}
 
         {renderMenu()}
-        
+
         {showMobileMenu ? <SideSocialNav /> : null}
       </div>
       {props.showNominate && (
