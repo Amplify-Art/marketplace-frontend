@@ -81,7 +81,7 @@ function SearchResultCard(props) {
             <ResultCard
               cover={findSongCover(song)}
               contentHeading={song.title}
-              contentDetail={song.artist?.name}
+              contentDetail={song.artist?.name || song.artist?.near_account_id}
               contentTypeHeading="Song"
               contentTypeDetail={
                 song.mints_owned.length
