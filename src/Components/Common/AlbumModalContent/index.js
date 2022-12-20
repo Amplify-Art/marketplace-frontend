@@ -169,9 +169,9 @@ function AlbumModalContent({
 
   const getNearPrice = () => {
     axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
-        setNearPrice(res.data.USD);
+      setNearPrice(res.data.USD);
     });
-}
+  }
 
   const zeroPad = (num, places) => String(num).padStart(places, "0");
 

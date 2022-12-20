@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import * as nearAPI from "near-api-js";
 import { toast } from "react-toastify";
-import pauseIcon from "../../../assets/images/pause_icon.svg";
-import playBtn from "../../../assets/images/play_btn.svg";
-import GeneralModal from "../../Common/GeneralModal/index";
-import "./SongList.scss";
 import moment from "moment";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
-import * as nearAPI from "near-api-js";
 import q from "querystring";
+import pauseIcon from "../../../assets/images/pause_icon.svg";
+import playBtn from "../../../assets/images/play_btn.svg";
+import GeneralModal from "../../Common/GeneralModal/index";
+import "./SongList.scss";
 import {
   buySongAction,
   showBuyModalAction,
@@ -48,6 +49,7 @@ function SongList(props) {
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(""));
   // const [audio, setAudioSong] = useState(new Audio(''));
+  const [nearPrice, setNearPrice] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
@@ -71,6 +73,7 @@ function SongList(props) {
     if (i) {
       toggleSongListExpansion(parseInt(i));
     }
+    getNearPrice();
   }, []);
 
   // check for any transactions
@@ -232,6 +235,15 @@ function SongList(props) {
     }
     return txt;
   };
+  const getNearPrice = () => {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNearPrice(res.data.USD);
+    });
+  }
+
+  const { utils } = nearAPI;
+
+  console.log('[[[SONG LIST]]]', songList)
 
   return (
     <div className="song-list">
@@ -327,69 +339,73 @@ function SongList(props) {
                     <div className="item date-listed-by">Date Listed/By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
-                  {}
+
                   <div className="info">
-                    {songData.transfers.map((transfer) => (
-                      <div className="singleSong flex">
-                        <div className="mint">
-                          #{transfer && transfer.copy_number}
-                        </div>
-                        <div className="date-listed-by">
-                          {" "}
-                          {moment(transfer && transfer.created_at).format(
-                            "MM/DD/YYYY"
-                          )}{" "}
-                          by @
-                          {transfer &&
-                            transfer.transferTo &&
-                            transfer.transferTo.near_account_id}
-                        </div>
-                        <div className="date-listed-by-mobile">
-                          <div style={{ width: "100%" }}>
+                    {songData.transfers.map((transfer) => {
+                      console.log('[[[TRANSFER]]]', Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5))
+                      return (
+                        <div className="singleSong flex">
+                          <div className="mint">
+                            #{transfer && transfer.copy_number}
+                          </div>
+                          <div className="date-listed-by">
+                            {" "}
                             {moment(transfer && transfer.created_at).format(
                               "MM/DD/YYYY"
-                            )}
-                          </div>
-                          <div style={{ width: "100%" }}>
+                            )}{" "}
                             by @
                             {transfer &&
                               transfer.transferTo &&
-                              transfer.transferTo.name}
+                              transfer.transferTo.near_account_id}
                           </div>
-                        </div>
-                        <div className="songPrice">
-                          {new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          }).format(transfer && transfer.bidding_price / 100)}
-                        </div>
-                        <div className="action">
-                          <button
-                            onClick={() =>
-                              onModalChange({
-                                ...transfer,
-                                token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}`,
-                              })
-                            }
-                          >
-                            {user.id === transfer.transfer_to
-                              ? "Delist Song"
-                              : "Buy Now "}
-                          </button>
-                        </div>
-                        <div className="mobileAction">
-                          <button onClick={() => onModalChange(transfer)}>
-                            {user.id === transfer.transfer_to
-                              ? "Delist Song"
-                              : "Buy Now "}
+                          <div className="date-listed-by-mobile">
+                            <div style={{ width: "100%" }}>
+                              {moment(transfer && transfer.created_at).format(
+                                "MM/DD/YYYY"
+                              )}
+                            </div>
+                            <div style={{ width: "100%" }}>
+                              by @
+                              {transfer &&
+                                transfer.transferTo &&
+                                transfer.transferTo.name}
+                            </div>
+                          </div>
+                          <div className="songPrice">
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
-                            }).format(transfer && transfer.bidding_price / 100)}
-                          </button>
+                            }).format(Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5) * Number(nearPrice))}
+                          </div>
+                          <div className="action">
+                            <button
+                              onClick={() =>
+                                onModalChange({
+                                  ...transfer,
+                                  token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}`,
+                                })
+                              }
+                            >
+                              {user.id === transfer.transfer_to
+                                ? "Delist Song"
+                                : "Buy Now "}
+                            </button>
+                          </div>
+                          <div className="mobileAction">
+                            <button onClick={() => onModalChange(transfer)}>
+                              {user.id === transfer.transfer_to
+                                ? "Delist Song"
+                                : "Buy Now "}
+                              {new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              }).format(transfer && transfer.bidding_price / 100)}
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    }
+                    )}
                   </div>
                 </div>
               </div>
