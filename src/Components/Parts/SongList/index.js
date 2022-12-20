@@ -243,8 +243,6 @@ function SongList(props) {
 
   const { utils } = nearAPI;
 
-  console.log('[[[SONG LIST]]]', songList)
-
   return (
     <div className="song-list">
       {songHeader()}
@@ -342,7 +340,6 @@ function SongList(props) {
 
                   <div className="info">
                     {songData.transfers.map((transfer) => {
-                      console.log('[[[TRANSFER]]]', Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5))
                       return (
                         <div className="singleSong flex">
                           <div className="mint">

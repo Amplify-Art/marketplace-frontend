@@ -174,8 +174,6 @@ function Player(props) {
     setCDBackground(backgroundImage);
   };
 
-  console.log('TESTING123')
-
   return (
     props.showPlayer && (
       <div

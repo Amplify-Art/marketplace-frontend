@@ -438,7 +438,6 @@ function NewNFT(props) {
     }
     setShowCropper(false);
   };
-  console.log(fileDuration, "fileDuration");
 
   return (
     // TODO: move this whole component to the parts folder

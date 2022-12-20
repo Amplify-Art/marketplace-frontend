@@ -34,9 +34,7 @@ function MainSideNav(props) {
 
   const onLogout = (e) => {
     e.preventDefault();
-    console.log("CIM");
     setShowLogoutModal(true);
-    // history.push("/")
   };
 
   const handleNominate = () => {

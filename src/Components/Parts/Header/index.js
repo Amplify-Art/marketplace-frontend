@@ -119,7 +119,6 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near, "amplify_art");
-    console.log(wallet);
     setWalletState(wallet);
     props.setWallet(wallet);
     return () => {
