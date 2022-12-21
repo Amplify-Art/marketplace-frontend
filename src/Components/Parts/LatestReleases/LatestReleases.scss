@@ -1,16 +1,23 @@
 @import "../../../assets/SCSS/Vars.scss";
 
+.padding-section-large {
+    position: relative;
+    bottom: 0;
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+}
+
 #latest-releases {
-  padding-left: 56px;
-  padding-right: 56px;
-  padding-top: 300px;
-  padding-bottom: 300px;
-  width: 100%;
-  float: left;
-  box-sizing: border-box;
+  // padding-left: 56px;
+  // padding-right: 56px;
+  // padding-top: 300px;
+  // padding-bottom: 300px;
+  // width: 100%;
+  // float: left;
+  // box-sizing: border-box;
   @media screen and (max-width: 1309px) {
-    padding-top: 200px;
-    padding-bottom: 200px;
+    // padding-top: 200px;
+    // padding-bottom: 200px;
   }
 
   @media screen and (max-width: 582px) {
@@ -20,7 +27,8 @@
   .container {
     display: flex;
     position: relative;
-    @media screen and (max-width: 1309px) {
+    align-items: center;
+    @media screen and (max-width: 650px) {
       flex-direction: column;
       align-items: center;
     }
@@ -32,44 +40,58 @@
         font-size: 200px;
         line-height: 200px;
       }
+      @media screen and (max-width: 1565px){
+    font-size: 155px;
+    line-height: 170px;
+    }
+      @media screen and (max-width: 1070px){
+    font-size: 140px;
+    line-height: 150px;
+    }
+    @media screen and (max-width: 1010px){
+    font-size: 110px;
+    line-height: 120px;
+}
 
-      @media screen and (max-width: 943px) {
-        font-size: 20vw;
-        line-height: 20vw;
-      }
-
-      @media screen and (max-width: 582px) {
+      @media screen and (max-width: 650px) {
         text-align: center;
       }
     }
   }
 
   .album {
-    position: absolute;
-    right: -50px;
+    // position: absolute;
+    // right: -50px;
+    margin-left: auto;
+    // margin-right: auto;
     z-index: 8;
-    top: -100px;
+    // top: -100px;
+    transform: translateZ(0px) rotate(-8deg);
+    // transform: rotateZ(-8deg);
+    &:hover {
+        filter: drop-shadow(black 0px 0px 20px);
+        transition: transform 0.3s ease 0s;
+        transform: scale(1.05) rotateZ(0deg);
+    }
     @media screen and (max-width: 1725px) {
-      right: 0px;
-      width: 45vw;
+      // right: 0px;
+      // width: 45vw;
     }
 
     @media screen and (max-width: 1461px) {
-      width: 38vw;
+      // width: 38vw;
     }
 
     @media screen and (max-width: 1309px) {
-      width: 100%;
-      position: initial;
-      text-align: center;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      // position: initial;
+      // text-align: center;
+      // display: flex;
+      // flex-direction: column;
+      // align-items: center;
     }
     img {
       transform: rotateZ(0deg);
-      transition: ease all 0.5s;
+      transition: ease all 0.3s ease 0s;
       max-width: 100%;
       @media screen and (max-width: 1309px) {
         transform: rotateZ(21deg);
@@ -83,28 +105,42 @@
     }
 
     .check-all {
-      font-family: $lato;
+      font-family: "Lato", sans-serif;
       text-transform: uppercase;
-      color: #ffffff;
+      color: #fff;
       font-size: 20px;
       font-weight: 300;
       letter-spacing: 0.1px;
-      border-bottom: 2px solid $red;
+      border-bottom: 2px solid #e52b25;
       position: absolute;
-      padding-bottom: 14px;
-      top: 250px;
-      right: 0px;
+      padding-bottom: 6px;
       cursor: pointer;
+      z-index: 3;
+      bottom: -45px;
+      right: 20px;
       @media screen and (max-width: 1309px) {
-        position: initial;
-        text-align: left;
-        margin-top: 20px;
-        width: fit-content;
+        // position: initial;
+        // text-align: left;
+        // margin-top: 20px;
+        // width: fit-content;
       }
 
       @media screen and (max-width: 582px) {
-        text-align: center;
+        // text-align: center;
       }
     }
   }
+}
+
+.single-album1 .cd-case1 {
+    width: 453px !important;
+    height: 399px !important;
+    @media screen and (max-width: 1180px){
+      width: 386px !important;
+      height: 340px !important;
+}
+    background-color: rgb(29 29 30) !important;
+    .album-art{
+      box-shadow: none !important;
+    }
 }

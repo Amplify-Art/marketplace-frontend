@@ -73,7 +73,7 @@ const Success = ({ history }) => {
     }
   }
   return (
-    <div>Redirecting....</div>
+    <div className="display-none">Redirecting....</div>
   )
 }
 

@@ -90,7 +90,9 @@ function AlbumSingleSong(props) {
     return t.token_id.includes(song.song_cid) && txn?.is_for_sale === false;
   });
   useEffect(() => {
+    if (typeof isSell !== 'undefined') {
     if (!isSell) setIsCell(hasAnyOfCopies);
+    }
   }, [hasAnyOfCopies]);
   return (
     <div
