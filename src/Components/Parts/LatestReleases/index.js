@@ -77,7 +77,7 @@ function LatestReleases() {
                 <h2 className="large white">Latest</h2>
                 <h2 className="large red">Release</h2>
               </div>
-
+              <div className="album-contain">
               <div className="album">
 
                 <div className="check-all">Click to Open</div>
@@ -87,13 +87,18 @@ function LatestReleases() {
               >
                 <div
                   className="cd-case1"
+                  id="1169hh"
+                  style={{
+                    height: document.getElementById("1169hh")?.offsetWidth * 0.86,
+                  }}
                 >
                   <div
                     className="album-art"
                     style={{
-                      background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${shesTheSun}) center center no-repeat`,
+                      background: `url(${shesTheSun}) center center no-repeat`,
                     }}
                   >
+                  </div>
                   </div>
                 </div>
               </div>

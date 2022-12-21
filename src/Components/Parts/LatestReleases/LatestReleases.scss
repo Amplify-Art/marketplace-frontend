@@ -129,18 +129,30 @@
         // text-align: center;
       }
     }
+    .single-album1 .cd-case1 {
+        width: 453px !important;
+        height: 399px !important;
+        @media screen and (max-width: 1180px){
+          width: 386px !important;
+          height: 340px !important;
+    }
+        background-color: rgb(29 29 30);
+        .album-art{
+          box-shadow: none;
+        }
+    }
   }
 }
 
-.single-album1 .cd-case1 {
-    width: 453px !important;
-    height: 399px !important;
-    @media screen and (max-width: 1180px){
-      width: 386px !important;
-      height: 340px !important;
-}
-    background-color: rgb(29 29 30) !important;
-    .album-art{
-      box-shadow: none !important;
-    }
-}
+ // .single-album1 .cd-case1 {
+ //     width: 453px !important;
+ //     height: 399px !important;
+ //     @media screen and (max-width: 1180px){
+ //       width: 386px !important;
+ //       height: 340px !important;
+ // }
+ //     background-color: rgb(29 29 30);
+ //     .album-art{
+ //       box-shadow: none;
+ //     }
+ // }
