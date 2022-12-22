@@ -1,78 +1,97 @@
 import './TheTeam.scss';
+import AmplifyArtIMG from '../../../assets/images/teamimgs/amplifyart.png';
+import DonflaquitoIMG from '../../../assets/images/teamimgs/donflaquito.jpg';
+import RussIMG from '../../../assets/images/teamimgs/russ.jpg';
+import TommyIMG from '../../../assets/images/teamimgs/tommy.png';
+import RolandIMG from '../../../assets/images/teamimgs/roland.jpg';
+import NoahIMG from '../../../assets/images/teamimgs/noah.png';
+import ReblockIMG from '../../../assets/images/teamimgs/reblock.jpg';
+import AdamIMG from '../../../assets/images/teamimgs/adam.png';
+import CocoIMG from '../../../assets/images/teamimgs/coco.jpg';
+import AjIMG from '../../../assets/images/teamimgs/aj.jpg';
+import VzcekIMG from '../../../assets/images/teamimgs/vz.jpg';
+import ChaseIMG from '../../../assets/images/teamimgs/chase.jpg';
+import SurfIMG from '../../../assets/images/teamimgs/surf.jpg';
 
 function TheTeam() {
   const theTeam = [
     {
-      handle: 'donflaquito.near',
-      support_cards: 310,
-      image: '',
-      profile_link: 'https://amplify.art/user/donflaquito'
+      handle: 'amplifyart.near',
+      support_cards: 250,
+      image: AmplifyArtIMG,
+      profile_link: ''
     },
     {
-      handle: 'amplifyart.near',
-      support_cards: 215,
-      image: '',
-      profile_link: 'https://amplify.art/user/amplifyart'
+      handle: 'donflaquito.near',
+      support_cards: 100,
+      image: DonflaquitoIMG,
+      profile_link: ''
     },
     {
       handle: 'russ.near',
       support_cards: 50,
-      image: '',
-      profile_link: 'https://amplify.art/user/russ'
+      image: RussIMG,
+      profile_link: ''
     },
     {
       handle: 'txlin.near',
       support_cards: 50,
-      image: '',
-      profile_link: 'https://amplify.art/user/txlin'
+      image: TommyIMG,
+      profile_link: ''
+    },
+    {
+      handle: 'rologajate.near',
+      support_cards: 40,
+      image: RolandIMG,
+      profile_link: ''
+    },
+    {
+      handle: 'noahgoldstein.near',
+      support_cards: 40,
+      image: NoahIMG,
+      profile_link: ''
     },
     {
       handle: 'bdee.near',
       support_cards: 25,
-      image: '',
-      profile_link: 'https://amplify.art/user/bdee'
+      image: ReblockIMG,
+      profile_link: ''
     },
     {
       handle: 'adammcbride.near',
       support_cards: 20,
-      image: '',
-      profile_link: 'https://amplify.art/user/adammcbride'
+      image: AdamIMG,
+      profile_link: ''
     },
     {
       handle: 'cocobear.near',
       support_cards: 17,
-      image: '',
-      profile_link: 'https://amplify.art/user/cocobear'
+      image: CocoIMG,
+      profile_link: ''
     },
     {
       handle: 'itsaj.near',
-      support_cards: 15,
-      image: '',
-      profile_link: 'https://amplify.art/user/itsaj'
+      support_cards: 10,
+      image: AjIMG,
+      profile_link: ''
     },
     {
       handle: 'vzcek.near',
       support_cards: 10,
-      image: '',
-      profile_link: 'https://amplify.art/user/vzcek'
-    },
-    {
-      handle: 'rainfall.near',
-      support_cards: 15,
-      image: '',
-      profile_link: 'https://amplify.art/user/rainfall'
+      image: VzcekIMG,
+      profile_link: ''
     },
     {
       handle: 'chasel3000.near',
       support_cards: 15,
-      image: '',
-      profile_link: 'https://amplify.art/user/chasel3000'
+      image: ChaseIMG,
+      profile_link: ''
     },
     {
       handle: 'surf_finance.near',
       support_cards: 10,
-      image: '',
-      profile_link: 'https://amplify.art/user/surf_finance'
+      image: SurfIMG,
+      profile_link: ''
     }
   ];
   return (
@@ -85,7 +104,7 @@ function TheTeam() {
             <a href={member.profile_link}>
             <div className="team-member">
               <div className="image circle">
-                <img src={member.image} alt="UserName" />
+                <img src={member.image} alt="supporter image" />
               </div>
               <p>{member.handle}</p>
               <p className="support-card-count">{member.support_cards} Support Cards</p>
