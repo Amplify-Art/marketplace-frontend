@@ -69,28 +69,34 @@ function WhatPeopleAreSaying() {
   };
 
   return (
-    <div id="what-people-are-saying">
-      <div className="container">
-        <div className="line" />
-        <h3>What People Are Saying</h3>
-      </div>
-
-      <div className="tweets">
-        <Slider {...settings}>
-          {tweets.map((tweet) => (
-            <div className="single-tweet">
-              <h5>@{tweet.handle}</h5>
-              <div className="tweet-image circle"><img src={tweet.image} alt="Eminem" /></div>
-              <div className="tweet-content">
-                <div className="quote"><img src={QuoteIcon} alt="Quote" /></div>
-                <p>{tweet.tweet}</p>
-              </div>
-              <div className="twitter-logo">
-                <img src={TwitterLogo} alt="Twitter" />
-              </div>
+    <div className="padding-section-large">
+      <div className="padding-global">
+        <div className="container-large">
+          <div id="what-people-are-saying">
+            <div className="container">
+              <div className="line" />
+              <h3>What People Are Saying</h3>
             </div>
-          ))}
-        </Slider>
+
+            <div className="tweets">
+              <Slider {...settings}>
+                {tweets.map((tweet) => (
+                  <div className="single-tweet">
+                    <h5>@{tweet.handle}</h5>
+                    <div className="tweet-image circle"><img src={tweet.image} alt="Eminem" /></div>
+                    <div className="tweet-content">
+                      <div className="quote"><img src={QuoteIcon} alt="Quote" /></div>
+                      <p>{tweet.tweet}</p>
+                    </div>
+                    <div className="twitter-logo">
+                      <img src={TwitterLogo} alt="Twitter" />
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

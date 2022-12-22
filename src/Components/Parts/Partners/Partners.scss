@@ -4,7 +4,7 @@
 .partner-section{
   position: relative;
     .partner-section-padding {
-    padding-top: 50px;
+    // padding-top: 50px;
     padding-bottom: 60px;
     // background: #181818;
 }
@@ -35,12 +35,16 @@
     align-items: center;
     grid-column-gap: 100px;
     grid-row-gap: 50px;
+    @media screen and (max-width: 1565px){
+      grid-column-gap: 80px;
+      grid-row-gap: 40px;
+    }
     @media screen and (max-width: 650px){
-          // -webkit-box-pack: center;
-          // -webkit-justify-content: center;
-          // -ms-flex-pack: center;
-          // justify-content: center;
-      }
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
       @media screen and (max-width: 650px) {
     display: -webkit-box;
     display: -webkit-flex;

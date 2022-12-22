@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './WeAreFor.scss';
-import Em from '../../../assets/images/em.jpeg';
+import Aj from '../../../assets/images/aj.jpg';
 
 function WeAreFor() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -11,9 +11,9 @@ function WeAreFor() {
         // code block
         return (
           <div className="right-content">
-            <p>Stop chasing streams! We empower you to build deep relationships with your fans, completely bypassing the traditional music industry. You maintain control of your music, pricing, and distribution while keeping 97% of your album sales, and 3% on secondary market (song sales).</p>
+            <p>Stop chasing streams! We empower you to build deep relationships with your fans, completely bypassing the traditional music industry. You maintain control of your music, pricing, and distribution while keeping 97% of your digital album sales.</p>
             <div className="img circle">
-              <img src={Em} alt="Aj" />
+              <img src={Aj} alt="Aj" />
             </div>
           </div>
         )
@@ -21,9 +21,9 @@ function WeAreFor() {
         // code block
         return (
           <div className="right-content">
-            <p>22222Stop chasing streams! We empower you to build deep relationships with your fans, completely bypassing the traditional music industry. You maintain control of your music, pricing, and distribution while keeping 97% of your album sales, and 3% on secondary market (song sales).</p>
+            <p>Own, buy and sell the music you love, and participate in the success of your favorite artists through fan rewards, airdrops, NFT price appreciation, and more!</p>
             <div className="img circle">
-              <img src={Em} alt="Aj" />
+              <img src={Aj} alt="Aj" />
             </div>
           </div>
         )
@@ -35,19 +35,20 @@ function WeAreFor() {
     }
   }
   return (
-    <div id="we-are-for">
-      <div className="container small">
-        <h2 className="large center-text">Who <span className="red">We're for</span></h2>
-        <div className="bottom">
-          <div className="left-nav">
-            <div className={`nav-item ${currentStep === 1 && 'active'}`} onClick={() => setCurrentStep(1)}>Musicians</div>
-            <div className={`nav-item ${currentStep === 2 && 'active'}`} onClick={() => setCurrentStep(2)}>Collectors + Fans</div>
+    <div className="padding-section-large">
+      <div className="padding-global">
+        <div className="container-large">
+          <div id="we-are-for">
+            <div className="container small">
+              <h2 className="medium">Who <span className="red">We're for</span></h2>
+                <div className="bottom">
+                  <div className="left-nav">
+                    <div className={`nav-item ${currentStep === 1 && 'active'}`} onClick={() => setCurrentStep(1)}>Musicians</div>
+                      <div className={`nav-item ${currentStep === 2 && 'active'}`} onClick={() => setCurrentStep(2)}>Collectors</div>
+                  </div> {renderSectionContent(currentStep)}
+               </div>
+            </div>
           </div>
-
-          {renderSectionContent(currentStep)}
-        </div>
-        <div className="notice">
-          <p>For queries involving new artist on-boarding please email us <a href="mailto:contact@amplify.art">here.</a></p>
         </div>
       </div>
     </div>

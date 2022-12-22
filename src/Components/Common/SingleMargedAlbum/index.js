@@ -250,7 +250,7 @@ function SingleMergedAlbum(props) {
           <div
             className="album-art"
             style={{
-              background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
+              background: `url(${albumCover}) center center no-repeat`,
             }}
           >
           </div>
