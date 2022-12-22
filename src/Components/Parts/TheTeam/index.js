@@ -20,85 +20,85 @@ function TheTeam() {
       handle: 'amplifyart.near',
       support_cards: 250,
       image: AmplifyArtIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'donflaquito.near',
       support_cards: 100,
       image: DonflaquitoIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'russ.near',
       support_cards: 50,
       image: RussIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'txlin.near',
       support_cards: 50,
       image: TommyIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'rologajate.near',
       support_cards: 40,
       image: RolandIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'noahgoldstein.near',
       support_cards: 40,
       image: NoahIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'bdee.near',
       support_cards: 25,
       image: ReblockIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'adammcbride.near',
       support_cards: 20,
       image: AdamIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'cocobear.near',
       support_cards: 17,
       image: CocoIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: '2n10se.near',
       support_cards: 10,
       image: JonathonIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'itsaj.near',
       support_cards: 10,
       image: AjIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'vzcek.near',
       support_cards: 10,
       image: VzcekIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'chasel3000.near',
       support_cards: 10,
       image: ChaseIMG,
-      profile_link: ''
+      // profile_link: ''
     },
     {
       handle: 'surf_finance.near',
       support_cards: 10,
       image: SurfIMG,
-      profile_link: ''
+      // profile_link: ''
     }
   ];
   return (
