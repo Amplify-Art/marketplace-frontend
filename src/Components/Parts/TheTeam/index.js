@@ -8,6 +8,7 @@ import NoahIMG from '../../../assets/images/teamimgs/noah.png';
 import ReblockIMG from '../../../assets/images/teamimgs/reblock.jpg';
 import AdamIMG from '../../../assets/images/teamimgs/adam.png';
 import CocoIMG from '../../../assets/images/teamimgs/coco.jpg';
+import JonathonIMG from '../../../assets/images/teamimgs/jonathon.jpg';
 import AjIMG from '../../../assets/images/teamimgs/aj.jpg';
 import VzcekIMG from '../../../assets/images/teamimgs/vz.jpg';
 import ChaseIMG from '../../../assets/images/teamimgs/chase.jpg';
@@ -70,6 +71,12 @@ function TheTeam() {
       profile_link: ''
     },
     {
+      handle: '2n10se.near',
+      support_cards: 10,
+      image: JonathonIMG,
+      profile_link: ''
+    },
+    {
       handle: 'itsaj.near',
       support_cards: 10,
       image: AjIMG,
@@ -83,7 +90,7 @@ function TheTeam() {
     },
     {
       handle: 'chasel3000.near',
-      support_cards: 15,
+      support_cards: 10,
       image: ChaseIMG,
       profile_link: ''
     },
@@ -95,22 +102,28 @@ function TheTeam() {
     }
   ];
   return (
-    <div id="the-team">
-      <div className="container">
-        <div className="line" />
-        <h2>Our Team and Supporters</h2>
-        <div className="team-list">
-          {theTeam.map(member => (
-            <a href={member.profile_link}>
-            <div className="team-member">
-              <div className="image circle">
-                <img src={member.image} alt="supporter image" />
+    <div className="padding-section-large">
+      <div className="padding-global">
+        <div className="container-large">
+          <div id="the-team">
+            <div className="container">
+              <div className="line" />
+              <h2>Our Team and Supporters</h2>
+              <div className="team-list">
+                {theTeam.map(member => (
+                  <a href={member.profile_link}>
+                  <div className="team-member">
+                    <div className="image circle">
+                      <img src={member.image} alt="supporter image" />
+                    </div>
+                    <p>{member.handle}</p>
+                    <p className="support-card-count">{member.support_cards} Support Cards</p>
+                  </div>
+                  </a>
+                ))}
               </div>
-              <p>{member.handle}</p>
-              <p className="support-card-count">{member.support_cards} Support Cards</p>
             </div>
-            </a>
-          ))}
+          </div>
         </div>
       </div>
     </div>
