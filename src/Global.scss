@@ -107,11 +107,11 @@ button {
 
 /* the slides */
 .slick-slide {
-  margin: 0 27px;
+  margin: 0 15px 0 15px;
 }
 /* the parent */
 .slick-list {
-  margin: 0 -27px;
+  // margin: 0 -27px;
 }
 
 .line {
@@ -144,7 +144,13 @@ h2 {
     -webkit-text-stroke-color: $red;
     color: transparent;
     position: relative;
-    z-index: 9;
+    z-index: 3;
+    @media screen and (max-width: 754px){
+    -webkit-text-stroke-width: 1.5px;
+      }
+      @media screen and (max-width: 479px){
+        -webkit-text-stroke-width: 1px;
+    }
   }
 }
 

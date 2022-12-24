@@ -1,5 +1,11 @@
 @import "../../../assets/SCSS/Vars.scss";
 
+$spacer: 4;
+$width: 304/2;
+$height: 80/2;
+$btn-space-right: ( $height + $spacer + $spacer/2 );
+$btn-space-left: ($height/2);
+
 .padding-section-large {
     position: relative;
     padding-top: 7.5rem;
@@ -15,11 +21,9 @@
     display: flex;
     position: relative;
     align-items: center;
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 650px) {
       flex-direction: column;
       align-items: flex-start;
-    }
-    @media screen and (max-width: 650px) {
       align-items: center;
     }
   }
@@ -41,8 +45,15 @@
     @media screen and (max-width: 1010px){
     font-size: 110px;
     line-height: 120px;
-}
-
+      }
+      @media screen and (max-width: 754px){
+          font-size: 72px;
+          line-height: 82px;
+      }
+      @media screen and (max-width: 479px){
+          font-size: 44px;
+          line-height: 50px;
+      }
       @media screen and (max-width: 650px) {
         text-align: center;
       }
@@ -61,19 +72,30 @@
         position: absolute;
         right: 5px;
       }
-      @media screen and (max-width: 780px) {
+      @media screen and (max-width: 650px) {
       position: unset;
-      padding-top: 70px;
-      padding-left: 30px;
+      padding-top: 55px;
+      padding-left: 20px;
     }
+    @media screen and (max-width: 479px) {
+    position: unset;
+    padding-top: 40px;
+    padding-left: 10px;
+  }
     @media screen and (max-width: 650px) {
-    padding-left: 0px;
+    // padding-left: 0px;
   }
   }
 
   .album {
     z-index: 8;
-    transform: translateZ(0px) rotate(-8deg);
+        transform: translateZ(0px) rotate(-8deg);
+    @media screen and (max-width: 1070px){
+    transform: translateZ(0px) rotate(-6deg);
+    }
+    @media screen and (max-width: 860px){
+    transform: translateZ(0px) rotate(-4deg);
+    }
     &:hover {
         filter: drop-shadow(black 0px 0px 20px);
         transition: transform 0.3s ease 0s;
@@ -108,6 +130,10 @@
       z-index: 3;
       bottom: -45px;
       right: 20px;
+      height: 45px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .single-album1 .cd-case1 {
         width: 453px !important;
@@ -115,15 +141,23 @@
         @media screen and (max-width: 1565px){
           width: 386px !important;
           height: 340px !important;
-      }
+        }
         @media screen and (max-width: 1070px){
           width: 336px !important;
           height: 296px !important;
-    }
-    @media screen and (max-width: 860px){
-      width: 302px !important;
-      height: 266px !important;
-}
+        }
+        @media screen and (max-width: 860px){
+          width: 302px !important;
+          height: 266px !important;
+        }
+        @media screen and (max-width: 479px) {
+          width: 277px !important;
+          height: 244px !important;
+        }
+        @media screen and (max-width: 375px) {
+          width: 243px !important;
+          height: 214px !important;
+        }
         background-color: rgb(29 29 30);
         .album-art{
           box-shadow: none;

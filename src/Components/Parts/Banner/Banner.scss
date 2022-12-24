@@ -7,7 +7,7 @@
      display: -webkit-flex;
      display: -ms-flexbox;
      display: flex;
-     height: calc(95vh - 70px);
+     height: calc(100vh - 70px);
      padding-bottom: 70px;
      -webkit-box-pack: start;
      -webkit-justify-content: flex-start;
@@ -23,9 +23,23 @@
      -o-object-position: 100% 50%;
      object-position: 100% 50%;
      @media screen and (max-width: 650px) {
-              height: calc(100vh - 56px);
+              height: calc(100vh);
               padding-bottom: 56px;
     }
+}
+.padding-banner {
+    // width: 100%;
+    width: -webkit-fill-available;
+    padding-right: 48px;
+    padding-left: 48px;
+    @media screen and (max-width: 650px) {
+      padding-right: 0px;
+      padding-left: 0px;
+   }
+    @media screen and (max-width: 440px) {
+      padding-right: 20px;
+      padding-left: 20px;
+   }
 }
  .padding-global {
      // width: 100%;
@@ -67,6 +81,7 @@
              position: relative;
              &.hero-heading{
                  color: #fff;
+                 white-space: nowrap;
             }
              @media screen and (max-width: 1565px) {
                  font-size: 155px;
@@ -81,25 +96,32 @@
                  line-height: 120px;
             }
              @media screen and (max-width: 754px) {
-                 font-size: 12vw;
-                 line-height: 13vw;
+                 font-size: 72px;
+                 line-height: 82px;
+            }
+            @media screen and (max-width: 479px){
+                font-size: 44px;
+                line-height: 50px;
             }
              &.red {
                  -webkit-text-stroke-width: 2px;
                  -webkit-text-stroke-color: $red;
                  color: transparent;
-                 @media screen and (max-width: 1010px) {
+                 @media screen and (max-width: 754px) {
                      -webkit-text-stroke-width: 1.5px;
                 }
                 @media screen and (max-width: 650px) {
                     text-align: center;
                }
                  @media screen and (max-width: 754px) {
-                     -webkit-text-stroke-width: 1px;
+                     // -webkit-text-stroke-width: 1px;
                 }
-                 @media screen and (max-width: 360px) {
-                     -webkit-text-stroke-width: .75px;
+                @media screen and (max-width: 479px){
+                    -webkit-text-stroke-width: 1px;
                 }
+                //  @media screen and (max-width: 360px) {
+                //      -webkit-text-stroke-width: .75px;
+                // }
             }
         }
          .paragraph-text {
@@ -142,7 +164,7 @@
                  font-weight: 300;
                  letter-spacing: 0.1px;
                  margin-bottom: 0px;
-                 line-height: 27px;
+                 line-height: 33px;
                  max-width: 440px;
                  text-align: left;
                  z-index: 9;
@@ -150,7 +172,13 @@
                      text-align: center;
                      margin-left: auto;
                      margin-right: auto;
+                     font-size: 16px;
+                     line-height: 24px;
+                     max-width: 335px;
                 }
+                @media screen and (max-width: 375px) {
+                    max-width: 280px;
+               }
             }
         }
     }

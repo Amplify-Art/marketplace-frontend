@@ -39,7 +39,7 @@ function WeAreFor() {
       <div className="padding-global">
         <div className="container-large">
           <div id="we-are-for">
-            <div className="container small">
+            <div className="">
               <h2 className="medium">Who <span className="red">We're for</span></h2>
                 <div className="bottom">
                   <div className="left-nav">

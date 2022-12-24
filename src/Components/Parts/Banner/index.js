@@ -6,7 +6,7 @@ function Banner(props) {
   return (
     <>
       <div  id="banner" className="padding-section-fullheight">
-        <div className="padding-global">
+        <div className="padding-banner">
           <div className="container-large">
             <div className="hero_section">
 

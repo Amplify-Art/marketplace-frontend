@@ -8,7 +8,6 @@ function SupportArtists() {
   return (
     <div id="support-artists">
       <div className="container">
-        <div className="line" />
         <h2 className="large center-text"><span className="red">Support</span> Your Favorite Artists</h2>
       </div>
 
