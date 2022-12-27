@@ -184,17 +184,6 @@ function MainSideNav(props) {
             Wallet
           </NavLink>
         </li>
-        {user && user.is_support_card_holder && (
-          <li>
-            <NavLink
-              to="/support-card"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Supporter
-            </NavLink>
-          </li>
-        )}
         <li>
           <NavLink
             to="/settings"
@@ -220,6 +209,20 @@ function MainSideNav(props) {
         <li className="">
           <span onClick={() => handleNominate()}>Nominate</span>
         </li>
+        {user && user.is_support_card_holder && (
+          <>
+            <li className="nav-header">Supporter</li>
+            <li>
+              <NavLink
+                to="/support-card"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     );
 
