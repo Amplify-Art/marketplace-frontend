@@ -117,10 +117,10 @@ function SearchResultCard(props) {
               contentHeading={artist.name}
               contentDetail={
                 artist.albums <= 0
-                  ? "0 Albums"
+                  ? "0 Minted Albums"
                   : artist.albums === 1
-                  ? "1 Song"
-                  : `${artist.albums} Albums`
+                  ? "1 Minted Album"
+                  : `${artist.albums} Minted Albums`
               }
               contentTypeHeading="Artist"
               contentTypeDetail=""
