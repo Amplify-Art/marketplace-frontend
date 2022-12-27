@@ -4,6 +4,7 @@ import "./Player.scss";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import PayerQueue from "./PlayerQueue";
+import GeneralModal from "../GeneralModal/index.js";
 
 // Player Icons
 import NextSongIcon from "../../../assets/images/next.svg";
@@ -91,6 +92,24 @@ function Player(props) {
     // requestAnimationFrame(updateBar);
 
     setSongProgress((audioElement.currentTime / audioElement.duration) * 100);
+  };
+
+  const handleCloseModal = (bool) => {
+    if (bool) {
+      props.updateCurrentPlaylist(
+        currentPlaylists.filter((f, i) => i !== songDeletingIndex)
+      );
+      sessionStorage.setItem(
+        "activePlaylist",
+        JSON.stringify(
+          currentPlaylists.filter((f, i) => i !== songDeletingIndex)
+        )
+      );
+      if (songDeletingIndex === songIndex) {
+        audioElement.pause();
+      }
+    }
+    setSongDeletingIndex(null);
   };
 
   const nextSong = () => {
@@ -313,7 +332,7 @@ function Player(props) {
             </div>
           )}
         </div>
-        {/* {songDeletingIndex !== null && (
+        {songDeletingIndex !== null && (
           <GeneralModal
             headline="Remove playlist from queue?"
             buttons={[
@@ -330,7 +349,7 @@ function Player(props) {
             ]}
             className="centered"
           />
-        )} */}
+        )}
         <div
           className="background-blur"
           style={{ backgroundImage: `url(${cdBackground})` }}

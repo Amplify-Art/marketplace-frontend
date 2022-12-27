@@ -163,6 +163,7 @@ function AlbumModalContent({
     );
     if (!props.showPlayer) props.togglePlayer();
   };
+
   const { data } = usePalette(
     `https://gateway.pinata.cloud/ipfs/${albumInfo.cover_cid}`
   );
