@@ -163,6 +163,9 @@
       .no_of_songs {
         font-size: 20px;
         text-align: left;
+        &:first-child {
+          margin-right: 20px;
+        }
         @media screen and (max-width: 650px) {
           font-size: 17px;
         }

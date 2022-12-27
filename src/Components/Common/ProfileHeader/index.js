@@ -137,9 +137,15 @@ function ProfileHeader({
             <div className="details">
               <span>{ArtistData.name || ArtistData.near_account_id}</span>
               {!isPublicProfile && (
-                <span className="no_of_songs">
-                  {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
-                </span>
+                <div className="flex">
+                  <span className="no_of_songs">
+                    {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
+                  </span>
+
+                  {/* <span className="no_of_songs">
+                    {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
+                  </span> */}
+                </div>
               )}
             </div>
           </div>

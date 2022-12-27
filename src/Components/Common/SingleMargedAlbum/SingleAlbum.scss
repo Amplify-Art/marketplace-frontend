@@ -1,213 +1,217 @@
 .single-album1 {
-    position: relative;
-    font-family: "Space Grotesk";
+  position: relative;
+  font-family: "Space Grotesk";
+  width: 100%;
+  .album-own {
+    color: white;
+  }
+  .artist-name {
+    text-decoration: none;
+  }
+
+  // the code below is for if we want to add a plastic film over the cd before it's sold.
+
+  // .cd-case1::after {
+  //   content: "";
+  //   position: absolute;
+  //   opacity: .75;
+  //   mix-blend-mode: overlay;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-image: url("../../../assets/images/Plastic_wrap_7.png");
+  //   z-index: 3;
+  //   background-size: 100% 100%;
+  // }
+
+  //   .cd-case1::after {
+  //     content: "";
+  //     position: absolute;
+  //     // opacity: .35;
+  //     top: 0;
+  //     left: 0;
+  //     width: 100%;
+  //     height: 100%;
+  //     background-image: url("../../../assets/images/cd_overlay.png");
+  //     z-index: 3;
+  //     background-size: 100% 100%;
+  // }
+
+  .cd-case1 {
     width: 100%;
-    .album-own {
-        color: white;
+    position: relative;
+    background-size: cover;
+    padding: 4px 4px 2px 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-image: url("../../../assets/images/closed-case.png");
+    z-index: 1;
+    background-color: rgb(0 0 0 / 5%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // border-radius: 3px;
+    // background: rgba(0, 0, 0, 0);
+    // box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.6), inset 0px 0px 20px 2px rgba(0, 0, 0, 0.4),
+    //     inset 0px 0px 5px 1px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.2);
+    .art-cover {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
-
-    // the code below is for if we want to add a plastic film over the cd before it's sold.
-
-    // .cd-case1::after {
-    //   content: "";
-    //   position: absolute;
-    //   opacity: .75;
-    //   mix-blend-mode: overlay;
-    //   top: 0;
-    //   left: 0;
-    //   width: 100%;
-    //   height: 100%;
-    //   background-image: url("../../../assets/images/Plastic_wrap_7.png");
-    //   z-index: 3;
-    //   background-size: 100% 100%;
-    // }
-
-    //   .cd-case1::after {
-    //     content: "";
-    //     position: absolute;
-    //     // opacity: .35;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    //     background-image: url("../../../assets/images/cd_overlay.png");
-    //     z-index: 3;
-    //     background-size: 100% 100%;
-    // }
-
-    .cd-case1 {
-        width: 100%;
-        position: relative;
-        background-size: cover;
-        padding: 4px 4px 2px 0px;
-        box-sizing: border-box;
-        overflow: hidden;
-        display: inline-block;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        background-image: url("../../../assets/images/closed-case.png");
-        z-index: 1;
-        background-color: rgb(0 0 0 / 5%);
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        // border-radius: 3px;
-        // background: rgba(0, 0, 0, 0);
-        // box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.6), inset 0px 0px 20px 2px rgba(0, 0, 0, 0.4),
-        //     inset 0px 0px 5px 1px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.2);
-        .art-cover {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .album-art {
-            top: 0;
-            left: 9.5%;
-            width: 91%;
-            height: 100%;
-            // top: 3%;
-            // left: 14%;
-            // width: 84%;
-            // height: 95%;
-            // background: rgba(0, 0, 0, 0);
-             // box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5), inset 0px 0px 16px 2px rgba(0, 0, 0, 0.1),
-             // inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
-             // backdrop-filter: blur(10px);
-            border-radius: 1px;
-            position: relative;
-            z-index: -2;
-            background-size: 100% 100% !important;
-        }
-        // noise filter for album artwork
-        .album-art::after{
-               content: "";
-               position: absolute;
-               // opacity: .35;
-               top: 0;
-               left: 0;
-               width: 100%;
-               height: 100%;
-               background-image: url("../../../assets/images/noise.svg");
-               // background-image: url("../../../assets/images/cd_texture.png");
-               z-index: 3;
-               background-size: 100% 100%;
-        }
-        .sup {
-            height: 4.6%;
-            width: 14%;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.22), inset 0px 0px 1px 1px rgba(255, 255, 255, 0.17);
-        }
-        img {
-            width: 100%;
-        }
-        .mint-sticker {
-            &.available {
-                background-image: url("../../../assets/images/mint-sticker.png");
-                background-size: 100% 100%;
-                background-position: center;
-                background-repeat: no-repeat;
-                z-index: 3;
-                span {
-                    @media screen and (max-width: 400px) {
-                        font-size: 8px;
-                    }
-                    font-size: 11px;
-                    text-transform: uppercase;
-                    font-weight: bold;
-                    text-align: center;
-                    font-family: Gotham;
-                }
-            }
-            &.sold {
-                background-image: url("../../../assets/images/sold-out.png");
-                background-size: 100% 100%;
-                background-position: center;
-                background-repeat: no-repeat;
-                height: 18%;
-                width: 23%;
-                bottom: 6%;
-                span {
-                    display: none;
-                }
-            }
-            height: 23%;
-            width: 23%;
-            position: absolute;
-            background-size: cover;
-            bottom: 5%;
-            right: 5%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .album-art {
+      top: 0;
+      left: 9.5%;
+      width: 91%;
+      height: 100%;
+      // top: 3%;
+      // left: 14%;
+      // width: 84%;
+      // height: 95%;
+      // background: rgba(0, 0, 0, 0);
+      // box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5), inset 0px 0px 16px 2px rgba(0, 0, 0, 0.1),
+      // inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
+      // backdrop-filter: blur(10px);
+      border-radius: 1px;
+      position: relative;
+      z-index: -2;
+      background-size: 100% 100% !important;
     }
-    h3 {
-        font-size: 18px;
-        @media screen and (max-width: 600px) {
-            font-size: 13px;
-        }
-        @media screen and (max-width: 400px) {
-            font-size: 12px;
-        }
-        color: #fff;
-        margin-bottom: 3px;
-        margin-top: 15px;
-        font-weight: 300;
+    // noise filter for album artwork
+    .album-art::after {
+      content: "";
+      position: absolute;
+      // opacity: .35;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../../assets/images/noise.svg");
+      // background-image: url("../../../assets/images/cd_texture.png");
+      z-index: 3;
+      background-size: 100% 100%;
     }
+    .sup {
+      height: 4.6%;
+      width: 14%;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.22),
+        inset 0px 0px 1px 1px rgba(255, 255, 255, 0.17);
+    }
+    img {
+      width: 100%;
+    }
+    .mint-sticker {
+      &.available {
+        background-image: url("../../../assets/images/mint-sticker.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 3;
+        span {
+          @media screen and (max-width: 400px) {
+            font-size: 8px;
+          }
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: bold;
+          text-align: center;
+          font-family: Gotham;
+        }
+      }
+      &.sold {
+        background-image: url("../../../assets/images/sold-out.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 18%;
+        width: 23%;
+        bottom: 6%;
+        span {
+          display: none;
+        }
+      }
+      height: 23%;
+      width: 23%;
+      position: absolute;
+      background-size: cover;
+      bottom: 5%;
+      right: 5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  h3 {
+    font-size: 18px;
+    @media screen and (max-width: 600px) {
+      font-size: 13px;
+    }
+    @media screen and (max-width: 400px) {
+      font-size: 12px;
+    }
+    color: #fff;
+    margin-bottom: 3px;
+    margin-top: 15px;
+    font-weight: 300;
+  }
 
-    h4 {
-        color: rgba(255, 255, 255, 0.8);
-        margin-top: 0px;
-        font-weight: 300;
-        font-size: 14px;
-        line-height: 18px;
-        margin-bottom: 0;
-    }
+  h4 {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 0;
+  }
 }
 .modal-album {
-    position: absolute;
-    .modal {
-        .holder {
-            background-image: url("../../../assets/images/cdcase-new.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            padding: 10px 15px;
-            // background-color: #1d1d1d;
-            background-color: transparent;
-            border-radius: 0;
-            width: 876px;
-            @media screen and (max-width: 600px) {
-                width: 350px;
-            }
-        }
+  position: absolute;
+  .modal {
+    .holder {
+      background-image: url("../../../assets/images/cdcase-new.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      padding: 10px 15px;
+      // background-color: #1d1d1d;
+      background-color: transparent;
+      border-radius: 0;
+      width: 876px;
+      @media screen and (max-width: 600px) {
+        width: 350px;
+      }
     }
+  }
 }
 .d-none {
-    display: none;
+  display: none;
 }
 .d-block {
-    display: block;
+  display: block;
 }
 
 .the-title {
-    &.playlist-title {
-        text-align: center;
-        position: absolute;
-        bottom: 51px;
-        width: 95%;
-        @media screen and (max-width: 1400px) {
-            padding-left: 23px;
-            padding-right: 5px;
-        }
-        padding-left: 69px;
-        padding-right: 24px;
-        box-sizing: border-box;
-        h3 {
-            font-family: "Permanent Marker", cursive;
-            width: 100%;
-            display: inline-block;
-            color: #000;
-            margin-bottom: 9px;
-        }
+  &.playlist-title {
+    text-align: center;
+    position: absolute;
+    bottom: 51px;
+    width: 95%;
+    @media screen and (max-width: 1400px) {
+      padding-left: 23px;
+      padding-right: 5px;
     }
+    padding-left: 69px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    h3 {
+      font-family: "Permanent Marker", cursive;
+      width: 100%;
+      display: inline-block;
+      color: #000;
+      margin-bottom: 9px;
+    }
+  }
 }
