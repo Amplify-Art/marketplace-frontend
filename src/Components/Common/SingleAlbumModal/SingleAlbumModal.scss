@@ -8,28 +8,28 @@
 	font-style: normal;
 	font-weight: normal;
 	height: 388px;
-	.left-wrapper {
-		padding: 10px;
-		width: 389px;
-		position: relative;
-		.active-playlist {
-			text-align: center;
-			.active-playlist-btn {
-				cursor: pointer;
-				min-width: auto !important;
-				border: 1.5px solid #ffffff;
-			}
-		}
-	}
-	.bg-album-img {
-		// background: url("../../../assets/images/cd-img.svg");
-		background-size: cover;
-		background-repeat: round;
-		width: 410px;
-		height: 410px;
-		margin-left: 76px;
-		margin-top: 7px;
-	}
+	// .left-wrapper {
+	// 	padding: 10px;
+	// 	width: 389px;
+	// 	position: relative;
+	// 	.active-playlist {
+	// 		text-align: center;
+	// 		.active-playlist-btn {
+	// 			cursor: pointer;
+	// 			min-width: auto !important;
+	// 			border: 1.5px solid #ffffff;
+	// 		}
+	// 	}
+	// }
+	// .bg-album-img {
+	// 	// background: url("../../../assets/images/cd-img.svg");
+	// 	background-size: cover;
+	// 	background-repeat: round;
+	// 	width: 410px;
+	// 	height: 410px;
+	// 	margin-left: 76px;
+	// 	margin-top: 7px;
+	// }
 	.cd-case {
 		background: url("../../../assets/images/cd-img.svg");
 		background-size: cover;
@@ -45,8 +45,11 @@
 		grid-column-gap: 20px;
 		grid-row-gap: 5px;
 		.album-img {
-			width: 130px;
-			height: 130px;
+			width: 120px;
+	    height: 120px;
+	    overflow: hidden;
+	    border-radius: 2px;
+			filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
 			@media screen and (max-width: 600px) {
 				width: 165px;
 				height: 165px;
@@ -57,7 +60,7 @@
 			}
 		}
 		.album-right {
-			padding-left: 20px;
+			// padding-left: 20px;
 			@media screen and (max-width: 600px) {
 				padding-left: 0px;
 			}
