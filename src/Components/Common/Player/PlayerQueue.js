@@ -17,7 +17,7 @@ export default function PayerQueue({
         {currentPlaylists.map((cp, i) => {
           return (
             <div className="queue-item" key={i}>
-              <img src={CdImage} alt="Album" />
+              <img src={cp?.cover_cid ? `https://gateway.pinata.cloud/ipfs/${cp?.cover_cid}` : CdImage} alt="Album" />
               <div className="title">
                 <span className="song-title">{cp.title}</span>
                 <span className="album-title">
