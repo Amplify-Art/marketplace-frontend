@@ -116,11 +116,11 @@ function SearchResultCard(props) {
               cover={artist.avatar}
               contentHeading={artist.name}
               contentDetail={
-                artist.songs <= 0
-                  ? "0 Songs"
-                  : artist.songs === 1
+                artist.albums <= 0
+                  ? "0 Albums"
+                  : artist.albums === 1
                   ? "1 Song"
-                  : `${artist.songs} Songs`
+                  : `${artist.albums} Albums`
               }
               contentTypeHeading="Artist"
               contentTypeDetail=""
