@@ -23,7 +23,6 @@ export const getUsers = (payload = {}) => {
 };
 
 export const getUserById = (payload) => {
-  console.log(payload, "payload");
   const id = payload.id;
   const url = makeUrl(`${API_ENDPOINT_URL}/users/${id}`, {
     ...(payload.params || {}),

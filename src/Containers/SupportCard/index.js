@@ -280,16 +280,13 @@ function SupportCard(props) {
       query: `query MyQuery {\n  token(where: {storeId: {_eq: "${storeId}"}, ownerId: {_eq: "${user.near_account_id}"}}) {\n    id\n    thingId\n  }\n}\n`,
       operationName: "MyQuery",
     });
-    console.log(res.data, "res");
     if (res.data.data) {
       let tokens = await Promise.all(
         res.data.data.token.map((t) =>
           axios.get(`https://arweave.net/${t.thingId.split(":")[0]}`)
         )
       );
-      console.log(tokens, "tokens");
       let mappedTokenMetadata = tokens.map((t) => t.data);
-      console.log(mappedTokenMetadata);
       setSupporterCards(mappedTokenMetadata);
     }
   };
@@ -356,12 +353,10 @@ function SupportCard(props) {
   };
 
   useEffect(() => {
-    console.log(user, "user");
     if (user.near_account_id) fetchBalance();
   }, [user]);
 
   const fetchBalance = async () => {
-    console.log("Fetching");
     let near = await getNearConfig();
     const wallet = new WalletConnection(near, "amplify_art");
     const contract = new nearAPI.Contract(
@@ -373,14 +368,6 @@ function SupportCard(props) {
         sender: wallet.account(), // account object to initialize and sign transactions.
       }
     );
-    // let res = await contract.get_payout_by_account({
-    //   account_id: user.near_account_id,
-    // });
-    // if (res) {
-    //   console.log("VALUE", formatNearAmount(res));
-    //   setWithdrawableAmount(formatNearAmount(res));
-    // }
-    // console.log(res, "res");
   };
   const onWithDrawAmount = async () => {
     props.displayLoadingOverlay();
@@ -403,7 +390,7 @@ function SupportCard(props) {
       console.error(error);
     }
   };
-  console.log(supporterCards.length, props.nominationvotes?.length);
+
   return (
     <div id="support-card" className="left-nav-pad right-player-pad">
       <div className="container">

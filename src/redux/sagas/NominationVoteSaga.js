@@ -65,7 +65,7 @@ export function* addNominationVoteSaga({ history }, { payload }) {
         },
       }),
     ]);
-    console.log(res, "res");
+
     if (res.success) {
       yield all([
         put({ type: types.ADD_NOMINATIONVOTE_SUCCESS, res }),
