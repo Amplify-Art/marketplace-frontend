@@ -210,9 +210,11 @@ function Header(props) {
   };
 
   useEffect(() => {
+    console.log("isWalletSigned", isWalletSigned);
     if (isWalletSigned) {
       getAccountDetails();
     } else {
+      console.log("NOT Signed", isWalletSigned);
     }
   }, [isWalletSigned]);
 
@@ -275,6 +277,7 @@ function Header(props) {
   };
 
   const handleSearchClicked = (type, data) => {
+    console.log(type, data);
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
       props.hideSearchResult();
@@ -319,6 +322,7 @@ function Header(props) {
   }, [showWalletSidebar]);
 
   const callMint = async () => {
+    console.log(wallet);
     try {
       let result = await props.wallet.account().functionCall(
         "nft.dev-1631962167293-57148505657038",
@@ -336,6 +340,7 @@ function Header(props) {
         200000000000000,
         parseNearAmount("1")
       );
+      console.log("result");
     } catch (error) {
       console.log(error);
     }
@@ -349,6 +354,7 @@ function Header(props) {
     }
     return false;
   };
+  console.log('[PROPS DEBUG]', props)
   return (
     <>
       <header>

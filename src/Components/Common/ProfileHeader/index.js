@@ -83,6 +83,7 @@ function ProfileHeader({
                 [...showcases, ...new Array(6 - showcases.length).fill(null)],
                 3
               ).map((row, i) => {
+                console.log(row, "row")
                 return (
                 <div className="single-shelf" key={i}>
                   <div className="albums-on-shelf">

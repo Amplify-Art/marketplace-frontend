@@ -92,6 +92,8 @@ function MyProfile(props) {
     });
     let near_account_id = props.location.pathname.split("/").slice(-1)[0];
 
+    console.log(near_account_id, "near_account_id");
+
     props.fetchUserNearById({
       near_id: near_account_id,
       params: {
@@ -165,6 +167,7 @@ function MyProfile(props) {
       let albumId = decodeURIComponent(
         q.parse(props.history.location.search)["?showId"]
       );
+      console.log(albumId);
     }
   }, [props.history.location.search]);
 
@@ -267,7 +270,9 @@ function MyProfile(props) {
   };
 
   const onFollow = () => {
+    // console.log(props.myFollowings, userID, decodedToken)
     let follow = props.myFollowings.find((f) => f.artist_id === userID);
+    console.log(follow);
     if (follow) {
       props.updateFollower({
         id: follow.id,
@@ -346,6 +351,7 @@ function MyProfile(props) {
       });
       if (res.data.success && res.data.results.length) {
         let { id, near_account_id } = res.data.results[0];
+        console.log(id, near_account_id);
 
         props.fetchUser({
           id: id,
@@ -358,6 +364,7 @@ function MyProfile(props) {
             orderBy: "-id",
           },
         });
+        console.log("ID", id);
         setID(parseInt(id));
         setUserName(near_account_id);
       }
@@ -393,12 +400,17 @@ function MyProfile(props) {
   }, [props.user]);
 
   const closeModals = () => {
+    console.log(props.displaySellModal, "props.displaySellModal");
     if (props.displaySellModal && sellingCopy) {
       setSellingCopy(null);
     } else {
       setSellingSong(null);
       props.hideSellModal();
     }
+
+    // setSellingCopy(null)
+    // setSellingSong(null)
+    // props.hideSellModal()
   };
 
   const onClose = () => {
@@ -479,6 +491,8 @@ function MyProfile(props) {
       );
     }
   }, [sellingSong]);
+
+  console.log('[[[props]]]', props)
 
   return (
     <div

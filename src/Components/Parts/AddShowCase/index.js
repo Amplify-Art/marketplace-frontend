@@ -36,7 +36,9 @@ function AddShowCase({
 
   const getNFTs = async () => {
     let tokens = await getTokens(wallet);
+    console.log(tokens, "tokens");
     let songtokens = tokens.map((t) => t.token_id.split(":")[2]);
+    console.log(songtokens);
     fetchNFTs({
       nft_tokens: songtokens,
       type: "showcase",
@@ -71,6 +73,7 @@ function AddShowCase({
       setLoading(false);
     }
   };
+  console.log(data?.length !== 0, songs, isFetchingNFts);
   return (
     <div id="addshowcase">
       <div className="scrollbar" id="style-4">

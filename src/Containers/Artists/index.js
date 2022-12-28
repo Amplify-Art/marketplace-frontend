@@ -15,6 +15,7 @@ function Artists(props) {
       },
     });
   }, []);
+  console.log(artists, "artists");
   return (
     <div id="artists-page" className="left-nav-pad right-player-pad">
       <div className="containerOuter">

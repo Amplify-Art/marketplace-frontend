@@ -93,6 +93,7 @@ function ArtistDashboard(props) {
       setBannerImage(decodedToken.banner);
       setProfileImage(decodedToken.avatar);
       setUserName(decodedToken.near_account_id);
+      console.log(decodedToken, 'decodedToken')
       setArtistData({
         cover: decodedToken.banner,
         avatar: decodedToken.avatar,

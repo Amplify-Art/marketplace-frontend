@@ -6,6 +6,7 @@ export default function ({
     fallbackImage,
     ...rest
 }) {
+    console.log(src)
     const [error, setError] = useState(false)
     const onImageLoadError = () => {
         setError(true)

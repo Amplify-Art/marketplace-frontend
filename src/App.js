@@ -49,7 +49,6 @@ import MyProfile from "./Containers/MyProfile/index";
 import SideSocialNav from "./Components/Common/SideSocialNav/index";
 import MainSideNav from "./Components/Common/MainSideNav/index";
 import Player from "./Components/Common/Player/index";
-import PlayerNew from "./Components/Common/PlayerNew";
 
 // Global Loader
 import GloablLoader from "./Components/Common/Loading/index";
@@ -107,6 +106,7 @@ function App(props) {
     }
   }, []);
   const toggleWalletSidebar = (bool) => {
+    console.log(bool);
     if (bool) {
       props.showWallet();
     } else {
@@ -237,7 +237,6 @@ function App(props) {
             toggleWalletSidebar={toggleWalletSidebar}
           />
         ) : null}
-        <PlayerNew />
       </GloablLoader>
     </>
   );

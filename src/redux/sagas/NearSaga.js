@@ -30,7 +30,7 @@ export function* sendNearSaga({ history }, { payload }) {
       }
     }
   } catch (error) {
-
+    console.log(error)
     yield all([
       put({ type: SEND_NEAR_FAILURE, error }),
       put({ type: UNSET_OVERLAY_LOADER }),

@@ -85,6 +85,7 @@ function AlbumModalContent({
 
   const fetchTokens = async () => {
     let tokens = await getTokens(props.wallet);
+    console.log(tokens, "tokens");
     if (tokens.length > 0) {
       setUserTokens(tokens);
     }

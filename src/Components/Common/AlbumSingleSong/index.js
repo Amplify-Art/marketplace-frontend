@@ -77,6 +77,7 @@ function AlbumSingleSong(props) {
     ) || {}
   ).is_for_sale;
 
+  // console.log(tokens, "tokens", song);
   let hasAnyOfCopies = (tokens || []).some((t) => {
     let [album, copy, songToken] = t.token_id.split(":");
     let txn = song.transfers?.find(
