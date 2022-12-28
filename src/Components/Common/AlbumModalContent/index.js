@@ -237,10 +237,10 @@ function AlbumModalContent({
                 ) : null}
                 {isMerged && (
                   <>
-                    <div className="">
+                    {/* <div className="">
                       Mints Owned :{" "}
                       {albumInfo.mints_owned.map((m) => `#${m}`).join(", ")}
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>

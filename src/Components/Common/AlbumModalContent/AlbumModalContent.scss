@@ -4,7 +4,7 @@
 	font-family: $space;
 	font-style: normal;
 	font-weight: normal;
-	height: 388px;
+	// height: 388px;
 	// ::after{
 	// 	content: "";
 	// 	position: absolute;
@@ -19,10 +19,13 @@
 	// 	opacity: .01;
 	// }
 	.left-wrapper {
-		border-radius: 2px;
-		padding: 15px;
-		width: 41%;
 		position: relative;
+		border-radius: 2px;
+		padding: 15px 15px 0px 15px;
+		width: 330px;
+		height: 335px;
+		margin: 10px;
+		overflow: hidden;
 		.active-playlist {
 			text-align: center;
 			.active-playlist-btn {

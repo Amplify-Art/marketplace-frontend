@@ -154,8 +154,9 @@
       font-size: 12px;
     }
     color: #fff;
+    // margin: 10px 0 5px 0;
     margin-bottom: 3px;
-    margin-top: 15px;
+    margin-top: 10px;
     font-weight: 300;
   }
 
@@ -174,14 +175,20 @@
     .holder {
       background-image: url("../../../assets/images/cdcase-new.png");
       background-repeat: no-repeat;
-      background-size: contain;
-      padding: 10px 15px;
+      background-size: cover;
+      padding: 0px;
+      // padding: 10px 15px;
       // background-color: #1d1d1d;
       background-color: transparent;
       border-radius: 0;
-      width: 876px;
+      width: 800px;
+      height: 372px;
+      margin: 30px 0 30px 0;
+      @media screen and (max-width: 840px) {
+      width: 375px;
+      }
       @media screen and (max-width: 600px) {
-        width: 350px;
+        // width: 350px;
       }
     }
   }
