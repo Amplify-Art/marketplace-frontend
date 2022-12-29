@@ -394,6 +394,7 @@
   .transactionListWrapper {
     margin-top: 50px;
     padding: 30px;
+    overflow-x: scroll;
     background: #c4c4c42e;
     .transactionList {
       display: flex;
@@ -405,8 +406,8 @@
         color: white;
         font-weight: 300;
         font-size: 24px;
-        @media screen and (max-width: 600px) {
-          font-size: 20px;
+        @media screen and (max-width: 699px) {
+          font-size: 18px;
         }
       }
       .viewFullLink {
