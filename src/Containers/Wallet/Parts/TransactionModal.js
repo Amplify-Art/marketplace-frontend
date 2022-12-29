@@ -45,9 +45,7 @@ function TransactionModal({ transaction, onClose }) {
           </div>
           <div className="content">
             <div className="content-heading">{transaction.title}</div>
-            <div className="content-details">
-              {transaction.description || ""}
-            </div>
+            <div className="content-details"></div>
           </div>
           <div className="contentType">
             <div className="contentType-heading">
