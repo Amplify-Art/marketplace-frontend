@@ -11,9 +11,9 @@ function TheTech() {
               <h2>The Tech</h2>
               <div className="content">
                 <div className="left">
-                  <h3>NFT Ownership</h3>
-                  <h3>Trustless Marketplace</h3>
-                  <h3>Blockchain Secured Assets</h3>
+                  <h3>Blockchain secured.</h3>
+                  <h3>Trustless system.</h3>
+                  <h3>Distributed ownership.</h3>
                 </div>
 
                 <div className="right">
