@@ -132,7 +132,7 @@ function Wallet(props) {
       <div className="white-box">
         <div className="left">
           <h4 className="balance">Total Balance </h4>
-          {user?.near_account_id && <h3>{user?.near_account_id}</h3>}
+          {/* {user?.near_account_id && <h3>{user?.near_account_id}</h3>}*/}
           <div className="near-amount">
             <span>
               {props.user?.near_balance &&
