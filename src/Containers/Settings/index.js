@@ -196,6 +196,7 @@ function MyProfile(props) {
     });
   };
   return (
+    <div className="containerOuter">
     <div
       id="settings"
       className={`left-nav-pad ${
@@ -242,6 +243,7 @@ function MyProfile(props) {
           bodyChildren={<BannerUploaderForm />}
         />
       )}
+    </div>
     </div>
   );
 }

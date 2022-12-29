@@ -5,8 +5,10 @@
   .header-title {
     color: white;
     font-family: $space;
-    opacity: 0.6;
+    font-size: 20px;
     font-weight: 300;
+    line-height: 26px;
+    margin-bottom: 30px;
   }
   .container {
     margin-top: -45px;
@@ -80,7 +82,7 @@
       }
       border-radius: 50%;
       overflow: hidden;
-      border: solid 3px #fff;
+      border: none;
       .profilePic {
         width: 180px;
         height: 180px;

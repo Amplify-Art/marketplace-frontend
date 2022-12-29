@@ -58,11 +58,15 @@ button {
 .containerOuter {
   width: 100%;
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
   box-sizing: border-box;
   // margin-top: 40px !important;
-  margin-top: 80px !important;
+  // margin-top: 80px !important;
+  margin-top: 65px;
+  position: relative;
+  max-width: 85rem;
+  margin-right: auto;
   @media screen and (max-width: 1660px) {
     // padding-left: 30px;
     // padding-right: 30px
@@ -95,7 +99,7 @@ button {
 
   @media screen and (max-width: 650px) {
     width: 100%;
-    padding: 20px;
+    // padding: 20px;
   }
   &.small {
     width: 1480px;
@@ -358,7 +362,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 70px;
-  padding-left: 15px;
+  // padding-left: 15px;
   @media screen and (max-width: 800px) {
   gap: 30px;
   padding-left: 5px;
