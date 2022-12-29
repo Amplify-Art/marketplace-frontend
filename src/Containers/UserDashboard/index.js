@@ -165,7 +165,9 @@ function UserDashboard(props) {
             ))}
           </div>
         ) : (
+          <div className="container">
           <h2 className="no-artists">No Followed Artist</h2>
+          </div>
         )}
 
         {renderReleaseHeader("Recently Released", false)}
