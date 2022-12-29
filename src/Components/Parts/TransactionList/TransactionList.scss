@@ -1,18 +1,21 @@
 .transactionWrapper {
   width: 100%;
+  margin-top: 30px;
   .transTable {
     width: 100%;
     .transRow {
       width: 100%;
       color: white;
       font-weight: 300;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       .transId {
         @media screen and (max-width: 600px) {
           display: none;
         }
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
       }
       .transIdMobile {
         @media screen and (min-width: 700px) {
@@ -32,11 +35,16 @@
         @media screen and (max-width: 600px) {
           display: none;
         }
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
       }
       .transAmt {
         text-align: right;
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
+        font-weight: 400;
         .greenTxt {
           color: #22BE00;
           @media screen and (max-width: 600px) {
@@ -50,10 +58,12 @@
           }
         }
         .smallTxt {
-          color: white;
-          font-size: 14px;
+          padding-top: 2px;
+          font-weight: 300;
+          font-size: 12px;
+          line-height: 15px;
           @media screen and (max-width: 600px) {
-            font-size: 12px;
+            font-size: 10px;
           }
         }
       }

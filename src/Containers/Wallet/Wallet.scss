@@ -393,16 +393,17 @@
   }
   .transactionListWrapper {
     margin-top: 50px;
+    padding: 30px;
     background: #c4c4c42e;
     .transactionList {
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: "Space Grotesk", sans-serif;
-      font-weight: 200;
+      font-weight: 300;
       .heading {
         color: white;
-        padding: 20px;
+        font-weight: 300;
         font-size: 24px;
         @media screen and (max-width: 600px) {
           font-size: 20px;
@@ -410,10 +411,12 @@
       }
       .viewFullLink {
         color: white;
-        padding: 20px;
-        font-size: 20px;
+        // padding: 20px;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
         @media screen and (max-width: 600px) {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
