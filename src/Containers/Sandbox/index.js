@@ -96,7 +96,7 @@ function SandBox(props) {
 
       {showNominateModal && <GeneralModal
         headline="Nominate New Artist"
-        bodyText="Nominate yourself for this month’s voting period. Enter early in the month for more exposure."
+        bodyText="Nominate someone for this month’s voting period. Enter early in the month for more exposure."
         buttons={[
           {
             type: 'solid',

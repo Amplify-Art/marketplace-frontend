@@ -17,7 +17,7 @@ function TheTech() {
                 </div>
 
                 <div className="right">
-                  <p>Launch, buy, and sell NFTs with complete confidence and security. Amplify Art is built on top of the NEAR blockchain, ensuring you the highest level of ownership and provenance for your NFTs. </p>
+                  <p>Launch, buy, and sell NFTs with complete confidence and security. Amplify Art is built on top of the <a href="">NEAR blockchain</a>, ensuring you the highest level of ownership and provenance for your NFTs. </p>
                 </div>
               </div>
             </div>

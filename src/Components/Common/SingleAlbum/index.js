@@ -246,7 +246,9 @@ function SingleAlbum(props) {
           onClick={props.onClick ? props.onClick : handleModal}
         >
           <div
-            className="album-art"
+            className={`album-art ${
+              albumInfo.available_qty === 0 ? "sold" : "available"
+            }`}
             style={{
               background: `url(${albumCover}) center center no-repeat`,
             }}
