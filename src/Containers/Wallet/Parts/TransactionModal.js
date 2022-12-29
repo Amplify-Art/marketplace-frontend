@@ -2,7 +2,8 @@ import React from "react";
 import moment from "moment";
 
 import Image from "../../../Components/Common/Image";
-import greyFace from "../../../assets/images/grey_face.gif";
+import Greyface from "../../../assets/images/grey_face.gif";
+import IconClose from "../../../assets/images/closeicon.svg";
 
 const textEllipsis = (txt) => {
   if (txt.length > 13) {
@@ -15,9 +16,10 @@ function TransactionModal({ transaction, onClose }) {
   return (
     <div className="transDetail-modal-wrapper">
       <div className="transDetail-top">
-        <div className="transDetail-heading">Transaction Details.</div>
+        <div className="transDetail-heading">Transaction Details</div>
         <div className="transDetail-close-button" onClick={onClose}>
-          ⤫
+        <Image src={IconClose}
+        />
         </div>
       </div>
       <div className="transaction-modal-near-amount">
@@ -40,7 +42,7 @@ function TransactionModal({ transaction, onClose }) {
               className="image"
               src={`https://gateway.pinata.cloud/ipfs/${transaction.cover}`}
               alt=""
-              fallbackImage={greyFace}
+              fallbackImage={Greyface}
             />
           </div>
           <div className="content">

@@ -464,15 +464,15 @@
       line-height: 31px;
       text-align: left;
       color: #000000;
+      font-weight: 300;
     }
     .transDetail-close-button {
       height: 26px;
       width: 26px;
-      font-size: 28px;
-      background: white;
-      color: #cccccc;
       cursor: pointer;
-      margin-top: -8px;
+      position: absolute;
+      top: 23px;
+      right: 20px;
     }
   }
   .transaction-modal-near-amount {
@@ -480,12 +480,12 @@
     align-items: center;
     font-size: 40px;
     line-height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     span {
       font-size: 16px;
-      line-height: 20.42px;
-      opacity: 0.5;
-      padding-left: 10px;
+      line-height: 20px;
+      opacity: 0.6;
+      padding-left: 12px;
     }
   }
   .transaction-modal-fee {
@@ -497,16 +497,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     .purchase-headline {
+      font-weight: 500;
       font-size: 20px;
-      line-height: 25.52px;
-      font-weight: 600;
+      line-height: 26px;
     }
     .purchase-date {
+      font-weight: 300;
       font-size: 16px;
-      line-height: 20.42px;
-      font-weight: 400;
+      line-height: 20px;
     }
   }
   .transaction-modal-purchase-item-wrapper {
@@ -544,10 +544,12 @@
         margin-left: 20px;
         .content-heading {
           font-size: 20px;
+          font-weight: 300;
+          font-size: 18px;
+          line-height: 23px;
           @media screen and (max-width: 600px) {
             font-size: 16px;
           }
-          font-weight: bold;
         }
         .content-details {
           opacity: 0.7;
@@ -557,12 +559,14 @@
         text-align: end;
         opacity: 0.7;
         .contentType-heading {
-          font-size: 18px;
+          color: #000;
+          opacity: .4;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
           @media screen and (max-width: 600px) {
-            font-size: 14px;
+            font-size: 12px;
           }
-          font-weight: bold;
-          color: #999;
         }
         .contentType-detail {
           font-size: 16px;
@@ -576,15 +580,15 @@
   .transaction-modal-address-wrapper {
     margin-bottom: 20px;
     .transaction-modal-from {
-      font-size: 16px;
-      line-height: 20.42px;
-      font-weight: 400;
       margin-bottom: 5px;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 20px;
     }
     .transaction-modal-heading {
-      font-weight: 600;
-      margin-bottom: 5px;
-      font-size: 14px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
     }
     .transaction-modal-detail {
       font-weight: 400;
