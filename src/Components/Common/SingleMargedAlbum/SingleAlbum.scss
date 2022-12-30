@@ -134,11 +134,14 @@
     }
     .mint-sticker {
       &.available {
+        height: 60px;
+        width: 60px;
         background-image: url("../../../assets/images/mint-sticker.png");
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
         z-index: 3;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         span {
           @media screen and (max-width: 400px) {
             font-size: 8px;
@@ -155,9 +158,11 @@
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
-        height: 18%;
-        width: 23%;
-        bottom: 6%;
+        height: 43px;
+        width: 67px;
+        bottom: 7%;
+        right: 7%;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         span {
           display: none;
         }
@@ -166,7 +171,7 @@
       width: 23%;
       position: absolute;
       background-size: cover;
-      bottom: 5%;
+      bottom: 3%;
       right: 5%;
       display: flex;
       align-items: center;
@@ -218,17 +223,6 @@
       @media screen and (max-width: 600px) {
         // width: 350px;
       }
-      // ::after {
-      //   content: "";
-      //   position: absolute;
-      //   top: 0;
-      //   right: 0;
-      //   width: 355px;
-      //   height: 355px;
-      //   background-image: url("../../../assets/images/disk.png");
-      //   z-index: 3;
-      //   background-repeat: no-repeat;
-      // }
     }
   }
 }
