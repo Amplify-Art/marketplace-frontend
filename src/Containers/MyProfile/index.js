@@ -497,8 +497,7 @@ function MyProfile(props) {
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`left-nav-pad normal-right-pad`}
     >
       <ProfileHeader
         ArtistData={ArtistData}

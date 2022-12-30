@@ -126,8 +126,7 @@ function Wallet(props) {
   };
   return (
     <div
-      className={`containerOuter wallet-page left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`containerOuter wallet-page left-nav-pad normal-right-pad`}
     >
       <div className="white-box">
         <div className="left">

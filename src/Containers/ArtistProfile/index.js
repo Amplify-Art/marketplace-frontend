@@ -57,7 +57,7 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
-        <button className="set_name" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        <button className="set_name no-mw" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
       </>
     )
   }

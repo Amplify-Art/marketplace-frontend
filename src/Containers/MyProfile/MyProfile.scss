@@ -120,6 +120,9 @@
 
 #profile-header .btn-wrap .set_name {
   margin-right: 0px;
+  &.no-mw{
+    min-width: auto;
+  }
 }
 
 .copy-input-hidden {

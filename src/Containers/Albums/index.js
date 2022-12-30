@@ -125,8 +125,7 @@ function Albums(props) {
     <div className="containerOuter">
     <div
       id="albums"
-      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`left-nav-pad normal-right-pad`}
     >
       <div className="container">
         <div className="album-grid">
