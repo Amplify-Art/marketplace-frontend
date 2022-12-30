@@ -218,6 +218,17 @@
       @media screen and (max-width: 600px) {
         // width: 350px;
       }
+      // ::after {
+      //   content: "";
+      //   position: absolute;
+      //   top: 0;
+      //   right: 0;
+      //   width: 355px;
+      //   height: 355px;
+      //   background-image: url("../../../assets/images/disk.png");
+      //   z-index: 3;
+      //   background-repeat: no-repeat;
+      // }
     }
   }
 }
