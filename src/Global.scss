@@ -275,20 +275,15 @@ textarea {
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 30px;
   row-gap: 30px;
   @media screen and (max-width: 650px) {
     margin-left: 0px !important;
   }
-  @media screen and (max-width: 1830px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   @media screen and (max-width: 1325px) {
     grid-template-columns: repeat(3, 1fr);
   }
-
   @media screen and (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 30px;

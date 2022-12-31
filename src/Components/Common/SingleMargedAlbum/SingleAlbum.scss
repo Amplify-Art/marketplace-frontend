@@ -25,19 +25,6 @@
   //   background-size: 100% 100%;
   // }
 
-  //   .cd-case1::after {
-  //     content: "";
-  //     position: absolute;
-  //     // opacity: .35;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: 100%;
-  //     background-image: url("../../../assets/images/cd_overlay.png");
-  //     z-index: 3;
-  //     background-size: 100% 100%;
-  // }
-
   .cd-case1 {
     width: 100%;
     position: relative;
@@ -53,10 +40,6 @@
     z-index: 1;
     background-color: rgb(0 0 0 / 5%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    // border-radius: 3px;
-    // background: rgba(0, 0, 0, 0);
-    // box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.6), inset 0px 0px 20px 2px rgba(0, 0, 0, 0.4),
-    //     inset 0px 0px 5px 1px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.2);
     .art-cover {
       width: 100%;
       height: 100%;
@@ -81,6 +64,7 @@
         width: 100%;
         height: 100%;
         background-color: #0c0e16;
+        background: linear-gradient(180deg, #0C0E16 0%, #0c1113 87.67%);
         backdrop-filter: blur(10px);
         filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
       }

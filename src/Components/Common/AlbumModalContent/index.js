@@ -192,11 +192,11 @@ function AlbumModalContent({
             className="left-wrapper"
             style={{
               background: `linear-gradient(123.48deg, ${isPlayList
-                ? "#f18180"
+                ? "#586c7d"
                 : data?.vibrant
                   ? data.vibrant
-                  : "#f18180"
-                } 0%, ${isPlayList ? "#ec5051" : data?.muted ? data.muted : "#ec5051"
+                  : "#586c7d"
+                } 0%, ${isPlayList ? "#617789" : data?.muted ? data.muted : "#617789"
                 } 52.12%)`,
             }}
           >
