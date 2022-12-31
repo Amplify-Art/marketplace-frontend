@@ -285,23 +285,28 @@
   }
   .single-shelf {
     &:first-child {
-      margin-bottom: 50px;
+      // margin-bottom: 50px;
     }
     .albums-on-shelf {
       display: flex;
-      align-items: baseline;
+      align-items: end;
+      transform: translateY(12px);
       justify-content: space-between;
       padding-right: 30px;
       padding-left: 30px;
       box-sizing: border-box;
       .single-album-on-shelf {
         width: 93px;
+        height: 93px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         text-align: center;
         i {
           color: #fff;
           font-size: 34px;
           position: relative;
-          bottom: 20px;
           line-height: 25px;
           cursor: pointer;
         }
@@ -311,10 +316,9 @@
           height: 93px;
           display: flex;
           position: relative;
-          bottom: -12px;
           .deleteShowcase{
             position: absolute;
-            top: 20px;
+            // top: 20px;
             right: 0px;
             display: none;
             i{

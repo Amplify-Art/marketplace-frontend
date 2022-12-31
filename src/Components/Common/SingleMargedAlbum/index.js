@@ -241,9 +241,9 @@ function SingleMergedAlbum(props) {
       >
         <div
           className="cd-case1"
-          id="1169haaah"
+          id="1169hh"
           style={{
-            height: document.getElementById("1169haaah")?.offsetWidth * 0.86,
+            height: document.getElementById("1169hh")?.offsetWidth * 0.86,
           }}
           onClick={props.onClick ? props.onClick : handleModal}
         >
@@ -254,7 +254,6 @@ function SingleMergedAlbum(props) {
             }}
           >
           </div>
-          <div className="spine"></div>
           {showSticker && (
             <div
               className={`mint-sticker ${
