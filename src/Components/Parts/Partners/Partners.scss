@@ -4,9 +4,7 @@
 .partner-section{
   position: relative;
     .partner-section-padding {
-    // padding-top: 50px;
     padding-bottom: 80px;
-    // background: #181818;
 }
 .partner-logo-list {
     display: -webkit-box;
@@ -24,10 +22,10 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    grid-column-gap: 100px;
+    grid-column-gap: 50px;
     grid-row-gap: 50px;
     @media screen and (max-width: 1565px){
-      grid-column-gap: 80px;
+      grid-column-gap: 40px;
       grid-row-gap: 40px;
     }
     @media screen and (max-width: 650px){

@@ -290,7 +290,7 @@
     .albums-on-shelf {
       display: flex;
       align-items: end;
-      transform: translateY(12px);
+      transform: translateY(11px);
       justify-content: space-between;
       padding-right: 30px;
       padding-left: 30px;
@@ -333,7 +333,10 @@
               display: block;
             }
           }
-          img {
+          img{
+            border-radius: 2px;
+            transform: rotateX(15deg);
+            transform-style: preserve-3d;
           }
         }
       }
