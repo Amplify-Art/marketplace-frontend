@@ -36,7 +36,7 @@
     @media screen and (max-width: 994px) {
       flex-direction: column;
     }
-    @media screen and (max-width: 682px) {
+    @media screen and (max-width: 650px) {
       padding-left: 0px;
       padding-right: 0px;
     }
@@ -47,7 +47,21 @@
         padding-right: 0px;
         margin-bottom: 40px;
       }
+      @media screen and (max-width: 650px) {
+        display: block;
+      }
       .left-nav {
+        @media screen and (max-width: 650px) {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 30px;
+          max-width: 335px;
+          margin-right: auto;
+          margin-left: auto;
+        }
+        @media screen and (max-width: 440px) {
+          max-width: none;
+        }
         .count {
           font-family: $oswald;
           margin-bottom: 5px;
@@ -74,6 +88,9 @@
 
       .content {
         padding-left: 30px;
+        @media screen and (max-width: 650px) {
+          padding-left: 0px;
+        }
         .count {
           color: $red;
         }
@@ -91,6 +108,10 @@
           line-height: 33px;
           margin-top: 0px;
           margin-bottom: 0px;
+          @media screen and (max-width: 650px) {
+          font-size: 16px;
+          line-height: 24px;
+          }
         }
       }
     }

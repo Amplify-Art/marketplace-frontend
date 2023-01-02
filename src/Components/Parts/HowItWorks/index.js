@@ -11,7 +11,7 @@ function HowItWorks(props) {
         return (
           <div className="content">
             <span className="count">Step 01</span>
-            <h3>Artist Onboarding</h3>
+            <h3>Decentralized Onboarding</h3>
             <p>To prevent centralized control, we've granted our initial backers —<a className="team-link" href="#the-team">Support Card NFT Holders</a>— exclusive access to the artist onboarding process. These NFTs provide holders the ability to vote once per month on artists in the registry pool. At the end of the month, the two artists with the most votes will gain access to the "Artist Dashboard", which allows them to mint and sell Digital Album NFTs.</p>
           </div>
         )
