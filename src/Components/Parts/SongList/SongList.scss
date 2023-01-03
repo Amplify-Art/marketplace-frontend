@@ -17,7 +17,8 @@
       text-transform: uppercase;
       width: 20%;
       align-items: center;
-      color: #ffffff6e;
+      color: #ffffff;
+      opacity: 0.5;
       text-align: left;
       &:first-of-type {
         width: 40%;
@@ -37,7 +38,7 @@
       display: flex;
       justify-content: space-between;
       font-size: 20px;
-      line-height: 25.52px;
+      line-height: 25px;
       letter-spacing: 0.05em;
       font-weight: 400;
       width: 100%;
@@ -66,7 +67,7 @@
   }
   .play-song {
     align-items: center;
-    margin-bottom: 10px;
+    height: 46px;
     > div {
       font-size: 14px;
       line-height: 23px;
@@ -255,9 +256,9 @@
           font-size: 16px;
           line-height: 20px;
           text-transform: capitalize;
-          color: #FFFFFF;   
+          color: #FFFFFF;
           display: flex;
-          align-items: center;       
+          align-items: center;
         }
 
         .action {

@@ -6,7 +6,7 @@ import _ from "lodash";
 import AddShowCase from "../../Parts/AddShowCase/index";
 import { showCaseData } from "../../../Containers/Sandbox";
 import GeneralModal from "../../Common/GeneralModal/index";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 import bannerDefault from "../../../assets/images/banner_default.jpeg";
 
 import "./ProfileHeader.scss";

@@ -3,7 +3,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchArtists } from "../../redux/actions/ArtistAction";
 import "./Artists.scss";
-import defaultProfile from "../../assets/images/default-profile.jpg";
+import defaultProfile from "../../assets/images/default-profile.svg";
 import UserAvatar from "../../Components/Common/UserAvatar/index";
 
 function Artists(props) {

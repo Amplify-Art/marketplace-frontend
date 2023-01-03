@@ -16,7 +16,7 @@ import CDIcon from "../../../assets/images/cd-icon.svg";
 
 import { updateCurrentPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 
 const audioElement = new Audio();
 

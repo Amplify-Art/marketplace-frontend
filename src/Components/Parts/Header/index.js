@@ -39,7 +39,7 @@ import q from "querystring";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 
 const {
   keyStores,

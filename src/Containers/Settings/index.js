@@ -33,7 +33,7 @@ import ImageUploadIcon from "../../assets/images/image-upload.svg";
 import { API_ENDPOINT_URL } from "../../Constants/default";
 import { getAccessToken } from "../../Api/index";
 import { updateUserAction } from "../../redux/actions/UserAction";
-import defaultProfile from "../../assets/images/default-profile.jpg";
+import defaultProfile from "../../assets/images/default-profile.svg";
 import ImageUploader from "./ImageUploader";
 
 function MyProfile(props) {

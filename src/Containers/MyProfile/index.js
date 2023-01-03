@@ -27,7 +27,7 @@ import PurchasedSongs from "../../Components/Parts/PurchasedSongs";
 import TwitterIcon from "../../assets/images/twitter-icon.svg";
 import ShareIcon from "../../assets/images/share-icon.svg";
 import copyLink from "../../assets/images/highblack copy 1.svg";
-import defaultProfile from "../../assets/images/default-profile.jpg";
+import defaultProfile from "../../assets/images/default-profile.svg";
 import {
   sellSongAction,
   showSellModalAction,
