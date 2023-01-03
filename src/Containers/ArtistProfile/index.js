@@ -125,7 +125,7 @@ function ArtistProfile(props) {
                   generateAlbumItem({ ...album, hideSticker: false }, index)
                 )) : (
                   <div className="no-results">
-                    <h4>This artist currently has no recent releases. Please check back again later.</h4>
+                    <h4>This artist has not released any albums yet.</h4>
                   </div>
                 )}
             </div>
