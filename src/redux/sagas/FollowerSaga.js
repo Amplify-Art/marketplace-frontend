@@ -43,7 +43,7 @@ export function* addFollowerSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: res.success,
-          message: res.success ? 'Follower added' : res.message || 'Follower not added',
+          message: res.success ? 'Artist followed' : res.message || 'Follower not added',
         },
       }),
     ]);
@@ -71,7 +71,7 @@ export function* updateFollowerSaga({ history }, { payload }) {
         payload: {
           success: false,
           title: 'Alert',
-          message: res.success ? 'Follower updated' : res.message || 'Follower not updated',
+          message: res.success ? 'Unfollowed artist' : res.message || 'Follower not updated',
         },
       }),
     ]);
