@@ -229,9 +229,15 @@ function SongList(props) {
     props.hideBuyModal();
     setBuyingSong(null);
   };
-  const textEllipsis = (txt) => {
-    if (txt.length > 9) {
-      return txt.substr(0, 9) + "...";
+  const textEllipsisShort = (txt) => {
+    if (txt.length > 10) {
+      return txt.substr(0, 10) + "..";
+    }
+    return txt;
+  };
+  const textEllipsisLong = (txt) => {
+    if (txt.length > 14) {
+      return txt.substr(0, 14) + "..";
     }
     return txt;
   };
@@ -277,13 +283,13 @@ function SongList(props) {
                       </span>
                     </div>
                     <p className="song-title-mobile">
-                      {textEllipsis(
-                        (songData.artist && songData.artist.near_account_id) ||
+                      {textEllipsisShort(
+                        (songData.album && songData.album.title) ||
                           ""
                       )}{" "}
                       /{" "}
-                      {textEllipsis(
-                        (songData.album && songData.album.title) || ""
+                      {textEllipsisLong(
+                        (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
                     <p
@@ -350,16 +356,22 @@ function SongList(props) {
                             #{transfer && transfer.copy_number}
                           </div>
                           <div className="date-listed-by">
+                            <div className="dlb-grid">
+                            <span>
                             {" "}
                             {moment(transfer && transfer.created_at).format(
                               "MM/DD/YYYY"
-                            )}{" "}
+                            )}{"  "}
+                            </span>
+                            <span>
                             by @
                             {transfer &&
                               transfer.transferTo &&
                               transfer.transferTo.near_account_id}
+                            </span>
+                            </div>
                           </div>
-                          <div className="date-listed-by-mobile">
+                          {/* <div className="date-listed-by-mobile">
                             <div style={{ width: "100%" }}>
                               {moment(transfer && transfer.created_at).format(
                                 "MM/DD/YYYY"
@@ -371,7 +383,7 @@ function SongList(props) {
                                 transfer.transferTo &&
                                 transfer.transferTo.name}
                             </div>
-                          </div>
+                          </div> */}
                           <div className="songPrice">
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
@@ -380,6 +392,7 @@ function SongList(props) {
                           </div>
                           <div className="action">
                             <button
+                              className={user.id === transfer.transfer_to && 'delist'} 
                               onClick={() =>
                                 onModalChange({
                                   ...transfer,
@@ -393,9 +406,11 @@ function SongList(props) {
                             </button>
                           </div>
                           <div className="mobileAction">
-                            <button onClick={() => onModalChange(transfer)}>
+                            <button 
+                            className={user.id === transfer.transfer_to && 'delist'} 
+                            onClick={() => onModalChange(transfer)}>
                               {user.id === transfer.transfer_to
-                                ? "Delist Song"
+                                ? "Delist "
                                 : "Buy Now "}
                               {new Intl.NumberFormat("en-US", {
                                 style: "currency",
