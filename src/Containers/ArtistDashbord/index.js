@@ -77,7 +77,7 @@ function ArtistDashboard(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
 
       props.history.push('/artist-dashboard')
     } else if (props.history.location.search.includes('transactionHashes')) {

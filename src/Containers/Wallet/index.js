@@ -126,7 +126,7 @@ function Wallet(props) {
   };
   return (
     <div
-      className={`containerOuter wallet-page left-nav-pad normal-right-pad`}
+      className={`containerOuter wallet-page left-nav-pad normal-right-pad mw-1200`}
     >
       <div className="white-box">
         <div className="left">

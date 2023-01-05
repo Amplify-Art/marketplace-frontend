@@ -1,1 +1,9 @@
-<svg height="512pt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><g fill="#fff" transform="matrix(.1 0 0 -.1 0 512)"><path d="m900 2560v-2560h320 320v2560 2560h-320-320z"/><path d="m3460 2560v-2560h320 320v2560 2560h-320-320z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard</title>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.7">
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="16.5" cy="16.5" r="15.5"></circle>
+        <polygon id="Path" fill="#FFFFFF" fill-rule="nonzero" points="11.8 17 11.8 10 12.8 10 13.8 10 13.8 17 13.8 24 12.8 24 11.8 24"></polygon>
+        <polygon id="Path" fill="#FFFFFF" fill-rule="nonzero" points="19.2 17 19.2 10 20.2 10 21.2 10 21.2 17 21.2 24 20.2 24 19.2 24"></polygon>
+    </g>
+</svg>

@@ -92,7 +92,7 @@ function SongList(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("buying_song");
       props.history.push("/marketplace");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -265,7 +265,7 @@ function SongList(props) {
                     {/* <div className="audio-time"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                   </div>
                   <label
-                    className="song-title"
+                    className="song-title text-truncate"
                     onClick={() => expandSongList(songData.id)}
                   >
                     <div>
@@ -286,13 +286,17 @@ function SongList(props) {
                         (songData.album && songData.album.title) || ""
                       )}
                     </p>
-                    <div
+                    <p
                       className="song-mint-mobile"
                       onClick={() => expandSongList(songData.id)}
                     >
-                      {songData.mint || "#4"}
-                    </div>
-                    <div style={{ border: 0 }} />
+                    <span>
+                      {(songData.mints_owned || [])
+                        .map((i) => `#${i}`)
+                        .join(" ,")}
+                    </span>
+                    </p>
+                    {/* <div style={{ border: 0 }} /> */}
                   </label>
                 </div>
 
@@ -308,17 +312,17 @@ function SongList(props) {
                 >
                   {songData.artist && songData.artist.near_account_id}
                 </div>
-                <div
+                {/* <div
                   className="song-available-mobile"
                   onClick={() => expandSongList(songData.id)}
                 >
                   {songData.transfers.length} / {songData.qty}
-                </div>
+                </div> */}
                 <div
                   className="song-available"
                   onClick={() => expandSongList(songData.id)}
                 >
-                  {songData.transfers.length} / {songData.qty} Available
+                  {songData.transfers.length} / {songData.qty} <span className="available-text">Available</span>
                 </div>
               </div>
               <div

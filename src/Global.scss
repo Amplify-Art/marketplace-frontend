@@ -66,11 +66,9 @@ button {
   margin-top: 65px;
   // position: relative;
   // max-width: 75rem;
-  margin-right: auto;
   @media screen and (max-width: 1660px) {
     // padding-left: 30px;
     // padding-right: 30px
-    box-sizing: border-box;
   }
 
   @media screen and (max-width: 650px) {
@@ -397,4 +395,14 @@ textarea {
       }
     }
   }
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mw-1200{
+  max-width: 1200px;
 }
