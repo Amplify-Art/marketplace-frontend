@@ -379,9 +379,8 @@ textarea {
 // TODO: Should move this to some kind of component later
 .user-block {
   display: flex;
-  flex-wrap: wrap;
   gap: 70px;
-  // padding-left: 15px;
+  overflow-x: scroll;
   @media screen and (max-width: 800px) {
   gap: 30px;
   padding-left: 5px;

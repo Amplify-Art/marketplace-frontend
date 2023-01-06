@@ -241,6 +241,12 @@ function SongList(props) {
     }
     return txt;
   };
+  const limitMintDisplay = (txt) => {
+    if (txt.length > 14) {
+      return txt.substr(0, 14) + "..";
+    }
+    return txt;
+  };
   const getNearPrice = () => {
     axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
       setNearPrice(res.data.USD);
@@ -276,14 +282,15 @@ function SongList(props) {
                   >
                     <div>
                       {songData.title}{" "}
-                      <span>
-                        {(songData.mints_owned || [])
+                      <span className="mint-numbers">
+                      {(songData.mints_owned || []).slice(0, 5)
                           .map((i) => `#${i}`)
-                          .join(" ,")}
+                          .join(", ")}
+                        {songData.mints_owned.length > 5 ? <strong>{` +${songData.mints_owned.length - 5}`}</strong> : ""}
                       </span>
                     </div>
                     <p className="song-title-mobile">
-                      {textEllipsisShort(
+                      {textEllipsisLong(
                         (songData.album && songData.album.title) ||
                           ""
                       )}{" "}
@@ -392,7 +399,7 @@ function SongList(props) {
                           </div>
                           <div className="action">
                             <button
-                              className={user.id === transfer.transfer_to && 'delist'} 
+                              className={user.id === transfer.transfer_to && 'delist'}
                               onClick={() =>
                                 onModalChange({
                                   ...transfer,
@@ -406,8 +413,8 @@ function SongList(props) {
                             </button>
                           </div>
                           <div className="mobileAction">
-                            <button 
-                            className={user.id === transfer.transfer_to && 'delist'} 
+                            <button
+                            className={user.id === transfer.transfer_to && 'delist'}
                             onClick={() => onModalChange(transfer)}>
                               {user.id === transfer.transfer_to
                                 ? "Delist "
