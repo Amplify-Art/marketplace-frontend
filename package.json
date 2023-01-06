@@ -38,6 +38,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-share": "^4.4.0",
+    "react-simple-player": "^1.1.0",
     "react-slick": "^0.28.1",
     "react-sortable-hoc": "^2.0.0",
     "react-toastify": "9.0.3",

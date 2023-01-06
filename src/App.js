@@ -48,7 +48,7 @@ import MyProfile from "./Containers/MyProfile/index";
 // Parts
 import SideSocialNav from "./Components/Common/SideSocialNav/index";
 import MainSideNav from "./Components/Common/MainSideNav/index";
-import Player from "./Components/Common/Player/index";
+import ThePlayer from "./Components/Common/Player/index";
 
 // Global Loader
 import GloablLoader from "./Components/Common/Loading/index";
@@ -145,7 +145,7 @@ function App(props) {
             exact
             render={() => (user ? <Redirect to="/user-dashboard" /> : <Home />)}
           />
-          <Route path="/player" exact component={Auth(Player)} />
+          <Route path="/player" exact component={Auth(ThePlayer)} />
           <Route
             path="/auth/redirect"
             exact
@@ -232,7 +232,7 @@ function App(props) {
           <Route component={PageNotFound} />
         </Switch>
         {props.currentPlaylists.length ? (
-          <Player
+          <ThePlayer
             avatar={profileImage}
             toggleWalletSidebar={toggleWalletSidebar}
           />

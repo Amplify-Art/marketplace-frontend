@@ -327,3 +327,11 @@
     }
   }
 }
+
+.newplayer {
+  position: relative;
+  z-index: 99999999;
+  * {
+    max-width: none;
+  }
+}
