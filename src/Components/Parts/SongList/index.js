@@ -241,12 +241,7 @@ function SongList(props) {
     }
     return txt;
   };
-  const limitMintDisplay = (txt) => {
-    if (txt.length > 14) {
-      return txt.substr(0, 14) + "..";
-    }
-    return txt;
-  };
+
   const getNearPrice = () => {
     axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
       setNearPrice(res.data.USD);
@@ -295,11 +290,11 @@ function SongList(props) {
                           ""
                       )}{" "}
                       /{" "}
-                      {textEllipsisLong(
+                      {textEllipsisShort(
                         (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
-                    <p
+                    {/* <p
                       className="song-mint-mobile"
                       onClick={() => expandSongList(songData.id)}
                     >
@@ -308,7 +303,7 @@ function SongList(props) {
                         .map((i) => `#${i}`)
                         .join(" ,")}
                     </span>
-                    </p>
+                    </p> */}
                     {/* <div style={{ border: 0 }} /> */}
                   </label>
                 </div>
