@@ -283,16 +283,16 @@ function SongList(props) {
                       </span>
                     </div>
                     <p className="song-title-mobile">
-                      {textEllipsisShort(
+                      {textEllipsisLong(
                         (songData.album && songData.album.title) ||
                           ""
                       )}{" "}
                       /{" "}
-                      {textEllipsisLong(
+                      {textEllipsisShort(
                         (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
-                    <p
+                    {/* <p
                       className="song-mint-mobile"
                       onClick={() => expandSongList(songData.id)}
                     >
@@ -301,7 +301,7 @@ function SongList(props) {
                         .map((i) => `#${i}`)
                         .join(" ,")}
                     </span>
-                    </p>
+                    </p> */}
                     {/* <div style={{ border: 0 }} /> */}
                   </label>
                 </div>
@@ -361,7 +361,7 @@ function SongList(props) {
                             {" "}
                             {moment(transfer && transfer.created_at).format(
                               "MM/DD/YYYY"
-                            )}{"  "}
+                            )}{" "}
                             </span>
                             <span>
                             by @
