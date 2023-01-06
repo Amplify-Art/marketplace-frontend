@@ -34,7 +34,7 @@ function UserDashboard(props) {
 
   const renderFollowHeader = (title) => (
     <div className="followed-header">
-      <span className="header-title">{title}</span>
+      <span className="header-title">{title} - {props.myFollowings.length}</span>
     </div>
   );
   const renderReleaseHeader = (title) => (
