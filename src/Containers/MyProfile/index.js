@@ -118,7 +118,6 @@ function MyProfile(props) {
   };
 
   const onSingleSongClick = (song, index) => {
-    console.log('[song]', song)
     props.showSellModal();
     if (!song.transfers) {
       song.transfers = props.token_transfers.filter(
