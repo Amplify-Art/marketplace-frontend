@@ -289,7 +289,7 @@
     }
     .albums-on-shelf {
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       transform: translateY(11px);
       justify-content: space-between;
       padding-right: 30px;
