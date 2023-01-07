@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Tooltip } from 'react-tooltip'
 import axios from 'axios';
 import * as nearAPI from "near-api-js";
 import { toast } from "react-toastify";
@@ -277,7 +278,7 @@ function SongList(props) {
                   >
                     <div>
                       {songData.title}{" "}
-                      <span className="mint-numbers">
+                      <span className="mint-numbers" data-tip={songData.mints_owned.join(", ")}>
                       {(songData.mints_owned || []).slice(0, 5)
                           .map((i) => `#${i}`)
                           .join(", ")}
@@ -294,17 +295,6 @@ function SongList(props) {
                         (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
-                    {/* <p
-                      className="song-mint-mobile"
-                      onClick={() => expandSongList(songData.id)}
-                    >
-                    <span>
-                      {(songData.mints_owned || [])
-                        .map((i) => `#${i}`)
-                        .join(" ,")}
-                    </span>
-                    </p> */}
-                    {/* <div style={{ border: 0 }} /> */}
                   </label>
                 </div>
 
@@ -320,12 +310,6 @@ function SongList(props) {
                 >
                   {songData.artist && songData.artist.near_account_id}
                 </div>
-                {/* <div
-                  className="song-available-mobile"
-                  onClick={() => expandSongList(songData.id)}
-                >
-                  {songData.transfers.length} / {songData.qty}
-                </div> */}
                 <div
                   className="song-available"
                   onClick={() => expandSongList(songData.id)}
@@ -373,19 +357,6 @@ function SongList(props) {
                             </span>
                             </div>
                           </div>
-                          {/* <div className="date-listed-by-mobile">
-                            <div style={{ width: "100%" }}>
-                              {moment(transfer && transfer.created_at).format(
-                                "MM/DD/YYYY"
-                              )}
-                            </div>
-                            <div style={{ width: "100%" }}>
-                              by @
-                              {transfer &&
-                                transfer.transferTo &&
-                                transfer.transferTo.name}
-                            </div>
-                          </div> */}
                           <div className="songPrice">
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
