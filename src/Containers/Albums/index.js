@@ -22,7 +22,8 @@ function Albums(props) {
   useEffect(() => {
     props.fetchAlbums({
       params: {
-        orderBy: "-id",
+        orderBy: "-available_qty",
+        sort: "-created_at",
         related: "songs.[transfers,album],transfers,user",
       },
     });

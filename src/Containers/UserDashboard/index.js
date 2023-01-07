@@ -46,7 +46,8 @@ function UserDashboard(props) {
     if (props.myFollowings.length) {
       props.fetchAlbums({
         params: {
-          orderBy: "-created_at",
+          orderBy: "-available_qty",
+          sort: "-created_at",
           related: "songs.[transfers,album],transfers,user",
           "filter[user_id]": props.myFollowings
             .map((m) => m.artist_id)
