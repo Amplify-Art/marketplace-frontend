@@ -41,7 +41,7 @@ const songHeader = () => (
       <div>Song Market</div>
     </div>
     <div className="header-title">
-      For sale
+      Listed
     </div>
   </div>
 );
@@ -312,7 +312,7 @@ function SongList(props) {
                   {songData.artist && songData.artist.near_account_id}
                 </div>
                 <div
-                  className="song-available"
+                  className="song-available noselect"
                   onClick={() => expandSongList(songData.id)}
                 >
                   {songData.transfers.length} / {songData.qty} <span className="available-text">Available</span>

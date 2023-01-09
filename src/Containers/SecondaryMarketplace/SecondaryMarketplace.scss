@@ -1,8 +1,10 @@
 @import '../../assets/SCSS/Vars.scss';
 #secondary-marketplace {
     padding-top: 65px;
+    padding-right: 17px;
   @media screen and (max-width: 650px) {
     padding-top: 85px;
+    padding-right: 0px;
   }
 }
 

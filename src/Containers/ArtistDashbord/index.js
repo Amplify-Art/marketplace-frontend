@@ -245,7 +245,6 @@ function ArtistDashboard(props) {
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={false} />
       <div className="content">
         <div className="container">
-          {/* This would be useful for support card */}
           {/* <div className="container1">
             <div className="col1">
               <img src={SupportCardCover} />
