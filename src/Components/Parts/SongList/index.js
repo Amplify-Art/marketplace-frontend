@@ -279,10 +279,10 @@ function SongList(props) {
                     <div>
                       {songData.title}{" "}
                       <span className="mint-numbers" data-tip={songData.mints_owned.join(", ")}>
-                      {(songData.mints_owned || []).slice(0, 5)
+                      {(songData.mints_owned || []).slice(0, 3)
                           .map((i) => `#${i}`)
                           .join(", ")}
-                        {songData.mints_owned.length > 5 ? <strong>{` +${songData.mints_owned.length - 5}`}</strong> : ""}
+                        {songData.mints_owned.length > 3 ? <strong>{` +${songData.mints_owned.length - 3}`}</strong> : ""}
                       </span>
                     </div>
                     <p className="song-title-mobile">

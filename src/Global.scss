@@ -12,9 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  @media screen and (max-width: 650px) {
-    font-family: 'Space Grotesk';
-  }
   padding: 0px;
   margin: 0px;
   // background: #0f161d;

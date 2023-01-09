@@ -33,11 +33,11 @@
         // }
       }
       &:last-child {
-        // width: 137px;
         margin-left: auto;
         text-align: right;
+        max-width: 135px;
         @media screen and (max-width: 1150px){
-          width: 15%;
+          width: 20%;
         }
         @media screen and (max-width: 900px) {
           width: 50%;
@@ -421,13 +421,6 @@
     }
   }
 }
-
-@media screen and (max-width: 650px) {
-  .containerOuter {
-      margin-top: 85px;
-      padding: 0px;
-  }
-  }
 
 #mn-tooltip{
 }

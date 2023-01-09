@@ -149,7 +149,8 @@ function UserDashboard(props) {
   };
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
-      <div className="containerOuter">
+      <div className="container">
+      <div className="followed-artists">
         {renderFollowHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
           <div className="user-block">
@@ -166,13 +167,14 @@ function UserDashboard(props) {
             ))}
           </div>
         ) : (
-          <div className="container">
+          <div>
           <h2 className="no-artists">No Followed Artist</h2>
           </div>
         )}
-
+        </div>
+        <div className="recently-released">
         {renderReleaseHeader("Recently Released", false)}
-        <div className="container">
+        <div>
           {props?.albums && props.albums?.length ? (
             <div className="album-grid">
               {props.albums.map((album, index) => (
@@ -182,6 +184,7 @@ function UserDashboard(props) {
           ) : (
             <h2 className="no-artists mt-3">No Recently Released Albums</h2>
           )}
+          </div>
         </div>
       </div>
     </div>
