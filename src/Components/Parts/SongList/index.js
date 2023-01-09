@@ -385,10 +385,10 @@ function SongList(props) {
                               {user.id === transfer.transfer_to
                                 ? "Delist "
                                 : "Buy Now "}
-                              {new Intl.NumberFormat("en-US", {
-                                style: "currency",
-                                currency: "USD",
-                              }).format(transfer && transfer.bidding_price / 100)}
+                                {new Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                }).format(Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5) * Number(nearPrice))}
                             </button>
                           </div>
                         </div>
