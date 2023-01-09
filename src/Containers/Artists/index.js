@@ -20,7 +20,7 @@ function Artists(props) {
     <div id="artists-page" className="left-nav-pad right-player-pad">
       <div className="containerOuter">
         <h2 className="page-title">All Artists</h2>
-        <div className="user-block">
+        <div className="artists-holder">
           {artists &&
             artists.length &&
             artists.map((artist, index) => (

@@ -258,6 +258,7 @@ function SongList(props) {
         {songList &&
           songList?.map((songData, index) => (
             <>
+            <div className="">
               <div className="play-song flex">
                 <div className="flex">
                   <div className="song-icon cursor-pointer">
@@ -330,7 +331,7 @@ function SongList(props) {
                 <div className="copy">
                   <div className="headers flex">
                     <div className="item mint">Mint</div>
-                    <div className="item date-listed-by">Date Listed/By</div>
+                    <div className="item date-listed-by">Date Listed / By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
 
@@ -397,6 +398,7 @@ function SongList(props) {
                     )}
                   </div>
                 </div>
+              </div>
               </div>
 
               {props.displayBuyModal && (
