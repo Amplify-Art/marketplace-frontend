@@ -1,27 +1,35 @@
+@import "../../assets/SCSS/Vars.scss";
+
+
+
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   p {
-    width: 260px;
+    margin: unset;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 45px;
-    border: 1px solid #0000001a;
-    border-radius: 5px;
+    border: 1px solid transparent;
+    border-radius: 50px;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
     background: white;
     color: black;
+    padding: 0 18px 0 7px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 105px;
     svg {
-      height: 22px;
-      margin-right: 5px;
+      // height: 22px;
+      // margin-right: 5px;
     }
     img {
-      height: 50px;
+      height: 36px;
+      padding-right: 2px;
     }
   }
 }

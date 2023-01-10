@@ -1,23 +1,30 @@
 import './SupportArtists.scss';
 
-import Album2 from '../../../assets/images/album2.png';
-import Album3 from '../../../assets/images/album3.png';
-import Album4 from '../../../assets/images/album4.png';
+import AjJordan from '../../../assets/images/ajjordan.png';
+import BrainiacBeats from '../../../assets/images/brainiacbeats.png';
+import VjDeliria from '../../../assets/images/vjdeliria.png';
+import Glassy from '../../../assets/images/glassy.png';
+import Gaurika from '../../../assets/images/gaurika.png';
 
 function SupportArtists() {
   return (
-    <div id="support-artists">
-      <div className="container">
-        <div className="line" />
-        <h2 className="large center-text"><span className="red">Support</span> Your Favorite Artists</h2>
-      </div>
+    <div className="padding-section-large">
+      <div className="padding-global">
+        <div className="container-large">
+          <div id="support-artists">
+            <div className="container">
+              <h2 className="large center-text"><span className="red">Support</span> Your <br />Favorite Artists</h2>
+            </div>
 
-      <div className="albums">
-        <div className="single"><img src={Album2} alt="" /></div>
-        <div className="single"><img src={Album3} alt="" /></div>
-        <div className="single"><img src={Album4} alt="" /></div>
-        <div className="single"><img src={Album2} alt="" /></div>
-        <div className="single"><img src={Album3} alt="" /></div>
+            <div className="albums">
+              <div className="single"><img src={VjDeliria} alt="vjdeliria" /></div>
+              <div className="single"><img src={BrainiacBeats} alt="brainiacbeats" /></div>
+              <div className="single"><img src={Gaurika} alt="gaurika" /></div>
+              <div className="single"><img src={Glassy} alt="glassy" /></div>
+              <div className="single"><img src={AjJordan} alt="ajjordan" /></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

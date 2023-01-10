@@ -5,8 +5,10 @@
   .header-title {
     color: white;
     font-family: $space;
-    opacity: 0.6;
+    font-size: 20px;
     font-weight: 300;
+    line-height: 26px;
+    margin-bottom: 30px;
   }
   .container {
     margin-top: -45px;
@@ -80,7 +82,7 @@
       }
       border-radius: 50%;
       overflow: hidden;
-      border: solid 3px #fff;
+      border: none;
       .profilePic {
         width: 180px;
         height: 180px;
@@ -185,7 +187,8 @@
     }
   }
   .profile-banner {
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     .banner-buttons {
       margin-top: 20px;
       button {
@@ -200,56 +203,56 @@
   }
 }
 
-.shelves {
-  position: absolute;
-  bottom: 40px;
-  width: 400px;
-  @media screen and (max-width: 600px) {
-    bottom: 8px;
-    width: 320px;
-    right: 10px;
-  }
-  right: 110px;
-  .single-shelf {
-    &:first-child {
-      margin-bottom: 50px;
-    }
-    .albums-on-shelf {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding-right: 30px;
-      padding-left: 30px;
-      box-sizing: border-box;
-      .single-album-on-shelf {
-        width: 93px;
-        text-align: center;
-        i {
-          color: #fff;
-          font-size: 30px;
-          position: relative;
-          bottom: 20px;
-          cursor: pointer;
-        }
-
-        .single-shelf-album {
-          overflow: hidden;
-          width: 93px;
-          height: 93px;
-          display: flex;
-          position: relative;
-          bottom: -9px;
-          @media screen and (max-width: 600px) {
-            width: 70px;
-            height: 70px;
-          }
-          img {
-          }
-        }
-      }
-    }
-  }
-}
+// .shelves {
+//   position: absolute;
+//   bottom: 40px;
+//   width: 400px;
+//   @media screen and (max-width: 600px) {
+//     bottom: 8px;
+//     width: 320px;
+//     right: 10px;
+//   }
+//   right: 110px;
+//   .single-shelf {
+//     &:first-child {
+//       margin-bottom: 50px;
+//     }
+//     .albums-on-shelf {
+//       display: flex;
+//       align-items: baseline;
+//       justify-content: space-between;
+//       padding-right: 30px;
+//       padding-left: 30px;
+//       box-sizing: border-box;
+//       .single-album-on-shelf {
+//         width: 93px;
+//         text-align: center;
+//         i {
+//           color: #fff;
+//           font-size: 30px;
+//           position: relative;
+//           bottom: 20px;
+//           cursor: pointer;
+//         }
+//
+//         .single-shelf-album {
+//           overflow: hidden;
+//           width: 93px;
+//           height: 93px;
+//           display: flex;
+//           position: relative;
+//           bottom: -9px;
+//           @media screen and (max-width: 600px) {
+//             width: 70px;
+//             height: 70px;
+//           }
+//           img {
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 #settings{
   padding-left: 220px;

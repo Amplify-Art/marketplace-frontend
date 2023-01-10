@@ -55,11 +55,11 @@ function SearchResultCard(props) {
         className="cardWrapper"
         onClick={() => props.handleClick(contentTypeHeading, rowData)}
       >
-        <div className="imageHolder">
+        <div className={contentTypeHeading === 'Song' ? 'imageHolder no-shadow' : 'imageHolder'}>
           <Image
             className="image"
-            src={cover}
-            alt=""
+            src={contentTypeHeading === 'Song' ? cdCover : cover}
+            alt="result"
             fallbackImage={greyFace}
           />
         </div>
@@ -81,7 +81,7 @@ function SearchResultCard(props) {
             <ResultCard
               cover={findSongCover(song)}
               contentHeading={song.title}
-              contentDetail={song.artist?.name}
+              contentDetail={song.artist?.name || song.artist?.near_account_id}
               contentTypeHeading="Song"
               contentTypeDetail={
                 song.mints_owned.length
@@ -116,11 +116,11 @@ function SearchResultCard(props) {
               cover={artist.avatar}
               contentHeading={artist.name}
               contentDetail={
-                artist.songs <= 0
-                  ? "0 Songs"
-                  : artist.songs === 1
-                  ? "1 Song"
-                  : `${artist.songs} Songs`
+                artist.albums <= 0
+                  ? "0 Minted Albums"
+                  : artist.albums === 1
+                  ? "1 Minted Album"
+                  : `${artist.albums} Minted Albums`
               }
               contentTypeHeading="Artist"
               contentTypeDetail=""

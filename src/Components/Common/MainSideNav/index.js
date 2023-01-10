@@ -34,9 +34,7 @@ function MainSideNav(props) {
 
   const onLogout = (e) => {
     e.preventDefault();
-    console.log("CIM");
     setShowLogoutModal(true);
-    // history.push("/")
   };
 
   const handleNominate = () => {
@@ -116,8 +114,6 @@ function MainSideNav(props) {
       window.location.reload();
     }
     setShowLogoutModal(false);
-    // setSongModal(false);
-    // setViewDetails(false);
   };
 
   useEffect(() => {
@@ -125,9 +121,118 @@ function MainSideNav(props) {
     else document.body.style.overflow = 'auto'
   }, [showMobileMenu])
 
+  const renderMenu = () => {
+    // TODO: move this out into its own file... this file is a little too big ATM
+    const showLoggedInSidebar = props.showLoggedInSidebar;
+
+    const loggedInMenu = (
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+
+        <li className="nav-header discover-icon">Discover</li>
+        {/* <li><a href="#">New Releases</a></li> */}
+        {/* <li><a href="#">Top Charts</a></li> */}
+        <li>
+          <NavLink
+            to="/artists"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Artists
+          </NavLink>
+        </li>
+
+        <li className="nav-header">Store</li>
+        {/* <li><NavLink to="#">Coming Soon</NavLink></li> */}
+        <li>
+          <NavLink
+            to="/albums"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Full Albums
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/marketplace"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Single Songs
+          </NavLink>
+        </li>
+
+        <li className="nav-header">Account</li>
+        <li>
+          <NavLink
+            to="/my-profile"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Profile
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/wallet"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Wallet
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/settings"
+            onClick={handleOnClick}
+            activeClassName="current"
+          >
+            Settings
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/" onClick={(e) => onLogout(e)}>
+            Logout
+          </NavLink>
+        </li>
+        <li className="nav-header">Artist</li>
+        {user && user.type === "artist" && (
+          <li>
+            <NavLink to="/artist-dashboard" onClick={handleOnClick}>
+              Dashboard
+            </NavLink>
+          </li>
+        )}
+        <li className="">
+          <span onClick={() => handleNominate()}>Nominate</span>
+        </li>
+        {user && user.is_support_card_holder && (
+          <>
+            <li className="nav-header">Supporter</li>
+            <li>
+              <NavLink
+                to="/support-card"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          </>
+        )}
+      </ul>
+    );
+
+    if (showLoggedInSidebar) return loggedInMenu;
+    else return;
+  }
+
   return (
     <>
-      <div id="main-side-nav" className={`${showMobileMenu && "mobile-open"}`}>
+      <div id="main-side-nav" className={`${showMobileMenu && "mobile-open"} ${props.showLoggedInSidebar && 'loggedIn'}`}>
         {showMobileMenu && (
           <div ref={wrapperRef} className="mobileSearchWrapper">
             <div className="mobileSearch">
@@ -158,101 +263,9 @@ function MainSideNav(props) {
             )}
           </div>
         )}
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
 
-          <li className="nav-header discover-icon">Discover</li>
-          {/* <li><a href="#">New Releases</a></li> */}
-          {/* <li><a href="#">Top Charts</a></li> */}
-          <li>
-            <NavLink
-              to="/artists"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Artists
-            </NavLink>
-          </li>
+        {renderMenu()}
 
-          <li className="nav-header">Store</li>
-          {/* <li><NavLink to="#">Coming Soon</NavLink></li> */}
-          <li>
-            <NavLink
-              to="/albums"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Full Albums
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/marketplace"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Single Songs
-            </NavLink>
-          </li>
-
-          <li className="nav-header">Account</li>
-          <li>
-            <NavLink
-              to="/my-profile"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/wallet"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Wallet
-            </NavLink>
-          </li>
-          {user && user.is_support_card_holder && (
-            <li>
-              <NavLink
-                to="/support-card"
-                onClick={handleOnClick}
-                activeClassName="current"
-              >
-                Supporter
-              </NavLink>
-            </li>
-          )}
-          <li>
-            <NavLink
-              to="/settings"
-              onClick={handleOnClick}
-              activeClassName="current"
-            >
-              Settings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/" onClick={(e) => onLogout(e)}>
-              Logout
-            </NavLink>
-          </li>
-          <li className="nav-header">Artist</li>
-          {user && user.type === "artist" && (
-            <li>
-              <NavLink to="/artist-dashboard" onClick={handleOnClick}>
-                Dashboard
-              </NavLink>
-            </li>
-          )}
-          <li className="">
-            <span onClick={() => handleNominate()}>Nominate</span>
-          </li>
-        </ul>
         {showMobileMenu ? <SideSocialNav /> : null}
       </div>
       {props.showNominate && (
@@ -297,7 +310,7 @@ export default connect(
   (dispatch) => {
     return {
       clearCurrentPlayList: () =>
-        dispatch(playListAction.clearCurrentPlayList()),
+      dispatch(playListAction.clearCurrentPlayList()),
       toggleNominate: (data) => dispatch(toggleNominate(data)),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),

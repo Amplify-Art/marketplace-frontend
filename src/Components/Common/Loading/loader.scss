@@ -2,6 +2,7 @@
   // height: 100vh;
   height: 100%;
   z-index: 1000000;
+  overflow: hidden;
   &.active {
     pointer-events: none;
   }

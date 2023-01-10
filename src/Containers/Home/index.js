@@ -28,8 +28,8 @@ function Home() {
   // }, [0])
   return (
     <>
-      <Banner homeContent={homeContent} />
-      <Partners partners={homeContent && homeContent.Partners} />
+      <Banner />
+      <Partners />
       <LatestReleases />
       <WeAreFor />
       <WhatPeopleAreSaying />
@@ -38,7 +38,7 @@ function Home() {
       <TheTech />
       <TheTeam />
       <ArtistRegistry />
-      <ThankYou content={homeContent && homeContent.thank_you_text} />
+      <ThankYou />
     </>
   );
 }

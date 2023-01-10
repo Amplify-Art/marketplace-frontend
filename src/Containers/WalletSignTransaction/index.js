@@ -189,7 +189,6 @@ function Header(props) {
     }, []);
 
     const handleClickNFTMethod = () => {
-        console.log('CLiCKED')
         getAccountDetails()
     }
 

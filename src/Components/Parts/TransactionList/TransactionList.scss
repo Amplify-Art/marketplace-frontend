@@ -1,60 +1,64 @@
 .transactionWrapper {
   width: 100%;
+  margin-top: 30px;
   .transTable {
     width: 100%;
     .transRow {
       width: 100%;
       color: white;
       font-weight: 300;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       .transId {
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 699px) {
           display: none;
         }
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
       }
       .transIdMobile {
         @media screen and (min-width: 700px) {
           display: none;
         }
-        padding: 10px 20px;
+        padding: 0 0 10px 0;
         .transIdHolder {
           font-size: 16px;
           line-height: 20.42px;
         }
         .transDateHolder {
           font-size: 12px;
-          line-height: 15.31px;
+          line-height: 15px;
         }
       }
       .transDate {
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 699px) {
           display: none;
         }
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
       }
       .transAmt {
         text-align: right;
-        padding: 10px 20px;
+        height: 40px;
+        vertical-align: top;
+        padding-bottom: 15px;
+        font-weight: 400;
+        @media screen and (max-width: 699px) {
+          padding-bottom: 10px;
+        }
         .greenTxt {
           color: #22BE00;
-          @media screen and (max-width: 600px) {
-            font-size: 16px;
-          }
         }
         .redTxt {
           color: #F84F4D;
-          @media screen and (max-width: 600px) {
-            font-size: 16px;
-          }
         }
         .smallTxt {
-          color: white;
-          font-size: 14px;
-          @media screen and (max-width: 600px) {
-            font-size: 12px;
-          }
+          padding-top: 2px;
+          font-weight: 300;
+          font-size: 12px;
+          line-height: 15px;
         }
       }
     }

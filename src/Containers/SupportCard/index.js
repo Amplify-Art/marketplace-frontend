@@ -456,7 +456,7 @@ function SupportCard(props) {
             <div className="owned-cards">
               <p>
                 {supporterCards.length} Cards Owned.{" "}
-                <a href={`${supporterCards[0]?.external_url}`} target="_blank">
+                <a href={`${supporterCards[0]?.external_url}`} target="_blank" rel="noreferrer">
                   View Card Gallery
                 </a>
               </p>

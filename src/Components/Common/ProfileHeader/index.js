@@ -6,7 +6,7 @@ import _ from "lodash";
 import AddShowCase from "../../Parts/AddShowCase/index";
 import { showCaseData } from "../../../Containers/Sandbox";
 import GeneralModal from "../../Common/GeneralModal/index";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 import bannerDefault from "../../../assets/images/banner_default.jpeg";
 
 import "./ProfileHeader.scss";
@@ -22,7 +22,7 @@ function ProfileHeader({
   showShowcase,
   isPublicProfile,
   userId,
-  nearUser,
+  tokenTransfers,
   updateShowcase
 }) {
   const [showShowCaseModal, toggleShowCaseModal] = useState(false);
@@ -67,8 +67,8 @@ function ProfileHeader({
       });
   }, [userId]);
 
-  let songsCount = nearUser && nearUser.owned_songs ? nearUser.owned_songs : 0;
-  console.log(songsCount, "songsCount");
+  let songsCount = tokenTransfers && tokenTransfers.length ? tokenTransfers.length : 0;
+
   return (
     <div id="profile-header">
       <div
@@ -82,14 +82,16 @@ function ProfileHeader({
               _.chunk(
                 [...showcases, ...new Array(6 - showcases.length).fill(null)],
                 3
-              ).map((row, i) => (
+              ).map((row, i) => {
+                console.log(row, "row")
+                return (
                 <div className="single-shelf" key={i}>
                   <div className="albums-on-shelf">
                     {row.map((showCaseItem, j) =>
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            {jwt.decode(localStorage.getItem("amplify_app_token")) === row.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>}
+                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-sharp fa-solid fa-trash-can" /></div>}
                             <img
                               src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"
@@ -104,14 +106,14 @@ function ProfileHeader({
                           }
                           key={`${i}${j}`}
                         >
-                          {!isPublicProfile && <i className="fal fa-plus" />}
+                          {!isPublicProfile && <i className="fa-sharp fa-solid fa-plus" />}
                         </div>
                       )
                     )}
                   </div>
                   <img src={Shelf} alt="shelf" />
                 </div>
-              ))}
+              )})}
           </div>
         )}
       </div>
@@ -131,58 +133,24 @@ function ProfileHeader({
                 }}
               />
             </div>
-            <div className="btn-wrap mobileShow">{btnContent}</div>
 
             <div className="details">
               <span>{ArtistData.name || ArtistData.near_account_id}</span>
-              {/* {!isPublicProfile && (
-                <span className="no_of_songs">
-                  {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
-                </span>
-              )} */}
+              {!isPublicProfile && (
+                <div className="flex">
+                  <span className="no_of_songs">
+                    {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
+                  </span>
+
+                  {/* <span className="no_of_songs">
+                    {songsCount} {songsCount === 1 ? "Song" : "Songs"} Owned
+                  </span> */}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <div className="btn-wrap mobileHide">{btnContent}</div>
-        {
-          showShowcase && !showShowcase === false && (
-            <div className="shelvesMobile">
-              {showcases &&
-                _.chunk(
-                  [...showcases, ...new Array(6 - showcases.length).fill(null)],
-                  3
-                ).map((row, i) => (
-                  <div className="single-shelf" key={i}>
-                    <div className="albums-on-shelf">
-                      {row.map((showCaseItem, j) =>
-                        showCaseItem ? (
-                          <div className="single-album-on-shelf" key={`${i}${j}`}>
-                            <div className="single-shelf-album">
-                              <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i class="fad fa-times-circle"></i></div>
-                              <img
-                                src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
-                                alt="Album"
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div
-                            className="single-album-on-shelf"
-                            onClick={() =>
-                              toggleShowCaseModal(!showShowCaseModal)
-                            }
-                            key={`${i}${j}`}
-                          >
-                            {!isPublicProfile && <i className="fal fa-plus" />}
-                          </div>
-                        )
-                      )}
-                    </div>
-                    <img src={Shelf} alt="shelf" />
-                  </div>
-                ))}
-            </div>
-          )}
+        <div className="btn-wrap">{btnContent}</div>
       </div>
 
       {

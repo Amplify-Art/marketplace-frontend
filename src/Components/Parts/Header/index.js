@@ -8,16 +8,10 @@ import jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
 import { createWallet } from "../../../Api/Near";
 import MenuIcon from "../../../assets/images/menu-icon.svg";
-import MenuIconNew from "../../../assets/images/menu-icon-new.svg";
 import Logo from "../../../assets/images/logo.svg";
 import SearchIcon from "../../../assets/images/search-icon.svg";
-import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
-import DiscoverIcon from "../../../assets/images/discover-icon.svg";
-import AccountIcon from "../../../assets/images/account-icon.svg";
-import StoreIcon from "../../../assets/images/store-icon.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
-import Harrison from "../../../assets/images/harrison.jpeg";
 import Button from "../../Common/Button/index";
 import useDebounce from "../../Common/UseDebounce";
 import SearchResultCard from "../SearchResultCard";
@@ -45,7 +39,7 @@ import q from "querystring";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 
 const {
   keyStores,
@@ -125,7 +119,6 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near, "amplify_art");
-    console.log(wallet);
     setWalletState(wallet);
     props.setWallet(wallet);
     return () => {
@@ -241,6 +234,9 @@ function Header(props) {
         break;
       case "/transaction-list":
         currentPage = "Transactions";
+        break;
+      default:
+        currentPage = "Home";
     }
     return currentPage;
   };
@@ -358,61 +354,50 @@ function Header(props) {
     }
     return false;
   };
+  console.log('[PROPS DEBUG]', props)
   return (
     <>
       <header>
-        {/* <div className="menu">
-          <img src={MenuIcon} alt="Menu Icon" />
-        </div> */}
         <div className="mobile-menu" onClick={toggleMobileMenu}>
-          <img src={MenuIcon} />
+          <img src={MenuIcon} alt="menu" />
         </div>
         <div className="logo">
           <a href="/">
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {!userToken ? (
-          // <div className="nav">
-          //   <a>Something</a>
-          //   <a>How it Works</a>
-          //   <a>Contact us</a>
-          // </div>
-          <></>
-        ) : (
-          <div ref={wrapperRef} className="searchWrapper">
-            <div className="search">
-              <img src={SearchIcon} alt="Search" />
-              <input
-                type="text"
-                placeholder="Search for artists, albums or songs"
-                onClick={() => props.showSearchResultFn()}
-                onChange={handleSearch}
-                onKeyDown={handleSubmit}
-                value={search}
-              />
-            </div>
-            {search.trim() !== "" && props.showSearchResult && (
-              <div
-                className={`scrollSearchResult ${
-                  hasData() && !searchLoading ? "p-0" : ""
-                }`}
-              >
-                {searchLoading
-                  ? "Loading..." // TODO: can add any animation
-                  : searchResult &&
-                    searchResult.results &&
-                    searchResult.results.length && (
-                      <SearchResultCard
-                        handleClick={(type, data) =>
-                          handleSearchClicked(type, data)
-                        }
-                      />
-                    )}
-              </div>
-            )}
+        <div ref={wrapperRef} className="searchWrapper">
+          <div className="search">
+            <input
+              type="text"
+              placeholder="Search for artists, albums or songs"
+              onClick={() => props.showSearchResultFn()}
+              onChange={handleSearch}
+              onKeyDown={handleSubmit}
+              value={search}
+            />
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
           </div>
-        )}
+          {search.trim() !== "" && props.showSearchResult && (
+            <div
+              className={`scrollSearchResult ${
+                hasData() && !searchLoading ? "p-0" : ""
+              }`}
+            >
+              {searchLoading
+                ? "Loading..." // TODO: can add any animation
+                : searchResult &&
+                  searchResult.results &&
+                  searchResult.results.length && (
+                    <SearchResultCard
+                      handleClick={(type, data) =>
+                        handleSearchClicked(type, data)
+                      }
+                    />
+                  )}
+            </div>
+          )}
+        </div>
         <div className="right">
           {userToken ? (
             <>
@@ -424,7 +409,7 @@ function Header(props) {
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
               <div className="wallet">
                 <Link to="/wallet">
-                  <img src={Wallet} alt="wallet" />
+                  <img src={Wallet} alt="wallet" style={{width: '100%'}}/>
                 </Link>
               </div>
               <div
@@ -544,6 +529,7 @@ export default connect(
   (state) => {
     return {
       showWalletSidebar: state.global.showWallet,
+      showMobileMenu: state.global.mobileMenu,
       searchResult: state.searchRes.searchResult,
       searchLoading: state.searchRes.loading,
       wallet: state.global.wallet,
@@ -557,7 +543,7 @@ export default connect(
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       sendNotificationAction: (payload) =>
-        dispatch(sendNotificationAction(payload)),
+      dispatch(sendNotificationAction(payload)),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
       setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
       setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),

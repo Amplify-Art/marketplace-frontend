@@ -47,7 +47,7 @@ function Albums(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -89,7 +89,7 @@ function Albums(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
       props.history.push("/albums");
     } else {
       props.history.push(`/my-profile?showId=${albumBundleInfo.token_id}`);
@@ -122,10 +122,10 @@ function Albums(props) {
     );
   };
   return (
+    <div className="containerOuter">
     <div
       id="albums"
-      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`left-nav-pad normal-right-pad`}
     >
       <div className="container">
         <div className="album-grid">
@@ -136,6 +136,7 @@ function Albums(props) {
             ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }

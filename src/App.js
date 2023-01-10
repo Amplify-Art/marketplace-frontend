@@ -10,8 +10,8 @@ import {
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import * as playListAction from "./redux/actions/PlaylistAction";
 
@@ -83,6 +83,8 @@ function App(props) {
 
   useEffect(() => {
     if (!path) return;
+    // If not one of these pages, then dont show the sidebat
+    // TODO: use this logic to render a sidebar for non logged in users
     if (!["/", "/auth/login"].includes(path)) {
       toggleLeftSidebar(true);
     } else {
@@ -126,14 +128,17 @@ function App(props) {
           pauseOnHover
           theme="dark"
         />
-        <Header path={path} toggleWalletSidebar={toggleWalletSidebar} />
+        <Header
+          path={path}
+          toggleWalletSidebar={toggleWalletSidebar}
+          showLoggedInSidebar={showLeftSidebar}
+        />
         <SideSocialNav />
-        {showLeftSidebar && (
-          <MainSideNav
-            toggleWalletSidebar={toggleWalletSidebar}
-            showMobileMenu={props.showMobileMenu}
-          />
-        )}
+        <MainSideNav
+          toggleWalletSidebar={toggleWalletSidebar}
+          showMobileMenu={props.showMobileMenu}
+          showLoggedInSidebar={showLeftSidebar}
+        />
         <Switch>
           <Route
             path="/"
@@ -163,11 +168,11 @@ function App(props) {
           <Route
             path="/albums"
             exact
-            render={Auth(() => (
+            render={() => (
               <Albums
                 playerActive={props && props.currentPlaylists.length > 0}
               />
-            ))}
+            )}
           />
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route

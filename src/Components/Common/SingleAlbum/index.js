@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector, connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import q from "querystring";
 import * as nearAPI from "near-api-js";
@@ -70,19 +70,12 @@ function SingleAlbum(props) {
   };
 
   const checkImage = (url) => {
-    console.log("CALL2");
     // Trying to check if image exists here. If it doesn't, we should show some backup image.
     const request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.send();
     request.onload = function () {
       const theStatus = request.status;
-      if (request.status == 200) {
-        //if(statusText == OK)
-        console.log("image exists");
-      } else {
-        console.log("image doesn't exist");
-      }
     };
   };
 
@@ -107,7 +100,7 @@ function SingleAlbum(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -149,7 +142,7 @@ function SingleAlbum(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -243,7 +236,6 @@ function SingleAlbum(props) {
     <>
       <div
         className="single-album1"
-        onClick={props.onClick ? props.onClick : handleModal}
       >
         <div
           className="cd-case1"
@@ -251,19 +243,17 @@ function SingleAlbum(props) {
           style={{
             height: document.getElementById("1169hh")?.offsetWidth * 0.86,
           }}
+          onClick={props.onClick ? props.onClick : handleModal}
         >
           <div
-            className="album-art"
+            className={`album-art ${
+              albumInfo.available_qty === 0 ? "sold" : "available"
+            }`}
             style={{
-              background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
+              background: `url(${albumCover}) center center no-repeat`,
             }}
           >
-            <div className="sup pos-tl"></div>
-            <div className="sup pos-tr"></div>
-            <div className="sup pos-bl"></div>
-            <div className="sup pos-br"></div>
           </div>
-          <div className="spine"></div>
           {showSticker && (
             <div
               className={`mint-sticker ${
@@ -288,19 +278,17 @@ function SingleAlbum(props) {
           children
         ) : (
           <>
-            <div className={`the-title ${isPlayList && "playlist-title"}`}>
+            <div className={`the-title ${isPlayList && "playlist-title"}`} onClick={props.onClick ? props.onClick : handleModal}>
               <h3 className="album-title">
                 {albumInfo.title.substring(0, 29)}
                 {albumInfo.title.length > 29 && "..."}
               </h3>
             </div>
-            <h4 className="artist-name">
-              {(albumInfo.user && albumInfo.user.near_account_id) ||
-                (albumInfo.token &&
-                  albumInfo.token.album &&
-                  albumInfo.token.album.user &&
-                  albumInfo.token.album.user.near_account_id)}
-            </h4>
+            <Link to={`/artist/${(albumInfo?.user?.near_account_id) || (albumInfo?.token?.album?.user?.near_account_id)}`} className="artist-name">
+              <h4>
+                {(albumInfo?.user?.near_account_id) || (albumInfo?.token?.album?.user?.near_account_id)}
+              </h4>
+            </Link>
           </>
         )}
       </div>

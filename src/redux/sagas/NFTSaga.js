@@ -133,9 +133,9 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: true,
-          message: `You have successfully purchased the ${album.title}#${
+          message: `You have successfully purchased ${album.title} Album - Mint #${
             parseInt(album.qty) - album.available_qty + 1
-          } album!`,
+          }!`,
         },
       }),
     ]);
@@ -172,7 +172,7 @@ export function* sellSongNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: true,
-          message: `You have successfully posted the ${res.data.title} song for sell!`,
+          message: `You have successfully listed the song ${res.data.title} for sale!`,
         },
       }),
     ]);
@@ -211,7 +211,7 @@ export function* buySongNFTSaga({ history }, { payload }) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       setTimeout(() => {
         window.location.reload();
       }, 2000);

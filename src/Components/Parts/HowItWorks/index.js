@@ -11,9 +11,8 @@ function HowItWorks(props) {
         return (
           <div className="content">
             <span className="count">Step 01</span>
-            <h3>Artist Onboarding</h3>
-            <p>To prevent centralized control, we have granted our initial backers <a href="#the-team">(Support Card NFT holders)</a> exclusive access to the artist onboarding process. These Support Card NFTs have functional value, allowing holders to vote once per month on artists in the registry pool. At the end of the month, the two artists with the most votes will gain access to the "Artist Dashboard," which allows them to mint and sell Digital Album NFTs. To be included in the monthly registry pool, please connect your Near wallet and look for the "Nominate" tab in the menu.
-            </p>
+            <h3>Decentralized Onboarding</h3>
+            <p>To prevent centralized control, we've granted our initial backers —<a className="team-link" href="#the-team">Support Card NFT Holders</a>— exclusive access to the artist onboarding process. These NFTs provide holders the ability to vote once per month on artists in the registry pool. At the end of the month, the two artists with the most votes will gain access to the "Artist Dashboard", which allows them to mint and sell Digital Album NFTs.</p>
           </div>
         )
         break;
@@ -57,28 +56,34 @@ earn our native token each time the track is played from the ones you created.</
     }
   }
   return (
-    <div id="how-it-works">
-      <div className="container">
-        {props.hideTitle !== true && <h2 className="large center-text">How It <span className="red">Works</span></h2>}
-        <div className="bottom">
-          <div className="left">
-            <div className="left-nav">
-              <div className={`count ${currentStep === 1 && 'active'}`} onClick={() => setCurrentStep(1)}>01</div>
-              <div className={`count ${currentStep === 2 && 'active'}`} onClick={() => setCurrentStep(2)}>02</div>
-              <div className={`count ${currentStep === 3 && 'active'}`} onClick={() => setCurrentStep(3)}>03</div>
-              <div className={`count ${currentStep === 4 && 'active'}`} onClick={() => setCurrentStep(4)}>04</div>
+    <div className="padding-section-large">
+      <div className="padding-global">
+        <div className="container-large">
+          <div id="how-it-works">
+            <div className="container">
+              {props.hideTitle !== true && <h2 className="large center-text">How It <span className="red">Works</span></h2>}
+              <div className="bottom">
+                <div className="left">
+                  <div className="left-nav">
+                    <div className={`count ${currentStep === 1 && 'active'}`} onClick={() => setCurrentStep(1)}>01</div>
+                    <div className={`count ${currentStep === 2 && 'active'}`} onClick={() => setCurrentStep(2)}>02</div>
+                    <div className={`count ${currentStep === 3 && 'active'}`} onClick={() => setCurrentStep(3)}>03</div>
+                    <div className={`count ${currentStep === 4 && 'active'}`} onClick={() => setCurrentStep(4)}>04</div>
+                  </div>
+
+                  {renderSectionContent(currentStep)}
+                </div>
+                {/* End Left */}
+
+                <div className="right">
+                  <div className="line" />
+                  <h4>Why it Works</h4>
+                  <p>NFTs enable a powerful reward loop between the artist and fans. Where fans promote the artists they love, and artists reward the fans for their support — without gatekeepers.</p>
+                </div>
+                {/* End Right */}
+              </div>
             </div>
-
-            {renderSectionContent(currentStep)}
           </div>
-          {/* End Left */}
-
-          <div className="right">
-            <div className="line" />
-            <h4>Why it Works</h4>
-            <p>Musicians aren't being paid enough for their value. Fans want more variety. We give a solution for the up and coming and the existing star.</p>
-          </div>
-          {/* End Right */}
         </div>
       </div>
     </div>

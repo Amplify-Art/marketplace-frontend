@@ -1,5 +1,1 @@
-<svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="6.5" cy="6.5" r="6.5" fill="black"/>
-<rect x="5.47363" y="4.78955" width="2.05263" height="6.15789" fill="white"/>
-<rect x="5.47363" y="2.73682" width="2.05263" height="1.36842" fill="white"/>
-</svg>
+<svg fill="none" height="13" viewBox="0 0 13 13" width="13" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" fill="#000" r="6.5"/><g fill="#fff"><path d="m5.47363 4.78955h2.05263v6.15789h-2.05263z"/><path d="m5.47363 2.73682h2.05263v1.36842h-2.05263z"/></g></svg>

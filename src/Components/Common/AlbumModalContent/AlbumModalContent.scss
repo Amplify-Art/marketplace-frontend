@@ -4,11 +4,30 @@
 	font-family: $space;
 	font-style: normal;
 	font-weight: normal;
-	height: 388px;
+	// height: 388px;
+	// ::after{
+	// 	content: "";
+	// 	position: absolute;
+	// 	top: 0;
+	// 	left: 0;
+	// 	width: 100%;
+	// 	height: 100%;
+	// 	background-image: url("../../../assets/images/paper-texture.png");
+	// 	// background-size: 100% 100%;
+	// 	background-repeat: repeat;
+	// 	z-index: 3;
+	// 	opacity: .01;
+	// }
 	.left-wrapper {
-		padding: 10px;
-		width: 389px;
 		position: relative;
+		border-radius: 2px;
+		padding: 15px 15px 0px 15px;
+		width: 330px;
+		height: 335px;
+		margin: 10px;
+		overflow: hidden;
+		box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5), inset 0px 0px 16px 2px rgba(0, 0, 0, 0.1),
+		inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
 		.active-playlist {
 			text-align: center;
 			.active-playlist-btn {
@@ -20,16 +39,28 @@
 		.btn-margin {
 			margin-bottom: 20px;
 		}
+// 		::after {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-image: url("../../../assets/images/noise.svg");
+//     z-index: 3;
+//     background-size: 100% 100%;
+// }
 	}
-	.bg-album-img {
-		// background: url("../../../assets/images/cd-img.svg");
-		background-size: cover;
-		background-repeat: round;
-		width: 410px;
-		height: 410px;
-		margin-left: 76px;
-		margin-top: 7px;
-	}
+	// below is a cd image that displays when the album is open
+	// .bg-album-img {
+	// 	background: url("../../../assets/images/cd-img.svg");
+	// 	background-size: cover;
+	// 	background-repeat: round;
+	// 	width: 410px;
+	// 	height: 410px;
+	// 	margin-left: 76px;
+	// 	margin-top: 7px;
+	// }
 	.cd-case {
 		background: url("../../../assets/images/case-transparent.png");
 		width: 50%;
@@ -70,7 +101,7 @@
 			cursor: pointer;
 		}
 		.album-right {
-			padding-left: 20px;
+			// padding-left: 20px;
 			@media screen and (max-width: 600px) {
 				padding-left: 0px;
 			}

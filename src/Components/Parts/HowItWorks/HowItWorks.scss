@@ -2,28 +2,41 @@
 
 #how-it-works {
   width: 100%;
-  box-sizing: border-box;
-  float: left;
-  padding-bottom: 100px;
   h2 {
     &.large {
-      font-size: 250px;
+      font-size: 200px;
+      margin-bottom: 50px;
       @media screen and (max-width: 858px) {
         font-size: 20vw;
         line-height: 20vw;
       }
+      @media screen and (max-width: 1565px){
+        font-size: 155px;
+        line-height: 170px;
     }
+    @media screen and (max-width: 1010px){
+        font-size: 110px;
+        line-height: 120px;
+    }
+    @media screen and (max-width: 754px){
+        font-size: 72px;
+        line-height: 82px;
+    }
+    }
+    .red {
+    display: block;
+  }
   }
 
   .bottom {
     display: flex;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-top: 50px;
+    // padding-left: 100px;
+    // padding-right: 100px;
+    // padding-top: 50px;
     @media screen and (max-width: 994px) {
       flex-direction: column;
     }
-    @media screen and (max-width: 682px) {
+    @media screen and (max-width: 650px) {
       padding-left: 0px;
       padding-right: 0px;
     }
@@ -34,7 +47,21 @@
         padding-right: 0px;
         margin-bottom: 40px;
       }
+      @media screen and (max-width: 650px) {
+        display: block;
+      }
       .left-nav {
+        @media screen and (max-width: 650px) {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 30px;
+          max-width: 335px;
+          margin-right: auto;
+          margin-left: auto;
+        }
+        @media screen and (max-width: 440px) {
+          max-width: none;
+        }
         .count {
           font-family: $oswald;
           margin-bottom: 5px;
@@ -61,6 +88,9 @@
 
       .content {
         padding-left: 30px;
+        @media screen and (max-width: 650px) {
+          padding-left: 0px;
+        }
         .count {
           color: $red;
         }
@@ -72,6 +102,16 @@
 
         p {
           color: #fff;
+          font-size: 20px;
+          font-weight: 300;
+          letter-spacing: 0.1px;
+          line-height: 33px;
+          margin-top: 0px;
+          margin-bottom: 0px;
+          @media screen and (max-width: 650px) {
+          font-size: 16px;
+          line-height: 24px;
+          }
         }
       }
     }
@@ -91,11 +131,17 @@
       }
 
       p {
-        color: #fff;
-        font-size: 14px;
-        margin-bottom: 0px;
+        color: #ffffff;
+        font-size: 20px;
+        letter-spacing: 0.1px;
         line-height: 30px;
+        margin-bottom: 0px;
       }
     }
   }
+}
+
+.team-link{
+  text-decoration: none;
+  color: #e52b25;
 }

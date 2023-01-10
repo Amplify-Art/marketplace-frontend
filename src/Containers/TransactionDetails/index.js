@@ -32,7 +32,7 @@ function TransactionDetails(props) {
   })
   return (
     <>
-      <div className={`containerOuter wallet-page left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
+      <div className={`containerOuter wallet-page trans-detail left-nav-pad normal-right-pad mw-1200`}>
         {
           Object.keys(data).length ? Object.entries(data).map(([month, lists]) =>
             <>

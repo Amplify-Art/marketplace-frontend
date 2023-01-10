@@ -57,7 +57,7 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
-        <button className="set_name" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        <button className="set_name no-mw" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
       </>
     )
   }
@@ -125,7 +125,7 @@ function ArtistProfile(props) {
                   generateAlbumItem({ ...album, hideSticker: false }, index)
                 )) : (
                   <div className="no-results">
-                    <h4>This artist currently has no recent releases. Please check back again later.</h4>
+                    <h4>This artist has not released any albums yet.</h4>
                   </div>
                 )}
             </div>
