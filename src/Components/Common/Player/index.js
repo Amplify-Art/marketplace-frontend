@@ -35,8 +35,10 @@ function Player(props) {
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [currentSongSrc, setSongSrc] = useState(
-    `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
+    `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].songs[0].song_cid}`
   );
+
+  console.log('[[currentPlaylists[0].song_cid]]', currentPlaylists[0])
 
   const [isSeeking, setIsSeeking] = useState(false);
 
@@ -49,6 +51,8 @@ function Player(props) {
 
   // Setting REF for the player
   const player = useRef();
+
+  // currentPlaylists[playlistIndex]?.songs?.[songIndex].song_cid
 
   const handleProgress = (e) => {
     setSongProgress(e.played * 100)
@@ -117,10 +121,9 @@ function Player(props) {
   }
 
   return (
-    props.showPlayer && (
       <div
         id="amplify-player"
-        className={`amplify-player ${props.showPlayer && "full"}`}
+        className={`amplify-player full ${!props.showPlayer && 'hidden'}`}
       >
         <div className="over">
           <div className="top-icons">
@@ -179,6 +182,7 @@ function Player(props) {
               playing={isPlaying}
               onProgress={handleProgress}
               ref={player}
+              onEnded={() => nextSong()}
               // onDuration={handleDuration}
             />
 
@@ -269,7 +273,6 @@ function Player(props) {
         />
       </div>
     )
-  );
 }
 
 export default connect(
