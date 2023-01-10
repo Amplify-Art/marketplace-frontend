@@ -33,7 +33,7 @@
     "react-loading-overlay": "^1.0.1",
     "react-loading-skeleton": "^2.2.0",
     "react-palette": "^1.0.2",
-    "react-player": "^2.9.0",
+    "react-player": "^2.11.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -50,8 +50,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "russstart": "react-scriptsr start",
+    "russstart": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
