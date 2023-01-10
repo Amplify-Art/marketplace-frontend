@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 import jwt_decode from 'jwt-decode';
 import { TransactionManager } from 'near-transaction-manager'
 const { keyStores, WalletConnection, utils } = nearAPI;
-// console.log(nearAPI, 'nearAPI')
 
 function Header(props) {
     const user = jwt.decode(localStorage.getItem('amplify_app_token'));
@@ -36,7 +35,6 @@ function Header(props) {
         setWallet(wallet)
     }, [])
     useEffect(async () => {
-        console.log(wallet, 'wallet')
         if (wallet && !isWalletSigned) {
             wallet.requestSignIn(
                 user.near_account_id,     // contract requesting access 
@@ -60,7 +58,6 @@ function Header(props) {
     }
 
     const getAccountDetails = async () => {
-        console.log(wallet, 'wallet')
         const config = {
             networkId: 'testnet',
             keyStore: new keyStores.BrowserLocalStorageKeyStore(),                               // optional if not signing transactions
@@ -74,7 +71,6 @@ function Header(props) {
             const account = await near.account(user.near_account_id);
 
             let balances = await account.getAccountBalance();
-            console.log(balances, 'balances')
             const transactionManager = TransactionManager.fromAccount(account);
             const DEFAULT_FUNCTION_CALL_GAS = '300000000000000'
             const outcomes = await transactionManager.bundleCreateSignAndSendTransactions([
@@ -102,11 +98,9 @@ function Header(props) {
                 //     actions: [account.functionCall("nft_mint", {}, DEFAULT_FUNCTION_CALL_GAS, [])],
                 // },
             ]).then(res => {
-                console.log(res, 'RES')
             }).catch(err => {
                 console.log(err)
             });
-            console.log(outcomes, 'outcomes')
             setBalance(balances)
         } catch (e) {
             console.error(e);

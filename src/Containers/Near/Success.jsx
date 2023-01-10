@@ -22,7 +22,6 @@ const Success = ({ history }) => {
     localStorage.getItem(
       `amplify_art_wallet_auth_key`
     );
-  console.log(auth_key, account_id);
   useEffect(async () => {
     let net =
       process.env.REACT_APP_CONTEXT === "production" ? "mainnet" : "testnet";
@@ -31,7 +30,6 @@ const Success = ({ history }) => {
         localStorage.getItem(
           `near-api-js:keystore:${account_id}:${net}`
         );
-      console.log(pk, 'PPPPPPPKKKKKK');
       generateToken();
     }
   }, [account_id, auth_key]);

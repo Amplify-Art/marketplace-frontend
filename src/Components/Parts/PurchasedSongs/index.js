@@ -29,7 +29,6 @@ function PurchasedSongs(props) {
   } = props;
 
   const renderSongs = () => {
-    // console.log(props.transfers, props.ownedTokenCopies, "props.transfers");
     return props.transfers
       .filter(
         (f) => props.ownedTokenCopies.includes(f.copy_number) 

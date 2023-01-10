@@ -34,11 +34,7 @@ function Player(props) {
   // Player States
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
-  const [currentSongSrc, setSongSrc] = useState(
-    `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].songs[0].song_cid}`
-  );
-
-  console.log('[[currentPlaylists[0].song_cid]]', currentPlaylists[0])
+  const [currentSongSrc, setSongSrc] = useState('');
 
   const [isSeeking, setIsSeeking] = useState(false);
 
@@ -104,6 +100,7 @@ function Player(props) {
 
   useEffect(() => {
     getPlayerBackground();
+    setSongSrc(`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex].song_cid}`);
   }, [currentPlaylists.length, songIndex, playlistIndex]);
 
   // SEEKING FUNCTIONS (COMING SOON)

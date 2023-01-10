@@ -36,7 +36,6 @@ function ArtistProfile(props) {
     })
     if (res.data.success && res.data.results.length) {
       let { id, near_account_id } = res.data.results[0];
-      console.log(id)
       setID(id);
     }
   }
@@ -89,9 +88,7 @@ function ArtistProfile(props) {
 
 
   const onFollow = () => {
-    // console.log(props.myFollowings, userID, decodedToken)
     let follow = props.myFollowings.find(f => f.artist_id === userID)
-    console.log(follow)
     if (follow) {
       props.updateFollower({
         id: follow.id,

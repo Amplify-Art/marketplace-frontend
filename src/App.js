@@ -106,7 +106,6 @@ function App(props) {
     }
   }, []);
   const toggleWalletSidebar = (bool) => {
-    console.log(bool);
     if (bool) {
       props.showWallet();
     } else {
