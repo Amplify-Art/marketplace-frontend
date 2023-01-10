@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function ({
     src,
     fallbackImage,
@@ -11,6 +12,6 @@ export default function ({
         setError(true)
     }
     return (
-        <img src={error ? fallbackImage : src} onError={onImageLoadError} {...rest} />
+        <img src={error ? fallbackImage : src} onError={onImageLoadError} {...rest} alt="fallback" />
     )
 }

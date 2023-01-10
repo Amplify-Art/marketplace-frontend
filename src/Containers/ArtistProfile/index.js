@@ -3,13 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
-import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
 import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
-import CoverImg from '../../assets/images/profile-cover.png';
-import PageNotFound from '../PageNotFound'
 import './ArtistProfile.scss';
-import ShareIcon from '../../assets/images/share-icon.svg';
 import { fetchFollowersAction, updateFollowerAction, addFollowerAction } from '../../redux/actions/FollowerAction';
 import { getUsers } from '../../Api/User';
 import SingleAlbum from '../../Components/Common/SingleAlbum/index';
@@ -25,6 +21,7 @@ function ArtistProfile(props) {
 
   useEffect(() => {
     findUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const findUser = async () => {
@@ -35,7 +32,7 @@ function ArtistProfile(props) {
       }
     })
     if (res.data.success && res.data.results.length) {
-      let { id, near_account_id } = res.data.results[0];
+      let { id } = res.data.results[0];
       setID(id);
     }
   }
@@ -48,6 +45,7 @@ function ArtistProfile(props) {
   useEffect(() => {
     if (props.artist)
       setArtistFound(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.artist && props.artist.id])
   const renderBtnContent = () => {
     return (
@@ -79,11 +77,13 @@ function ArtistProfile(props) {
         }
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userID]);
 
   useEffect(() => {
-    const filterAlbums = props.albums.filter(album => album.user_id == userID)
+    const filterAlbums = props.albums.filter(album => album.user_id === userID)
     setAlbums(filterAlbums)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.albums]);
 
 

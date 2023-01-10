@@ -15,7 +15,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
-import _ from "lodash";
 import { getTokens } from "../../../Utils/near";
 
 
@@ -47,9 +46,6 @@ function AlbumModalContent({
   const [nearPrice, setNearPrice] = useState(0);
   let url = props.history.location;
 
-  const handleSongModal = () => {
-    setSongModal(true);
-  };
   const toggle = (songid) => {
     setAudioSong(
       new Audio(`https://gateway.pinata.cloud/ipfs/${songid}`)
@@ -81,6 +77,7 @@ function AlbumModalContent({
   useEffect(() => {
     fetchTokens();
     getNearPrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTokens = async () => {
@@ -134,6 +131,7 @@ function AlbumModalContent({
       });
       audio.removeEventListener("timeupdate", () => { });
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing, audio]);
 
   const handleCloseModal = () => {
@@ -172,8 +170,6 @@ function AlbumModalContent({
       setNearPrice(res.data.USD);
     });
   }
-
-  const zeroPad = (num, places) => String(num).padStart(places, "0");
 
   const handleDelete = () => {
     props.setDeletingId(albumInfo.id);

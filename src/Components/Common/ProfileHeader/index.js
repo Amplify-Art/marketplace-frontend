@@ -65,6 +65,7 @@ function ProfileHeader({
           "filter[user_id]": user,
         },
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   let songsCount = tokenTransfers && tokenTransfers.length ? tokenTransfers.length : 0;

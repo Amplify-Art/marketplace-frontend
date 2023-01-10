@@ -160,7 +160,6 @@ export const getArtistById = (payload) => {
 };
 
 export const getArtists = (payload) => {
-  const id = payload.id;
   const url = makeUrl(`${API_ENDPOINT_URL}/users/`, {
     ...(payload.params || {}),
   });

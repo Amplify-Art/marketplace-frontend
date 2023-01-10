@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Cropper from "react-cropper";
 import axios from 'axios';
 import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
@@ -13,14 +12,8 @@ import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
 import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
-import DownArrowIcon from '../../assets/images/Down_arrow.svg';
-import CalanderIcon from '../../assets/images/CalanderIcon.svg';
-import RightIcon from '../../assets/images/RightIcon.svg';
-import RightIconDisable from '../../assets/images/RightIconDisable.svg';
 import ConfettiImage from '../../assets/images/confetti.png';
 import ImageUploadIcon from '../../assets/images/image-upload.svg';
-import SupportCardCover from '../../assets/images/support-card.png';
-import Vote from '../../assets/images/Vote.svg';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import NewNFT from '../../Components/Common/NewNFT/index';
 import { getAccessToken } from '../../Api/index';
@@ -41,15 +34,11 @@ function ArtistDashboard(props) {
     setIsModalOpen(false)
   }
 
-  const mintNewAlbum = () => {
-
-  }
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bannerImage, setBannerImage] = useState(CoverImg);
   const [profileImage, setProfileImage] = useState(ArtisrAvatar);
   const [userName, setUserName] = useState('');
-  const [showCongratsModal, toggleCongratsModal] = useState(false);
+  const [, toggleCongratsModal] = useState(false);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [bannerUploadProgress, setBannerUploadProgress] = useState(0);
@@ -86,6 +75,7 @@ function ArtistDashboard(props) {
       props.mintNFT(mintInfo)
     }
     localStorage.removeItem('minting_info')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -104,26 +94,10 @@ function ArtistDashboard(props) {
         related: 'votedFor, votes'
       }
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const month_Data = [
-    { month: "june", gwei: "gwei", isChecked: false },
-    { month: "may", gwei: "gwei", isChecked: false },
-    { month: "april", gwei: "gwei", isChecked: true },
-    { month: "march", gwei: "gwei", isChecked: true }
-  ]
 
-  const mostPlayData = [
-    { name: 'Song Name', count: 13 },
-    { name: 'Song Name', count: 11 },
-    { name: 'Song Name', count: 10 },
-    { name: 'Song Name', count: 9 },
-    { name: 'Song Name', count: 8 },
-    { name: 'Song Name', count: 8 },
-    { name: 'Song Name', count: 5 },
-    { name: 'Song Name', count: 5 },
-    { name: 'Song Name', count: 4 },
-    { name: 'Song Name', count: 3 },
-  ];
+  
   const renderBtnContent = () => {
     return (
       <div className='headerBtn'>
@@ -134,31 +108,7 @@ function ArtistDashboard(props) {
       </div>
     )
   }
-  const renderSongList = () => (
-    mostPlayData.map((song, index) => (
-      <div className="song-content d-h-between">
-        <div>{song.name}</div>
-        <div>{song.votes}</div>
-      </div>
-    ))
-  )
-
-  const renderVoteList = () => (
-    props.nominations.map((nomination, index) => (
-      <div className="song-content d-h-between voter-list">
-        <div>{nomination.votedFor && nomination.votedFor.name}</div>
-        <div className="vote-actions">{<span>{nomination.votes && nomination.votes.length || 1}</span>}
-          <img src={Vote} onClick={() => onVote(nomination)} />
-        </div>
-      </div>
-    ))
-  )
-  const onVote = (nomination) => {
-    props.addNominationVote({
-      nomination_id: nomination.id
-    })
-  }
-  const BannerUploaderForm = ({ }) => <div>
+  const BannerUploaderForm = () => <div>
     <label htmlFor="albumCover">
       <div className="banner-upload">
         <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className={image ? 'banner' : 'banner default'} />

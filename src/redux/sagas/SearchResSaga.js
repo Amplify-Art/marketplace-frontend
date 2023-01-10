@@ -1,7 +1,6 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 import {searchResult } from '../../Api/SearchRes';
 import * as types from '../../Constants/actions/Album';
-import { SET_NOTIFICATION } from '../../Constants/actions/Global';
 
 /* eslint-disable no-use-before-define */
 export default function* watchSearchSaga(context = {}) {

@@ -10,7 +10,7 @@ import {
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import * as playListAction from "./redux/actions/PlaylistAction";
@@ -18,7 +18,6 @@ import * as playListAction from "./redux/actions/PlaylistAction";
 // Containers
 import Header from "./Components/Parts/Header/index";
 import Home from "./Containers/Home/index";
-import SignIn from "./Containers/SignIn/index";
 import SandBox from "./Containers/Sandbox/index";
 import ArtistProfile from "./Containers/ArtistProfile/index";
 import SecondaryMarketplace from "./Containers/SecondaryMarketplace";
@@ -29,7 +28,6 @@ import Nominate from "./Containers/Nominate";
 import UserDashboard from "./Containers/UserDashboard";
 import Artists from "./Containers/Artists";
 import SearchResult from "./Containers/SearchResult";
-import Songs from "./Containers/Songs";
 import Wallet from "./Containers/Wallet";
 import TransactionDetails from "./Containers/TransactionDetails";
 import WalletSignTransaction from "./Containers/WalletSignTransaction";
@@ -39,7 +37,6 @@ import Settings from "./Containers/Settings";
 import Auth from "./Containers/Auth";
 
 //Auth
-import Login from "./Containers/Login/index";
 import NearSuccessLogin from "./Containers/Near/Success";
 
 import Albums from "./Containers/Albums/index";
@@ -63,10 +60,10 @@ function App(props) {
   let location = useLocation();
   const [path, setPath] = useState("");
   const [showLeftSidebar, toggleLeftSidebar] = useState(false);
-  const [showPlayer, togglePlayer] = useState(false);
-  const [bannerImage, setBannerImage] = useState("");
+  const [, togglePlayer] = useState(false);
+  const [, setBannerImage] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [userName, setUserName] = useState("");
+  const [, setUserName] = useState("");
   // const [showWalletSidebar, toggleWalletSidebar] = useState(true);
   const user = localStorage.getItem("amplify_app_token");
   useEffect(() => {
@@ -77,6 +74,7 @@ function App(props) {
       props.clearCurrentPlayList();
       history.push("/");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   // const activePlaylist = sessionStorage.getItem('activePlaylist');
@@ -104,6 +102,7 @@ function App(props) {
         toggleWalletSidebar(true);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const toggleWalletSidebar = (bool) => {
     if (bool) {
@@ -241,7 +240,6 @@ function App(props) {
   );
 }
 
-const GrabToken = () => {};
 export default connect(
   (state) => {
     return {

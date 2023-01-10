@@ -11,7 +11,6 @@ import ConfettiImage from "../../assets/images/confetti.png";
 
 import "./MyProfile.scss";
 
-import { fetchNFTsAction } from "../../redux/actions/NFTAction";
 import { fetchTokenTransfersAction } from "../../redux/actions/TokenTransferAction";
 import { fetchUserAction } from "../../redux/actions/UserAction";
 import {
@@ -98,6 +97,7 @@ function MyProfile(props) {
         owned_songs: true,
       },
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => { });
@@ -162,10 +162,9 @@ function MyProfile(props) {
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("showId")) {
-      let albumId = decodeURIComponent(
-        q.parse(props.history.location.search)["?showId"]
-      );
+
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.location.search]);
 
   const checkTxnStatus = async (sellingSong) => {
@@ -266,22 +265,7 @@ function MyProfile(props) {
     setSharePopup(false);
   };
 
-  const onFollow = () => {
-    let follow = props.myFollowings.find((f) => f.artist_id === userID);
-    if (follow) {
-      props.updateFollower({
-        id: follow.id,
-        is_deleted: true,
-        artist_id: null,
-        follower_id: null,
-      });
-    } else {
-      props.addFollower({
-        artist_id: userID,
-        follower_id: decodedToken.id,
-      });
-    }
-  };
+  
   const renderBtnContent = () => {
     return (
       <>
@@ -289,10 +273,10 @@ function MyProfile(props) {
         <div className="popup-container">
           {openSharePopup && (
             <div className="popUp">
-              <a href="#" className="popup-div" onClick={copyProfileLink}>
+              <button className="popup-div" onClick={copyProfileLink}>
                 <img src={copyLink} alt="Copy Link" className="popup-img" />
                 <span>Copy Link</span>
-              </a>
+              </button>
               <TwitterShareButton
                 className="popup-div"
                 title="Check out my Amplify.art profile!"
@@ -334,6 +318,7 @@ function MyProfile(props) {
 
   useEffect(() => {
     findUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const findUser = async () => {
@@ -390,6 +375,7 @@ function MyProfile(props) {
         },
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user]);
 
   const closeModals = () => {
@@ -459,10 +445,12 @@ function MyProfile(props) {
         setShowModalAlbumIndex(parseInt(actualIndex));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aformattedAlbums.length, props.history.location.search]);
 
   useEffect(() => {
     fetchTokens();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTokens = async () => {
@@ -478,6 +466,7 @@ function MyProfile(props) {
           .map((t) => parseInt(t.token_id.split(":")[1]))
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingSong]);
 
   return (
@@ -671,7 +660,6 @@ export default connect(
       showPlaylistModal: () => dispatch(showPlaylistModalAction()),
       hidePlaylistModal: () => dispatch(hidePlaylistModalAction()),
       fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
-      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
       deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
       hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
       fetchUserNearById: (data) => dispatch(fetchUserByNearIdAction(data)),

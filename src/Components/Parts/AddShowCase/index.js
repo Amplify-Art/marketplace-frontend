@@ -7,7 +7,6 @@ import {
   addShowcaseAction,
   updateShowcaseAction,
 } from "../../../redux/actions/ShowcaseAction";
-import jwt from "jsonwebtoken";
 import "./AddShowCase.scss";
 import CDImg from "../../../assets/images/cd-img.svg";
 import { getTokens } from "../../../Utils/near";
@@ -28,10 +27,10 @@ function AddShowCase({
   wallet,
 }) {
   const [loading, setLoading] = useState(true);
-  const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   useEffect(() => {
     getNFTs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getNFTs = async () => {
@@ -90,6 +89,7 @@ function AddShowCase({
                   onLoad={() => onLoadingImage(item)}
                   className={`cover ${loading && "hidden"}`}
                   onError
+                  alt="cover"
                 />
                 {loading && <Skeleton width={60} height={60} />}
               </div>

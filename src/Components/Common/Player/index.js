@@ -3,7 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import ReactPlayer from 'react-player'
 import "./Player.scss";
 import { connect } from "react-redux";
-import jwt from "jsonwebtoken";
+
 import PayerQueue from "./PlayerQueue";
 import GeneralModal from "../GeneralModal/index.js";
 
@@ -20,10 +20,8 @@ import CDIcon from "../../../assets/images/cd-icon.svg";
 import { updateCurrentPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
 import defaultProfile from "../../../assets/images/default-profile.svg";
-import { duration } from "moment";
 
 function Player(props) {
-  const user = jwt.decode(localStorage.getItem("amplify_app_token"));
   useEffect(() => {
     const isData = document.getElementsByClassName("error-page")[0];
     if (isData) setIsShow(true);
