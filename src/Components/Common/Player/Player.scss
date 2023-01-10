@@ -167,9 +167,6 @@
   }
 
   .progress-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-top: 30px;
     @media (max-height: 800px) {
       margin-top: 20px;
