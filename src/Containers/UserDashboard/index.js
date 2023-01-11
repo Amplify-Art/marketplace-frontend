@@ -170,8 +170,7 @@ function UserDashboard(props) {
           </div>
         ) : (
           <div className="not-following">
-            <div class="placeholder-graphic">
-            <img src={NoFollowIcon} alt="no following icon" /></div>
+            <div class="placeholder-graphic"><img src={NoFollowIcon} alt="no following icon" /></div>
             <h5 className="not-following-text">Never miss a beat by following your favorite <a href="/artists">artists</a>.</h5>
           </div>
         )}

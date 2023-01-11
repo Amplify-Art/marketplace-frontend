@@ -91,7 +91,7 @@ function ProfileHeader({
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-sharp fa-solid fa-trash-can" /></div>}
+                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-solid fa-trash-can" /></div>}
                             <img
                               src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"
