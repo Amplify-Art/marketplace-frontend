@@ -126,13 +126,12 @@ function Wallet(props) {
   };
   return (
     <div
-      className={`containerOuter wallet-page left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`containerOuter wallet-page left-nav-pad normal-right-pad mw-1200`}
     >
       <div className="white-box">
         <div className="left">
           <h4 className="balance">Total Balance </h4>
-          {user?.near_account_id && <h3>{user?.near_account_id}</h3>}
+          {/* {user?.near_account_id && <h3>{user?.near_account_id}</h3>}*/}
           <div className="near-amount">
             <span>
               {props.user?.near_balance &&

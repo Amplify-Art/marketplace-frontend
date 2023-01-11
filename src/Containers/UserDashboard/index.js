@@ -32,8 +32,13 @@ function UserDashboard(props) {
     });
   }, []);
 
-  const renderHeader = (title) => (
-    <div className="album-header">
+  const renderFollowHeader = (title) => (
+    <div className="followed-header">
+      <span className="header-title">{title} - {props.myFollowings.length}</span>
+    </div>
+  );
+  const renderReleaseHeader = (title) => (
+    <div className="release-header">
       <span className="header-title">{title}</span>
     </div>
   );
@@ -41,7 +46,8 @@ function UserDashboard(props) {
     if (props.myFollowings.length) {
       props.fetchAlbums({
         params: {
-          orderBy: "-created_at",
+          orderBy: "-available_qty",
+          sort: "-created_at",
           related: "songs.[transfers,album],transfers,user",
           "filter[user_id]": props.myFollowings
             .map((m) => m.artist_id)
@@ -69,7 +75,7 @@ function UserDashboard(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -111,7 +117,7 @@ function UserDashboard(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -143,8 +149,9 @@ function UserDashboard(props) {
   };
   return (
     <div id="user-dashboard" className="left-nav-pad right-player-pad">
-      <div className="containerOuter">
-        {renderHeader("Followed Artists", false)}
+      <div className="container">
+      <div className="followed-artists">
+        {renderFollowHeader("Followed Artists", false)}
         {props.myFollowings.length ? (
           <div className="user-block">
             {props?.myFollowings?.map((following, index) => (
@@ -160,11 +167,14 @@ function UserDashboard(props) {
             ))}
           </div>
         ) : (
+          <div>
           <h2 className="no-artists">No Followed Artist</h2>
+          </div>
         )}
-
-        {renderHeader("Recently Released", false)}
-        <div className="container">
+        </div>
+        <div className="recently-released">
+        {renderReleaseHeader("Recently Released", false)}
+        <div>
           {props?.albums && props.albums?.length ? (
             <div className="album-grid">
               {props.albums.map((album, index) => (
@@ -174,6 +184,7 @@ function UserDashboard(props) {
           ) : (
             <h2 className="no-artists mt-3">No Recently Released Albums</h2>
           )}
+          </div>
         </div>
       </div>
     </div>

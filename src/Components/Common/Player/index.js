@@ -1,29 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter, Link } from "react-router-dom";
+import ReactPlayer from 'react-player'
 import "./Player.scss";
 import { connect } from "react-redux";
-import jwt from "jsonwebtoken";
+
 import PayerQueue from "./PlayerQueue";
+import GeneralModal from "../GeneralModal/index.js";
+
+import ProgressBar from "./Parts/ProgressBar/ProgressBar";
+
 // Player Icons
 import NextSongIcon from "../../../assets/images/next.svg";
 import PrevSongIcon from "../../../assets/images/prev.svg";
 import LeftArrowIcon from "../../../assets/images/left-arrow.svg";
-import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
 import CdImage from "../../../assets/images/cd-img.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
+
 import { updateCurrentPlaylistAction } from "../../../redux/actions/PlaylistAction";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
-import GeneralModal from "../GeneralModal/index.js";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
-
-// Cover import (This will be dynamic)
-import DefaultCover from "../../../assets/images/cd-img.svg";
-
-const audioElement = new Audio();
+import defaultProfile from "../../../assets/images/default-profile.svg";
 
 function Player(props) {
-  const user = jwt.decode(localStorage.getItem("amplify_app_token"));
   useEffect(() => {
     const isData = document.getElementsByClassName("error-page")[0];
     if (isData) setIsShow(true);
@@ -31,56 +29,28 @@ function Player(props) {
 
   const { avatar, toggleWalletSidebar, currentPlaylists, showWallet } = props;
 
+  // Player States
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
+  const [currentSongSrc, setSongSrc] = useState('');
+
+  const [isSeeking, setIsSeeking] = useState(false);
+
   const [songIndex, setSongIndex] = useState(0);
   const [playlistIndex, setPlaylistIndex] = useState(0);
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
   const [isShow, setIsShow] = useState(false);
   const [isPrevClicked, setIsPrevClicked] = useState(false);
-  const [currentSongSrc, setSongSrc] = useState(
-    `https://gateway.pinata.cloud/ipfs/${currentPlaylists[0].song_cid}`
-  );
+  const [cdBackground, setCDBackground] = useState(CdImage);
 
-  // const coverData = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}`
+  // Setting REF for the player
+  const player = useRef();
 
-  const playBar = useRef(null);
-  const playButtonFunction = () => {
-    togglePlay(!isPlaying);
-    if (isPlaying) {
-      audioElement.pause();
-    } else {
-      audioElement.play();
-      requestAnimationFrame(updateBar);
-    }
-  };
+  // currentPlaylists[playlistIndex]?.songs?.[songIndex].song_cid
 
-  useEffect(() => {
-    setSongIndex(0);
-    setPlaylistIndex(0);
-    togglePlay(true);
-    audioElement.currentTime = 0;
-    audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists?.[playlistIndex]?.songs?.[songIndex]?.song_cid}`;
-    audioElement.play();
-    requestAnimationFrame(updateBar);
-  }, [currentPlaylists.length]);
-
-  useEffect(() => {
-    if (props.showPlayer && audioElement.src) {
-      audioElement.play();
-    } else {
-      audioElement.pause();
-    }
-  }, [props.showPlayer]);
-  audioElement.onended = function () {
-    // togglePlay(true)
-    nextSong();
-  };
-
-  const updateBar = () => {
-    setSongProgress(audioElement.currentTime);
-    requestAnimationFrame(updateBar);
-  };
+  const handleProgress = (e) => {
+    setSongProgress(e.played * 100)
+  }
 
   const nextSong = () => {
     let index;
@@ -96,79 +66,59 @@ function Player(props) {
           ...currentPlaylists.filter((f, i) => i !== playlistIndex),
           currentPlaylists.find((f, i) => i === playlistIndex),
         ]);
-        // setPlaylistIndex(playlistIndex + 1);
       } else setPlaylistIndex(0);
     }
-    audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`;
-    audioElement.currentTime = 0;
-    if (isPlaying) {
-      audioElement.play();
-      requestAnimationFrame(updateBar);
-    }
+    setSongProgress(0)
+    setSongSrc(`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[index].song_cid}`);
+    togglePlay(true);
   };
 
   const prevSong = () => {
     if (isPrevClicked && songIndex !== 0) {
-      // Cant go prev. the min songs available.. Maybe we will loop later?
-      audioElement.src = `https://gateway.pinata.cloud/ipfs/${
-        currentPlaylists[playlistIndex]?.songs[songIndex - 1]?.song_cid
-      }`;
-      if (isPlaying) {
-        audioElement.play();
-      }
+      setSongSrc(`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs[songIndex - 1]?.song_cid}`);
+      setSongProgress(0)
       setSongIndex(songIndex - 1);
-    } else {
-      audioElement.currentTime = 0;
-      setIsPrevClicked(true);
+      togglePlay(true);
     }
-  };
-  useEffect(() => {
-    if (isPrevClicked) {
-      setTimeout(() => {
-        setIsPrevClicked(false);
-      }, 600);
-    }
-  }, [isPrevClicked]);
-  // useEffect(() => {
-  //   audioElement.src = currentSongSrc;
-  // }, [0]);
-  useEffect(() => {}, [audioElement.src]);
-  const onSongSeek = (e) => {
-    if (props.showPlayer) {
-      audioElement.currentTime =
-        ((e.clientX - playBar.current.getBoundingClientRect().x) *
-          audioElement.duration) /
-        playBar.current.getBoundingClientRect().width;
-    } else {
-      audioElement.currentTime =
-        ((playBar.current.getBoundingClientRect().bottom - e.clientY) *
-          audioElement.duration) /
-        playBar.current.getBoundingClientRect().height;
-    }
-  };
-  const handleCloseModal = (bool) => {
-    if (bool) {
-      props.updateCurrentPlaylist(
-        currentPlaylists.filter((f, i) => i !== songDeletingIndex)
-      );
-      sessionStorage.setItem(
-        "activePlaylist",
-        JSON.stringify(
-          currentPlaylists.filter((f, i) => i !== songDeletingIndex)
-        )
-      );
-      if (songDeletingIndex === songIndex) {
-        audioElement.pause();
-      }
-    }
-    setSongDeletingIndex(null);
   };
 
+  const getPlayerBackground = () => {
+    let backgroundImage;
+    
+    if (currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid) {
+      backgroundImage = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`;
+    } else if (currentPlaylists[playlistIndex]?.cover_cid) {
+      backgroundImage = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.cover_cid}`;
+    } else {
+      backgroundImage = CdImage;
+    }
+
+    setCDBackground(backgroundImage);
+  };
+
+  useEffect(() => {
+    getPlayerBackground();
+    setSongSrc(`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex].song_cid}`);
+  }, [currentPlaylists.length, songIndex, playlistIndex]);
+
+  // SEEKING FUNCTIONS (COMING SOON)
+  const handleSeekMouseDown = e => {
+    setIsSeeking(true)
+  }
+
+  const handleSeekChange = e => {
+    setSongProgress(parseFloat(e.target.value) * 100)
+  }
+
+  const handleSeekMouseUp = e => {
+    setIsSeeking(false)
+    player.seekTo(parseFloat(e.target.value))
+  }
+
   return (
-    props.showPlayer && (
       <div
         id="amplify-player"
-        className={`amplify-player ${props.showPlayer && "full"}`}
+        className={`amplify-player full ${!props.showPlayer && 'hidden'}`}
       >
         <div className="over">
           <div className="top-icons">
@@ -182,7 +132,7 @@ function Player(props) {
               </Link>
             </div>
             <div className="user">
-              <img src={!avatar ? defaultProfile : avatar} />
+              <img src={!avatar ? defaultProfile : avatar} alt="User" />
             </div>
           </div>
           {props.showPlayer && (
@@ -211,55 +161,40 @@ function Player(props) {
                   <h5 className="album-title">
                     {currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}
                   </h5>
-                  {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
                 </div>
               </div>
             </div>
           )}
 
           <div className="player-pull-out-button">
-            <img src={LeftArrowIcon} />
+            <img src={LeftArrowIcon} alt="left" />
           </div>
 
           <div className="progress-bar">
-            <div className="bar" onClick={(e) => onSongSeek(e)} ref={playBar}>
-              {props.showPlayer ? (
-                <div
-                  className="completed"
-                  style={{
-                    width: `${
-                      audioElement.duration
-                        ? (audioElement.currentTime / audioElement.duration) *
-                          100
-                        : 0
-                    }%`,
-                    height: "100%",
-                  }}
-                />
-              ) : (
-                <div
-                  className="completed"
-                  style={{
-                    height: `${
-                      audioElement.duration
-                        ? (audioElement.currentTime / audioElement.duration) *
-                          100
-                        : 0
-                    }%`,
-                    width: "100%",
-                  }}
-                />
-              )}
-            </div>
+            {/* BAR */}
+            <ReactPlayer
+              url={currentSongSrc}
+              playing={isPlaying}
+              onProgress={handleProgress}
+              ref={player}
+              onEnded={() => nextSong()}
+              // onDuration={handleDuration}
+            />
+
+            <ProgressBar
+              progress={songProgress}
+            />
           </div>
 
           <div className="controls">
+            {/* CONTROLS */}
+
             <div className="button prev" onClick={() => nextSong()}>
               <img src={NextSongIcon} alt="Next Song" />
             </div>
             <div
               className="button play-pause"
-              onClick={() => playButtonFunction()}
+              onClick={() => togglePlay(!isPlaying)}
             >
               {isPlaying ? (
                 <svg
@@ -286,7 +221,7 @@ function Player(props) {
             </div>
             <div className="button next" onClick={() => prevSong()}>
               <img src={PrevSongIcon} alt="Previous Song" />
-            </div>
+            </div>            
           </div>
           {props.showPlayer && (
             <PayerQueue
@@ -298,15 +233,12 @@ function Player(props) {
           )}
           {!props.showPlayer && (
             <div className="album-info">
-              <div className="cover">
-                {/* <img src={activePlaylist[songIndex].cover} alt="Cover" /> */}
-              </div>
+              <div className="cover" />
               <div className="details">
                 <div className="rotate">
                   <h5 className="album-title">
                     {currentPlaylists[songIndex]?.title}
                   </h5>
-                  {/* <h6 className="song-name">{activePlaylist[songIndex].album_title}</h6> */}
                 </div>
               </div>
             </div>
@@ -314,41 +246,28 @@ function Player(props) {
         </div>
         {songDeletingIndex !== null && (
           <GeneralModal
-            // topIcon={ConfettiImage}
-            headline="Are you sure to delete this playlist from queue?"
+            headline="Remove playlist from queue?"
             buttons={[
               {
                 type: "solid go-home",
                 text: "Yes",
-                onClick: () => handleCloseModal(true),
+                // onClick: () => handleCloseModal(true),
               },
               {
                 type: "solid go-home",
                 text: "Cancel",
-                onClick: () => handleCloseModal(false),
+                // onClick: () => handleCloseModal(false),
               },
             ]}
             className="centered"
           />
         )}
-        {/* If album is owned, show cover here, else use blank CD */}
-        {/* {
-            <div className="background-blur" style={{ backgroundImage: `url(${currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover})` }} />
-        } */}
         <div
           className="background-blur"
-          style={{
-            backgroundImage: `url(${
-              !currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album
-                ?.cover_cid
-                ? CdImage
-                : `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album.cover_cid}`
-            })`,
-          }}
+          style={{ backgroundImage: `url(${cdBackground})` }}
         />
       </div>
     )
-  );
 }
 
 export default connect(

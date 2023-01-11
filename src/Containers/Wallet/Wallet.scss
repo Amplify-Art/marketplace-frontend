@@ -286,9 +286,8 @@
 }
 
 .wallet-page {
-  margin-top: 50px;
   @media screen and (max-width: 600px) {
-    margin-top: 5px;
+    // margin-top: 5px;
   }
   .white-box {
     font-family: "Space Grotesk", sans-serif;
@@ -296,42 +295,57 @@
     box-sizing: border-box;
     padding: 30px;
     display: flex;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 1010px) {
       flex-direction: column;
+    }
+    @media screen and (max-width: 650px) {
       margin-left: 20px;
       margin-right: 20px;
     }
     h4 {
-      font-style: normal;
-      font-weight: normal;
+      font-weight: 300;
       font-size: 24px;
+      line-height: 31px;
+      font-style: normal;
       margin-top: 0px;
+      margin-bottom: 24px;
     }
 
     .near-amount {
       display: flex;
       align-items: center;
       span {
-        font-size: 60px;
         font-weight: 300;
+        font-size: 60px;
+        line-height: 100%;
         &.near-label {
-          font-size: 24px;
           text-transform: uppercase;
           opacity: 0.6;
-          margin-left: 23px;
+          margin-left: 20px;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 31px;
         }
       }
+    }
+
+    .usd{
+      padding-top: 5px;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.08em;
     }
 
     .left {
       min-width: 35%;
       border-right: solid 1px rgba(0, 0, 0, 0.2);
-      padding-right: 50px;
+      padding-right: 80px;
       margin-right: 50px;
       .balance {
-        margin-bottom: 0;
+        margin-bottom: 30px;
       }
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1010px) {
         border-right: solid 1px white;
         padding-right: 0px;
         margin-right: 0px;
@@ -339,14 +353,15 @@
       }
       .buttons {
         flex-direction: row;
-        margin-top: 50px;
-        @media screen and (max-width: 600px) {
+        margin-top: 40px;
+        @media screen and (max-width: 1010px) {
           margin-bottom: 30px;
           margin-top: 30px;
         }
         .btn {
           width: 50%;
           margin-bottom: 0px;
+          font-weight: 400;
           &:first-child {
             margin-left: 0px;
           }
@@ -362,58 +377,71 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1010px) {
         margin-top: 30px;
       }
       input {
         border: 1.5px solid #e3e3e3;
         border-radius: 8px;
         font-size: 16px;
-        padding: 14px;
+        padding: 14px 10px;
         width: 100%;
         box-sizing: border-box;
+        font-weight: 400;
+        color: #000;
       }
+
+      input::placeholder {
+          font-weight: 300;
+          color: #999;
+        }
 
       .conversion-to-near {
         color: #000000;
         opacity: 0.5;
-        font-size: 16px;
-        font-weight: 300;
         margin-top: 15px;
         padding: 5px;
-        @media screen and (max-width: 600px) {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.08em;
+        @media screen and (max-width: 1010px) {
           margin-bottom: 30px;
         }
       }
 
       .btn {
         margin-top: auto;
+        font-weight: 400;
       }
     }
   }
   .transactionListWrapper {
     margin-top: 50px;
+    padding: 30px 30px 0 30px;
     background: #c4c4c42e;
     .transactionList {
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: "Space Grotesk", sans-serif;
-      font-weight: 200;
+      font-weight: 300;
       .heading {
         color: white;
-        padding: 20px;
+        font-weight: 300;
         font-size: 24px;
-        @media screen and (max-width: 600px) {
-          font-size: 20px;
+        @media screen and (max-width: 699px) {
+          font-size: 18px;
         }
       }
       .viewFullLink {
         color: white;
-        padding: 20px;
-        font-size: 20px;
+        // padding: 20px;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
         @media screen and (max-width: 600px) {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
@@ -464,15 +492,15 @@
       line-height: 31px;
       text-align: left;
       color: #000000;
+      font-weight: 300;
     }
     .transDetail-close-button {
       height: 26px;
       width: 26px;
-      font-size: 28px;
-      background: white;
-      color: #cccccc;
       cursor: pointer;
-      margin-top: -8px;
+      position: absolute;
+      top: 23px;
+      right: 20px;
     }
   }
   .transaction-modal-near-amount {
@@ -480,12 +508,12 @@
     align-items: center;
     font-size: 40px;
     line-height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     span {
       font-size: 16px;
-      line-height: 20.42px;
-      opacity: 0.5;
-      padding-left: 10px;
+      line-height: 20px;
+      opacity: 0.6;
+      padding-left: 12px;
     }
   }
   .transaction-modal-fee {
@@ -497,16 +525,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     .purchase-headline {
+      font-weight: 500;
       font-size: 20px;
-      line-height: 25.52px;
-      font-weight: 600;
+      line-height: 26px;
     }
     .purchase-date {
+      font-weight: 300;
       font-size: 16px;
-      line-height: 20.42px;
-      font-weight: 400;
+      line-height: 20px;
     }
   }
   .transaction-modal-purchase-item-wrapper {
@@ -544,10 +572,12 @@
         margin-left: 20px;
         .content-heading {
           font-size: 20px;
+          font-weight: 300;
+          font-size: 18px;
+          line-height: 23px;
           @media screen and (max-width: 600px) {
             font-size: 16px;
           }
-          font-weight: bold;
         }
         .content-details {
           opacity: 0.7;
@@ -557,12 +587,14 @@
         text-align: end;
         opacity: 0.7;
         .contentType-heading {
-          font-size: 18px;
+          color: #000;
+          opacity: .4;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
           @media screen and (max-width: 600px) {
-            font-size: 14px;
+            font-size: 12px;
           }
-          font-weight: bold;
-          color: #999;
         }
         .contentType-detail {
           font-size: 16px;
@@ -576,15 +608,15 @@
   .transaction-modal-address-wrapper {
     margin-bottom: 20px;
     .transaction-modal-from {
-      font-size: 16px;
-      line-height: 20.42px;
-      font-weight: 400;
       margin-bottom: 5px;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 20px;
     }
     .transaction-modal-heading {
-      font-weight: 600;
-      margin-bottom: 5px;
-      font-size: 14px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
     }
     .transaction-modal-detail {
       font-weight: 400;

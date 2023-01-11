@@ -8,16 +8,10 @@ import jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
 import { createWallet } from "../../../Api/Near";
 import MenuIcon from "../../../assets/images/menu-icon.svg";
-import MenuIconNew from "../../../assets/images/menu-icon-new.svg";
 import Logo from "../../../assets/images/logo.svg";
 import SearchIcon from "../../../assets/images/search-icon.svg";
-import BellIcon from "../../../assets/images/bell-icon.svg";
 import Wallet from "../../../assets/images/wallet-icon.svg";
-import DiscoverIcon from "../../../assets/images/discover-icon.svg";
-import AccountIcon from "../../../assets/images/account-icon.svg";
-import StoreIcon from "../../../assets/images/store-icon.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
-import Harrison from "../../../assets/images/harrison.jpeg";
 import Button from "../../Common/Button/index";
 import useDebounce from "../../Common/UseDebounce";
 import SearchResultCard from "../SearchResultCard";
@@ -41,27 +35,25 @@ import {
   hideSearchResultAction,
 } from "../../../redux/actions/SearchResAction";
 import "./Header.scss";
-import q from "querystring";
 import Login from "../../../Containers/Login";
 import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
-import { API_ENDPOINT_URL } from "../../../Constants/default";
-import defaultProfile from "../../../assets/images/default-profile.jpg";
+import defaultProfile from "../../../assets/images/default-profile.svg";
 
 const {
   keyStores,
   WalletConnection,
   utils,
   utils: {
+    // eslint-disable-next-line no-unused-vars
     format: { parseNearAmount },
   },
-  KeyPair,
 } = nearAPI;
 
 function Header(props) {
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   const [wallet, setWalletState] = useState(null);
-  const [isWalletSigned, setIsWalletSigned] = useState(
+  const [isWalletSigned, ] = useState(
     user && user.near_connected
   );
   const [balance, setBalance] = useState(null);
@@ -81,6 +73,7 @@ function Header(props) {
       getAccountDetails();
     }
     props.setCurrentNearPrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.location.pathname]);
 
   // useEffect(() => {
@@ -93,16 +86,12 @@ function Header(props) {
 
   useEffect(() => {
     if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {
-      let querySearch = q.parse(
-        props.history.location.search &&
-          props.history.location.search.replace("?", "")
-      );
       props.searchRes(debouncedSearchTerm);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
   const {
-    path,
     showWalletSidebar,
     toggleWalletSidebar,
     toggleMobileMenu,
@@ -125,12 +114,12 @@ function Header(props) {
     };
     const near = await nearAPI.connect(config);
     const wallet = new WalletConnection(near, "amplify_art");
-    console.log(wallet);
     setWalletState(wallet);
     props.setWallet(wallet);
     return () => {
       setWalletState(null);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -148,6 +137,7 @@ function Header(props) {
         `${window.location.origin}/near/failure` // optional
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet]);
 
   const onConnect = () => {
@@ -217,33 +207,12 @@ function Header(props) {
   };
 
   useEffect(() => {
-    console.log("isWalletSigned", isWalletSigned);
     if (isWalletSigned) {
       getAccountDetails();
     } else {
-      console.log("NOT Signed", isWalletSigned);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWalletSigned]);
-
-  const setBreadCrumbs = () => {
-    let currentPage = "";
-
-    switch (path) {
-      case "/albums":
-        currentPage = "Albums";
-        break;
-      case "/my-profile":
-        currentPage = "My Profile";
-        break;
-      case path.includes("/artist/"):
-        // Need to pull this from the database response... leaving it hard-coded for now... TODO!!
-        currentPage = "Eminem";
-        break;
-      case "/transaction-list":
-        currentPage = "Transactions";
-    }
-    return currentPage;
-  };
 
   const handleSearch = async (e) => {
     setSearch(e.target.value);
@@ -260,6 +229,7 @@ function Header(props) {
       const { id } = jwt_decode(userToken);
       props.fetchUser({ id });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getNearPrice = () => {
@@ -281,7 +251,6 @@ function Header(props) {
   };
 
   const handleSearchClicked = (type, data) => {
-    console.log(type, data);
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
       props.hideSearchResult();
@@ -313,6 +282,7 @@ function Header(props) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -323,32 +293,8 @@ function Header(props) {
       }
       getNearPrice();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showWalletSidebar]);
-
-  const callMint = async () => {
-    console.log(wallet);
-    try {
-      let result = await props.wallet.account().functionCall(
-        "nft.dev-1631962167293-57148505657038",
-        "add_token_types",
-        {
-          album_hash: "f8d7bd28b526864cf358256ca7b041c614",
-          cover_songslist: [
-            "f8d7bd28b526864cf358256ca7",
-            "35e3de8bf884a57cb24a3c4ab188da2a",
-            "281b3d4d3b4ca68c987bf897a83a66a0",
-          ],
-          number_of_album_copies: 10,
-          price: parseNearAmount("1"),
-        },
-        200000000000000,
-        parseNearAmount("1")
-      );
-      console.log("result");
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const hasData = () => {
     if (searchResult.results) {
@@ -361,58 +307,46 @@ function Header(props) {
   return (
     <>
       <header>
-        {/* <div className="menu">
-          <img src={MenuIcon} alt="Menu Icon" />
-        </div> */}
         <div className="mobile-menu" onClick={toggleMobileMenu}>
-          <img src={MenuIcon} />
+          <img src={MenuIcon} alt="menu" />
         </div>
         <div className="logo">
           <a href="/">
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {!userToken ? (
-          // <div className="nav">
-          //   <a>Something</a>
-          //   <a>How it Works</a>
-          //   <a>Contact us</a>
-          // </div>
-          <></>
-        ) : (
-          <div ref={wrapperRef} className="searchWrapper">
-            <div className="search">
-              <img src={SearchIcon} alt="Search" />
-              <input
-                type="text"
-                placeholder="Search for artists, albums or songs"
-                onClick={() => props.showSearchResultFn()}
-                onChange={handleSearch}
-                onKeyDown={handleSubmit}
-                value={search}
-              />
-            </div>
-            {search.trim() !== "" && props.showSearchResult && (
-              <div
-                className={`scrollSearchResult ${
-                  hasData() && !searchLoading ? "p-0" : ""
-                }`}
-              >
-                {searchLoading
-                  ? "Loading..." // TODO: can add any animation
-                  : searchResult &&
-                    searchResult.results &&
-                    searchResult.results.length && (
-                      <SearchResultCard
-                        handleClick={(type, data) =>
-                          handleSearchClicked(type, data)
-                        }
-                      />
-                    )}
-              </div>
-            )}
+        <div ref={wrapperRef} className="searchWrapper">
+          <div className="search">
+            <img src={SearchIcon} alt="Search" />
+            <input
+              type="text"
+              placeholder="Search for artists, albums or songs"
+              onClick={() => props.showSearchResultFn()}
+              onChange={handleSearch}
+              onKeyDown={handleSubmit}
+              value={search}
+            />
           </div>
-        )}
+          {search.trim() !== "" && props.showSearchResult && (
+            <div
+              className={`scrollSearchResult ${
+                hasData() && !searchLoading ? "p-0" : ""
+              }`}
+            >
+              {searchLoading
+                ? "Loading..." // TODO: can add any animation
+                : searchResult &&
+                  searchResult.results &&
+                  searchResult.results.length && (
+                    <SearchResultCard
+                      handleClick={(type, data) =>
+                        handleSearchClicked(type, data)
+                      }
+                    />
+                  )}
+            </div>
+          )}
+        </div>
         <div className="right">
           {userToken ? (
             <>
@@ -544,6 +478,7 @@ export default connect(
   (state) => {
     return {
       showWalletSidebar: state.global.showWallet,
+      showMobileMenu: state.global.mobileMenu,
       searchResult: state.searchRes.searchResult,
       searchLoading: state.searchRes.loading,
       wallet: state.global.wallet,
@@ -557,7 +492,7 @@ export default connect(
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       sendNotificationAction: (payload) =>
-        dispatch(sendNotificationAction(payload)),
+      dispatch(sendNotificationAction(payload)),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
       setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
       setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),

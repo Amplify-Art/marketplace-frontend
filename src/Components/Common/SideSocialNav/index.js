@@ -13,7 +13,7 @@ function SideSocialNav(props) {
           <div id="mobile-side-social-nav">
             <ul className={props.isErrorPage?'socialbar-color':null} >
               <li><a href="https://discord.gg/qaQqU8D3Hh" target="_blank">Discord</a></li>
-              <li><a href="https://www.instagram.com/amplifyartofficial" target="_blank">Instagram</a></li>
+              <li><a href="https://www.instagram.com/amplifyartnft" target="_blank">Instagram</a></li>
               <li><a href="https://twitter.com/AmplifyArt" target="_blank">Twitter</a></li>
             </ul>
           </div>
@@ -23,7 +23,7 @@ function SideSocialNav(props) {
       <div id="side-social-nav">
         <ul className={props.isErrorPage?'socialbar-color':null} >
           <li><a href="https://discord.gg/qaQqU8D3Hh" target="_blank">Discord</a></li>
-          <li><a href="https://www.instagram.com/amplifyartofficial" target="_blank">Instagram</a></li>
+          <li><a href="https://www.instagram.com/amplifyartnft" target="_blank">Instagram</a></li>
           <li><a href="https://twitter.com/AmplifyArt" target="_blank">Twitter</a></li>
         </ul>
       </div>

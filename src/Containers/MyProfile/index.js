@@ -11,7 +11,6 @@ import ConfettiImage from "../../assets/images/confetti.png";
 
 import "./MyProfile.scss";
 
-import { fetchNFTsAction } from "../../redux/actions/NFTAction";
 import { fetchTokenTransfersAction } from "../../redux/actions/TokenTransferAction";
 import { fetchUserAction } from "../../redux/actions/UserAction";
 import {
@@ -27,7 +26,7 @@ import PurchasedSongs from "../../Components/Parts/PurchasedSongs";
 import TwitterIcon from "../../assets/images/twitter-icon.svg";
 import ShareIcon from "../../assets/images/share-icon.svg";
 import copyLink from "../../assets/images/highblack copy 1.svg";
-import defaultProfile from "../../assets/images/default-profile.jpg";
+import defaultProfile from "../../assets/images/default-profile.svg";
 import {
   sellSongAction,
   showSellModalAction,
@@ -92,14 +91,13 @@ function MyProfile(props) {
     });
     let near_account_id = props.location.pathname.split("/").slice(-1)[0];
 
-    console.log(near_account_id, "near_account_id");
-
     props.fetchUserNearById({
       near_id: near_account_id,
       params: {
         owned_songs: true,
       },
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => { });
@@ -151,7 +149,7 @@ function MyProfile(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -164,11 +162,9 @@ function MyProfile(props) {
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("showId")) {
-      let albumId = decodeURIComponent(
-        q.parse(props.history.location.search)["?showId"]
-      );
-      console.log(albumId);
+
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.location.search]);
 
   const checkTxnStatus = async (sellingSong) => {
@@ -201,7 +197,7 @@ function MyProfile(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.sellSongNFT(sellingSong);
     }
@@ -265,28 +261,11 @@ function MyProfile(props) {
       draggable: true,
       progress: undefined,
       theme: "dark",
-    }); 
+    });
     setSharePopup(false);
   };
 
-  const onFollow = () => {
-    // console.log(props.myFollowings, userID, decodedToken)
-    let follow = props.myFollowings.find((f) => f.artist_id === userID);
-    console.log(follow);
-    if (follow) {
-      props.updateFollower({
-        id: follow.id,
-        is_deleted: true,
-        artist_id: null,
-        follower_id: null,
-      });
-    } else {
-      props.addFollower({
-        artist_id: userID,
-        follower_id: decodedToken.id,
-      });
-    }
-  };
+  
   const renderBtnContent = () => {
     return (
       <>
@@ -294,10 +273,10 @@ function MyProfile(props) {
         <div className="popup-container">
           {openSharePopup && (
             <div className="popUp">
-              <a href="#" className="popup-div" onClick={copyProfileLink}>
+              <button className="popup-div" onClick={copyProfileLink}>
                 <img src={copyLink} alt="Copy Link" className="popup-img" />
                 <span>Copy Link</span>
-              </a>
+              </button>
               <TwitterShareButton
                 className="popup-div"
                 title="Check out my Amplify.art profile!"
@@ -320,14 +299,14 @@ function MyProfile(props) {
                 className="set_name"
                 onClick={() => setSharePopup(!openSharePopup)}
               >
-                <img src={ShareIcon} alt="Twitter" /> Share
+                <img src={ShareIcon} alt="Twitter" /> <span>Share</span>
               </button>
               <button
                 className="edit-profile"
                 onClick={() => props.history.push("/settings")}
               >
                 {" "}
-                Edit Profile
+                <span>Edit Profile</span>
               </button>
               <button style={{ width: 0, height: 0, display: "none" }}></button>
             </>
@@ -339,6 +318,7 @@ function MyProfile(props) {
 
   useEffect(() => {
     findUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const findUser = async () => {
@@ -351,7 +331,6 @@ function MyProfile(props) {
       });
       if (res.data.success && res.data.results.length) {
         let { id, near_account_id } = res.data.results[0];
-        console.log(id, near_account_id);
 
         props.fetchUser({
           id: id,
@@ -364,7 +343,6 @@ function MyProfile(props) {
             orderBy: "-id",
           },
         });
-        console.log("ID", id);
         setID(parseInt(id));
         setUserName(near_account_id);
       }
@@ -397,20 +375,16 @@ function MyProfile(props) {
         },
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user]);
 
   const closeModals = () => {
-    console.log(props.displaySellModal, "props.displaySellModal");
     if (props.displaySellModal && sellingCopy) {
       setSellingCopy(null);
     } else {
       setSellingSong(null);
       props.hideSellModal();
     }
-
-    // setSellingCopy(null)
-    // setSellingSong(null)
-    // props.hideSellModal()
   };
 
   const onClose = () => {
@@ -471,10 +445,12 @@ function MyProfile(props) {
         setShowModalAlbumIndex(parseInt(actualIndex));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aformattedAlbums.length, props.history.location.search]);
 
   useEffect(() => {
     fetchTokens();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTokens = async () => {
@@ -490,13 +466,13 @@ function MyProfile(props) {
           .map((t) => parseInt(t.token_id.split(":")[1]))
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingSong]);
 
   return (
     <div
       id="profile"
-      className={`left-nav-pad ${props.playerActive ? "right-player-pad" : "normal-right-pad"
-        }`}
+      className={`left-nav-pad normal-right-pad`}
     >
       <ProfileHeader
         ArtistData={ArtistData}
@@ -504,39 +480,14 @@ function MyProfile(props) {
         showShowcase={true}
         isPublicProfile={isPublicProfile}
         userId={userID}
-        nearUser={props.near_user}
+        tokenTransfers={props.token_transfers}
       />
       {!isPublicProfile && (
         <>
-          {renderHeader(
-            `Playlists - ${props.playlists ? props.playlists.length : "0"}`,
-            true
-          )}
-
-          {props.playlists && props.playlists.length > 0 ? (
-            <div className="container">
-              <div className="album-grid">
-                {props.playlists.map((album, index) => (
-                  <SingleAlbum
-                    key={index}
-                    albumInfo={{ ...album, hideSticker: true }}
-                    isMint={false}
-                    isPlayList
-                    setDeletingId={setDeletingId}
-                    onSingleSongClick={(song) => onSingleSongClick(song, index)}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="no-records">
-              <h5>No playlists found</h5>
-            </div>
-          )}
           {props.token_transfers.length ? (
             <div className="recently-purchased">
               <div className="top">
-                <h2>Recently Purchased</h2>
+                <h2>Albums Owned</h2>
                 {/* <button className="btn outlined">View All</button> */}
               </div>
               <div className="container">
@@ -567,6 +518,31 @@ function MyProfile(props) {
           ) : !props.loading ? (
             <h4 className="large-white center-text">No items to show</h4>
           ) : null}
+          {renderHeader(
+            `Custom Playlists - ${props.playlists ? props.playlists.length : "0"}`,
+            true
+          )}
+
+          {props.playlists && props.playlists.length > 0 ? (
+            <div className="container">
+              <div className="album-grid">
+                {props.playlists.map((album, index) => (
+                  <SingleAlbum
+                    key={index}
+                    albumInfo={{ ...album, hideSticker: true }}
+                    isMint={false}
+                    isPlayList
+                    setDeletingId={setDeletingId}
+                    onSingleSongClick={(song) => onSingleSongClick(song, index)}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="no-records">
+              <h5>No playlists found</h5>
+            </div>
+          )}
         </>
       )}
       {props.displaySellModal && (
@@ -684,7 +660,6 @@ export default connect(
       showPlaylistModal: () => dispatch(showPlaylistModalAction()),
       hidePlaylistModal: () => dispatch(hidePlaylistModalAction()),
       fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
-      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
       deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
       hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
       fetchUserNearById: (data) => dispatch(fetchUserByNearIdAction(data)),

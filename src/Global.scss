@@ -7,9 +7,11 @@ html{
 
 body {
   font-family: 'Space Grotesk';
-  @media screen and (max-width: 600px) {
-    font-family: 'Space Grotesk';
-  }
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   padding: 0px;
   margin: 0px;
   // background: #0f161d;
@@ -46,28 +48,34 @@ button {
   font-family: 'Lato';
 }
 
+.display-none {
+  display: none;
+}
+
 .containerOuter {
   width: 100%;
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
   box-sizing: border-box;
   // margin-top: 40px !important;
-  margin-top: 80px !important;
+  // margin-top: 80px !important;
+  margin-top: 65px;
+  // position: relative;
+  // max-width: 75rem;
   @media screen and (max-width: 1660px) {
     // padding-left: 30px;
     // padding-right: 30px
-    box-sizing: border-box;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     width: 100%;
     padding: 20px;
   }
   &.small {
     width: 1480px;
     @media screen and (max-width: 1660px) {
-      width: 1600px;
+      width: 1650px;
     }
   }
 }
@@ -84,25 +92,25 @@ button {
     box-sizing: border-box;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     width: 100%;
-    padding: 20px;
+    // padding: 20px;
   }
   &.small {
     width: 1480px;
     @media screen and (max-width: 1660px) {
-      width: 1600px;
+      width: 1650px;
     }
   }
 }
 
 /* the slides */
 .slick-slide {
-  margin: 0 27px;
+  margin: 0 15px 0 15px;
 }
 /* the parent */
 .slick-list {
-  margin: 0 -27px;
+  // margin: 0 -27px;
 }
 
 .line {
@@ -117,11 +125,11 @@ h2 {
     font-family: $oswald;
     text-transform: uppercase;
     color: #ffffff;
-    font-size: 300px;
+    font-size: 200px;
     font-weight: bold;
     font-style: normal;
     letter-spacing: 1.8px;
-    line-height: 300px;
+    line-height: 210px;
     margin: 0px;
     @media screen and (max-width: 858px) {
       font-size: 20vw;
@@ -135,7 +143,13 @@ h2 {
     -webkit-text-stroke-color: $red;
     color: transparent;
     position: relative;
-    z-index: 9;
+    z-index: 3;
+    @media screen and (max-width: 754px){
+    -webkit-text-stroke-width: 1.5px;
+      }
+      @media screen and (max-width: 479px){
+        -webkit-text-stroke-width: 1px;
+    }
   }
 }
 
@@ -165,7 +179,7 @@ h2 {
     text-decoration: none;
     font-size: 20px;
     color: #fff;
-    font-weight: 600;
+    font-weight: 650;
     padding: 10px 20px;
   }
 }
@@ -220,13 +234,13 @@ textarea {
   .holder {
     background: #FFFFFF;
     border-radius: 12px;
-    padding: 30px;
+    padding: 20px;
     position: relative;
     z-index: 999;
     width: 400px;
     // overflow: auto;
     max-height: 70vh;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       width: 335px;
     }
   }
@@ -234,7 +248,7 @@ textarea {
 
 .left-nav-pad {
   padding-left: 220px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding-left: 0px;
   }
 }
@@ -242,43 +256,63 @@ textarea {
 .right-player-pad {
   // padding-right: 150px;
   padding-right: 30px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding-right: 0px;
   }
 }
 
 .normal-right-pad {
-  padding-right: 60px;
-  @media screen and (max-width: 600px) {
+  padding-right: 37px;
+  @media screen and (max-width: 650px) {
     padding-right: 0px;
   }
 }
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  column-gap: 35px;
-  row-gap: 53px;
-  @media screen and (max-width: 600px) {
+  max-width: 2600px;
+  // grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: 30px;
+  row-gap: 30px;
+  @media screen and (max-width: 650px) {
     margin-left: 0px !important;
   }
-  @media screen and (max-width: 1830px) {
+  @media screen and (max-width: 2400px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  @media screen and (max-width: 2080px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  @media screen and (max-width: 1760px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media screen and (max-width: 1440px) {
     grid-template-columns: repeat(4, 1fr);
   }
-
-  @media screen and (max-width: 1325px) {
+  @media screen and (max-width: 1120px) {
     grid-template-columns: repeat(3, 1fr);
   }
-
-  @media screen and (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 10px;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
-
+  @media screen and (max-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+    row-gap: 20px;
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+    row-gap: 20px;
+  }
+  @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+    row-gap: 20px;
+  }
   @media screen and (max-width: 320px) {
     grid-template-columns: repeat(1, 1fr);
-    row-gap: 10px;
-    place-items: center;
   }
 }
 
@@ -312,13 +346,13 @@ textarea {
 
 .page-title {
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 26px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     margin-top: 10px;
     font-size: 20px;
   }
@@ -334,19 +368,22 @@ textarea {
   color: #fff;
   font-size: 30px;
   padding: 30px 300px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     padding: 0px;
   }
 }
 
 // TODO: Should move this to some kind of component later
-// Russ smells like popcorn
 .user-block {
   display: flex;
-  flex-wrap: wrap;
+  gap: 70px;
+  overflow-x: auto;
+  @media screen and (max-width: 800px) {
   gap: 30px;
+  padding-left: 5px;
+    }
   .user-avatar {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       width: calc(50% - 15px);
       .avatar {
         width: 40vw;
@@ -354,4 +391,28 @@ textarea {
       }
     }
   }
+}
+
+.user-block::-webkit-scrollbar {
+  display: none;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.noselect {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mw-1200{
+  max-width: 1200px;
 }

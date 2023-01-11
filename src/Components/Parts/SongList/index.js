@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { Tooltip } from 'react-tooltip'
+import axios from 'axios';
+import * as nearAPI from "near-api-js";
 import { toast } from "react-toastify";
-import pauseIcon from "../../../assets/images/pause_icon.svg";
-import playBtn from "../../../assets/images/play_btn.svg";
-import GeneralModal from "../../Common/GeneralModal/index";
-import "./SongList.scss";
 import moment from "moment";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
-import * as nearAPI from "near-api-js";
 import q from "querystring";
+import pauseIcon from "../../../assets/images/pause_icon.svg";
+import playBtn from "../../../assets/images/play_btn.svg";
+import GeneralModal from "../../Common/GeneralModal/index";
+import "./SongList.scss";
 import {
   buySongAction,
   showBuyModalAction,
@@ -39,7 +41,7 @@ const songHeader = () => (
       <div>Song Market</div>
     </div>
     <div className="header-title">
-      For sale
+      Listed
     </div>
   </div>
 );
@@ -48,6 +50,7 @@ function SongList(props) {
   const [playing, setPlaying] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(""));
   // const [audio, setAudioSong] = useState(new Audio(''));
+  const [nearPrice, setNearPrice] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [buyingSong, setBuyingSong] = useState(null);
   const [songListExpanded, toggleSongListExpansion] = useState(null);
@@ -71,6 +74,7 @@ function SongList(props) {
     if (i) {
       toggleSongListExpansion(parseInt(i));
     }
+    getNearPrice();
   }, []);
 
   // check for any transactions
@@ -89,7 +93,7 @@ function SongList(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("buying_song");
       props.history.push("/marketplace");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -226,12 +230,26 @@ function SongList(props) {
     props.hideBuyModal();
     setBuyingSong(null);
   };
-  const textEllipsis = (txt) => {
-    if (txt.length > 9) {
-      return txt.substr(0, 9) + "...";
+  const textEllipsisShort = (txt) => {
+    if (txt.length > 10) {
+      return txt.substr(0, 10) + "..";
     }
     return txt;
   };
+  const textEllipsisLong = (txt) => {
+    if (txt.length > 14) {
+      return txt.substr(0, 14) + "..";
+    }
+    return txt;
+  };
+
+  const getNearPrice = () => {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNearPrice(res.data.USD);
+    });
+  }
+
+  const { utils } = nearAPI;
 
   return (
     <div className="song-list">
@@ -240,6 +258,7 @@ function SongList(props) {
         {songList &&
           songList?.map((songData, index) => (
             <>
+            <div className="">
               <div className="play-song flex">
                 <div className="flex">
                   <div className="song-icon cursor-pointer">
@@ -255,34 +274,28 @@ function SongList(props) {
                     {/* <div className="audio-time"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${songData.song_cid}`} /></div> */}
                   </div>
                   <label
-                    className="song-title"
+                    className="song-title text-truncate"
                     onClick={() => expandSongList(songData.id)}
                   >
                     <div>
                       {songData.title}{" "}
-                      <span>
-                        {(songData.mints_owned || [])
+                      <span className="mint-numbers" data-tip={songData.mints_owned.join(", ")}>
+                      {(songData.mints_owned || []).slice(0, 3)
                           .map((i) => `#${i}`)
-                          .join(" ,")}
+                          .join(", ")}
+                        {songData.mints_owned.length > 3 ? <strong>{` +${songData.mints_owned.length - 3}`}</strong> : ""}
                       </span>
                     </div>
                     <p className="song-title-mobile">
-                      {textEllipsis(
-                        (songData.artist && songData.artist.near_account_id) ||
+                      {textEllipsisLong(
+                        (songData.album && songData.album.title) ||
                           ""
                       )}{" "}
                       /{" "}
-                      {textEllipsis(
-                        (songData.album && songData.album.title) || ""
+                      {textEllipsisShort(
+                        (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
-                    <div
-                      className="song-mint-mobile"
-                      onClick={() => expandSongList(songData.id)}
-                    >
-                      {songData.mint || "#4"}
-                    </div>
-                    <div style={{ border: 0 }} />
                   </label>
                 </div>
 
@@ -299,16 +312,10 @@ function SongList(props) {
                   {songData.artist && songData.artist.near_account_id}
                 </div>
                 <div
-                  className="song-available-mobile"
+                  className="song-available noselect"
                   onClick={() => expandSongList(songData.id)}
                 >
-                  {songData.transfers.length} / {songData.qty}
-                </div>
-                <div
-                  className="song-available"
-                  onClick={() => expandSongList(songData.id)}
-                >
-                  {songData.transfers.length} / {songData.qty} Available
+                  {songData.transfers.length} / {songData.qty} <span className="available-text">Available</span>
                 </div>
               </div>
               <div
@@ -324,74 +331,74 @@ function SongList(props) {
                 <div className="copy">
                   <div className="headers flex">
                     <div className="item mint">Mint</div>
-                    <div className="item date-listed-by">Date Listed/By</div>
+                    <div className="item date-listed-by">Date Listed / By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
-                  {}
+
                   <div className="info">
-                    {songData.transfers.map((transfer) => (
-                      <div className="singleSong flex">
-                        <div className="mint">
-                          #{transfer && transfer.copy_number}
-                        </div>
-                        <div className="date-listed-by">
-                          {" "}
-                          {moment(transfer && transfer.created_at).format(
-                            "MM/DD/YYYY"
-                          )}{" "}
-                          by @
-                          {transfer &&
-                            transfer.transferTo &&
-                            transfer.transferTo.near_account_id}
-                        </div>
-                        <div className="date-listed-by-mobile">
-                          <div style={{ width: "100%" }}>
+                    {songData.transfers.map((transfer) => {
+                      return (
+                        <div className="singleSong flex">
+                          <div className="mint">
+                            #{transfer && transfer.copy_number}
+                          </div>
+                          <div className="date-listed-by">
+                            <div className="dlb-grid">
+                            <span>
+                            {" "}
                             {moment(transfer && transfer.created_at).format(
                               "MM/DD/YYYY"
-                            )}
-                          </div>
-                          <div style={{ width: "100%" }}>
+                            )}{"  "}
+                            </span>
+                            <span>
                             by @
                             {transfer &&
                               transfer.transferTo &&
-                              transfer.transferTo.name}
+                              transfer.transferTo.near_account_id}
+                            </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="songPrice">
-                          {new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          }).format(transfer && transfer.bidding_price / 100)}
-                        </div>
-                        <div className="action">
-                          <button
-                            onClick={() =>
-                              onModalChange({
-                                ...transfer,
-                                token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}`,
-                              })
-                            }
-                          >
-                            {user.id === transfer.transfer_to
-                              ? "Delist Song"
-                              : "Buy Now "}
-                          </button>
-                        </div>
-                        <div className="mobileAction">
-                          <button onClick={() => onModalChange(transfer)}>
-                            {user.id === transfer.transfer_to
-                              ? "Delist Song"
-                              : "Buy Now "}
+                          <div className="songPrice">
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
-                            }).format(transfer && transfer.bidding_price / 100)}
-                          </button>
+                            }).format(Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5) * Number(nearPrice))}
+                          </div>
+                          <div className="action">
+                            <button
+                              className={user.id === transfer.transfer_to && 'delist'}
+                              onClick={() =>
+                                onModalChange({
+                                  ...transfer,
+                                  token: `${songData.album.cover_cid}:${transfer.copy_number}:${songData.song_cid}`,
+                                })
+                              }
+                            >
+                              {user.id === transfer.transfer_to
+                                ? "Delist Song"
+                                : "Buy Now "}
+                            </button>
+                          </div>
+                          <div className="mobileAction">
+                            <button
+                            className={user.id === transfer.transfer_to && 'delist'}
+                            onClick={() => onModalChange(transfer)}>
+                              {user.id === transfer.transfer_to
+                                ? "Delist "
+                                : "Buy Now "}
+                                {new Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                }).format(Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5) * Number(nearPrice))}
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    }
+                    )}
                   </div>
                 </div>
+              </div>
               </div>
 
               {props.displayBuyModal && (

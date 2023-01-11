@@ -11,7 +11,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
   const [audio, setAudioSong] = useState(new Audio(''));
   const [playing, setPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const { data } = usePalette(`https://gateway.pinata.cloud/ipfs/${albumData.cover_cid}`);
+  const { data } = usePalette(albumData.cover_cid ? `https://gateway.pinata.cloud/ipfs/${albumData.cover_cid}` : albumData.coverArt);
   const zeroPad = (num, places) => String(num).padStart(places, '0');
 
   const toggle = (songid) => {
@@ -106,7 +106,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
             </div>
           </div>
           :
-          <div className="left-wrapper">
+          <div className="left-wrapper" style={{ background: `linear-gradient(123.48deg, ${data.vibrant} 0%, ${data.muted} 52.12%)` }}>
             <div className="viewdetails-top">
               <div className="back-img"><img onClick={() => setViewDetails(false)} src={BackArrowIcon} alt="left arrow" /></div>
               <div className="details-banner">

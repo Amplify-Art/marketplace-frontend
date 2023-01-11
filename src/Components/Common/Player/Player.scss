@@ -36,12 +36,18 @@
     height: 100%;
     align-items: center;
     margin-top: 30px;
+    @media screen and (max-width: 650px) {
+      margin-top: 16px;
+    }
     .top-icons {
       display: flex;
       align-items: center;
       width: -webkit-fill-available;
       justify-content: flex-end;
       margin-right: 37px;
+      @media screen and (max-width: 650px) {
+        margin-right: 20px;
+      }
       .bell {
         margin-right: 24px;
         cursor: pointer;
@@ -65,13 +71,15 @@
     flex-direction: column-reverse;
     align-items: center;
     .cover {
-      width: 60px;
-      height: 60px;
+      // width: 60px;
+      // height: 60px;
       overflow: hidden;
       img {
         transform: rotate(-90deg);
-        height: 310px;
-        width: 310px;
+        width: 30vh;
+        height: 30vh;
+        max-height: 310px;
+        max-width: 310px;
       }
     }
 
@@ -159,9 +167,6 @@
   }
 
   .progress-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-top: 30px;
     @media (max-height: 800px) {
       margin-top: 20px;
@@ -283,7 +288,7 @@
         .queue-item {
           margin-top: 15px;
           display: flex;
-          justify-content: start;
+          justify-content: flex-start;
           align-items: center;
           img {
             height: 40px;

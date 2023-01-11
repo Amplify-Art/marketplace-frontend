@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from '../Image'
 import './UserAvatar.scss';
-import defaultProfile from '../../../assets/images/default-profile.jpg';
+import defaultProfile from '../../../assets/images/default-profile.svg';
 import greyFace from '../../../assets/images/grey_face.gif';
 
 function UserAvatar(props) {

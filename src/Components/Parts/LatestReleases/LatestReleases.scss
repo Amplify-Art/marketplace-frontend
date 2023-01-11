@@ -1,18 +1,18 @@
 @import "../../../assets/SCSS/Vars.scss";
 
-#latest-releases {
-  padding-left: 56px;
-  padding-right: 56px;
-  padding-top: 300px;
-  padding-bottom: 300px;
-  width: 100%;
-  float: left;
-  box-sizing: border-box;
-  @media screen and (max-width: 1309px) {
-    padding-top: 200px;
-    padding-bottom: 200px;
-  }
+$spacer: 4;
+$width: 304/2;
+$height: 80/2;
+$btn-space-right: ( $height + $spacer + $spacer/2 );
+$btn-space-left: ($height/2);
 
+.padding-section-large {
+    position: relative;
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+}
+
+#latest-releases {
   @media screen and (max-width: 582px) {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -20,8 +20,10 @@
   .container {
     display: flex;
     position: relative;
-    @media screen and (max-width: 1309px) {
+    align-items: center;
+    @media screen and (max-width: 650px) {
       flex-direction: column;
+      align-items: flex-start;
       align-items: center;
     }
   }
@@ -32,44 +34,76 @@
         font-size: 200px;
         line-height: 200px;
       }
-
-      @media screen and (max-width: 943px) {
-        font-size: 20vw;
-        line-height: 20vw;
+      @media screen and (max-width: 1565px){
+    font-size: 155px;
+    line-height: 170px;
+    }
+      @media screen and (max-width: 1070px){
+    font-size: 140px;
+    line-height: 150px;
+    }
+    @media screen and (max-width: 1010px){
+    font-size: 110px;
+    line-height: 120px;
       }
-
-      @media screen and (max-width: 582px) {
+      @media screen and (max-width: 754px){
+          font-size: 72px;
+          line-height: 82px;
+      }
+      @media screen and (max-width: 479px){
+          font-size: 44px;
+          line-height: 50px;
+      }
+      @media screen and (max-width: 650px) {
         text-align: center;
       }
     }
   }
 
+  .album-contain{
+        margin-left: auto;
+        width: fit-content;
+        @media screen and (max-width: 1565px){
+              margin-right: auto;
+      }
+        @media screen and (max-width: 1100px) {
+          margin-right: unset;
+          margin-left: unset;
+        position: absolute;
+        right: 5px;
+      }
+      @media screen and (max-width: 650px) {
+      position: unset;
+      padding-top: 55px;
+      padding-left: 20px;
+    }
+    @media screen and (max-width: 479px) {
+    position: unset;
+    padding-top: 40px;
+    padding-left: 10px;
+  }
+    @media screen and (max-width: 650px) {
+    // padding-left: 0px;
+  }
+  }
+
   .album {
-    position: absolute;
-    right: -50px;
     z-index: 8;
-    top: -100px;
-    @media screen and (max-width: 1725px) {
-      right: 0px;
-      width: 45vw;
+        transform: translateZ(0px) rotate(-8deg);
+    @media screen and (max-width: 1070px){
+    transform: translateZ(0px) rotate(-6deg);
     }
-
-    @media screen and (max-width: 1461px) {
-      width: 38vw;
+    @media screen and (max-width: 860px){
+    transform: translateZ(0px) rotate(-4deg);
     }
-
-    @media screen and (max-width: 1309px) {
-      width: 100%;
-      position: initial;
-      text-align: center;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    &:hover {
+        filter: drop-shadow(black 0px 0px 20px);
+        transition: transform 0.3s ease 0s;
+        transform: scale(1.05) rotateZ(0deg);
     }
     img {
       transform: rotateZ(0deg);
-      transition: ease all 0.5s;
+      transition: ease all 0.3s ease 0s;
       max-width: 100%;
       @media screen and (max-width: 1309px) {
         transform: rotateZ(21deg);
@@ -83,28 +117,51 @@
     }
 
     .check-all {
-      font-family: $lato;
+      font-family: "Lato", sans-serif;
       text-transform: uppercase;
-      color: #ffffff;
+      color: #fff;
       font-size: 20px;
       font-weight: 300;
       letter-spacing: 0.1px;
-      border-bottom: 2px solid $red;
+      border-bottom: 2px solid #e52b25;
       position: absolute;
-      padding-bottom: 14px;
-      top: 250px;
-      right: 0px;
+      padding-bottom: 6px;
       cursor: pointer;
-      @media screen and (max-width: 1309px) {
-        position: initial;
-        text-align: left;
-        margin-top: 20px;
-        width: fit-content;
-      }
-
-      @media screen and (max-width: 582px) {
-        text-align: center;
-      }
+      z-index: 3;
+      bottom: -45px;
+      right: 20px;
+      height: 45px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .single-album1 .cd-case1 {
+        width: 453px !important;
+        height: 399px !important;
+        @media screen and (max-width: 1565px){
+          width: 386px !important;
+          height: 340px !important;
+        }
+        @media screen and (max-width: 1070px){
+          width: 336px !important;
+          height: 296px !important;
+        }
+        @media screen and (max-width: 860px){
+          width: 302px !important;
+          height: 266px !important;
+        }
+        @media screen and (max-width: 479px) {
+          width: 277px !important;
+          height: 244px !important;
+        }
+        @media screen and (max-width: 375px) {
+          width: 243px !important;
+          height: 214px !important;
+        }
+        background-color: rgb(29 29 30);
+        .album-art{
+          box-shadow: none;
+        }
     }
   }
 }

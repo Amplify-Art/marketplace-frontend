@@ -5,7 +5,7 @@ import './TransactionList.scss';
 function TransactionList(props) {
   const textEllipsis = (txt) => {
     if (txt.length > 13) {
-      return txt.substr(0, 9) + '...' + txt.substr(txt.length - 4, txt.length);
+      return txt.substr(0, 7) + '...' + txt.substr(txt.length - 4, txt.length);
     }
     return txt;
   };

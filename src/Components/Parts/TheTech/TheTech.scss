@@ -1,12 +1,8 @@
 @import '../../../assets/SCSS/Vars.scss';
 
 #the-tech {
-    padding-left: 56px;
-    padding-right: 56px;
     width: 100%;
     box-sizing: border-box;
-    float: left;
-    padding-bottom: 50px;
     h2 {
         font-family: $oswald;
         text-transform: uppercase;
@@ -16,32 +12,44 @@
     .content {
         display: flex;
         align-items: flex-start;
-        @media screen and (max-width: 792px) {
+        padding-top: 10px;
+        @media screen and (max-width: 950px) {
             flex-direction: column;
         }
         .left {
             flex: none;
-            width: 400px;
-            @media screen and (max-width: 792px) {
+            width: 500px;
+            @media screen and (max-width: 950px) {
                 width: 100%;
             }
             h3 {
-                margin-top: 0px;
-                margin-bottom: 10px;
-                color: #fff;
+              margin-top: 0px;
+              margin-bottom: 10px;
+              color: #fff;
+              font-size: 30px;
+              line-height: 40px;
+              font-weight: 400;
             }
         }
 
         .right {
             margin-left: auto;
-            width: 50%;
-            @media screen and (max-width: 792px) {
+            @media screen and (max-width: 950px) {
                 width: 100%;
                 padding-top: 20px;
             }
             p {
-                color: #fff;
-                margin: 0px;
+              color: #fff;
+              font-size: 20px;
+              font-weight: 300;
+              letter-spacing: 0.1px;
+              line-height: 33px;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              .red-link {
+                  text-decoration: none;
+                  color: #e52b25;
+              }
             }
         }
     }

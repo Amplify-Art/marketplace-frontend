@@ -73,19 +73,12 @@ function SingleMergedAlbum(props) {
   };
 
   const checkImage = (url) => {
-    console.log("CALL2");
     // Trying to check if image exists here. If it doesn't, we should show some backup image.
     const request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.send();
     request.onload = function () {
       const theStatus = request.status;
-      if (request.status == 200) {
-        //if(statusText == OK)
-        console.log("image exists");
-      } else {
-        console.log("image doesn't exist");
-      }
     };
   };
 
@@ -110,7 +103,7 @@ function SingleMergedAlbum(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
       localStorage.removeItem("album_bundle_info");
       props.history.push("/albums");
     } else if (props.history.location.search.includes("transactionHashes")) {
@@ -152,7 +145,7 @@ function SingleMergedAlbum(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -245,27 +238,22 @@ function SingleMergedAlbum(props) {
     <>
       <div
         className="single-album1"
-        onClick={props.onClick ? props.onClick : handleModal}
       >
         <div
           className="cd-case1"
-          id="1169haaah"
+          id="1169hh"
           style={{
-            height: document.getElementById("1169haaah")?.offsetWidth * 0.86,
+            height: document.getElementById("1169hh")?.offsetWidth * 0.86,
           }}
+          onClick={props.onClick ? props.onClick : handleModal}
         >
           <div
             className="album-art"
             style={{
-              background: `linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)),url(${albumCover}) center center no-repeat`,
+              background: `url(${albumCover}) center center no-repeat`,
             }}
           >
-            <div className="sup pos-tl"></div>
-            <div className="sup pos-tr"></div>
-            <div className="sup pos-bl"></div>
-            <div className="sup pos-br"></div>
           </div>
-          <div className="spine"></div>
           {showSticker && (
             <div
               className={`mint-sticker ${

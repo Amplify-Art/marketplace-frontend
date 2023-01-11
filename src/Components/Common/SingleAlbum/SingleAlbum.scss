@@ -165,24 +165,25 @@
 //     display: block;
 // }
 //
-// .the-title {
-//     &.playlist-title {
-//         text-align: center;
-//         position: absolute;
-//         bottom: 51px;
-//         width: 95%;
-//         @media screen and (max-width: 1400px) {
-//             padding-left: 23px;
-//             padding-right: 5px;
-//         }
-//         padding-left: 69px;
-//         padding-right: 24px;
-//         box-sizing: border-box;
-//         h3 {
-//             font-family: "Permanent Marker", cursive;
-//             width: 100%;
-//             display: inline-block;
-//             color: #000;
-//         }
-//     }
-// }
+ .the-title {
+    &.playlist-title {
+         text-align: center;
+         position: absolute;
+         z-index: 2;
+        bottom: 51px;
+         width: 95%;
+         @media screen and (max-width: 1400px) {
+             padding-left: 23px;
+             padding-right: 5px;
+         }
+         padding-left: 69px;
+         padding-right: 24px;
+         box-sizing: border-box;
+         h3 {
+             font-family: "Permanent Marker", cursive;
+             width: 100%;
+             display: inline-block;
+             color: #000;
+         }
+     }
+ }

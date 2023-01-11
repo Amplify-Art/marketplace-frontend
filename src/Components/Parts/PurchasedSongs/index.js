@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import CurrencyInput from "react-currency-input-field";
@@ -11,17 +10,11 @@ import CDImg from "../../../assets/images/cd-img.svg";
 import "./PurchasedSongs.scss";
 
 function PurchasedSongs(props) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, ] = useState(false);
   const [price, setPrice] = useState(null);
 
   const {
     onSell,
-    showPriceModal,
     sellingCopy,
     sellingSong,
     onListSong,
@@ -29,7 +22,6 @@ function PurchasedSongs(props) {
   } = props;
 
   const renderSongs = () => {
-    // console.log(props.transfers, props.ownedTokenCopies, "props.transfers");
     return props.transfers
       .filter(
         (f) => props.ownedTokenCopies.includes(f.copy_number) 

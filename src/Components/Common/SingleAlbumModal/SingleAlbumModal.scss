@@ -7,29 +7,29 @@
 	font-family: $space;
 	font-style: normal;
 	font-weight: normal;
-	height: 388px;
-	.left-wrapper {
-		padding: 10px;
-		width: 389px;
-		position: relative;
-		.active-playlist {
-			text-align: center;
-			.active-playlist-btn {
-				cursor: pointer;
-				min-width: auto !important;
-				border: 1.5px solid #ffffff;
-			}
-		}
-	}
-	.bg-album-img {
-		// background: url("../../../assets/images/cd-img.svg");
-		background-size: cover;
-		background-repeat: round;
-		width: 410px;
-		height: 410px;
-		margin-left: 76px;
-		margin-top: 7px;
-	}
+	// height: 388px;
+	// .left-wrapper {
+	// 	padding: 10px;
+	// 	width: 389px;
+	// 	position: relative;
+	// 	.active-playlist {
+	// 		text-align: center;
+	// 		.active-playlist-btn {
+	// 			cursor: pointer;
+	// 			min-width: auto !important;
+	// 			border: 1.5px solid #ffffff;
+	// 		}
+	// 	}
+	// }
+	// .bg-album-img {
+	// 	// background: url("../../../assets/images/cd-img.svg");
+	// 	background-size: cover;
+	// 	background-repeat: round;
+	// 	width: 410px;
+	// 	height: 410px;
+	// 	margin-left: 76px;
+	// 	margin-top: 7px;
+	// }
 	.cd-case {
 		background: url("../../../assets/images/cd-img.svg");
 		background-size: cover;
@@ -45,19 +45,21 @@
 		grid-column-gap: 20px;
 		grid-row-gap: 5px;
 		.album-img {
-			width: 130px;
-			height: 130px;
-			@media screen and (max-width: 600px) {
-				width: 165px;
-				height: 165px;
-			}
+			width: 120px;
+	    height: 120px;
+	    overflow: hidden;
+	    border-radius: 2px;
+			// @media screen and (max-width: 600px) {
+			// 	width: 165px;
+			// 	height: 165px;
+			// }
 			overflow: hidden;
 			img{
 				width: 100%;
 			}
 		}
 		.album-right {
-			padding-left: 20px;
+			// padding-left: 20px;
 			@media screen and (max-width: 600px) {
 				padding-left: 0px;
 			}
@@ -154,12 +156,11 @@
 		// padding-top: 32px;
 		overflow-y: scroll;
 		height: 175px;
-		@media screen and (max-width: 900px) {
-			height: 160px;
-			margin-top: 20px;
-		}
+		margin-top: 20px;
+		// @media screen and (max-width: 900px) {
+		// 	height: 160px;
+		// }
 		padding-right: 8px;
-		margin-top: 32px;
 		.pointer {
 			cursor: pointer;
 		}

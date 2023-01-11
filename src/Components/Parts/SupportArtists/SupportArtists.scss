@@ -12,12 +12,20 @@
   }
   h2 {
     &.large {
-      font-size: 200px;
-      line-height: 200px;
-      @media screen and (max-width: 1348px) {
-        font-size: 20vw;
-        line-height: 20vw;
+      font-size: 155px;
+      line-height: 170px;
+      @media screen and (max-width: 1565px){
+      font-size: 130px;
+      line-height: 140px;
       }
+      @media screen and (max-width: 1010px){
+          font-size: 110px;
+          line-height: 120px;
+      }
+      @media screen and (max-width: 754px){
+        font-size: 72px;
+        line-height: 82px;
+    }
     }
     position: relative;
     z-index: 9;
@@ -25,11 +33,14 @@
 
   .albums {
     display: flex;
-    margin-left: -200px;
-    margin-right: -200px;
-    margin-top: -100px;
+    // margin-left: -200px;
+    // margin-right: -200px;
+    margin-top: -80px;
     position: relative;
     z-index: 8;
+    @media screen and (max-width: 1565px){
+    margin-top: -60px;
+    }
     @media screen and (max-width: 682px) {
       margin-top: 50px;
       margin-left: 0px;

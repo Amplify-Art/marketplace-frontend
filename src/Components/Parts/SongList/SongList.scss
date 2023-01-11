@@ -6,9 +6,9 @@
   font-weight: normal;
   color: white;
   .songlist-header {
-    margin-bottom: 20px;
+    margin: 0 20px 20px 20px;
     .header-title {
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 900px) {
         display: none;
       }
       font-size: 13px;
@@ -17,30 +17,50 @@
       text-transform: uppercase;
       width: 20%;
       align-items: center;
-      color: #ffffff6e;
+      color: #ffffff;
+      opacity: 0.5;
       text-align: left;
       &:first-of-type {
-        width: 40%;
+        width: 30%;
+        @media screen and (max-width: 1150px){
+          width: 40%;
+        }
+      }
+      &:nth-of-type(2){
+        width: 30%;
+        // @media screen and (max-width: 1000px){
+        //   width: 35%;
+        // }
       }
       &:last-child {
-        width: 137px;
         margin-left: auto;
+        text-align: right;
+        max-width: 135px;
+        @media screen and (max-width: 1150px){
+          width: 10%;
+          max-width: 65px;
+        }
+        @media screen and (max-width: 900px) {
+          width: 50%;
+          display: flex;
+          flex-direction: row-reverse;
+      }
       }
       img {
         margin-left: 10px;
       }
     }
     .mobile-header-title {
-      @media screen and (min-width: 700px) {
+      @media screen and (min-width: 900px) {
         display: none;
       }
       display: flex;
       justify-content: space-between;
       font-size: 20px;
-      line-height: 25.52px;
+      line-height: 25px;
       letter-spacing: 0.05em;
       font-weight: 400;
-      width: 100%;
+      width: 50%;
       align-items: center;
       color: #FFFFFF;
       &:first-of-type {
@@ -53,7 +73,7 @@
       .mobile-header-title-right {
         cursor: pointer;
         display: inline-flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
         font-size: 16px;
         line-height: 20px;
@@ -66,36 +86,55 @@
   }
   .play-song {
     align-items: center;
-    margin-bottom: 10px;
+    height: 33px;
+    margin: 0 20px;
+    @media screen and (max-width: 900px) {
+      height: 60px;
+    }
     > div {
       font-size: 14px;
-      line-height: 23px;
-      width: 20%;
+      // width: 20%;
       align-items: center;
       cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     :first-child {
-      width: 40%;
-      @media screen and (max-width: 600px) {
+      width: 30%;
+      @media screen and (max-width: 1150px){
+        width: 40%;
+      }
+      @media screen and (max-width: 900px) {
         width: 80%;
       }
     }
-    div:last-child {
-      border: 1px solid;
-      width: 135px;
-      text-align: center;
-      padding: 2px 0px;
-      border-radius: 4px;
-      margin-left: auto;
+    :nth-of-type(2){
+      width: 30%;
+      // @media screen and (max-width: 1000px) {
+      //   width: 35%;
+      // }
     }
+    // div:last-child {
+    //   border: 1px solid;
+    //   // width: 135px;
+    //   max-width: 135px;
+    //   text-align: center;
+    //   padding: 2px 0px;
+    //   border-radius: 4px;
+    //   margin-left: auto;
+    //   @media screen and (max-width: 1150px) {
+    //     width: 15%;
+    //   }
+    // }
     .song-icon {
-      width: 72px;
+      width: 50px;
       display: flex;
       align-items: center;
       img {
-        width: 33%;
-        @media screen and (max-width: 600px) {
-          width: 50%;
+        width: 23px;
+        @media screen and (max-width: 900px) {
+          width: 28px;
         }
       }
     }
@@ -103,58 +142,80 @@
       width: 80%;
       font-size: 18px;
       cursor: pointer;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 900px) {
         width: 100%;
-        font-size: 16px;
+        font-size: 18px;
       }
       .song-title-mobile {
-        @media screen and (min-width: 700px) {
+        @media screen and (min-width: 900px) {
           display: none;
         }
         opacity: 0.8;
-        margin-top: 2px;
-        margin-bottom: 2px;
+        margin: 0px;
       }
-      span {
-        @media screen and (max-width: 600px) {
-          display: none;
-        }
+      span.mint-numbers {
         color: rgba(255, 255, 255, 0.397);
         font-size: 14px;
       }
     }
     .song-album {
-      @media screen and (max-width: 600px) {
+        // margin-right: 20px;
+      @media screen and (max-width: 900px) {
         display: none;
       }
     }
     .song-artist {
-      @media screen and (max-width: 600px) {
+      width: 20%;
+      @media screen and (max-width: 900px) {
         display: none;
       }
     }
     .song-mint-mobile {
-      @media screen and (min-width: 700px) {
+      @media screen and (min-width: 900px) {
         display: none;
       }
       opacity: 0.6;
       font-weight: normal;
-      font-size: 13px;
+      font-size: 14px;
       line-height: 17px;
+      display: contents;
     }
-    .song-available {
-      @media screen and (max-width: 600px) {
+    .available-text {
+      @media screen and (max-width: 1150px) {
         display: none;
       }
     }
-    .song-available-mobile {
-      @media screen and (min-width: 700px) {
-        display: none;
-      }
-      border: 1px solid;
-      text-align: center;
-      border-radius: 4px;
-    }
+    // .song-available-mobile {
+    //   @media screen and (min-width: 900px) {
+    //     display: none;
+    //   }
+    //   border: 1px solid;
+    //   text-align: center;
+    //   border-radius: 4px;
+    // }
+  }
+}
+
+.song-available{
+  border: 1px solid;
+  width: 20%;
+  max-width: 135px;
+  text-align: center;
+  padding: 2px 0px;
+  border-radius: 4px;
+  margin-left: auto;
+  @media screen and (max-width: 1150px){
+    width: 10%;
+    max-width: 65px;
+  }
+  @media screen and (max-width: 900px){
+    width: 20%;
+    max-width: 65px;
+  }
+  &.active{
+    background: rgba(196, 196, 196, 0.3);
+    border: 1px solid transparent;
+    color: #10141D;
   }
 }
 
@@ -165,51 +226,78 @@
   background-size: cover;
   background-position: center;
   &.expanded {
-    height: 300px;
+    height: 315px;
+    margin: 20px 0 20px 0;
   }
 
   .mint {
-    width: 90px;
-    @media screen and (max-width: 600px) {
+    width: 200px;
+    @media screen and (max-width: 1250px) {
+      width: 150px;
+    }
+    @media screen and (max-width: 1150px) {
+      width: 100px;
+    }
+    @media screen and (max-width: 900px) {
       width: 20px;
       font-size: 14px;
     }
   }
 
   .date-listed-by {
-    @media screen and (max-width: 600px) {
-      display: none !important;
-    }
     width: 300px;
-    margin-left: 183px;
-  }
-
-  .date-listed-by-mobile {
-    @media screen and (min-width: 700px) {
-      display: none !important;
+    @media screen and (max-width: 1250px) {
+      width: 275px;
     }
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: start;
-    margin-left: 45px;
-    width: 185px;
-    font-weight: 200;
+    @media screen and (max-width: 1150px) {
+      width: 200px;
+    }
+    .dlb-grid {
+      @media screen and (max-width: 1150px) {
+        display: grid !important;
+      }
+      span {
+        padding-right: 5px;
+        white-space: nowrap;
+      }
+      span:last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 
   .songPrice {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 900px) {
       display: none !important;
     }
-    width: 108px;
-    margin-left: 156px;
+    margin-left: 150px;
+    @media screen and (max-width: 1250px) {
+      margin-left: 100px;
+    }
+    @media screen and (max-width: 1150px) {
+      margin-left: 100px;
+    }
+    @media screen and (max-width: 1000px) {
+      margin-left: 50px;
+    }
   }
 
   .asking-price {
-    width: 108px;
-    margin-left: 156px;
-    @media screen and (max-width: 600px) {
-      display: none;
-      margin-left: 40px;
+    margin-left: 150px;
+    @media screen and (max-width: 1250px) {
+      margin-left: 100px;
+    }
+    @media screen and (max-width: 1150px) {
+      margin-left: 100px;
+    }
+    @media screen and (max-width: 1000px) {
+      margin-left: 50px;
+    }
+    @media screen and (max-width: 900px) {
+      margin-left: 0px;
+      width: 130px;
+      text-align: right;
     }
   }
 
@@ -220,15 +308,18 @@
   .copy {
     background: rgb(0 0 0 / 80%);
     backdrop-filter: saturate(180%) blur(10px);
-    height: 100%;
+    height: -webkit-fill-available;
     overflow-y: scroll;
-    @media screen and (max-width: 600px) {
-      padding: 5px;
+    @media screen and (max-width: 900px) {
+      padding: 20px 15px;
     }
-    padding: 30px;
-    box-sizing: border-box;
+    padding: 20px;
+    // box-sizing: border-box;
     .headers {
-      margin-bottom: 39px;
+      margin-bottom: 20px;
+      @media screen and (max-width: 900px) {
+        justify-content: space-between;
+      }
       .item {
         font-family: $space;
         font-style: normal;
@@ -244,30 +335,30 @@
 
     .info {
       .singleSong {
-        margin-bottom: 21px;
+        margin-bottom: 20px;
+        justify-content: space-between;
         &:last-child {
           margin-bottom: 0px;
         }
-        > div {
+         div {
           font-family: $space;
           font-style: normal;
           font-weight: normal;
           font-size: 16px;
           line-height: 20px;
-          text-transform: capitalize;
-          color: #FFFFFF;   
+          color: #FFFFFF;
           display: flex;
-          align-items: center;       
+          align-items: center;
         }
 
         .action {
-          @media screen and (max-width: 600px) {
+          @media screen and (max-width: 900px) {
             display: none;
           }
-          width: 150px;
+          // width: 150px;
           button {
-            background: #FA7C05;
-            border-radius: 4px;
+            background: #fff;
+            border-radius: 100px;
             font-family: $space;
             font-style: normal;
             font-weight: normal;
@@ -275,16 +366,29 @@
             line-height: 20px;
             text-align: center;
             text-transform: capitalize;
-            color: #FFFFFF;
-            padding-left: 24px;
-            padding-right: 24px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            color: #000;
             border: 0px;
+            padding: 10px 0px;
+            width: 135px;
+            &.delist {
+              background: transparent;
+              border-radius: 100px;
+              font-family: "Space Grotesk", sans-serif;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 16px;
+              line-height: 20px;
+              text-align: center;
+              text-transform: capitalize;
+              color: #fff;
+              border: 1px solid #FFFFFF;
+              padding: 10px 0px;
+              width: 135px;
+            }
           }
         }
         .mobileAction {
-          @media screen and (min-width: 700px) {
+          @media screen and (min-width: 900px) {
             display: none;
           }
           button {
@@ -304,9 +408,27 @@
             padding-bottom: 10px;
             border: 0px;
             width: 130px;
+            &.delist {
+              background: transparent;
+              border-radius: 100px;
+              font-family: "Space Grotesk", sans-serif;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 16px;
+              line-height: 20px;
+              text-align: center;
+              text-transform: capitalize;
+              color: #fff;
+              border: 1px solid #FFFFFF;
+              padding: 10px;
+              // width: fit-content;
+            }
           }
         }
       }
     }
   }
+}
+
+#mn-tooltip{
 }

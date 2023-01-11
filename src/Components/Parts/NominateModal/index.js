@@ -36,17 +36,17 @@ const NominateModal = ({
   return (
     <div className="nominate-modal-wrapper">
       <div className="nominate-top">
-        <div className="nominate-heading">Nomination Artist</div>
+        <div className="nominate-heading">Nominate Artist</div>
         <div className="nominate-close-button" onClick={onClose}>
           ⤫
         </div>
       </div>
-      <div className="nominate-subheading">{`${daysLeft} days left until next nomination`}</div>
+      <div className="nominate-subheading">{`${daysLeft} days left until the next nomination cycle`}</div>
 
       {!nominationloading ? (
         nominations.length ? (
           <span>
-            You have already made your nominations for month:{" "}
+            You have already made your nomination for this month on:{" "}
             <b>{nominations[0]?.nominatedBy?.near_account_id}</b>
           </span>
         ) : (
