@@ -142,3 +142,61 @@
   width: 100%;
   font-size: 20px;
 }
+
+.not-following {
+  max-width: 600px;
+  .placeholder-graphic {
+  background-color: #586C7D;
+  opacity: 0.2;
+  height: 180px;
+  border-radius: 100px;
+  background-image: url("../../assets/images/no-follow-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  display: flex;
+  justify-content: center;
+}
+h5 {
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  opacity: 0.8;
+  text-align: center;
+  a {
+    color: #FFFFFF;
+  }
+}
+@media (max-width: 650px){
+    margin-right: 20px;
+}
+}
+
+.no-releases {
+  max-width: 600px;
+  .placeholder-graphic {
+  background-color: #586C7D;
+  opacity: 0.2;
+  height: 180px;
+  background-image: url("../../assets/images/no-releases-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  display: flex;
+  justify-content: center;
+}
+ h5 {
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  opacity: 0.8;
+  text-align: center;
+  a {
+    color: #FFFFFF;
+  }
+}
+}

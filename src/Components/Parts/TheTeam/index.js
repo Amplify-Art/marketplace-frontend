@@ -13,6 +13,7 @@ import AjIMG from '../../../assets/images/teamimgs/aj.jpg';
 import VzcekIMG from '../../../assets/images/teamimgs/vz.jpg';
 import ChaseIMG from '../../../assets/images/teamimgs/chase.jpg';
 import SurfIMG from '../../../assets/images/teamimgs/surf.jpg';
+import LiIMG from '../../../assets/images/teamimgs/li.png';
 
 function TheTeam() {
   const theTeam = [
@@ -98,6 +99,12 @@ function TheTeam() {
       handle: 'surf_finance.near',
       support_cards: 10,
       image: SurfIMG,
+      // profile_link: ''
+    },
+    {
+      handle: 'yichong.near',
+      support_cards: 5,
+      image: LiIMG,
       // profile_link: ''
     }
   ];
