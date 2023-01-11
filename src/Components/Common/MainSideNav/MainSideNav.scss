@@ -15,14 +15,9 @@
 #main-side-nav {
   transition: all .25s;
   position: fixed;
-  // top: 145px;
-  // left: 56px;
-  // border-right: 1px solid gainsboro;
-  margin-top: 90px;
-  padding-top: 55px;
+  top: 145px;
+  left: 56px;
   z-index: 99;
-  // background: repeating-linear-gradient(45deg, rgb(0 0 0 / 30%), transparent 100px);
-  height: -webkit-fill-available;
   @media screen and (max-width: 800px) {
    left: 7px;
   }

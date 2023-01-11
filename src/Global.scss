@@ -12,9 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  @media screen and (max-width: 650px) {
-    font-family: 'Space Grotesk';
-  }
   padding: 0px;
   margin: 0px;
   // background: #0f161d;
@@ -63,8 +60,7 @@ button {
   box-sizing: border-box;
   // margin-top: 40px !important;
   // margin-top: 80px !important;
-  margin-top: 90px;
-  padding-top: 50px;
+  margin-top: 65px;
   // position: relative;
   // max-width: 75rem;
   @media screen and (max-width: 1660px) {
@@ -405,6 +401,16 @@ textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.noselect {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .mw-1200{

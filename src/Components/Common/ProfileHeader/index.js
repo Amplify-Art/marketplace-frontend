@@ -65,6 +65,7 @@ function ProfileHeader({
           "filter[user_id]": user,
         },
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   let songsCount = tokenTransfers && tokenTransfers.length ? tokenTransfers.length : 0;
@@ -83,7 +84,6 @@ function ProfileHeader({
                 [...showcases, ...new Array(6 - showcases.length).fill(null)],
                 3
               ).map((row, i) => {
-                console.log(row, "row")
                 return (
                 <div className="single-shelf" key={i}>
                   <div className="albums-on-shelf">
@@ -91,7 +91,7 @@ function ProfileHeader({
                       showCaseItem ? (
                         <div className="single-album-on-shelf" key={`${i}${j}`}>
                           <div className="single-shelf-album">
-                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-sharp fa-solid fa-trash-can" /></div>}
+                            {jwt.decode(localStorage.getItem("amplify_app_token")).id === showCaseItem.user_id && <div className="deleteShowcase" onClick={() => { deleteShowcase(showCaseItem.id) }}><i className="fa-solid fa-trash-can" /></div>}
                             <img
                               src={`https://gateway.pinata.cloud/ipfs/${showCaseItem.album?.cover_cid}`}
                               alt="album"

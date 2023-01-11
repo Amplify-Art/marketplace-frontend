@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import q from 'querystring'
-import { LinkWallet, SignWallet } from '../../Api/Near';
+import { SignWallet } from '../../Api/Near';
 import * as nearAPI from "near-api-js";
-import axios from "axios";
 
 const {
   keyStores,
-  WalletConnection,
-  utils,
   utils: {
+    // eslint-disable-next-line no-unused-vars
     format: { parseNearAmount },
   },
   KeyPair,
@@ -22,18 +20,12 @@ const Success = ({ history }) => {
     localStorage.getItem(
       `amplify_art_wallet_auth_key`
     );
-  console.log(auth_key, account_id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    let net =
-      process.env.REACT_APP_CONTEXT === "production" ? "mainnet" : "testnet";
     if (auth_key && account_id) {
-      let pk =
-        localStorage.getItem(
-          `near-api-js:keystore:${account_id}:${net}`
-        );
-      console.log(pk, 'PPPPPPPKKKKKK');
       generateToken();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account_id, auth_key]);
 
   const generateToken = async () => {

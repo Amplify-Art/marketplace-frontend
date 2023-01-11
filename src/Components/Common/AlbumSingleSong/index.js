@@ -42,13 +42,11 @@ class ProgressRing extends React.Component {
   }
 }
 
-const audioElement = new Audio();
 
 function AlbumSingleSong(props) {
   const {
     song,
     index,
-    isOpen,
     toggle,
     playing,
     currentIndex,
@@ -60,7 +58,7 @@ function AlbumSingleSong(props) {
     setIsCell,
     isSell,
   } = props;
-  const [user, setUser] = useState(
+  const [user, ] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
   );
 
@@ -77,9 +75,8 @@ function AlbumSingleSong(props) {
     ) || {}
   ).is_for_sale;
 
-  // console.log(tokens, "tokens", song);
   let hasAnyOfCopies = (tokens || []).some((t) => {
-    let [album, copy, songToken] = t.token_id.split(":");
+    let [copy, songToken] = t.token_id.split(":");
     let txn = song.transfers?.find(
       (f) =>
         f.token === songToken &&
@@ -93,6 +90,7 @@ function AlbumSingleSong(props) {
     if (typeof isSell !== 'undefined') {
     if (!isSell) setIsCell(hasAnyOfCopies);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasAnyOfCopies]);
   return (
     <div
@@ -122,7 +120,7 @@ function AlbumSingleSong(props) {
           ) : viewOrSell ? (
             <i className="fa fa-solid fa-ban"></i>
           ) : (
-            <img src={playIcon} />
+            <img src={playIcon} alt="play" />
           )}
         </div>
         <div className="fn-white pointer">{song.title}</div>

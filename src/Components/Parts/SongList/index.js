@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Tooltip } from 'react-tooltip'
 import axios from 'axios';
 import * as nearAPI from "near-api-js";
 import { toast } from "react-toastify";
@@ -40,7 +41,7 @@ const songHeader = () => (
       <div>Song Market</div>
     </div>
     <div className="header-title">
-      For sale
+      Listed
     </div>
   </div>
 );
@@ -257,6 +258,7 @@ function SongList(props) {
         {songList &&
           songList?.map((songData, index) => (
             <>
+            <div className="">
               <div className="play-song flex">
                 <div className="flex">
                   <div className="song-icon cursor-pointer">
@@ -277,11 +279,11 @@ function SongList(props) {
                   >
                     <div>
                       {songData.title}{" "}
-                      <span className="mint-numbers">
-                      {(songData.mints_owned || []).slice(0, 5)
+                      <span className="mint-numbers" data-tip={songData.mints_owned.join(", ")}>
+                      {(songData.mints_owned || []).slice(0, 3)
                           .map((i) => `#${i}`)
                           .join(", ")}
-                        {songData.mints_owned.length > 5 ? <strong>{` +${songData.mints_owned.length - 5}`}</strong> : ""}
+                        {songData.mints_owned.length > 3 ? <strong>{` +${songData.mints_owned.length - 3}`}</strong> : ""}
                       </span>
                     </div>
                     <p className="song-title-mobile">
@@ -294,17 +296,6 @@ function SongList(props) {
                         (songData.artist && songData.artist.near_account_id) || ""
                       )}
                     </p>
-                    {/* <p
-                      className="song-mint-mobile"
-                      onClick={() => expandSongList(songData.id)}
-                    >
-                    <span>
-                      {(songData.mints_owned || [])
-                        .map((i) => `#${i}`)
-                        .join(" ,")}
-                    </span>
-                    </p> */}
-                    {/* <div style={{ border: 0 }} /> */}
                   </label>
                 </div>
 
@@ -320,14 +311,8 @@ function SongList(props) {
                 >
                   {songData.artist && songData.artist.near_account_id}
                 </div>
-                {/* <div
-                  className="song-available-mobile"
-                  onClick={() => expandSongList(songData.id)}
-                >
-                  {songData.transfers.length} / {songData.qty}
-                </div> */}
                 <div
-                  className="song-available"
+                  className="song-available noselect"
                   onClick={() => expandSongList(songData.id)}
                 >
                   {songData.transfers.length} / {songData.qty} <span className="available-text">Available</span>
@@ -346,7 +331,7 @@ function SongList(props) {
                 <div className="copy">
                   <div className="headers flex">
                     <div className="item mint">Mint</div>
-                    <div className="item date-listed-by">Date Listed/By</div>
+                    <div className="item date-listed-by">Date Listed / By</div>
                     <div className="item asking-price">Asking Price</div>
                   </div>
 
@@ -373,19 +358,6 @@ function SongList(props) {
                             </span>
                             </div>
                           </div>
-                          {/* <div className="date-listed-by-mobile">
-                            <div style={{ width: "100%" }}>
-                              {moment(transfer && transfer.created_at).format(
-                                "MM/DD/YYYY"
-                              )}
-                            </div>
-                            <div style={{ width: "100%" }}>
-                              by @
-                              {transfer &&
-                                transfer.transferTo &&
-                                transfer.transferTo.name}
-                            </div>
-                          </div> */}
                           <div className="songPrice">
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
@@ -414,10 +386,10 @@ function SongList(props) {
                               {user.id === transfer.transfer_to
                                 ? "Delist "
                                 : "Buy Now "}
-                              {new Intl.NumberFormat("en-US", {
-                                style: "currency",
-                                currency: "USD",
-                              }).format(transfer && transfer.bidding_price / 100)}
+                                {new Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                }).format(Number(utils.format.formatNearAmount(transfer.yocto_near_price)).toFixed(5) * Number(nearPrice))}
                             </button>
                           </div>
                         </div>
@@ -426,6 +398,7 @@ function SongList(props) {
                     )}
                   </div>
                 </div>
+              </div>
               </div>
 
               {props.displayBuyModal && (

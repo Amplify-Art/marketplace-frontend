@@ -17,10 +17,10 @@
     }
   }
   .profile-cover {
-    margin-left: -40px;
-    margin-right: -40px;
+    margin-left: -220px;
+    margin-right: -60px;
     height: 340px;
-    // width: 100vw;
+    width: 100vw;
     @media screen and (max-width: 1280px) {
       height: 400px;
       width: 100vw;
@@ -289,7 +289,7 @@
     }
     .albums-on-shelf {
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       transform: translateY(11px);
       justify-content: space-between;
       padding-right: 30px;
@@ -326,6 +326,9 @@
               color: #fff;
               background-color: rgba(0, 0, 0, 0.65);
               padding: 5px;
+              z-index: 1;
+              border-radius: 0px 2px 0px 0px;
+              margin-top: 1.5px;
             }
           }
           &:hover{

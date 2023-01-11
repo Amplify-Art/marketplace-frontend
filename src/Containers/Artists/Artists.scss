@@ -1,30 +1,47 @@
 .artists-holder {
   display: flex;
+  gap: 70px;
   flex-wrap: wrap;
-  .profile-album,
-  .user-avatar {
-    cursor: pointer;
-    // margin-left: 25px;
-    display: block;
-    text-align: center;
-    .avatar {
-      border: solid 3px rgba(255, 255, 255, 0.2);
-      // margin-left: 0;
-      img {
-        width: 100%;
-      }
+  @media screen and (max-width: 800px) {
+  gap: 30px;
+  padding-left: 5px;
     }
-    .avatar-name {
-      display: block;
-      margin: auto;
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-      width: 180px;
-      @media screen and (max-width: 600px) {
-        width: 160px;
+  .user-avatar {
+    @media screen and (max-width: 650px) {
+      width: calc(50% - 15px);
+      .avatar {
+        width: 40vw;
+        height: 40vw;
       }
-      // margin-left: 20px;
     }
   }
 }
+
+// .artists-holder {
+//   display: flex;
+//   gap: 70px;
+//   flex-wrap: wrap;
+//   .profile-album,
+//   .user-avatar {
+//     cursor: pointer;
+//     // margin-left: 25px;
+//     display: block;
+//     .avatar {
+//       img {
+//         width: 100%;
+//       }
+//     }
+//     .avatar-name {
+//       display: block;
+//       margin: auto;
+//       text-align: center;
+//       margin-left: auto;
+//       margin-right: auto;
+//       width: 180px;
+//       @media screen and (max-width: 600px) {
+//         width: 160px;
+//       }
+//       // margin-left: 20px;
+//     }
+//   }
+// }

@@ -1,36 +1,32 @@
 @import "../../assets/SCSS/Vars.scss";
+
 #user-dashboard {
   padding-bottom: 100px;
-  font-family: $space;
-  font-style: normal;
-  font-weight: normal;
-  // .container {
-  //   max-width: 100%;
-  //   padding-right: 232px;
-  //   padding-left: 185px;
-  //   margin-right: auto;
-  //   margin-left: auto;
-  // }
-  // @media (max-width: 768px) {
-  //   .container {
-  //     max-width: 720px;
-  //   }
-  // }
-
-  // @media (max-width: 576px) {
-  //   .container {
-  //     max-width: 540px;
-  //   }
-  // }
+   .container {
+    box-sizing: border-box;
+     margin-top: 65px;
+     width: 100%;
+     max-width: 100%;
+     @media (max-width: 650px) {
+      margin-top: 100px;
+     }
+     .followed-artists {
+       @media (max-width: 650px) {
+        margin-left: 20px;
+       }
+     }
+     .recently-released {
+       @media (max-width: 650px) {
+        margin: 0px 20px;
+       }
+     }
+   }
   .release-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 50px;
     margin-bottom: 30px;
-    @media screen and (max-width: 600px) {
-      margin-top: 20px;
-    }
     .header-title {
       font-size: 20px;
       font-weight: 300;
@@ -101,9 +97,6 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    @media screen and (max-width: 600px) {
-      margin-top: 20px;
-    }
     .header-title {
       font-size: 20px;
       font-weight: 300;
@@ -148,4 +141,62 @@
   font-weight: 400;
   width: 100%;
   font-size: 20px;
+}
+
+.not-following {
+  max-width: 600px;
+  .placeholder-graphic {
+  background-color: #586C7D;
+  opacity: 0.2;
+  height: 180px;
+  border-radius: 100px;
+  background-image: url("../../assets/images/no-follow-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  display: flex;
+  justify-content: center;
+}
+h5 {
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  opacity: 0.8;
+  text-align: center;
+  a {
+    color: #FFFFFF;
+  }
+}
+@media (max-width: 650px){
+    margin-right: 20px;
+}
+}
+
+.no-releases {
+  max-width: 600px;
+  .placeholder-graphic {
+  background-color: #586C7D;
+  opacity: 0.2;
+  height: 180px;
+  background-image: url("../../assets/images/no-releases-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  display: flex;
+  justify-content: center;
+}
+ h5 {
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  opacity: 0.8;
+  text-align: center;
+  a {
+    color: #FFFFFF;
+  }
+}
 }

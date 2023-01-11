@@ -11,7 +11,6 @@ import ConfettiImage from "../../assets/images/confetti.png";
 
 import "./MyProfile.scss";
 
-import { fetchNFTsAction } from "../../redux/actions/NFTAction";
 import { fetchTokenTransfersAction } from "../../redux/actions/TokenTransferAction";
 import { fetchUserAction } from "../../redux/actions/UserAction";
 import {
@@ -92,14 +91,13 @@ function MyProfile(props) {
     });
     let near_account_id = props.location.pathname.split("/").slice(-1)[0];
 
-    console.log(near_account_id, "near_account_id");
-
     props.fetchUserNearById({
       near_id: near_account_id,
       params: {
         owned_songs: true,
       },
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => { });
@@ -164,11 +162,9 @@ function MyProfile(props) {
       localStorage.removeItem("selling_song");
       props.history.push("/my-profile");
     } else if (props.history.location.search.includes("showId")) {
-      let albumId = decodeURIComponent(
-        q.parse(props.history.location.search)["?showId"]
-      );
-      console.log(albumId);
+
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.location.search]);
 
   const checkTxnStatus = async (sellingSong) => {
@@ -269,24 +265,7 @@ function MyProfile(props) {
     setSharePopup(false);
   };
 
-  const onFollow = () => {
-    // console.log(props.myFollowings, userID, decodedToken)
-    let follow = props.myFollowings.find((f) => f.artist_id === userID);
-    console.log(follow);
-    if (follow) {
-      props.updateFollower({
-        id: follow.id,
-        is_deleted: true,
-        artist_id: null,
-        follower_id: null,
-      });
-    } else {
-      props.addFollower({
-        artist_id: userID,
-        follower_id: decodedToken.id,
-      });
-    }
-  };
+  
   const renderBtnContent = () => {
     return (
       <>
@@ -294,10 +273,10 @@ function MyProfile(props) {
         <div className="popup-container">
           {openSharePopup && (
             <div className="popUp">
-              <a href="#" className="popup-div" onClick={copyProfileLink}>
+              <button className="popup-div" onClick={copyProfileLink}>
                 <img src={copyLink} alt="Copy Link" className="popup-img" />
                 <span>Copy Link</span>
-              </a>
+              </button>
               <TwitterShareButton
                 className="popup-div"
                 title="Check out my Amplify.art profile!"
@@ -339,6 +318,7 @@ function MyProfile(props) {
 
   useEffect(() => {
     findUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const findUser = async () => {
@@ -351,7 +331,6 @@ function MyProfile(props) {
       });
       if (res.data.success && res.data.results.length) {
         let { id, near_account_id } = res.data.results[0];
-        console.log(id, near_account_id);
 
         props.fetchUser({
           id: id,
@@ -364,7 +343,6 @@ function MyProfile(props) {
             orderBy: "-id",
           },
         });
-        console.log("ID", id);
         setID(parseInt(id));
         setUserName(near_account_id);
       }
@@ -397,20 +375,16 @@ function MyProfile(props) {
         },
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user]);
 
   const closeModals = () => {
-    console.log(props.displaySellModal, "props.displaySellModal");
     if (props.displaySellModal && sellingCopy) {
       setSellingCopy(null);
     } else {
       setSellingSong(null);
       props.hideSellModal();
     }
-
-    // setSellingCopy(null)
-    // setSellingSong(null)
-    // props.hideSellModal()
   };
 
   const onClose = () => {
@@ -471,10 +445,12 @@ function MyProfile(props) {
         setShowModalAlbumIndex(parseInt(actualIndex));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aformattedAlbums.length, props.history.location.search]);
 
   useEffect(() => {
     fetchTokens();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTokens = async () => {
@@ -490,9 +466,8 @@ function MyProfile(props) {
           .map((t) => parseInt(t.token_id.split(":")[1]))
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingSong]);
-
-  console.log('[[[props]]]', props)
 
   return (
     <div
@@ -685,7 +660,6 @@ export default connect(
       showPlaylistModal: () => dispatch(showPlaylistModalAction()),
       hidePlaylistModal: () => dispatch(hidePlaylistModalAction()),
       fetchPlaylists: (data) => dispatch(fetchPlaylistsAction(data)),
-      fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
       deletePlaylist: (data) => dispatch(deletePlaylistAction(data)),
       hideDeletePlaylist: (data) => dispatch(hideDeletePlaylistAction(data)),
       fetchUserNearById: (data) => dispatch(fetchUserByNearIdAction(data)),

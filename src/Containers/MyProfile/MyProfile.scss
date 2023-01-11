@@ -1,8 +1,7 @@
 @import "../../assets/SCSS/Vars.scss";
 #profile {
-  // padding-top: 30px;
+  padding-top: 30px;
   padding-bottom: 30px;
-  margin-top: 90px;
   @media screen and (max-width: 650px) {
     padding-top: 0px;
   }

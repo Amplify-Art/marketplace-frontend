@@ -12,14 +12,14 @@ function SecondaryMarketplace(props) {
     props.fetchMarketplaceSongs({});
   }, []);
   return (
-    <div id="secondary-marketplace" className="left-nav-pad right-player-pad mw-1200">
-      <div className="containerOuter">
+    <div id="secondary-marketplace" className="left-nav-pad mw-1200">
+      <div className="">
         {props.songs && props.songs.length > 0 ? (
           <SongList songList={props.songs} />
         ) : (
           <div>
             <h4 className="large-white center-text">
-              No songs are currently listed for sale.
+              There are no songs currently listed.
             </h4>
           </div>
         )}

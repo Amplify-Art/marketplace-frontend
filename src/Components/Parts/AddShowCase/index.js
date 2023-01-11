@@ -7,7 +7,6 @@ import {
   addShowcaseAction,
   updateShowcaseAction,
 } from "../../../redux/actions/ShowcaseAction";
-import jwt from "jsonwebtoken";
 import "./AddShowCase.scss";
 import CDImg from "../../../assets/images/cd-img.svg";
 import { getTokens } from "../../../Utils/near";
@@ -28,17 +27,15 @@ function AddShowCase({
   wallet,
 }) {
   const [loading, setLoading] = useState(true);
-  const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   useEffect(() => {
     getNFTs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getNFTs = async () => {
     let tokens = await getTokens(wallet);
-    console.log(tokens, "tokens");
     let songtokens = tokens.map((t) => t.token_id.split(":")[2]);
-    console.log(songtokens);
     fetchNFTs({
       nft_tokens: songtokens,
       type: "showcase",
@@ -73,7 +70,6 @@ function AddShowCase({
       setLoading(false);
     }
   };
-  console.log(data?.length !== 0, songs, isFetchingNFts);
   return (
     <div id="addshowcase">
       <div className="scrollbar" id="style-4">
@@ -93,6 +89,7 @@ function AddShowCase({
                   onLoad={() => onLoadingImage(item)}
                   className={`cover ${loading && "hidden"}`}
                   onError
+                  alt="cover"
                 />
                 {loading && <Skeleton width={60} height={60} />}
               </div>

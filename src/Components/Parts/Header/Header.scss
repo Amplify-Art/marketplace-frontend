@@ -18,16 +18,14 @@
 header {
   display: flex;
   align-items: center;
-  padding-top: 21px;
-  padding-bottom: 20px;
+  padding-top: 30px;
   padding-left: 30px;
   padding-right: 37px;
-  width: -webkit-fill-available;
+  width: 100%;
   box-sizing: border-box;
-  position: fixed;
+  position: relative;
   z-index: 9;
-  background-color: #0f121b;
-  // border-bottom: 1px solid gray;
+  // background-color: #0f161d;
   .nav {
     display: flex;
     width: 40%;
@@ -100,18 +98,12 @@ header {
       @media screen and (max-width: 650px) {
         display: none;
       }
-      svg {
+      img {
         position: absolute;
         left: 20px;
         top: 8px;
         width: 24px;
         height: 24px;
-        path {
-          fill: #fff;
-        }
-      }
-      input:focus + svg path {
-        fill: #000;
       }
       input {
         border: 1.5px solid #e3e3e3;
@@ -127,14 +119,7 @@ header {
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        caret-color: black; // #FA7C05
-        &:hover {
-          box-shadow: 0px 0px 5px white;
-        }
-        &:focus {
-          background-color: white;
-          color: black;
-        }
+        caret-color: #FA7C05;
       }
       input::placeholder {
         font-weight: 300;
@@ -184,13 +169,9 @@ header {
 
     .wallet {
       margin-right: 30px;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       flex: none;
-      &:hover {
-        width: 32px;
-        height: 32px;
-      }
       @media screen and (max-width: 492px) {
         // display: none;
       }
@@ -227,8 +208,8 @@ header {
 }
 
 .user {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   @media screen and (max-width: 650px) {
     width: 40px;
@@ -237,13 +218,9 @@ header {
   border-radius: 50%;
   overflow: hidden;
   flex: none;
-  box-shadow: 0px 0px 2px white;
-  &:hover {
-    box-shadow: 0px 0px 8px white;
-  }
   .profilePic {
-    width: 100%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -23,7 +23,7 @@
       &:first-of-type {
         width: 30%;
         @media screen and (max-width: 1150px){
-          width: 35%;
+          width: 40%;
         }
       }
       &:nth-of-type(2){
@@ -33,11 +33,12 @@
         // }
       }
       &:last-child {
-        // width: 137px;
         margin-left: auto;
         text-align: right;
+        max-width: 135px;
         @media screen and (max-width: 1150px){
-          width: 15%;
+          width: 10%;
+          max-width: 65px;
         }
         @media screen and (max-width: 900px) {
           width: 50%;
@@ -72,7 +73,7 @@
       .mobile-header-title-right {
         cursor: pointer;
         display: inline-flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
         font-size: 16px;
         line-height: 20px;
@@ -92,7 +93,7 @@
     }
     > div {
       font-size: 14px;
-      width: 20%;
+      // width: 20%;
       align-items: center;
       cursor: pointer;
       overflow: hidden;
@@ -102,7 +103,7 @@
     :first-child {
       width: 30%;
       @media screen and (max-width: 1150px){
-        width: 35%;
+        width: 40%;
       }
       @media screen and (max-width: 900px) {
         width: 80%;
@@ -114,18 +115,18 @@
       //   width: 35%;
       // }
     }
-    div:last-child {
-      border: 1px solid;
-      // width: 135px;
-      max-width: 135px;
-      text-align: center;
-      padding: 2px 0px;
-      border-radius: 4px;
-      margin-left: auto;
-      @media screen and (max-width: 1150px) {
-        width: 15%;
-      }
-    }
+    // div:last-child {
+    //   border: 1px solid;
+    //   // width: 135px;
+    //   max-width: 135px;
+    //   text-align: center;
+    //   padding: 2px 0px;
+    //   border-radius: 4px;
+    //   margin-left: auto;
+    //   @media screen and (max-width: 1150px) {
+    //     width: 15%;
+    //   }
+    // }
     .song-icon {
       width: 50px;
       display: flex;
@@ -164,6 +165,7 @@
       }
     }
     .song-artist {
+      width: 20%;
       @media screen and (max-width: 900px) {
         display: none;
       }
@@ -195,6 +197,21 @@
 }
 
 .song-available{
+  border: 1px solid;
+  width: 20%;
+  max-width: 135px;
+  text-align: center;
+  padding: 2px 0px;
+  border-radius: 4px;
+  margin-left: auto;
+  @media screen and (max-width: 1150px){
+    width: 10%;
+    max-width: 65px;
+  }
+  @media screen and (max-width: 900px){
+    width: 20%;
+    max-width: 65px;
+  }
   &.active{
     background: rgba(196, 196, 196, 0.3);
     border: 1px solid transparent;
@@ -413,9 +430,5 @@
   }
 }
 
-@media screen and (max-width: 650px) {
-  .containerOuter {
-      margin-top: 85px;
-      padding: 0px;
-  }
-  }
+#mn-tooltip{
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchArtists } from "../../redux/actions/ArtistAction";
 import "./Artists.scss";
@@ -14,13 +14,13 @@ function Artists(props) {
         "filter[type]": "artist",
       },
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(artists, "artists");
   return (
     <div id="artists-page" className="left-nav-pad right-player-pad">
       <div className="containerOuter">
         <h2 className="page-title">All Artists</h2>
-        <div className="user-block">
+        <div className="artists-holder">
           {artists &&
             artists.length &&
             artists.map((artist, index) => (
