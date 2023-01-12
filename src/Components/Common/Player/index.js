@@ -75,14 +75,6 @@ function Player(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlaylists.length, songIndex, playlistIndex]);
 
-  useEffect(() => {
-    if (props.showPlayer) {
-      togglePlay(true)
-    } else {
-      togglePlay(false)
-    }
-  }, [props.showPlayer]);
-
   audioElement.onended = function () {
     nextSong();
   };
