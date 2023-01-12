@@ -21,6 +21,7 @@ import {
   setWalletAction,
   sendNotificationAction,
   setCurrentNearPrice,
+  togglePlayingAction,
 } from "../../../redux/actions/GlobalAction";
 import {
   setNearBalanceAction,
@@ -352,7 +353,7 @@ function Header(props) {
             <>
               {props.currentPlaylists.length ? (
                 <div className="cd" onClick={() => props.togglePlayer()}>
-                  <img src={CDIcon} alt="wallet" />
+                  <img src={CDIcon} alt="wallet" className={props.isPlaying && 'endless-rotate'} />
                 </div>
               ) : null}
               {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
@@ -485,6 +486,7 @@ export default connect(
       currentPlaylists: state.playlists.current_playlists,
       showSearchResult: state.searchRes.showSearchResult,
       userDetails: state.users.user,
+      isPlaying: state.global.isPlaying,
     };
   },
   (dispatch) => {
@@ -504,6 +506,7 @@ export default connect(
       showSearchResultFn: () => dispatch(showSearchResultAction()),
       hideSearchResult: () => dispatch(hideSearchResultAction()),
       fetchUser: (data) => dispatch(fetchUserAction(data)),
+      togglePlaying: () => dispatch(togglePlayingAction()),
     };
   }
 )(withRouter(Header));

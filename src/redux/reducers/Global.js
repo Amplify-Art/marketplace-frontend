@@ -13,6 +13,7 @@ const initialState = {
   showMintSuccessModal: false,
   nearPrice: null,
   showPlayer: false,
+  isPlaying: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -97,6 +98,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showPlayer: !state.showPlayer
+      }
+    case types.TOGGLE_PLAYING_REQUEST:
+      return {
+        ...state,
+        isPlaying: !state.isPlaying
       }
     case types.SET_NOTIFICATION:
       if (action.payload.success) {
