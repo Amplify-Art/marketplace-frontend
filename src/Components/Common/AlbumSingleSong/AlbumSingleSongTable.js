@@ -98,6 +98,13 @@ function AlbumSingleSong(props) {
     if (!isSell) setIsCell(hasAnyOfCopies);
   }, [hasAnyOfCopies]);
 
+  const convertTime = (duration) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration - minutes * 60;
+
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  }
+
   return (
     <
       // tr
@@ -120,24 +127,8 @@ function AlbumSingleSong(props) {
         <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="fn-white pointer flex f-align-center">{song.title}</div>
       </td>
       <td>
-        <div
-          className="duration flex f-align-center"
-          style={
-            {
-              // width:
-              //   url.pathname === "/my-profile" && !isPlayList
-              //     ? viewOrSell
-              //       ? "30%"
-              //       : !hasAnyOfCopies
-              //       ? "70%"
-              //       : "55%"
-              //     : "100%",
-            }
-          }
-        >
-          {`${Math.floor(song.duration / 60)}:${String(
-            Math.ceil(song.duration / 60 - Math.floor(song.duration / 60)) * 60
-          ).padStart(2, "0")}`}
+        <div className="duration flex f-align-center">
+          {convertTime(song.duration)}
         </div>
       </td>
       <td style={{ textAlign: "center" }}>
@@ -160,7 +151,6 @@ function AlbumSingleSong(props) {
           </>
         )}
       </td>
-      {/* <div className="fn-white"><SongLength i={index} song={`https://gateway.pinata.cloud/ipfs/${song.song_cid}`} /></div> */}
     </>
   );
 }
