@@ -165,7 +165,9 @@ function Player(props) {
             </Link>
           </div>
           <div className="user">
-            <img src={!avatar ? defaultProfile : avatar} alt="User" />
+            <Link to="/my-profile">
+              <img src={!avatar ? defaultProfile : avatar} alt="User" />
+            </Link>
           </div>
         </div>
 
