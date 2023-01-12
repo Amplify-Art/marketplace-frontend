@@ -12,6 +12,8 @@ import { buyAlbumBundleNFTAction } from "../../redux/actions/NFTAction";
 import "./UserDashboard.scss";
 import UserAvatar from "../../Components/Common/UserAvatar/index";
 import SingleAlbum from "../../Components/Common/SingleAlbum/index";
+import NoFollowIcon from '../../assets/images/no-follow-icon.svg';
+import NoReleasesIcon from '../../assets/images/no-releases-icon.svg';
 // import "../Albums/Albums.scss";
 
 const {
@@ -167,8 +169,9 @@ function UserDashboard(props) {
             ))}
           </div>
         ) : (
-          <div>
-          <h2 className="no-artists">No Followed Artist</h2>
+          <div className="not-following">
+            <div class="placeholder-graphic"><img src={NoFollowIcon} alt="no following icon" /></div>
+            <h5 className="not-following-text">Never miss a beat by following your favorite <a href="/artists">artists</a>.</h5>
           </div>
         )}
         </div>
@@ -182,7 +185,10 @@ function UserDashboard(props) {
               ))}
             </div>
           ) : (
-            <h2 className="no-artists mt-3">No Recently Released Albums</h2>
+            <div className="no-releases">
+              <div class="placeholder-graphic"><img src={NoReleasesIcon} alt="no releases icon" /></div>
+              <h5 className="no-releases-text"><a href="/albums">Albums</a> released by the artists you follow will display here.</h5>
+            </div>
           )}
           </div>
         </div>
