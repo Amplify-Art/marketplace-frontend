@@ -74,3 +74,7 @@ export const setCurrentNearPrice = () => ({
 export const togglePlayerAction = () => ({
   type: types.TOGGLE_PLAYER_REQUEST,
 });
+
+export const togglePlayingAction = () => ({
+  type: types.TOGGLE_PLAYING_REQUEST,
+});

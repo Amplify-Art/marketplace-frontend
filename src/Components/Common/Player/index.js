@@ -16,7 +16,7 @@ import CdImage from "../../../assets/images/cd-img.svg";
 import CDIcon from "../../../assets/images/cd-icon.svg";
 
 import { updateCurrentPlaylistAction } from "../../../redux/actions/PlaylistAction";
-import { togglePlayerAction } from "../../../redux/actions/GlobalAction";
+import { togglePlayerAction, togglePlayingAction } from "../../../redux/actions/GlobalAction";
 import defaultProfile from "../../../assets/images/default-profile.svg";
 
 const audioElement = new Audio();
@@ -24,7 +24,6 @@ const audioElement = new Audio();
 function Player(props) {
   const { avatar, currentPlaylists } = props;
 
-  const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
   const [playlistIndex, setPlaylistIndex] = useState(0);
@@ -35,7 +34,7 @@ function Player(props) {
   const playBar = useRef(null);
 
   const playButtonFunction = () => {
-    togglePlay(!isPlaying);
+    props.togglePlaying();
   };
 
   useEffect(() => {
@@ -50,12 +49,12 @@ function Player(props) {
   }, [playlistIndex, songIndex]);
 
   useEffect(() => {
-    if (isPlaying) {
+    if (props.isPlaying) {
       audioElement.play();
     } else {
       audioElement.pause();
     }
-  }, [isPlaying, playlistIndex, songIndex]);
+  }, [props.isPlaying, playlistIndex, songIndex]);
 
   const updateBar = () => {
     setSongProgress(audioElement.duration ? (audioElement.currentTime / audioElement.duration) * 100 : 0);
@@ -149,7 +148,7 @@ function Player(props) {
       <div className="over">
         <div className="top-icons">
           <div className="cd" onClick={() => props.togglePlayer()}>
-            <img src={CDIcon} alt="wallet" className={isPlaying && 'endless-rotate'} />
+            <img src={CDIcon} alt="wallet" className={props.isPlaying && 'endless-rotate'} />
           </div>
           <div className="wallet">
             <Link to="/wallet">
@@ -176,7 +175,7 @@ function Player(props) {
         <Controls
           nextSong={() => nextSong()}
           playButtonFunction={() => playButtonFunction()}
-          isPlaying={isPlaying}
+          isPlaying={props.isPlaying}
           prevSong={() => prevSong()}
         />
 
@@ -219,6 +218,7 @@ export default connect(
       showWallet: state.global.showWallet,
       currentPlaylists: state.playlists.current_playlists,
       showPlayer: state.global.showPlayer,
+      isPlaying: state.global.isPlaying,
     };
   },
   (dispatch) => {
@@ -226,6 +226,7 @@ export default connect(
       updateCurrentPlaylist: (data) =>
         dispatch(updateCurrentPlaylistAction(data)),
       togglePlayer: () => dispatch(togglePlayerAction()),
+      togglePlaying: () => dispatch(togglePlayingAction()),
     };
   }
 )(withRouter(Player));
