@@ -20,14 +20,14 @@ import defaultProfile from "../../../assets/images/default-profile.svg";
 const audioElement = new Audio();
 
 function Player(props) {
-  const { avatar, toggleWalletSidebar, currentPlaylists, showWallet } = props;
+  const { avatar, currentPlaylists } = props;
 
   const [isPlaying, togglePlay] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [songIndex, setSongIndex] = useState(0);
   const [playlistIndex, setPlaylistIndex] = useState(0);
   const [songDeletingIndex, setSongDeletingIndex] = useState(null);
-  const [isShow, setIsShow] = useState(false);
+  const [, setIsShow] = useState(false);
   const [cdBackground, setCDBackground] = useState(CdImage);
 
   const playBar = useRef(null);
@@ -44,6 +44,7 @@ function Player(props) {
   useEffect(() => {
     audioElement.src = `https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.song_cid}`;
     audioElement.currentTime = 0;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistIndex, songIndex]);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ function Player(props) {
 
   useEffect(() => {
     getPlayerBackground();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlaylists.length, songIndex, playlistIndex]);
 
   useEffect(() => {
