@@ -156,7 +156,7 @@ function Player(props) {
         <div className="top-icons">
           {/* <div className="bell"><img src={BellIcon} alt="Bell" /></div> */}
           <div className="cd" onClick={() => props.togglePlayer()}>
-            <img src={CDIcon} alt="wallet" />
+            <img src={CDIcon} alt="wallet" className={isPlaying && 'endless-rotate'} />
           </div>
           <div className="wallet">
             <Link to="/wallet">
@@ -167,32 +167,31 @@ function Player(props) {
             <img src={!avatar ? defaultProfile : avatar} alt="User" />
           </div>
         </div>
-        {props.showPlayer && (
-          <div className="album-info large">
-            <div className="cover">
-              {/* If album is owned, show cover here, else use blank CD */}
-              {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
-              {!(
-                currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album ||
-                currentPlaylists[playlistIndex]?.cover_cid
-              ) ? (
-                <img src={CdImage} alt="Cover" />
-              ) : (
-                <img
-                  src={`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid || currentPlaylists[playlistIndex]?.cover_cid}`}
-                  alt="Cover"
-                />
-              )}
-            </div>
-            <div className="details">
-              <div className="rotate">
-                <h5 className="album-title">
-                  {currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}
-                </h5>
-              </div>
+
+        <div className="album-info large">
+          <div className="cover">
+            {/* If album is owned, show cover here, else use blank CD */}
+            {/* <img src={currentPlaylists[songIndex]?.album && currentPlaylists[songIndex].album?.current_owner === user.id ? `https://gateway.pinata.cloud/ipfs/${currentPlaylists[songIndex]?.album.cover_cid}` : DefaultCover} alt="Cover" /> */}
+            {!(
+              currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album ||
+              currentPlaylists[playlistIndex]?.cover_cid
+            ) ? (
+              <img src={CdImage} alt="Cover" />
+            ) : (
+              <img
+                src={`https://gateway.pinata.cloud/ipfs/${currentPlaylists[playlistIndex]?.songs?.[songIndex]?.album?.cover_cid || currentPlaylists[playlistIndex]?.cover_cid}`}
+                alt="Cover"
+              />
+            )}
+          </div>
+          <div className="details">
+            <div className="rotate">
+              <h5 className="album-title">
+                {currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}
+              </h5>
             </div>
           </div>
-        )}
+        </div>
 
         <div className="player-pull-out-button">
           <img src={LeftArrowIcon} alt="left" />
@@ -245,26 +244,13 @@ function Player(props) {
             <img src={PrevSongIcon} alt="Previous Song" />
           </div>
         </div>
-        {props.showPlayer && (
-          <PayerQueue
-            currentPlaylists={currentPlaylists}
-            songIndex={songIndex}
-            setSongDeletingIndex={setSongDeletingIndex}
-            playlistIndex={playlistIndex}
-          />
-        )}
-        {!props.showPlayer && (
-          <div className="album-info">
-            <div className="cover" />
-            <div className="details">
-              <div className="rotate">
-                <h5 className="album-title">
-                  {currentPlaylists[songIndex]?.title}
-                </h5>
-              </div>
-            </div>
-          </div>
-        )}
+
+        <PayerQueue
+          currentPlaylists={currentPlaylists}
+          songIndex={songIndex}
+          setSongDeletingIndex={setSongDeletingIndex}
+          playlistIndex={playlistIndex}
+        />
       </div>
       {songDeletingIndex !== null && (
         <GeneralModal
