@@ -2,16 +2,15 @@
   position: fixed;
   right: 0px;
   top: 0px;
-  width: 120px;
   height: 100%;
   background: #000;
   z-index: 99;
-  // padding: 30px;
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-size: 1200%;
   background-position: center;
   overflow: hidden;
+  padding: 30px 0 0 0;
   .background-blur {
     position: absolute;
     top: 0px;
@@ -35,9 +34,9 @@
     justify-content: space-between;
     height: 100%;
     align-items: center;
-    margin-top: 30px;
+    overflow: hidden;
     @media screen and (max-width: 650px) {
-      margin-top: 16px;
+      // margin-top: 16px;
     }
     .top-icons {
       display: flex;
@@ -129,8 +128,8 @@
   .controls {
     .button {
       cursor: pointer;
-      width: 60px;
-      height: 60px;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -143,12 +142,19 @@
         }
 
         svg {
-          width: 18px;
           fill: #fff;
           &.play {
-            margin-left: 4px;
+            width: 14px;
+            margin-left: 3px;
+            margin-top: 1px;
+          }
+          &.pause {
+            width: 12px;
           }
         }
+      }
+      img{
+        width: 14px;
       }
     }
   }
@@ -167,15 +173,13 @@
   }
 
   .progress-bar {
-    margin-top: 30px;
-    @media (max-height: 800px) {
-      margin-top: 20px;
-    }
+    margin-top: 20px;
+    // @media (max-height: 768px) {
+    //   margin-top: 20px;
+    // }
     .bar {
-      height: 430px;
-      width: 13px;
-      background: #000;
-      border-radius: 20px;
+      background: #fff;
+      border-radius: 0px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -193,8 +197,8 @@
       .completed {
         width: 100%;
         height: 0%;
-        border-radius: 20px;
-        background: #b95a00;
+        border-radius: 6px;
+        background: #FA7C05;
         margin-top: auto;
       }
     }
@@ -211,14 +215,14 @@
     }
 
     .album-info {
-      margin-top: 48px;
-      @media (max-height: 800px) {
+      margin-top: 30px;
+      @media (max-height: 768px) {
         margin-top: 20px;
       }
       .cover {
-        margin-bottom: 30px;
-        @media (max-height: 800px) {
-          margin-bottom: 30px;
+        margin-bottom: 20px;
+        @media (max-height: 768px) {
+          margin-bottom: 15px;
         }
         img {
           transform: rotate(0deg);
@@ -240,18 +244,22 @@
     .progress-bar {
       width: 100%;
       margin-bottom: 20px;
-      @media (max-height: 800px) {
-        margin-bottom: 20px;
+      @media (max-height: 768px) {
+        margin-bottom: 15px;
       }
       .bar {
         width: 310px;
-        height: 13px;
+        height: 6px;
+        border-radius: 6px;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
 
     .controls {
       display: flex;
       flex-direction: row-reverse;
+      gap: 10px;
     }
 
     .mini-player-btn {
@@ -267,7 +275,8 @@
       color: #ffffff;
       display: flex;
       flex-direction: column;
-      margin-top: 15px;
+      margin-top: 10px;
+      height: -webkit-fill-available;
       .count {
         opacity: 0.8;
         font-size: 14px;
@@ -281,10 +290,21 @@
         text-transform: uppercase;
         opacity: 0.5;
         font-weight: 300;
-        margin: 10px 0px 0px 30px;
+        margin: 10px 0px 15px 30px;
       }
       .queue-items {
-        margin-left: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        height: -webkit-fill-available;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: absolute;
+        .queue-item:first-child {
+          margin-top: 0px;
+        }
+        .queue-item:last-child {
+          margin-bottom: 15px;
+        }
         .queue-item {
           margin-top: 15px;
           display: flex;
@@ -293,6 +313,7 @@
           img {
             height: 40px;
             width: 40px;
+            border-radius: 2px;
           }
           .title {
             display: flex;
@@ -316,11 +337,20 @@
             cursor: pointer;
           }
         }
-        @media (max-height: 800px) {
-          overflow-y: scroll;
-          height: 200px;
-        }
       }
     }
+  }
+}
+
+.endless-rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }
