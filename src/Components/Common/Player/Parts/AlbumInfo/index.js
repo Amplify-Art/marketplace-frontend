@@ -23,11 +23,9 @@ function AlbumInfo({ currentPlaylists, playlistIndex, songIndex }) {
         )}
       </div>
       <div className="details">
-        <div className="rotate">
           <h5 className="album-title">
             {currentPlaylists[playlistIndex]?.songs?.[songIndex]?.title}
           </h5>
-        </div>
       </div>
     </div>
   );
