@@ -361,6 +361,18 @@ function NewNFT(props) {
           <div className="track">
             {/* TODO: limit path length to 15 chars plus extension */}
             {file.path} <img src={UploadIconAlt} alt="Upload" />
+            {currentUploadingFile &&
+            currentUploadingFile.path === file.path &&
+            currentUploadingFile.progress &&
+            currentUploadingFile.progress !== 100 ? (
+              <span className="upload-holder">
+                <span
+                  className="upload-progress"
+                  style={{ width: `${currentUploadingFile.progress}%` }}
+                ></span>
+                <span>{currentUploadingFile.progress || 0}%</span>
+              </span>
+            ) : null}
           </div>
         </div>
         <div className="right">
@@ -375,18 +387,7 @@ function NewNFT(props) {
               value={value}
               autoFocus={focusedInputIndex === songIndex}
             />
-            {currentUploadingFile &&
-            currentUploadingFile.path === file.path &&
-            currentUploadingFile.progress &&
-            currentUploadingFile.progress !== 100 ? (
-              <span className="upload-holder">
-                <span
-                  className="upload-progress"
-                  style={{ width: `${currentUploadingFile.progress}%` }}
-                ></span>
-                <span>{currentUploadingFile.progress || 0}%</span>
-              </span>
-            ) : null}
+
             {file.error && (
               <span className="error-message">This field is required</span>
             )}
