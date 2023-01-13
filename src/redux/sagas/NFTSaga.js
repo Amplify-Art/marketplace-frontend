@@ -133,7 +133,7 @@ export function* buyAlbumBundleNFTSaga({ history }, { payload }) {
         type: SET_NOTIFICATION,
         payload: {
           success: true,
-          message: `You have successfully purchased ${album.title} Album - Mint #${
+          message: `You have successfully purchased ${album.title} Album - Mint Set #${
             parseInt(album.qty) - album.available_qty + 1
           }!`,
         },
