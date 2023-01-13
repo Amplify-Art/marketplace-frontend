@@ -17,7 +17,7 @@ import { useDropzone } from "react-dropzone";
 import CurrencyInput from "react-currency-input-field";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
 import TrashIcon from "../../../assets/images/trash.svg";
-import CloseIcon from "../../../assets/images/close.svg";
+import CloseIcon from "../../../assets/images/closeicon.svg";
 import UploadIconAlt from "../../../assets/images/upload.svg";
 import ImageUploadIcon from "../../../assets/images/image-upload.svg";
 import ToolTipIcon from "../../../assets/images/infoicon.svg";
@@ -94,7 +94,7 @@ function NewNFT(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
       });
     if (mintSong && type === "song") {
       setCurrentUploadingFile(
@@ -232,7 +232,7 @@ function NewNFT(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
     }
   };
 
@@ -643,9 +643,9 @@ function NewNFT(props) {
             <input type="submit" disabled={isUploading} />
           </div>
         </form>
-      </div>
-      <div className="close-icon">
-        <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
+        <div className="close-icon">
+          <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
+        </div>
       </div>
 
       {showCropper && (

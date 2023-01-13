@@ -1,5 +1,27 @@
 @import "../../../assets/SCSS/Vars.scss";
 #new-nft-modal {
+    font-family: "Space Grotesk", sans-serif;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+		.cover {}
+
+		.holder {
+			padding: 40px 30px;
+			h3 {
+			margin-top: 0px;
+	    font-style: normal;
+	    font-weight: 300;
+	    font-size: 24px;
+	    line-height: 31px;
+			}
+	}
 	.single-song {
 		.drag {
 			color: #000;
@@ -62,8 +84,8 @@
 	}
 	.close-icon {
 		position: absolute;
-		top: 40px;
-		right: 70px;
+		top: 20px;
+		right: 20px;
 		z-index: 999;
 		cursor: pointer;
 	}

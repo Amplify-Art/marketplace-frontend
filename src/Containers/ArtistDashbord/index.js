@@ -97,12 +97,12 @@ function ArtistDashboard(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+
   const renderBtnContent = () => {
     return (
       <div className='headerBtn'>
-        {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button>
-        <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
+        {/*<button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
+        <button>View Profile</button>
         {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
         <button onClick={handleOpenModal}>Mint New Album</button>
       </div>
@@ -246,23 +246,23 @@ function ArtistDashboard(props) {
               </div>
             </div>
           </div> */}
-          {/* <div className="song-title">Song Stats</div>
+          <div className="song-title">Song Stats</div>
           <div className="song-wrapper flex f-jc-space-between">
             <div className="w-50 song-inner-content">
               <div className="song-head d-h-between">
                 <span className="song-head-title">Most Played</span>
                 <span className="song-count-title"># of Plays</span>
               </div>
-              {renderSongList()}
+            {/* {renderSongList()} */}
             </div>
             <div className="w-50 song-inner-content">
               <div className="song-head d-h-between">
                 <span className="song-head-title">Most Purchased</span>
                 <span className="song-count-title"># of Sales</span>
               </div>
-              {renderSongList()}
+              {/* {renderSongList()} */}
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       {
