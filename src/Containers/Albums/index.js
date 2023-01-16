@@ -10,6 +10,7 @@ import "./Albums.scss";
 import { addTokenTransferAction } from "../../redux/actions/TokenTransferAction";
 import { buyAlbumBundleNFTAction } from "../../redux/actions/NFTAction";
 import SingleAlbum from "../../Components/Common/SingleAlbum/index.js";
+import SingleAlbumShimmer from "../../Components/Common/SingleAlbum/shimmer.js";
 
 const {
   utils: {
@@ -124,20 +125,34 @@ function Albums(props) {
   };
   return (
     <div className="containerOuter">
-    <div
-      id="albums"
-      className={`left-nav-pad normal-right-pad`}
-    >
-      <div className="container">
-        <div className="album-grid">
-          {props?.albums &&
-            props.albums?.length > 0 &&
-            props.albums.map((album, index) => (
-              <SingleAlbum key={index} albumInfo={album} onBuy={onBuy} />
-            ))}
+      <div
+        id="albums"
+        className={`left-nav-pad normal-right-pad`}
+      >
+        <div className="container">
+          {props.albumLoading ?
+            <div className="album-grid">
+              {[...Array(10)].map((_, index) => (
+                <SingleAlbumShimmer key={index} />
+              ))}
+            </div>
+            :
+            (props?.albums &&
+              (props.albums?.length ?
+                (
+                  <div className="album-grid">
+                    {props.albums.map((album, index) => (
+                      <SingleAlbum key={index} albumInfo={album} onBuy={onBuy} />
+                    ))}
+                  </div>
+                ) : (
+                  <h4 className="large-white center-text">No Albums to show</h4>
+                )
+              )
+            )
+          }
         </div>
       </div>
-    </div>
     </div>
   );
 }
@@ -147,6 +162,7 @@ export default connect(
     return {
       albums: state.albums.albums,
       wallet: state.global.wallet,
+      albumLoading: state.albums.loading,
     };
   },
   (dispatch) => {

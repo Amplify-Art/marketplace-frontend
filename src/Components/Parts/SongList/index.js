@@ -312,7 +312,9 @@ function SongList(props) {
                   {songData.artist && songData.artist.near_account_id}
                 </div>
                 <div
-                  className="song-available noselect"
+                  className={`song-available ${
+                    songListExpanded === songData.id && "active"
+                  }`}
                   onClick={() => expandSongList(songData.id)}
                 >
                   {songData.transfers.length} / {songData.qty} <span className="available-text">Available</span>
