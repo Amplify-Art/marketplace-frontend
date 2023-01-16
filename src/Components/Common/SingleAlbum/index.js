@@ -45,6 +45,7 @@ function SingleAlbum(props) {
   const [albumCover, setAlbumCover] = useState(cdCover);
   const [showSticker, setShowSticker] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
   const dispatch = useDispatch();
 
@@ -133,16 +134,16 @@ function SingleAlbum(props) {
         (f) => f.outcome.status.Failure
       ).outcome.status.Failure.ActionError.kind.FunctionCallError
         .ExecutionError;
-        toast.error(error, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else {
       props.buyAlbumBundleNFT(albumBundleInfo);
     }
@@ -237,43 +238,43 @@ function SingleAlbum(props) {
       <div
         className="single-album1"
       >
-        <div
-          className="cd-case1"
-          id="1169hh"
-          style={{
-            height: document.getElementById("1169hh")?.offsetWidth * 0.86,
-          }}
-          onClick={props.onClick ? props.onClick : handleModal}
-        >
+        <img src={albumCover} onLoad={() => setImageLoaded(true)} style={{ display: 'none' }} />
+        {imageLoaded ? (
           <div
-            className={`album-art ${
-              albumInfo.available_qty === 0 ? "sold" : "available"
-            }`}
-            style={{
-              background: `url(${albumCover}) center center no-repeat`,
-            }}
+            className="cd-case1"
+            id="1169hh"
+            onClick={props.onClick ? props.onClick : handleModal}
           >
-          </div>
-          {showSticker && (
             <div
-              className={`mint-sticker ${
-                albumInfo.available_qty === 0 ? "sold" : "available"
-              }`}
+              className={`album-art ${albumInfo.available_qty === 0 ? "sold" : "available"
+                }`}
+              style={{
+                background: `url(${albumCover}) center center no-repeat`,
+              }}
             >
-              {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
-              <span>
-                Mint #<br />
-                {albumInfo.copy_number ||
-                  (albumInfo.available_qty === 0
-                    ? albumInfo.available_qty
-                    : albumInfo.qty - albumInfo.available_qty + 1)}
-                /
-                {albumInfo.qty ||
-                  (albumInfo.token && albumInfo.token.album.qty)}
-              </span>
             </div>
-          )}
-        </div>
+            {showSticker && (
+              <div
+                className={`mint-sticker ${albumInfo.available_qty === 0 ? "sold" : "available"
+                  }`}
+              >
+                {/* In my profile, show the copy you own, in other UI, show the available qty to mint */}
+                <span>
+                  Mint #<br />
+                  {albumInfo.copy_number ||
+                    (albumInfo.available_qty === 0
+                      ? albumInfo.available_qty
+                      : albumInfo.qty - albumInfo.available_qty + 1)}
+                  /
+                  {albumInfo.qty ||
+                    (albumInfo.token && albumInfo.token.album.qty)}
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="shimmer-custom rect"></div>
+        )}
         {children ? (
           children
         ) : (
@@ -293,9 +294,8 @@ function SingleAlbum(props) {
         )}
       </div>
       <div
-        className={`modal-album ${
-          !props.isAlbumSelected ? "d-none" : "d-block"
-        }`}
+        className={`modal-album ${!props.isAlbumSelected ? "d-none" : "d-block"
+          }`}
       >
         <GeneralModal
           isCloseButton="true"
@@ -331,9 +331,9 @@ function SingleAlbum(props) {
               albumInfo={
                 albumInfo.hasOwnProperty("copy_number")
                   ? {
-                      copy_number: albumInfo.copy_number,
-                      ...albumInfo.token.album,
-                    }
+                    copy_number: albumInfo.copy_number,
+                    ...albumInfo.token.album,
+                  }
                   : albumInfo
               }
               isOpen={isOpen}

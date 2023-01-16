@@ -7,6 +7,7 @@ import greyFace from '../../../assets/images/grey_face.gif';
 function UserAvatar(props) {
   const { avatarImg, name, onClick } = props;
   const [height, setHeight] = useState('');
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const getHeight = () => {
     let width = '300';
@@ -44,9 +45,14 @@ function UserAvatar(props) {
 
   return (
     <div className="user-avatar" onClick={onClick}>
-      <div className="avatar">
-        <Image src={avatarImg ? avatarImg : defaultProfile} alt="" fallbackImage={defaultProfile} />
-      </div>
+      <img src={avatarImg} onLoad={() => setImageLoaded(true)} style={{ display: 'none' }} />
+      {imageLoaded ? (
+        <div className="avatar">
+          <Image src={avatarImg ? avatarImg : defaultProfile} alt="" fallbackImage={defaultProfile} />
+        </div>
+      ) : (
+        <div className="shimmer-custom circle"></div>
+      )}
       <span className="avatar-name">{name}</span>
     </div>
   )

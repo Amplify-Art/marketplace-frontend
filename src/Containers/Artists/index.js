@@ -5,6 +5,7 @@ import { fetchArtists } from "../../redux/actions/ArtistAction";
 import "./Artists.scss";
 import defaultProfile from "../../assets/images/default-profile.svg";
 import UserAvatar from "../../Components/Common/UserAvatar/index";
+import UserAvatarShimmer from "../../Components/Common/UserAvatar/shimmer";
 
 function Artists(props) {
   const { fetchArtists, artists } = props;
@@ -21,18 +22,27 @@ function Artists(props) {
       <div className="containerOuter">
         <h2 className="page-title">All Artists</h2>
         <div className="artists-holder">
-          {artists &&
-            artists.length &&
-            artists.map((artist, index) => (
-              <UserAvatar
-                avatarImg={artist.avatar || defaultProfile}
-                key={index}
-                name={artist.name || artist.near_account_id}
-                onClick={() =>
-                  props.history.push(`/artist/${artist.near_account_id}`)
-                }
-              />
-            ))}
+          {props.artistsLoading ? (
+            [...Array(10)].map((_, index) => (
+              <UserAvatarShimmer key={index} />
+            ))
+          ) : (
+            artists &&
+            (artists.length ?
+              (artists.map((artist, index) => (
+                <UserAvatar
+                  avatarImg={artist.avatar || defaultProfile}
+                  key={index}
+                  name={artist.name || artist.near_account_id}
+                  onClick={() =>
+                    props.history.push(`/artist/${artist.near_account_id}`)
+                  }
+                />
+              ))) : (
+                <h4 className="large-white center-text">No Artists to show</h4>
+              )
+            )
+          )}
         </div>
       </div>
     </div>
@@ -43,6 +53,7 @@ export default connect(
   (state) => {
     return {
       artists: state.artist.artists,
+      artistsLoading: state.artist.loading,
     };
   },
   (dispatch) => {
