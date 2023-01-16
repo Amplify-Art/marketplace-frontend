@@ -431,37 +431,36 @@ textarea {
   background: linear-gradient(to right, #617789 8%, #3c4b57 18%, #617789 33%);
   background-size: 1000px 100%;
   animation: shimmer 2.2s linear infinite forwards;
-}
-
-.rect {
-  width: 100%;
-  aspect-ratio: 100 / 86;
-  margin-bottom: 20px;
-}
-
-.circle {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.title {
-  width: 100%;
-  height: 20px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.text {
-  width: 100%;
-  height: 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-.sub-text {
-  width: 40%;
-  height: 10px;
-  border-radius: 5px;
+  &.rect {
+    width: 100%;
+    aspect-ratio: 100 / 86;
+    margin-bottom: 20px;
+  }
+  
+  &.circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  &.title {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  &.text {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  &.sub-text {
+    width: 40%;
+    height: 10px;
+    border-radius: 5px;
+  }  
 }
