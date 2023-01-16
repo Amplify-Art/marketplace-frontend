@@ -45,7 +45,7 @@ function UserAvatar(props) {
 
   return (
     <div className="user-avatar" onClick={onClick}>
-      <img src={avatarImg} onLoad={() => setImageLoaded(true)} style={{ display: 'none' }} />
+      <img src={avatarImg ? avatarImg : defaultProfile} onLoad={() => setImageLoaded(true)} style={{ display: 'none' }} />
       {imageLoaded ? (
         <div className="avatar">
           <Image src={avatarImg ? avatarImg : defaultProfile} alt="" fallbackImage={defaultProfile} />
