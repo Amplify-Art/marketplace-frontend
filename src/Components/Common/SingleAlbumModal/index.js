@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { usePalette } from 'react-palette';
 
 import AlbumSingleSong from '../AlbumSingleSong/index';
-import BackArrowIcon from '../../../assets/images/left-arrow.png';
+import BackArrowIcon from '../../../assets/images/leftarrow.svg';
 import './SingleAlbumModal.scss';
 
 

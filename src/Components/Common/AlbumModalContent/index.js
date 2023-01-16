@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from 'axios';
 import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
 import GeneralModal from "../GeneralModal/index.js";
-import BackArrowIcon from "../../../assets/images/left-arrow.png";
+import BackArrowIcon from "../../../assets/images/leftarrow.svg";
 import "./AlbumModalContent.scss";
 import { usePalette } from "react-palette";
 import {

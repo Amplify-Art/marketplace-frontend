@@ -17,7 +17,7 @@
   }
   .fn-white {
     color: black;
-    min-width: 60px; 
+    min-width: 60px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -26,10 +26,10 @@
   }
 }
 .sell {
-  margin-left: 0 !important; 
-  padding: 5px;
+  margin-left: 0 !important;
+  // padding: 5px;
   width: 100% !important;
-  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  // border: 2px solid rgba(255, 255, 255, 0.8) !important;
 }
 .view {
   width: 100%;

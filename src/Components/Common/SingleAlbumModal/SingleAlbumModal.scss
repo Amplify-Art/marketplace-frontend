@@ -65,20 +65,20 @@
 			}
 			.title {
 				font-size: 20px;
-				line-height: 31px;
+				line-height: 27px;
 				color: black !important;
 				margin-bottom: 4px;
 				margin-top: 8px;
 			}
 			.artist-title {
-				font-size: 16px;
+				font-size: 14px;
 				line-height: 20px;
 				color: black !important;
 				opacity: 0.8;
-				margin-bottom: 12px;
+				margin-bottom: 5px;
 			}
 			.view-detail {
-				font-size: 16px;
+				font-size: 14px;
 				line-height: 20px;
 				text-decoration-line: underline;
 				color: #000000;
@@ -87,28 +87,29 @@
 			}
 		}
 	}
-	.viewdetails-top {
-		display: flex;
-		.back-img {
-			height: 22px;
-			width: 16px;
-			margin-top: 7px;
-			margin-left: 5px;
-			cursor: pointer;
-		}
-		.details-banner {
-			font-family: $space;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 24px;
-			line-height: 31px;
-			color: black;
-			margin-left: 23%;
-			margin-top: 3px;
-		}
-	}
+	// .viewdetails-top {
+	// 	display: flex;
+	// 	.back-img {
+	// 		height: 22px;
+	// 		width: 16px;
+	// 		margin-top: 7px;
+	// 		margin-left: 5px;
+	// 		cursor: pointer;
+	// 	}
+	// 	.details-banner {
+	// 		font-family: $space;
+	// 		font-style: normal;
+	// 		font-weight: normal;
+	// 		font-size: 24px;
+	// 		line-height: 31px;
+	// 		color: black;
+	// 		margin-left: 23%;
+	// 		margin-top: 3px;
+	// 	}
+	// }
 	.details-content {
 		height: 250px;
+		padding-right: 10px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		.sub-content {
@@ -155,7 +156,7 @@
 	.album-bottom {
 		// padding-top: 32px;
 		overflow-y: scroll;
-		height: 175px;
+		height: 195px;
 		margin-top: 20px;
 		// @media screen and (max-width: 900px) {
 		// 	height: 160px;
@@ -337,16 +338,24 @@
 	margin-left: 7px;
 }
 
-#modalScrolling::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-	background-color: #f5f5f5;
+.fa-ban{
+	font-size: 20px;
+	color: #000;
+	opacity: 0.3;
+	text-shadow: 0px 2px 0px rgb(255 255 255 / 50%);
+	mix-blend-mode: soft-light;
 }
 
-#modalScrolling::-webkit-scrollbar {
-	width: 6px;
-	background-color: #f5f5f5;
-}
-
-#modalScrolling::-webkit-scrollbar-thumb {
-	background-color: #000000;
-}
+// #modalScrolling::-webkit-scrollbar-track {
+// 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+// 	background-color: #f5f5f5;
+// }
+//
+// #modalScrolling::-webkit-scrollbar {
+// 	width: 6px;
+// 	background-color: #f5f5f5;
+// }
+//
+// #modalScrolling::-webkit-scrollbar-thumb {
+// 	background-color: #000000;
+// }

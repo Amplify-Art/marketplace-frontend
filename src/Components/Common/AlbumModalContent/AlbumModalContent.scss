@@ -21,8 +21,8 @@
 	.left-wrapper {
 		position: relative;
 		border-radius: 2px;
-		padding: 15px 15px 0px 15px;
-		width: 330px;
+		padding: 15px 0px 0px 15px;
+    width: 342px;
 		height: 335px;
 		margin: 10px;
 		overflow: hidden;
@@ -132,10 +132,11 @@
 	.viewdetails-top {
 		display: flex;
 		.back-img {
-			height: 22px;
-			width: 16px;
-			margin-top: 7px;
-			margin-left: 5px;
+			height: 24px;
+			width: 24px;
+			position: absolute;
+			left: 15px;
+			top: 18px;
 			cursor: pointer;
 		}
 		.details-banner {
@@ -145,8 +146,8 @@
 			font-size: 24px;
 			line-height: 31px;
 			color: black;
-			margin-left: 23%;
-			margin-top: 3px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 	.details-content {
@@ -221,6 +222,9 @@
 		.pointer {
 			cursor: pointer;
 		}
+		table {
+			padding-bottom: 5px;
+		}
 	}
 	.inner-content-album-modal {
 		display: flex;
@@ -246,31 +250,32 @@
 	margin-left: 7px;
 }
 
-#modalScrolling::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-	background-color: #f5f5f5;
-}
-
-#modalScrolling::-webkit-scrollbar {
-	width: 6px;
-	background-color: #f5f5f5;
-}
-
-#modalScrolling::-webkit-scrollbar-thumb {
-	background-color: #000000;
-}
+// #modalScrolling::-webkit-scrollbar-track {
+// 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+// 	background-color: #f5f5f5;
+// }
+//
+// #modalScrolling::-webkit-scrollbar {
+// 	width: 6px;
+// 	background-color: #f5f5f5;
+// }
+//
+// #modalScrolling::-webkit-scrollbar-thumb {
+// 	background-color: #000000;
+// }
 
 .td1{
 	display: flex;
 	gap: 8px;
+	min-height: 23px;
 }
 
 .table-header{
 	opacity: 0.5;
 	font-size: 12px;
-	font-weight: 400;
+	font-weight: 300;
 	text-align: left;
-	margin-bottom: 10px;
+	letter-spacing: 0.05em;
 }
 
 .bottomButtonSection{

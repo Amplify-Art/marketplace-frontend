@@ -59,26 +59,26 @@
 			}
 		}
 	}
-	.viewdetails-top {
-		display: flex;
-		.back-img {
-			height: 22px;
-			width: 16px;
-			margin-top: 7px;
-			margin-left: 5px;
-			cursor: pointer;
-		}
-		.details-banner {
-			font-family: $space;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 24px;
-			line-height: 31px;
-			color: black;
-			margin-left: 23%;
-			margin-top: 3px;
-		}
-	}
+	// .viewdetails-top {
+	// 	display: flex;
+	// 	.back-img {
+	// 		height: 22px;
+	// 		width: 16px;
+	// 		margin-top: 7px;
+	// 		margin-left: 5px;
+	// 		cursor: pointer;
+	// 	}
+	// 	.details-banner {
+	// 		font-family: $space;
+	// 		font-style: normal;
+	// 		font-weight: normal;
+	// 		font-size: 24px;
+	// 		line-height: 31px;
+	// 		color: black;
+	// 		margin-left: 23%;
+	// 		margin-top: 3px;
+	// 	}
+	// }
 	.details-content {
 		height: 250px;
 		overflow-y: auto;
