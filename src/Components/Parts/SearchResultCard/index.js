@@ -7,6 +7,7 @@ import Image from "../../Common/Image";
 import "./SearchResultCard.scss";
 import cdCover from "../../../assets/images/cd-img.svg";
 import greyFace from "../../../assets/images/grey_face.gif";
+import DefaultPro from "../../../assets/images/default-profile.svg";
 
 function SearchResultCard(props) {
   useEffect(() => {
@@ -55,7 +56,7 @@ function SearchResultCard(props) {
         className="cardWrapper"
         onClick={() => props.handleClick(contentTypeHeading, rowData)}
       >
-        <div className={contentTypeHeading === 'Song' ? 'imageHolder no-shadow' : 'imageHolder'}>
+        <div className={`imageHolder ${contentTypeHeading === 'Artist' ? 'artist-image' : ''} ${contentTypeHeading === 'Song' ? 'no-shadow' : ''}`}>
           <Image
             className="image"
             src={contentTypeHeading === 'Song' ? cdCover : cover}
@@ -99,13 +100,6 @@ function SearchResultCard(props) {
               contentHeading={album.title}
               contentDetail={album.user?.near_account_id}
               contentTypeHeading="Album"
-              contentTypeDetail={
-                album.mints_owned?.length
-                  ? `You Own: ${album.mints_owned
-                      .map((m) => "#" + m)
-                      .join(",")}`
-                  : ""
-              }
               rowData={album}
             />
           ))
@@ -113,8 +107,8 @@ function SearchResultCard(props) {
       {artistsData.length
         ? artistsData.map((artist) => (
             <ResultCard
-              cover={artist.avatar}
-              contentHeading={artist.name}
+              cover={artist.avatar || DefaultPro}
+              contentHeading={artist.near_account_id}
               contentDetail={
                 artist.albums <= 0
                   ? "0 Minted Albums"

@@ -13,9 +13,12 @@
     height: 36px;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0px 14px 24px #00000040;
+    // box-shadow: 0px 14px 24px #00000040;
     &.no-shadow {
       box-shadow: none;
+    }
+    &.artist-image {
+      border-radius: 100px;
     }
     flex: none;
     .image {
