@@ -8,7 +8,7 @@ import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import GeneralModal from '../../Components/Common/GeneralModal/index';
-import ProfileHeader from '../../Components/Common/ProfileHeader';
+import ArtistHeader from '../../Components/Common/ArtistHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
 import ArtistAvatar from '../../assets/images/artist-avatar.svg';
@@ -124,7 +124,7 @@ function ArtistDashboard(props) {
   }, [artistRef, isModalOpen])
   return (
     <div id="artist-dashboard" className={`left-nav-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
-      <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={false} />
+      <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={false} />
       <div className="content">
         <div className="container">
           {/* <div className="bal-wrapper">
