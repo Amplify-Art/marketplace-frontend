@@ -122,6 +122,7 @@ function SearchResultCard(props) {
             />
           ))
         : null}
+        {(!songsData.length && !albumsData.length && !artistsData.length) ? <div className="no-results">No Results Found </div> : null}
     </>
   );
 }
