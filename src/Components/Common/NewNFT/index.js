@@ -17,7 +17,7 @@ import { useDropzone } from "react-dropzone";
 import CurrencyInput from "react-currency-input-field";
 import { API_ENDPOINT_URL } from "../../../Constants/default";
 import TrashIcon from "../../../assets/images/trash.svg";
-import CloseIcon from "../../../assets/images/close.svg";
+import CloseIcon from "../../../assets/images/closeicon.svg";
 import UploadIconAlt from "../../../assets/images/upload.svg";
 import ImageUploadIcon from "../../../assets/images/image-upload.svg";
 import ToolTipIcon from "../../../assets/images/infoicon.svg";
@@ -94,7 +94,7 @@ function NewNFT(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }); 
+        });
       });
     if (mintSong && type === "song") {
       setCurrentUploadingFile(
@@ -232,7 +232,7 @@ function NewNFT(props) {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      }); 
+      });
     }
   };
 
@@ -361,6 +361,18 @@ function NewNFT(props) {
           <div className="track">
             {/* TODO: limit path length to 15 chars plus extension */}
             {file.path} <img src={UploadIconAlt} alt="Upload" />
+            {currentUploadingFile &&
+            currentUploadingFile.path === file.path &&
+            currentUploadingFile.progress &&
+            currentUploadingFile.progress !== 100 ? (
+              <span className="upload-holder">
+                <span
+                  className="upload-progress"
+                  style={{ width: `${currentUploadingFile.progress}%` }}
+                ></span>
+                <span>{currentUploadingFile.progress || 0}%</span>
+              </span>
+            ) : null}
           </div>
         </div>
         <div className="right">
@@ -375,18 +387,7 @@ function NewNFT(props) {
               value={value}
               autoFocus={focusedInputIndex === songIndex}
             />
-            {currentUploadingFile &&
-            currentUploadingFile.path === file.path &&
-            currentUploadingFile.progress &&
-            currentUploadingFile.progress !== 100 ? (
-              <span className="upload-holder">
-                <span
-                  className="upload-progress"
-                  style={{ width: `${currentUploadingFile.progress}%` }}
-                ></span>
-                <span>{currentUploadingFile.progress || 0}%</span>
-              </span>
-            ) : null}
+
             {file.error && (
               <span className="error-message">This field is required</span>
             )}
@@ -643,9 +644,9 @@ function NewNFT(props) {
             <input type="submit" disabled={isUploading} />
           </div>
         </form>
-      </div>
-      <div className="close-icon">
-        <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
+        <div className="close-icon">
+          <img src={CloseIcon} alt="close" onClick={props.closeNewNftModal} />
+        </div>
       </div>
 
       {showCropper && (
