@@ -1,7 +1,8 @@
 @import "../../assets/SCSS/Vars.scss";
 #artist-dashboard {
-  padding-top: 29px;
-  padding-bottom: 100px;
+  padding-top: 30px;
+  padding-bottom: 65px;
+  max-width: 980px;
   &.disable-scroll {
     overflow: hidden;
   }
@@ -117,7 +118,7 @@
     color: #ffffff;
     margin: 50px 0 30px 0;
   }
-  .song-wrapper {
+  .artist-data-wrap {
     .w-50 {
       width: 50%;
     }
@@ -131,9 +132,13 @@
       font-style: normal;
       font-weight: normal;
       color: #ffffff;
-      &:first-child {
-        margin-right: 50px;
+      margin: 30px 37px 30px 0;
+      @media screen and (max-width: 650px) {
+        margin: 30px 20px 30px 20px;
       }
+      // &:first-child {
+      //   margin-right: 50px;
+      // }
     }
     .song-head {
       margin-bottom: 22px;
@@ -249,4 +254,128 @@
     flex-direction: column;
     gap: 30px;
   }
+}
+
+.salesListWrapper {
+    padding: 30px 30px 0 30px;
+    background: rgba(196, 196, 196, 0.1803921569);
+    margin: 50px 37px 30px 0;
+    @media screen and (max-width: 650px) {
+      margin: 30px 20px 30px 20px;
+    }
+    .salesList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 300;
+    .heading {
+    color: white;
+    font-weight: 300;
+    font-size: 24px;
+    width: 33%;
+    span{
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 15px;
+      vertical-align: middle;
+    }
+    @media screen and (max-width: 699px){
+    font-size: 18px;
+    width: 50%;
+    }
+    }
+    .sales-heading {
+    color: white;
+    font-weight: 300;
+    font-size: 24px;
+    @media screen and (max-width: 699px){
+    display: none;
+    }
+    }
+    :last-child{
+      text-align: right;
+    }
+    }
+    .salesWrapper {
+    width: 100%;
+    margin-top: 30px;
+    @media screen and (max-width: 699px){
+    margin-top: 20px;
+    }
+    .salesTable{
+      width: 100%;
+    } .salesRow {
+    width: 100%;
+    color: white;
+    font-weight: 300;
+    font-size: 16px;
+    .salesIdHolder{
+      text-decoration: none;
+      color: white;
+    }
+    .salesId {
+    height: 40px;
+    vertical-align: top;
+    padding-bottom: 15px;
+    width: 33%;
+    @media screen and (max-width: 699px){
+    display: none;
+    }
+    a{
+      text-decoration: none;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    }
+    .salesAmount {
+    height: 40px;
+    vertical-align: top;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 33%;
+    @media screen and (max-width: 699px){
+    display: none;
+    }
+    }
+    .salesAmt {
+    text-align: right;
+    height: 40px;
+    vertical-align: top;
+    padding-bottom: 15px;
+    font-weight: 400;
+    width: 33%;
+    @media screen and (max-width: 699px){
+    padding-bottom: 10px;
+    width: 50%;
+    }
+    .greenTxt {
+    color: #22BE00;
+  }
+  .smallTxt {
+    padding-top: 2px;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+}
+    }
+    .salesIdMobile{
+          padding: 0 0 10px 0;
+          width: 50%;
+          @media screen and (min-width: 700px){
+          display: none;
+      }
+      .salesAmountHolder{
+        padding-top: 2px;
+        font-size: 12px;
+        line-height: 15px;
+      }
+      .salesAmountHolder::before{
+        content: "Sales: ";
+      }
+    }
+}
+}
 }

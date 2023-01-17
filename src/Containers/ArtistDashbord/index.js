@@ -100,7 +100,9 @@ function ArtistDashboard(props) {
     return (
       <div className='headerBtn'>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-        <button>View Profile</button>
+          <button>
+            View Profile
+          </button>
         {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
         <button onClick={handleOpenModal}>Mint New Album</button>
       </div>
@@ -124,28 +126,6 @@ function ArtistDashboard(props) {
       <ProfileHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={false} />
       <div className="content">
         <div className="container">
-          {/* <div className="container1">
-            <div className="col1">
-              <img src={SupportCardCover} />
-              <div className="owned-cards">
-                <p>32 Cards Owned. <span>View Card Gallery</span></p>
-              </div>
-            </div>
-            <div className="song-wrapper flex f-jc-space-between col2">
-              <div className="w-100 song-inner-content">
-                <div className="song-head d-h-between">
-                  <span className="song-head-title">Supporter Voting</span>
-                  <div className="support-cal">
-                    <img src={CalanderIcon} alt="" className="cal-img" />
-                    <span className="cal-font">2021</span>
-                    <img src={DownArrowIcon} alt="" className="cal-img" />
-                  </div>
-                </div>
-                <p>You have 32 Votes left for this voting period.</p>
-                {renderVoteList()}
-              </div>
-            </div>
-          </div> */}
           {/* <div className="bal-wrapper">
             <div className="left-wrap">
               <div className="bal-title">Pending Award Balance</div>
@@ -176,23 +156,31 @@ function ArtistDashboard(props) {
               </div>
             </div>
           </div> */}
-          {/* <div className="song-title">Song Stats</div>
-          <div className="song-wrapper flex f-jc-space-between">
-            <div className="w-50 song-inner-content">
-              <div className="song-head d-h-between">
-                <span className="song-head-title">Most Played</span>
-                <span className="song-count-title"># of Plays</span>
-              </div>
-              {renderSongList()}
-            </div>
-            <div className="w-50 song-inner-content">
-              <div className="song-head d-h-between">
-                <span className="song-head-title">Most Purchased</span>
-                <span className="song-count-title"># of Sales</span>
-              </div>
-              {renderSongList()}
-            </div>
-          </div> */}
+          <div class="salesListWrapper">
+            <div class="salesList">
+              <div class="heading">Albums</div>
+              <div class="sales-heading">Sales</div>
+              <div class="heading">Rev. <span>(97%)</span></div>
+          </div>
+          <div class="salesWrapper">
+          <table class="salesTable">
+          <tr class="salesRow">
+          <td class="salesIdMobile">
+          <a href="" class="salesIdHolder">Li is Spiderman</a>
+          <div class="salesAmountHolder">10 / 100</div>
+          </td>
+          <td class="salesId"><a href="">Li is Spiderman</a></td>
+          <td class="salesAmount">10 / 100</td>
+          <td class="salesAmt">
+          <div class="greenTxt">+2.2841 NEAR</div>
+          <div class="smallTxt">$5.00</div>
+          </td>
+          </tr>
+          </table>
+          </div>
+          </div>
+
+
         </div>
       </div>
       {
