@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from "react-router-dom";
 import axios from 'axios';
 import q from 'querystring'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
@@ -11,9 +11,8 @@ import GeneralModal from '../../Components/Common/GeneralModal/index';
 import ProfileHeader from '../../Components/Common/ProfileHeader';
 
 import CoverImg from '../../assets/images/profile-cover.png';
-import ArtisrAvatar from '../../assets/images/artist-avatar.svg';
+import ArtistAvatar from '../../assets/images/artist-avatar.svg';
 import ConfettiImage from '../../assets/images/confetti.png';
-import ImageUploadIcon from '../../assets/images/image-upload.svg';
 import { API_ENDPOINT_URL } from '../../Constants/default'
 import NewNFT from '../../Components/Common/NewNFT/index';
 import { getAccessToken } from '../../Api/index';
@@ -36,7 +35,7 @@ function ArtistDashboard(props) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bannerImage, setBannerImage] = useState(CoverImg);
-  const [profileImage, setProfileImage] = useState(ArtisrAvatar);
+  const [profileImage, setProfileImage] = useState(ArtistAvatar);
   const [userName, setUserName] = useState('');
   const [, toggleCongratsModal] = useState(false);
   const [image, setImage] = useState(null);
@@ -100,9 +99,11 @@ function ArtistDashboard(props) {
     return (
       <div className='headerBtn'>
         {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
-          <button>
+        <Link to={`/artist/${userName}`}>
+          <button onClick={() => {}}>
             View Profile
           </button>
+        </Link>
         {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
         <button onClick={handleOpenModal}>Mint New Album</button>
       </div>

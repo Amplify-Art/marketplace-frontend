@@ -249,6 +249,9 @@
   display: flex;
   gap: 15px;
   margin-right: 50px;
+  a {
+    text-decoration: none;
+  }
   @media screen and (max-width: 600px) {
     margin-right: 10px;
     flex-direction: column;
