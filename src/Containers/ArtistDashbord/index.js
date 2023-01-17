@@ -41,10 +41,8 @@ function ArtistDashboard(props) {
   const [, toggleCongratsModal] = useState(false);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
-  const [bannerUploadProgress, setBannerUploadProgress] = useState(0);
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
-  const [showBannerModal, setShowBannerModal] = useState(false);
   const [ArtistData, setArtistData] = useState({
     cover: bannerImage,
     avatar: profileImage,
@@ -108,75 +106,7 @@ function ArtistDashboard(props) {
       </div>
     )
   }
-  const BannerUploaderForm = () => <div>
-    <label htmlFor="albumCover">
-      <div className="banner-upload">
-        <img src={image ? image : ImageUploadIcon} alt="Banner Upload" className={image ? 'banner' : 'banner default'} />
-      </div>
-    </label>
-    <input type="file" style={{ display: 'none' }} id="albumCover" name="album-cover" onChange={onBannerChange} accept="image/*" />
-    {bannerUploadProgress ? <div className="album-uploader">
-      <span className="upload-progress" style={{ width: `${bannerUploadProgress}%` }}></span>
-      <span>{bannerUploadProgress}%</span>
-    </div> : null
-    }
-    {imageURL && <button onClick={onUpdateBanner} className="banner-update-button">Set Banner</button>}
-  </div>
 
-
-  const onUpdateBanner = () => {
-    setImage(null)
-    setImageURL(null)
-    setBannerUploadProgress(null)
-    try {
-      props.updateUser({
-        id: decodedToken.id,
-        banner: imageURL,
-      })
-      setShowBannerModal(false)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  const onBannerChange = async (e) => {
-    if (!e.target.files[0])
-      return
-
-    const files = e.target.files;
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result);
-    };
-    reader.readAsDataURL(files[0]);
-    let uploadBanner = await uploadFile(e.target.files[0])
-    setImageURL(`https://gateway.pinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`)
-    setArtistData({
-      ...ArtistData,
-      cover: `https://gateway.pinata.cloud/ipfs/${uploadBanner.data.IpfsHash}`
-    })
-  }
-  const uploadFile = async (fileInfo) => {
-    let file = fileInfo;
-    file.is_uploading = true
-    let bannerFormData = new FormData()
-    bannerFormData.append('file', file)
-    bannerFormData.append('name', file.name)
-    const uploadBanner = await axios.post(`${API_ENDPOINT_URL}/uploads`, bannerFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer ' + getAccessToken()
-      },
-      onUploadProgress: (e) => onUploadProgress(e),
-    }).catch(error => {
-      console.error(error)
-    });
-    return uploadBanner;
-  }
-
-  const onUploadProgress = (progressEvent) => {
-    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    setBannerUploadProgress(percentCompleted)
-  }
   let artistRef = useRef()
 
   useEffect(() => {
@@ -271,15 +201,6 @@ function ArtistDashboard(props) {
           displayLoadingOverlay={props.displayLoadingOverlay}
           hideLoadingOverlay={props.hideLoadingOverlay}
           toggleCongratsModal={toggleCongratsModal}
-        />
-      }
-      {
-        showBannerModal &&
-        <GeneralModal
-          headline="Upload Banner"
-          className="centered"
-          closeModal={() => setShowBannerModal(!showBannerModal)}
-          bodyChildren={<BannerUploaderForm />}
         />
       }
       {
