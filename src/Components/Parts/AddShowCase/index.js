@@ -97,14 +97,15 @@ function AddShowCase({
                 <div className="row-title">
                   {isPlayList ? nft && nft.title : nft.title}
                 </div>
-                <div className="row-desc">
+                // TODO: Needs to show the songs mint number
+                {/* <div className="row-desc">
                   {isPlayList
                     ? nft.album &&
                     nft.album.description &&
                     nft.album.description.substring(0, 50)
                     : nft.description && nft.description.substring(0, 50)}
                   ...
-                </div>
+                </div> */}
               </div>
               {/* Button for playlist  */}
               {isPlayList && (

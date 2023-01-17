@@ -150,7 +150,7 @@ function AlbumSingleSong(props) {
                   props.history.push(`/marketplace/?expanded=${song.id}`)
                 }
               >
-                View on Market
+                Buy
               </span>
             ) : hasAnyOfCopies ? (
               <button className="sell" onClick={(e) => handleClick(e, song)}>

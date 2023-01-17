@@ -217,8 +217,8 @@ function MyProfile(props) {
             />
           </div>
           <div className="profile-buttons">
-            <button onClick={() => handleRemove("profile")}>Remove</button>
-            <button onClick={() => handleModal("profile")}>Upload</button>
+            <button className="remove" onClick={() => handleRemove("profile")}>Remove</button>
+            <button className="upload" onClick={() => handleModal("profile")}>Upload</button>
           </div>
         </div>
       </div>
@@ -231,13 +231,13 @@ function MyProfile(props) {
           }}
         ></div>
         <div className="banner-buttons">
-          <button onClick={() => handleRemove("banner")}> Remove</button>
-          <button onClick={() => handleModal("banner")}>Upload</button>
+          <button className="banner-remove" onClick={() => handleRemove("banner")}>Remove</button>
+          <button className="banner-upload" onClick={() => handleModal("banner")}>Upload</button>
         </div>
       </div>
       {showBannerModal && (
         <GeneralModal
-          headline={`Upload ${modalType === "profile" ? "Profile" : "Banner"}`}
+          headline={`Upload ${modalType === "profile" ? "Profile Image" : "Banner Image"}`}
           className="centered"
           closeModal={() => setShowBannerModal(!showBannerModal)}
           bodyChildren={<BannerUploaderForm />}
