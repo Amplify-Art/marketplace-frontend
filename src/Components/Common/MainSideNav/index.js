@@ -152,7 +152,7 @@ function MainSideNav(props) {
             onClick={handleOnClick}
             activeClassName="current"
           >
-            Full Albums
+            Albums
           </NavLink>
         </li>
         <li>
@@ -161,7 +161,7 @@ function MainSideNav(props) {
             onClick={handleOnClick}
             activeClassName="current"
           >
-            Single Songs
+            Singles
           </NavLink>
         </li>
 

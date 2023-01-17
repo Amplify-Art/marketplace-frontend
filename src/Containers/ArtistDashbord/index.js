@@ -97,7 +97,7 @@ function ArtistDashboard(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+
   const renderBtnContent = () => {
     return (
       <div className='headerBtn'>
