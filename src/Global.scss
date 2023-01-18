@@ -368,17 +368,24 @@ textarea {
 .placeholder-text {
   margin-top: 30px;
   color: rgba(255, 255, 255, 0.3);
-  padding: 25px 30px 20px 30px;
+  padding: 20px 30px;
   font-weight: 300;
   font-size: 24px;
   background-color: rgb(196 196 196 / 5%);
+  &.no-mt {
+    margin-top: 0px;
+  }
   .fa-music-slash{
     display: block;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
   }
   .fa-list-music{
     display: block;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  .fa-album{
+    display: block;
+    padding-bottom: 10px;
   }
 }
 

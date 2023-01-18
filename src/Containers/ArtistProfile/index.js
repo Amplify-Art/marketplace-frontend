@@ -121,8 +121,9 @@ function ArtistProfile(props) {
                 albums && albums.length > 0 ? albums?.map((album, index) => (
                   generateAlbumItem({ ...album, hideSticker: false }, index)
                 )) : (
-                  <div className="no-results">
-                    <h4>This artist has not released any albums yet.</h4>
+                  <div className="placeholder-text no-mt center-text">
+                  <i class="fa-duotone fa-album"></i>
+                    This artist hasn't released any albums.
                   </div>
                 )}
             </div>

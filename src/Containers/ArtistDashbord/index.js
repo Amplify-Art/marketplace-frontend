@@ -137,14 +137,14 @@ function ArtistDashboard(props) {
               <table class="salesTable">
                 <tr class="salesRow">
                   <td class="salesIdMobile">
-                    <a href="" class="salesIdHolder">Li is Spiderman</a>
-                    <div class="salesAmountHolder">10 / 100</div>
+                    <a href="" class="salesIdHolder">Album Title</a>
+                    <div class="salesAmountHolder">#/#</div>
                   </td>
-                  <td class="salesId"><a href="">Li is Spiderman</a></td>
-                  <td class="salesAmount">10 / 100</td>
+                  <td class="salesId"><a href="">Album Title</a></td>
+                  <td class="salesAmount">#/#</td>
                   <td class="salesAmt">
-                    <div class="greenTxt">+2.2841 NEAR</div>
-                    <div class="smallTxt">$5.00</div>
+                    <div class="greenTxt">0.00 NEAR</div>
+                    <div class="smallTxt">$0.00</div>
                   </td>
                 </tr>
               </table>
@@ -160,14 +160,14 @@ function ArtistDashboard(props) {
               <table class="salesTable">
                 <tr class="salesRow">
                   <td class="salesIdMobile">
-                    <a href="" class="salesIdHolder">Li is Spiderman</a>
-                    <div class="salesAmountHolder">15</div>
+                    <a href="" class="salesIdHolder">Track Title</a>
+                    <div class="salesAmountHolder">#</div>
                   </td>
-                  <td class="salesId"><a href="">Li is Spiderman</a></td>
-                  <td class="salesAmount">15</td>
+                  <td class="salesId"><a href="">Track Title</a></td>
+                  <td class="salesAmount">#</td>
                   <td class="salesAmt">
-                    <div class="greenTxt">+2.2841 NEAR</div>
-                    <div class="smallTxt">$5.00</div>
+                    <div class="greenTxt">0.00 NEAR</div>
+                    <div class="smallTxt">$0.00</div>
                   </td>
                 </tr>
               </table>

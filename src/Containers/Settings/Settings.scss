@@ -52,6 +52,7 @@
   }
   .profile-head-details {
     margin: 0;
+    justify-content: flex-start !important;
     .profile-buttons {
       display: flex;
       flex-direction: column;
