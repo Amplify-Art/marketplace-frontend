@@ -26,7 +26,7 @@
       width: 100vw;
     }
     @media screen and (max-width: 650px) {
-      height: 440px;
+      height: 190px;
       width: 100vw;
       margin-left: 0px;
       margin-right: 0px;
@@ -59,7 +59,7 @@
           height: 400px;
         }
         @media screen and (max-width: 650px) {
-          height: 440px;
+          height: 190px;
         }
         width: 700px;
         background: rgb(15, 22, 29);
@@ -164,6 +164,9 @@
           padding-left: 10px;
           padding-right: 8px;
         }
+        @media screen and (max-width: 650px) {
+          margin-bottom: 10px;
+        }
       }
       @media screen and (max-width: 1280px) {
       margin-top: 25px;
@@ -202,24 +205,25 @@
       }
     }
   }
+
   .btn-wrap {
-    gap: 30px;
-    cursor: pointer;
     align-self: flex-end;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     @media screen and (max-width: 1280px) {
       margin-bottom: 15px;
     }
     @media screen and (max-width: 1020px) {
-      margin-bottom: 0px;
-      transform: translateY(34px);
+      // margin-bottom: 0px;
+      // transform: translateY(34px);
     }
     @media screen and (max-width: 950px) {
       align-self: unset;
-      transform: translateY(-25.5px);
+      transform: translateY(-12.5px);
     }
     @media screen and (max-width: 650px) {
-      transform: translateY(-30px);
+      // transform: translateY(-8px);
+      margin-right: 0px;
+      margin-bottom: 0px;
     }
     .react-share__ShareButton{
       min-height: inherit;
@@ -254,6 +258,20 @@
       }
       img {
         margin-right: 12px;
+      }
+    }
+    .headerBtn{
+      display: flex;
+      gap: 15px;
+      margin-right: 37px;
+      a {
+        text-decoration: none;
+      }
+      @media screen and (max-width: 1020px) {
+        display: grid;
+      }
+      @media screen and (max-width: 650px) {
+        margin-right: 0px;
       }
     }
   }

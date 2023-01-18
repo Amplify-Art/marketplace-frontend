@@ -105,7 +105,7 @@ function ArtistDashboard(props) {
           </button>
         </Link>
         {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
-        <button onClick={handleOpenModal}>Mint New Album</button>
+        <button onClick={handleOpenModal}>Mint Album</button>
       </div>
     )
   }

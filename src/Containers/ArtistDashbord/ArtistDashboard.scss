@@ -2,6 +2,9 @@
 #artist-dashboard {
   padding-top: 30px;
   padding-bottom: 65px;
+  @media screen and (max-width: 650px) {
+    padding-top: 72px;
+  }
   // max-width: 980px;
   &.disable-scroll {
     overflow: hidden;
@@ -245,26 +248,13 @@
   }
 }
 
-.headerBtn{
-  display: flex;
-  gap: 15px;
-  margin-right: 50px;
-  a {
-    text-decoration: none;
-  }
-  @media screen and (max-width: 600px) {
-    margin-right: 10px;
-    flex-direction: column;
-    gap: 30px;
-  }
-}
-
 .salesListWrapper {
     padding: 30px 30px 0 30px;
     background: rgba(196, 196, 196, 0.1803921569);
     margin: 50px 37px 30px 0;
     @media screen and (max-width: 650px) {
-      margin: 30px 20px 30px 20px;
+      margin: 30px 0px 30px 0px;
+      padding: 30px 20px 0 20px;
     }
     .salesList {
     display: flex;

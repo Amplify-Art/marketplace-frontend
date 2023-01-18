@@ -445,7 +445,7 @@ function NewNFT(props) {
     <div id="new-nft-modal" className="modal">
       <div className="cover" onClick={props.closeNewNftModal} />
       <div className="holder">
-        <h3>Mint New Album</h3>
+        <h3>Mint Album</h3>
         <p>Album is being minted for @{user.name || user.near_account_id}</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="split hide-scroll" id="style-4">
