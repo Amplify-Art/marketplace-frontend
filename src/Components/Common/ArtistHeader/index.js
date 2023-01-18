@@ -80,7 +80,7 @@ function ProfileHeader({
             <div className="details">
               {!isPublicProfile && (
                 <div className="flex">
-                <span className="artist-badge"><img src={ArtistIcon} alt="Twitter" /> Artist</span>
+                <span className="artist-badge"><img src={ArtistIcon} alt="Artist Icon" /> Artist</span>
                 </div>
               )}
               <span>{ArtistData.name || ArtistData.near_account_id}</span>

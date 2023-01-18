@@ -124,7 +124,7 @@ function ArtistDashboard(props) {
   }, [artistRef, isModalOpen])
   return (
     <div id="artist-dashboard" className={`left-nav-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
-      <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} showShowcase={false} />
+      <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
       <div className="content">
         <div className="container">
           {/* <div className="bal-wrapper">

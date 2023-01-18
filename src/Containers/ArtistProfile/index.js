@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import jwt_decode from 'jwt-decode';
-import ProfileHeader from '../../Components/Common/ProfileHeader';
+import ArtistHeader from '../../Components/Common/ArtistHeader';
 import { fetchAlbumsAction } from '../../redux/actions/AlbumAction';
 import { fetchArtistByIdAction } from '../../redux/actions/ArtistAction';
 import './ArtistProfile.scss';
@@ -54,7 +54,7 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
-        <button className="set_name no-mw" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        <button className="follow-button" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
       </>
     )
   }
@@ -108,8 +108,8 @@ function ArtistProfile(props) {
       <img src={Rolling} alt='rolling' />
     </div> : <> {
       artistFound ?
-        props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="profile" className={`left-nav-pad ${props.playerActive ? 'right-player-pad' : 'normal-right-pad'}`}>
-          <ProfileHeader ArtistData={artist} btnContent={renderBtnContent()} showShowcase={false} isPublicProfile />
+        props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="artist-profile" className="left-nav-pad normal-right-pad">
+          <ArtistHeader ArtistData={artist} btnContent={renderBtnContent()} />
 
           <div className="recently-purchased">
             <div className="top">

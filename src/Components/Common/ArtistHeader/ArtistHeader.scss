@@ -235,7 +235,7 @@
       background: #ffffff;
       color: black;
       cursor: pointer;
-      display: flex;
+      // display: flex;
       align-items: center;
       font-weight: bold;
       font-size: 16px;
@@ -244,7 +244,7 @@
       font-family: $lato;
       padding: 15px 30px;
       line-height: 19px;
-      min-width: 140px;
+      // min-width: 140px;
       min-height: 49px;
       @media screen and (max-width: 400px) {
             min-width: unset;
@@ -272,6 +272,17 @@
       }
       @media screen and (max-width: 650px) {
         margin-right: 0px;
+      }
+    }
+    .follow-button {
+      @media screen and (max-width: 1020px) {
+        margin-bottom: 32px;
+      }
+      @media screen and (max-width: 950px) {
+        margin-bottom: 60px;
+      }
+      @media screen and (max-width: 650px) {
+
       }
     }
   }
