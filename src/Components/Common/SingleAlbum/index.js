@@ -164,7 +164,7 @@ function SingleAlbum(props) {
       JSON.stringify(album_bundle_info)
     );
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "testforcontract.testnet",
       "offer_album",
       {
         nft_contract_id:

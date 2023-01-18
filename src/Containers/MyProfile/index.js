@@ -224,7 +224,7 @@ function MyProfile(props) {
         token_id: songtokenid,
         account_id:
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market.aa-1-test.testnet",
+          "testforcontract.testnet",
         price: parseNearAmount(`${nearPrice}`),
       },
       300000000000000,

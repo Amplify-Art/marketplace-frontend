@@ -198,7 +198,7 @@ function SongList(props) {
     );
     if (isDelist) {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "testforcontract.testnet",
         "remove_song_sale",
         {
           nft_contract_id:
@@ -209,7 +209,7 @@ function SongList(props) {
       );
     } else {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.aa-1-test.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "testforcontract.testnet",
         "offer",
         {
           nft_contract_id:
