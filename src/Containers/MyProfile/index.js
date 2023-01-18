@@ -516,9 +516,9 @@ function MyProfile(props) {
               </div>
             </div>
           ) : !props.loading ? (
-            <h4 className="large-white center-text">
+            <div className="placeholder-text center-text">
               <i class="fa-duotone fa-music-slash"></i>
-            This user doesn't own any music.</h4>
+            This user doesn't own any music.</div>
           ) : null}
           {renderHeader(
             `Custom Playlists - ${props.playlists ? props.playlists.length : "0"}`,
@@ -541,9 +541,9 @@ function MyProfile(props) {
               </div>
             </div>
           ) : (
-            <div className="no-records">
-              <h5>No playlists found</h5>
-            </div>
+            <div className="placeholder-text center-text">
+              <i class="fa-duotone fa-list-music"></i>
+            No playlists found.</div>
           )}
         </>
       )}

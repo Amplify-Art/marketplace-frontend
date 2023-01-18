@@ -146,7 +146,7 @@ function Albums(props) {
                     ))}
                   </div>
                 ) : (
-                  <h4 className="large-white center-text">No Albums to Display</h4>
+                  <h4 className="placeholder-text center-text">No Albums to Display</h4>
                 )
               )
             )

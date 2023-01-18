@@ -18,7 +18,7 @@ function SecondaryMarketplace(props) {
           <SongList songList={props.songs} />
         ) : (
           <div>
-            <h4 className="large-white center-text">
+            <h4 className="placeholder-text center-text">
               There are no songs currently listed.
             </h4>
           </div>

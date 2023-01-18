@@ -365,15 +365,20 @@ textarea {
   align-items: center;
 }
 
-.large-white {
+.placeholder-text {
+  margin-top: 30px;
   color: rgba(255, 255, 255, 0.3);
-  padding: 30px;
+  padding: 25px 30px 20px 30px;
   font-weight: 300;
   font-size: 24px;
   background-color: rgb(196 196 196 / 5%);
   .fa-music-slash{
     display: block;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+  }
+  .fa-list-music{
+    display: block;
+    padding-bottom: 15px;
   }
 }
 
