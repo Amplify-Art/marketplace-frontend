@@ -265,7 +265,7 @@ function MyProfile(props) {
     setSharePopup(false);
   };
 
-  
+
   const renderBtnContent = () => {
     return (
       <>
@@ -516,7 +516,9 @@ function MyProfile(props) {
               </div>
             </div>
           ) : !props.loading ? (
-            <h4 className="large-white center-text">No items to show</h4>
+            <h4 className="large-white center-text">
+              <i class="fa-duotone fa-music-slash"></i>
+            This user doesn't own any music.</h4>
           ) : null}
           {renderHeader(
             `Custom Playlists - ${props.playlists ? props.playlists.length : "0"}`,

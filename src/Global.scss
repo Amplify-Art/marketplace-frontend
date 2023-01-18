@@ -366,11 +366,14 @@ textarea {
 }
 
 .large-white {
-  color: #fff;
-  font-size: 30px;
-  padding: 30px 300px;
-  @media screen and (max-width: 650px) {
-    padding: 0px;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  font-weight: 300;
+  font-size: 24px;
+  background-color: rgb(196 196 196 / 5%);
+  .fa-music-slash{
+    display: block;
+    padding-bottom: 10px;
   }
 }
 
@@ -436,31 +439,31 @@ textarea {
     aspect-ratio: 100 / 86;
     margin-bottom: 20px;
   }
-  
+
   &.circle {
     width: 180px;
     height: 180px;
     border-radius: 50%;
     margin-bottom: 20px;
   }
-  
+
   &.title {
     width: 100%;
     height: 20px;
     border-radius: 10px;
     margin-bottom: 10px;
   }
-  
+
   &.text {
     width: 100%;
     height: 10px;
     border-radius: 5px;
     margin-bottom: 5px;
   }
-  
+
   &.sub-text {
     width: 40%;
     height: 10px;
     border-radius: 5px;
-  }  
+  }
 }

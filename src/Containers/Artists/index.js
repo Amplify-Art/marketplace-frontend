@@ -39,7 +39,7 @@ function Artists(props) {
                   }
                 />
               ))) : (
-                <h4 className="large-white center-text">No Artists to show</h4>
+                <h4 className="large-white center-text">No Artists to Display</h4>
               )
             )
           )}
