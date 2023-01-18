@@ -126,62 +126,53 @@ function ArtistDashboard(props) {
     <div id="artist-dashboard" className={`left-nav-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
       <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
       <div className="content">
-        <div className="container">
-          {/* <div className="bal-wrapper">
-            <div className="left-wrap">
-              <div className="bal-title">Pending Award Balance</div>
-              <div className="price">0</div>
-              <div className="near">NEAR</div>
-              <button className="withdraw-btn">Withdraw To Balance</button>
-              <div className="report-link">Export Earnings Report</div>
-            </div>
-            <div className="supporter-wrapper">
-              <div className="support-header d-h-between">
-                <div className="support-title">Supporter Rev Share</div>
-                <div className="support-cal">
-                  <img src={CalanderIcon} alt="" className="cal-img" />
-                  <span className="cal-font">2021</span>
-                  <img src={DownArrowIcon} alt="" className="cal-img" />
-                </div>
-              </div>
-              <div className="support-content">
-                {month_Data && month_Data.map((item, index) => (
-                  <div className="support-inner-content d-h-between">
-                    <div className="text-month w-33">{item.month}</div>
-                    <div className="text-gwei w-33">{item.gwei}</div>
-                    <div className="w-33 text-align-right">
-                      <img src={item.isChecked ? RightIcon : RightIconDisable} alt="" className={`${item.isChecked ? 'icon-green' : 'icon-gray'}`} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div> */}
+        <div className="container dashboard-grid">
           <div class="salesListWrapper">
             <div class="salesList">
               <div class="heading">Albums</div>
               <div class="sales-heading">Sales</div>
               <div class="heading">Rev. <span>(97%)</span></div>
+            </div>
+            <div class="salesWrapper">
+              <table class="salesTable">
+                <tr class="salesRow">
+                  <td class="salesIdMobile">
+                    <a href="" class="salesIdHolder">Li is Spiderman</a>
+                    <div class="salesAmountHolder">10 / 100</div>
+                  </td>
+                  <td class="salesId"><a href="">Li is Spiderman</a></td>
+                  <td class="salesAmount">10 / 100</td>
+                  <td class="salesAmt">
+                    <div class="greenTxt">+2.2841 NEAR</div>
+                    <div class="smallTxt">$5.00</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
-          <div class="salesWrapper">
-          <table class="salesTable">
-          <tr class="salesRow">
-          <td class="salesIdMobile">
-          <a href="" class="salesIdHolder">Li is Spiderman</a>
-          <div class="salesAmountHolder">10 / 100</div>
-          </td>
-          <td class="salesId"><a href="">Li is Spiderman</a></td>
-          <td class="salesAmount">10 / 100</td>
-          <td class="salesAmt">
-          <div class="greenTxt">+2.2841 NEAR</div>
-          <div class="smallTxt">$5.00</div>
-          </td>
-          </tr>
-          </table>
+          <div class="salesListWrapper">
+            <div class="salesList">
+              <div class="heading">Singles</div>
+              <div class="sales-heading">Sales</div>
+              <div class="heading">Rev. <span>(3%)</span></div>
+            </div>
+            <div class="salesWrapper">
+              <table class="salesTable">
+                <tr class="salesRow">
+                  <td class="salesIdMobile">
+                    <a href="" class="salesIdHolder">Li is Spiderman</a>
+                    <div class="salesAmountHolder">15</div>
+                  </td>
+                  <td class="salesId"><a href="">Li is Spiderman</a></td>
+                  <td class="salesAmount">15</td>
+                  <td class="salesAmt">
+                    <div class="greenTxt">+2.2841 NEAR</div>
+                    <div class="smallTxt">$5.00</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
-          </div>
-
-
         </div>
       </div>
       {
