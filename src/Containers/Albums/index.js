@@ -146,7 +146,10 @@ function Albums(props) {
                     ))}
                   </div>
                 ) : (
-                  <h4 className="placeholder-text center-text">No Albums to Display</h4>
+                  <div className="placeholder-text no-mt center-text">
+                  <i class="fa-duotone fa-album"></i>
+                    No Albums to Display
+                  </div>
                 )
               )
             )
