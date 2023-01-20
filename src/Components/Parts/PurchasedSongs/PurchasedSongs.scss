@@ -1,9 +1,9 @@
 .holder.sellSong-modal {
     width: 421px;
+    overflow-y: scroll;
     @media screen and (max-width: 600px) {
         width: 310px;
         height: 500px;
-        overflow-y: scroll;
     }
     .album-info {
         display: flex;
