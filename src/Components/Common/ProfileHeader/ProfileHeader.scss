@@ -195,6 +195,7 @@
     position: absolute;
     top: -20px;
     right: 10px;
+    z-index: 11;
     @media screen and (max-width: 1280px) {
       margin-bottom: 15px;
     }
