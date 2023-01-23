@@ -10,15 +10,16 @@
     // padding-right: 20px;
     padding-top: 50px;
     @media screen and (max-width: 650px) {
-      // padding-top: 7px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
     .top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media screen and (max-width: 650px) {
-        margin-left: 20px;
-      }
+      // @media screen and (max-width: 650px) {
+      //   margin-left: 20px;
+      // }
       margin-bottom: 30px;
       h2 {
         font-size: 20px;
