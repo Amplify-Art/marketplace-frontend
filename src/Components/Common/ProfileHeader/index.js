@@ -79,7 +79,7 @@ function ProfileHeader({
       >
       </div>
       <div className="shelves-content">
-      {showShowcase && !showShowcase === false && (
+        {showShowcase && !showShowcase === false && (
           <div className="shelves">
             {showcases &&
               _.chunk(
@@ -118,6 +118,7 @@ function ProfileHeader({
               )})}
           </div>
         )}
+        <div className="btn-wrap">{btnContent}</div>
       </div>
       <div className="container flex f-jc-space-between f-align-center">
         <div className="profile-head-details">
@@ -152,7 +153,6 @@ function ProfileHeader({
             </div>
           </div>
         </div>
-        <div className="btn-wrap">{btnContent}</div>
       </div>
 
       {
