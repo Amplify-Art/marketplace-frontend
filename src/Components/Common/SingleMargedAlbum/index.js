@@ -242,9 +242,6 @@ function SingleMergedAlbum(props) {
         <div
           className="cd-case1"
           id="1169hh"
-          style={{
-            height: document.getElementById("1169hh")?.offsetWidth * 0.86,
-          }}
           onClick={props.onClick ? props.onClick : handleModal}
         >
           <div
