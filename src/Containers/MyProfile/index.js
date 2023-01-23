@@ -271,28 +271,6 @@ function MyProfile(props) {
       <>
         {/* {!isPublicProfile && <button >Set as <img src={TwitterIcon} alt="Twitter" /> Banner</button>} */}
         <div className="popup-container">
-          {openSharePopup && (
-            <div className="popUp">
-              <button className="popup-div" onClick={copyProfileLink}>
-                <img src={copyLink} alt="Copy Link" className="popup-img" />
-                <span>Copy Link</span>
-              </button>
-              <TwitterShareButton
-                className="popup-div"
-                title="Check out my Amplify.art profile!"
-                url={`https://amplfy.art/user/${userName}`}
-                via="amplifyart"
-              >
-                <img
-                  src={TwitterIcon}
-                  alt="Twitter"
-                  className="popup-img"
-                  style={{ width: "32px" }}
-                />
-                <span>Tweet</span>
-              </TwitterShareButton>
-            </div>
-          )}
           {!isPublicProfile && (
             <>
               <button
@@ -300,6 +278,28 @@ function MyProfile(props) {
                 onClick={() => setSharePopup(!openSharePopup)}
               >
                 <img src={ShareIcon} alt="Twitter" /> <span>Share</span>
+                {openSharePopup && (
+                  <div className="popUp">
+                    <div className="popup-div" onClick={copyProfileLink}>
+                      <img src={copyLink} alt="Copy Link" className="popup-img" />
+                      <span>Copy Link</span>
+                    </div>
+                    <TwitterShareButton
+                      className="popup-div"
+                      title="Check out my Amplify.art profile!"
+                      url={`https://amplfy.art/user/${userName}`}
+                      via="amplifyart"
+                    >
+                      <img
+                        src={TwitterIcon}
+                        alt="Twitter"
+                        className="popup-img"
+                        style={{ width: "32px" }}
+                      />
+                      <span>Tweet</span>
+                    </TwitterShareButton>
+                  </div>
+                )}
               </button>
               <button
                 className="edit-profile"
