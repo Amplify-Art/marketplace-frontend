@@ -78,7 +78,7 @@ function ProfileHeader({
         style={{ backgroundImage: `url(${coverPhoto()})` }}
       >
       </div>
-      <div>
+      <div className="shelves-content">
       {showShowcase && !showShowcase === false && (
           <div className="shelves">
             {showcases &&
