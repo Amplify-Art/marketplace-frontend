@@ -59,6 +59,7 @@
      }
      &:after {
      content: "";
+     height: 340px;
      @media screen and (max-width: 1280px) {
           height: 400px;
         }
@@ -151,6 +152,7 @@
       font-size: 32px;
       font-weight: 300;
       margin-top: 55px;
+      text-shadow: 0 1px #171717;
       @media screen and (max-width: 1280px) {
       margin-top: 30px;
       }
@@ -193,7 +195,7 @@
     cursor: pointer;
     align-self: flex-end;
     position: absolute;
-    top: -20px;
+    top: -25px;
     right: 10px;
     z-index: 11;
     @media screen and (max-width: 1280px) {
@@ -318,6 +320,7 @@
           position: relative;
           line-height: 25px;
           cursor: pointer;
+          text-shadow: 0 1px #171717;
         }
         .single-shelf-album {
           overflow: hidden;

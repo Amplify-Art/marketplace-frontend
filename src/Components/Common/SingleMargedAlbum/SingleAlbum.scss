@@ -160,6 +160,16 @@
       justify-content: center;
     }
   }
+  .cd-case1:hover {
+  filter: drop-shadow(black 0px 0px 10px);
+  transition: transform 0.3s ease 0s;
+  transform: scale(1.03);
+  }
+  .cd-case1:active {
+  filter: drop-shadow(black 0px 0px 0px);
+  transition: transform 0.1s ease 0s;
+  transform: scale(1.00);
+  }
   h3 {
     font-size: 18px;
     @media screen and (max-width: 600px) {
