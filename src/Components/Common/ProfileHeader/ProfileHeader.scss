@@ -1,6 +1,10 @@
 @import "../../../assets/SCSS/Vars.scss";
 
 #profile-header {
+  .shelves-content {
+    position: relative;
+    z-index: 10;
+  }
   .container {
     margin-top: -140px;
     position: relative;
