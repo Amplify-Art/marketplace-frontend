@@ -21,7 +21,6 @@ function SearchResult(props) {
       <div className="album-detail">
         <div>{album.title}</div>
         <div>{album.user && album.user.name}</div>
-        <div>{album.mints_owned.length ? `You Own: ${album.mints_owned.map(m => '#' + m).join(',')}` : ''}</div>
       </div >
     ))
   );
@@ -67,7 +66,7 @@ function SearchResult(props) {
         )
         : <NoResult />
       }
-      
+
     </div>
   )
 }
