@@ -6,7 +6,6 @@
   float: left;
   overflow: hidden;
   padding-bottom: 100px;
-  padding-top: 100px;
   @media screen and (max-width: 682px) {
     padding-top: 20px;
   }
@@ -15,16 +14,16 @@
       font-size: 155px;
       line-height: 170px;
       @media screen and (max-width: 1565px){
-      font-size: 130px;
-      line-height: 140px;
+      font-size: 110px;
+      line-height: 120px;
       }
       @media screen and (max-width: 1010px){
-          font-size: 110px;
-          line-height: 120px;
-      }
-      @media screen and (max-width: 754px){
         font-size: 72px;
         line-height: 82px;
+      }
+      @media screen and (max-width: 754px){
+        font-size: 44px;
+        line-height: 50px;
     }
     }
     position: relative;
@@ -33,14 +32,9 @@
 
   .albums {
     display: flex;
-    // margin-left: -200px;
-    // margin-right: -200px;
-    margin-top: -80px;
+    margin-top: 60px;
     position: relative;
     z-index: 8;
-    @media screen and (max-width: 1565px){
-    margin-top: -60px;
-    }
     @media screen and (max-width: 682px) {
       margin-top: 50px;
       margin-left: 0px;

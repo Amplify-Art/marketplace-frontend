@@ -120,7 +120,9 @@
       background-color: #434343;
       box-sizing: border-box;
       padding: 50px;
-
+      @media screen and (max-width: 650px) {
+      padding: 20px 30px 30px;
+      }
       h4 {
         color: #fff;
         font-family: $oswald;
@@ -136,6 +138,9 @@
         letter-spacing: 0.1px;
         line-height: 30px;
         margin-bottom: 0px;
+        @media screen and (max-width: 650px) {
+        margin-top: 10px;
+        }
       }
     }
   }

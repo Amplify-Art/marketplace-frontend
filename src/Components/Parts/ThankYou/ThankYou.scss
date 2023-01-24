@@ -1,7 +1,6 @@
 @import '../../../assets/SCSS/Vars.scss';
 
 #thank-you {
-  padding-bottom: 200px;
   .container {
     display: flex;
     flex-direction: column;
@@ -14,5 +13,9 @@
     color: #fff;
     font-size: 30px;
     line-height: 40px;
+    font-weight: 300;
+  }
+  .join-btn{
+    font-weight: 400;
   }
 }

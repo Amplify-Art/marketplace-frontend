@@ -38,7 +38,7 @@ const songHeader = () => (
       Artist
     </div>
     <div className="mobile-header-title">
-      <div>Song Market</div>
+      <div>Singles</div>
     </div>
     <div className="header-title">
       Listed

@@ -12,9 +12,7 @@ function SupportArtists() {
       <div className="padding-global">
         <div className="container-large">
           <div id="support-artists">
-            <div className="container">
               <h2 className="large center-text"><span className="red">Support</span> Your <br />Favorite Artists</h2>
-            </div>
 
             <div className="albums">
               <div className="single"><img src={VjDeliria} alt="vjdeliria" /></div>

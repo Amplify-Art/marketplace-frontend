@@ -20,49 +20,9 @@ function LatestReleases() {
     },
     songs: [
       {
-        id: 6,
-        title: "last resorttt",
-        album_id: 3,
-        cid: "QmSRdG9QVVoifFzbxG93hq9Mj8ypL3Y3rkjw2qtXcwnFTv",
-        song_cid: "QmQsRjTU4cdpr2BbYB6RbwmjPxentjLEjiVD9seeHP7Fua",
-        user_id: 1,
-        current_owner: 1,
-        available_qty: 2,
-        qty: "2",
+        title: "Shes The Sun",
+        song_cid: "QmfPUFSLpzV57q7EPQrw8JKUkbmRCyfWDFBRFUGhMf7H4S",
         duration: 200,
-        transfers: [
-          {
-            id: 3,
-            token: "QmQsRjTU4cdpr2BbYB6RbwmjPxentjLEjiVD9seeHP7Fua",
-            copy_number: 1,
-            is_deleted: false,
-            type: "song",
-            is_owner: true,
-            bidding_price: null,
-            yocto_near_price: "0",
-            price_in_usd: 0
-          },
-        ],
-        album: {
-          created_at: "2022-12-09T15:54:52.468Z",
-          id: 3,
-          updated_at: "2022-12-12T05:13:13.491Z",
-          title: "Test",
-          description: "test 123",
-          user_id: 1,
-          is_deleted: false,
-          cid: null,
-          cover_cid: "QmZqTswXaTJogTnxsXbBpky6E249dcAiRsnnbsSLMQitxG",
-          txn_hash: "F2uvun4QVaNd5g4Svw5HaiivD4kjpnJq7Hhh5ofwYWxg",
-          qty: "2",
-          current_owner: 3,
-          available_qty: 0,
-          has_copy: false,
-          price: 1000,
-          is_purchased: true,
-          yocto_near_price: "5861664712778429000000000",
-          minting_cost: 0
-        }
       }
     ],
     description: 'This is a test album',
