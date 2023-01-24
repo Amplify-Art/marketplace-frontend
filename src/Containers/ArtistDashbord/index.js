@@ -98,13 +98,11 @@ function ArtistDashboard(props) {
   const renderBtnContent = () => {
     return (
       <div className='headerBtn'>
-        {/* <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         <Link to={`/artist/${userName}`}>
           <button onClick={() => {}}>
             View Profile
           </button>
         </Link>
-        {/* <button onClick={() => setShowBannerModal(!showBannerModal)}>Upload Store Banner</button> */}
         <button onClick={handleOpenModal}>Mint Album</button>
       </div>
     )

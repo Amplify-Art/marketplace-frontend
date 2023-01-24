@@ -18,7 +18,6 @@
   }
   .profile-cover {
     margin-left: -220px;
-    margin-right: -60px;
     height: 340px;
     width: 100vw;
     @media screen and (max-width: 1280px) {
@@ -38,7 +37,7 @@
     background-position: center;
     &:after {
     content: "";
-    height: 344px;
+    height: 340px;
     @media screen and (max-width: 650px) {
          height: 220px;
        }
@@ -80,9 +79,9 @@
     }
   }
   .profile-head-details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
     .profile-wrap {
       display: flex;
       @media screen and (max-width: 950px) {
@@ -181,6 +180,10 @@
       @media screen and (max-width: 650px) {
         font-size: 30px;
         transform: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+        display: inherit;
       }
       color: #ffffff;
       display: flex;
@@ -213,6 +216,8 @@
   .btn-wrap {
     align-self: flex-end;
     margin-bottom: 20px;
+    position: absolute;
+    right: 37px;
     @media screen and (max-width: 1280px) {
       margin-bottom: 15px;
     }
@@ -226,6 +231,7 @@
     }
     @media screen and (max-width: 650px) {
       // transform: translateY(-8px);
+      right: 20px;
       margin-right: 0px;
       margin-bottom: 0px;
     }
@@ -250,9 +256,9 @@
       line-height: 19px;
       // min-width: 140px;
       min-height: 49px;
+      min-width: max-content;
       @media screen and (max-width: 400px) {
             min-width: unset;
-            padding: 15px 15px;
       }
       @media screen and (max-width: 650px) {
         width: 100%;
@@ -265,9 +271,8 @@
       }
     }
     .headerBtn{
-      display: flex;
+      display: grid;
       gap: 15px;
-      margin-right: 37px;
       a {
         text-decoration: none;
       }

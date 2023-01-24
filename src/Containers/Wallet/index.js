@@ -156,11 +156,11 @@ function Wallet(props) {
                 onClick={() => setShowSendModal(true)}
               />
             )}
-            <Button
+            {/* <Button
               text="Withdraw"
               className="btn black-outline"
               onClick={() => onWithDrawAmount("withdraw")}
-            />
+            /> */}
           </div>
         </div>
 

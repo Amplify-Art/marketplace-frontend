@@ -105,6 +105,7 @@ function MyProfile(props) {
     return (
       <SingleMergedAlbum
         key={index}
+        className="owned"
         albumInfo={nft}
         onSingleSongClick={(song) => onSingleSongClick(song, index)}
         index={index}
