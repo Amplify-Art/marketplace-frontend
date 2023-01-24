@@ -7,7 +7,6 @@ import q from "querystring";
 import * as nearAPI from "near-api-js";
 import GeneralModal from "../GeneralModal/index.js";
 import AlbumModalContent from "../AlbumModalContent/index.js";
-import SingleAlbumModal from "../SingleAlbumModal/index.js";
 import {
   setIsAlbumSelected,
   storeSelectedAlbum,
@@ -111,6 +110,7 @@ function SingleAlbum(props) {
       albumBundleInfo.hash = txtId;
       checkTxnStatus(albumBundleInfo);
     }
+    SetModalOpen(props.isAlbumSelected);
   }, []);
 
   const checkTxnStatus = async (albumBundleInfo) => {
@@ -292,21 +292,6 @@ function SingleAlbum(props) {
             </Link>
           </>
         )}
-      </div>
-      <div
-        className={`modal-album ${!props.isAlbumSelected ? "d-none" : "d-block"
-          }`}
-      >
-        <GeneralModal
-          isCloseButton="true"
-          bodyChildren={
-            <SingleAlbumModal
-              isOpen={props.isAlbumSelected}
-              albumData={props.selectedAlbum}
-            />
-          }
-          closeModal={handleCloseModal}
-        />
       </div>
       {showPurchaseModal && (
         <GeneralModal
