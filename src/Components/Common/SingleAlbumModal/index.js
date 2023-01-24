@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { usePalette } from 'react-palette';
 
-import AlbumSingleSong from '../AlbumSingleSong/index';
+import AlbumSingleSong from "../AlbumSingleSong/AlbumSingleSongTable";
 import BackArrowIcon from '../../../assets/images/leftarrow.svg';
 import './SingleAlbumModal.scss';
 
@@ -91,18 +91,34 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
               </div>
             </div>
             <div className="album-bottom" id="modalScrolling">
-              {albumData?.songs?.sort((a, b) => a.id - b.id).map((song, index) => (
-                <AlbumSingleSong
-                  song={song}
-                  index={index}
-                  key={`${index}singlesong`}
-                  audio={audio}
-                  currentIndex={currentIndex}
-                  playing={playing}
-                  isOpen={isOpen}
-                  toggle={(data) => toggle(data)}
-                />
-              ))}
+              <table
+                style={{ width: "100%" }}
+              >
+                <tr className="table-header">
+                  <th>SONG TITLE</th>
+                  <th>LENGTH</th>
+                  <th></th>
+                </tr>
+                {albumData &&
+                  albumData.songs &&
+                  albumData.songs
+                    ?.sort((a, b) => a.id - b.id)
+                    .map((song, index) => (
+                      <tr style={{ verticalAlign: "middle" }} key={index}>
+                        <AlbumSingleSong
+                          song={song}
+                          index={index}
+                          key={`${index}singlesong`}
+                          audio={audio}
+                          currentIndex={currentIndex}
+                          playing={playing}
+                          isOpen={isOpen}
+                          toggle={(data) => toggle(data)}
+                          isSell={true}
+                        />
+                      </tr>
+                    ))}
+              </table>
             </div>
           </div>
           :
