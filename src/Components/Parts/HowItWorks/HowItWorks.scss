@@ -5,7 +5,7 @@
   h2 {
     &.large {
       font-size: 200px;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
       @media screen and (max-width: 858px) {
         font-size: 20vw;
         line-height: 20vw;
@@ -30,9 +30,6 @@
 
   .bottom {
     display: flex;
-    // padding-left: 100px;
-    // padding-right: 100px;
-    // padding-top: 50px;
     @media screen and (max-width: 994px) {
       flex-direction: column;
     }

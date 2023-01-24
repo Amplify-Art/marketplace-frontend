@@ -12,7 +12,7 @@ function HowItWorks(props) {
           <div className="content">
             <span className="count">Step 01</span>
             <h3>Artist Onboarding</h3>
-            <p>To avoid centralized gatekeeping, we’ve given our early backers <a className="team-link" href="#the-team">(Support Card NFT Holders)</a> exclusive access to the artist on-boarding process. These Support Card NFTs have embedded utility - giving holders the ability to vote once a month (per card) on Artists in the registry pool. At the end of the month, the top two users with the most votes gain access to the “Artist Dashboard”.</p>
+            <p>To avoid centralized gatekeeping, we’ve given our early backers <a className="team-link" href="#the-team">(Support Card NFT Holders)</a> exclusive access to the artist on-boarding process. Holders have the ability to vote once a month (per NFT) on Artists in the registry pool. At the end of the month, the top two users with the most votes gain access to the “Artist Dashboard”.</p>
           </div>
         )
         break;
