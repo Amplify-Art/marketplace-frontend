@@ -40,6 +40,8 @@
     .left {
       display: flex;
       padding-right: 70px;
+      width: -webkit-fill-available;
+
       @media screen and (max-width: 994px) {
         padding-right: 0px;
         margin-bottom: 40px;
@@ -117,8 +119,10 @@
       background-color: #434343;
       box-sizing: border-box;
       padding: 50px;
+      width: 100%;
       @media screen and (max-width: 650px) {
       padding: 20px 30px 30px;
+
       }
       h4 {
         color: #fff;
