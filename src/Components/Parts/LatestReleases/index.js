@@ -22,7 +22,7 @@ function LatestReleases() {
       {
         title: "Shes The Sun",
         song_cid: "QmfPUFSLpzV57q7EPQrw8JKUkbmRCyfWDFBRFUGhMf7H4S",
-        duration: 200,
+        duration: 196,
       }
     ],
     description: 'This is a test album',

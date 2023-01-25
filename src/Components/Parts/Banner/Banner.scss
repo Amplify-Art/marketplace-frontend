@@ -1,34 +1,18 @@
 @import '../../../assets/SCSS/Vars.scss';
 
 .padding-section-fullheight {
-     position: relative;
-     right: auto;
-     display: -webkit-box;
-     display: -webkit-flex;
-     display: -ms-flexbox;
-     display: flex;
-     height: calc(100vh - 70px);
-     padding-bottom: 70px;
-     -webkit-box-pack: start;
-     -webkit-justify-content: flex-start;
-     -ms-flex-pack: start;
-     justify-content: flex-start;
-     -webkit-box-align: center;
-     -webkit-align-items: center;
-     -ms-flex-align: center;
-     align-items: center;
-     -o-object-fit: cover;
-     object-fit: cover;
-     overflow: hidden;
-     -o-object-position: 100% 50%;
-     object-position: 100% 50%;
-     @media screen and (max-width: 650px) {
-              height: calc(100vh);
-              padding-bottom: 56px;
+    display: flex;
+    height: calc(100vh - 70px);
+    padding-bottom: 70px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    @media screen and (max-width: 650px) {
+        height: calc(100vh);
+        padding-bottom: 56px;
     }
 }
 .padding-banner {
-    // width: 100%;
     width: -webkit-fill-available;
     padding-right: 48px;
     padding-left: 48px;
