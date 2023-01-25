@@ -62,18 +62,16 @@
       }
       &.buy-button {
         position: absolute;
-        left: 27%;
-        @media screen and (max-width: 900px) {
-          left: 50%;
-        }
-        margin-left: -120px;
+        left: 50%;
+        font-family: $space;
+        margin-left: -100px;
         background: #fff;
         color: #000;
-        font-weight: bold;
+        font-weight: 400;
         font-size: 16px;
         padding: 10px 0px;
         border: 0px;
-        cursor: pointer;    
+        cursor: pointer;
         white-space: nowrap;
         width: 200px;
         &.btn1 {
