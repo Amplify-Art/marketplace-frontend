@@ -111,7 +111,7 @@ function ArtistProfile(props) {
         props.artist && props.artist.success && props.artist.type === 'artist' ? <div id="artist-profile" className="left-nav-pad normal-right-pad">
           <ArtistHeader ArtistData={artist} btnContent={renderBtnContent()} />
 
-          <div className="recently-purchased">
+          <div className="recently-released">
             <div className="top">
               <h2>Recently Released</h2>
             </div>

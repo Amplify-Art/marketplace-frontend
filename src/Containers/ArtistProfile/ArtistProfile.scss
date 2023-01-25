@@ -7,9 +7,13 @@
 	    padding-top: 72px;
 	  }
 	overflow-x: hidden;
-	.recently-purchased {
+	.recently-released {
 		// padding-right: 20px;
 		padding-top: 50px;
+		@media screen and (max-width: 650px){
+			    padding-left: 20px;
+					padding-right: 20px;
+			}
 		.top {
 			display: flex;
 			align-items: center;
