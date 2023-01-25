@@ -5,8 +5,12 @@
   font-style: normal;
   font-weight: normal;
   color: white;
+  max-width: 1200px;
   .songlist-header {
-    margin: 0 20px 20px 20px;
+    margin: 0 0 20px 0;
+    @media screen and (max-width: 650px) {
+      margin: 0 20px 20px 20px;
+    }
     .header-title {
       @media screen and (max-width: 900px) {
         display: none;
@@ -28,9 +32,6 @@
       }
       &:nth-of-type(2){
         width: 30%;
-        // @media screen and (max-width: 1000px){
-        //   width: 35%;
-        // }
       }
       &:last-child {
         margin-left: auto;
@@ -87,13 +88,14 @@
   .play-song {
     align-items: center;
     height: 33px;
-    margin: 0 20px;
+    @media screen and (max-width: 650px) {
+      margin: 0 20px;
+    }
     @media screen and (max-width: 900px) {
       height: 60px;
     }
     > div {
       font-size: 14px;
-      // width: 20%;
       align-items: center;
       cursor: pointer;
       overflow: hidden;
@@ -111,22 +113,7 @@
     }
     :nth-of-type(2){
       width: 30%;
-      // @media screen and (max-width: 1000px) {
-      //   width: 35%;
-      // }
     }
-    // div:last-child {
-    //   border: 1px solid;
-    //   // width: 135px;
-    //   max-width: 135px;
-    //   text-align: center;
-    //   padding: 2px 0px;
-    //   border-radius: 4px;
-    //   margin-left: auto;
-    //   @media screen and (max-width: 1150px) {
-    //     width: 15%;
-    //   }
-    // }
     .song-icon {
       width: 50px;
       display: flex;
@@ -159,7 +146,6 @@
       }
     }
     .song-album {
-        // margin-right: 20px;
       @media screen and (max-width: 900px) {
         display: none;
       }
@@ -185,14 +171,6 @@
         display: none;
       }
     }
-    // .song-available-mobile {
-    //   @media screen and (min-width: 900px) {
-    //     display: none;
-    //   }
-    //   border: 1px solid;
-    //   text-align: center;
-    //   border-radius: 4px;
-    // }
   }
 }
 
@@ -314,7 +292,6 @@
       padding: 20px 15px;
     }
     padding: 20px;
-    // box-sizing: border-box;
     .headers {
       margin-bottom: 20px;
       @media screen and (max-width: 900px) {
@@ -355,7 +332,6 @@
           @media screen and (max-width: 900px) {
             display: none;
           }
-          // width: 150px;
           button {
             background: #fff;
             border-radius: 100px;
@@ -421,14 +397,10 @@
               color: #fff;
               border: 1px solid #FFFFFF;
               padding: 10px;
-              // width: fit-content;
             }
           }
         }
       }
     }
   }
-}
-
-#mn-tooltip{
 }

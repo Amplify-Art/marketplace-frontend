@@ -33,7 +33,7 @@ function SongModalContent({ albumInfo }) {
         <div className="album-bottom" id="modalScrolling">
           <table className="album_song">
             <tr>
-              <th className="first-td">Song Title</th>
+              <th className="first-td">Track Title</th>
               <th className="second-td">length</th>
               <th className="third-td">Mints</th>
             </tr>

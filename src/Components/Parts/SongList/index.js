@@ -29,7 +29,7 @@ const {
 const songHeader = () => (
   <div className="songlist-header flex">
     <div className="header-title">
-      Song Title | Mints owned
+      Track Title | Mints owned
     </div>
     <div className="header-title">
       album
@@ -387,7 +387,7 @@ function SongList(props) {
                             onClick={() => onModalChange(transfer)}>
                               {user.id === transfer.transfer_to
                                 ? "Delist "
-                                : "Buy Now "}
+                                : "Buy "}
                                 {new Intl.NumberFormat("en-US", {
                                   style: "currency",
                                   currency: "USD",

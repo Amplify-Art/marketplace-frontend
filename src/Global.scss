@@ -457,6 +457,12 @@ textarea {
     height: 180px;
     border-radius: 50%;
     margin-bottom: 20px;
+    @media screen and (max-width: 650px) {
+      width: calc(50% - 15px);
+      width: 40vw;
+      height: 40vw;
+      max-width: 40vw;
+    }
   }
 
   &.title {

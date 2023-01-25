@@ -4,21 +4,17 @@
   padding-top: 15px;
   @media screen and (max-width: 650px) {
     padding-top: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
   }
-  // .cd-case {
-  //     padding: 3px 4px 5px 20px;
-  //     margin: 20px 20px 20px 0px;
-  //     width: 201px;
-  //     height: 201px;
-  // }
   .no-result {
     color: white;
   }
   #search-album .album-grid {
     grid-column-gap: 25px;
     column-gap: 25px;
+    @media screen and (max-width: 650px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
   .album-title {
     font-size: 14px;
@@ -27,6 +23,9 @@
     color: #e3e5e6;
     margin-bottom: 32px;
     margin-top: 50px;
+    @media screen and (max-width: 650px) {
+      padding-left: 20px;
+    }
   }
   .album-detail {
     font-family: $space;
@@ -54,6 +53,9 @@
     text-transform: uppercase;
     color: #ffffff;
     padding: 50px 0px 30px 0px;
+    @media screen and (max-width: 650px) {
+      padding-left: 20px;
+    }
   }
   .artist-holder {
     display: grid;

@@ -95,7 +95,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
                 style={{ width: "100%" }}
               >
                 <tr className="table-header">
-                  <th>SONG TITLE</th>
+                  <th>TRACK TITLE</th>
                   <th>LENGTH</th>
                   <th></th>
                 </tr>

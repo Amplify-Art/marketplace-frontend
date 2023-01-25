@@ -54,7 +54,7 @@ function SearchResult(props) {
         {songsData.length ? <SongList songList={songsData} /> : <NoResult />}
 
       </div>
-      <div className="songlist-title">artist result</div>
+      <div className="songlist-title">artist results</div>
       {
         artistsData.length
         ? (

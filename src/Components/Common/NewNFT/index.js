@@ -277,7 +277,7 @@ function NewNFT(props) {
       if (customError.songFiles) {
         delete customError.songFiles;
       }
-      // when next file is added, input focus should be to this song title
+      // when next file is added, input focus should be to this track title
       if (acceptedFiles.length) {
         setFocusedInputIndex(focusedInputIndex + 1);
       }
@@ -347,7 +347,7 @@ function NewNFT(props) {
     }
     songs.splice(index, 1, file);
     setSongFiles([...songs]);
-    // if typying on other song title field, change autofocus to that index
+    // if typying on other track title field, change autofocus to that index
     if (focusedInputIndex !== index) {
       setFocusedInputIndex(index);
     }
@@ -379,7 +379,7 @@ function NewNFT(props) {
           <div className="input-holder">
             <input
               type="text"
-              placeholder="Song Title"
+              placeholder="Track Title"
               className={file.error && "error"}
               onChange={(e) =>
                 onSongTitleChange(file, songIndex, e.target.value)
