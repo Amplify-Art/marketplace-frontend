@@ -88,12 +88,12 @@ function MainSideNav(props) {
     }
   }, [props.history.location.pathname]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {
