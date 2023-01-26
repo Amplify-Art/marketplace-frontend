@@ -205,8 +205,8 @@ function MyProfile(props) {
     >
       <div id="profile-header">
         <h2 className="header-title">Profile Image</h2>
-        <div className="profile-head-details">
-          <div className="profile-image">
+        <div className="profile-image-container">
+          <div className="profile-image-preview">
             <img
               src={
                 isDefaultImage
@@ -217,8 +217,9 @@ function MyProfile(props) {
             />
           </div>
           <div className="profile-buttons">
-            <button className="remove" onClick={() => handleRemove("profile")}>Remove</button>
-            <button className="upload" onClick={() => handleModal("profile")}>Upload</button>
+            <button className="upload" onClick={() => handleModal("profile")}>Add Image</button>
+            <button className={`remove ${!ArtistData?.avatar ? "disabled" : ""}`} onClick={() => handleRemove("profile")} disabled={!ArtistData?.avatar}>Remove</button>
+            <p>Must be a JPEG or PNG and cannot exceed 10MB. </ p>
           </div>
         </div>
       </div>

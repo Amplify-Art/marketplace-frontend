@@ -50,33 +50,42 @@
       background-color: #5a6c7a;
     }
   }
-  .profile-head-details {
+  .profile-image-container {
     margin: 0;
-    justify-content: flex-start !important;
+    flex-wrap: wrap;
+    .profile-image-preview{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: solid 3px #fff;
+      margin-right: 30px;
+    }
     .profile-buttons {
-      display: flex;
-      flex-direction: column;
-      margin-left: 30px;
+      font-family: $space;
+      margin-top: 20px;
+      margin-bottom: 10px;
       button.remove {
         background: transparent;
         border-radius: 100px;
-        font-family: "Space Grotesk", sans-serif;
+        font-family: $space;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 20px;
         text-align: center;
         text-transform: capitalize;
-        color: #fff;
-        border: 1px solid #FFFFFF;
+        color: #e52b25;
+        border: 1px solid #e52b25;
         padding: 10px 0px;
-        width: 135px;
-        margin-bottom: 15px;
+        padding: 10px 20px;
+        margin-left: 15px;
+        &.disabled {display: none;}
       }
       button.upload {
         background: #fff;
         border-radius: 100px;
-        font-family: "Space Grotesk", sans-serif;
+        font-family: $space;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
@@ -85,8 +94,15 @@
         text-transform: capitalize;
         color: #000;
         border: 0px;
-        padding: 10px 0px;
-        width: 135px;
+        padding: 10px 20px;
+      }
+      p {
+        margin: 15px 0 0 0;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 18px;
+        color: #FFFFFF;
+        opacity: 0.8;
       }
     }
     // @media screen and (max-width: 600px) {
