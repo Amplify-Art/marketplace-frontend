@@ -219,13 +219,13 @@ function MyProfile(props) {
     let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
     localStorage.setItem("selling_song", JSON.stringify(selling_song));
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
+      process.env.REACT_APP_NFT_CONTRACT || "nft_v2.amplifyart.testnet",
       "nft_approve",
       {
         token_id: songtokenid,
         account_id:
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "marketnew.amplifytmp.testnet",
+          "market_v2.amplifyart.testnet",
         price: parseNearAmount(`${nearPrice}`),
       },
       300000000000000,
