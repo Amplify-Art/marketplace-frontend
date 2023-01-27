@@ -148,7 +148,7 @@ function Albums(props) {
                 ) : (
                   <div className="placeholder-text no-mt center-text">
                   <i class="fa-duotone fa-album"></i>
-                    No Albums to Display
+                    No albums to display.
                   </div>
                 )
               )

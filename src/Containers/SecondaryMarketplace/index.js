@@ -17,10 +17,11 @@ function SecondaryMarketplace(props) {
         {props.songs && props.songs.length > 0 ? (
           <SongList songList={props.songs} />
         ) : (
-          <div>
-            <h4 className="placeholder-text center-text">
-              There are no songs currently listed.
-            </h4>
+          <div className="container">
+            <div className="placeholder-text no-mt center-text">
+            <i class="fa-duotone fa-music"></i>
+              No tracks are currently listed.
+            </div>
           </div>
         )}
       </div>

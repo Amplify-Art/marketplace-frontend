@@ -140,7 +140,7 @@ function AddShowCase({
           </div>
         ) : !isFetchingNFts && (!songs || songs.length === 0) ? (
           <div className="no-songs">
-            You have not yet purchased any songs in albums to display
+            You do not own any songs or albums to display.
           </div>
         ) : (
           <div className="loading-skeleton">

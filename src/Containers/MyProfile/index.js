@@ -307,7 +307,7 @@ function MyProfile(props) {
                 onClick={() => props.history.push("/settings")}
               >
                 {" "}
-                <span>Edit Profile</span>
+                <span>Settings</span>
               </button>
               <button style={{ width: 0, height: 0, display: "none" }}></button>
             </>

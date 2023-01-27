@@ -62,7 +62,7 @@
   .popup-container {
     .edit-profile {
       margin-left: 20px;
-      min-width: 95px;
+      // min-width: 95px;
       margin-top: 0;
       @media screen and (max-width: 650px) {
         // font-size: 12px !important;
@@ -75,6 +75,9 @@
       @media screen and (max-width: 1020px) {
         margin-left: 0px;
         transform: translateY(10px);
+      }
+      span{
+        padding-left: 11px;
       }
     }
     @media screen and (max-width: 1020px) {
