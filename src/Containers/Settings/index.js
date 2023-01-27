@@ -62,7 +62,7 @@ function MyProfile(props) {
   const onImageLoadError = (e) => {
     setDefaultImage(defaultProfile);
   };
-  const BannerUploaderForm = ({}) => (
+  const BannerUploaderForm = ({ }) => (
     <div>
       <ImageUploader
         cropData={cropData}
@@ -161,13 +161,13 @@ function MyProfile(props) {
   };
 
   const [buttonText, setButtonText] = useState("Add Image");
-    useEffect(() => {
-      if (ArtistData?.avatar) {
-        setButtonText("Update Image");
-      } else {
-        setButtonText("Add Image");
-      }
-    }, [ArtistData]);
+  useEffect(() => {
+    if (ArtistData?.avatar) {
+      setButtonText("Update Image");
+    } else {
+      setButtonText("Add Image");
+    }
+  }, [ArtistData]);
 
   useEffect(() => {
     if (!showBannerModal) {
@@ -191,61 +191,57 @@ function MyProfile(props) {
   };
   return (
     <div className="containerOuter">
-    <div
-      id="settings"
-      className={`left-nav-pad ${
-        props.playerActive ? "right-player-pad" : "normal-right-pad"
-      }`}
-    >
-      <div id="profile-header">
-        <h2 className="header-title">Profile Image</h2>
-        <div className="profile-image-container">
-          <div className="profile-image-preview">
-            <img
-              src={
-                isDefaultImage
-                  ? isDefaultImage
-                  : ArtistData?.avatar || defaultProfile
-              }
-              onError={onImageLoadError}
-            />
-          </div>
-          <div className="profile-buttons">
-            <button className="upload" onClick={() => handleModal("profile")}>
-            {buttonText}
-            </button>
-            <button className={`remove ${!ArtistData?.avatar ? "disabled" : ""}`} onClick={() => handleRemove("profile")} disabled={!ArtistData?.avatar}>Remove</button>
-            <p>Must be a JPEG or PNG and cannot exceed 10MB. </ p>
+      <div id="settings" className="left-nav-pad normal-right-pad">
+        <div id="profile-header">
+          <h2 className="header-title">Profile Image</h2>
+          <div className="profile-image-container">
+            <div className="profile-image-preview">
+              <img
+                src={
+                  isDefaultImage
+                    ? isDefaultImage
+                    : ArtistData?.avatar || defaultProfile
+                }
+                onError={onImageLoadError}
+              />
+            </div>
+            <div className="profile-buttons">
+              <button className="upload" onClick={() => handleModal("profile")}>
+                {buttonText}
+              </button>
+              <button className={`remove ${!ArtistData?.avatar ? "disabled" : ""}`} onClick={() => handleRemove("profile")} disabled={!ArtistData?.avatar}>Remove</button>
+              <p>Must be a JPEG or PNG and cannot exceed 10MB. </ p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="profile-banner">
-        <h2 className="header-title">Banner Image</h2>
-        <div className="banner-image-container">
-        <div className="banner-div">
-        <div
-          className={`profile-cover ${!ArtistData?.cover && "default"}`}
-          style={{
-            backgroundImage: `url(${ArtistData?.cover || bannerDefault})`,
-          }}
-        ></div>
+        <div className="profile-banner">
+          <h2 className="header-title">Banner Image</h2>
+          <div className="banner-image-container">
+            <div className="banner-div">
+              <div
+                className={`profile-cover ${!ArtistData?.cover && "default"}`}
+                style={{
+                  backgroundImage: `url(${ArtistData?.cover || bannerDefault})`,
+                }}
+              ></div>
+            </div>
+            <div className="banner-buttons">
+              <button className="banner-upload" onClick={() => handleModal("banner")}>Add Banner</button>
+              <button className="banner-remove" onClick={() => handleRemove("banner")}>Remove</button>
+              <p>File format: JPEG or PNG (recommended 1200x480, max 10MB). </ p>
+            </div>
+          </div>
         </div>
-        <div className="banner-buttons">
-          <button className="banner-upload" onClick={() => handleModal("banner")}>Add Banner</button>
-          <button className="banner-remove" onClick={() => handleRemove("banner")}>Remove</button>
-          <p>File format: JPEG or PNG (recommended 1200x480, max 10MB). </ p>
-        </div>
+        {showBannerModal && (
+          <GeneralModal
+            headline={`Upload ${modalType === "profile" ? "Profile Image" : "Banner Image"}`}
+            className="centered"
+            closeModal={() => setShowBannerModal(!showBannerModal)}
+            bodyChildren={<BannerUploaderForm />}
+          />
+        )}
+        <div>Test</div>
       </div>
-      </div>
-      {showBannerModal && (
-        <GeneralModal
-          headline={`Upload ${modalType === "profile" ? "Profile Image" : "Banner Image"}`}
-          className="centered"
-          closeModal={() => setShowBannerModal(!showBannerModal)}
-          bodyChildren={<BannerUploaderForm />}
-        />
-      )}
-    </div>
     </div>
   );
 }
