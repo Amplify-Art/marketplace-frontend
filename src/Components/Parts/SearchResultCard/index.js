@@ -78,8 +78,9 @@ function SearchResultCard(props) {
   return (
     <>
       {songsData.length
-        ? songsData.map((song) => (
+        ? songsData.map((song, index) => (
             <ResultCard
+              key={index}
               cover={findSongCover(song)}
               contentHeading={song.title}
               contentDetail={song.artist?.name || song.artist?.near_account_id}
@@ -94,8 +95,9 @@ function SearchResultCard(props) {
           ))
         : null}
       {albumsData.length
-        ? albumsData.map((album) => (
+        ? albumsData.map((album, index) => (
             <ResultCard
+              key={index}
               cover={findAlbumCover(album)}
               contentHeading={album.title}
               contentDetail={album.user?.near_account_id}
@@ -105,8 +107,9 @@ function SearchResultCard(props) {
           ))
         : null}
       {artistsData.length
-        ? artistsData.map((artist) => (
+        ? artistsData.map((artist, index) => (
             <ResultCard
+              key={index}
               cover={artist.avatar || DefaultPro}
               contentHeading={artist.near_account_id}
               contentDetail={

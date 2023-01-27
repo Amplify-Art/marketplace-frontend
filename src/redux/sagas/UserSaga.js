@@ -84,7 +84,7 @@ export function* updateUserSaga({ history }, { payload }) {
         payload: {
           success: res.success,
           message: res.success
-            ? "Settings Updated"
+            ? "User updated"
             : res.message || "User not updated",
         },
       }),
