@@ -240,7 +240,9 @@ function MyProfile(props) {
             bodyChildren={<BannerUploaderForm />}
           />
         )}
-        <div>Test</div>
+        <div className="logout-container">
+          <button className="logout-button"><i class="fa-regular fa-arrow-up-left-from-circle"></i> Logout</button>
+        </div>
       </div>
     </div>
   );
