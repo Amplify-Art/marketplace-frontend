@@ -18,7 +18,7 @@ function SearchResult(props) {
 
   const albumDetailRender = (albumNo) => (
     albumsData.map((album, index) => albumNo === index && (
-      <div className="album-detail">
+      <div key={index} className="album-detail">
         <div>{album.title}</div>
         <div>{album.user && album.user.name}</div>
       </div >

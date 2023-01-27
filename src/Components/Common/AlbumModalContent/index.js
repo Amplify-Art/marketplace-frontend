@@ -248,7 +248,7 @@ function AlbumModalContent({
             </div>
             <div className="album-bottom" style={{ height: isPlayList ? "290px" : "195px" }} id="modalScrolling">
               {/* <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
-                <span style={{ gridColumn: "1/3" }}>TRACK TITLE</span>
+                <span style={{ gridColumn: "1/3" }}>SONG TITLE</span>
                 <span>LENGTH</span>
               </div> */}
 
@@ -257,35 +257,39 @@ function AlbumModalContent({
                 //   }`}
                 style={{ width: "100%" }}
               >
-                <tr className="table-header">
-                  <th>TRACK TITLE</th>
-                  <th>LENGTH</th>
-                  <th></th>
-                </tr>
-                {albumInfo &&
-                  albumInfo.songs &&
-                  albumInfo.songs
-                    ?.sort((a, b) => a.id - b.id)
-                    .map((song, index) => (
-                      <tr style={{ verticalAlign: "middle" }} key={index}>
-                        <AlbumSingleSong
-                          song={song}
-                          index={index}
-                          key={`${index}singlesong`}
-                          audio={audio}
-                          currentIndex={currentIndex}
-                          playing={playing}
-                          isOpen={isOpen}
-                          toggle={(data) => toggle(data)}
-                          onSingleSongClick={onSingleSongClick}
-                          token={token}
-                          isPlayList={isPlayList}
-                          tokens={tokens}
-                          setIsCell={setIsCell}
-                          isSell={isSell}
-                        />
-                      </tr>
-                    ))}
+                <thead>
+                  <tr className="table-header">
+                    <th>SONG TITLE</th>
+                    <th>LENGTH</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {albumInfo &&
+                    albumInfo.songs &&
+                    albumInfo.songs
+                      ?.sort((a, b) => a.id - b.id)
+                      .map((song, index) => (
+                        <tr style={{ verticalAlign: "middle" }} key={index}>
+                          <AlbumSingleSong
+                            song={song}
+                            index={index}
+                            key={`${index}singlesong`}
+                            audio={audio}
+                            currentIndex={currentIndex}
+                            playing={playing}
+                            isOpen={isOpen}
+                            toggle={(data) => toggle(data)}
+                            onSingleSongClick={onSingleSongClick}
+                            token={token}
+                            isPlayList={isPlayList}
+                            tokens={tokens}
+                            setIsCell={setIsCell}
+                            isSell={isSell}
+                          />
+                        </tr>
+                      ))}
+                </tbody>
               </table>
             </div>
             {songModal && (
@@ -334,6 +338,7 @@ function AlbumModalContent({
         albumInfo.user_id !== (user && user.id) &&
         onBuy &&
         url &&
+        user &&
         url.pathname !== "/my-profile" ? (
         <button
           onClick={() => onBuy(albumInfo)}

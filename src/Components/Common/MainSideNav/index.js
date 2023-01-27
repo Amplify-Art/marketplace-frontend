@@ -55,13 +55,6 @@ function MainSideNav(props) {
     }
   };
 
-  const handleClickOutside = (event) => {
-    const { current: wrap } = wrapperRef;
-    if (wrap && !wrap.contains(event.target)) {
-      props.hideSearchResult();
-    }
-  };
-
   const handleSearchClicked = (type, data) => {
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
@@ -88,12 +81,19 @@ function MainSideNav(props) {
     }
   }, [props.history.location.pathname]);
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const { current: wrap } = wrapperRef;
+      if (wrap && !wrap.contains(event.target)) {
+        props.hideSearchResult();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   useEffect(() => {
     if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {
@@ -155,49 +155,53 @@ function MainSideNav(props) {
             Albums
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/marketplace"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Singles
-          </NavLink>
-        </li>
+        {user && (
+          <>
+            <li>
+              <NavLink
+                to="/marketplace"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Singles
+              </NavLink>
+            </li>
 
-        <li className="nav-header">Account</li>
-        <li>
-          <NavLink
-            to="/my-profile"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Profile
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/wallet"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Wallet
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/settings"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Settings
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" onClick={(e) => onLogout(e)}>
-            Logout
-          </NavLink>
-        </li>
+            <li className="nav-header">Account</li>
+            <li>
+              <NavLink
+                to="/my-profile"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/wallet"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Wallet
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/settings"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Settings
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/" onClick={(e) => onLogout(e)}>
+                Logout
+              </NavLink>
+            </li>
+          </>
+        )}
         <li className="nav-header">Artist</li>
         {user && user.type === "artist" && (
           <li>
@@ -239,7 +243,7 @@ function MainSideNav(props) {
               <img src={SearchIcon} alt="Search" />
               <input
                 type="text"
-                placeholder="Search for artists, albums or tracks"
+                placeholder="Search for artists, albums or songs"
                 onClick={() => props.showSearchResultFn()}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSubmit}
@@ -310,7 +314,7 @@ export default connect(
   (dispatch) => {
     return {
       clearCurrentPlayList: () =>
-      dispatch(playListAction.clearCurrentPlayList()),
+        dispatch(playListAction.clearCurrentPlayList()),
       toggleNominate: (data) => dispatch(toggleNominate(data)),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
