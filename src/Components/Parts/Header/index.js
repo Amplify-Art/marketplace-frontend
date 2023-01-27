@@ -98,7 +98,6 @@ function Header(props) {
     toggleMobileMenu,
     searchLoading,
     searchResult,
-    showMobileMenu,
   } = props;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -245,6 +244,13 @@ function Header(props) {
       });
   };
 
+  const handleClickOutside = (event) => {
+    const { current: wrap } = wrapperRef;
+    if (wrap && !wrap.contains(event.target)) {
+      props.hideSearchResult();
+    }
+  };
+
   const handleSearchClicked = (type, data) => {
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
@@ -252,7 +258,6 @@ function Header(props) {
     } else if (type === "Album") {
       props.history.push(`/search-result?search=${search}`);
       props.setSelectedAlbum({ albumData: data });
-      console.log(data);
       props.setIsAlbumSelected({ isAlbumSelected: true });
       props.hideSearchResult();
     } else {
@@ -274,18 +279,12 @@ function Header(props) {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      const { current: wrap } = wrapperRef;
-      if (wrap && !wrap.contains(event.target)) {
-        props.hideSearchResult();
-      }
-    };
-  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [wrapperRef]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (showWalletSidebar) {
@@ -317,40 +316,38 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        {!showMobileMenu && (
-          <div ref={wrapperRef} className="searchWrapper">
-            <div className="search">
-              <img src={SearchIcon} alt="Search" />
-              <input
-                type="text"
-                placeholder="Search for artists, albums or songs"
-                onClick={() => props.showSearchResultFn()}
-                onChange={handleSearch}
-                onKeyDown={handleSubmit}
-                value={search}
-              />
-            </div>
-            {search.trim() !== "" && props.showSearchResult && (
-              <div
-                className={`scrollSearchResult ${
-                  hasData() && !searchLoading ? "p-0" : ""
-                }`}
-              >
-                {searchLoading
-                  ? "Loading..." // TODO: can add any animation
-                  : searchResult &&
-                    searchResult.results &&
-                    searchResult.results.length && (
-                      <SearchResultCard
-                        handleClick={(type, data) =>
-                          handleSearchClicked(type, data)
-                        }
-                      />
-                    )}
-              </div>
-            )}
+        <div ref={wrapperRef} className="searchWrapper">
+          <div className="search">
+            <img src={SearchIcon} alt="Search" />
+            <input
+              type="text"
+              placeholder="Search for artists, albums or tracks"
+              onClick={() => props.showSearchResultFn()}
+              onChange={handleSearch}
+              onKeyDown={handleSubmit}
+              value={search}
+            />
           </div>
-        )}
+          {search.trim() !== "" && props.showSearchResult && (
+            <div
+              className={`scrollSearchResult ${
+                hasData() && !searchLoading ? "p-0" : ""
+              }`}
+            >
+              {searchLoading
+                ? "Loading..." // TODO: can add any animation
+                : searchResult &&
+                  searchResult.results &&
+                  searchResult.results.length && (
+                    <SearchResultCard
+                      handleClick={(type, data) =>
+                        handleSearchClicked(type, data)
+                      }
+                    />
+                  )}
+            </div>
+          )}
+        </div>
         <div className="right">
           {userToken ? (
             <>

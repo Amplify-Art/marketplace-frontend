@@ -103,7 +103,7 @@ function TheTeam() {
     },
     {
       handle: 'yichong.near',
-      support_cards: 5,
+      support_cards: 10,
       image: LiIMG,
       // profile_link: ''
     }

@@ -206,7 +206,7 @@ function NewNFT(props) {
       localStorage.setItem("minting_info", JSON.stringify(minting_info));
 
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || "nft.amplifytmp.testnet",
+        process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
         "add_token_types",
         {
           album_hash: albumCover,

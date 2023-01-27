@@ -138,11 +138,11 @@ function UserDashboard(props) {
       JSON.stringify(album_bundle_info)
     );
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.amplifytmp.testnet",
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "marketnew.amplifytmp.testnet",
       "offer_album",
       {
         nft_contract_id:
-          process.env.REACT_APP_NFT_CONTRACT || "nft.amplifytmp.testnet",
+          process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
         albumipfs_hash_copy: `${album.cover_cid}:${copy_no}`,
       },
       200000000000000,

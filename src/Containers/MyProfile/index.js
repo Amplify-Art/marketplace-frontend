@@ -219,13 +219,13 @@ function MyProfile(props) {
     let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
     localStorage.setItem("selling_song", JSON.stringify(selling_song));
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NFT_CONTRACT || "nft.amplifytmp.testnet",
+      process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
       "nft_approve",
       {
         token_id: songtokenid,
         account_id:
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market.amplifytmp.testnet",
+          "marketnew.amplifytmp.testnet",
         price: parseNearAmount(`${nearPrice}`),
       },
       300000000000000,
@@ -394,8 +394,8 @@ function MyProfile(props) {
     window.location.reload();
   };
   const renderHeader = (title, isCreateButton = false) => (
-    <div className="album-header">
-      <span className="header-title">{title}</span>
+    <div className="playlist-header">
+      <span className="playlist-title">{title}</span>
       <div>
         {isCreateButton && (
           <button className="btn-wrap" onClick={() => togglePlayListModal()}>
@@ -528,7 +528,7 @@ function MyProfile(props) {
 
           {props.playlists && props.playlists.length > 0 ? (
             <div className="container">
-              <div className="album-grid">
+              <div className="album-grid playlist-gutters">
                 {props.playlists.map((album, index) => (
                   <SingleAlbum
                     key={index}
