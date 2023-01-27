@@ -248,7 +248,7 @@ function AlbumModalContent({
             </div>
             <div className="album-bottom" style={{ height: isPlayList ? "290px" : "195px" }} id="modalScrolling">
               {/* <div className={`playlist-header ${isPlayList ? "playlist" : isSell ? "can-sell" : "playlist"}`}>
-                <span style={{ gridColumn: "1/3" }}>SONG TITLE</span>
+                <span style={{ gridColumn: "1/3" }}>TRACK TITLE</span>
                 <span>LENGTH</span>
               </div> */}
 
@@ -258,7 +258,7 @@ function AlbumModalContent({
                 style={{ width: "100%" }}
               >
                 <tr className="table-header">
-                  <th>SONG TITLE</th>
+                  <th>TRACK TITLE</th>
                   <th>LENGTH</th>
                   <th></th>
                 </tr>

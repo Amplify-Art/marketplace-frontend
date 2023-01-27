@@ -377,7 +377,7 @@ function SongList(props) {
                               }
                             >
                               {user.id === transfer.transfer_to
-                                ? "Delist Song"
+                                ? "Delist Track"
                                 : "Buy Now "}
                             </button>
                           </div>
@@ -408,8 +408,8 @@ function SongList(props) {
                   <GeneralModal
                     headline={
                       buyingSong?.transfer_to === user.id
-                        ? "Delist Song"
-                        : "Buy Song"
+                        ? "Delist Track"
+                        : "Buy Track"
                     }
                     bodyText={`Please confirm your ${
                       buyingSong.transfer_to === user.id
