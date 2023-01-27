@@ -249,6 +249,7 @@
         border: 1px solid #e52b25;
         padding: 10px 0px;
         padding: 10px 20px;
+        &.disabled {display: none;}
       }
       button.banner-upload {
         background: #fff;
