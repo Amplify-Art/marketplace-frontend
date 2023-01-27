@@ -198,22 +198,22 @@ function SongList(props) {
     );
     if (isDelist) {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "marketnew.amplifytmp.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.amplifytmp.testnet",
         "remove_song_sale",
         {
           nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
+            process.env.REACT_APP_NFT_CONTRACT || "nft.amplifytmp.testnet",
           token_id: buyingSong.token,
         },
         300000000000000
       );
     } else {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "marketnew.amplifytmp.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market.amplifytmp.testnet",
         "offer",
         {
           nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nftnew.amplifytmp.testnet",
+            process.env.REACT_APP_NFT_CONTRACT || "nft.amplifytmp.testnet",
           receiver_id: user.near_account_id,
           song_token_id: buyingSong.token,
         },
@@ -377,7 +377,7 @@ function SongList(props) {
                               }
                             >
                               {user.id === transfer.transfer_to
-                                ? "Delist Track"
+                                ? "Delist Song"
                                 : "Buy Now "}
                             </button>
                           </div>
@@ -408,8 +408,8 @@ function SongList(props) {
                   <GeneralModal
                     headline={
                       buyingSong?.transfer_to === user.id
-                        ? "Delist Track"
-                        : "Buy Track"
+                        ? "Delist Song"
+                        : "Buy Song"
                     }
                     bodyText={`Please confirm your ${
                       buyingSong.transfer_to === user.id
