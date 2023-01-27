@@ -202,7 +202,9 @@ function MainSideNav(props) {
             </li>
           </>
         )}
-        <li className="nav-header">Artist</li>
+        {user && (
+          <li className="nav-header">Artist</li>
+        )}
         {user && user.type === "artist" && (
           <li>
             <NavLink to="/artist-dashboard" onClick={handleOnClick}>
@@ -210,9 +212,11 @@ function MainSideNav(props) {
             </NavLink>
           </li>
         )}
-        <li className="">
-          <span onClick={() => handleNominate()}>Nominate</span>
-        </li>
+        {user && (
+          <li className="">
+            <span onClick={() => handleNominate()}>Nominate</span>
+          </li>
+        )}
         {user && user.is_support_card_holder && (
           <>
             <li className="nav-header">Supporter</li>
