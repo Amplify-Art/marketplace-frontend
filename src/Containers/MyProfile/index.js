@@ -248,7 +248,7 @@ function MyProfile(props) {
     // document.execCommand("copy");
 
     const tempInput = document.createElement("input");
-    tempInput.value = `https://amplifyart.netlify.app/user/${userName}`;
+    tempInput.value = `https://amplify.art/user/${userName}`;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
