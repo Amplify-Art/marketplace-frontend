@@ -55,13 +55,6 @@ function MainSideNav(props) {
     }
   };
 
-  const handleClickOutside = (event) => {
-    const { current: wrap } = wrapperRef;
-    if (wrap && !wrap.contains(event.target)) {
-      props.hideSearchResult();
-    }
-  };
-
   const handleSearchClicked = (type, data) => {
     if (type === "Artist") {
       props.history.push(`/artist/${data.near_account_id}`);
@@ -88,12 +81,19 @@ function MainSideNav(props) {
     }
   }, [props.history.location.pathname]);
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const { current: wrap } = wrapperRef;
+      if (wrap && !wrap.contains(event.target)) {
+        props.hideSearchResult();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   useEffect(() => {
     if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {

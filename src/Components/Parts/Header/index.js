@@ -54,7 +54,7 @@ function Header(props) {
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   const [wallet, setWalletState] = useState(null);
-  const [isWalletSigned, ] = useState(
+  const [isWalletSigned,] = useState(
     user && user.near_connected
   );
   const [balance, setBalance] = useState(null);
@@ -74,7 +74,7 @@ function Header(props) {
       getAccountDetails();
     }
     props.setCurrentNearPrice();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.location.pathname]);
 
   // useEffect(() => {
@@ -89,7 +89,7 @@ function Header(props) {
     if (debouncedSearchTerm.length !== 0 || debouncedSearchTerm.trim() !== "") {
       props.searchRes(debouncedSearchTerm);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
   const {
@@ -98,6 +98,7 @@ function Header(props) {
     toggleMobileMenu,
     searchLoading,
     searchResult,
+    showMobileMenu,
   } = props;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +121,7 @@ function Header(props) {
     return () => {
       setWalletState(null);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -138,7 +139,7 @@ function Header(props) {
         `${window.location.origin}/near/failure` // optional
       );
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet]);
 
   const onConnect = () => {
@@ -212,7 +213,7 @@ function Header(props) {
       getAccountDetails();
     } else {
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWalletSigned]);
 
   const handleSearch = async (e) => {
@@ -230,7 +231,7 @@ function Header(props) {
       const { id } = jwt_decode(userToken);
       props.fetchUser({ id });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getNearPrice = () => {
@@ -242,13 +243,6 @@ function Header(props) {
       .then((res) => {
         setNearPrice(res.data.USD);
       });
-  };
-
-  const handleClickOutside = (event) => {
-    const { current: wrap } = wrapperRef;
-    if (wrap && !wrap.contains(event.target)) {
-      props.hideSearchResult();
-    }
   };
 
   const handleSearchClicked = (type, data) => {
@@ -279,12 +273,19 @@ function Header(props) {
   };
 
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      const { current: wrap } = wrapperRef;
+      if (wrap && !wrap.contains(event.target)) {
+        props.hideSearchResult();
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wrapperRef]);
 
   useEffect(() => {
     if (showWalletSidebar) {
@@ -294,7 +295,7 @@ function Header(props) {
       }
       getNearPrice();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showWalletSidebar]);
 
   const hasData = () => {
@@ -316,27 +317,27 @@ function Header(props) {
             <img src={Logo} alt="Amplify.Art" />
           </a>
         </div>
-        <div ref={wrapperRef} className="searchWrapper">
-          <div className="search">
-            <img src={SearchIcon} alt="Search" />
-            <input
-              type="text"
-              placeholder="Search for artists, albums or tracks"
-              onClick={() => props.showSearchResultFn()}
-              onChange={handleSearch}
-              onKeyDown={handleSubmit}
-              value={search}
-            />
-          </div>
-          {search.trim() !== "" && props.showSearchResult && (
-            <div
-              className={`scrollSearchResult ${
-                hasData() && !searchLoading ? "p-0" : ""
-              }`}
-            >
-              {searchLoading
-                ? "Loading..." // TODO: can add any animation
-                : searchResult &&
+        {!showMobileMenu && (
+          <div ref={wrapperRef} className="searchWrapper">
+            <div className="search">
+              <img src={SearchIcon} alt="Search" />
+              <input
+                type="text"
+                placeholder="Search for artists, albums or tracks"
+                onClick={() => props.showSearchResultFn()}
+                onChange={handleSearch}
+                onKeyDown={handleSubmit}
+                value={search}
+              />
+            </div>
+            {search.trim() !== "" && props.showSearchResult && (
+              <div
+                className={`scrollSearchResult ${hasData() && !searchLoading ? "p-0" : ""
+                  }`}
+              >
+                {searchLoading
+                  ? "Loading..." // TODO: can add any animation
+                  : searchResult &&
                   searchResult.results &&
                   searchResult.results.length && (
                     <SearchResultCard
@@ -345,9 +346,10 @@ function Header(props) {
                       }
                     />
                   )}
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        )}
         <div className="right">
           {userToken ? (
             <>
@@ -369,11 +371,10 @@ function Header(props) {
                 <div
                   className="profilePic"
                   style={{
-                    backgroundImage: `url(${
-                      !props.userDetails.avatar
-                        ? defaultProfile
-                        : props.userDetails.avatar
-                    })`,
+                    backgroundImage: `url(${!props.userDetails.avatar
+                      ? defaultProfile
+                      : props.userDetails.avatar
+                      })`,
                   }}
                 />
                 {/* <img
@@ -439,13 +440,12 @@ function Header(props) {
                   </div>
                 </div>
                 <a
-                  href={`https://buy${
-                    process.env.REACT_APP_CONTEXT === "production"
-                      ? ""
-                      : "-staging"
-                  }.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(
-                    user.email
-                  )}&walletAddress=${user.near_account_id}`}
+                  href={`https://buy${process.env.REACT_APP_CONTEXT === "production"
+                    ? ""
+                    : "-staging"
+                    }.moonpay.com?apiKey=pk_test_Atula0B14cvDEjG2VohLCsa2bmhInRk&currencyCode=eth&email=${encodeURIComponent(
+                      user.email
+                    )}&walletAddress=${user.near_account_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -494,7 +494,7 @@ export default connect(
       displayLoadingOverlay: () => dispatch(displayLoadingOverlayAction()),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       sendNotificationAction: (payload) =>
-      dispatch(sendNotificationAction(payload)),
+        dispatch(sendNotificationAction(payload)),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
       setNearBalance: (payload) => dispatch(setNearBalanceAction(payload)),
       setSelectedAlbum: (payload) => dispatch(storeSelectedAlbum(payload)),
