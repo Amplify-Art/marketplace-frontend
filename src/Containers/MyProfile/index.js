@@ -219,13 +219,13 @@ function MyProfile(props) {
     let songtokenid = `${selectedAlbumToken.cover_cid}:${sellingCopy.copy_number}:${sellingCopy.token}`;
     localStorage.setItem("selling_song", JSON.stringify(selling_song));
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NFT_CONTRACT || "nft_v2.amplifyart.testnet",
+      process.env.REACT_APP_NFT_CONTRACT || "nft_v1.amplifyart.testnet",
       "nft_approve",
       {
         token_id: songtokenid,
         account_id:
           process.env.REACT_APP_NEAR_MARKET_ACCOUNT ||
-          "market_v2.amplifyart.testnet",
+          "market_v1.amplifyart.testnet",
         price: parseNearAmount(`${nearPrice}`),
       },
       300000000000000,
@@ -518,7 +518,7 @@ function MyProfile(props) {
             </div>
           ) : !props.loading ? (
             <div className="placeholder-text center-text">
-              <i class="fa-duotone fa-music-slash"></i>
+              <i className="fa-duotone fa-music-slash"></i>
             This user doesn't own any music.</div>
           ) : null}
           {renderHeader(
@@ -543,7 +543,7 @@ function MyProfile(props) {
             </div>
           ) : (
             <div className="placeholder-text center-text">
-              <i class="fa-duotone fa-list-music"></i>
+              <i className="fa-duotone fa-list-music"></i>
             No playlists found.</div>
           )}
         </>

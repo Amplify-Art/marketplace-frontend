@@ -138,11 +138,11 @@ function UserDashboard(props) {
       JSON.stringify(album_bundle_info)
     );
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v2.amplifyart.testnet",
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v1.amplifyart.testnet",
       "offer_album",
       {
         nft_contract_id:
-          process.env.REACT_APP_NFT_CONTRACT || "nft_v2.amplifyart.testnet",
+          process.env.REACT_APP_NFT_CONTRACT || "nft_v1.amplifyart.testnet",
         albumipfs_hash_copy: `${album.cover_cid}:${copy_no}`,
       },
       200000000000000,
@@ -170,7 +170,7 @@ function UserDashboard(props) {
           </div>
         ) : (
           <div className="not-following">
-            <div class="placeholder-graphic"><img src={NoFollowIcon} alt="no following icon" /></div>
+            <div className="placeholder-graphic"><img src={NoFollowIcon} alt="no following icon" /></div>
             <h5 className="not-following-text">Never miss a beat by following your favorite <a href="/artists">artists</a>.</h5>
           </div>
         )}
@@ -186,7 +186,7 @@ function UserDashboard(props) {
             </div>
           ) : (
             <div className="no-releases">
-              <div class="placeholder-graphic"><img src={NoReleasesIcon} alt="no releases icon" /></div>
+              <div className="placeholder-graphic"><img src={NoReleasesIcon} alt="no releases icon" /></div>
               <h5 className="no-releases-text"><a href="/albums">Albums</a> released by the artists you follow will display here.</h5>
             </div>
           )}

@@ -6,6 +6,7 @@ import UserAvatar from '../../Components/Common/UserAvatar';
 import SongList from '../../Components/Parts/SongList';
 import { setIsSongSelected } from '../../redux/actions/SearchResAction';
 
+import jwt from "jsonwebtoken";
 import { filter } from 'lodash';
 import './SearchResult.scss';
 
@@ -15,6 +16,7 @@ function SearchResult(props) {
   const artistsData = filter(results, item => item.type === "artists")[0]?.data || [];
   const songsData = filter(results, item => item.type === "songs")[0]?.data || [];
   const songSectionRef = useRef(null);
+  const user = jwt.decode(localStorage.getItem("amplify_app_token"));
 
   const albumDetailRender = (albumNo) => (
     albumsData.map((album, index) => albumNo === index && (
@@ -49,11 +51,12 @@ function SearchResult(props) {
           <NoResult />
         }
       </div>
-      <div ref={songSectionRef}>
-        <div className="songlist-title">song results</div>
-        {songsData.length ? <SongList songList={songsData} /> : <NoResult />}
-
-      </div>
+      {user && (
+        <div ref={songSectionRef}>
+          <div className="songlist-title">song results</div>
+          {songsData.length ? <SongList songList={songsData} /> : <NoResult />}
+        </div>
+      )}
       <div className="songlist-title">artist results</div>
       {
         artistsData.length

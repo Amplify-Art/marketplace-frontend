@@ -166,11 +166,11 @@ function SingleMergedAlbum(props) {
       JSON.stringify(album_bundle_info)
     );
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v2.amplifyart.testnet",
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v1.amplifyart.testnet",
       "offer_album",
       {
         nft_contract_id:
-          process.env.REACT_APP_NFT_CONTRACT || "nft_v2.amplifyart.testnet",
+          process.env.REACT_APP_NFT_CONTRACT || "nft_v1.amplifyart.testnet",
         albumipfs_hash_copy: `${albumInfo.cover_cid}:${copy_no}`,
       },
       200000000000000,

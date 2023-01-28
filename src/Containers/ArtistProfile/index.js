@@ -15,7 +15,6 @@ function ArtistProfile(props) {
   const { artist } = props;
   const [albums, setAlbums] = useState([])
   const token = localStorage.getItem('amplify_app_token');
-  const decodedToken = jwt_decode(token);
   const [userID, setID] = useState(null);
   const [artistFound, setArtistFound] = useState(false)
 
@@ -54,7 +53,9 @@ function ArtistProfile(props) {
         <button><img src={TwitterIcon} alt="Twitter" />View All</button> */}
         {/* <button>Upload Store Banner</button>
         <button>Mint New Album</button> */}
-        <button className="follow-button" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        {token && (
+          <button className="follow-button" onClick={() => onFollow()} >{/*<img src={ShareIcon} alt="Twitter" />*/}{props.myFollowings.findIndex(f => (f && f.artist_id) === userID) === -1 ? 'Follow' : 'Unfollow'}</button>
+        )}
       </>
     )
   }
@@ -88,6 +89,8 @@ function ArtistProfile(props) {
 
 
   const onFollow = () => {
+    const decodedToken = jwt_decode(token);
+
     let follow = props.myFollowings.find(f => f.artist_id === userID)
     if (follow) {
       props.updateFollower({
@@ -122,7 +125,7 @@ function ArtistProfile(props) {
                   generateAlbumItem({ ...album, hideSticker: false }, index)
                 )) : (
                   <div className="placeholder-text no-mt center-text">
-                  <i class="fa-duotone fa-album"></i>
+                  <i className="fa-duotone fa-album"></i>
                     This artist hasn't released any albums.
                   </div>
                 )}

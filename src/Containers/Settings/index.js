@@ -241,7 +241,7 @@ function MyProfile(props) {
           />
         )}
         <div className="logout-container">
-          <button className="logout-button"><i class="fa-regular fa-arrow-up-left-from-circle"></i> Logout</button>
+          <button className="logout-button"><i className="fa-regular fa-arrow-up-left-from-circle"></i> Logout</button>
         </div>
       </div>
     </div>

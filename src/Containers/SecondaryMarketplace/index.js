@@ -19,7 +19,7 @@ function SecondaryMarketplace(props) {
         ) : (
           <div className="container">
             <div className="placeholder-text no-mt center-text">
-            <i class="fa-duotone fa-music"></i>
+            <i className="fa-duotone fa-music"></i>
               No tracks are currently listed.
             </div>
           </div>

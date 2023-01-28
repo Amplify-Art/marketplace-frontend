@@ -334,6 +334,7 @@ function AlbumModalContent({
         albumInfo.user_id !== (user && user.id) &&
         onBuy &&
         url &&
+        user &&
         url.pathname !== "/my-profile" ? (
         <button
           onClick={() => onBuy(albumInfo)}

@@ -125,47 +125,47 @@ function ArtistDashboard(props) {
       <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
       <div className="content">
         <div className="container dashboard-grid">
-          <div class="salesListWrapper">
-            <div class="salesList">
-              <div class="heading">Albums</div>
-              <div class="sales-heading">Sales</div>
-              <div class="heading">Rev. <span>(97%)</span></div>
+          <div className="salesListWrapper">
+            <div className="salesList">
+              <div className="heading">Albums</div>
+              <div className="sales-heading">Sales</div>
+              <div className="heading">Rev. <span>(97%)</span></div>
             </div>
-            <div class="salesWrapper">
-              <table class="salesTable">
-                <tr class="salesRow">
-                  <td class="salesIdMobile">
-                    <a href="" class="salesIdHolder">Album Title</a>
-                    <div class="salesAmountHolder">#/#</div>
+            <div className="salesWrapper">
+              <table className="salesTable">
+                <tr className="salesRow">
+                  <td className="salesIdMobile">
+                    <a href="" className="salesIdHolder">Album Title</a>
+                    <div className="salesAmountHolder">#/#</div>
                   </td>
-                  <td class="salesId"><a href="">Album Title</a></td>
-                  <td class="salesAmount">#/#</td>
-                  <td class="salesAmt">
-                    <div class="greenTxt">0.00 NEAR</div>
-                    <div class="smallTxt">$0.00</div>
+                  <td className="salesId"><a href="">Album Title</a></td>
+                  <td className="salesAmount">#/#</td>
+                  <td className="salesAmt">
+                    <div className="greenTxt">0.00 NEAR</div>
+                    <div className="smallTxt">$0.00</div>
                   </td>
                 </tr>
               </table>
             </div>
           </div>
-          <div class="salesListWrapper">
-            <div class="salesList">
-              <div class="heading">Singles</div>
-              <div class="sales-heading">Sales</div>
-              <div class="heading">Rev. <span>(3%)</span></div>
+          <div className="salesListWrapper">
+            <div className="salesList">
+              <div className="heading">Singles</div>
+              <div className="sales-heading">Sales</div>
+              <div className="heading">Rev. <span>(3%)</span></div>
             </div>
-            <div class="salesWrapper">
-              <table class="salesTable">
-                <tr class="salesRow">
-                  <td class="salesIdMobile">
-                    <a href="" class="salesIdHolder">Track Title</a>
-                    <div class="salesAmountHolder">#</div>
+            <div className="salesWrapper">
+              <table className="salesTable">
+                <tr className="salesRow">
+                  <td className="salesIdMobile">
+                    <a href="" className="salesIdHolder">Track Title</a>
+                    <div className="salesAmountHolder">#</div>
                   </td>
-                  <td class="salesId"><a href="">Track Title</a></td>
-                  <td class="salesAmount">#</td>
-                  <td class="salesAmt">
-                    <div class="greenTxt">0.00 NEAR</div>
-                    <div class="smallTxt">$0.00</div>
+                  <td className="salesId"><a href="">Track Title</a></td>
+                  <td className="salesAmount">#</td>
+                  <td className="salesAmt">
+                    <div className="greenTxt">0.00 NEAR</div>
+                    <div className="smallTxt">$0.00</div>
                   </td>
                 </tr>
               </table>

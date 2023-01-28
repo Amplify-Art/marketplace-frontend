@@ -40,16 +40,6 @@ function ProfileHeader({
     return coverPhoto;
   };
 
-  useEffect(() => {
-    let user;
-    if (isPublicProfile) {
-      user = userId;
-    } else {
-      user = jwt.decode(localStorage.getItem("amplify_app_token")).id;
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
-
   let songsCount = tokenTransfers && tokenTransfers.length ? tokenTransfers.length : 0;
 
   return (

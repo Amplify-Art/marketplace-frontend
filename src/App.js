@@ -186,13 +186,13 @@ function App(props) {
           <Route
             path="/artist/:slug"
             exact
-            render={Auth(() => (
+            render={() => (
               <ArtistProfile
                 playerActive={props && props.currentPlaylists.length > 0}
               />
-            ))}
+            )}
           />
-          <Route path="/artists" exact component={Auth(Artists)} />
+          <Route path="/artists" exact component={Artists} />
           <Route
             path="/marketplace"
             exact
@@ -209,11 +209,11 @@ function App(props) {
           <Route
             path="/search-result"
             exact
-            render={Auth(() => (
+            render={() => (
               <SearchResult
                 playerActive={props && props.currentPlaylists.length > 0}
               />
-            ))}
+            )}
           />
           <Route
             path="/transaction-list"

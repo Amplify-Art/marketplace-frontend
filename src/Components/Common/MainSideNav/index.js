@@ -155,60 +155,66 @@ function MainSideNav(props) {
             Albums
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/marketplace"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Singles
-          </NavLink>
-        </li>
+        {user && (
+          <>
+            <li>
+              <NavLink
+                to="/marketplace"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Singles
+              </NavLink>
+            </li>
 
-        <li className="nav-header">Account</li>
-        <li>
-          <NavLink
-            to="/my-profile"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Profile
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/wallet"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Wallet
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/settings"
-            onClick={handleOnClick}
-            activeClassName="current"
-          >
-            Settings
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" onClick={(e) => onLogout(e)}>
-            Logout
-          </NavLink>
-        </li>
-        <li className="nav-header">Artist</li>
+            <li className="nav-header">Account</li>
+            <li>
+              <NavLink
+                to="/my-profile"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/wallet"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Wallet
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/settings"
+                onClick={handleOnClick}
+                activeClassName="current"
+              >
+                Settings
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/" onClick={(e) => onLogout(e)}>
+                Logout
+              </NavLink>
+            </li>
+            <li className="nav-header">Artist</li>
+          </>
+        )}
         {user && user.type === "artist" && (
           <li>
             <NavLink to="/artist-dashboard" onClick={handleOnClick}>
               Dashboard
             </NavLink>
           </li>
+        )}        
+        {user && (
+          <li className="">
+            <span onClick={() => handleNominate()}>Nominate</span>
+          </li>
         )}
-        <li className="">
-          <span onClick={() => handleNominate()}>Nominate</span>
-        </li>
         {user && user.is_support_card_holder && (
           <>
             <li className="nav-header">Supporter</li>
