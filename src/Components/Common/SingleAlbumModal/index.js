@@ -6,7 +6,7 @@ import BackArrowIcon from '../../../assets/images/leftarrow.svg';
 import './SingleAlbumModal.scss';
 
 
-const SingleAlbumModal = ({ isOpen = false, albumData }) => {
+const SingleAlbumModal = ({ isOpen = false, albumData, limit }) => {
   const [viewDetails, setViewDetails] = useState(false);
   const [audio, setAudioSong] = useState(new Audio(''));
   const [playing, setPlaying] = useState(false);
@@ -115,6 +115,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData }) => {
                           isOpen={isOpen}
                           toggle={(data) => toggle(data)}
                           isSell={true}
+                          limit={limit}
                         />
                       </tr>
                     ))}

@@ -72,6 +72,7 @@ function LatestReleases() {
             <SingleAlbumModal
               isOpen={albumModalOpen}
               albumData={albumData}
+              limit={true}
             />
           }
           closeModal={() => setAlbumModalOpen(false)}
