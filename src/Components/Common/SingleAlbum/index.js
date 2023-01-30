@@ -110,7 +110,9 @@ function SingleAlbum(props) {
       albumBundleInfo.hash = txtId;
       checkTxnStatus(albumBundleInfo);
     }
-    SetModalOpen(props.isAlbumSelected);
+    if (props.isAlbumSelected && props.selectedAlbum.id === albumInfo.id) {
+      SetModalOpen(true);
+    }
   }, []);
 
   const checkTxnStatus = async (albumBundleInfo) => {
