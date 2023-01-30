@@ -60,6 +60,7 @@ function Header(props) {
   const [balance, setBalance] = useState(null);
   const [nearPrice, setNearPrice] = useState(0);
   const [search, setSearch] = useState("");
+  const [openPopup, setOpenPopup] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
 
@@ -386,7 +387,29 @@ function Header(props) {
               </div>
             </>
           ) : (
-            <Login onConnect={onConnect} />
+            <>
+              <div style={{color: "white", marginRight: "20px", position: "relative", cursor: "pointer"}} onClick={() => setOpenPopup(!openPopup)}>
+                <span style={{marginRight: "5px"}}>Learn More</span>
+                <i className="fa fa-angle-down" aria-hidden="true"></i>
+                {openPopup && (
+                  <div className="popUp">
+                    <div className="popup-div">
+                      <span>How It Works</span>
+                    </div>
+                    <div className="popup-div">
+                      <span>Team & Supporters</span>
+                    </div>
+                    <div className="popup-div">
+                      <span>Early Artist Signup</span>
+                    </div>
+                    <div className="popup-div">
+                      <span>Faqs</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <Login onConnect={onConnect} />
+            </>
           )}
         </div>
       </header>
