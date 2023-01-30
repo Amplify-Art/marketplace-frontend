@@ -59,10 +59,15 @@ function AlbumSingleSong(props) {
     tokens,
     setIsCell,
     isSell,
+    limit,
   } = props;
   const [user, setUser] = useState(
     jwt.decode(localStorage.getItem("amplify_app_token"))
   );
+  const [isPlaying, setIsPlaying] = useState(playing);
+  useEffect(() => {
+    setIsPlaying(playing);
+  }, [playing]);
 
   const handleClick = (e, song) => {
     e.stopPropagation();
@@ -86,7 +91,7 @@ function AlbumSingleSong(props) {
         .some((s) => {
           return (
             `${token.album.cover_cid}:${s.copy_number}:${s.token}` ===
-              t.token_id &&
+            t.token_id &&
             // s.copy_number === (token && token.copy_number) &&
             song.album_id === token.album.id &&
             s.is_owner &&
@@ -105,6 +110,17 @@ function AlbumSingleSong(props) {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 
+  audio.addEventListener("canplay", function() {
+    audio.ontimeupdate = function () {
+      if (limit) {
+        if (audio.currentTime > 10) {
+          audio.pause();
+          setIsPlaying(false);
+        }
+      }
+    }
+  });
+
   return (
     <
       // tr
@@ -114,10 +130,10 @@ function AlbumSingleSong(props) {
       >
       <td className="td1" style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} onClick={() => { if (!viewOrSell) toggle(song.song_cid) }}>
         <div style={{ cursor: viewOrSell ? "not-allowed" : "pointer" }} className="pr-10 pointer play-pause-btn flex f-align-center">
-          {playing && currentIndex === song.song_cid ? (
-              <div className="solid-pause">
-                <i className="fa fa-solid fa-pause" onClick={() => toggle(song.song_cid)} />
-              </div>
+          {isPlaying && currentIndex === song.song_cid ? (
+            <div className="solid-pause">
+              <i className="fa fa-solid fa-pause" onClick={() => toggle(song.song_cid)} />
+            </div>
           ) : viewOrSell ? (
             <i className="fa fa-solid fa-ban" />
           ) : (
