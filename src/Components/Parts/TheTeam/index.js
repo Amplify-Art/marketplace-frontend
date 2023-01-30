@@ -6,7 +6,6 @@ import TommyIMG from '../../../assets/images/teamimgs/tommy.png';
 import RolandIMG from '../../../assets/images/teamimgs/roland.jpg';
 import NoahIMG from '../../../assets/images/teamimgs/noah.png';
 import ReblockIMG from '../../../assets/images/teamimgs/reblock.jpg';
-import AdamIMG from '../../../assets/images/teamimgs/adam.png';
 import CocoIMG from '../../../assets/images/teamimgs/coco.jpg';
 import JonathonIMG from '../../../assets/images/teamimgs/jonathon.jpg';
 import AjIMG from '../../../assets/images/teamimgs/aj.jpg';
@@ -17,12 +16,6 @@ import LiIMG from '../../../assets/images/teamimgs/li.png';
 
 function TheTeam() {
   const theTeam = [
-    {
-      handle: 'amplifyart.near',
-      support_cards: 250,
-      image: AmplifyArtIMG,
-      // profile_link: ''
-    },
     {
       handle: 'donflaquito.near',
       support_cards: 100,
@@ -43,13 +36,13 @@ function TheTeam() {
     },
     {
       handle: 'rologajate.near',
-      support_cards: 40,
+      support_cards: 50,
       image: RolandIMG,
       // profile_link: ''
     },
     {
       handle: 'noahgoldstein.near',
-      support_cards: 40,
+      support_cards: 50,
       image: NoahIMG,
       // profile_link: ''
     },
@@ -57,12 +50,6 @@ function TheTeam() {
       handle: 'bdee.near',
       support_cards: 25,
       image: ReblockIMG,
-      // profile_link: ''
-    },
-    {
-      handle: 'adammcbride.near',
-      support_cards: 20,
-      image: AdamIMG,
       // profile_link: ''
     },
     {
