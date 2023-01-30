@@ -74,6 +74,7 @@ function MyProfile(props) {
   const [deletingId, setDeletingId] = useState(null);
   const token = localStorage.getItem("amplify_app_token");
   const decodedToken = token ? jwt_decode(token) : {};
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     props.fetchPlaylists({
@@ -248,7 +249,7 @@ function MyProfile(props) {
     // document.execCommand("copy");
 
     const tempInput = document.createElement("input");
-    tempInput.value = `https://amplifyart.netlify.app/user/${userName}`;
+    tempInput.value = `https://amplify.art/user/${userName}`;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
@@ -332,10 +333,10 @@ function MyProfile(props) {
       });
       if (res.data.success && res.data.results.length) {
         let { id, near_account_id } = res.data.results[0];
-
-        props.fetchUser({
-          id: id,
-        });
+        setUser(res.data.results[0]);
+        // props.fetchUser({
+        //   id: id,
+        // });
         props.fetchTokenTransfers({
           params: {
             "filter[transfer_to]": parseInt(id),
@@ -366,18 +367,18 @@ function MyProfile(props) {
 
   useEffect(() => {
     if (isPublicProfile) {
-      setBannerImage(props.user.banner);
-      setProfileImage(props.user.avatar);
-      setUserName(props.user.near_account_id);
+      setBannerImage(user?.banner);
+      setProfileImage(user?.avatar);
+      setUserName(user?.near_account_id);
       props.fetchFollowers({
         params: {
           "filter[follower_id]]": decodedToken.id,
-          "filter[artist_id]]": props.user.id,
+          "filter[artist_id]]": user?.id,
         },
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.user]);
+  }, [user]);
 
   const closeModals = () => {
     if (props.displaySellModal && sellingCopy) {
@@ -449,10 +450,10 @@ function MyProfile(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aformattedAlbums.length, props.history.location.search]);
 
-  useEffect(() => {
-    fetchTokens();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchTokens();
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const fetchTokens = async () => {
     let tokens = await getTokens(props.wallet);
