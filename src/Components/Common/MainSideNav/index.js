@@ -229,6 +229,16 @@ function MainSideNav(props) {
             </li>
           </>
         )}
+        <li className="nav-header">Learn More</li>
+        <li className="">
+          <span>Who We're For</span>
+        </li>
+        <li className="">
+          <span>How It Works</span>
+        </li>
+        <li className="">
+          <span>Team & Supporters</span>
+        </li>
       </ul>
     );
 
