@@ -229,21 +229,26 @@ function MainSideNav(props) {
             </li>
           </>
         )}
-        <li className="nav-header">Learn More</li>
-        <li className="">
-          <span>Who We're For</span>
-        </li>
-        <li className="">
-          <span>How It Works</span>
-        </li>
-        <li className="">
-          <span>Team & Supporters</span>
-        </li>
+        {!user && showMobileMenu && (
+          <>
+            <li className="nav-header">Learn More</li>
+            <li className="">
+              <span>Who We're For</span>
+            </li>
+            <li className="">
+              <span>How It Works</span>
+            </li>
+            <li className="">
+              <span>Team & Supporters</span>
+            </li>
+          </>
+        )}
       </ul>
     );
 
-    if (showLoggedInSidebar) return loggedInMenu;
-    else return;
+    // if (showLoggedInSidebar) return loggedInMenu;
+    // else return;
+    return loggedInMenu;
   }
 
   return (
@@ -326,7 +331,7 @@ export default connect(
   (dispatch) => {
     return {
       clearCurrentPlayList: () =>
-      dispatch(playListAction.clearCurrentPlayList()),
+        dispatch(playListAction.clearCurrentPlayList()),
       toggleNominate: (data) => dispatch(toggleNominate(data)),
       toggleMobileMenu: () => dispatch(toggleMobileMenuAction()),
       searchRes: (payload) => dispatch(fetchSearchResult(payload)),
