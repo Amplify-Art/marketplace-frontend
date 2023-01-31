@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, useLocation } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import { connect } from "react-redux";
 
@@ -31,6 +31,7 @@ function MainSideNav(props) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { toggleWalletSidebar, showMobileMenu } = props;
   const user = jwt.decode(localStorage.getItem("amplify_app_token"));
+  let location = useLocation();
 
   const onLogout = (e) => {
     e.preventDefault();
@@ -248,7 +249,8 @@ function MainSideNav(props) {
 
     // if (showLoggedInSidebar) return loggedInMenu;
     // else return;
-    return loggedInMenu;
+    if (!showMobileMenu && location.pathname === '/') return;
+    else return loggedInMenu;
   }
 
   return (
