@@ -450,14 +450,16 @@ function MyProfile(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aformattedAlbums.length, props.history.location.search]);
 
-  // useEffect(() => {
-  //   fetchTokens();
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    fetchTokens();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.wallet]);
 
   const fetchTokens = async () => {
-    let tokens = await getTokens(props.wallet);
-    setTokens(tokens);
+    if (props.wallet) {
+      let tokens = await getTokens(props.wallet);
+      setTokens(tokens);
+    }
   };
 
   useEffect(() => {
