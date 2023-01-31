@@ -1,11 +1,6 @@
 @import '../../../assets/SCSS/Vars.scss';
 
 #the-team {
-    // padding-left: 56px;
-    // padding-right: 56px;
-    // width: 100%;
-    // box-sizing: border-box;
-    // float: left;
     h2 {
         font-family: $oswald;
         text-transform: uppercase;
@@ -16,22 +11,14 @@
       text-decoration: none;
       cursor: default;
     }
-    // .team-list a:hover {
-    //   opacity: 90%;
-    //   -webkit-transition: opacity 0.2s ease-in-out;
-    //    -moz-transition: opacity 0.2s ease-in-out;
-    //    -ms-transition: opacity 0.2s ease-in-out;
-    //    -o-transition: opacity 0.2s ease-in-out;
-    //    transition: opacity 0.2s ease-in-out;
-    // }
     .team-list {
         display: grid;
         // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         grid-template-rows: max-content max-content;
         gap: 20px 20px;
         .team-member {
-            padding: 25px;
+            padding: 25px 20px 20px;
             background-color: #434343;
             display: flex;
             flex: none;
@@ -47,8 +34,8 @@
                 margin-right: 0px;
             }
             .image {
-                width: 160px;
-                height: 160px;
+                width: 130px;
+                height: 130px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -61,8 +48,10 @@
             p {
                 color: #fff;
                 margin-bottom: 0px;
+                margin-top: 20px;
                 &.support-card-count {
                     color: $red;
+                    margin-top: 10px;
                 }
             }
         }

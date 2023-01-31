@@ -9,8 +9,11 @@ function ThankYou(props) {
           <div id="thank-you">
             <div className="container center-text">
               <h2 className="large center-text">JOIN <span className="red">US</span></h2>
-              <p>Amplified Art is only possible through the support and shared vision of artists, collectors, crypto enthusiasts, and music fans who recognize that the established music industry is broken. Together we will build a fairer system that supports and rewards artists and fans.</p>
-              <a href="#" className="btn btn-red join-btn">Join Today</a>
+              <p>Amplify Art is only possible through the support and shared vision of artists, collectors, crypto enthusiasts, and music fans who recognize that the established industry is broken. Together we will build a fairer system that supports and rewards artists and fans.</p>
+              <div className="join-buttons">
+              <a href="https://amplify.art/artists" className="btn btn-white join-btn">Visit App</a>
+              <a href="#" className="btn btn-red join-btn">Login</a>
+              </div>
             </div>
           </div>
         </div>

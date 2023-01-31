@@ -209,7 +209,7 @@ function MainSideNav(props) {
               Dashboard
             </NavLink>
           </li>
-        )}        
+        )}
         {user && (
           <li className="">
             <span onClick={() => handleNominate()}>Nominate</span>

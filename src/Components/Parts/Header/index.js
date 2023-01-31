@@ -388,22 +388,19 @@ function Header(props) {
             </>
           ) : (
             <>
-              <div style={{color: "white", marginRight: "20px", position: "relative", cursor: "pointer"}} onClick={() => setOpenPopup(!openPopup)}>
+              <div className="lm-button" style={{color: "white", marginRight: "20px", position: "relative", cursor: "pointer"}} onClick={() => setOpenPopup(!openPopup)}>
                 <span style={{marginRight: "5px"}}>Learn More</span>
                 <i className="fa fa-angle-down" aria-hidden="true"></i>
                 {openPopup && (
                   <div className="popUp">
+                  <div className="popup-div">
+                    <a href="#we-are-for">Who We're For</a>
+                  </div>
                     <div className="popup-div">
-                      <span>How It Works</span>
+                      <a href="#how-it-works">How It Works</a>
                     </div>
                     <div className="popup-div">
-                      <span>Team & Supporters</span>
-                    </div>
-                    <div className="popup-div">
-                      <span>Early Artist Signup</span>
-                    </div>
-                    <div className="popup-div">
-                      <span>Faqs</span>
+                      <a href="#the-team">Team & Supporters</a>
                     </div>
                   </div>
                 )}

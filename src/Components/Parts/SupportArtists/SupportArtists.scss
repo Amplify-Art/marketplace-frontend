@@ -32,9 +32,18 @@
 
   .albums {
     display: flex;
-    margin-top: 60px;
+    margin-top: -75px;
     position: relative;
     z-index: 8;
+    @media screen and (max-width: 1565px){
+    margin-top: -50px;
+    }
+    @media screen and (max-width: 1010px){
+      margin-top: -35px;
+    }
+    @media screen and (max-width: 754px){
+      margin-top: 30px;
+  }
     @media screen and (max-width: 682px) {
       margin-top: 50px;
       margin-left: 0px;
@@ -47,4 +56,19 @@
       }
     }
   }
+}
+
+.support-padding-section{
+    position: relative;
+    padding-top: 3rem;
+    padding-bottom: 7.5rem;
+    .support-padding{
+      width: -webkit-fill-available;
+      padding-right: 48px;
+      padding-left: 48px;
+      @media screen and (max-width: 800px){
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+    }
 }

@@ -30,7 +30,7 @@
 
   .bottom {
     display: flex;
-    @media screen and (max-width: 994px) {
+    @media screen and (max-width: 1070px) {
       flex-direction: column;
     }
     @media screen and (max-width: 650px) {
@@ -42,9 +42,9 @@
       padding-right: 70px;
       width: -webkit-fill-available;
 
-      @media screen and (max-width: 994px) {
+      @media screen and (max-width: 1070px) {
         padding-right: 0px;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
       }
       @media screen and (max-width: 650px) {
         display: block;
@@ -118,11 +118,14 @@
     .right {
       background-color: #434343;
       box-sizing: border-box;
-      padding: 50px;
+      padding: 40px 50px;
+      width: 70%;
+      @media screen and (max-width: 1070px) {
+      padding: 30px;
       width: 100%;
+      }
       @media screen and (max-width: 650px) {
       padding: 20px 30px 30px;
-
       }
       h4 {
         color: #fff;

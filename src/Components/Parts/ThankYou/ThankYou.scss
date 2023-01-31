@@ -19,3 +19,18 @@
     font-weight: 400;
   }
 }
+.join-buttons{
+    display: inline-grid;
+    column-gap: 15px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.btn.btn-white {
+    border: 2px solid #fff;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 20px 40px;
+    background-color: transparent;
+}

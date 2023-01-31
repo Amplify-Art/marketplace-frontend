@@ -13,6 +13,8 @@ import VzcekIMG from '../../../assets/images/teamimgs/vz.jpg';
 import ChaseIMG from '../../../assets/images/teamimgs/chase.jpg';
 import SurfIMG from '../../../assets/images/teamimgs/surf.jpg';
 import LiIMG from '../../../assets/images/teamimgs/li.png';
+import BitcoinlouieIMG from '../../../assets/images/teamimgs/bitcoinlouie.jpeg';
+import WhereidrawIMG from '../../../assets/images/teamimgs/whereidraw.jpeg';
 
 function TheTeam() {
   const theTeam = [
@@ -92,6 +94,18 @@ function TheTeam() {
       handle: 'yichong.near',
       support_cards: 10,
       image: LiIMG,
+      // profile_link: ''
+    },
+    {
+      handle: 'bitcoinlouie.near',
+      support_cards: 5,
+      image: BitcoinlouieIMG,
+      // profile_link: ''
+    },
+    {
+      handle: 'whereidraw.near',
+      support_cards: 5,
+      image: WhereidrawIMG,
       // profile_link: ''
     }
   ];
