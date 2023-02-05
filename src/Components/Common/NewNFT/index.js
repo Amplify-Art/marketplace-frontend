@@ -185,6 +185,10 @@ function NewNFT(props) {
       let yocto_near_price = parseNearAmount(
         `${data.albumPrice / props.nearPrice}`
       );
+
+
+      console.log(data.albumPrice, props.nearPrice, yocto_near_price, "#################################");
+      
       let gasMultiplies = Math.ceil(parseInt(data.numberOfAlbums) / 25);
       let approximate_storage_deposit =
         0.2 * gasMultiplies * (0.8 * songFiles.length);
@@ -206,7 +210,7 @@ function NewNFT(props) {
       localStorage.setItem("minting_info", JSON.stringify(minting_info));
 
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || "nft.aa-1-test.testnet",
+        process.env.REACT_APP_NFT_CONTRACT || "nft_v7.amplifyart.testnet",
         "add_token_types",
         {
           album_hash: albumCover,
