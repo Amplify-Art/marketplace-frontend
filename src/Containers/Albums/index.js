@@ -112,11 +112,11 @@ function Albums(props) {
       JSON.stringify(album_bundle_info)
     );
     await props.wallet.account().functionCall(
-      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v12.amplifyart.testnet",
+      process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v14.amplifyart.testnet",
       "offer_album",
       {
         nft_contract_id:
-          process.env.REACT_APP_NFT_CONTRACT || "nft_v12.amplifyart.testnet",
+          process.env.REACT_APP_NFT_CONTRACT || "nft_v14.amplifyart.testnet",
         albumipfs_hash_copy: `${album.cover_cid}:${copy_no}`,
       },
       200000000000000,
