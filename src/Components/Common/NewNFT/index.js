@@ -209,6 +209,7 @@ function NewNFT(props) {
       };
       localStorage.setItem("minting_info", JSON.stringify(minting_info));
 
+        
       await props.wallet.account().functionCall(
         process.env.REACT_APP_NFT_CONTRACT || "nft_v9.amplifyart.testnet",
         "add_token_types",
@@ -222,7 +223,7 @@ function NewNFT(props) {
             media: `https://gateway.pinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
           })),
         },
-        300000000000000,
+        30000000000000,
         parseNearAmount(`${approximate_storage_deposit}`)
       );
     } catch (e) {
