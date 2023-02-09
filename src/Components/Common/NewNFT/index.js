@@ -205,22 +205,62 @@ function NewNFT(props) {
       };
       localStorage.setItem("minting_info", JSON.stringify(minting_info));
 
-      await props.wallet.account().functionCall(
-        process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
-        "add_token_types",
-        {
-          album_hash: albumCover,
-          cover_songslist: _.uniq(uploadedIpfs),
-          number_of_album_copies: parseInt(data.numberOfAlbums),
-          price: yocto_near_price,
-          songs_metadatalist: minting_info.songs.map((song) => ({
-            title: song.title,
-            media: `https://gateway.pinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
-          })),
-        },
-        300000000000000,
-        parseNearAmount(`${approximate_storage_deposit}`)
-      );
+      
+      let actions = [];
+      if (parseInt(data.numberOfAlbums)>10) {
+        for (let i = 0; i < parseInt(data.numberOfAlbums)/10; i++) {
+          actions.push(
+            props.wallet.account().functionCall(
+              process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+              "add_token_types",
+              {
+                album_hash: albumCover,
+                cover_songslist: _.uniq(uploadedIpfs),
+                number_of_album_copies: 10,
+                price: yocto_near_price,
+                songs_metadatalist: minting_info.songs.map((song) => ({
+                  title: song.title,
+                  media: `https://gateway.pinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
+                })),
+              },
+              300000000000000,
+              parseNearAmount(`${approximate_storage_deposit}`)
+            )
+          );
+        }
+      }
+      if (parseInt(data.numberOfAlbums)%10) {
+        actions.push(
+          props.wallet.account().functionCall(
+            process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+            "add_token_types",
+            {
+              album_hash: albumCover,
+              cover_songslist: _.uniq(uploadedIpfs),
+              number_of_album_copies: parseInt(data.numberOfAlbums)%10,
+              price: yocto_near_price,
+              songs_metadatalist: minting_info.songs.map((song) => ({
+                title: song.title,
+                media: `https://gateway.pinata.cloud/ipfs/${albumCover}`, //TODO: should change the params to have actual song media
+              })),
+            },
+            300000000000000,
+            parseNearAmount(`${approximate_storage_deposit}`)
+          )
+        );
+      }
+
+      await props.wallet.account().signAndSendTransaction({
+        receiverId: process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+        actions: actions
+      });
+
+
+
+
+
+
+
     } catch (e) {
       props.hideLoadingOverlay();
       toast.error("Something has went wrong. Please try again later.", {
