@@ -234,13 +234,28 @@ function MainSideNav(props) {
           <>
             <li className="nav-header">Learn More</li>
             <li className="">
-              <span>Who We're For</span>
+              <NavLink
+                to="#"
+                onClick={handleOnClick}
+              >
+                Who We're For
+              </NavLink>
             </li>
             <li className="">
-              <span>How It Works</span>
+              <NavLink
+                to="#"
+                onClick={handleOnClick}
+              >
+                How It Works
+              </NavLink>
             </li>
             <li className="">
-              <span>Team & Supporters</span>
+              <NavLink
+                to="#"
+                onClick={handleOnClick}
+              >
+                Team & Supporters
+              </NavLink>
             </li>
           </>
         )}
