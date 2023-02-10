@@ -63,6 +63,7 @@ function Header(props) {
   const [openPopup, setOpenPopup] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
+  const wrapperRef1 = useRef(null);
 
   useEffect(() => {
     if (
@@ -289,6 +290,21 @@ function Header(props) {
   }, [wrapperRef]);
 
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      const { current: wrap } = wrapperRef1;
+      if (wrap && !wrap.contains(event.target)) {
+        setOpenPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wrapperRef1]);
+
+  useEffect(() => {
     if (showWalletSidebar) {
       // fetch latest account balance
       if (isWalletSigned) {
@@ -393,7 +409,7 @@ function Header(props) {
                   <span style={{ marginRight: "5px" }}>Learn More</span>
                   <i className="fa fa-angle-down" aria-hidden="true"></i>
                   {openPopup && (
-                    <div className="popUp">
+                    <div className="popUp" ref={wrapperRef1}>
                       <div className="popup-div">
                         <a href="#we-are-for">Who We're For</a>
                       </div>

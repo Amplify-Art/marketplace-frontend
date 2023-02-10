@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
@@ -75,6 +75,7 @@ function MyProfile(props) {
   const token = localStorage.getItem("amplify_app_token");
   const decodedToken = token ? jwt_decode(token) : {};
   const [user, setUser] = useState(null);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
     props.fetchPlaylists({
@@ -267,6 +268,20 @@ function MyProfile(props) {
     setSharePopup(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const { current: wrap } = wrapperRef;
+      if (wrap && !wrap.contains(event.target)) {
+        setSharePopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wrapperRef]);
 
   const renderBtnContent = () => {
     return (
@@ -281,7 +296,7 @@ function MyProfile(props) {
               >
                 <img src={ShareIcon} alt="Twitter" /> <span>Share</span>
                 {openSharePopup && (
-                  <div className="popUp">
+                  <div className="popUp" ref={wrapperRef}>
                     <div className="popup-div" onClick={copyProfileLink}>
                       <img src={copyLink} alt="Copy Link" className="popup-img" />
                       <span>Copy Link</span>
