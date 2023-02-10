@@ -64,6 +64,7 @@ function Header(props) {
   const debouncedSearchTerm = useDebounce(search, 500);
   const wrapperRef = useRef(null);
   const wrapperRef1 = useRef(null);
+  const wrapperRef2 = useRef(null);
 
   useEffect(() => {
     if (
@@ -291,8 +292,9 @@ function Header(props) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const { current: wrap } = wrapperRef1;
-      if (wrap && !wrap.contains(event.target)) {
+      const { current: wrap1 } = wrapperRef1;
+      const { current: wrap2 } = wrapperRef2;
+      if (wrap2 && !wrap2.contains(event.target) && wrap1 && !wrap1.contains(event.target)) {
         setOpenPopup(false);
       }
     };
@@ -302,7 +304,7 @@ function Header(props) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wrapperRef1]);
+  }, [wrapperRef1, wrapperRef2]);
 
   useEffect(() => {
     if (showWalletSidebar) {
@@ -405,7 +407,7 @@ function Header(props) {
           ) : (
             <>
               {!showMobileMenu &&
-                <div className="lm-button" style={{ color: "white", marginRight: "20px", position: "relative", cursor: "pointer" }} onClick={() => setOpenPopup(!openPopup)}>
+                <div ref={wrapperRef2} className="lm-button" style={{ color: "white", marginRight: "20px", position: "relative", cursor: "pointer" }} onClick={() => setOpenPopup(!openPopup)}>
                   <span style={{ marginRight: "5px" }}>Learn More</span>
                   <i className="fa fa-angle-down" aria-hidden="true"></i>
                   {openPopup && (

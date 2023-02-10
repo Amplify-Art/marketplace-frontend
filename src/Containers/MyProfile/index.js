@@ -75,7 +75,8 @@ function MyProfile(props) {
   const token = localStorage.getItem("amplify_app_token");
   const decodedToken = token ? jwt_decode(token) : {};
   const [user, setUser] = useState(null);
-  const wrapperRef = useRef(null);
+  const wrapperRef1 = useRef(null);
+  const wrapperRef2 = useRef(null);
 
   useEffect(() => {
     props.fetchPlaylists({
@@ -270,8 +271,9 @@ function MyProfile(props) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const { current: wrap } = wrapperRef;
-      if (wrap && !wrap.contains(event.target)) {
+      const { current: wrap1 } = wrapperRef1;
+      const { current: wrap2 } = wrapperRef2;
+      if (wrap2 && !wrap2.contains(event.target) && wrap1 && !wrap1.contains(event.target)) {
         setSharePopup(false);
       }
     };
@@ -281,7 +283,7 @@ function MyProfile(props) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wrapperRef]);
+  }, [wrapperRef1, wrapperRef2]);
 
   const renderBtnContent = () => {
     return (
@@ -293,10 +295,11 @@ function MyProfile(props) {
               <button
                 className="set_name"
                 onClick={() => setSharePopup(!openSharePopup)}
+                ref={wrapperRef2}
               >
                 <img src={ShareIcon} alt="Twitter" /> <span>Share</span>
                 {openSharePopup && (
-                  <div className="popUp" ref={wrapperRef}>
+                  <div className="popUp" ref={wrapperRef1}>
                     <div className="popup-div" onClick={copyProfileLink}>
                       <img src={copyLink} alt="Copy Link" className="popup-img" />
                       <span>Copy Link</span>
