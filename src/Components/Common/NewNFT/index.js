@@ -211,7 +211,7 @@ function NewNFT(props) {
         for (let i = 0; i < parseInt(data.numberOfAlbums)/10; i++) {
           actions.push(
             props.wallet.account().functionCall(
-              process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+              process.env.REACT_APP_NFT_CONTRACT || "nft_v20.amplifyart.testnet",
               "add_token_types",
               {
                 album_hash: albumCover,
@@ -232,7 +232,7 @@ function NewNFT(props) {
       if (parseInt(data.numberOfAlbums)%10) {
         actions.push(
           props.wallet.account().functionCall(
-            process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+            process.env.REACT_APP_NFT_CONTRACT || "nft_v20.amplifyart.testnet",
             "add_token_types",
             {
               album_hash: albumCover,
@@ -251,7 +251,7 @@ function NewNFT(props) {
       }
 
       await props.wallet.account().signAndSendTransaction({
-        receiverId: process.env.REACT_APP_NFT_CONTRACT || "nft_v18.amplifyart.testnet",
+        receiverId: process.env.REACT_APP_NFT_CONTRACT || "nft_v20.amplifyart.testnet",
         actions: actions
       });
 
