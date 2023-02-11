@@ -180,6 +180,18 @@ function NewNFT(props) {
     albumBody.price = Math.round(data.albumPrice * 100);
     albumBody.qty = data.numberOfAlbums;
 
+    async function signAndSendTransaction(transaction) {
+      return new Promise((resolve, reject) => {
+        props.wallet.account().signAndSendTransaction(transaction, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    }
+    
     props.displayLoadingOverlay();
     try {
       let yocto_near_price = parseNearAmount(
@@ -250,16 +262,10 @@ function NewNFT(props) {
         );
       }
 
-      await props.wallet.account().signAndSendTransaction({
+      await signAndSendTransaction({
         receiverId: process.env.REACT_APP_NFT_CONTRACT || "nft_v20.amplifyart.testnet",
         actions: actions
       });
-
-
-
-
-
-
 
     } catch (e) {
       props.hideLoadingOverlay();
