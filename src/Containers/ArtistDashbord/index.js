@@ -179,7 +179,7 @@ function ArtistDashboard(props) {
                       <td className="salesAmount">{album.qty - album.available_qty}/{album.qty}</td>
                       <td className="salesAmt">
                       <div className="greenTxt">{(album.qty - album.available_qty) * Number(utils.format.formatNearAmount(album.yocto_near_price)).toFixed(5)} NEAR</div>
-                        <div className="smallTxt">{(album.qty - album.available_qty) * album.price}</div>
+                        <div className="smallTxt">${((album.qty - album.available_qty) * album.price / 100).toFixed(2)}</div>
                       </td>
                     </tr>
                   ))
@@ -219,7 +219,7 @@ function ArtistDashboard(props) {
                       <td className="salesAmount">{single.count}</td>
                       <td className="salesAmt">
                         <div className="greenTxt">{Number(utils.format.formatNearAmount(single.sum)).toFixed(5)} NEAR</div>
-                        <div className="smallTxt">{single.sum_usd}</div>
+                        <div className="smallTxt">${(single.sum_usd / 100).toFixed(2)}</div>
                       </td>
                     </tr>
                   ))
