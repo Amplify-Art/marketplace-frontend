@@ -23,6 +23,7 @@ import { displayLoadingOverlayAction, hideLoadingOverlayAction, hideMintSuccessM
 import { mintNFTAction } from '../../redux/actions/NFTAction';
 
 import './ArtistDashboard.scss';
+import * as nearAPI from "near-api-js";
 
 function ArtistDashboard(props) {
   const handleOpenModal = () => {
@@ -72,7 +73,7 @@ function ArtistDashboard(props) {
       props.mintNFT(mintInfo)
     }
     localStorage.removeItem('minting_info')
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -91,7 +92,7 @@ function ArtistDashboard(props) {
         related: 'votedFor, votes'
       }
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -99,7 +100,7 @@ function ArtistDashboard(props) {
     return (
       <div className='headerBtn'>
         <Link to={`/artist/${userName}`}>
-          <button onClick={() => {}}>
+          <button onClick={() => { }}>
             View Profile
           </button>
         </Link>
@@ -120,6 +121,27 @@ function ArtistDashboard(props) {
       clearAllBodyScrollLocks();
     }
   }, [artistRef, isModalOpen])
+
+  const [albums, setAlbums] = useState([]);
+  const [singles, setSingles] = useState([]);
+
+  useEffect(() => {
+    axios
+      .post(`${API_ENDPOINT_URL}/transactions/albums-singles`, '', {
+        headers: {
+          Authorization: "Bearer " + getAccessToken(),
+        },
+      })
+      .then(res => {
+        setAlbums(res.data.albums);
+        setSingles(res.data.singles);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [])
+  
+  const { utils } = nearAPI;
   return (
     <div id="artist-dashboard" className={`left-nav-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
       <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
@@ -133,18 +155,35 @@ function ArtistDashboard(props) {
             </div>
             <div className="salesWrapper">
               <table className="salesTable">
-                <tr className="salesRow">
-                  <td className="salesIdMobile">
-                    <a href="" className="salesIdHolder">Album Title</a>
-                    <div className="salesAmountHolder">#/#</div>
-                  </td>
-                  <td className="salesId"><a href="">Album Title</a></td>
-                  <td className="salesAmount">#/#</td>
-                  <td className="salesAmt">
-                    <div className="greenTxt">0.00 NEAR</div>
-                    <div className="smallTxt">$0.00</div>
-                  </td>
-                </tr>
+                {albums.length == 0 ? (
+                  <tr className="salesRow">
+                    <td className="salesIdMobile">
+                      <a href="" className="salesIdHolder">Album Title</a>
+                      <div className="salesAmountHolder">#/#</div>
+                    </td>
+                    <td className="salesId"><a href="">Album Title</a></td>
+                    <td className="salesAmount">#/#</td>
+                    <td className="salesAmt">
+                      <div className="greenTxt">0.00 NEAR</div>
+                      <div className="smallTxt">$0.00</div>
+                    </td>
+                  </tr>
+                ) : (
+                  albums.map((album, index) => (
+                    <tr className="salesRow" key={index}>
+                      <td className="salesIdMobile">
+                        <a href="" className="salesIdHolder">{album.title}</a>
+                        <div className="salesAmountHolder">{album.qty - album.available_qty}/{album.qty}</div>
+                      </td>
+                      <td className="salesId"><a href="">{album.title}</a></td>
+                      <td className="salesAmount">{album.qty - album.available_qty}/{album.qty}</td>
+                      <td className="salesAmt">
+                        <div className="greenTxt">{Number(utils.format.formatNearAmount(album.yocto_near_price)).toFixed(5)} NEAR</div>
+                        <div className="smallTxt">{(album.qty - album.available_qty) * album.price}</div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </table>
             </div>
           </div>
@@ -156,18 +195,35 @@ function ArtistDashboard(props) {
             </div>
             <div className="salesWrapper">
               <table className="salesTable">
-                <tr className="salesRow">
-                  <td className="salesIdMobile">
-                    <a href="" className="salesIdHolder">Track Title</a>
-                    <div className="salesAmountHolder">#</div>
-                  </td>
-                  <td className="salesId"><a href="">Track Title</a></td>
-                  <td className="salesAmount">#</td>
-                  <td className="salesAmt">
-                    <div className="greenTxt">0.00 NEAR</div>
-                    <div className="smallTxt">$0.00</div>
-                  </td>
-                </tr>
+                {singles.length == 0 ? (
+                  <tr className="salesRow">
+                    <td className="salesIdMobile">
+                      <a href="" className="salesIdHolder">Track Title</a>
+                      <div className="salesAmountHolder">#</div>
+                    </td>
+                    <td className="salesId"><a href="">Track Title</a></td>
+                    <td className="salesAmount">#</td>
+                    <td className="salesAmt">
+                      <div className="greenTxt">0.00 NEAR</div>
+                      <div className="smallTxt">$0.00</div>
+                    </td>
+                  </tr>
+                ) : (
+                  singles.map((single, index) => (
+                    <tr className="salesRow" key={index}>
+                      <td className="salesIdMobile">
+                        <a href="" className="salesIdHolder">{single.title}</a>
+                        <div className="salesAmountHolder">{single.count}</div>
+                      </td>
+                      <td className="salesId"><a href="">{single.title}</a></td>
+                      <td className="salesAmount">{single.count}</td>
+                      <td className="salesAmt">
+                        <div className="greenTxt">{Number(utils.format.formatNearAmount(single.sum)).toFixed(5)} NEAR</div>
+                        <div className="smallTxt">{single.sum_usd}</div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </table>
             </div>
           </div>
