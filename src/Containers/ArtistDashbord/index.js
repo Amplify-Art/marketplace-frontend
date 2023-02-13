@@ -41,6 +41,7 @@ function ArtistDashboard(props) {
   const [, toggleCongratsModal] = useState(false);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
+  const [nearPrice, setNearPrice] = useState(0);
   const token = localStorage.getItem('amplify_app_token');
   const decodedToken = jwt_decode(token);
   const [ArtistData, setArtistData] = useState({
@@ -142,6 +143,17 @@ function ArtistDashboard(props) {
   }, [])
   
   const { utils } = nearAPI;
+
+  useEffect(() => {
+    getNearPrice();
+  }, []);
+
+  const getNearPrice = () => {
+    axios.get('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=NEAR,USD').then(res => {
+      setNearPrice(res.data.USD);
+    });
+  }
+
   return (
     <div id="artist-dashboard" className={`left-nav-pad ${isModalOpen ? 'disable-scroll' : ''}`} ref={el => artistRef = el}>
       <ArtistHeader ArtistData={ArtistData} btnContent={renderBtnContent()} />
@@ -179,7 +191,7 @@ function ArtistDashboard(props) {
                       <td className="salesAmount">{album.qty - album.available_qty}/{album.qty}</td>
                       <td className="salesAmt">
                       <div className="greenTxt">{(album.qty - album.available_qty) * Number(utils.format.formatNearAmount(album.yocto_near_price)).toFixed(5)} NEAR</div>
-                        <div className="smallTxt">${((album.qty - album.available_qty) * album.price / 100).toFixed(2)}</div>
+                        <div className="smallTxt">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format(((album.qty - album.available_qty) * Number(utils.format.formatNearAmount(album.yocto_near_price)).toFixed(5) * Number(nearPrice)).toFixed(2))}</div>
                       </td>
                     </tr>
                   ))
@@ -219,7 +231,7 @@ function ArtistDashboard(props) {
                       <td className="salesAmount">{single.count}</td>
                       <td className="salesAmt">
                         <div className="greenTxt">{Number(utils.format.formatNearAmount(single.sum)).toFixed(5)} NEAR</div>
-                        <div className="smallTxt">${(single.sum_usd / 100).toFixed(2)}</div>
+                        <div className="smallTxt">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol' }).format((Number(utils.format.formatNearAmount(single.sum)).toFixed(5) * Number(nearPrice)).toFixed(2))}</div>
                       </td>
                     </tr>
                   ))
