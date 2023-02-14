@@ -60,18 +60,29 @@ function TransactionModal({ transaction, onClose }) {
         </div>
       </div>
 
-      <div className="transaction-modal-address-wrapper">
-        <div className="transaction-modal-from">From</div>
-        <div className="transaction-modal-heading">
-          @{transaction.transferBy.near_account_id}
+      {(transaction.price_in_yocto_near < 0 && transaction.type === 'minted') ? (
+        <div className="transaction-modal-address-wrapper">
+          <div className="transaction-modal-from">By</div>
+          <div className="transaction-modal-heading">
+            @{transaction.transferBy.near_account_id}
+          </div>
         </div>
-      </div>
-      <div className="transaction-modal-address-wrapper">
-        <div className="transaction-modal-from">To</div>
-        <div className="transaction-modal-heading">
-          @{transaction.transferTo && transaction.transferTo.near_account_id}
-        </div>
-      </div>
+      ) : (
+        <>
+          <div className="transaction-modal-address-wrapper">
+            <div className="transaction-modal-from">From</div>
+            <div className="transaction-modal-heading">
+              @{transaction.transferBy.near_account_id}
+            </div>
+          </div>
+          <div className="transaction-modal-address-wrapper">
+            <div className="transaction-modal-from">To</div>
+            <div className="transaction-modal-heading">
+              @{transaction.transferTo && transaction.transferTo.near_account_id}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
