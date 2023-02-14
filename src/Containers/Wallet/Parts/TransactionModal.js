@@ -30,11 +30,9 @@ function TransactionModal({ transaction, onClose }) {
       {/* <div className="transaction-modal-fee">Fee: 1 NEAR</div> */}
 
       <div className="transaction-modal-purchase-detail">
-        {transaction.price_in_yocto_near > 0 ? (
-          <div className="purchase-headline">Sold</div>
-        ) : (
-          <div className="purchase-headline">Purchased</div>
-        )}
+        {transaction.price_in_yocto_near > 0 && <div className="purchase-headline">Sold</div>}
+        {transaction.price_in_yocto_near < 0 && transaction.type === 'minted' && <div className="purchase-headline">Minted</div>}
+        {transaction.price_in_yocto_near < 0 && transaction.type !== 'minted' && <div className="purchase-headline">Purchased</div>}
         <div className="purchase-date">
           {moment(transaction.created_at).format("MMM DD, YYYY")}
         </div>
