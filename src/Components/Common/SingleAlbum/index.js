@@ -18,7 +18,7 @@ import {
 } from "../../../redux/actions/GlobalAction";
 import { buyAlbumBundleNFTAction } from "../../../redux/actions/NFTAction";
 import "./SingleAlbum.scss";
-import cdCover from "../../../assets/images/cd-img.svg";
+import cdCover from "../../../assets/images/cd-img2.png";
 import ConfettiImage from "../../../assets/images/confetti.png";
 
 const {
