@@ -35,6 +35,8 @@ import { getAccessToken } from "../../Api/index";
 import { updateUserAction } from "../../redux/actions/UserAction";
 import defaultProfile from "../../assets/images/default-profile.svg";
 import ImageUploader from "./ImageUploader";
+import { getNearKeys } from "../../Constants/near";
+import * as playListAction from "../../redux/actions/PlaylistAction";
 
 function MyProfile(props) {
   const [isDefaultImage, setDefaultImage] = useState(null);
@@ -46,6 +48,8 @@ function MyProfile(props) {
 
   const [ArtistData, setArtistData] = useState(null);
   const [cropData, setCropData] = useState("#");
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const token = localStorage.getItem("amplify_app_token");
   const decodedToken = jwt_decode(token);
@@ -189,6 +193,27 @@ function MyProfile(props) {
       [type === "profile" ? "avatar" : "banner"]: null,
     });
   };
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    setShowLogoutModal(true);
+  };
+
+  const handleCloseModal = async (bool) => {
+    if (bool) {
+      let nearKeys = await getNearKeys();
+      for (const key in nearKeys) {
+        localStorage.removeItem(nearKeys[key]);
+      }
+      sessionStorage.removeItem("activePlaylist");
+      localStorage.removeItem("amplify_app_token");
+      props.clearCurrentPlayList();
+      props.history.push("/");
+      window.location.reload();
+    }
+    setShowLogoutModal(false);
+  };
+
   return (
     <div className="containerOuter">
       <div id="settings" className="left-nav-pad normal-right-pad">
@@ -241,8 +266,27 @@ function MyProfile(props) {
           />
         )}
         <div className="logout-container">
-          <button className="logout-button"><i className="fa-regular fa-arrow-up-left-from-circle"></i> Logout</button>
+          <button className="logout-button" onClick={(e) => onLogout(e)}><i className="fa-regular fa-arrow-up-left-from-circle"></i> Logout</button>
         </div>
+        {showLogoutModal && (
+          <GeneralModal
+            // topIcon={ConfettiImage}
+            headline="Are you sure you want to logout?"
+            buttons={[
+              {
+                type: "solid go-home",
+                text: "Yes",
+                onClick: () => handleCloseModal(true),
+              },
+              {
+                type: "solid go-home",
+                text: "Cancel",
+                onClick: () => handleCloseModal(false),
+              },
+            ]}
+            className="centered"
+          />
+        )}
       </div>
     </div>
   );
@@ -269,6 +313,8 @@ export default connect(
   },
   (dispatch) => {
     return {
+      clearCurrentPlayList: () =>
+        dispatch(playListAction.clearCurrentPlayList()),
       fetchTokenTransfers: (data) => dispatch(fetchTokenTransfersAction(data)),
       fetchUser: (data) => dispatch(fetchUserAction(data)),
       fetchFollowers: (data) => dispatch(fetchFollowersAction(data)),
