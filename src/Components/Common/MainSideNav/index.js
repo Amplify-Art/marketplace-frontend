@@ -168,7 +168,7 @@ function MainSideNav(props) {
               </NavLink>
             </li>
 
-            <li className="nav-header">Account</li>
+            {/* <li className="nav-header">Account</li>
             <li>
               <NavLink
                 to="/my-profile"
@@ -200,7 +200,7 @@ function MainSideNav(props) {
               <NavLink to="/" onClick={(e) => onLogout(e)}>
                 Logout
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-header">Artist</li>
           </>
         )}
