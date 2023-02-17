@@ -165,11 +165,17 @@ function MyProfile(props) {
   };
 
   const [buttonText, setButtonText] = useState("Add Image");
+  const [bannerText, setBannerText] = useState("Add Banner");
   useEffect(() => {
     if (ArtistData?.avatar) {
       setButtonText("Update Image");
     } else {
       setButtonText("Add Image");
+    }
+    if (ArtistData?.cover) {
+      setBannerText("Update Banner");
+    } else {
+      setBannerText("Add Banner");
     }
   }, [ArtistData]);
 
@@ -251,8 +257,8 @@ function MyProfile(props) {
               ></div>
             </div>
             <div className="banner-buttons">
-              <button className="banner-upload" onClick={() => handleModal("banner")}>Add Banner</button>
-              <button className="banner-remove" onClick={() => handleRemove("banner")}>Remove</button>
+              <button className="banner-upload" onClick={() => handleModal("banner")}>{bannerText}</button>
+              <button className={`banner-remove ${!ArtistData?.cover ? "disabled" : ""}`} onClick={() => handleRemove("banner")} disabled={!ArtistData?.cover}>Remove</button>
               <p>File format: JPEG or PNG (recommended 1200x480, max 10MB). </ p>
             </div>
           </div>
