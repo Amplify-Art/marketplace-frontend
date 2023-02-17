@@ -186,7 +186,7 @@ function MyProfile(props) {
     setArtistData({
       ...ArtistData,
       [type === "profile" ? "avatar" : "cover"]:
-        type === "profile" ? defaultProfile : bannerDefault,
+        type === "profile" ? null : null,
     });
     props.updateUser({
       id: decodedToken.id,
