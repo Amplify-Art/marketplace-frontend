@@ -198,22 +198,22 @@ function SongList(props) {
     );
     if (isDelist) {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v23.amplifyart.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v24.amplifyart.testnet",
         "remove_song_sale",
         {
           nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nft_v23.amplifyart.testnet",
+            process.env.REACT_APP_NFT_CONTRACT || "nft_v24.amplifyart.testnet",
           token_id: buyingSong.token,
         },
         300000000000000
       );
     } else {
       await props.wallet.account().functionCall(
-        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v23.amplifyart.testnet",
+        process.env.REACT_APP_NEAR_MARKET_ACCOUNT || "market_v24.amplifyart.testnet",
         "offer",
         {
           nft_contract_id:
-            process.env.REACT_APP_NFT_CONTRACT || "nft_v23.amplifyart.testnet",
+            process.env.REACT_APP_NFT_CONTRACT || "nft_v24.amplifyart.testnet",
           receiver_id: user.near_account_id,
           song_token_id: buyingSong.token,
         },
