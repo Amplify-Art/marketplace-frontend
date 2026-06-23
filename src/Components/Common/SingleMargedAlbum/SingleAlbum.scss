@@ -1,9 +1,11 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .single-album1 {
   position: relative;
-  font-family: "Space Grotesk";
+  font-family: $font-body;
   width: 100%;
   .album-own {
-    color: white;
+    color: $text-hi;
   }
   .artist-name {
     text-decoration: none;
@@ -40,7 +42,7 @@
     background-image: url("../../../assets/images/closed-case.png");
     z-index: 1;
     background-color: rgb(0 0 0 / 5%);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: $elevation-4;
     .art-cover {
       width: 100%;
       height: 100%;
@@ -64,7 +66,7 @@
         opacity: .75;
         width: 100%;
         height: 100%;
-        background-color: #0c0e16;
+        background-color: $neutral-900;
         background: linear-gradient(180deg, #0C0E16 0%, #0c1113 87.67%);
         backdrop-filter: blur(10px);
         filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
@@ -178,17 +180,17 @@
     @media screen and (max-width: 400px) {
       font-size: 12px;
     }
-    color: #fff;
+    color: $text-hi;
     // margin: 10px 0 5px 0;
     margin-bottom: 3px;
-    margin-top: 10px;
-    font-weight: 300;
+    margin-top: $s-8;
+    font-weight: $fw-light;
   }
 
   h4 {
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 0px;
-    font-weight: 300;
+    color: $text-mid;
+    margin-top: 0;
+    font-weight: $fw-light;
     font-size: 14px;
     line-height: 18px;
     margin-bottom: 0;
@@ -201,7 +203,7 @@
       background-image: url("../../../assets/images/cdcase-new.png");
       background-repeat: no-repeat;
       background-size: cover;
-      padding: 0px;
+      padding: 0;
       // padding: 10px 15px;
       // background-color: #1d1d1d;
       background-color: transparent;
@@ -232,18 +234,18 @@
     bottom: 51px;
     width: 95%;
     @media screen and (max-width: 1400px) {
-      padding-left: 23px;
-      padding-right: 5px;
+      padding-left: $s-24;
+      padding-right: $s-4;
     }
     padding-left: 69px;
-    padding-right: 24px;
+    padding-right: $s-24;
     box-sizing: border-box;
     h3 {
       font-family: "Permanent Marker", cursive;
       width: 100%;
       display: inline-block;
-      color: #000;
-      margin-bottom: 9px;
+      color: $neutral-800;
+      margin-bottom: $s-8;
     }
   }
 }

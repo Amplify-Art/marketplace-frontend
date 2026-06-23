@@ -165,6 +165,8 @@
 //     display: block;
 // }
 //
+@import "../../../assets/SCSS/Vars.scss";
+
  .the-title {
     &.playlist-title {
          text-align: center;
@@ -173,17 +175,17 @@
         bottom: 51px;
          width: 95%;
          @media screen and (max-width: 1400px) {
-             padding-left: 23px;
-             padding-right: 5px;
+             padding-left: $s-24;
+             padding-right: $s-4;
          }
          padding-left: 69px;
-         padding-right: 24px;
+         padding-right: $s-24;
          box-sizing: border-box;
          h3 {
              font-family: "Permanent Marker", cursive;
              width: 100%;
              display: inline-block;
-             color: #000;
+             color: $neutral-800;
          }
      }
  }

@@ -1,18 +1,20 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 #amplify-player {
   position: fixed;
   right: 0px;
   top: 0px;
   height: 100%;
-  background: #000;
+  background: $neutral-800;
   z-index: 99;
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-size: 1200%;
   background-position: center;
   overflow: hidden;
-  padding: 30px 0 0 0;
+  padding: $s-32 0 0 0;
   @media screen and (max-width: 650px) {
-  padding: 16px 0 0 0;
+  padding: $s-16 0 0 0;
   }
   .background-blur {
     position: absolute;
@@ -43,22 +45,22 @@
       align-items: center;
       width: -webkit-fill-available;
       justify-content: flex-end;
-      margin-right: 37px;
+      margin-right: $s-48;
       @media screen and (max-width: 650px) {
-        margin-right: 20px;
+        margin-right: $s-24;
       }
       .bell {
-        margin-right: 24px;
+        margin-right: $s-24;
         cursor: pointer;
       }
       .cd {
-        margin-right: 24px;
+        margin-right: $s-24;
         height: 24px;
         width: 24px;
         cursor: pointer;
       }
       .wallet {
-        margin-right: 30px;
+        margin-right: $s-32;
         width: 24px;
         height: 24px;
         cursor: pointer;
@@ -94,11 +96,11 @@
     .album-title {
       font-size: 18px;
       line-height: 23px;
-      color: #ffffff;
-      margin: 0px;
-      font-family: 'Space Grotesk';
+      color: $text-hi;
+      margin: 0;
+      font-family: $font-body;
       font-style: normal;
-      font-weight: 300;
+      font-weight: $fw-light;
     }
 
     .song-name {
@@ -106,9 +108,9 @@
       font-weight: normal;
       font-size: 14px;
       line-height: 18px;
-      color: #ffffff;
+      color: $text-hi;
       opacity: 0.8;
-      margin: 0px;
+      margin: 0;
     }
 
     &.large {
@@ -132,15 +134,15 @@
       align-items: center;
       justify-content: center;
       &.play-pause {
-        background: #fa7c05;
+        background: $warning;
         transition: ease all 0.5s;
-        border-radius: 100px;
+        border-radius: $radius-full;
         &:hover {
           background: #b95a00;
         }
 
         svg {
-          fill: #fff;
+          fill: $text-hi;
           &.play {
             width: 14px;
             margin-left: 3px;
@@ -162,19 +164,19 @@
     width: 24px;
     height: 24px;
     background: rgba(95, 73, 85, 0.3);
-    border-radius: 2px;
+    border-radius: $radius-sm;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 39px;
+    margin-top: $s-48;
     cursor: pointer;
   }
 
   .progress-bar {
-    margin-top: 20px;
+    margin-top: $s-24;
     .bar {
-      background: #fff;
-      border-radius: 0px;
+      background: $neutral-100;
+      border-radius: 0;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -192,8 +194,8 @@
       .completed {
         width: 100%;
         height: 0%;
-        border-radius: 6px;
-        background: #FA7C05;
+        border-radius: $radius-md;
+        background: $warning;
         margin-top: auto;
       }
     }
@@ -213,19 +215,19 @@
     }
 
     .album-info {
-      margin-top: 30px;
+      margin-top: $s-32;
       @media (max-height: 768px) {
-        margin-top: 20px;
+        margin-top: $s-24;
       }
       .cover {
-        margin-bottom: 20px;
+        margin-bottom: $s-24;
         @media (max-height: 768px) {
-          margin-bottom: 15px;
+          margin-bottom: $s-16;
         }
         img {
           transform: rotate(0deg);
           // filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
-          border-radius: 4px;
+          border-radius: $radius-sm;
         }
       }
 
@@ -241,14 +243,14 @@
 
     .progress-bar {
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: $s-24;
       @media (max-height: 768px) {
-        margin-bottom: 15px;
+        margin-bottom: $s-16;
       }
       .bar {
         width: 310px;
         height: 6px;
-        border-radius: 6px;
+        border-radius: $radius-md;
         margin-left: auto;
         margin-right: auto;
       }
@@ -257,29 +259,29 @@
     .controls {
       display: flex;
       flex-direction: row-reverse;
-      gap: 10px;
+      gap: $s-8;
     }
 
     .mini-player-btn {
       text-decoration: underline;
       cursor: pointer;
-      color: #fff;
+      color: $text-hi;
     }
     .queue {
       width: 100%;
-      font-family: Space Grotesk;
+      font-family: $font-body;
       font-style: normal;
       font-weight: normal;
-      color: #ffffff;
+      color: $text-hi;
       display: flex;
       flex-direction: column;
-      margin-top: 10px;
+      margin-top: $s-8;
       height: -webkit-fill-available;
       .count {
         opacity: 0.8;
         font-size: 14px;
         line-height: 18px;
-        font-weight: 300;
+        font-weight: $fw-light;
         text-align: center;
       }
       h4 {
@@ -287,36 +289,36 @@
         line-height: 18px;
         text-transform: uppercase;
         opacity: 0.5;
-        font-weight: 300;
-        margin: 10px 0px 15px 30px;
+        font-weight: $fw-light;
+        margin: $s-8 0 $s-16 $s-32;
       }
       .queue-items {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: $s-32;
+        padding-right: $s-32;
         height: -webkit-fill-available;
         overflow-y: auto;
         overflow-x: hidden;
         position: absolute;
         .queue-item:first-child {
-          margin-top: 0px;
+          margin-top: 0;
         }
         .queue-item:last-child {
-          margin-bottom: 15px;
+          margin-bottom: $s-16;
         }
         .queue-item {
-          margin-top: 15px;
+          margin-top: $s-16;
           display: flex;
           justify-content: flex-start;
           align-items: center;
           img {
             height: 40px;
             width: 40px;
-            border-radius: 2px;
+            border-radius: $radius-sm;
           }
           .title {
             display: flex;
             flex-direction: column;
-            margin-left: 20px;
+            margin-left: $s-24;
             min-width: 242px;
             .song-title {
               font-size: 18px;

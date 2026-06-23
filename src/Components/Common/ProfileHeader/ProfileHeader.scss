@@ -10,8 +10,8 @@
     position: relative;
     z-index: 8;
     @media screen and (max-width: 650px) {
-      margin-top: 0px;
-      padding: 0 20px;
+      margin-top: 0;
+      padding: 0 $s-24;
     }
     @media screen and (max-width: 1280px) {
       margin-top: -110px;
@@ -79,7 +79,7 @@
     &.default {
       background-size: contain;
       background-position: right;
-      background-color: #5a6c7a;
+      background-color: $secondary-500;
     }
   }
   .profile-head-details {
@@ -92,12 +92,12 @@
             display: block;
       }
       flex-wrap: wrap;
-      gap: 50px;
+      gap: $s-48;
       @media screen and (max-width: 1280px) {
-        gap: 30px;
+        gap: $s-32;
       }
       @media screen and (max-width: 650px) {
-        gap: 15px;
+        gap: $s-16;
         justify-content: space-between;
       }
     }
@@ -116,9 +116,9 @@
         width: 100px;
         height: 100px;
       }
-      border-radius: 50%;
+      border-radius: $radius-full;
       overflow: hidden;
-      border: solid 3px #fff;
+      border: solid 3px $text-hi;
       .profilePic {
         width: 180px;
         height: 180px;
@@ -145,20 +145,20 @@
     }
 
     .details {
-      font-family: $space;
+      font-family: $font-body;
       font-style: normal;
       font-size: 32px;
-      font-weight: 300;
-      margin-top: 55px;
-      text-shadow: 0 1px #171717;
+      font-weight: $fw-light;
+      margin-top: $s-48;
+      text-shadow: 0 1px $neutral-800;
       @media screen and (max-width: 1280px) {
-      margin-top: 30px;
+      margin-top: $s-32;
       }
       @media screen and (max-width: 800px) {
       // transform: translateY(20px);
       }
       @media screen and (max-width: 650px) {
-        margin-top: 50px;
+        margin-top: $s-48;
         font-size: 30px;
         transform: none;
         white-space: nowrap;
@@ -166,35 +166,35 @@
         text-overflow: ellipsis !important;
         display: inherit;
       }
-      color: #ffffff;
+      color: $text-hi;
       display: flex;
       flex-direction: column;
       align-items: self-start;
       .no_of_songs {
-        font-size: 20px;
+        font-size: $fs-lead;
         text-align: left;
         &:first-child {
-          margin-right: 20px;
+          margin-right: $s-24;
         }
         @media screen and (max-width: 650px) {
           font-size: 17px;
         }
       }
       h3 {
-        margin-bottom: 0px;
+        margin-bottom: 0;
         font-size: 32px;
-        color: #fff;
+        color: $text-hi;
       }
 
       p {
-        margin-top: 0px;
-        font-size: 20px;
-        color: #fff;
+        margin-top: 0;
+        font-size: $fs-lead;
+        color: $text-hi;
       }
     }
   }
   .btn-wrap {
-    gap: 30px;
+    gap: $s-32;
     cursor: pointer;
     align-self: flex-end;
     position: absolute;
@@ -220,17 +220,17 @@
       }
     }
     button {
-      background: #ffffff;
-      color: black;
+      background: $neutral-100;
+      color: $neutral-800;
       cursor: pointer;
       display: flex;
       align-items: center;
-      font-weight: bold;
-      font-size: 16px;
-      border-radius: 50px;
+      font-weight: $fw-bold;
+      font-size: $fs-body;
+      border-radius: $radius-full;
       border: 0px;
-      font-family: $lato;
-      padding: 15px 30px;
+      font-family: $font-body;
+      padding: $s-16 $s-32;
       line-height: 19px;
       min-width: 140px;
       min-height: 49px;
@@ -246,7 +246,7 @@
         margin: 0;
       }
       img {
-        margin-right: 12px;
+        margin-right: $s-12;
       }
     }
   }
@@ -254,15 +254,15 @@
   .details {
     @media screen and (max-width: 650px) {
       &.mobile {
-        margin-left: 20px;
+        margin-left: $s-24;
         display: flex;
-        font-family: $space;
+        font-family: $font-body;
         font-style: normal;
         font-weight: normal;
         font-size: 30px;
         line-height: 41px;
         flex-direction: column;
-        color: #ffffff;
+        color: $text-hi;
         .no_of_songs {
           font-size: 18px;
         }
@@ -303,8 +303,8 @@
       align-items: flex-end;
       transform: translateY(11px);
       justify-content: space-between;
-      padding-right: 30px;
-      padding-left: 30px;
+      padding-right: $s-32;
+      padding-left: $s-32;
       box-sizing: border-box;
       .single-album-on-shelf {
         width: 93px;
@@ -315,12 +315,12 @@
         justify-content: center;
         text-align: center;
         i {
-          color: #fff;
+          color: $text-hi;
           font-size: 34px;
           position: relative;
           line-height: 25px;
           cursor: pointer;
-          text-shadow: 0 1px #171717;
+          text-shadow: 0 1px $neutral-800;
         }
         .single-shelf-album {
           overflow: hidden;
@@ -331,15 +331,15 @@
           .deleteShowcase{
             position: absolute;
             // top: 20px;
-            right: 0px;
+            right: 0;
             display: none;
             i{
               font-size:20px;
-              color: #fff;
+              color: $text-hi;
               background-color: rgba(0, 0, 0, 0.65);
-              padding: 5px;
+              padding: $s-4;
               z-index: 1;
-              border-radius: 0px 2px 0px 0px;
+              border-radius: 0 $radius-sm 0 0;
               margin-top: 1.5px;
             }
           }
@@ -349,7 +349,7 @@
             }
           }
           img{
-            border-radius: 2px;
+            border-radius: $radius-sm;
             transform: rotateX(15deg);
             transform-style: preserve-3d;
           }
@@ -384,20 +384,20 @@
   }
   .single-shelf {
     &:first-child {
-      margin-bottom: 50px;
+      margin-bottom: $s-48;
     }
     .albums-on-shelf {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      padding-right: 30px;
-      padding-left: 30px;
+      padding-right: $s-32;
+      padding-left: $s-32;
       box-sizing: border-box;
       .single-album-on-shelf {
         width: 93px;
         text-align: center;
         i {
-          color: #fff;
+          color: $text-hi;
           font-size: 34px;
           position: relative;
           bottom: 20px;

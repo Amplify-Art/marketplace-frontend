@@ -4,7 +4,7 @@
 	// 	display: none;
 	// }
 	display: flex;
-	font-family: $space;
+	font-family: $font-body;
 	font-style: normal;
 	font-weight: normal;
 	// height: 388px;
@@ -37,18 +37,18 @@
 		width: 410px;
 		height: 410px;
 		margin-left: 76px;
-		margin-top: 7px;
+		margin-top: $s-8;
 	}
 
 	.album-top {
 		display: flex;
-		grid-column-gap: 20px;
-		grid-row-gap: 5px;
+		grid-column-gap: $s-24;
+		grid-row-gap: $s-4;
 		.album-img {
 			width: 120px;
 	    height: 120px;
 	    overflow: hidden;
-	    border-radius: 2px;
+	    border-radius: $radius-sm;
 			// @media screen and (max-width: 600px) {
 			// 	width: 165px;
 			// 	height: 165px;
@@ -61,28 +61,28 @@
 		.album-right {
 			// padding-left: 20px;
 			@media screen and (max-width: 600px) {
-				padding-left: 0px;
+				padding-left: 0;
 			}
 			.title {
-				font-size: 20px;
+				font-size: $fs-lead;
 				line-height: 27px;
-				color: black !important;
-				margin-bottom: 4px;
-				margin-top: 8px;
+				color: $neutral-800 !important;
+				margin-bottom: $s-4;
+				margin-top: $s-8;
 			}
 			.artist-title {
 				font-size: 14px;
 				line-height: 20px;
-				color: black !important;
+				color: $neutral-800 !important;
 				opacity: 0.8;
-				margin-bottom: 5px;
+				margin-bottom: $s-4;
 			}
 			.view-detail {
 				font-size: 14px;
 				line-height: 20px;
 				text-decoration-line: underline;
-				color: #000000;
-				margin-bottom: 8px;
+				color: $neutral-800;
+				margin-bottom: $s-8;
 				cursor: pointer;
 			}
 		}
@@ -109,47 +109,47 @@
 	// }
 	.details-content {
 		height: 250px;
-		padding-right: 10px;
+		padding-right: $s-8;
 		overflow-y: auto;
 		overflow-x: hidden;
 		.sub-content {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 16px;
+			font-size: $fs-body;
 			line-height: 20px;
-			color: black;
+			color: $neutral-800;
 		}
 	}
 	.memory-card {
 		clip-path: polygon(35% 0, 48% 16%, 100% 16%, 100% 100%, 0 100%, 0 0);
-		background: #303030;
+		background: $neutral-600;
 		width: 115px;
 		height: 84px;
-		border-radius: 6px;
+		border-radius: $radius-md;
 		position: absolute;
-		bottom: 0px;
-		right: 0px;
+		bottom: 0;
+		right: 0;
 		.mint-text {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 14px;
 			line-height: 18px;
 			letter-spacing: 0.05em;
-			color: #ffffff;
-			margin-left: 7px;
-			padding-top: 5px;
+			color: $text-hi;
+			margin-left: $s-8;
+			padding-top: $s-4;
 		}
 		.mint-number {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 37px;
 			line-height: 54px;
 			letter-spacing: 0.05em;
-			color: #ffffff;
-			margin-left: 27px;
+			color: $text-hi;
+			margin-left: $s-32;
 			text-shadow: 4.08216e-16px 6.66667px 13.3333px rgba(51, 51, 51, 0.492);
 		}
 	}
@@ -157,11 +157,11 @@
 		// padding-top: 32px;
 		overflow-y: scroll;
 		height: 195px;
-		margin-top: 20px;
+		margin-top: $s-24;
 		// @media screen and (max-width: 900px) {
 		// 	height: 160px;
 		// }
-		padding-right: 8px;
+		padding-right: $s-8;
 		.pointer {
 			cursor: pointer;
 		}
@@ -174,7 +174,7 @@
 			grid-template-columns: 0.3fr 0.7fr 1fr 0.5fr;
 		}
 		.fn-white {
-			color: black;
+			color: $neutral-800;
 		}
 		&.playlist {
 			grid-template-columns: 0.3fr 2.7fr 0.5fr;
@@ -187,8 +187,8 @@
 
 .mobileAlbumContent {
 	width: 80%;
-	margin-left: 10px;
-	margin-top: 10px;
+	margin-left: $s-8;
+	margin-top: $s-8;
 	@media screen and (min-width: 700px) {
 		display: none;
 	}
@@ -226,7 +226,7 @@
 	.mobileAlbumDetailWrapper {
 		display: flex;
 		align-items: center;
-		margin-top: 30px;
+		margin-top: $s-32;
 		.albumImgHolder {
 			img {
 				width: 120px;
@@ -236,27 +236,27 @@
 			}
 		}
 		.albumDetail {
-			padding-left: 20px;
+			padding-left: $s-24;
 			.albumTitle {
-				font-size: 24px;
+				font-size: $fs-h5;
 				line-height: 31px;
-				color: #000 !important;
-				margin-bottom: 4px;
-				margin-top: 8px;
+				color: $neutral-800 !important;
+				margin-bottom: $s-4;
+				margin-top: $s-8;
 			}
 			.albumArtistTitle {
-				font-size: 16px;
+				font-size: $fs-body;
 				line-height: 20px;
-				color: #000 !important;
+				color: $neutral-800 !important;
 				opacity: 0.8;
-				margin-bottom: 12px;
+				margin-bottom: $s-12;
 			}
 			.albumViewDetail {
-				font-size: 16px;
+				font-size: $fs-body;
 				line-height: 20px;
 				text-decoration-line: underline;
-				color: #000;
-				margin-bottom: 8px;
+				color: $neutral-800;
+				margin-bottom: $s-8;
 				cursor: pointer;
 			}
 		}
@@ -264,27 +264,27 @@
 	.albumSongsWrapper {
 		overflow-y: scroll;
 		height: 135px;
-		margin-top: 30px;
+		margin-top: $s-32;
 	}
 	.albumViewDetailWrapper {
-		padding: 5px;
-		margin-top: 15px;
+		padding: $s-4;
+		margin-top: $s-16;
 		.albumViewDetailTop {
 			display: flex;
 			align-items: center;
 			.backImg {
 				height: 22px;
 				width: 16px;
-				margin-top: 7px;
+				margin-top: $s-8;
 				cursor: pointer;
 			}
 			.albumDetailBanner {
-				font-family: "Space Grotesk", sans-serif;
+				font-family: $font-body;
 				font-style: normal;
-				font-weight: 400;
-				font-size: 24px;
+				font-weight: $fw-regular;
+				font-size: $fs-h5;
 				line-height: 31px;
-				color: #000;
+				color: $neutral-800;
 				margin-left: 15%;
 			}
 		}
@@ -294,39 +294,39 @@
 			overflow-x: hidden;
 			text-align: left !important;
 			.subContent {
-				margin-top: 10px !important;
+				margin-top: $s-8 !important;
 				// text-align: left !important;
 			}
 		}
 		.albumMemoryCard {
 			clip-path: polygon(35% 0, 48% 16%, 100% 16%, 100% 100%, 0 100%, 0 0);
-			background: #303030;
+			background: $neutral-600;
 			width: 115px;
 			height: 84px;
-			border-radius: 6px;
+			border-radius: $radius-md;
 			position: absolute;
-			bottom: 10px;
-			right: 10px;
+			bottom: $s-8;
+			right: $s-8;
 			.mintText {
-				font-family: $space;
+				font-family: $font-body;
 				font-style: normal;
 				font-weight: normal;
 				font-size: 14px;
 				line-height: 18px;
 				letter-spacing: 0.05em;
-				color: #ffffff;
-				margin-left: 7px;
-				padding-top: 5px;
+				color: $text-hi;
+				margin-left: $s-8;
+				padding-top: $s-4;
 			}
 			.mintNumber {
-				font-family: $space;
+				font-family: $font-body;
 				font-style: normal;
 				font-weight: normal;
 				font-size: 37px;
 				line-height: 54px;
 				letter-spacing: 0.05em;
-				color: #ffffff;
-				margin-left: 27px;
+				color: $text-hi;
+				margin-left: $s-32;
 				text-shadow: 4.08216e-16px 6.66667px 13.3333px rgba(51, 51, 51, 0.492);
 			}
 		}
@@ -335,12 +335,12 @@
 
 #general-modal .holder .sub-content {
 	text-align: left;
-	margin-left: 7px;
+	margin-left: $s-8;
 }
 
 .fa-ban{
 	font-size: 20px;
-	color: #000;
+	color: $neutral-800;
 	opacity: 0.3;
 	text-shadow: 0px 2px 0px rgb(255 255 255 / 50%);
 	mix-blend-mode: soft-light;
