@@ -1,23 +1,25 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .cardWrapper {
   display: flex;
   align-items: center;
   background-color: white;
   cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  margin-bottom: 20px;
+  font-family: $font-body;
+  margin-bottom: $s-16;
   &:last-child {
     margin-bottom: 0px;
   }
   .imageHolder {
     width: 36px;
     height: 36px;
-    border-radius: 4px;
+    border-radius: $radius-sm;
     overflow: hidden;
     &.no-shadow {
       box-shadow: none;
     }
     &.artist-image {
-      border-radius: 100px;
+      border-radius: $radius-full;
     }
     flex: none;
     .image {
@@ -26,10 +28,10 @@
   }
   .content {
     width: 100%;
-    margin-left: 20px;
+    margin-left: $s-16;
     .content-heading {
-      font-size: 16px;
-      font-weight: 300;
+      font-size: $fs-body;
+      font-weight: $fw-light;
     }
     .content-details {
       opacity: 0.4;
@@ -44,7 +46,7 @@
         font-size: 14px;
       }
       font-weight: bold;
-      color: #000;
+      color: $neutral-800;
     }
     .contentType-detail {
       font-size: 11px;
@@ -56,11 +58,11 @@
 }
 
 .no-results{
-  padding: 15px;
-  font-weight: 500;
-  font-size: 16px;
+  padding: $s-16;
+  font-weight: $fw-medium;
+  font-size: $fs-body;
   line-height: 20px;
-  color: #7C7C7C;
+  color: $neutral-500;
 }
 .no-results::after {
 content: ":(";

@@ -4,15 +4,15 @@
     width: 100%;
     box-sizing: border-box;
     h2 {
-        font-family: $oswald;
+        font-family: $font-display;
         text-transform: uppercase;
-        color: #fff;
+        color: $text-hi;
     }
 
     .content {
         display: flex;
         align-items: flex-start;
-        padding-top: 10px;
+        padding-top: $s-8;
         @media screen and (max-width: 950px) {
             flex-direction: column;
         }
@@ -24,11 +24,11 @@
             }
             h3 {
               margin-top: 0px;
-              margin-bottom: 10px;
-              color: #fff;
+              margin-bottom: $s-8;
+              color: $text-hi;
               font-size: 30px;
               line-height: 40px;
-              font-weight: 400;
+              font-weight: $fw-regular;
             }
         }
 
@@ -36,19 +36,19 @@
             margin-left: auto;
             @media screen and (max-width: 950px) {
                 width: 100%;
-                padding-top: 20px;
+                padding-top: $s-16;
             }
             p {
-              color: #fff;
-              font-size: 20px;
-              font-weight: 300;
+              color: $text-hi;
+              font-size: $fs-lead;
+              font-weight: $fw-light;
               letter-spacing: 0.1px;
               line-height: 33px;
               margin-top: 0px;
               margin-bottom: 0px;
               .red-link {
                   text-decoration: none;
-                  color: #e52b25;
+                  color: $accent;
               }
             }
         }

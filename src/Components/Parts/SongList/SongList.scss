@@ -1,27 +1,27 @@
 @import "../../../assets/SCSS/Vars.scss";
 
 .song-list {
-  font-family: $space;
+  font-family: $font-body;
   font-style: normal;
   font-weight: normal;
   color: white;
   max-width: 1200px;
   .songlist-header {
-    margin: 0 0 20px 0;
+    margin: 0 0 $s-16 0;
     @media screen and (max-width: 650px) {
-      margin: 0 20px 20px 20px;
+      margin: 0 $s-16 $s-16 $s-16;
     }
     .header-title {
       @media screen and (max-width: 900px) {
         display: none;
       }
-      font-size: 13px;
+      font-size: $fs-caption;
       line-height: 17px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       width: 20%;
       align-items: center;
-      color: #ffffff;
+      color: $text-hi;
       opacity: 0.5;
       text-align: left;
       &:first-of-type {
@@ -48,7 +48,7 @@
       }
       }
       img {
-        margin-left: 10px;
+        margin-left: $s-8;
       }
     }
     .mobile-header-title {
@@ -57,13 +57,13 @@
       }
       display: flex;
       justify-content: space-between;
-      font-size: 20px;
+      font-size: $fs-lead;
       line-height: 25px;
       letter-spacing: 0.05em;
-      font-weight: 400;
+      font-weight: $fw-regular;
       width: 50%;
       align-items: center;
-      color: #FFFFFF;
+      color: $text-hi;
       &:first-of-type {
         width: 40%;
       }
@@ -76,11 +76,11 @@
         display: inline-flex;
         justify-content: flex-end;
         align-items: center;
-        font-size: 16px;
+        font-size: $fs-body;
         line-height: 20px;
         font-weight: 100;
         .sort {
-          padding-left: 5px;
+          padding-left: $s-4;
         }
       }
     }
@@ -89,7 +89,7 @@
     align-items: center;
     height: 33px;
     @media screen and (max-width: 650px) {
-      margin: 0 20px;
+      margin: 0 $s-16;
     }
     @media screen and (max-width: 900px) {
       height: 60px;
@@ -141,7 +141,7 @@
         margin: 0px;
       }
       span.mint-numbers {
-        color: rgba(255, 255, 255, 0.397);
+        color: $text-low;
         font-size: 14px;
       }
     }
@@ -180,7 +180,7 @@
   max-width: 135px;
   text-align: center;
   padding: 2px 0px;
-  border-radius: 4px;
+  border-radius: $radius-sm;
   margin-left: auto;
   @media screen and (max-width: 1150px){
     width: 10%;
@@ -193,7 +193,7 @@
   &.active{
     background: rgba(196, 196, 196, 0.3);
     border: 1px solid transparent;
-    color: #10141D;
+    color: $neutral-900;
   }
 }
 
@@ -205,7 +205,7 @@
   background-position: center;
   &.expanded {
     height: 315px;
-    margin: 20px 0 20px 0;
+    margin: $s-16 0 $s-16 0;
   }
 
   .mint {
@@ -289,41 +289,41 @@
     height: -webkit-fill-available;
     overflow-y: scroll;
     @media screen and (max-width: 900px) {
-      padding: 20px 15px;
+      padding: $s-16 $s-16;
     }
-    padding: 20px;
+    padding: $s-16;
     .headers {
-      margin-bottom: 20px;
+      margin-bottom: $s-16;
       @media screen and (max-width: 900px) {
         justify-content: space-between;
       }
       .item {
-        font-family: $space;
+        font-family: $font-body;
         font-style: normal;
         font-weight: normal;
-        font-size: 13px;
+        font-size: $fs-caption;
         line-height: 17px;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        color: #FFFFFF;
+        color: $text-hi;
         opacity: 0.5;
       }
     }
 
     .info {
       .singleSong {
-        margin-bottom: 20px;
+        margin-bottom: $s-16;
         justify-content: space-between;
         &:last-child {
           margin-bottom: 0px;
         }
          div {
-          font-family: $space;
+          font-family: $font-body;
           font-style: normal;
           font-weight: normal;
-          font-size: 16px;
+          font-size: $fs-body;
           line-height: 20px;
-          color: #FFFFFF;
+          color: $text-hi;
           display: flex;
           align-items: center;
         }
@@ -334,31 +334,31 @@
           }
           button {
             background: #fff;
-            border-radius: 100px;
-            font-family: $space;
+            border-radius: $radius-full;
+            font-family: $font-body;
             font-style: normal;
             font-weight: normal;
-            font-size: 16px;
+            font-size: $fs-body;
             line-height: 20px;
             text-align: center;
             text-transform: capitalize;
-            color: #000;
+            color: $neutral-800;
             border: 0px;
-            padding: 10px 0px;
+            padding: $s-8 0px;
             width: 135px;
             &.delist {
               background: transparent;
-              border-radius: 100px;
-              font-family: "Space Grotesk", sans-serif;
+              border-radius: $radius-full;
+              font-family: $font-body;
               font-style: normal;
               font-weight: normal;
-              font-size: 16px;
+              font-size: $fs-body;
               line-height: 20px;
               text-align: center;
               text-transform: capitalize;
-              color: #fff;
-              border: 1px solid #FFFFFF;
-              padding: 10px 0px;
+              color: $text-hi;
+              border: 1px solid $text-hi;
+              padding: $s-8 0px;
               width: 135px;
             }
           }
@@ -369,8 +369,8 @@
           }
           button {
             background: white;
-            border-radius: 30px;
-            font-family: $space;
+            border-radius: $radius-full;
+            font-family: $font-body;
             font-style: normal;
             font-weight: normal;
             font-size: 14px;
@@ -378,25 +378,25 @@
             text-align: center;
             text-transform: capitalize;
             color: black;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-left: $s-8;
+            padding-right: $s-8;
+            padding-top: $s-8;
+            padding-bottom: $s-8;
             border: 0px;
             width: 130px;
             &.delist {
               background: transparent;
-              border-radius: 100px;
-              font-family: "Space Grotesk", sans-serif;
+              border-radius: $radius-full;
+              font-family: $font-body;
               font-style: normal;
               font-weight: normal;
-              font-size: 16px;
+              font-size: $fs-body;
               line-height: 20px;
               text-align: center;
               text-transform: capitalize;
-              color: #fff;
-              border: 1px solid #FFFFFF;
-              padding: 10px;
+              color: $text-hi;
+              border: 1px solid $text-hi;
+              padding: $s-8;
             }
           }
         }

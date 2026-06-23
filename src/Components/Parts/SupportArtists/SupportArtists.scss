@@ -5,9 +5,9 @@
   box-sizing: border-box;
   float: left;
   overflow: hidden;
-  padding-bottom: 100px;
+  padding-bottom: $s-96;
   @media screen and (max-width: 682px) {
-    padding-top: 20px;
+    padding-top: $s-16;
   }
   h2 {
     &.large {
@@ -50,7 +50,7 @@
       margin-right: 0px;
     }
     .single {
-      margin-right: 20px;
+      margin-right: $s-16;
       &:last-child {
         margin-right: 0px;
       }
@@ -64,8 +64,8 @@
     padding-bottom: 7.5rem;
     .support-padding{
       width: -webkit-fill-available;
-      padding-right: 48px;
-      padding-left: 48px;
+      padding-right: $s-48;
+      padding-left: $s-48;
       @media screen and (max-width: 800px){
         padding-right: 0px;
         padding-left: 0px;

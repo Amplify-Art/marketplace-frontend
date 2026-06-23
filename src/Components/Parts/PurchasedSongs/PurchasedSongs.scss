@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .holder.sellSong-modal {
     width: 421px;
     overflow-y: scroll;
@@ -20,33 +22,33 @@
             }
         }
         .sellSongRight {
-            font-family: "Space Grotesk", sans-serif;
+            font-family: $font-body;
             font-style: normal;
             font-weight: normal;
-            padding-left: 20px;
+            padding-left: $s-16;
             @media screen and (max-width: 600px) {
                 padding-left: 0px;
             }
             .title {
-                font-size: 20px;
+                font-size: $fs-lead;
                 line-height: 31px;
                 color: black !important;
-                margin-bottom: 4px;
-                margin-top: 8px;
+                margin-bottom: $s-4;
+                margin-top: $s-8;
             }
             .artist-title {
-                font-size: 16px;
+                font-size: $fs-body;
                 line-height: 20px;
                 color: black !important;
                 opacity: 0.8;
-                margin-bottom: 12px;
+                margin-bottom: $s-12;
             }
         }
     }
     .sellSongTittle {
         text-align: left;
-        margin-top: 10px;
-        font-size: 16px;
+        margin-top: $s-8;
+        font-size: $fs-body;
     }
     .sellForPrice {
         display: flex;
@@ -56,16 +58,16 @@
             display: block;
         }
         .currencyInput {
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
+            padding: $s-16;
+            border-radius: $radius-md;
+            margin-top: $s-8;
             width: 254px;
-            border-color: #e3e3e3;
-            font-size: 16px;
+            border-color: $neutral-200;
+            font-size: $fs-body;
         }
         .sellButton {
-            font-size: 16px;
-            padding: 10px 25px;
+            font-size: $fs-body;
+            padding: $s-8 $s-24;
         }
     }
     #create-playlist {
@@ -73,19 +75,19 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
-            margin-top: 10px;
-            font-size: 16px;
+            margin-top: $s-8;
+            font-size: $fs-body;
             flex-direction: column;
             .song {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 10px;
+                margin-bottom: $s-8;
             }
             .sellButton {
                 width: 79px;
-                font-size: 16px;
-                padding: 10px 15px;
+                font-size: $fs-body;
+                padding: $s-8 $s-16;
             }
         }
         .playlist-CD {
@@ -97,7 +99,7 @@
             flex-direction: column;
             align-items: center;
             .case-box {
-                margin-left: 30px;
+                margin-left: $s-32;
             }
             .case-wrapper {
                 background-repeat: no-repeat;
@@ -116,7 +118,7 @@
                 @media screen and (max-width: 600px) {
                     width: 90%;
                 }
-                margin-left: 10px;
+                margin-left: $s-8;
                 .remove {
                     padding: 2px;
                     font-size: 10px;
@@ -124,10 +126,10 @@
                     float: right;
                 }
                 div {
-                    padding: 6px 20px;
+                    padding: $s-8 $s-16;
                     &:first-child {
                         background: rgba(196, 196, 196, 0.3);
-                        border-radius: 3px;
+                        border-radius: $radius-sm;
                     }
                 }
             }
@@ -136,7 +138,7 @@
             text-align: center;
             cursor: pointer;
             button {
-                padding: 10px 20px;
+                padding: $s-8 $s-16;
             }
             input {
                 min-width: 155px;

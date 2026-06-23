@@ -1,13 +1,15 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .transactionWrapper {
   width: 100%;
-  margin-top: 30px;
+  margin-top: $s-32;
   .transTable {
     width: 100%;
     .transRow {
       width: 100%;
       color: white;
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: $fw-light;
+      font-size: $fs-body;
       cursor: pointer;
       .transId {
         @media screen and (max-width: 699px) {
@@ -15,19 +17,19 @@
         }
         height: 40px;
         vertical-align: top;
-        padding-bottom: 15px;
+        padding-bottom: $s-16;
       }
       .transIdMobile {
         @media screen and (min-width: 700px) {
           display: none;
         }
-        padding: 0 0 10px 0;
+        padding: 0 0 $s-8 0;
         .transIdHolder {
-          font-size: 16px;
+          font-size: $fs-body;
           line-height: 20.42px;
         }
         .transDateHolder {
-          font-size: 12px;
+          font-size: $fs-caption;
           line-height: 15px;
         }
       }
@@ -37,27 +39,27 @@
         }
         height: 40px;
         vertical-align: top;
-        padding-bottom: 15px;
+        padding-bottom: $s-16;
       }
       .transAmt {
         text-align: right;
         height: 40px;
         vertical-align: top;
-        padding-bottom: 15px;
-        font-weight: 400;
+        padding-bottom: $s-16;
+        font-weight: $fw-regular;
         @media screen and (max-width: 699px) {
-          padding-bottom: 10px;
+          padding-bottom: $s-8;
         }
         .greenTxt {
-          color: #22BE00;
+          color: $success;
         }
         .redTxt {
-          color: #F84F4D;
+          color: $error;
         }
         .smallTxt {
           padding-top: 2px;
-          font-weight: 300;
-          font-size: 12px;
+          font-weight: $fw-light;
+          font-size: $fs-caption;
           line-height: 15px;
         }
       }

@@ -10,27 +10,27 @@
 
   p {
     width: 800px;
-    color: #fff;
+    color: $text-hi;
     font-size: 30px;
     line-height: 40px;
-    font-weight: 300;
+    font-weight: $fw-light;
   }
   .join-btn{
-    font-weight: 400;
+    font-weight: $fw-regular;
   }
 }
 .join-buttons{
     display: inline-grid;
-    column-gap: 15px;
+    column-gap: $s-16;
     grid-template-columns: 1fr 1fr;
 }
 
 .btn.btn-white {
-    border: 2px solid #fff;
+    border: 2px solid $text-hi;
     color: white;
     text-decoration: none;
-    font-size: 20px;
-    font-weight: 400;
-    padding: 20px 40px;
+    font-size: $fs-lead;
+    font-weight: $fw-regular;
+    padding: $s-16 $s-48;
     background-color: transparent;
 }

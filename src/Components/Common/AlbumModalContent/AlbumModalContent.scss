@@ -1,7 +1,7 @@
 @import "../../../assets/SCSS/Vars.scss";
 #albums-content {
 	display: flex;
-	font-family: $space;
+	font-family: $font-body;
 	font-style: normal;
 	font-weight: normal;
 	// height: 388px;
@@ -20,11 +20,11 @@
 	// }
 	.left-wrapper {
 		position: relative;
-		border-radius: 2px;
-		padding: 15px 0px 0px 15px;
+		border-radius: $radius-sm;
+		padding: $s-16 0px 0px $s-16;
     width: 342px;
 		height: 335px;
-		margin: 10px;
+		margin: $s-8;
 		overflow: hidden;
 		box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5), inset 0px 0px 16px 2px rgba(0, 0, 0, 0.1),
 		inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3);
@@ -37,7 +37,7 @@
 			}
 		}
 		.btn-margin {
-			margin-bottom: 20px;
+			margin-bottom: $s-16;
 		}
 // 		::after {
 //     content: "";
@@ -80,8 +80,8 @@
 
 	.album-top {
 		display: flex;
-		grid-column-gap: 20px;
-		grid-row-gap: 5px;
+		grid-column-gap: $s-16;
+		grid-row-gap: $s-4;
 		.album-img {
 			width: 130px;
 			height: 130px;
@@ -96,8 +96,8 @@
 		}
 		.trash {
 			text-align: right;
-			font-size: 20px;
-			margin: 10px 30px 0px 0px;
+			font-size: $fs-lead;
+			margin: $s-8 $s-32 0px 0px;
 			cursor: pointer;
 		}
 		.album-right {
@@ -106,25 +106,25 @@
 				padding-left: 0px;
 			}
 			.title {
-				font-size: 20px;
+				font-size: $fs-lead;
 				line-height: 31px;
-				color: black !important;
-				margin-bottom: 4px;
-				margin-top: 8px;
+				color: $neutral-800 !important;
+				margin-bottom: $s-4;
+				margin-top: $s-8;
 			}
 			.artist-title {
-				font-size: 16px;
+				font-size: $fs-body;
 				line-height: 20px;
-				color: black !important;
+				color: $neutral-800 !important;
 				opacity: 0.8;
-				margin-bottom: 12px;
+				margin-bottom: $s-12;
 			}
 			.view-detail {
-				font-size: 16px;
+				font-size: $fs-body;
 				line-height: 20px;
 				text-decoration-line: underline;
-				color: #000000;
-				margin-bottom: 8px;
+				color: $neutral-800;
+				margin-bottom: $s-8;
 				cursor: pointer;
 			}
 		}
@@ -135,17 +135,17 @@
 			height: 24px;
 			width: 24px;
 			position: absolute;
-			left: 15px;
-			top: 18px;
+			left: $s-16;
+			top: $s-16;
 			cursor: pointer;
 		}
 		.details-banner {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 24px;
+			font-size: $fs-h5;
 			line-height: 31px;
-			color: black;
+			color: $neutral-800;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -155,43 +155,43 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		.sub-content {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 16px;
+			font-size: $fs-body;
 			line-height: 20px;
-			color: black;
+			color: $neutral-800;
 		}
 	}
 	.memory-card {
 		clip-path: polygon(35% 0, 48% 16%, 100% 16%, 100% 100%, 0 100%, 0 0);
-		background: #303030;
+		background: $neutral-600;
 		width: 115px;
 		height: 84px;
-		border-radius: 6px;
+		border-radius: $radius-md;
 		position: absolute;
 		bottom: 0px;
 		right: 0px;
 		.mint-text {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 14px;
 			line-height: 18px;
 			letter-spacing: 0.05em;
-			color: #ffffff;
-			margin-left: 7px;
-			padding-top: 5px;
+			color: $text-hi;
+			margin-left: $s-8;
+			padding-top: $s-4;
 		}
 		.mint-number {
-			font-family: $space;
+			font-family: $font-body;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 37px;
 			line-height: 54px;
 			letter-spacing: 0.05em;
-			color: #ffffff;
-			margin-left: 27px;
+			color: $text-hi;
+			margin-left: $s-24;
 			text-shadow: 4.08216e-16px 6.66667px 13.3333px rgba(51, 51, 51, 0.492);
 		}
 	}
@@ -201,11 +201,11 @@
 		// height: 200px;
 		.playlist-header {
 			opacity: 0.5;
-			font-size: 12px;
-			font-weight: 400;
+			font-size: $fs-caption;
+			font-weight: $fw-regular;
 			display: grid;
 			// grid-template-columns: 1fr 1.2fr;
-			margin-bottom: 10px;
+			margin-bottom: $s-8;
 			&.playlist {
 				grid-template-columns: 0.3fr 0.7fr 1fr 0.8fr !important;
 			}
@@ -215,15 +215,15 @@
 		}
 		@media screen and (max-width: 600px) {
 			height: 180px;
-			margin-top: 20px;
+			margin-top: $s-16;
 		}
-		padding-right: 15px;
-		margin-top: 32px;
+		padding-right: $s-16;
+		margin-top: $s-32;
 		.pointer {
 			cursor: pointer;
 		}
 		table {
-			padding-bottom: 5px;
+			padding-bottom: $s-4;
 		}
 	}
 	.inner-content-album-modal {
@@ -234,7 +234,7 @@
 			grid-template-columns: 0.3fr 0.7fr 1fr 0.5fr;
 		}
 		.fn-white {
-			color: black;
+			color: $neutral-800;
 		}
 		&.playlist {
 			grid-template-columns: 0.3fr 2.7fr 0.5fr;
@@ -247,7 +247,7 @@
 
 #general-modal .holder .sub-content {
 	text-align: left;
-	margin-left: 7px;
+	margin-left: $s-8;
 }
 
 // #modalScrolling::-webkit-scrollbar-track {
@@ -266,14 +266,14 @@
 
 .td1{
 	display: flex;
-	gap: 8px;
+	gap: $s-8;
 	min-height: 23px;
 }
 
 .table-header{
 	opacity: 0.5;
-	font-size: 12px;
-	font-weight: 300;
+	font-size: $fs-caption;
+	font-weight: $fw-light;
 	text-align: left;
 	letter-spacing: 0.05em;
 }
@@ -283,7 +283,7 @@
 	bottom: -60px !important;
 }
 .black_button{
-	border: 2px solid #e3e3e3 !important;
-	background: #000000 !important;
-	color: #e3e3e3 !important;
+	border: 2px solid $neutral-200 !important;
+	background: $neutral-800 !important;
+	color: $neutral-200 !important;
 }

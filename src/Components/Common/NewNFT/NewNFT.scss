@@ -1,6 +1,6 @@
 @import "../../../assets/SCSS/Vars.scss";
 #new-nft-modal {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: $font-body;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -13,30 +13,30 @@
 		.cover {}
 
 		.holder {
-			padding: 30px;
+			padding: $s-32;
 			h3 {
 			margin: 0px;
 	    font-style: normal;
-	    font-weight: 300;
-	    font-size: 24px;
+	    font-weight: $fw-light;
+	    font-size: $fs-h5;
 	    line-height: 31px;
 			}
 			p {
 				font-style: normal;
-				font-weight: 300;
-				font-size: 16px;
+				font-weight: $fw-light;
+				font-size: $fs-body;
 				line-height: 20px;
-				margin: 0 0 20px 0;
+				margin: 0 0 $s-16 0;
 				opacity: 0.8;
 			}
 	}
 	.single-song {
 		.drag {
-			color: #000;
+			color: $neutral-800;
 		}
 		.left {
 			.track {
-				color: #000;
+				color: $neutral-800;
 				justify-content: space-between;
 			}
 		}
@@ -44,44 +44,44 @@
 	.holder {
 		overflow-x: scroll;
 		.error {
-			color: $red;
+			color: $accent;
 		}
 		width: 755px;
 		.split {
 			display: flex;
-			margin-bottom: 20px;
+			margin-bottom: $s-16;
 			// max-height: 250px;
 			overflow-y: auto;
 			// border-radius: 10px;
-			padding-right: 10px;
+			padding-right: $s-8;
 			&#style-4::-webkit-scrollbar-track {
-				box-shadow: inset 0 0 6px #c4c4c4;
-				background-color: #f5f5f5;
-				border-radius: 10px;
+				box-shadow: inset 0 0 6px $neutral-300;
+				background-color: $neutral-100;
+				border-radius: $radius-md;
 			}
 
 			&#style-4::-webkit-scrollbar {
 				width: 10px;
-				background-color: #f5f5f5;
+				background-color: $neutral-100;
 			}
 
 			&#style-4::-webkit-scrollbar-thumb {
-				background-color: #c4c4c4;
-				border: 2px solid #c4c4c4;
-				border-radius: 10px;
+				background-color: $neutral-300;
+				border: 2px solid $neutral-300;
+				border-radius: $radius-md;
 			}
 			.left {
 				flex: 1;
 			}
 
 			.right {
-				padding-left: 20px;
+				padding-left: $s-16;
 				.image-upload {
 					width: 160px;
 					height: 160px;
 					overflow: hidden;
-					background: #ececec;
-					border-radius: 8px;
+					background: $neutral-100;
+					border-radius: $radius-md;
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -92,8 +92,8 @@
 	}
 	.close-icon {
 		position: absolute;
-		top: 20px;
-		right: 20px;
+		top: $s-16;
+		right: $s-16;
 		z-index: 999;
 		cursor: pointer;
 	}
@@ -106,19 +106,19 @@
 	}
 
 	.uploader {
-		margin-top: 20px;
+		margin-top: $s-16;
 		.upload-dropzone {
 			cursor: pointer;
-			border: 2px solid #000000;
-			border-radius: 8px;
+			border: 2px solid $neutral-800;
+			border-radius: $radius-md;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 20px;
+			padding: $s-16;
 			height: 110px;
       &.disabled {
-        background: #dedede;
+        background: $neutral-200;
       }
 			h5,
 			p {
@@ -128,7 +128,7 @@
 			}
 
 			h5 {
-				font-size: 16px;
+				font-size: $fs-body;
 			}
 
 			p {
@@ -136,7 +136,7 @@
 			}
 
 			img {
-				margin-bottom: 10px;
+				margin-bottom: $s-8;
 			}
 		}
 	}
@@ -150,19 +150,19 @@ h3 {
 	margin: 0 auto;
 }
 .album-uploader {
-	margin-top: 5px;
+	margin-top: $s-4;
 	display: flex;
 	flex-direction: row;
-	color: black;
+	color: $neutral-800;
 	align-items: center;
 	justify-content: space-between;
 	.upload-progress {
-		background: #FA7C05;
+		background: $warning;
 		height: 5px;
 	}
 }
 .input-holder {
-	margin-bottom: 10px;
+	margin-bottom: $s-8;
 	text-align: left;
 	&:last-child {
 		margin-bottom: 0px;
@@ -170,10 +170,10 @@ h3 {
 	display: flex;
 	flex-direction: column;
 	.upload-holder {
-		margin-top: 5px;
+		margin-top: $s-4;
 		display: flex;
 		flex-direction: row;
-		color: black;
+		color: $neutral-800;
 		align-items: center;
 		justify-content: space-between;
 		.upload-progress {
@@ -183,33 +183,33 @@ h3 {
 	}
 	input,
 	textarea {
-		font-family: $space;
-		border: 1.5px solid #E3E3E3;
-		border-radius: 8px;
-		font-size: 16px;
-		color: #999999;
-		padding: 10px 20px;
+		font-family: $font-body;
+		border: 1.5px solid $neutral-200;
+		border-radius: $radius-md;
+		font-size: $fs-body;
+		color: $neutral-500;
+		padding: $s-8 $s-16;
 		width: 100%;
 		box-sizing: border-box;
 		&[type="submit"] {
-			background: #000000;
-			color: #fff;
-			border: 1px solid #000000;
+			background: $neutral-800;
+			color: $text-hi;
+			border: 1px solid $neutral-800;
 			box-sizing: border-box;
-			border-radius: 100px;
+			border-radius: $radius-full;
 			width: initial;
 			min-width: 300px;
-			margin-top: 20px;
+			margin-top: $s-16;
 		}
 
 		&[type="checkbox"] {
 			min-width: initial;
 			width: initial;
-			margin-right: 10px;
+			margin-right: $s-8;
 		}
 	}
 	input:focus{
-		border: 1.5px solid #000;
+		border: 1.5px solid $neutral-800;
 	}
 
 	&.checkbox {
@@ -236,12 +236,12 @@ h3 {
 
 .drag {
 	cursor: grab;
-	margin-right: 8px;
+	margin-right: $s-8;
 }
 
 .single-song {
 	display: flex;
-	margin-bottom: 20px;
+	margin-bottom: $s-16;
 	align-items: center;
 	&:last-child {
 		margin-bottom: 0px;
@@ -249,16 +249,16 @@ h3 {
 	.left {
 		flex: none;
 		.track {
-			border: 2px solid #000000;
-			border-radius: 8px;
-			padding: 10px 28px;
+			border: 2px solid $neutral-800;
+			border-radius: $radius-md;
+			padding: $s-8 $s-32;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
 			width: 250px;
 			img {
-				margin-left: 6px;
+				margin-left: $s-8;
 			}
 		}
 	}
@@ -269,7 +269,7 @@ h3 {
 
 	.trash {
 		display: flex;
-		margin-left: 8px;
+		margin-left: $s-8;
 		img {
 			cursor: pointer;
 		}
@@ -280,12 +280,12 @@ h3 {
   position: absolute;
   z-index: 9991;
   background: #fff;
-  padding: 40px;
+  padding: $s-48;
   max-height: 90%;
   max-width: 90%;
   .bottom {
     text-align: center;
-    padding-top: 20px;
+    padding-top: $s-16;
   }
 }
 
