@@ -14,8 +14,8 @@ $btn-space-left: ($height/2);
 
 #latest-releases {
   @media screen and (max-width: 582px) {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: $s-48;
+    padding-bottom: $s-48;
   }
   .container {
     display: flex;
@@ -74,13 +74,13 @@ $btn-space-left: ($height/2);
       }
       @media screen and (max-width: 650px) {
       position: unset;
-      padding-top: 55px;
-      padding-left: 20px;
+      padding-top: $s-48;
+      padding-left: $s-16;
     }
     @media screen and (max-width: 479px) {
     position: unset;
-    padding-top: 40px;
-    padding-left: 10px;
+    padding-top: $s-48;
+    padding-left: $s-8;
   }
     @media screen and (max-width: 650px) {
     // padding-left: 0px;
@@ -98,12 +98,12 @@ $btn-space-left: ($height/2);
     }
     &:hover {
         filter: drop-shadow(black 0px 0px 20px);
-        transition: transform 0.3s ease 0s;
+        transition: transform $motion-base ease 0s;
         transform: scale(1.05) rotateZ(0deg);
     }
     img {
       transform: rotateZ(0deg);
-      transition: ease all 0.3s ease 0s;
+      transition: ease all $motion-base ease 0s;
       max-width: 100%;
       @media screen and (max-width: 1309px) {
         transform: rotateZ(21deg);
@@ -117,19 +117,19 @@ $btn-space-left: ($height/2);
     }
 
     .check-all {
-      font-family: "Lato", sans-serif;
+      font-family: $font-body;
       text-transform: uppercase;
-      color: #fff;
-      font-size: 20px;
-      font-weight: 300;
+      color: $text-hi;
+      font-size: $fs-lead;
+      font-weight: $fw-light;
       letter-spacing: 0.1px;
-      border-bottom: 2px solid #e52b25;
+      border-bottom: 2px solid $accent;
       position: absolute;
-      padding-bottom: 6px;
+      padding-bottom: $s-8;
       cursor: pointer;
       z-index: 3;
       bottom: -45px;
-      right: 20px;
+      right: $s-16;
       height: 45px;
       display: flex;
       flex-direction: column;
@@ -158,9 +158,9 @@ $btn-space-left: ($height/2);
           width: 243px !important;
           height: 214px !important;
         }
-        background-color: rgb(29 29 30);
+        background-color: $neutral-800;
         .album-art{
-          box-shadow: none;
+          box-shadow: $elevation-0;
         }
     }
   }

@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .holder.playlist-modal {
     width: 700px;
     @media screen and (max-width: 600px) {
@@ -27,12 +29,12 @@
             flex-direction: column;
             align-items: center;
             .case-box {
-                margin-left: 30px;
+                margin-left: $s-32;
             }
             .no-songs-added {
                 font-size: 18px;
                 text-align: center;
-                color: #999999;
+                color: $neutral-500;
             }
             .case-wrapper {
                 background-repeat: no-repeat;
@@ -48,7 +50,7 @@
                 padding: 0;
                 list-style: none;
                 width: 100%;
-                margin-left: 10px;    
+                margin-left: $s-8;
                 max-height: 311px;
                 .remove {
                     padding: 2px;
@@ -57,13 +59,13 @@
                     float: right;
                 }
                 div {
-                    padding: 6px 20px;
+                    padding: $s-8 $s-16;
                     display: flex;
                     place-items: center;
                     justify-content: space-between;
                     &:first-child {
-                        background: rgba(196, 196, 196, 0.3);
-                        border-radius: 3px;
+                        background: rgba($neutral-300, 0.3);
+                        border-radius: $radius-sm;
                     }
                 }
             }
@@ -72,11 +74,11 @@
             text-align: center;
             cursor: pointer;
             button {
-                padding: 10px 20px;
+                padding: $s-8 $s-16;
             }
             input {
                 min-width: 155px;
-                margin-top: 0px;
+                margin-top: 0;
             }
         }
     }

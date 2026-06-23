@@ -6,7 +6,7 @@
   padding-top: 200px;
   padding-bottom: 400px;
   @media screen and (max-width: 960px) {
-    padding-bottom: 50px;
+    padding-bottom: $s-48;
   }
   .container {
     display: flex;
@@ -44,19 +44,19 @@
 
       @media screen and (max-width: 960px) {
         position: initial;
-        padding-top: 100px;
+        padding-top: $s-96;
       }
       .top {
-        margin-bottom: 30px;
+        margin-bottom: $s-32;
         a {
-          font-family: $lato;
+          font-family: $font-body;
           text-transform: uppercase;
-          color: #ffffff;
-          font-size: 20px;
-          font-weight: 300;
+          color: $text-hi;
+          font-size: $fs-lead;
+          font-weight: $fw-light;
           letter-spacing: 0.1px;
-          border-bottom: 2px solid $red;
-          padding-bottom: 14px;
+          border-bottom: 2px solid $accent;
+          padding-bottom: $s-16;
           cursor: pointer;
           position: relative;
           text-decoration: none;
