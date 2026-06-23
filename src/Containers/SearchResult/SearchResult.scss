@@ -1,42 +1,42 @@
 @import "../../assets/SCSS/Vars.scss";
 .search-result {
-  padding-bottom: 100px;
-  padding-top: 15px;
+  padding-bottom: $s-96;
+  padding-top: $s-16;
   @media screen and (max-width: 650px) {
-    padding-top: 50px;
+    padding-top: $s-48;
   }
   .no-result {
     color: white;
   }
   #search-album .album-grid {
-    grid-column-gap: 25px;
-    column-gap: 25px;
+    grid-column-gap: $s-24;
+    column-gap: $s-24;
     @media screen and (max-width: 650px) {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: $s-16;
+      padding-right: $s-16;
     }
   }
   .album-title {
     font-size: 14px;
     line-height: 18px;
     text-transform: uppercase;
-    color: #e3e5e6;
-    margin-bottom: 32px;
-    margin-top: 50px;
+    color: $neutral-200;
+    margin-bottom: $s-32;
+    margin-top: $s-48;
     @media screen and (max-width: 650px) {
-      padding-left: 20px;
+      padding-left: $s-16;
     }
   }
   .album-detail {
-    font-family: $space;
+    font-family: $font-body;
     font-style: normal;
     font-weight: normal;
-    color: #ffffff;
+    color: $text-hi;
     :first-child {
       font-size: 18px;
-      color: #fff;
+      color: $text-hi;
       margin-bottom: 3px;
-      margin-top: 15px;
+      margin-top: $s-16;
     }
     :nth-child(2) {
       font-size: 14px;
@@ -51,25 +51,25 @@
     font-size: 14px;
     line-height: 18px;
     text-transform: uppercase;
-    color: #ffffff;
-    padding: 50px 0px 30px 0px;
+    color: $text-hi;
+    padding: $s-48 0px $s-32 0px;
     @media screen and (max-width: 650px) {
-      padding-left: 20px;
+      padding-left: $s-16;
     }
   }
   .artist-holder {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 35px;
-    column-gap: 35px;
-    grid-row-gap: 50px;
-    row-gap: 50px;
+    grid-column-gap: $s-32;
+    column-gap: $s-32;
+    grid-row-gap: $s-48;
+    row-gap: $s-48;
     @media screen and (max-width: 600px) {
       grid-template-columns: repeat(3, 1fr);
-      grid-column-gap: 20px;
-      column-gap: 20px;
-      grid-row-gap: 20px;
-      row-gap: 30px;
+      grid-column-gap: $s-24;
+      column-gap: $s-24;
+      grid-row-gap: $s-24;
+      row-gap: $s-32;
     }
   }
 }
