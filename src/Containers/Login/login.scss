@@ -13,14 +13,14 @@
     justify-content: center;
     align-items: center;
     border: 1px solid transparent;
-    border-radius: 50px;
-    font-size: 20px;
+    border-radius: $radius-full;
+    font-size: $fs-lead;
     cursor: pointer;
     text-decoration: none;
     background: white;
-    color: black;
-    padding: 0 18px 0 7px;
-    font-weight: bold;
+    color: $neutral-800;
+    padding: 0 $s-16 0 $s-8;
+    font-weight: $fw-bold;
     letter-spacing: 1px;
     width: 105px;
     svg {

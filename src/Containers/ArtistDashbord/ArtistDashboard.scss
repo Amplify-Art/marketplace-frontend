@@ -1,7 +1,7 @@
 @import "../../assets/SCSS/Vars.scss";
 #artist-dashboard {
-  padding-top: 30px;
-  padding-bottom: 50px;
+  padding-top: $s-32;
+  padding-bottom: $s-48;
   @media screen and (max-width: 650px) {
     padding-top: 72px;
   }
@@ -23,25 +23,25 @@
   .bal-wrapper {
     display: flex;
     background: #ffffff;
-    padding: 30px;
-    margin-top: 100px;
-    font-family: $space;
+    padding: $s-32;
+    margin-top: $s-96;
+    font-family: $font-body;
     font-style: normal;
     font-weight: normal;
-    color: #000000;
+    color: $neutral-800;
     @media screen and (max-width: 600px) {
-      margin-top: 40px;
+      margin-top: $s-48;
     }
     .left-wrap {
       width: 32%;
       text-align: center;
-      border-right: 1px solid #bebdbd;
-      padding-right: 30px;
+      border-right: 1px solid $neutral-300;
+      padding-right: $s-32;
     }
     .bal-title {
-      font-size: 24px;
+      font-size: $fs-h5;
       line-height: 31px;
-      padding-bottom: 19px;
+      padding-bottom: $s-16;
     }
     .price {
       font-size: 70px;
@@ -49,47 +49,47 @@
       letter-spacing: 0.08em;
     }
     .near {
-      font-size: 38px;
+      font-size: $fs-h3;
       line-height: 48px;
       opacity: 0.6;
     }
     .withdraw-btn {
-      background: #000000;
-      border: 1px solid #000000;
+      background: $neutral-800;
+      border: 1px solid $neutral-800;
       box-sizing: border-box;
-      border-radius: 100px;
-      font-family: $lato;
+      border-radius: $radius-full;
+      font-family: $font-body;
       font-style: normal;
-      font-weight: bold;
-      font-size: 16px;
+      font-weight: $fw-bold;
+      font-size: $fs-body;
       line-height: 19px;
-      color: #ffffff;
-      padding: 14px 60px;
-      margin: 30px 0px;
+      color: $text-hi;
+      padding: $s-16 $s-64;
+      margin: $s-32 0;
     }
     .report-link {
-      font-size: 16px;
+      font-size: $fs-body;
       line-height: 20px;
       text-decoration-line: underline;
     }
   }
 
   .supporter-wrapper {
-    font-family: $space;
+    font-family: $font-body;
     font-style: normal;
     font-weight: normal;
-    color: #000000;
-    padding-left: 50px;
+    color: $neutral-800;
+    padding-left: $s-48;
     width: 68%;
     .support-header {
       .support-title {
-        font-size: 24px;
+        font-size: $fs-h5;
         line-height: 31px;
       }
     }
     .support-content {
       .support-inner-content {
-        padding: 20px 0px;
+        padding: $s-16 0;
         .w-33 {
           width: 33%;
         }
@@ -97,10 +97,10 @@
           text-align: right;
         }
         .icon-green {
-          color: #1bbe00;
+          color: $success;
         }
         .icon-gray {
-          color: #eaeaea;
+          color: $neutral-200;
         }
         .text-month {
           text-transform: capitalize;
@@ -113,13 +113,13 @@
     }
   }
   .song-title {
-    font-family: $space;
+    font-family: $font-body;
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: $fs-lead;
     line-height: 26px;
-    color: #ffffff;
-    margin: 50px 0 30px 0;
+    color: $text-hi;
+    margin: $s-48 0 $s-32 0;
   }
   .artist-data-wrap {
     .w-50 {
@@ -130,35 +130,35 @@
       box-shadow: inset 47.1333px -47.1333px 47.1333px rgba(149, 149, 149, 0.1),
         inset -47.1333px 47.1333px 47.1333px rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(94.2667px);
-      padding: 25px 30px 32px 30px;
-      font-family: $space;
+      padding: $s-24 $s-32 $s-32 $s-32;
+      font-family: $font-body;
       font-style: normal;
       font-weight: normal;
-      color: #ffffff;
-      margin: 30px 37px 30px 0;
+      color: $text-hi;
+      margin: $s-32 $s-48 $s-32 0;
       @media screen and (max-width: 650px) {
-        margin: 30px 20px 30px 20px;
+        margin: $s-32 $s-16 $s-32 $s-16;
       }
       // &:first-child {
       //   margin-right: 50px;
       // }
     }
     .song-head {
-      margin-bottom: 22px;
+      margin-bottom: $s-24;
       .song-head-title {
-        font-size: 24px;
+        font-size: $fs-h5;
         line-height: 31px;
       }
       .song-count-title {
-        font-size: 16px;
+        font-size: $fs-body;
         line-height: 20px;
         text-align: right;
       }
     }
     .song-content {
-      font-size: 16px;
+      font-size: $fs-body;
       line-height: 20px;
-      padding: 8px 0px;
+      padding: $s-8 0;
     }
   }
 }
@@ -166,26 +166,26 @@
   position: absolute;
   z-index: 9991;
   background: #fff;
-  padding: 40px;
+  padding: $s-48;
   max-height: 90%;
   max-width: 90%;
   .bottom {
     text-align: center;
-    padding-top: 20px;
+    padding-top: $s-16;
   }
 }
 
 .crop-cover {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.9);
   z-index: 999;
 }
 .banner-upload {
-  margin-top: 20px;
+  margin-top: $s-16;
   cursor: pointer;
   .default {
     height: 200px;
@@ -193,9 +193,9 @@
 }
 .banner-update-button {
   cursor: pointer;
-  margin-top: 20px !important;
-  margin-left: 0px !important;
-  padding: 10px;
+  margin-top: $s-16 !important;
+  margin-left: 0 !important;
+  padding: $s-8;
   width: 140px;
 }
 .container1 {
@@ -213,7 +213,7 @@
   .owned-cards {
     p {
       text-align: center;
-      color: #ffff;
+      color: $text-hi;
     }
   }
   .voter-list {
@@ -221,10 +221,10 @@
       display: flex;
       align-items: center;
       img {
-        margin-left: 10px;
+        margin-left: $s-8;
       }
       span {
-        font-size: 16px;
+        font-size: $fs-body;
       }
     }
   }
@@ -232,44 +232,44 @@
 
 .support-cal {
   display: flex;
-  border: 1.5px solid #e3e3e3;
-  border-radius: 4px;
-  padding: 10px 12px;
+  border: 1.5px solid $neutral-200;
+  border-radius: $radius-sm;
+  padding: $s-8 $s-12;
   .cal-img {
     width: 20px;
     height: 20px;
-    color: #000000;
+    color: $neutral-800;
   }
   .cal-font {
-    font-size: 16px;
+    font-size: $fs-body;
     line-height: 20px;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin-left: $s-8;
+    margin-right: $s-4;
   }
 }
 
 .salesListWrapper {
-    padding: 30px 30px 0 30px;
-    margin-right: 37px;
+    padding: $s-32 $s-32 0 $s-32;
+    margin-right: $s-48;
     background: rgba(196, 196, 196, 0.1803921569);
     @media screen and (max-width: 650px) {
-      margin-right: 0px;
-      padding: 30px 20px 0 20px;
+      margin-right: 0;
+      padding: $s-32 $s-16 0 $s-16;
     }
     .salesList {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 300;
+    font-family: $font-body;
+    font-weight: $fw-light;
     .heading {
-    color: white;
-    font-weight: 300;
-    font-size: 24px;
+    color: $text-hi;
+    font-weight: $fw-light;
+    font-size: $fs-h5;
     width: 33%;
     span{
-      font-weight: 300;
-      font-size: 12px;
+      font-weight: $fw-light;
+      font-size: $fs-caption;
       line-height: 15px;
       vertical-align: middle;
     }
@@ -279,9 +279,9 @@
     }
     }
     .sales-heading {
-    color: white;
-    font-weight: 300;
-    font-size: 24px;
+    color: $text-hi;
+    font-weight: $fw-light;
+    font-size: $fs-h5;
     @media screen and (max-width: 699px){
     display: none;
     }
@@ -292,32 +292,32 @@
     }
     .salesWrapper {
     width: 100%;
-    margin-top: 30px;
+    margin-top: $s-32;
     @media screen and (max-width: 699px){
-    margin-top: 20px;
+    margin-top: $s-16;
     }
     .salesTable{
       width: 100%;
     } .salesRow {
     width: 100%;
-    color: white;
-    font-weight: 300;
-    font-size: 16px;
+    color: $text-hi;
+    font-weight: $fw-light;
+    font-size: $fs-body;
     .salesIdHolder{
       text-decoration: none;
-      color: white;
+      color: $text-hi;
     }
     .salesId {
     height: 40px;
     vertical-align: top;
-    padding-bottom: 15px;
+    padding-bottom: $s-16;
     width: 33%;
     @media screen and (max-width: 699px){
     display: none;
     }
     a{
       text-decoration: none;
-      color: white;
+      color: $text-hi;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -326,7 +326,7 @@
     .salesAmount {
     height: 40px;
     vertical-align: top;
-    padding-bottom: 15px;
+    padding-bottom: $s-16;
     text-align: center;
     width: 33%;
     @media screen and (max-width: 699px){
@@ -337,32 +337,32 @@
     text-align: right;
     height: 40px;
     vertical-align: top;
-    padding-bottom: 15px;
-    font-weight: 400;
+    padding-bottom: $s-16;
+    font-weight: $fw-regular;
     width: 33%;
     @media screen and (max-width: 699px){
-    padding-bottom: 10px;
+    padding-bottom: $s-8;
     width: 50%;
     }
     .greenTxt {
-    color: #22BE00;
+    color: $success;
   }
   .smallTxt {
     padding-top: 2px;
-    font-weight: 300;
-    font-size: 12px;
+    font-weight: $fw-light;
+    font-size: $fs-caption;
     line-height: 15px;
 }
     }
     .salesIdMobile{
-          padding: 0 0 10px 0;
+          padding: 0 0 $s-8 0;
           width: 50%;
           @media screen and (min-width: 700px){
           display: none;
       }
       .salesAmountHolder{
         padding-top: 2px;
-        font-size: 12px;
+        font-size: $fs-caption;
         line-height: 15px;
       }
       .salesAmountHolder::before{
@@ -374,15 +374,15 @@
 }
 
 .dashboard-grid {
-  margin-top: 50px;
-  margin-bottom: 30px;
+  margin-top: $s-48;
+  margin-bottom: $s-32;
   @media screen and (max-width: 650px) {
-  margin-top: 30px;
+  margin-top: $s-32;
   }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   @media (max-width: 1280px) {
       grid-template-columns: repeat(1, 1fr);
-      gap: 20px;
+      gap: $s-24;
     }
 }

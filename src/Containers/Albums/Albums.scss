@@ -1,3 +1,4 @@
+@import "../../assets/SCSS/Vars.scss";
 #albums {
   // padding-top: 65px;
   @media screen and (max-width: 1830px) {
@@ -8,7 +9,7 @@
     // padding-top: 60px;
   }
   .album-grid {
-    column-gap: 25px;
-    margin-left: 0px !important;
+    column-gap: $s-24;
+    margin-left: 0 !important;
   }
 }

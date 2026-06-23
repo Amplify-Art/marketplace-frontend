@@ -4,13 +4,13 @@
 	width: 72%;
 	margin: auto;
 	box-sizing: border-box;
-	padding-bottom: 50px;
+	padding-bottom: $s-48;
 	.nominate-banner {
-		margin: 40px 0px;
-		font-family: $space;
+		margin: $s-48 0;
+		font-family: $font-body;
 		font-size: 14px;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.5);
+		color: $text-mid;
 	}
 	// .nominet_border1 {
 	// 	background: #000000;
@@ -47,11 +47,11 @@
 			padding: 100px 110px;
 			.heading {
 				font-size: 37px;
-				font-family: $space;
+				font-family: $font-body;
 				text-transform: capitalize;
-				color: #ffffff;
-				margin-top: 0px;
-				margin-bottom: 20px;
+				color: $text-hi;
+				margin-top: 0;
+				margin-bottom: $s-24;
 				text-align: center;
 				font-weight: normal;
 				@media screen and (max-width: 1155px){
@@ -59,26 +59,26 @@
 				}
 			}
 			.nominate {
-				font-family: $space;
-				font-size: 20px;
+				font-family: $font-body;
+				font-size: $fs-lead;
 				line-height: 26px;
 				text-align: center;
-				color: #ffffff;
-				margin-bottom: 10px;
+				color: $text-hi;
+				margin-bottom: $s-8;
 				@media screen and (max-width: 1155px){
 					font-size: 17px;
 				}
 			}
 			.submission {
-				font-family: $space;
-				font-size: 12px;
+				font-family: $font-body;
+				font-size: $fs-caption;
 				line-height: 15px;
-				color: #ffffff;
+				color: $text-hi;
 				opacity: 0.5;
 				text-align: center;
-				margin-bottom: 50px;
+				margin-bottom: $s-48;
 				@media screen and (max-width: 1324px){
-					margin-bottom: 20px;
+					margin-bottom: $s-24;
 				}
 			}
 			.search {
@@ -87,36 +87,36 @@
 					display: none;
 				}
 				input {
-					border: 2px solid #e3e3e3;
+					border: 2px solid $neutral-200;
 					background: transparent;
-					border-radius: 10px;
-					padding: 15px 20px 10px 15px;
+					border-radius: $radius-md;
+					padding: $s-16 $s-16 $s-8 $s-16;
 					width: 70%;
 					box-sizing: border-box;
-					font-size: 16px;
-					color: #fff;
+					font-size: $fs-body;
+					color: $text-hi;
 				}
 				.btn {
 					background: #ffffff;
-					color: black;
+					color: $neutral-800;
 					cursor: pointer;
 					display: flex;
 					align-items: center;
-					font-weight: bold;
-					font-size: 16px;
-					border-radius: 50px;
-					border: 0px;
-					font-family: $lato;
-					margin-left: 20px;
-					padding: 14px 22px;
+					font-weight: $fw-bold;
+					font-size: $fs-body;
+					border-radius: $radius-full;
+					border: 0;
+					font-family: $font-body;
+					margin-left: $s-16;
+					padding: $s-16 $s-16;
 					@media screen and (max-width: 1155px){
 						font-size: 14px;
-						padding: 11px 15px;
+						padding: $s-12 $s-16;
 					}
 				}
 			}
 			@media screen and (max-width: 1324px){
-				padding: 30px;
+				padding: $s-32;
 			}
 		}
 		@media screen and (min-width: 1840px){
@@ -135,9 +135,9 @@
 		background: #ffffff;
 		border: 1px solid #ffffff;
 		box-sizing: border-box;
-		border-radius: 10px;
+		border-radius: $radius-md;
 		width: 70%;
-		padding: 5px 10px;
+		padding: $s-4 $s-8;
 		overflow: hidden;
 		margin-top: 3px;
 		.user-inner{
@@ -148,9 +148,9 @@
 		// overflow-y: scroll;
 	}
 		span {
-			padding: 10px;
+			padding: $s-8;
 			cursor: pointer;
-			font-weight: bold;
+			font-weight: $fw-bold;
 			// font-size: 15px;
 			// line-height: 30px;
 		}
