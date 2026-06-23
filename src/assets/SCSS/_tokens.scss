@@ -1,0 +1,152 @@
+// =============================================================================
+// DESIGN TOKENS — single source of truth for the Design Ruleset
+// -----------------------------------------------------------------------------
+// Every value here exists to make the interface feel inevitable, calm and
+// trustworthy. Surface code should consume these tokens, never raw magic
+// numbers. See DESIGN_RULESET.md for the rules each token enforces.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// 1. TYPOGRAPHY — Rule 3 (Proportion) & Rule 4 (Typography)
+// -----------------------------------------------------------------------------
+// One modular ratio, project-wide: 1.25 (Major Third). Base 16px.
+// Every size is derived by multiplying / dividing the base by the ratio —
+// never picked by eye.
+$ratio: 1.25;
+$font-base: 16px; // body base — never below this for body copy
+
+// Derived type scale (rem keeps it accessible to user zoom)
+$fs-caption:    0.8rem;   // 12.8px — captions / meta only, never body
+$fs-body:       1rem;     // 16px   — body base
+$fs-lead:       1.25rem;  // 20px   — lead paragraph / h6
+$fs-h5:         1.5625rem;// 25px
+$fs-h4:         1.953rem; // ~31px
+$fs-h3:         2.441rem; // ~39px
+$fs-h2:         3.052rem; // ~49px
+$fs-h1:         3.815rem; // ~61px
+$fs-display:    4.768rem; // ~76px
+$fs-display-xl: 5.96rem;  // ~95px — brand hero only
+
+// Line-height — tighter as size increases (Rule 4)
+$lh-body:    1.5;
+$lh-heading: 1.15;
+$lh-tight:   1.1;
+
+// Weights — hierarchy via size + weight, not many fonts (Rule 4)
+$fw-light:    300;
+$fw-regular:  400;
+$fw-medium:   500;
+$fw-semibold: 600;
+$fw-bold:     700;
+
+// Measure — body line length 45–75 chars, target ~66 (Rule 4 / Hard Check 5)
+$measure: 66ch;
+
+// -----------------------------------------------------------------------------
+// 2. SPACING — Rule 2 (8pt grid). The ONLY permitted spacing values.
+// -----------------------------------------------------------------------------
+// Named by pixel value so migration off magic numbers is mechanical.
+$s-4:   4px;   // tight optical adjustment only
+$s-8:   8px;
+$s-12:  12px;
+$s-16:  16px;
+$s-24:  24px;
+$s-32:  32px;
+$s-48:  48px;
+$s-64:  64px;
+$s-96:  96px;
+
+// -----------------------------------------------------------------------------
+// 3. COLOR — Rule 5 (60-30-10, reserved accent, depth, small palette)
+// -----------------------------------------------------------------------------
+// ~60% neutral ground, ~30% secondary, ~10% accent (reserved for the primary
+// action). Dark product: off-black surfaces that LIGHTEN as they rise, never
+// pure #000. Text is off-white, never pure #FFF.
+
+// Neutral ramp (the 60% — backgrounds & surfaces)
+$neutral-900: #0C0E16; // base canvas (brand)
+$neutral-800: #121317; // off-black surface — never #000
+$neutral-700: #1B1E27;
+$neutral-600: #2D3540;
+$neutral-500: #5A6C7A;
+$neutral-400: #8B98A5;
+$neutral-300: #B8C2CB;
+$neutral-200: #E3E5E6;
+$neutral-100: #F5F5F5;
+
+// Secondary (the 30% — desaturated blue-grey, structure & depth)
+$secondary-900: #1F2D35;
+$secondary-700: #2D404B;
+$secondary-500: #586C7D;
+$secondary-300: #8FA3B2;
+
+// Accent (the 10% — RESERVED for the primary action & brand emphasis)
+// NOTE: brand identity ties the accent to red. Used for the single primary
+// action per screen and the brand hero moment only. (Rule 5 / Von Restorff)
+$accent:      #E52B25;
+$accent-hover:#C7211C;
+
+// Text on dark ground (off-white, never #FFF) — Rule 5 / Rule 6
+$text-hi:  rgba(255, 255, 255, 0.92); // primary text
+$text-mid: rgba(255, 255, 255, 0.64); // secondary text
+$text-low: rgba(255, 255, 255, 0.38); // disabled / placeholder
+
+// Text on light surfaces
+$text-on-light-hi:  #1B1E27;
+$text-on-light-mid: #5A6C7A;
+
+// Semantic — never the sole carrier of meaning; always paired with icon/text
+$success: #1BBE00;
+$warning: #FA7C05;
+$error:   #FF5353;
+$info:    #586C7D;
+
+// -----------------------------------------------------------------------------
+// 4. ELEVATION & LIGHT — Rule 6
+// -----------------------------------------------------------------------------
+// ONE light source product-wide: top, slightly left. Shadows fall down/away.
+// Fixed scale; higher = larger, softer, lower-opacity. Shadow never hardens
+// as it rises.
+$elevation-0: none;
+$elevation-1: 0 1px 2px rgba(0, 0, 0, 0.34);
+$elevation-2: 0 2px 6px rgba(0, 0, 0, 0.30);
+$elevation-4: 0 6px 16px rgba(0, 0, 0, 0.26);
+$elevation-8: 0 12px 32px rgba(0, 0, 0, 0.22);
+
+// Dark-mode surfaces lighten as they rise (not inversions) — Rule 6
+$surface-1: #15171F;
+$surface-2: #1B1E27;
+$surface-4: #232733;
+$surface-8: #2C313F;
+
+// -----------------------------------------------------------------------------
+// 5. SHAPE & RADIUS — Rule 7
+// -----------------------------------------------------------------------------
+// One scale, applied by component role. Inner radius = outer − padding.
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   16px;
+$radius-full: 9999px;
+
+// -----------------------------------------------------------------------------
+// 6. MOTION — Rule 11
+// -----------------------------------------------------------------------------
+// 200–300ms, eased (never linear), enter slightly slower than exit.
+$motion-fast: 160ms;
+$motion-base: 240ms;
+$motion-slow: 300ms;
+$ease-standard: cubic-bezier(0.2, 0, 0, 1);
+$ease-enter:    cubic-bezier(0, 0, 0, 1);   // decelerate in
+$ease-exit:     cubic-bezier(0.3, 0, 1, 1); // accelerate out
+
+// -----------------------------------------------------------------------------
+// 7. INTERACTION — Rule 10
+// -----------------------------------------------------------------------------
+$tap-target-min: 44px; // minimum touch target (iOS) — Fitts's Law
+
+// -----------------------------------------------------------------------------
+// 8. TYPEFACES — Rule 4 (max two families; hierarchy via size + weight)
+// -----------------------------------------------------------------------------
+$font-display: 'Oswald', sans-serif;          // brand hero / display only
+$font-body:    'Space Grotesk', sans-serif;   // primary UI + body
