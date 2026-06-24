@@ -170,6 +170,7 @@
      // Reserved accent, top-light elevation, min 44px tap target.
      .hero-cta {
          position: relative;
+         box-sizing: border-box;
          z-index: 9;
          display: inline-flex;
          align-items: center;
