@@ -257,11 +257,14 @@ function AlbumModalContent({
                 //   }`}
                 style={{ width: "100%" }}
               >
+                <thead>
                 <tr className="table-header">
                   <th>TRACK TITLE</th>
                   <th>LENGTH</th>
                   <th></th>
                 </tr>
+                </thead>
+                <tbody>
                 {albumInfo &&
                   albumInfo.songs &&
                   albumInfo.songs
@@ -286,6 +289,7 @@ function AlbumModalContent({
                         />
                       </tr>
                     ))}
+                </tbody>
               </table>
             </div>
             {songModal && (
