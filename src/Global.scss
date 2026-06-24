@@ -69,6 +69,22 @@ button {
   font-family: $font-body;
 }
 
+// Accessibility: visible keyboard focus (WCAG 2.4.7 / Rule 8 affordance).
+// Pointer focus stays quiet via :focus-visible; keyboard users get a clear
+// accent ring on every interactive element.
+a,
+button,
+input,
+textarea,
+select,
+[tabindex]:not([tabindex="-1"]) {
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
 .display-none {
   display: none;
 }

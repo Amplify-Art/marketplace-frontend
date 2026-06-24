@@ -166,6 +166,47 @@
             }
         }
     }
+     // Single primary action for the home screen (Rule 1 / Von Restorff).
+     // Reserved accent, top-light elevation, min 44px tap target.
+     .hero-cta {
+         position: relative;
+         z-index: 9;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         margin-top: $s-24;
+         padding: $s-16 $s-32;
+         min-height: $tap-target-min;
+         background: $accent;
+         color: $text-hi;
+         font-family: $font-body;
+         font-size: $fs-lead;
+         font-weight: $fw-semibold;
+         text-decoration: none;
+         letter-spacing: 0.2px;
+         border-radius: $radius-md;
+         box-shadow: $elevation-2;
+         transition: background-color $motion-fast $ease-standard,
+             transform $motion-fast $ease-standard,
+             box-shadow $motion-fast $ease-standard;
+         &:hover {
+             background: $accent-hover;
+             box-shadow: $elevation-4;
+             transform: translateY(-1px);
+         }
+         &:active {
+             transform: translateY(0);
+             box-shadow: $elevation-1;
+         }
+         @media screen and (max-width: 650px) {
+             display: flex;
+             width: 100%;
+             max-width: 335px;
+             margin-left: auto;
+             margin-right: auto;
+             margin-top: $s-32;
+         }
+     }
      .triangle-image {
          position: absolute;
          bottom: -150px;
