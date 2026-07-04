@@ -51,14 +51,14 @@
         }
         .left-nav {
             margin-right: $s-48;
-            border-right: solid 2px $accent;
+            border-right: solid 2px $brand;
             padding-right: $s-48;
             display: flex;
             flex-direction: column;
             // justify-content: center;
             @media screen and (max-width: 754px) {
             border-right: none;
-            border-left: solid 2px $accent;
+            border-left: solid 2px $brand;
             padding-left: $s-32;
             padding-right: unset;
             margin-right: unset;
@@ -161,7 +161,7 @@
             color: $text-hi;
             font-weight: 100;
             a {
-                color: $accent;
+                color: $brand;
                 text-decoration: none;
                 font-weight: $fw-semibold;
             }

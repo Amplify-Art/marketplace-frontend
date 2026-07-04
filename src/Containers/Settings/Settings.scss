@@ -67,8 +67,8 @@
         line-height: 20px;
         text-align: center;
         text-transform: capitalize;
-        color: $accent;
-        border: 1px solid $accent;
+        color: $brand;
+        border: 1px solid $brand;
         padding: 10px 0px;
         padding: $s-8 $s-16;
         margin-left: $s-16;
@@ -245,8 +245,8 @@
         line-height: 20px;
         text-align: center;
         text-transform: capitalize;
-        color: $accent;
-        border: 1px solid $accent;
+        color: $brand;
+        border: 1px solid $brand;
         padding: 10px 0px;
         padding: $s-8 $s-16;
         &.disabled {display: none;}

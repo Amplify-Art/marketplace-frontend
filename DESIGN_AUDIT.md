@@ -48,14 +48,14 @@ Settings, Profile, Search Result, Transaction Sign, Support Card.
 
 ## PHASE 3 · Drift Log (findings, grounded)
 
-| Drift | Surface(s) | Rule | Severity | Expected → Actual | Root cause |
-|-------|-----------|------|----------|-------------------|------------|
-| **D1 Accent overuse** | S1,S4,S6,S8 + Header, Settings, TheTech, LatestReleases, ArtistRegistry, NewNFT (13 files) | 24,25 / HC7 | **High** | Accent (red) reserved for the one primary action → red also used for section-header strokes/underlines, dividers, active tabs, inline links | Brand red and primary-action color are the **same token** (`$accent`); identity and CTA roles are conflated |
-| **D2 Off-grid spacing** | repo-wide | 10,11 / HC3 | Medium | All gaps ∈ {4,8,12,16,24,32,48,64,96} → ~150 raw off-grid values remain (20px ×22, 5px ×24, 10px ×15, 50px ×9, 3px ×12…) | Migration converted values that mapped cleanly; off-grid values left untouched to avoid layout shift |
-| **D3 Measure not enforced** | body copy across sections | 18 / HC5 | Medium | Body 45–75ch → `$measure` token exists but few text blocks apply `max-width` | Token defined, not consumed |
-| **D4 Broken elevation** | Wallet, SingleAlbumModal | 30,31 / HC8 | Low | One top-left light source, dark-mode elevation → light neumorphic shadows (`#bebebe`, `#ffffff`, `#f3f3f3`) in a dark UI | Pre-token hardcoded shadows |
-| **D5 Single-primary unverified** | S12,S15,S16 | 6 / HC2 | Medium | Exactly one primary action per screen → not yet confirmed on data-gated screens | Needs live render w/ backend |
-| **D6 Tap-target sweep** | forms, icon buttons | 48 / HC10 | Low | All targets ≥44px → token applied to CTAs only, not swept everywhere | Partial application |
+| Drift | Surface(s) | Rule | Severity | Status | Expected → Actual | Root cause / resolution |
+|-------|-----------|------|----------|--------|-------------------|------------|
+| **D1 Accent overuse** | S1,S4,S6,S8 + Header, Settings, TheTech, LatestReleases, ArtistRegistry, NewNFT (13 files) | 24,25 / HC7 | **High** | **RESOLVED** | Accent reserved for one primary action → red was also on header strokes, dividers, active tabs, links | **Split the token** (option A): new `$brand` carries identity (10 files); `$accent` now survives ONLY on the 3 true CTAs (`.btn-red`, `.hero-cta`, `.join-primary`). Both resolve to the same red → zero visual change, discipline restored. Verified pixel-identical on home. |
+| **D2 Off-grid spacing** | repo-wide | 10,11 / HC3 | Medium | Open | All gaps ∈ {4,8,12,16,24,32,48,64,96} → ~150 raw off-grid values remain (20px ×22, 5px ×24, 10px ×15, 50px ×9, 3px ×12…) | Migration converted values that mapped cleanly; off-grid left untouched to avoid layout shift. Deferred (layout-sensitive, per "safe fixes only"). |
+| **D3 Measure not enforced** | body copy across sections | 18 / HC5 | Medium | Open (low impact) | Body 45–75ch → `$measure` token exists but few blocks apply `max-width` | Home body copy already sits in constrained containers; the real risk is on data-gated detail pages, not safely applyable without live render. |
+| **D4 Broken elevation** | Wallet, SingleAlbumModal | 30,31 / HC8 | Low | **SingleAlbumModal FIXED**; Wallet open | Dark-mode elevation → light neumorphic shadows (`#bebebe`/`#ffffff`) in dark UI | SingleAlbumModal album-art shadow (+ zero-width-space bug) → `$elevation-4`. Wallet is a light-surface neumorphic card, data-gated; left flagged rather than changed blind. |
+| **D5 Single-primary unverified** | S12,S15,S16 | 6 / HC2 | Medium | Open | One primary action per screen → not confirmed on data-gated screens | Needs live render w/ backend. |
+| **D6 Tap-target sweep** | forms, icon buttons | 48 / HC10 | Low | Open | All targets ≥44px → token applied to CTAs only | Blind global min-size would risk layout shifts; deferred to a live-render pass. |
 
 ### Checks that PASS (verified)
 - **HC4 Type scale** — all sizes derive from one ratio (1.25) in `_tokens.scss`; surfaces migrated. ✅
@@ -71,35 +71,40 @@ Settings, Profile, Search Result, Transaction Sign, Support Card.
 ## PHASE 6 · Design Confidence Score
 
 ```
-HC (hard checks clean-pass)     = 7/12  = 0.58   (fails: D1 accent, D2 spacing; partials D3,D5,D6)
-ST (simulated, Home surface)    ≈ 6/8   = 0.75   (word-reduction + trust-at-a-glance held back by accent noise)
-CI (surfaces on canonical only) ≈ 0.60          (accent + off-grid dilute canonical consistency)
-AC (accessibility)              ≈ 0.80          (contrast/focus/reduced-motion/color-independence pass; tap-target sweep partial)
+                                   BEFORE            AFTER (D1 resolved, D4 partial)
+HC (hard checks clean-pass)     = 7/12 = 0.58   →    8/12 = 0.67   (only D2 still a hard fail)
+ST (simulated, Home surface)    ≈ 6/8  = 0.75   →    7/8  = 0.85   (accent noise removed)
+CI (surfaces on canonical only) ≈ 0.60          →    0.68          (accent canonical; off-grid remains)
+AC (accessibility)              ≈ 0.80          →    0.82
 
-Confidence = (0.35·0.58 + 0.30·0.75 + 0.20·0.60 + 0.15·0.80) × 100 ≈ 67 / 100
+Confidence = (0.35·0.67 + 0.30·0.85 + 0.20·0.68 + 0.15·0.82) × 100 ≈ 75 / 100   (was 67)
 ```
 
-**Gating:** one open **High** drift (D1 accent discipline) caps Confidence at **79**. Current
-score **67** sits below the cap, so the binding constraints are the two hard-check failures
-(D1, D2) plus the unverified partials (D3, D5, D6).
+**Gating:** with **D1 resolved there is no open High drift**, so the 79 cap is lifted. Score
+**75** is now bound by the remaining **Medium** drift (D2 off-grid spacing) and the unverified
+partials (D3, D5, D6) — all of which need either a large layout-sensitive sweep or a live
+backend to close safely.
 
-### What blocks the remaining points
-1. **D1 (High)** — resolve accent discipline. *Requires a brand decision* (see below). Biggest single lever.
-2. **D2 (Medium)** — normalize off-grid spacing onto the 8pt scale. Large, mechanical, layout-sensitive.
-3. **D3 / D6** — apply `$measure` to body blocks; sweep tap targets. Small, safe.
-4. **D5** — verify single-primary-action on data-gated screens (needs a reachable backend).
+### What blocks the remaining points (to reach 100)
+1. **D2 (Medium)** — normalize ~150 off-grid spacing values onto the 8pt scale. Large, mechanical, layout-sensitive; needs per-section visual QA at 3 breakpoints.
+2. **D5 (Medium)** — verify exactly-one-primary-action on Marketplace / Dashboard / modals (needs a reachable backend to render).
+3. **D3 / D6 (Low)** — apply `$measure` to long-form body on detail pages; sweep tap targets — both need live render of data-gated pages to apply without regressions.
+4. **D4 (Low)** — convert Wallet's neumorphic shadows to the elevation scale once it can be rendered and the intended look confirmed.
 
 ---
 
-## The one decision that gates D1
+## D1 resolution (decided: option A — split the token)
 
-The ruleset says the primary-action color must be used for **nothing else** (Rule 25). This
-brand's identity **is** red — the outlined section headers, dividers, and hero stroke are its
-signature. Those two facts collide. Three defensible resolutions:
+Rule 25 says the primary-action color must be used for **nothing else**, but this brand's
+identity **is** red (outlined headers, dividers, hero stroke). Resolved by **splitting the
+token**:
 
-- **A — Split the token.** Introduce `$brand` (identity: headers, strokes, dividers) distinct
-  from `$accent` (the single CTA per screen). Keeps the look, restores discipline. *Most correct.*
-- **B — Reduce decorative red.** Demote header strokes/links/dividers to neutral, leaving red
-  only for CTAs. Stricter, but changes the brand's signature look.
-- **C — Documented waiver.** Accept brand red as a stated deviation; ensure each screen's CTA
-  still wins by size/placement. Lowest effort, D1 stays open (Confidence capped at 79).
+- **`$brand`** (`#E52B25`) — identity only: section-header strokes, the `.line` marks,
+  dividers, active nav/tab states, the hero "MARKETPLACE" outline. 10 files.
+- **`$accent`** (`#E52B25`) — reserved for the ONE primary action per screen: `.btn-red`,
+  `.hero-cta`, `.join-primary`. 3 treatments.
+
+Both resolve to the same red today, so the change is **visually identical** but semantically
+disciplined — and if the CTA ever needs to out-shout the decorative brand red, `$accent` can
+shift tone without touching identity. NewNFT's error text was also moved off the brand red onto
+the semantic `$error` token.

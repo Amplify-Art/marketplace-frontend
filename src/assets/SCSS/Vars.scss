@@ -6,7 +6,7 @@
 // Legacy aliases — keep existing component imports working while surfaces are
 // migrated onto the token system. Prefer the tokens above in new/edited code.
 // -----------------------------------------------------------------------------
-$red:    $accent;        // brand accent / reserved primary-action colour
+$red:    $brand;         // legacy alias → brand identity red (not the CTA accent)
 $lato:   $font-body;     // collapsed to the body family (Rule 4: max two faces)
 $oswald: $font-display;
 $space:  $font-body;

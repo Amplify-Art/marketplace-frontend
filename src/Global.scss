@@ -79,7 +79,7 @@ textarea,
 select,
 [tabindex]:not([tabindex="-1"]) {
   &:focus-visible {
-    outline: 2px solid $accent;
+    outline: 2px solid $brand;
     outline-offset: 2px;
     border-radius: $radius-sm;
   }
@@ -138,7 +138,7 @@ select,
 .line {
   width: 36px;
   height: $s-4;
-  background: $accent;
+  background: $brand;
   display: inline-block;
 }
 
@@ -164,7 +164,7 @@ h2 {
   &.red,
   .red {
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: $accent;
+    -webkit-text-stroke-color: $brand;
     color: transparent;
     position: relative;
     z-index: 3;

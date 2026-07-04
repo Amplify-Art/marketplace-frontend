@@ -80,7 +80,7 @@
 
           &.active,
           &:hover {
-            border: solid 2px $accent;
+            border: solid 2px $brand;
           }
         }
       }
@@ -91,7 +91,7 @@
           padding-left: 0;
         }
         .count {
-          color: $accent;
+          color: $brand;
         }
 
         h3 {
@@ -152,5 +152,5 @@
 
 .team-link{
   text-decoration: none;
-  color: $accent;
+  color: $brand;
 }

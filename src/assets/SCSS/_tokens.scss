@@ -80,9 +80,16 @@ $secondary-700: #2D404B;
 $secondary-500: #586C7D;
 $secondary-300: #8FA3B2;
 
-// Accent (the 10% — RESERVED for the primary action & brand emphasis)
-// NOTE: brand identity ties the accent to red. Used for the single primary
-// action per screen and the brand hero moment only. (Rule 5 / Von Restorff)
+// Brand red — IDENTITY only (Rule 24). Section-header strokes, dividers, the
+// hero outline, active-nav/tab states, decorative marks. This is the brand's
+// signature colour and may appear on many surfaces.
+$brand:       #E52B25;
+$brand-hover: #C7211C;
+
+// Accent (the 10% — RESERVED for the ONE primary action per screen). Kept as a
+// SEPARATE token from $brand so accent discipline (Rule 25 / Von Restorff) holds
+// even though both currently resolve to the same red. If the CTA ever needs to
+// out-shout the decorative brand red, shift $accent here without touching identity.
 $accent:      #E52B25;
 $accent-hover:#C7211C;
 
