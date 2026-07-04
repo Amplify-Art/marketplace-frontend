@@ -165,16 +165,16 @@ h2 {
   // Stroke thickened (was 2px) so the hollow letterforms stay legible at 150px+.
   &.red,
   .red {
-    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: $brand;
     color: transparent;
     position: relative;
     z-index: 3;
     @media screen and (max-width: 754px) {
-      -webkit-text-stroke-width: 3px;
+      -webkit-text-stroke-width: 2px;
     }
     @media screen and (max-width: 479px) {
-      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-width: 1.5px;
     }
   }
 }
