@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 #side-social-nav {
   @media screen and (max-width: 800px) {
     display: none;
@@ -10,11 +12,11 @@
     transform-origin: bottom left;
     position: fixed;
     left: 53px;
-    margin: 0px;
+    margin: 0;
     width: 100vh;
     max-width: 100vh;
-    bottom: 0px;
-    padding: 0px;
+    bottom: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,19 +25,19 @@
     z-index: 1;
     li {
       list-style-type: none;
-      margin-right: 100px;
+      margin-right: $s-96;
       display: flex;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       &:last-child {
-        margin-right: 0px;
+        margin-right: 0;
       }
       a {
         font-style: normal;
         font-weight: normal;
-        font-size: 12px;
+        font-size: $fs-caption;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: #ffffff;
+        color: $text-hi;
         text-decoration: none;
       }
     }
@@ -55,31 +57,31 @@
     align-items: center;
     justify-content: space-between;
     position: fixed;
-    left: 0px;
-    bottom: 0px;
+    left: 0;
+    bottom: 0;
     width: 86%;
     @media screen and (min-width: 600px) {
       width: 100%;
     }
     background-color: 4a4a4a;
     height: 40px;
-    background: #0f161d;
+    background: $neutral-900;
     z-index: 10;
     li {
       list-style-type: none;
-      margin-right: 0px;
+      margin-right: 0;
       display: flex;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       &:last-child {
-        margin-right: 0px;
+        margin-right: 0;
       }
       a {
         font-style: normal;
-        font-weight: 200;
-        font-size: 12px;
+        font-weight: $fw-light;
+        font-size: $fs-caption;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: #ffffff;
+        color: $text-hi;
         text-decoration: none;
       }
     }

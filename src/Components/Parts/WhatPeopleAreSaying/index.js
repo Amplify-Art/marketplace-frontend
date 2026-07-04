@@ -88,8 +88,8 @@ function WhatPeopleAreSaying() {
 
             <div className="tweets">
               <Slider {...settings}>
-                {tweets.map((tweet) => (
-                  <div className="single-tweet">
+                {tweets.map((tweet, index) => (
+                  <div key={tweet.handle || index} className="single-tweet">
                     <h5>@{tweet.handle}</h5>
                     <div className="tweet-image circle"><img src={tweet.image} alt="twitter img" /></div>
                     <div className="tweet-content">

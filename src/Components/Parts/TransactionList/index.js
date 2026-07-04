@@ -24,11 +24,12 @@ function TransactionList(props) {
   return (
     <div className="transactionWrapper">
       <table className="transTable">
+        <tbody>
         {
           props.transactionList.length
             ?
-            props.transactionList.map(transaction => (
-              <tr className="transRow" onClick={() => props.onClickItem(transaction)}>
+            props.transactionList.map((transaction, index) => (
+              <tr key={transaction.transaction_hash || index} className="transRow" onClick={() => props.onClickItem(transaction)}>
                 <td className="transIdMobile">
                   <div className="transIdHolder">
                     {textEllipsis(transaction.transaction_hash || '')}
@@ -47,6 +48,7 @@ function TransactionList(props) {
             ))
             : null
         }
+        </tbody>
       </table>
     </div>
   )

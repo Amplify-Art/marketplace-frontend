@@ -9,28 +9,65 @@
   }
 
   p {
-    width: 800px;
-    color: #fff;
+    max-width: 720px;
+    width: 100%;
+    color: $text-hi;
     font-size: 30px;
     line-height: 40px;
-    font-weight: 300;
-  }
-  .join-btn{
-    font-weight: 400;
+    font-weight: $fw-light;
   }
 }
 .join-buttons{
     display: inline-grid;
-    column-gap: 15px;
+    column-gap: $s-16;
     grid-template-columns: 1fr 1fr;
+    margin-top: $s-32;
+    @media screen and (max-width: 480px) {
+        grid-template-columns: 1fr;
+        row-gap: $s-12;
+    }
 }
 
-.btn.btn-white {
-    border: 2px solid #fff;
-    color: white;
+// Peak-End: the page closes on ONE confident primary action (Visit App),
+// with Login as a quiet secondary (Rule 1 / Rule 10 / Peak-End).
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $tap-target-min;
+    padding: $s-16 $s-48;
+    font-family: $font-body;
+    font-size: $fs-lead;
+    font-weight: $fw-semibold;
     text-decoration: none;
-    font-size: 20px;
-    font-weight: 400;
-    padding: 20px 40px;
-    background-color: transparent;
+    border-radius: $radius-md;
+    transition: background-color $motion-fast $ease-standard,
+        border-color $motion-fast $ease-standard,
+        transform $motion-fast $ease-standard,
+        box-shadow $motion-fast $ease-standard;
+}
+.join-primary {
+    background: $accent;
+    color: $text-hi;
+    border: 2px solid $accent;
+    box-shadow: $elevation-2;
+    &:hover {
+        background: $accent-hover;
+        border-color: $accent-hover;
+        box-shadow: $elevation-4;
+        transform: translateY(-1px);
+    }
+    &:active {
+        transform: translateY(0);
+        box-shadow: $elevation-1;
+    }
+}
+.join-secondary {
+    background: transparent;
+    color: $text-hi;
+    border: 2px solid rgba(255, 255, 255, 0.32);
+    &:hover {
+        border-color: $text-hi;
+        background: rgba(255, 255, 255, 0.06);
+    }
 }

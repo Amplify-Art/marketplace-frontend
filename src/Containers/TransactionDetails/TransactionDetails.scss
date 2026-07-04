@@ -1,12 +1,13 @@
+@import "../../assets/SCSS/Vars.scss";
 .firstMonth {
-  font-size: 16px;
-  color: #ffffff47;
-  padding: 0px 20px 5px 20px;
+  font-size: $fs-body;
+  color: $text-low;
+  padding: 0px $s-16 $s-4 $s-16;
 }
 
 .monthText {
-  font-size: 16px;
-  color: #ffffff47;
+  font-size: $fs-body;
+  color: $text-low;
   // padding: 30px 20px 5px 20px;
   @media screen and (max-width: 600px) {
     // padding: 0px 20px 5px 20px;
@@ -16,8 +17,8 @@
 
 .trans-detail {
   @media screen and (max-width: 650px){
-      padding-right: 20px;
-      padding-left: 20px;
+      padding-right: $s-16;
+      padding-left: $s-16;
   }
 
 }

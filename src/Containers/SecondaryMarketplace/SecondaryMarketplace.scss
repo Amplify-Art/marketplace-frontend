@@ -1,28 +1,28 @@
 @import '../../assets/SCSS/Vars.scss';
 #secondary-marketplace {
-    padding-top: 65px;
-    padding-bottom: 65px;
-    padding-right: 37px;
+    padding-top: $s-64;
+    padding-bottom: $s-64;
+    padding-right: $s-48;
   @media screen and (max-width: 650px) {
-    padding-top: 85px;
+    padding-top: $s-96;
     padding-right: 0px;
   }
 }
 
 .marketplace-table {
-  font-family: $space;
+  font-family: $font-body;
   width: 100%;
-  padding-right: 20px;
+  padding-right: $s-16;
   box-sizing: border-box;
   .headers {
     display: flex;
     justify-content: space-between;
     .head-item {
-      font-size: 13px;
+      font-size: $fs-caption;
       line-height: 17px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #FFFFFF;
+      color: $text-hi;
       opacity: 0.5;
       width: 25%;
       flex: none;
@@ -37,7 +37,7 @@
       .cell {
         font-style: normal;
         font-size: 14px;
-        color: #FFFFFF;
+        color: $text-hi;
         opacity: 0.8;
         width: 25%;
         flex: none;
@@ -47,14 +47,14 @@
           .cover-holder {
             width: 50px;
             height: 50px;
-            border-radius: 4px;
+            border-radius: $radius-sm;
             overflow: hidden;
             filter: drop-shadow(0px 14px 24px rgba(0, 0, 0, 0.25));
-            margin-right: 20px;
+            margin-right: $s-24;
           }
 
           .title {
-            margin-right: 27px;
+            margin-right: $s-32;
           }
         }
       }

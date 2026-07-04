@@ -32,20 +32,22 @@ function SongModalContent({ albumInfo }) {
         </div>
         <div className="album-bottom" id="modalScrolling">
           <table className="album_song">
+            <thead>
             <tr>
               <th className="first-td">Track Title</th>
               <th className="second-td">length</th>
               <th className="third-td">Mints</th>
             </tr>
-
-
+            </thead>
+            <tbody>
             {playListData && playListData.map((playAlbum, index) => (
-              <tr>
+              <tr key={playAlbum.id || index}>
                 <td className="first-td pointer"><div className="album_wrap"><img src={playAlbum.icon} alt="" />{playAlbum.title}  </div></td>
                 <td className="second-td"><div className="album_wrap"> {playAlbum.length} </div></td>
                 <td className="third-td"><div className="album_wrap"> {playAlbum.mints}</div></td>
               </tr>
             ))}
+            </tbody>
           </table>
         </div>
       </div>

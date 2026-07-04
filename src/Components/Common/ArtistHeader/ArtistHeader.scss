@@ -7,7 +7,7 @@
     z-index: 8;
     @media screen and (max-width: 650px) {
       margin-top: 0px;
-      padding: 0 20px;
+      padding: 0 $s-16;
     }
     @media screen and (max-width: 1280px) {
       margin-top: -110px;
@@ -42,7 +42,7 @@
          height: 220px;
        }
        width: 700px;
-       background: rgb(15, 22, 29);
+       background: $neutral-900;
       background: linear-gradient(
          90deg,
         rgba(15, 22, 29, 1) 19%,
@@ -61,7 +61,7 @@
           height: 190px;
         }
         width: 700px;
-        background: rgb(15, 22, 29);
+        background: $neutral-900;
        background: linear-gradient(
           90deg,
          rgba(15, 22, 29, 1) 19%,
@@ -75,7 +75,7 @@
     &.default {
       background-size: contain;
       background-position: right;
-      background-color: #5a6c7a;
+      background-color: $secondary-500;
     }
   }
   .profile-head-details {
@@ -88,12 +88,12 @@
             display: block;
       }
       flex-wrap: wrap;
-      gap: 50px;
+      gap: $s-48;
       @media screen and (max-width: 1280px) {
-        gap: 30px;
+        gap: $s-32;
       }
       @media screen and (max-width: 650px) {
-        gap: 15px;
+        gap: $s-16;
         justify-content: space-between;
       }
     }
@@ -112,7 +112,7 @@
         width: 100px;
         height: 100px;
       }
-      border-radius: 50%;
+      border-radius: $radius-full;
       overflow: hidden;
       border: solid 3px #fff;
       .profilePic {
@@ -141,38 +141,38 @@
     }
 
     .details {
-      font-family: $space;
+      font-family: $font-body;
       font-style: normal;
       font-size: 32px;
-      font-weight: 300;
-      margin-top: 55px;
+      font-weight: $fw-light;
+      margin-top: $s-48;
       span{
-        text-shadow: 0 1px #171717;
+        text-shadow: 0 1px $neutral-800;
       }
       .artist-badge {
         text-shadow: none;
         display: flex;
         align-items: center;
-        font-weight: 400;
-        font-size: 20px;
+        font-weight: $fw-regular;
+        font-size: $fs-lead;
         line-height: 26px;
-        color: #FFFFFF;
-        padding-right: 18px;
+        color: $text-hi;
+        padding-right: $s-16;
         height: 35px;
-        border-radius: 4px;
-        background: #FA7C05;
+        border-radius: $radius-sm;
+        background: $warning;
         box-shadow: inset 52px -52px 52px rgba(27, 109, 109, 0.1), inset -52px 52px 52px rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(36.4px);
         img{
-          padding-left: 10px;
-          padding-right: 8px;
+          padding-left: $s-8;
+          padding-right: $s-8;
         }
         @media screen and (max-width: 650px) {
-          margin-bottom: 10px;
+          margin-bottom: $s-8;
         }
       }
       @media screen and (max-width: 1280px) {
-      margin-top: 25px;
+      margin-top: $s-24;
       }
       @media screen and (max-width: 800px) {
       transform: translateY(20px);
@@ -185,15 +185,15 @@
         text-overflow: ellipsis !important;
         display: inherit;
       }
-      color: #ffffff;
+      color: $text-hi;
       display: flex;
       flex-direction: column;
       align-items: self-start;
       .no_of_songs {
-        font-size: 20px;
+        font-size: $fs-lead;
         text-align: left;
         &:first-child {
-          margin-right: 20px;
+          margin-right: $s-16;
         }
         @media screen and (max-width: 650px) {
           font-size: 17px;
@@ -202,24 +202,24 @@
       h3 {
         margin-bottom: 0px;
         font-size: 32px;
-        color: #fff;
+        color: $text-hi;
       }
 
       p {
         margin-top: 0px;
-        font-size: 20px;
-        color: #fff;
+        font-size: $fs-lead;
+        color: $text-hi;
       }
     }
   }
 
   .btn-wrap {
     align-self: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     position: absolute;
     right: 37px;
     @media screen and (max-width: 1280px) {
-      margin-bottom: 15px;
+      margin-bottom: $s-16;
     }
     @media screen and (max-width: 1020px) {
       // margin-bottom: 0px;
@@ -243,16 +243,16 @@
     }
     button {
       background: #ffffff;
-      color: black;
+      color: $neutral-800;
       cursor: pointer;
       // display: flex;
       align-items: center;
-      font-weight: bold;
-      font-size: 16px;
-      border-radius: 50px;
+      font-weight: $fw-bold;
+      font-size: $fs-body;
+      border-radius: $radius-full;
       border: 0px;
-      font-family: $lato;
-      padding: 15px 30px;
+      font-family: $font-body;
+      padding: $s-16 $s-32;
       line-height: 19px;
       // min-width: 140px;
       min-height: 49px;
@@ -267,12 +267,12 @@
         margin-right: 0px;
       }
       img {
-        margin-right: 12px;
+        margin-right: $s-12;
       }
     }
     .headerBtn{
       display: grid;
-      gap: 15px;
+      gap: $s-16;
       a {
         text-decoration: none;
       }
@@ -285,10 +285,10 @@
     }
     .follow-button {
       @media screen and (max-width: 1020px) {
-        margin-bottom: 32px;
+        margin-bottom: $s-32;
       }
       @media screen and (max-width: 950px) {
-        margin-bottom: 60px;
+        margin-bottom: $s-64;
       }
       @media screen and (max-width: 650px) {
 
@@ -299,15 +299,15 @@
   .details {
     @media screen and (max-width: 650px) {
       &.mobile {
-        margin-left: 20px;
+        margin-left: $s-16;
         display: flex;
-        font-family: $space;
+        font-family: $font-body;
         font-style: normal;
         font-weight: normal;
         font-size: 30px;
         line-height: 41px;
         flex-direction: column;
-        color: #ffffff;
+        color: $text-hi;
         .no_of_songs {
           font-size: 18px;
         }

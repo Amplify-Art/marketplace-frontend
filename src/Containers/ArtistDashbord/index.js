@@ -167,6 +167,7 @@ function ArtistDashboard(props) {
             </div>
             <div className="salesWrapper">
               <table className="salesTable">
+                <tbody>
                 {albums.length == 0 ? (
                   <tr className="salesRow">
                     <td className="salesIdMobile">
@@ -196,6 +197,7 @@ function ArtistDashboard(props) {
                     </tr>
                   ))
                 )}
+                </tbody>
               </table>
             </div>
           </div>
@@ -207,6 +209,7 @@ function ArtistDashboard(props) {
             </div>
             <div className="salesWrapper">
               <table className="salesTable">
+                <tbody>
                 {singles.length == 0 ? (
                   <tr className="salesRow">
                     <td className="salesIdMobile">
@@ -236,6 +239,7 @@ function ArtistDashboard(props) {
                     </tr>
                   ))
                 )}
+                </tbody>
               </table>
             </div>
           </div>

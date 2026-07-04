@@ -14,25 +14,25 @@
 }
 .padding-banner {
     width: -webkit-fill-available;
-    padding-right: 48px;
-    padding-left: 48px;
+    padding-right: $s-48;
+    padding-left: $s-48;
     @media screen and (max-width: 650px) {
-      padding-right: 0px;
-      padding-left: 0px;
+      padding-right: 0;
+      padding-left: 0;
    }
     @media screen and (max-width: 440px) {
-      padding-right: 20px;
-      padding-left: 20px;
+      padding-right: $s-24;
+      padding-left: $s-24;
    }
 }
  .padding-global {
      // width: 100%;
      width: -webkit-fill-available;
-     padding-right: 48px;
-     padding-left: 48px;
+     padding-right: $s-48;
+     padding-left: $s-48;
      @media screen and (max-width: 440px) {
-       padding-right: 20px;
-       padding-left: 20px;
+       padding-right: $s-24;
+       padding-left: $s-24;
     }
 }
  .container-large {
@@ -55,16 +55,16 @@
            }
         }
          h1 {
-             font-family: $oswald;
-             margin: 0px;
-             color: #fff;
+             font-family: $font-display;
+             margin: 0;
+             color: $text-hi;
              text-transform: uppercase;
              font-size: 200px;
              line-height: 210px;
              z-index: 3;
              position: relative;
              &.hero-heading{
-                 color: #fff;
+                 color: $text-hi;
                  white-space: nowrap;
             }
              @media screen and (max-width: 1565px) {
@@ -88,50 +88,45 @@
                 line-height: 50px;
             }
              &.red {
-                 -webkit-text-stroke-width: 2px;
-                 -webkit-text-stroke-color: $red;
+                 // Outlined brand-red hero word; stroke thickened (was 2px) for legibility.
+                 -webkit-text-stroke-width: 3px;
+                 -webkit-text-stroke-color: $brand;
                  color: transparent;
-                 @media screen and (max-width: 754px) {
-                     -webkit-text-stroke-width: 1.5px;
+                @media screen and (max-width: 754px) {
+                    -webkit-text-stroke-width: 2px;
                 }
                 @media screen and (max-width: 650px) {
                     text-align: center;
                }
-                 @media screen and (max-width: 754px) {
-                     // -webkit-text-stroke-width: 1px;
-                }
                 @media screen and (max-width: 479px){
-                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-width: 1.5px;
                 }
-                //  @media screen and (max-width: 360px) {
-                //      -webkit-text-stroke-width: .75px;
-                // }
             }
         }
          .paragraph-text {
              width: 340px;
-             padding-left: 60px;
+             padding-left: $s-64;
              z-index: 9;
              @media screen and (max-width: 1565px) {
-                 padding-left: 30px;
+                 padding-left: $s-32;
                   width: 300px;
             }
              @media screen and (max-width: 900px) {
                  display: none;
             }
              p {
-                 color: #ffffff;
-                 font-size: 20px;
-                 font-weight: 300;
+                 color: $text-hi;
+                 font-size: $fs-lead;
+                 font-weight: $fw-light;
                  letter-spacing: 0.1px;
-                 margin-bottom: 0px;
+                 margin-bottom: 0;
                  line-height: 33px;
                  margin-top: revert;
                  @media screen and (max-width: 1565px) {
-                     margin-top: 10px;
+                     margin-top: $s-8;
                 }
                  @media screen and (max-width: 1010px) {
-                     margin-top: 5px;
+                     margin-top: $s-4;
                      line-height: 27px;
                 }
             }
@@ -143,11 +138,11 @@
                  display: none;
             }
              p {
-                 color: #ffffff;
-                 font-size: 20px;
-                 font-weight: 300;
+                 color: $text-hi;
+                 font-size: $fs-lead;
+                 font-weight: $fw-light;
                  letter-spacing: 0.1px;
-                 margin-bottom: 0px;
+                 margin-bottom: 0;
                  line-height: 33px;
                  max-width: 440px;
                  text-align: left;
@@ -156,7 +151,7 @@
                      text-align: center;
                      margin-left: auto;
                      margin-right: auto;
-                     font-size: 16px;
+                     font-size: $fs-body;
                      line-height: 24px;
                      max-width: 335px;
                 }
@@ -166,6 +161,48 @@
             }
         }
     }
+     // Single primary action for the home screen (Rule 1 / Von Restorff).
+     // Reserved accent, top-light elevation, min 44px tap target.
+     .hero-cta {
+         position: relative;
+         box-sizing: border-box;
+         z-index: 9;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         margin-top: $s-24;
+         padding: $s-16 $s-32;
+         min-height: $tap-target-min;
+         background: $accent;
+         color: $text-hi;
+         font-family: $font-body;
+         font-size: $fs-lead;
+         font-weight: $fw-semibold;
+         text-decoration: none;
+         letter-spacing: 0.2px;
+         border-radius: $radius-md;
+         box-shadow: $elevation-2;
+         transition: background-color $motion-fast $ease-standard,
+             transform $motion-fast $ease-standard,
+             box-shadow $motion-fast $ease-standard;
+         &:hover {
+             background: $accent-hover;
+             box-shadow: $elevation-4;
+             transform: translateY(-1px);
+         }
+         &:active {
+             transform: translateY(0);
+             box-shadow: $elevation-1;
+         }
+         @media screen and (max-width: 650px) {
+             display: flex;
+             width: 100%;
+             max-width: 335px;
+             margin-left: auto;
+             margin-right: auto;
+             margin-top: $s-32;
+         }
+     }
      .triangle-image {
          position: absolute;
          bottom: -150px;

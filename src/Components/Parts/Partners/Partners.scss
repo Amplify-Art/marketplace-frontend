@@ -4,7 +4,7 @@
 .partner-section{
   position: relative;
     .partner-section-padding {
-    padding-bottom: 80px;
+    padding-bottom: $s-96;
 }
 .partner-logo-list {
     display: -webkit-box;
@@ -22,11 +22,11 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    grid-column-gap: 50px;
-    grid-row-gap: 50px;
+    grid-column-gap: $s-48;
+    grid-row-gap: $s-48;
     @media screen and (max-width: 1565px){
-      grid-column-gap: 40px;
-      grid-row-gap: 40px;
+      grid-column-gap: $s-48;
+      grid-row-gap: $s-48;
     }
     @media screen and (max-width: 650px){
         -webkit-box-pack: center;
@@ -40,8 +40,8 @@
     display: -ms-flexbox;
     display: flex;
     grid-auto-columns: 1fr;
-    grid-column-gap: 50px;
-    grid-row-gap: 25px;
+    grid-column-gap: $s-48;
+    grid-row-gap: $s-24;
     -ms-grid-columns: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     -ms-grid-rows: auto auto;
@@ -68,7 +68,7 @@
 }
 
 .section-header {
-    margin-bottom: 40px;
+    margin-bottom: $s-48;
     max-width: fit-content;
     @media screen and (max-width: 650px) {
     width: fit-content;
@@ -76,14 +76,14 @@
     margin-right: auto;
 }
     h2 {
-    font-family: "Oswald", sans-serif;
+    font-family: $font-display;
     text-transform: uppercase;
-    color: #ffffff;
+    color: $text-hi;
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: $fw-bold;
     letter-spacing: 0.22px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     @media screen and (max-width: 650px) {
     font-size: 1.75rem;
 }
@@ -93,8 +93,8 @@
 }
 }
 .partner-container {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: $s-96;
+    padding-bottom: $s-96;
     position: relative;
     width: 100%;
     max-width: 75rem;

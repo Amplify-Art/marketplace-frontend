@@ -94,11 +94,14 @@ const SingleAlbumModal = ({ isOpen = false, albumData, limit }) => {
               <table
                 style={{ width: "100%" }}
               >
+                <thead>
                 <tr className="table-header">
                   <th>TRACK TITLE</th>
                   <th>LENGTH</th>
                   <th></th>
                 </tr>
+                </thead>
+                <tbody>
                 {albumData &&
                   albumData.songs &&
                   albumData.songs
@@ -119,6 +122,7 @@ const SingleAlbumModal = ({ isOpen = false, albumData, limit }) => {
                         />
                       </tr>
                     ))}
+                </tbody>
               </table>
             </div>
           </div>

@@ -1,23 +1,23 @@
 @import "../../assets/SCSS/Vars.scss";
 
 #user-dashboard {
-  padding-bottom: 65px;
+  padding-bottom: $s-64;
    .container {
     box-sizing: border-box;
-     margin-top: 65px;
+     margin-top: $s-64;
      width: 100%;
      max-width: 100%;
      @media (max-width: 650px) {
-      margin-top: 100px;
+      margin-top: $s-96;
      }
      .followed-artists {
        @media (max-width: 650px) {
-        margin-left: 20px;
+        margin-left: $s-16;
        }
      }
      .recently-released {
        @media (max-width: 650px) {
-        margin: 0px 20px;
+        margin: 0px $s-16;
        }
      }
    }
@@ -25,27 +25,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: $s-48;
+    margin-bottom: $s-32;
     .header-title {
-      font-size: 20px;
-      font-weight: 300;
+      font-size: $fs-lead;
+      font-weight: $fw-light;
       line-height: 26px;
-      color: #ffffff;
+      color: $text-hi;
     }
     .btn-wrap {
       border: 1.5px solid #ffffff;
       box-sizing: border-box;
-      border-radius: 100px;
-      padding: 10px 40px;
+      border-radius: $radius-full;
+      padding: $s-8 $s-48;
       background: transparent;
-      color: #ffffff;
+      color: $text-hi;
       cursor: pointer;
 
       &:first-child {
-        margin-right: 27px;
+        margin-right: $s-32;
         @media screen and (max-width: 600px) {
-          margin-right: 15px;
+          margin-right: $s-16;
         }
       }
 
@@ -53,16 +53,16 @@
         margin-right: 0px;
       }
       @media screen and (max-width: 600px) {
-        padding: 10px;
+        padding: $s-8;
       }
     }
   }
   .album-block {
     .single-album {
-      font-family: "Space Grotesk", sans-serif;
+      font-family: $font-body;
       font-style: normal;
       font-weight: normal;
-      color: #ffffff;
+      color: $text-hi;
       .cd-case {
         width: 100%;
         // height: auto;
@@ -76,7 +76,7 @@
         font-size: 14px;
         line-height: 18px;
         opacity: 0.8;
-        margin-bottom: 5px;
+        margin-bottom: $s-4;
         font-weight: normal;
         color: rgba(255, 255, 255, 0.2);
         text-decoration: none;
@@ -96,26 +96,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: $s-32;
     .header-title {
-      font-size: 20px;
-      font-weight: 300;
+      font-size: $fs-lead;
+      font-weight: $fw-light;
       line-height: 26px;
-      color: #ffffff;
+      color: $text-hi;
     }
     .btn-wrap {
       border: 1.5px solid #ffffff;
       box-sizing: border-box;
-      border-radius: 100px;
-      padding: 10px 40px;
+      border-radius: $radius-full;
+      padding: $s-8 $s-48;
       background: transparent;
-      color: #ffffff;
+      color: $text-hi;
       cursor: pointer;
 
       &:first-child {
-        margin-right: 27px;
+        margin-right: $s-32;
         @media screen and (max-width: 600px) {
-          margin-right: 15px;
+          margin-right: $s-16;
         }
       }
 
@@ -123,7 +123,7 @@
         margin-right: 0px;
       }
       @media screen and (max-width: 600px) {
-        padding: 10px;
+        padding: $s-8;
       }
     }
   }
@@ -131,25 +131,25 @@
 
 .no-records {
   h5 {
-    color: #fff;
+    color: $text-hi;
     font-size: 30px;
     margin-top: 0px;
   }
 }
 .no-artists {
   color: rgba(255, 255, 255, 0.2);
-  font-weight: 400;
+  font-weight: $fw-regular;
   width: 100%;
-  font-size: 20px;
+  font-size: $fs-lead;
 }
 
 .not-following {
   max-width: 600px;
   .placeholder-graphic {
-  background-color: #586C7D;
+  background-color: $secondary-500;
   opacity: 0.2;
   height: 180px;
-  border-radius: 100px;
+  border-radius: $radius-full;
   background-image: url("../../assets/images/no-follow-bg.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -158,26 +158,26 @@
   justify-content: center;
 }
 h5 {
-  margin-top: 20px;
-  font-weight: 300;
+  margin-top: $s-16;
+  font-weight: $fw-light;
   font-size: 14px;
   line-height: 18px;
-  color: #FFFFFF;
+  color: $text-hi;
   opacity: 0.8;
   text-align: center;
   a {
-    color: #FFFFFF;
+    color: $text-hi;
   }
 }
 @media (max-width: 650px){
-    margin-right: 20px;
+    margin-right: $s-16;
 }
 }
 
 .no-releases {
   max-width: 600px;
   .placeholder-graphic {
-  background-color: #586C7D;
+  background-color: $secondary-500;
   opacity: 0.2;
   height: 180px;
   background-image: url("../../assets/images/no-releases-bg.svg");
@@ -188,15 +188,15 @@ h5 {
   justify-content: center;
 }
  h5 {
-  margin-top: 20px;
-  font-weight: 300;
+  margin-top: $s-16;
+  font-weight: $fw-light;
   font-size: 14px;
   line-height: 18px;
-  color: #FFFFFF;
+  color: $text-hi;
   opacity: 0.8;
   text-align: center;
   a {
-    color: #FFFFFF;
+    color: $text-hi;
   }
 }
 }

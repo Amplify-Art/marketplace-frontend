@@ -1,29 +1,29 @@
 @import "../../assets/SCSS/Vars.scss";
 
 #artist-profile {
-	  padding-top: 30px;
-	  padding-bottom: 65px;
+	  padding-top: $s-32;
+	  padding-bottom: $s-64;
 	  @media screen and (max-width: 650px) {
 	    padding-top: 72px;
 	  }
 	overflow-x: hidden;
 	.recently-released {
 		// padding-right: 20px;
-		padding-top: 50px;
+		padding-top: $s-48;
 		@media screen and (max-width: 650px){
-			    padding-left: 20px;
-					padding-right: 20px;
+			    padding-left: $s-16;
+					padding-right: $s-16;
 			}
 		.top {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			h2 {
-				font-size: 20px;
-		    font-weight: 300;
+				font-size: $fs-lead;
+		    font-weight: $fw-light;
 		    line-height: 26px;
-		    color: #ffffff;
-				margin-bottom: 30px;
+		    color: $text-hi;
+				margin-bottom: $s-32;
 			}
 
 			.btn {
@@ -33,13 +33,13 @@
 
     .no-results {
       h4 {
-        color: #fff;
+        color: $text-hi;
         text-align: center;
         font-size: 30px;
-        padding: 30px 300px;
+        padding: $s-32 300px;
 				@media screen and (max-width: 600px) {
-					padding: 0px 20px;
-					font-weight: 300;
+					padding: 0 $s-16;
+					font-weight: $fw-light;
 					font-size: 28px;
 				}
       }
@@ -53,7 +53,7 @@
 	justify-content: center;
 	font-size: 65px;
 	text-align: center;
-	color: #ffffff;
+	color: $text-hi;
 	height: 100%;
 }
 

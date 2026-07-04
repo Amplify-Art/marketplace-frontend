@@ -5,7 +5,7 @@
   h2 {
     &.large {
       font-size: 200px;
-      margin-bottom: 60px;
+      margin-bottom: $s-64;
       @media screen and (max-width: 858px) {
         font-size: 20vw;
         line-height: 20vw;
@@ -39,12 +39,12 @@
     }
     .left {
       display: flex;
-      padding-right: 70px;
+      padding-right: $s-64;
       width: -webkit-fill-available;
 
       @media screen and (max-width: 1070px) {
-        padding-right: 0px;
-        margin-bottom: 50px;
+        padding-right: 0;
+        margin-bottom: $s-48;
       }
       @media screen and (max-width: 650px) {
         display: block;
@@ -53,7 +53,7 @@
         @media screen and (max-width: 650px) {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 30px;
+          margin-bottom: $s-32;
           max-width: 335px;
           margin-right: auto;
           margin-left: auto;
@@ -62,53 +62,53 @@
           max-width: none;
         }
         .count {
-          font-family: $oswald;
-          margin-bottom: 5px;
+          font-family: $font-display;
+          margin-bottom: $s-4;
           border: solid 2px transparent;
-          border-radius: 50%;
+          border-radius: $radius-full;
           width: 36px;
           height: 36px;
-          color: #fff;
+          color: $text-hi;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: ease all 0.5s;
           &:last-child {
-            margin-bottom: 0px;
+            margin-bottom: 0;
           }
 
           &.active,
           &:hover {
-            border: solid 2px $red;
+            border: solid 2px $brand;
           }
         }
       }
 
       .content {
-        padding-left: 30px;
+        padding-left: $s-32;
         @media screen and (max-width: 650px) {
-          padding-left: 0px;
+          padding-left: 0;
         }
         .count {
-          color: $red;
+          color: $brand;
         }
 
         h3 {
-          font-family: $oswald;
-          color: #fff;
+          font-family: $font-display;
+          color: $text-hi;
         }
 
         p {
-          color: #fff;
-          font-size: 20px;
-          font-weight: 300;
+          color: $text-hi;
+          font-size: $fs-lead;
+          font-weight: $fw-light;
           letter-spacing: 0.1px;
           line-height: 33px;
-          margin-top: 0px;
-          margin-bottom: 0px;
+          margin-top: 0;
+          margin-bottom: 0;
           @media screen and (max-width: 650px) {
-          font-size: 16px;
+          font-size: $fs-body;
           line-height: 24px;
           }
         }
@@ -118,32 +118,32 @@
     .right {
       background-color: #434343;
       box-sizing: border-box;
-      padding: 40px 50px;
+      padding: $s-48 $s-48;
       width: 70%;
       @media screen and (max-width: 1070px) {
-      padding: 30px;
+      padding: $s-32;
       width: 100%;
       }
       @media screen and (max-width: 650px) {
-      padding: 20px 30px 30px;
+      padding: $s-16 $s-32 $s-32;
       }
       h4 {
-        color: #fff;
-        font-family: $oswald;
-        font-size: 30px;
+        color: $text-hi;
+        font-family: $font-display;
+        font-size: $fs-h4;
         text-transform: uppercase;
-        margin-bottom: 0px;
-        margin-top: 0px;
+        margin-bottom: 0;
+        margin-top: 0;
       }
 
       p {
-        color: #ffffff;
-        font-size: 20px;
+        color: $text-hi;
+        font-size: $fs-lead;
         letter-spacing: 0.1px;
         line-height: 30px;
-        margin-bottom: 0px;
+        margin-bottom: 0;
         @media screen and (max-width: 650px) {
-        margin-top: 10px;
+        margin-top: $s-8;
         }
       }
     }
@@ -152,5 +152,5 @@
 
 .team-link{
   text-decoration: none;
-  color: #e52b25;
+  color: $brand;
 }

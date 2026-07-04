@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Banner.scss';
 import Triangle from '../../../assets/images/triangle.png';
 
@@ -22,6 +23,7 @@ function Banner(props) {
                   <div className="mobile-paragraph-text">
                   <p>Own music for the first time by purchasing exclusive  NFTs  from your favorite artists!</p>
                   </div>
+                  <Link to="/albums" className="hero-cta">Explore the Marketplace</Link>
                   </div>
 
               </div>

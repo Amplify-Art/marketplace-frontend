@@ -1,9 +1,11 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 .user-avatar {
   cursor: pointer;
   .avatar {
     width: 180px;
     height: 180px;
-    border-radius: 50%;
+    border-radius: $radius-full;
     // margin: auto;
     overflow: hidden;
     img {
@@ -15,13 +17,13 @@
     }
   }
   .avatar-name {
-      font-family: "Space Grotesk", sans-serif;
+      font-family: $font-body;
       font-style: normal;
-      font-weight: 300;
+      font-weight: $fw-light;
       font-size: 18px;
       line-height: 23px;
-      margin-top: 20px;
-      color: #fff;
+      margin-top: $s-24;
+      color: $text-hi;
       display: inline-block;
       text-align: left;
       width: 100%;

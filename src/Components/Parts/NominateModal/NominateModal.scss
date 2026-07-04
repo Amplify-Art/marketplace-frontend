@@ -1,3 +1,5 @@
+@import "../../../assets/SCSS/Vars.scss";
+
 @mixin overflowScrollBar {
   &::-webkit-scrollbar {
     width: 8;
@@ -15,88 +17,88 @@
 }
 .nominate-modal-wrapper {
   width: 400px;
-  font-family: 'Space Grotesk';
+  font-family: $font-body;
   font-style: normal;
-  font-weight: 400;
+  font-weight: $fw-regular;
   letter-spacing: 0em;
   .nominate-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: $s-24;
     .nominate-heading {
-      font-size: 24px;
+      font-size: $fs-h5;
       line-height: 31px;
       text-align: left;
-      color: #000000;
+      color: $neutral-800;
     }
     .nominate-close-button {
       height: 26px;
       width: 26px;
       font-size: 28px;
       background: white;
-      color: #CCCCCC;
+      color: $neutral-300;
       cursor: pointer;
-      margin-top: -8px;
+      margin-top: -$s-8;
     }
   }
   .nominate-subheading {
-    font-size: 20px;
+    font-size: $fs-lead;
     line-height: 26px;
     text-align: left;
-    color: #000000;
+    color: $neutral-800;
     width: 100%;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: $s-24;
+    font-weight: $fw-semibold;
   }
   .nominate-content {
     font-size: 18px;
-    font-weight: 200;
+    font-weight: $fw-light;
     line-height: 22px;
     text-align: left;
-    color: #7C7C7C;
+    color: $neutral-500;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: $s-24;
   }
   .nominate-content-info {
-    font-size: 16px;
+    font-size: $fs-body;
     line-height: 20px;
     text-align: left;
-    color: #7C7C7C;
+    color: $neutral-500;
     width: 100%;
-    margin-bottom: 40px;
-    font-weight: 600;
+    margin-bottom: $s-48;
+    font-weight: $fw-semibold;
   }
   .nominate-actions {
-    margin-top: 40px;
+    margin-top: $s-48;
     width: 100%;
     .nominate-input-wrapper {
       position: relative;
-      margin-bottom: 30px;
+      margin-bottom: $s-32;
       .nominate-input {
         height: 48px;
         width: 375px;
         @media screen and (max-width: 600px) {
           width: 313px;
         }
-        border-radius: 8px;
-        border: 1px solid #999999;
-        padding-left: 10px;
-        padding-right: 10px;
+        border-radius: $radius-md;
+        border: 1px solid $neutral-500;
+        padding-left: $s-8;
+        padding-right: $s-8;
         font-size: 17px;
         &::-webkit-input-placeholder {
           font-size: 18px;
           line-height: 3;
-          color: #7c7c7cb3;
+          color: rgba($neutral-500, 0.7);
         }
       }
       .nominate-search-result {
-        padding: 20px;
+        padding: $s-16;
         width: 355px;
         overflow: auto;
-        border-radius: 8px;
-        border: 1px solid #999999;
+        border-radius: $radius-md;
+        border: 1px solid $neutral-500;
         max-height: 120px;
         position: absolute;
         top: 58px;
@@ -105,8 +107,8 @@
         @include overflowScrollBar();
         .nominate-result-card {
           font-size: 18px;
-          font-weight: 500;
-          padding-bottom: 8px;
+          font-weight: $fw-medium;
+          padding-bottom: $s-8;
           cursor: pointer;
         }
       }
@@ -114,9 +116,9 @@
     .nominate-button {
       height: 48px;
       width: 100%;
-      border-radius: 100px;
-      background-color: #000000;
-      color: white;
+      border-radius: $radius-full;
+      background-color: $neutral-800;
+      color: $text-hi;
       line-height: 31px;
       font-size: 18px;
     }

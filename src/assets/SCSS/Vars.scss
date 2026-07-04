@@ -1,5 +1,13 @@
-$red: #e52b25;
-$lato: 'Lato', sans-serif;
-$oswald: 'Oswald', sans-serif;
-$space: 'Space Grotesk', sans-serif;
-$inter: "Inter", sans-serif;
+// Canonical design tokens (Design Ruleset). Import this file to get the full
+// token system. See _tokens.scss and DESIGN_RULESET.md.
+@import "./tokens";
+
+// -----------------------------------------------------------------------------
+// Legacy aliases — keep existing component imports working while surfaces are
+// migrated onto the token system. Prefer the tokens above in new/edited code.
+// -----------------------------------------------------------------------------
+$red:    $brand;         // legacy alias → brand identity red (not the CTA accent)
+$lato:   $font-body;     // collapsed to the body family (Rule 4: max two faces)
+$oswald: $font-display;
+$space:  $font-body;
+$inter:  $font-body;

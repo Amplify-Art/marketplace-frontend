@@ -11,8 +11,8 @@ function ThankYou(props) {
               <h2 className="large center-text">JOIN <span className="red">US</span></h2>
               <p>Amplify Art is only possible through the support and shared vision of artists, collectors, crypto enthusiasts, and music fans who recognize that the established industry is broken. Together we will build a fairer system that supports and rewards artists and fans.</p>
               <div className="join-buttons">
-              <a href="https://amplify.art/artists" className="btn btn-white join-btn">Visit App</a>
-              <a href="#" className="btn btn-red join-btn">Login</a>
+              <a href="https://amplify.art/artists" className="join-btn join-primary">Visit App</a>
+              <a href="/auth/login" className="join-btn join-secondary">Login</a>
               </div>
             </div>
           </div>

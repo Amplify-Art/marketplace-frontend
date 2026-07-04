@@ -1,10 +1,12 @@
+@import "../../assets/SCSS/Vars.scss";
+
 .artists-holder {
   display: flex;
-  gap: 70px;
+  gap: $s-64;
   flex-wrap: wrap;
   @media screen and (max-width: 800px) {
-  gap: 30px;
-  padding-left: 5px;
+  gap: $s-32;
+  padding-left: $s-4;
     }
   .user-avatar {
     @media screen and (max-width: 650px) {

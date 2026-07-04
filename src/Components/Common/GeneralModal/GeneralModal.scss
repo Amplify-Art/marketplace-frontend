@@ -4,8 +4,8 @@
   .white-small {
     .holder {
       background: #ffffff;
-      border-radius: 12px;
-      padding: 30px;
+      border-radius: $radius-lg;
+      padding: $s-32;
       position: relative;
       z-index: 999;
       width: 400px;
@@ -16,29 +16,29 @@
   }
   .holder {
     h5 {
-      font-size: 24px;
+      font-size: $fs-h5;
       font-weight: normal;
-      margin-bottom: 10px;
+      margin-bottom: $s-8;
       margin-top: 0px;
     }
 
     p {
       font-style: normal;
       font-weight: normal;
-      font-size: 20px;
+      font-size: $fs-lead;
       line-height: 26px;
       text-align: center;
       margin-top: 0px;
-      margin-bottom: 20px;
+      margin-bottom: $s-16;
     }
 
     button {
-      background: #000000;
-      border: 1px solid #000000;
+      background: $neutral-800;
+      border: 1px solid $neutral-800;
       box-sizing: border-box;
-      border-radius: 100px;
-      font-family: $lato;
-      font-size: 16px;
+      border-radius: $radius-full;
+      font-family: $font-body;
+      font-size: $fs-body;
       color: #ffffff;
       margin-right: auto;
       // margin-bottom: 10px;
@@ -49,36 +49,36 @@
       :first-child{
         margin-left: 0px;
       }
-      margin-left: 10px;
+      margin-left: $s-8;
       &.go-home {
-        padding: 10px 30px;
+        padding: $s-8 $s-32;
       }
       &:last-child {
         margin-right: 0px;
       }
       &.outlined {
         background: #fff;
-        color: #000;
+        color: $neutral-800;
       }
       &.buy-button {
         position: absolute;
         left: 50%;
-        font-family: $space;
+        font-family: $font-body;
         margin-left: -100px;
         background: #fff;
-        color: #000;
+        color: $neutral-800;
         font-weight: 400;
-        font-size: 16px;
-        padding: 10px 0px;
+        font-size: $fs-body;
+        padding: $s-8 0px;
         border: 0px;
         cursor: pointer;
         white-space: nowrap;
         width: 200px;
         &.btn1 {
-          bottom: 18px;
+          bottom: $s-16;
         }
         &.btn2 {
-          bottom: 18px;
+          bottom: $s-16;
         }
       }
     }
@@ -102,20 +102,20 @@
   .modal,
   #general-modal {
     .holder {
-      color: #000;
+      color: $neutral-800;
       p {
         text-align: left;
       }
 
       .buy-confirm {
-        padding: 10px 20px;
-        border: solid 2px #000;
+        padding: $s-8 $s-16;
+        border: solid 2px $neutral-800;
       }
 
       .buy-cancel {
-        padding: 10px 20px;
-        border: solid 2px #000;
-        color: #000;
+        padding: $s-8 $s-16;
+        border: solid 2px $neutral-800;
+        color: $neutral-800;
         background: #fff;
       }
     }
@@ -124,7 +124,7 @@
   .payment-form {
     .buy-confirm,
     .buy-cancel {
-      margin-top: 25px;
+      margin-top: $s-24;
     }
 
     .exp-and-cvv {
@@ -134,20 +134,20 @@
       }
 
       .exp {
-        margin-right: 5px;
+        margin-right: $s-4;
       }
 
       .cvv {
-        margin-left: 5px;
+        margin-left: $s-4;
       }
     }
 
     .field {
-      border: solid 1px #cacaca;
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 5px;
-      margin-bottom: 10px;
+      border: solid 1px $neutral-300;
+      padding: $s-8;
+      border-radius: $radius-sm;
+      margin-top: $s-4;
+      margin-bottom: $s-8;
     }
   }
 }

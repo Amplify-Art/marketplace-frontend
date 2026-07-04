@@ -5,9 +5,9 @@
     // box-sizing: border-box;
     // float: left;
     h2 {
-      font-family: $oswald;
+      font-family: $font-display;
       text-transform: uppercase;
-      color: #ffffff;
+      color: $text-hi;
       font-size: 155px;
       line-height: 170px;
       font-style: normal;
@@ -43,26 +43,26 @@
     }
     .bottom {
         display: flex;
-        margin-top: 50px;
+        margin-top: $s-48;
         @media screen and (max-width: 754px) {
             flex-direction: column;
-            margin-top: 30px;
+            margin-top: $s-32;
             min-height: 220px;
         }
         .left-nav {
-            margin-right: 40px;
-            border-right: solid 2px #e52b25;
-            padding-right: 40px;
+            margin-right: $s-48;
+            border-right: solid 2px $brand;
+            padding-right: $s-48;
             display: flex;
             flex-direction: column;
             // justify-content: center;
             @media screen and (max-width: 754px) {
             border-right: none;
-            border-left: solid 2px #e52b25;
-            padding-left: 30px;
+            border-left: solid 2px $brand;
+            padding-left: $s-32;
             padding-right: unset;
             margin-right: unset;
-            margin-bottom: 20px;
+            margin-bottom: $s-16;
             }
             @media screen and (max-width: 754px) {
             flex-direction: row;
@@ -73,20 +73,20 @@
                 margin-right: auto;
             }
             @media screen and (max-width: 479px){
-                padding-left: 15px;
+                padding-left: $s-16;
                 flex-wrap: wrap;
             }
             .nav-item {
-                font-family: $oswald;
+                font-family: $font-display;
                 text-transform: uppercase;
-                color: #515050;
+                color: $neutral-500;
                 font-size: 2.5rem;
                 font-weight: bold;
                 letter-spacing: 0.22px;
                 cursor: pointer;
                 transition: ease all .5s;
                 @media screen and (max-width: 754px) {
-                padding-right: 20px;
+                padding-right: $s-16;
                 &:last-child{
                   padding-right: 0px;
                 }
@@ -99,11 +99,11 @@
                 }
                 @media screen and (max-width: 479px){
                     font-size: 1.5rem;
-                    padding-right: 10px;
+                    padding-right: $s-8;
                 }
                 &.active,
                 &:hover {
-                    color: #fff;
+                    color: $text-hi;
                 }
             }
         }
@@ -111,9 +111,9 @@
         .right-content {
             display: flex;
             p {
-                color: #ffffff;
-                font-size: 20px;
-                font-weight: 300;
+                color: $text-hi;
+                font-size: $fs-lead;
+                font-weight: $fw-light;
                 letter-spacing: 0.1px;
                 // padding-right: 50px;
                 line-height: 33px;
@@ -129,7 +129,7 @@
                   max-width: 335px;
                   margin-right: auto;
                   margin-left: auto;
-                  font-size: 16px;
+                  font-size: $fs-body;
                   line-height: 24px;
                   text-align: center;
                 }
@@ -144,7 +144,7 @@
                   justify-content: center;
                   max-width: 250px;
                   max-height: 250px;
-                  margin-left: 40px;
+                  margin-left: $s-48;
                 @media screen and (max-width: 1070px) {
                     display: none;
                 }
@@ -158,12 +158,12 @@
     .notice {
         text-align: center;
         p {
-            color: #fff;
+            color: $text-hi;
             font-weight: 100;
             a {
-                color: $red;
+                color: $brand;
                 text-decoration: none;
-                font-weight: 600;
+                font-weight: $fw-semibold;
             }
         }
     }

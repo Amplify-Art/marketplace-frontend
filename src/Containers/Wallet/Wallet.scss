@@ -1,3 +1,4 @@
+@import "../../assets/SCSS/Vars.scss";
 @mixin overflowScrollBar {
   &::-webkit-scrollbar {
     width: 8;
@@ -19,14 +20,14 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .send-modal-subheading {
-      font-size: 20px;
+      font-size: $fs-lead;
       line-height: 25.52px;
-      font-weight: 600;
+      font-weight: $fw-semibold;
     }
     .subheading-right-block {
-      font-size: 16px;
+      font-size: $fs-body;
       text-align: right;
       line-height: 20.42px;
       text-decoration: underline;
@@ -38,10 +39,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 5px;
-    border: 1px solid #999999;
-    border-radius: 8px;
-    padding-inline: 10px;
+    margin-bottom: $s-4;
+    border: 1px solid $neutral-500;
+    border-radius: $radius-md;
+    padding-inline: $s-8;
     .modal-textfield {
       border: none;
       outline: none;
@@ -65,35 +66,35 @@
     }
   }
   .errMsg {
-    margin-bottom: 30px;
-    padding-left: 5px;
+    margin-bottom: $s-32;
+    padding-left: $s-4;
   }
   .send-modal-detail {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .sm-detail-left {
-      font-size: 16px;
+      font-size: $fs-body;
       line-height: 20.42px;
-      color: black;
+      color: $neutral-800;
       opacity: 0.5;
     }
     .sm-detail-right {
       text-align: right;
       .available-near {
-        font-size: 16px;
+        font-size: $fs-body;
         line-height: 20.42px;
-        color: black;
-        font-weight: 500;
+        color: $neutral-800;
+        font-weight: $fw-medium;
         padding-bottom: 3px;
         span {
           opacity: 0.6;
         }
       }
       .available-dollar {
-        font-size: 12px;
+        font-size: $fs-caption;
         line-height: 15.31px;
-        color: #000000;
+        color: $neutral-800;
         opacity: 0.5;
       }
     }
@@ -105,7 +106,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .radio-btn {
       .radio {
         display: block;
@@ -113,7 +114,7 @@
         user-select: none;
         text-align: left;
         & + .radio {
-          margin-top: 7px;
+          margin-top: $s-8;
         }
         input {
           display: none;
@@ -121,8 +122,8 @@
             display: inline-block;
             position: relative;
             padding-left: 28px;
-            font-weight: 500;
-            font-size: 20px;
+            font-weight: $fw-medium;
+            font-size: $fs-lead;
             &:before {
               content: "";
               display: block;
@@ -148,7 +149,7 @@
               left: 5px;
               opacity: 0;
               transform: scale(0, 0);
-              transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+              transition: all $motion-base cubic-bezier(0.64, 0.57, 0.67, 1.53);
             }
           }
           &:checked + span:after {
@@ -156,7 +157,7 @@
             transform: scale(1, 1);
           }
           &:checked + span:before {
-            background: black;
+            background: $neutral-800;
           }
         }
       }
@@ -164,14 +165,14 @@
   }
   .send-modal-vew2-input-wrapper {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .send-modal-vew2-input {
       height: 48px;
       width: 375px;
-      border-radius: 8px;
-      border: 1px solid #999999;
-      padding-left: 10px;
-      padding-right: 10px;
+      border-radius: $radius-md;
+      border: 1px solid $neutral-500;
+      padding-left: $s-8;
+      padding-right: $s-8;
       font-size: 17px;
       &::-webkit-input-placeholder {
         font-size: 17px;
@@ -180,15 +181,15 @@
       }
     }
     .errMsg {
-      margin-top: 5px;
-      padding-left: 5px;
+      margin-top: $s-4;
+      padding-left: $s-4;
     }
     .send-modal-search-result {
-      padding: 20px;
+      padding: $s-16;
       width: 355px;
       overflow: auto;
-      border-radius: 8px;
-      border: 1px solid #999999;
+      border-radius: $radius-md;
+      border: 1px solid $neutral-500;
       max-height: 120px;
       position: absolute;
       top: 58px;
@@ -197,16 +198,16 @@
       @include overflowScrollBar();
       .send-modal-result-card {
         font-size: 18px;
-        font-weight: 500;
-        padding-bottom: 8px;
+        font-weight: $fw-medium;
+        padding-bottom: $s-8;
         cursor: pointer;
       }
     }
   }
   .send-modal-view2-detail {
-    font-size: 16px;
+    font-size: $fs-body;
     line-height: 20.42px;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     opacity: 0.5;
   }
 }
@@ -215,24 +216,24 @@
   .send-modal-view3-near {
     font-size: 40px;
     line-height: 40px;
-    font-weight: 400;
+    font-weight: $fw-regular;
     display: inline-flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: $s-4;
     justify-content: space-between;
     width: 100%;
     .send-modal-view3-near-amount {
       display: inline-flex;
       align-items: center;
       span {
-        font-size: 16px;
+        font-size: $fs-body;
         line-height: 20.42px;
         opacity: 0.5;
-        padding-left: 10px;
+        padding-left: $s-8;
       }
     }
     .change {
-      font-size: 16px;
+      font-size: $fs-body;
       text-align: right;
       line-height: 20.42px;
       text-decoration: underline;
@@ -243,15 +244,15 @@
   .send-modal-view3-dollar {
     font-size: 14px;
     line-height: 17.86px;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
   }
   .send-modal-view3-detail-wrapper {
-    font-size: 16px;
+    font-size: $fs-body;
     line-height: 20.42px;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .send-modal-view3-heading {
       font-weight: 200;
-      margin-bottom: 5px;
+      margin-bottom: $s-4;
     }
     .send-modal-view3-detail {
       display: inline-flex;
@@ -259,10 +260,10 @@
       justify-content: space-between;
       width: 100%;
       .send-modal-view3-detail-left {
-        font-weight: 500;
+        font-weight: $fw-medium;
       }
       .send-modal-view3-detail-right {
-        font-size: 16px;
+        font-size: $fs-body;
         text-align: right;
         line-height: 20.42px;
         text-decoration: underline;
@@ -272,15 +273,15 @@
     }
   }
   .send-modal-view3-total-wrapper {
-    font-size: 16px;
+    font-size: $fs-body;
     line-height: 20.42px;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .send-modal-view3-heading {
-      font-weight: 600;
-      margin-bottom: 5px;
+      font-weight: $fw-semibold;
+      margin-bottom: $s-4;
     }
     .send-modal-view3-detail {
-      font-weight: 600;
+      font-weight: $fw-semibold;
     }
   }
 }
@@ -290,49 +291,49 @@
     // margin-top: 5px;
   }
   .white-box {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: $font-body;
     background: #fff;
     box-sizing: border-box;
-    padding: 30px;
+    padding: $s-32;
     display: flex;
     @media screen and (max-width: 1010px) {
       flex-direction: column;
     }
     @media screen and (max-width: 650px) {
-      margin-left: 20px;
-      margin-right: 20px;
+      margin-left: $s-16;
+      margin-right: $s-16;
     }
     h4 {
-      font-weight: 300;
-      font-size: 24px;
+      font-weight: $fw-light;
+      font-size: $fs-h5;
       line-height: 31px;
       font-style: normal;
       margin-top: 0px;
-      margin-bottom: 24px;
+      margin-bottom: $s-24;
     }
 
     .near-amount {
       display: flex;
       align-items: center;
       span {
-        font-weight: 300;
-        font-size: 60px;
+        font-weight: $fw-light;
+        font-size: $fs-h1;
         line-height: 100%;
         &.near-label {
           text-transform: uppercase;
           opacity: 0.6;
-          margin-left: 20px;
-          font-weight: 400;
-          font-size: 24px;
+          margin-left: $s-16;
+          font-weight: $fw-regular;
+          font-size: $fs-h5;
           line-height: 31px;
         }
       }
     }
 
     .usd{
-      padding-top: 5px;
-      font-weight: 300;
-      font-size: 16px;
+      padding-top: $s-4;
+      font-weight: $fw-light;
+      font-size: $fs-body;
       line-height: 20px;
       letter-spacing: 0.08em;
     }
@@ -341,9 +342,9 @@
       min-width: 35%;
       border-right: solid 1px rgba(0, 0, 0, 0.2);
       padding-right: 80px;
-      margin-right: 50px;
+      margin-right: $s-48;
       .balance {
-        margin-bottom: 30px;
+        margin-bottom: $s-32;
       }
       @media screen and (max-width: 1010px) {
         border-right: solid 1px white;
@@ -353,15 +354,15 @@
       }
       .buttons {
         flex-direction: row;
-        margin-top: 40px;
+        margin-top: $s-48;
         @media screen and (max-width: 1010px) {
-          margin-bottom: 30px;
-          margin-top: 30px;
+          margin-bottom: $s-32;
+          margin-top: $s-32;
         }
         .btn {
           width: -webkit-fill-available;
           margin-bottom: 0px;
-          font-weight: 400;
+          font-weight: $fw-regular;
           &:first-child {
             margin-left: 0px;
           }
@@ -378,58 +379,58 @@
       display: flex;
       flex-direction: column;
       @media screen and (max-width: 1010px) {
-        margin-top: 30px;
+        margin-top: $s-32;
       }
       input {
-        border: 1.5px solid #e3e3e3;
-        border-radius: 8px;
-        font-size: 16px;
+        border: 1.5px solid $neutral-200;
+        border-radius: $radius-md;
+        font-size: $fs-body;
         padding: 14px 10px;
         width: 100%;
         box-sizing: border-box;
-        font-weight: 400;
-        color: #000;
+        font-weight: $fw-regular;
+        color: $neutral-800;
       }
 
       input::placeholder {
-          font-weight: 300;
-          color: #999;
+          font-weight: $fw-light;
+          color: $neutral-500;
         }
 
       .conversion-to-near {
-        color: #000000;
+        color: $neutral-800;
         opacity: 0.5;
-        margin-top: 15px;
-        padding: 5px;
-        font-weight: 300;
-        font-size: 16px;
+        margin-top: $s-16;
+        padding: $s-4;
+        font-weight: $fw-light;
+        font-size: $fs-body;
         line-height: 20px;
         letter-spacing: 0.08em;
         @media screen and (max-width: 1010px) {
-          margin-bottom: 30px;
+          margin-bottom: $s-32;
         }
       }
 
       .btn {
         margin-top: auto;
-        font-weight: 400;
+        font-weight: $fw-regular;
       }
     }
   }
   .transactionListWrapper {
-    margin-top: 50px;
-    padding: 30px 30px 0 30px;
+    margin-top: $s-48;
+    padding: $s-32 $s-32 0 $s-32;
     background: #c4c4c42e;
     .transactionList {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 300;
+      font-family: $font-body;
+      font-weight: $fw-light;
       .heading {
         color: white;
-        font-weight: 300;
-        font-size: 24px;
+        font-weight: $fw-light;
+        font-size: $fs-h5;
         @media screen and (max-width: 699px) {
           font-size: 18px;
         }
@@ -437,8 +438,8 @@
       .viewFullLink {
         color: white;
         // padding: 20px;
-        font-weight: 300;
-        font-size: 16px;
+        font-weight: $fw-light;
+        font-size: $fs-body;
         line-height: 20px;
         @media screen and (max-width: 600px) {
           font-size: 14px;
@@ -448,7 +449,7 @@
   }
 }
 .moonpay {
-  padding: 20px !important;
+  padding: $s-16 !important;
   max-height: 600px !important;
   iframe {
     min-height: 56vh;
@@ -472,27 +473,27 @@
     text-align: center;
   }
   .holder {
-    padding: 5px;
+    padding: $s-4;
   }
 }
 .transDetail-modal-wrapper {
   width: 400px;
   font-family: "Space Grotesk";
   font-style: normal;
-  font-weight: 400;
+  font-weight: $fw-regular;
   letter-spacing: 0em;
   .transDetail-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .transDetail-heading {
-      font-size: 24px;
+      font-size: $fs-h5;
       line-height: 31px;
       text-align: left;
-      color: #000000;
-      font-weight: 300;
+      color: $neutral-800;
+      font-weight: $fw-light;
     }
     .transDetail-close-button {
       height: 26px;
@@ -508,44 +509,44 @@
     align-items: center;
     font-size: 40px;
     line-height: 40px;
-    margin-bottom: 30px;
+    margin-bottom: $s-32;
     span {
-      font-size: 16px;
+      font-size: $fs-body;
       line-height: 20px;
       opacity: 0.6;
-      padding-left: 12px;
+      padding-left: $s-12;
     }
   }
   .transaction-modal-fee {
     font-size: 14px;
     line-height: 17.86px;
-    margin-bottom: 30px;
+    margin-bottom: $s-32;
   }
   .transaction-modal-purchase-detail {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .purchase-headline {
-      font-weight: 500;
-      font-size: 20px;
+      font-weight: $fw-medium;
+      font-size: $fs-lead;
       line-height: 26px;
     }
     .purchase-date {
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: $fw-light;
+      font-size: $fs-body;
       line-height: 20px;
     }
   }
   .transaction-modal-purchase-item-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: $s-32;
     .cardWrapper {
       display: flex;
       align-items: center;
       background-color: white;
       cursor: pointer;
-      font-family: "Space Grotesk", sans-serif;
-      margin-bottom: 20px;
+      font-family: $font-body;
+      margin-bottom: $s-16;
       &:last-child {
         margin-bottom: 0px;
       }
@@ -556,23 +557,23 @@
         @media screen and (max-width: 600px) {
           width: 50px;
           height: 50px;
-          border-radius: 8px;
+          border-radius: $radius-md;
         }
         overflow: hidden;
         box-shadow: 5px 5px #f3f3f387;
         flex: none;
         .image {
           box-shadow: 6px 6px 17px #bebebe, -17px -17px 17px #ffffff;
-          border-radius: 8px;
+          border-radius: $radius-md;
           width: 100%;
         }
       }
       .content {
         width: 100%;
-        margin-left: 20px;
+        margin-left: $s-16;
         .content-heading {
           font-size: 20px;
-          font-weight: 300;
+          font-weight: $fw-light;
           font-size: 18px;
           line-height: 23px;
           @media screen and (max-width: 600px) {
@@ -587,9 +588,9 @@
         text-align: end;
         opacity: 0.7;
         .contentType-heading {
-          color: #000;
+          color: $neutral-800;
           opacity: .4;
-          font-weight: 500;
+          font-weight: $fw-medium;
           font-size: 14px;
           line-height: 18px;
           @media screen and (max-width: 600px) {
@@ -597,7 +598,7 @@
           }
         }
         .contentType-detail {
-          font-size: 16px;
+          font-size: $fs-body;
           @media screen and (max-width: 600px) {
             font-size: 11px;
           }
@@ -606,20 +607,20 @@
     }
   }
   .transaction-modal-address-wrapper {
-    margin-bottom: 20px;
+    margin-bottom: $s-16;
     .transaction-modal-from {
-      margin-bottom: 5px;
-      font-weight: 300;
-      font-size: 16px;
+      margin-bottom: $s-4;
+      font-weight: $fw-light;
+      font-size: $fs-body;
       line-height: 20px;
     }
     .transaction-modal-heading {
-      font-weight: 400;
-      font-size: 16px;
+      font-weight: $fw-regular;
+      font-size: $fs-body;
       line-height: 20px;
     }
     .transaction-modal-detail {
-      font-weight: 400;
+      font-weight: $fw-regular;
       font-size: 14px;
     }
   }
@@ -628,19 +629,19 @@
   width: 400px;
   font-family: "Space Grotesk";
   font-style: normal;
-  font-weight: 400;
+  font-weight: $fw-regular;
   letter-spacing: 0em;
   .send-modal-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: $s-32;
     .send-modal-heading {
-      font-size: 24px;
+      font-size: $fs-h5;
       line-height: 31px;
       text-align: left;
-      color: #000000;
+      color: $neutral-800;
     }
     .send-modal-close-button {
       height: 26px;
@@ -656,11 +657,11 @@
   @include send-modal-view2();
   @include send-modal-view3();
   .nominate-button {
-    margin-top: 10px;
+    margin-top: $s-8;
     height: 48px;
     width: 100%;
-    border-radius: 100px;
-    background-color: #000000;
+    border-radius: $radius-full;
+    background-color: $neutral-800;
     color: white;
     line-height: 31px;
     font-size: 18px;

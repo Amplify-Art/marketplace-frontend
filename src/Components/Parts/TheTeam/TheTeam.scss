@@ -2,10 +2,10 @@
 
 #the-team {
     h2 {
-        font-family: $oswald;
+        font-family: $font-display;
         text-transform: uppercase;
-        color: #fff;
-        margin-bottom: 30px;
+        color: $text-hi;
+        margin-bottom: $s-32;
     }
     .team-list a {
       text-decoration: none;
@@ -16,17 +16,17 @@
         // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         grid-template-rows: max-content max-content;
-        gap: 20px 20px;
+        gap: $s-16 $s-16;
         .team-member {
-            padding: 25px 20px 20px;
-            background-color: #434343;
+            padding: $s-24 $s-16 $s-16;
+            background-color: $neutral-600;
             display: flex;
             flex: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: fit-content;
-            border-radius: 8px;
+            border-radius: $radius-md;
             width: 100%;
             height: 100%;
             box-sizing: border-box;
@@ -46,12 +46,12 @@
             }
 
             p {
-                color: #fff;
+                color: $text-hi;
                 margin-bottom: 0px;
-                margin-top: 20px;
+                margin-top: $s-16;
                 &.support-card-count {
-                    color: $red;
-                    margin-top: 10px;
+                    color: $brand;
+                    margin-top: $s-8;
                 }
             }
         }

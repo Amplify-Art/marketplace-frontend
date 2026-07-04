@@ -118,8 +118,8 @@ function TheTeam() {
               <div className="line" />
               <h2>Our Team and Supporters</h2>
               <div className="team-list">
-                {theTeam.map(member => (
-                  <a href={member.profile_link}>
+                {theTeam.map((member, index) => (
+                  <a key={member.profile_link || index} href={member.profile_link}>
                   <div className="team-member">
                     <div className="image circle">
                       <img src={member.image} alt="supporter image" />
