@@ -78,7 +78,7 @@ earn our native token each time the track is played.</p>
                 <div className="right">
                   <div className="line" />
                   <h4>Why it Works</h4>
-                  <p>NFTs enable a powerful reward loop between the artist and fans. Where fans promote the artists they love, and artists reward the fans for their support — without gatekeepers.</p>
+                  <p>NFTs enable a powerful reward loop between the artist and fans. Where fans promote the artists they love, and artists reward the fans for their support, without gatekeepers.</p>
                 </div>
                 {/* End Right */}
               </div>

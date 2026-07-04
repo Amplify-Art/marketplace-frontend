@@ -108,3 +108,37 @@ Both resolve to the same red today, so the change is **visually identical** but 
 disciplined — and if the CTA ever needs to out-shout the decorative brand red, `$accent` can
 shift tone without touching identity. NewNFT's error text was also moved off the brand red onto
 the semantic `$error` token.
+
+---
+
+## Final pass · taste-skill (anti-slop) applicable aspects
+
+Applied the portable **taste-skill** as a redesign/preserve overlay. Most of that skill targets
+greenfield Tailwind/Next landing pages; the aspects applicable to this existing React+SCSS
+product were run as a pre-flight. **Design Read:** *music-NFT marketplace (preserve mode) for
+crypto-curious music fans, dark-tech brand language, locked red accent.*
+
+**Fixed**
+- **Em-dash ban (§9.G)** — the one user-facing em-dash ("their support — without gatekeepers",
+  HowItWorks) replaced with a comma. Repo-wide UI copy now has **zero** em/en dashes.
+
+**Audited — already clean (no changes needed)**
+- **AI tells (§9.F)** — no scroll cues, version/BETA labels in hero, decorative status dots,
+  photo-credit captions, "trusted by / quietly in use" strips, or section-number eyebrows.
+  (`amplifybeta.testnet` is a NEAR account, not a version label.)
+- **One accent, <80% sat (§4.2)** — satisfied by the `$brand`/`$accent` split (D1).
+- **No pure black/white (§4.2)** — tokens use off-black surfaces + off-white text.
+- **Shape consistency lock** — single radius scale (`$radius-*`).
+- **Reduced motion** — global `prefers-reduced-motion` path.
+- **Duplicate CTA intent** — CTAs are distinct ("Explore the Marketplace", "Visit App",
+  "Login"); the two "Learn More" are one nav menu mirrored desktop/mobile, not duplicates.
+- **CTA no-wrap** — hero label fits one line at desktop and in the 327px mobile column.
+
+**Out of scope for a final pass (would be an overhaul, not preserve)**
+- **Page theme lock (§4.11)** — the home runs a dark hero over a light body with dark
+  testimonial cards. This is the established brand structure, not mid-page theme thrash;
+  re-theming the whole page is a redesign, not a polish pass.
+- **Body measure `max-w-[65ch]` (§4.1)** — matches drift D3 (`$measure` 66ch); home copy already
+  sits in constrained containers, detail pages need a live backend to apply safely.
+- **Stack defaults (Tailwind v4 / Motion / next/font)** — this is a CRA + SCSS codebase; the
+  skill's framework/stack section does not apply without a migration.
