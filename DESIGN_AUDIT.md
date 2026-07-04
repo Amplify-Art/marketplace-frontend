@@ -4,6 +4,11 @@
 > live codebase, enforcing `DESIGN_RULESET.md` (59 rules + §13 Definition of Done).
 > Every finding below is grounded in file inspection or live measurement, not opinion.
 > This is the canonical register + drift log. Status date: 2026-07-04.
+>
+> **Planned rebrand → myja.ms.** This product is slated to be rebranded to **myja.ms**.
+> Expect the name, logo, domain, and possibly the accent palette/typography to change; the
+> `$brand`/`$accent` tokens and identity treatments (e.g. the outlined display headers) should
+> be revisited at that time. Findings below reflect the current (pre-rebrand) implementation.
 
 ---
 

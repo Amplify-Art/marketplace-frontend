@@ -1,5 +1,9 @@
 # Design Ruleset — Standards for a Sophisticated, Familiar Marketplace
 
+> **Planned rebrand:** this product is slated to be rebranded to **myja.ms**. Brand-facing
+> assets (name, logo, domain, and possibly the accent palette and typography) will change
+> with that rebrand — revisit the color, typography, and identity tokens when it lands.
+
 These are hard defaults, not suggestions. Apply them literally. Deviate only
 with a stated, defensible reason tied to the user's goal. The standard: the most
 advanced choices should not *read* as advanced. The result should feel

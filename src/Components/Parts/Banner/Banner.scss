@@ -88,12 +88,19 @@
                 line-height: 50px;
             }
              &.red {
-                 // Solid brand red for legibility (was a hollow stroke).
-                 color: $brand;
-                 -webkit-text-stroke: 0;
+                 // Outlined brand-red hero word; stroke thickened (was 2px) for legibility.
+                 -webkit-text-stroke-width: 4px;
+                 -webkit-text-stroke-color: $brand;
+                 color: transparent;
+                @media screen and (max-width: 754px) {
+                    -webkit-text-stroke-width: 3px;
+                }
                 @media screen and (max-width: 650px) {
                     text-align: center;
                }
+                @media screen and (max-width: 479px){
+                    -webkit-text-stroke-width: 2px;
+                }
             }
         }
          .paragraph-text {
