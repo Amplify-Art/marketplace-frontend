@@ -161,19 +161,14 @@ h2 {
     }
   }
 
+  // Two-tone display headers: the accent word is SOLID brand red for legibility
+  // (a hollow 2px stroke on 150px type was near-unreadable). Identity red = $brand.
   &.red,
   .red {
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: $brand;
-    color: transparent;
+    color: $brand;
+    -webkit-text-stroke: 0;
     position: relative;
     z-index: 3;
-    @media screen and (max-width: 754px) {
-      -webkit-text-stroke-width: 1.5px;
-    }
-    @media screen and (max-width: 479px) {
-      -webkit-text-stroke-width: 1px;
-    }
   }
 }
 

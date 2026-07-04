@@ -88,24 +88,12 @@
                 line-height: 50px;
             }
              &.red {
-                 -webkit-text-stroke-width: 2px;
-                 -webkit-text-stroke-color: $brand;
-                 color: transparent;
-                 @media screen and (max-width: 754px) {
-                     -webkit-text-stroke-width: 1.5px;
-                }
+                 // Solid brand red for legibility (was a hollow stroke).
+                 color: $brand;
+                 -webkit-text-stroke: 0;
                 @media screen and (max-width: 650px) {
                     text-align: center;
                }
-                 @media screen and (max-width: 754px) {
-                     // -webkit-text-stroke-width: 1px;
-                }
-                @media screen and (max-width: 479px){
-                    -webkit-text-stroke-width: 1px;
-                }
-                //  @media screen and (max-width: 360px) {
-                //      -webkit-text-stroke-width: .75px;
-                // }
             }
         }
          .paragraph-text {
